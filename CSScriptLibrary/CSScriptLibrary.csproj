@@ -210,6 +210,6 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)\GlobalcachingApplication\bin\$(ConfigurationName)\PluginDependencies\</PostBuildEvent>
+    <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)\GlobalcachingApplication\bin\$(ConfigurationName)\PluginDependencies\"</PostBuildEvent>
   </PropertyGroup>
 </Project>
