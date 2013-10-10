@@ -1,0 +1,141 @@
+﻿        string strTotalPerMonth = "Cache travel distance (direct line from Cache to Cache)";
+
+        RegisterText(new string[] {
+	        strTotalPerMonth
+        });
+
+        Layout skin = new Layout(1);
+        Layout.Statistics stats = new Layout.Statistics(Translate(strTotalPerMonth, false));
+        skin.StatisticsBlocks[0] = stats;
+
+        Layout.Statistics.Row row = new Layout.Statistics.Row();
+        stats.Rows.Add(row);
+
+        Dictionary<string, string> pars = new Dictionary<string, string>();
+
+        pars.Add("chxl", "1:||mi|3:||km|4:");      //axis 4 is date range |2011|2012
+        pars.Add("chxr", "");                          //axis ranges =0,0,1000|2,0,1600|4,2006,2012
+        pars.Add("chxs", "0,676767,11.5,0,lt,676767|1,676767,12.5,0,l,676767|2,676767,12.5,0,lt,676767");
+        pars.Add("chxt", "y,y,r,r,x");
+        pars.Add("chs", "740x300");
+        pars.Add("cht", "lc");
+        pars.Add("chco", "3D7930");
+        pars.Add("chg", "14.3,-1,1,1");
+        pars.Add("chls", "2,4,0");
+        pars.Add("chm", "B,C5D4B5BB,0,0,0");
+        pars.Add("chds", "a");//automatic scaling
+
+        pars.Add("chd", "");
+
+        //skip finds without lat/lon
+        List<MyGeocacheFind> _myFinds2 = new List<MyGeocacheFind>();
+        for (int m = 0; m < _myFinds.Count; m++)
+        {
+            if (_myFinds[m].gc.Lat != 0 && _myFinds[m].gc.Lon != 0)
+            {
+                _myFinds2.Add(_myFinds[m]);
+            }
+        }
+        //= (from mf in _myFinds where mf.gc.Lat!=0 select mf );
+
+        if (_myFinds2.Count > 1)  //need at least to finds for distance
+        {
+            double sumDist = 0.0;
+            double sumDist2 = 0.0;//"Dumb"-Distance without customLat/Lon
+
+            int cnt = 0;
+
+            StringBuilder chxl = new StringBuilder();
+            StringBuilder serie1 = new StringBuilder();
+
+            //sum Interval 1 month
+            DateTime startAt = new DateTime(_myFinds2[1].logDate.Year, _myFinds2[1].logDate.Month, 1);
+            DateTime endAt = startAt.AddMonths(1);
+
+            //_myFinds2 is sorted by Logdate (hopefully)
+
+            for (int i = 1; i < _myFinds2.Count; i++)
+            {
+                double lat1 = _myFinds2[i - 1].gc.Lat;
+                double lon1 = _myFinds2[i - 1].gc.Lon;
+                double lat2 = _myFinds2[i].gc.Lat;
+                double lon2 = _myFinds2[i].gc.Lon;
+
+                double dist2 = Calculus.CalculateDistance(lat1, lon1, lat2, lon2).EllipsoidalDistance / 1000; //km
+
+                if (_myFinds2[i - 1].gc.CustomLat != null && _myFinds2[i - 1].gc.CustomLon != null)
+                {
+                    lat1 = (double)_myFinds2[i - 1].gc.CustomLat;
+                    lon1 = (double)_myFinds2[i - 1].gc.CustomLon;
+                }
+
+                if (_myFinds2[i].gc.CustomLat != null && _myFinds2[i].gc.CustomLon != null)
+                {
+                    lat2 = (double)_myFinds2[i].gc.CustomLat;
+                    lon2 = (double)_myFinds2[i].gc.CustomLon;
+                }
+
+                double dist = Calculus.CalculateDistance(lat1, lon1, lat2, lon2).EllipsoidalDistance / 1000; //km
+
+                sumDist += dist;
+                sumDist2 += dist2;
+
+                //debugging:
+                //sb.AppendLine(string.Format("{0}: d:{1}/{2}; s:{3}/{4}; d:{5} to: {6} <br />", i-1, Math.Round(dist,2), Math.Round(dist2,2), Math.Round(sumDist,1), Math.Round(sumDist2,1),_myFinds2[i].logDate,_myFinds2[i].gc.Name));
+
+                if (i + 1 == _myFinds2.Count || _myFinds2[i + 1].logDate >= endAt)
+                {
+                    if (chxl.Length == 0 || startAt.Month == 1)
+                    {
+                        chxl.AppendFormat("|{0}", startAt.Year);
+                    }
+                    else
+                    {
+                        chxl.Append("|");
+                    }
+                    if (serie1.Length != 0)
+                    {
+                        serie1.Append(",");
+                    }
+                    serie1.AppendFormat("{0}", Math.Round(sumDist, 0));
+                    cnt++;
+
+                    if (i + 1 < _myFinds2.Count) //not last entry -> set new interval
+                    {
+                        startAt = new DateTime(_myFinds2[i + 1].logDate.Year, _myFinds2[i + 1].logDate.Month, 1);
+                        //check for gap
+                        while (endAt < startAt) //fill gap
+                        {
+                            if (chxl.Length == 0 || endAt.Month == 1)
+                            {
+                                chxl.AppendFormat("|{0}", endAt.Year);
+                            }
+                            else
+                            {
+                                chxl.Append("|");
+                            }
+                            serie1.AppendFormat(",{0}", Math.Round(sumDist, 0));
+                            cnt++;
+                            endAt = endAt.AddMonths(1);
+                        }
+                        endAt = startAt.AddMonths(1);
+                    }
+
+                }
+            }
+            pars["chd"] = string.Format("t:{0}", serie1.ToString());
+            pars["chxl"] += string.Format("{0}", chxl.ToString());
+            //axis ranges =0,0,1000|2,0,1600|4,2006,2012
+            pars["chxr"] = string.Format("0,0,{0}|2,0,{1}", Math.Round(sumDist / 1.609344, 0), Math.Round(sumDist, 0));
+            //1 mile = 1.609344 kilometers
+            pars["chm"] += string.Format("|A{0}km,224499,0,{1}.0,10", Math.Round(sumDist, 0), cnt - 1);
+            pars["chm"] += string.Format("|A{0}mi,224499,0,{1}.0,10", Math.Round(sumDist / 1.609344, 0), cnt - 1);
+
+            //debug:
+            //sb.AppendLine(string.Format("{0}<br>{1}<br>{2}<br>{3}</p>", pars["chd"], chxl.ToString(), pars["chxr"], sumDist ));
+
+        }
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = string.Format("<img src=\"{0}\" />", googleChartImgUrl(pars));
+		row.Items[row.Items.Count - 1].IsHtml = true;
+        return skin.ToString();

@@ -1,0 +1,64 @@
+﻿<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <title>Garmin Display - Single-Click Waypoint Upload</title>
+  <!--
+    <script type="text/javascript" src="http://developer.garmin.com/web/communicator-api/prototype/prototype.js"></script>
+    <script type="text/javascript" src="http://developer.garmin.com/web/communicator-api/garmin/device/GarminDeviceDisplay.js"></script>
+  -->    
+    <script type="text/javascript" src="http://www.geocaching.com/static/js/garmin/prototype.js"></script>
+    <script type="text/javascript" src="http://www.geocaching.com/static/js/garmin/device/GarminDeviceDisplay.js"></script>
+  <script type="text/javascript">
+    var display;
+    var ready = false;
+    function load() {
+    display = new Garmin.DeviceDisplay("garminDisplay", {
+    //pathKeyPairsArray: ["http://developer.garmin.com/", "ee3934433a35ee348583236c2eeadbc1"],
+    pathKeyPairsArray: ['http://www.geocaching.com','456bcdf93f1266984e91420e857c504d'],
+    unlockOnPageLoad: true,                       //delays unlocking to avoid authorization prompt until action
+    hideIfBrowserNotSupported: true,
+    showStatusElement: true,                       //provide minimal feedback
+    autoFindDevices: true,                        //it will search for devices upon action
+    findDevicesButtonText: "Find devices",      //allows you to customize the action text
+    showCancelFindDevicesButton: false,            //no need to cancel small data transfers
+    //autoSelectFirstDevice: true,                   //pick the first device if several are found
+    autoReadData: false,                           //don't automatically read the tracks/etc
+    autoWriteData: false,                           //automatically write the data once devices found
+    showReadDataElement: false,
+    autoHideUnusedElements: true,
+    showWriteDataElementOnDeviceFound: false,
+    showWriteDataElement: false,
+    showUploadNewButton: false,
+    useDeviceSelectList: false,
+    showDeviceButtonsOnFound: true,
+    showDeviceSelectOnLoad: true,
+
+    afterFinishWriteToDevice: function () {
+    ready = true;
+    }
+
+    , afterFinishFindDevices: function (devices) {
+    //ready = true;
+    ready = devices.length > 0;
+    }
+    });
+
+    display.onWaitingWriteToDevice = function (json) {
+    json.controller.respondToMessageBox(true);
+    };
+    }
+
+    function uploadGpx(gpxString, filename) {
+    ready = false;
+    display.getController().writeToDevice(gpxString, filename);
+    }
+
+    function isReady() {
+    return ready;
+    }
+  </script>
+</head>
+    <body onload="load()">
+        <div id="garminDisplay">&#160;</div>
+    </body>
+</html>

@@ -1,0 +1,80 @@
+﻿        string strDifficulty = "Difficulty";
+        string strTerrain = "Terrain";
+        string strFound = "Found";
+        string strPercentage = "Percentage";
+
+        RegisterText(new string[]{
+		strDifficulty,
+		strFound,
+		strPercentage,
+		strTerrain
+		});
+
+        Layout skin = new Layout(2);
+        Layout.Statistics stats = new Layout.Statistics(Translate(strDifficulty, false));
+        skin.StatisticsBlocks[0] = stats;
+
+        Layout.Statistics.Row row = new Layout.Statistics.Row();
+        stats.Rows.Add(row);
+
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = Translate(strDifficulty, false);
+        row.Items[row.Items.Count - 1].IsMarker = true;
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = Translate(strFound, false);
+        row.Items[row.Items.Count - 1].IsMarker = true;
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = Translate(strPercentage, false);
+        row.Items[row.Items.Count - 1].IsMarker = true;
+
+        double tot = (double)_myFinds.Count;
+        for (double d = 1.0; d < 5.1; d += 0.5)
+        {
+            string sd = d.ToString("0.#");
+            int cnt = (from mf in _myFinds where mf.gc.Difficulty.ToString("0.#") == sd select mf).Count();
+
+            row = new Layout.Statistics.Row();
+            stats.Rows.Add(row);
+
+            row.Items.Add(new Layout.Statistics.Item());
+            row.Items[row.Items.Count - 1].Text = sd;
+            row.Items[row.Items.Count - 1].IsMarker = true;
+            row.Items.Add(new Layout.Statistics.Item());
+            row.Items[row.Items.Count - 1].Text = cnt.ToString();
+            row.Items.Add(new Layout.Statistics.Item());
+            row.Items[row.Items.Count - 1].Text = string.Format("{0:0.0} %", 100.0 * (double)cnt / tot);
+        }
+
+        stats = new Layout.Statistics(Translate(strTerrain, false));
+        skin.StatisticsBlocks[1] = stats;
+
+        row = new Layout.Statistics.Row();
+        stats.Rows.Add(row);
+
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = Translate(strTerrain, false);
+        row.Items[row.Items.Count - 1].IsMarker = true;
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = Translate(strFound, false);
+        row.Items[row.Items.Count - 1].IsMarker = true;
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = Translate(strPercentage, false);
+        row.Items[row.Items.Count - 1].IsMarker = true;
+
+        for (double d = 1.0; d < 5.1; d += 0.5)
+        {
+            string sd = d.ToString("0.#");
+            int cnt = (from mf in _myFinds where mf.gc.Terrain.ToString("0.#") == sd select mf).Count();
+
+            row = new Layout.Statistics.Row();
+            stats.Rows.Add(row);
+
+            row.Items.Add(new Layout.Statistics.Item());
+            row.Items[row.Items.Count - 1].Text = sd;
+            row.Items[row.Items.Count - 1].IsMarker = true;
+            row.Items.Add(new Layout.Statistics.Item());
+            row.Items[row.Items.Count - 1].Text = cnt.ToString();
+            row.Items.Add(new Layout.Statistics.Item());
+            row.Items[row.Items.Count - 1].Text = string.Format("{0:0.0} %", 100.0 * (double)cnt / tot);
+        }
+        return skin.ToString();

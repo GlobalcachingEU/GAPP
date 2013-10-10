@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E217CA62-1376-42B0-808A-C8107E172234}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GlobalcachingApplication.Plugins.FormulaSolver</RootNamespace>
+    <AssemblyName>GlobalcachingApplication.Plugins.FormulaSolver</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FormulaInterpreter\Assignment.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FormulaInterpreter\BinaryOperation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FormulaInterpreter\BinaryOperator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FormulaInterpreter\ConcatElement.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FormulaInterpreter\Concatenation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FormulaInterpreter\Exception\ArgumentCountException.cs" />
+    <Compile Include="FormulaInterpreter\Exception\ArgumentRangeException.cs" />
+    <Compile Include="FormulaInterpreter\Exception\FormulaSolverException.cs" />
+    <Compile Include="FormulaInterpreter\Functions\FunctionList.cs" />
+    <Compile Include="FormulaInterpreter\Functions\Utils\ArgumentChecker.cs" />
+    <Compile Include="FormulaInterpreter\Functions\TextFunctions\AlphaPos.cs" />
+    <Compile Include="FormulaInterpreter\Functions\TextFunctions\AlphaSum.cs" />
+    <Compile Include="FormulaInterpreter\Functions\CoordinateFunctions\Bearing.cs" />
+    <Compile Include="FormulaInterpreter\Functions\Utils\CharMapAlphabet.cs" />
+    <Compile Include="FormulaInterpreter\Functions\Utils\CharMapPhoneCode.cs" />
+    <Compile Include="FormulaInterpreter\Functions\Utils\CharMapAlphabetInverse.cs" />
+    <Compile Include="FormulaInterpreter\Functions\CoordinateFunctions\Crossbearing.cs" />
+    <Compile Include="FormulaInterpreter\Functions\CoordinateFunctions\Distance.cs" />
+    <Compile Include="FormulaInterpreter\Functions\Utils\ICharacterMapper.cs" />
+    <Compile Include="FormulaInterpreter\Functions\CoordinateFunctions\Intersection.cs" />
+    <Compile Include="FormulaInterpreter\Functions\TextFunctions\Mid.cs" />
+    <Compile Include="FormulaInterpreter\Functions\TextFunctions\PhoneCode.cs" />
+    <Compile Include="FormulaInterpreter\Functions\TextFunctions\PhoneSum.cs" />
+    <Compile Include="FormulaInterpreter\Functions\CoordinateFunctions\Projection.cs" />
+    <Compile Include="FormulaInterpreter\Functions\TextFunctions\Reverse.cs" />
+    <Compile Include="FormulaInterpreter\Functions\TextFunctions\Rot13.cs" />
+    <Compile Include="FormulaInterpreter\Functions\TextFunctions\TextLen.cs" />
+    <Compile Include="FormulaInterpreter\DivisionOperator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FormulaInterpreter\ExecutionContext.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FormulaInterpreter\Expression.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FormulaInterpreter\FormulaInterpreter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FormulaInterpreter\FunctionCall.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FormulaInterpreter\Functions\NumberFunctions\CrossProduct.cs" />
+    <Compile Include="FormulaInterpreter\Functions\NumberFunctions\CrossTotal.cs" />
+    <Compile Include="FormulaInterpreter\Functions\Functor.cs" />
+    <Compile Include="FormulaInterpreter\Functions\NumberFunctions\IteratedCrossProduct.cs" />
+    <Compile Include="FormulaInterpreter\Functions\NumberFunctions\IteratedCrossTotal.cs" />
+    <Compile Include="FormulaInterpreter\Functions\NumberFunctions\IntFunction.cs" />
+    <Compile Include="FormulaInterpreter\Functions\NumberFunctions\Pi.cs" />
+    <Compile Include="FormulaInterpreter\Functions\NumberFunctions\PrimeIndex.cs" />
+    <Compile Include="FormulaInterpreter\Functions\NumberFunctions\PrimeNumber.cs" />
+    <Compile Include="FormulaInterpreter\Functions\NumberFunctions\Rom2Dec.cs" />
+    <Compile Include="FormulaInterpreter\Functions\NumberFunctions\RoundFunction.cs" />
+    <Compile Include="FormulaInterpreter\Functions\UnknownFunction.cs" />
+    <Compile Include="FormulaInterpreter\Functions\CoordinateFunctions\Waypoint.cs" />
+    <Compile Include="FormulaInterpreter\GCToken.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FormulaInterpreter\Identifier.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FormulaInterpreter\MinusOperator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FormulaInterpreter\MultiplyOperator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FormulaInterpreter\Negate.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FormulaInterpreter\NumberLiteral.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FormulaInterpreter\Optional.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FormulaInterpreter\PlusOperator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FormulaInterpreter\Sequence.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FormulaInterpreter\StringLiteral.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FormulaInterpreter\FunctionToken.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FormulaInterpreter\WriteToFile.cs" />
+    <Compile Include="FormulaSolver.cs" />
+    <Compile Include="FormulaSolverForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormulaSolverForm.Designer.cs">
+      <DependentUpon>FormulaSolverForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormulaInterpreter\Functions\FunctionDescriptor.cs" />
+    <Compile Include="InsertFormulaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InsertFormulaForm.Designer.cs">
+      <DependentUpon>InsertFormulaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs" />
+    <Compile Include="StrRes.cs" />
+    <Compile Include="TypeChecker.cs" />
+    <Compile Include="WaypointSelectorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WaypointSelectorForm.Designer.cs">
+      <DependentUpon>WaypointSelectorForm.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="InsertFormulaForm.resx">
+      <DependentUpon>InsertFormulaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WaypointSelectorForm.resx">
+      <DependentUpon>WaypointSelectorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <EmbeddedResource Include="Grammar\SingleLineFormula.egt" />
+    <None Include="Grammar\SingleLineFormula.grm" />
+    <None Include="Properties\DataSources\FormulaSolverForm.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FormulaSolverForm.resx">
+      <DependentUpon>FormulaSolverForm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Gavaghan.Geodesy\Gavaghan.Geodesy.csproj">
+      <Project>{2BFBD751-9665-47AC-97BC-DDCBE3C2B8F0}</Project>
+      <Name>Gavaghan.Geodesy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\GlobalcachingApplication.Framework\GlobalcachingApplication.Framework.csproj">
+      <Project>{45D6B089-F7F0-423A-AC63-83F9BB62A043}</Project>
+      <Name>GlobalcachingApplication.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\GlobalcachingApplication.Utils\GlobalcachingApplication.Utils.csproj">
+      <Project>{10CE1BC5-8951-4043-A9E5-D20C7EC55022}</Project>
+      <Name>GlobalcachingApplication.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\GoldParser\bsn.GoldParser.csproj">
+      <Project>{1A1A5AE9-7981-471C-9CC7-F7465E675A32}</Project>
+      <Name>bsn.GoldParser</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)\GlobalcachingApplication\bin\$(ConfigurationName)\Plugins\"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

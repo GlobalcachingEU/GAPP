@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{10CE1BC5-8951-4043-A9E5-D20C7EC55022}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GlobalcachingApplication.Utils</RootNamespace>
+    <AssemblyName>GlobalcachingApplication.Utils</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="API\Convert.cs" />
+    <Compile Include="API\GeocachingLive.cs" />
+    <Compile Include="API\Import.cs" />
+    <Compile Include="API\LiveV6.cs" />
+    <Compile Include="BasePlugin\BaseExportFilter.cs" />
+    <Compile Include="BasePlugin\BaseImportFilter.cs" />
+    <Compile Include="BasePlugin\BaseInternalStorage.cs" />
+    <Compile Include="BasePlugin\BaseInternalStorageBackgroundMessage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BasePlugin\BaseInternalStorageBackgroundMessage.Designer.cs">
+      <DependentUpon>BaseInternalStorageBackgroundMessage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BasePlugin\BaseInternalStorageRepairMessage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BasePlugin\BaseInternalStorageRepairMessage.Designer.cs">
+      <DependentUpon>BaseInternalStorageRepairMessage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BasePlugin\BaseLanguageSupport.cs" />
+    <Compile Include="BasePlugin\BaseUIChildWindow.cs" />
+    <Compile Include="BasePlugin\BaseUIChildWindowForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BasePlugin\BaseUIChildWindowForm.Designer.cs">
+      <DependentUpon>BaseUIChildWindowForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BasePlugin\BaseUIChildWindowTransparencyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BasePlugin\BaseUIChildWindowTransparencyForm.Designer.cs">
+      <DependentUpon>BaseUIChildWindowTransparencyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BasePlugin\BaseUIMainWindow.cs" />
+    <Compile Include="BasePlugin\BaseUIMainWindowForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BasePlugin\BaseUIMainWindowForm.Designer.cs">
+      <DependentUpon>BaseUIMainWindowForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BasePlugin\Plugin.cs" />
+    <Compile Include="Calculus.cs" />
+    <Compile Include="Controls\ComboBoxCacheType.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ComboBoxLogType.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ComboBoxContainerType.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ComboBoxWaypointType.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\NotificationMessageBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NotificationMessageBox.Designer.cs">
+      <DependentUpon>NotificationMessageBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Conversion.cs" />
+    <Compile Include="Crc16.cs" />
+    <Compile Include="DataAccess.cs" />
+    <Compile Include="DBCon.cs" />
+    <Compile Include="DBConComSqlite.cs" />
+    <Compile Include="Devices\GarminMassStorage.cs" />
+    <Compile Include="Dialogs\GeocachesIgnoredMessageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\GeocachesIgnoredMessageForm.Designer.cs">
+      <DependentUpon>GeocachesIgnoredMessageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\GetLocationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\GetLocationForm.Designer.cs">
+      <DependentUpon>GetLocationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\LiveAPICachesLeftForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\LiveAPICachesLeftForm.Designer.cs">
+      <DependentUpon>LiveAPICachesLeftForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DouglasPeucker.cs" />
+    <Compile Include="FrameworkDataUpdater.cs" />
+    <Compile Include="GeocacheCollectionSupport.cs" />
+    <Compile Include="GeocacheIgnoreSupport.cs" />
+    <Compile Include="Geocoder.cs" />
+    <Compile Include="GeometrySupport.cs" />
+    <Compile Include="GPXGenerator.cs" />
+    <Compile Include="GPXProcessor.cs" />
+    <Compile Include="ImageSupport.cs" />
+    <Compile Include="ImageUtilities.cs" />
+    <Compile Include="LanguageSupport.cs" />
+    <Compile Include="ListViewColumnSorter.cs" />
+    <Compile Include="PluginSupport.cs" />
+    <Compile Include="ProgressBlock.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="SystemMenu.cs" />
+    <Compile Include="TemporaryFile.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Community.CsharpSqlite\Community.CsharpSqlite.csproj">
+      <Project>{2D1A02C2-46B7-42AB-B912-2F3A4A94D3B7}</Project>
+      <Name>Community.CsharpSqlite</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gavaghan.Geodesy\Gavaghan.Geodesy.csproj">
+      <Project>{2BFBD751-9665-47AC-97BC-DDCBE3C2B8F0}</Project>
+      <Name>Gavaghan.Geodesy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GlobalcachingApplication.Framework\GlobalcachingApplication.Framework.csproj">
+      <Project>{45D6B089-F7F0-423A-AC63-83F9BB62A043}</Project>
+      <Name>GlobalcachingApplication.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharpZipLib\SharpZipLib.csproj">
+      <Project>{50DE75A5-4954-4D3A-BB1F-988B6AB8D834}</Project>
+      <Name>SharpZipLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BasePlugin\BaseInternalStorageBackgroundMessage.resx">
+      <DependentUpon>BaseInternalStorageBackgroundMessage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BasePlugin\BaseInternalStorageRepairMessage.resx">
+      <DependentUpon>BaseInternalStorageRepairMessage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BasePlugin\BaseUIChildWindowForm.resx">
+      <DependentUpon>BaseUIChildWindowForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BasePlugin\BaseUIChildWindowTransparencyForm.resx">
+      <DependentUpon>BaseUIChildWindowTransparencyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BasePlugin\BaseUIMainWindowForm.resx">
+      <DependentUpon>BaseUIMainWindowForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NotificationMessageBox.resx">
+      <DependentUpon>NotificationMessageBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\GeocachesIgnoredMessageForm.resx">
+      <DependentUpon>GeocachesIgnoredMessageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\GetLocationForm.resx">
+      <DependentUpon>GetLocationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\LiveAPICachesLeftForm.resx">
+      <DependentUpon>LiveAPICachesLeftForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Dialogs\GetLocationForm.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Resources\Geocaching_LIVE_poweredby_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Globalcaching.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)\GlobalcachingApplication\bin\$(ConfigurationName)\PluginDependencies\"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

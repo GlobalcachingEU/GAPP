@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<packages version="V1.0.0.0" date="2012-05-03T16:00:00">
+  <package link="http://application.globalcaching.eu/pkg/gcapp.zip" type="core" plugintype="" mincoreversion="V1.0.0.0" version="V1.0.0.0" description="The Globalcaching Application and default plugins" author="Globalcaching.eu" date="2012-04-19T00:00:00" />
+  <package link="http://application.globalcaching.eu/pkg/nlcachedist.zip" type="plugin" plugintype="import" mincoreversion="V1.0.0.0" version="V1.0.0.0" description="Imports the geocache distance for Dutch geocaches" author="Globalcaching.eu" date="2012-04-19T00:00:00" />
+</packages>

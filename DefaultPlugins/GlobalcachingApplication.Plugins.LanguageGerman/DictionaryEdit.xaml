@@ -1,0 +1,28 @@
+﻿<UserControl x:Class="GlobalcachingApplication.Plugins.LanguageGerman.DictionaryEdit"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid  x:Name="topGrid">
+        <DataGrid AutoGenerateColumns="False" DataContext="{Binding}" ItemsSource="{Binding}" Height="{Binding ElementName=topGrid, Path=ActualHeight}" Name="dataGrid1" Width="{Binding ElementName=dictionaryList, Path=ActualWidth}" CanUserAddRows="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Key}" Header="Original text" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Value}" Header="Deutsch" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="TextBox">
+                            <Setter Property="TextWrapping" Value="Wrap" />
+                            <Setter Property="AcceptsReturn" Value="true" />
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

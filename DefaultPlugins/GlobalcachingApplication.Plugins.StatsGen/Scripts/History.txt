@@ -1,0 +1,93 @@
+﻿        string strHistory = "History";
+        string strYear = "Year";
+        string strTotalFound = "Total found";
+        string strDaysCachedFreq = "Days cached / frequency";
+        string strCachesPerDay = "Caches/day";
+        string strEvery = "Every";
+        string strDays = "days";
+
+        RegisterText(new string[]{
+		strHistory,
+		strYear,
+		strTotalFound,
+		strDaysCachedFreq,
+		strCachesPerDay,
+		strEvery,
+		strDays
+		});
+
+
+        Layout skin = new Layout(1);
+        Layout.Statistics stats = new Layout.Statistics(Translate(strHistory, false));
+        skin.StatisticsBlocks[0] = stats;
+
+        Layout.Statistics.Row row = new Layout.Statistics.Row();
+        stats.Rows.Add(row);
+
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = Translate(strYear, false);
+        row.Items[row.Items.Count - 1].IsMarker = true;
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = Translate(strTotalFound, false);
+        row.Items[row.Items.Count - 1].IsMarker = true;
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = Translate(strCachesPerDay, false);
+        row.Items[row.Items.Count - 1].IsMarker = true;
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = Translate(strDaysCachedFreq, false);
+        row.Items[row.Items.Count - 1].IsMarker = true;
+
+        DateTime startAt = (from mf in _myFinds where mf.logDate.Year >= 2000 orderby mf.logDate.Year select mf.logDate).FirstOrDefault();
+        int startYear = startAt.Year;
+        if (startYear >= 2000)
+        {
+            for (int y = startYear; y <= DateTime.Now.Year; y++)
+            {
+                int cnt = (from mf in _myFinds where mf.logDate.Year == y select mf).Count();
+                int diny;
+                DateTime start = new DateTime(y, 1, 1);
+                DateTime end;
+                if (y == startYear)
+                {
+                    start = startAt;
+                }
+                else
+                {
+                    start = new DateTime(y, 1, 1);
+                }
+                if (y == DateTime.Now.Year)
+                {
+                    end = DateTime.Now;
+                }
+                else
+                {
+                    end = new DateTime(y, 12, 31);
+                }
+                diny = (int)(end - start).TotalDays;
+                if (diny == 0) diny++;
+
+                int udays = (from mf in _myFinds where mf.logDate >= start && mf.logDate <= end select mf.logDate.ToString("d")).Distinct().Count();
+
+				row = new Layout.Statistics.Row();
+				stats.Rows.Add(row);
+
+                row.Items.Add(new Layout.Statistics.Item());
+                row.Items[row.Items.Count - 1].Text = y.ToString();
+                row.Items[row.Items.Count - 1].IsMarker = true;
+                row.Items.Add(new Layout.Statistics.Item());
+                row.Items[row.Items.Count - 1].Text = cnt.ToString();
+                row.Items.Add(new Layout.Statistics.Item());
+                row.Items[row.Items.Count - 1].Text = ((double)cnt / (double)diny).ToString("0.00");
+                row.Items.Add(new Layout.Statistics.Item());
+                if (udays == 0)
+                {
+                    row.Items[row.Items.Count - 1].Text = udays.ToString();
+                }
+                else
+                {
+                    row.Items[row.Items.Count - 1].Text = string.Format("{0} / {2} {1:0.0} {3}", udays, (double)diny / (double)udays, Translate(strEvery, false), Translate(strDays, false));
+                }
+            }
+        }
+
+        return skin.ToString();

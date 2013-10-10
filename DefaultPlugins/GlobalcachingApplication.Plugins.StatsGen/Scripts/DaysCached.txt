@@ -1,0 +1,132 @@
+﻿        string strDaysCached = "Days cached";
+        string strEvery = "every";
+        string strDaysOr = "days or";
+        string strMostConsec = "Most consecutive days with founds";
+        string strMostOneMonth = "Most in 1 month";
+        string strMostConsecW = "Most consecutive days without founds";
+
+        RegisterText(new string[]{
+		strDaysCached,
+		strEvery,
+		strDaysOr,
+		strMostConsec,
+		strMostOneMonth,
+		strMostConsecW
+		});
+
+        Layout skin = new Layout(1);
+        Layout.Statistics stats = new Layout.Statistics(Translate(strDaysCached, false));
+        skin.StatisticsBlocks[0] = stats;
+
+        Layout.Statistics.Row row = new Layout.Statistics.Row();
+        stats.Rows.Add(row);
+
+        int uniqueDays = (from mf in _myFinds select mf.logDate.ToString("d")).Distinct().Count();
+        DateTime minDate = _myFinds.Min(x => x.logDate);
+        DateTime maxDate = _myFinds.Max(x => x.logDate);
+        TimeSpan ts = (maxDate - minDate);
+
+        DateTime startInterval = minDate;
+        DateTime endInterval = minDate;
+        DateTime startIntervalMarker = minDate;
+        DateTime endIntervalMarker = minDate;
+        for (int i = 1; i < _myFinds.Count; i++)
+        {
+            string send = endInterval.ToString("d");
+            string slg = _myFinds[i].logDate.ToString("d");
+            if (slg == send)
+            {
+                //same day
+            }
+            else if (endInterval.AddDays(1).ToString("d") == slg)
+            {
+                //next day
+                endInterval = _myFinds[i].logDate;
+            }
+            else
+            {
+                //interval determined
+                if ((int)(endIntervalMarker - startIntervalMarker).TotalDays < (int)(endInterval - startInterval).TotalDays)
+                {
+                    //new record
+                    startIntervalMarker = startInterval;
+                    endIntervalMarker = endInterval;
+                }
+                startInterval = _myFinds[i].logDate;
+                endInterval = _myFinds[i].logDate;
+            }
+        }
+
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = Translate(strDaysCached, false);
+        row.Items[row.Items.Count - 1].IsMarker = true;
+        row.Items[row.Items.Count - 1].Width = "15%";
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = string.Format("{0} ({3} {1:0.0} {4} {2:0.0}%)", uniqueDays, ts.TotalDays / (double)uniqueDays, 100.0 * (double)uniqueDays / ts.TotalDays, Translate(strEvery, false), Translate(strDaysOr, false));
+        row.Items[row.Items.Count - 1].Width = "35%";
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = Translate(strMostConsec, false);
+        row.Items[row.Items.Count - 1].IsMarker = true;
+        row.Items[row.Items.Count - 1].Width = "20%";
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = string.Format("{0} (<span style=\"font-size:75%\">{1} - {2}</span>)", (int)(endIntervalMarker - startIntervalMarker).TotalDays + 1, startIntervalMarker.ToString("d"), endIntervalMarker.ToString("d"));
+        row.Items[row.Items.Count - 1].IsHtml = true;
+        row.Items[row.Items.Count - 1].Width = "30%";
+
+        row = new Layout.Statistics.Row();
+        stats.Rows.Add(row);
+
+        startInterval = minDate;
+        endInterval = minDate;
+        DateTime prevFoundDate = minDate;
+        startIntervalMarker = minDate;
+        endIntervalMarker = minDate;
+        for (int i = 1; i < _myFinds.Count; i++)
+        {
+            string send = prevFoundDate.ToString("d");
+            string slg = _myFinds[i].logDate.ToString("d");
+            if (slg == send)
+            {
+                //same day
+            }
+            else if (prevFoundDate.AddDays(1).ToString("d") == slg)
+            {
+                //next day
+            }
+            else
+            {
+                //start of new gap
+                startInterval = _myFinds[i - 1].logDate.AddDays(1);
+                endInterval = _myFinds[i].logDate.AddDays(-1);
+
+                //interval determined
+                if ((int)(endIntervalMarker - startIntervalMarker).TotalDays < (int)(endInterval - startInterval).TotalDays)
+                {
+                    //new record
+                    startIntervalMarker = startInterval;
+                    endIntervalMarker = endInterval;
+                }
+                prevFoundDate = _myFinds[i].logDate;
+            }
+        }
+
+        string[] udays = (from mf in _myFinds select mf.logDate.ToString("yyyy-MM-dd")).Distinct().ToArray();
+        var cdayGroup =
+            (from mf in udays
+             group mf by mf.Substring(0, 7) into g
+             select new { Month = g.Key, Days = g }).OrderByDescending(x => x.Days.Count()).FirstOrDefault();
+
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = Translate(strMostOneMonth, false);
+        row.Items[row.Items.Count - 1].IsMarker = true;
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = string.Format("{0} (<span style=\"font-size:75%\">{1}</span>)", cdayGroup.Days.Count(), cdayGroup.Month);
+        row.Items[row.Items.Count - 1].IsHtml = true;
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = Translate(strMostConsecW, false);
+        row.Items[row.Items.Count - 1].IsMarker = true;
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = string.Format("{0} (<span style=\"font-size:75%\">{1} - {2}</span>)", (int)(endIntervalMarker - startIntervalMarker).TotalDays + 1, startIntervalMarker.ToString("d"), endIntervalMarker.ToString("d"));
+        row.Items[row.Items.Count - 1].IsHtml = true;
+
+        return skin.ToString();

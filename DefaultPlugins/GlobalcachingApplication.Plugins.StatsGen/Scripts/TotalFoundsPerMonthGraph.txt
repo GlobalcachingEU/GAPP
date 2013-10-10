@@ -1,0 +1,80 @@
+﻿        string strTotalPerMonth = "Total founds per month";
+
+        RegisterText(new string[]{
+		strTotalPerMonth
+		});
+
+        Layout skin = new Layout(1);
+        Layout.Statistics stats = new Layout.Statistics(Translate(strTotalPerMonth, false));
+        skin.StatisticsBlocks[0] = stats;
+        stats.Rows.Add(new Layout.Statistics.Row());
+        stats.Rows[0].Items.Add(new Layout.Statistics.Item());
+
+        //graph
+        //http://chart.apis.google.com/chart?cht=lxy&chs=740x300&chf=bg,s,FFF4F4&chxt=r,x,y&chxr=0,0,2693|2,0,1612&chxs=0,0000FF|2,FF0000&chd=e:__,BIDKE5GPG3KGMPPnS3YKbcfxiijhl8potKxB0V82.-,AADMGZJmMz,B5FRILKcLe,MzP.TMWZZmcyf.jMmZplsyv.zM,AAFZI-OmUCc5iXpmuPv3z66E..,zM2Y5l8y..,AAGbL.aMfb&chxl=1:|2010|||||2011||||||||||||2012|||&chco=0000ff,ff0000,ff0000,ff0000&chm=B,76A4FBB0,0,0,0|v,6060FF,0,4,1.0|v,6060FF,0,16,1.0&chg=0,6.2&chls=2,1,0|2,2,4|2,2,4|2,2,4
+        Dictionary<string, string> pars = new Dictionary<string, string>();
+
+        //fixed (data independant)
+        pars.Add("cht", "ls");
+        pars.Add("chs", "740x300");
+        pars.Add("chf", "bg,s,FFF4F4");
+        pars.Add("chxt", "r,x,y");
+        pars.Add("chxs", "0,0000FF|2,FF0000");
+        pars.Add("chco", "0000ff,ff0000,ff0000,ff0000");
+        pars.Add("chm", "B,76A4FBB0,0,0,0|v,6060FF,0,4,1.0|v,6060FF,0,16,1.0");
+        pars.Add("chg", "0,6.2");
+        pars.Add("chls", "2,1,0|2,2,4|2,2,4|2,2,4");
+        pars.Add("chds", "a");
+        //pars.Add("chdl", "Total found|Yearly found");
+
+        //variable, data dependant
+        //pars.Add("chxr", "");
+        pars.Add("chd", "");
+        pars.Add("chxl", "");
+
+        DateTime startAt = (from mf in _myFinds where mf.logDate.Year >= 2000 orderby mf.logDate.Year select mf.logDate).FirstOrDefault();
+        if (startAt.Year >= 2000)
+        {
+            startAt = new DateTime(startAt.Year, startAt.Month, 1);
+            DateTime endAt = startAt.AddMonths(1);
+            DateTime startOfInterval = startAt;
+            StringBuilder chxl = new StringBuilder();
+            StringBuilder serie1 = new StringBuilder();
+            StringBuilder serie2 = new StringBuilder();
+
+            while (startAt <= DateTime.Now)
+            {
+                if (chxl.Length == 0 || startAt.Month == 1)
+                {
+                    chxl.AppendFormat("|{0}", startAt.Year);
+                    startOfInterval = startAt;
+                }
+                else
+                {
+                    chxl.Append("|");
+                }
+                if (serie1.Length == 0)
+                {
+                    serie1.AppendFormat("{0}", (from mf in _myFinds where mf.logDate < endAt select mf).Count());
+                    serie2.AppendFormat("{0}", (from mf in _myFinds where mf.logDate >= startOfInterval && mf.logDate < endAt select mf).Count());
+                }
+                else
+                {
+                    serie1.AppendFormat(",{0}", (from mf in _myFinds where mf.logDate < endAt select mf).Count());
+                    serie2.AppendFormat(",{0}", (from mf in _myFinds where mf.logDate >= startOfInterval && mf.logDate < endAt select mf).Count());
+                }
+
+
+                startAt = endAt;
+                endAt = endAt.AddMonths(1);
+            }
+            //pars["chd"] = string.Format("t:{0}|{1}", serie1.ToString(), serie2.ToString());
+            pars["chd"] = string.Format("t:{0}", serie1.ToString());
+            pars["chxl"] = string.Format("1:{0}", chxl.ToString());
+            //pars["chxr"] = _myFinds.Count.ToString();
+        }
+
+        stats.Rows[0].Items[0].Text = string.Format("<img src=\"{0}\" />", googleChartImgUrl(pars));
+        stats.Rows[0].Items[0].IsHtml = true;
+
+        return skin.ToString();

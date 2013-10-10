@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{41156F07-C540-42FB-B451-582CDC6F9396}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GlobalcachingApplication.Plugins.UIMainWindow</RootNamespace>
+    <AssemblyName>GlobalcachingApplication.Plugins.UIMainWindow</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ButtonStripItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomToolbarSettingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomToolbarSettingForm.Designer.cs">
+      <DependentUpon>CustomToolbarSettingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMain.Designer.cs">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormProgress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormProgress.Designer.cs">
+      <DependentUpon>FormProgress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSettings.Designer.cs">
+      <DependentUpon>FormSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormSettingsTreeView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSettingsTreeView.Designer.cs">
+      <DependentUpon>FormSettingsTreeView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NotificationContainer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NotificationContainer.Designer.cs">
+      <DependentUpon>NotificationContainer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CustomToolbarSettingForm.resx">
+      <DependentUpon>CustomToolbarSettingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormProgress.resx">
+      <DependentUpon>FormProgress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSettings.resx">
+      <DependentUpon>FormSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSettingsTreeView.resx">
+      <DependentUpon>FormSettingsTreeView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NotificationContainer.resx">
+      <DependentUpon>NotificationContainer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\GlobalcachingApplication.Framework\GlobalcachingApplication.Framework.csproj">
+      <Project>{45D6B089-F7F0-423A-AC63-83F9BB62A043}</Project>
+      <Name>GlobalcachingApplication.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\GlobalcachingApplication.Utils\GlobalcachingApplication.Utils.csproj">
+      <Project>{10CE1BC5-8951-4043-A9E5-D20C7EC55022}</Project>
+      <Name>GlobalcachingApplication.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Resources\Globalcaching.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\globalcaching.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Geocaching_LIVE_poweredby_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gcvote.png" />
+    <None Include="Resources\nl.gif" />
+    <None Include="Resources\fr.gif" />
+    <None Include="Resources\en.gif" />
+    <None Include="Resources\de.gif" />
+    <None Include="Resources\googleearth.png" />
+    <None Include="Resources\holes.png" />
+    <None Include="Resources\sequence.png" />
+    <None Include="Resources\Icon_Split.gif" />
+    <None Include="Resources\server.png" />
+    <None Include="Resources\google2.png" />
+    <None Include="Resources\Flowchart.gif" />
+    <None Include="Resources\exportpoisel.png" />
+    <None Include="Resources\exportpoi.png" />
+    <None Include="Resources\travelbug.gif" />
+    <None Include="Resources\selectarea.png" />
+    <None Include="Resources\image.png" />
+    <None Include="Resources\foundmore.gif" />
+    <None Include="Resources\found.png" />
+    <None Include="Resources\Importgc.png" />
+    <None Include="Resources\dbimport.png" />
+    <None Include="Resources\maps.png" />
+    <None Include="Resources\osm.png" />
+    <None Include="Resources\openlayers.png" />
+    <None Include="Resources\google.png" />
+    <None Include="Resources\solver.gif" />
+    <None Include="Resources\list.png" />
+    <None Include="Resources\view.png" />
+    <None Include="Resources\wpedit.png" />
+    <None Include="Resources\gcedit.gif" />
+    <None Include="Resources\statistics.gif" />
+    <None Include="Resources\chat.gif" />
+    <None Include="Resources\download.png" />
+    <None Include="Resources\execute.gif" />
+    <None Include="Resources\deselect_all.png" />
+    <None Include="Resources\select_all.png" />
+    <None Include="Resources\clear_selection.gif" />
+    <None Include="Resources\magnifier--pencil.png" />
+    <None Include="Resources\magnifier--plus.png" />
+    <None Include="Resources\database.png" />
+    <None Include="Resources\database_add.png" />
+    <None Include="Resources\browser.png" />
+    <None Include="Resources\48.gif" />
+    <None Include="Resources\categories.png" />
+    <Content Include="Resources\database_save.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)\GlobalcachingApplication\bin\$(ConfigurationName)\Plugins\</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,53 @@
+﻿//My Script
+
+//script is an example action
+//
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Windows;
+using System.Windows.Controls;
+
+namespace GlobalcachingApplication.Plugins.ActBuilder
+{
+    public class ActionScript : ActionImplementationCondition
+    {
+        public ActionScript(Framework.Interfaces.ICore core)
+           : base("My Script", core)
+        {
+        }
+
+        public override bool PrepareRun()
+        {
+            base.PrepareRun();
+
+            //add your code here
+            //this method is called before starting the complete flow
+            //initialize anything you want here
+            //next method that is being called will be Process and is caled for every geocache at the input connector
+            
+            return true;
+        }
+
+        public override Operator Process(Framework.Data.Geocache gc)
+        {
+            /* process the geocache
+               if the geocaches should be handled in a batch, you can skip this and use the
+               GeocachesAtInputConnector property to get the list of geocaches that passed this method.
+             */
+
+
+             return 0;
+        }
+
+        public override void FinalizeRun()
+        {
+             //add here your code to wrap up the run of the flow.
+             //this method is called after all geocaches are Processed
+             //GeocachesAtInputConnector property is the list of geocaches that are all the geocaches to be handled by thios action.
+        }
+
+    }
+}

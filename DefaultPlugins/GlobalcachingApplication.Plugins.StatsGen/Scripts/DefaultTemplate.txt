@@ -1,0 +1,39 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using GlobalcachingApplication.Framework.Data;
+using GlobalcachingApplication.Framework.Interfaces;
+using GlobalcachingApplication.Utils;
+using GlobalcachingApplication.Utils.BasePlugin;
+using System.Web;
+
+public class StatisticsTemplate
+{
+    private Plugin _plugin = null;
+    private ICore _core = null;
+
+    public static string Run(Plugin plugin, ICore core)
+    {
+        StatisticsTemplate instance = new StatisticsTemplate();
+        return instance.RunInstance(plugin, core);
+    }
+
+//[EXTENSIONS]
+
+//[SKINS]
+
+    public string RunInstance(Plugin plugin, ICore core)
+    {
+        _plugin = plugin;
+        _core = core;
+
+        InitExtension();
+
+        StringBuilder sb = new StringBuilder();
+//[CALLS]
+        return sb.ToString();
+    }
+
+//[STATISTICS]
+}

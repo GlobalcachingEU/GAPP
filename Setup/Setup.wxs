@@ -1,0 +1,80 @@
+﻿<?xml version="1.0"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*"
+		Name="Globalcaching Application"
+		Language="1033"
+		Version="1.9.2.0"
+		UpgradeCode="6C16717C-6C5E-412E-B091-B3AD5C7D052E"
+		Manufacturer="Globalcaching.eu">
+		<Package Description="Geocache manager"
+			Comments="For more information check http://application.globalcaching.eu"
+			InstallerVersion="300"
+			Compressed="yes"
+		 	Platform="$(var.Platform)"
+		/>
+				
+		<!--
+			Source media for the installation. 
+ 			Specifies a single cab file to be embedded in the installer's .msi. 
+		-->
+		<Media Id="1" Cabinet="contents.cab" EmbedCab="yes" CompressionLevel="high"/>
+		
+		<!-- Installation directory and files are defined in Files.wxs -->
+		<Directory Id="TARGETDIR" Name="SourceDir"/>
+		
+		<Feature Id="Complete"
+		         Title="Globalcaching Application"
+		         Description="Your description"
+		         Level="1">
+		         <ComponentRef Id="Main"/>
+		         <ComponentRef Id="Plugins"/>
+		         <ComponentRef Id="Scripts"/>
+				 <ComponentRef Id="PluginDependencies" />
+				 <ComponentRef Id="jquery172" />
+				 <ComponentRef Id="defmsimg" />			
+				 <ComponentRef Id="larmsimg" />			
+				 <ComponentRef Id="mapmsimg" />			
+				 <ComponentRef Id="medmsimg" />			
+				 <ComponentRef Id="smlmsimg" />			
+				 <ComponentRef Id="mapct" />			
+				 <ComponentRef Id="defattr" />			
+				 <ComponentRef Id="defct" />			
+				 <ComponentRef Id="defcp" />			
+				 <ComponentRef Id="defcont" />			
+				 <ComponentRef Id="deflt" />			
+				 <ComponentRef Id="defwpt" />			
+				 <ComponentRef Id="ApplicationShortcut" />
+		</Feature>
+		
+		<!-- 
+			Using the Wix UI library
+ 
+			WixUI_InstallDir does not allow the user to choose 
+			features but adds a dialog to let the user choose a 
+			directory where the product will be installed
+		-->
+		<Property Id="WIXUI_INSTALLDIR">INSTALLDIR</Property>
+		<UIRef Id="WixUI_InstallDir"/>
+	
+		<MajorUpgrade 
+			Schedule="afterInstallInitialize"
+			DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit." 
+		/>
+	
+ 	<UI>
+        <Publish Dialog="ExitDialog" 
+            Control="Finish" 
+            Event="DoAction" 
+            Value="LaunchApplication">WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed</Publish>
+    </UI>
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch Globalcaching Application" />
+
+    <!-- Step 3: Include the custom action -->
+    <Property Id="WixShellExecTarget" Value="[#Exec]" />
+    <CustomAction Id="LaunchApplication" 
+        BinaryKey="WixCA" 
+        DllEntry="WixShellExec"
+        Impersonate="yes" />	
+	
+	</Product>
+</Wix>

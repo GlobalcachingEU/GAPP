@@ -1,0 +1,79 @@
+﻿        int[] milestones = new int[] { 1, 100, 200, 300, 400, 500, 1000 };
+        int every = 500;
+
+        //test
+        //int[] milestones = new int[] {1, 10, 20, 30, 40, 50, 100 };
+        //int every = 50;
+
+        string strMilestones = "Milestones";
+        string strNumber = "Number";
+        string strDate = "Date";
+        string strCache = "Cache";
+        string strDaysInBetween = "Days in between";
+
+        RegisterText(new string[]{
+		strMilestones,
+		strNumber,
+		strDate,
+		strCache,
+		strDaysInBetween
+		});
+
+        Layout skin = new Layout(1);
+        Layout.Statistics stats = new Layout.Statistics(Translate(strMilestones, false));
+        skin.StatisticsBlocks[0] = stats;
+
+        Layout.Statistics.Row row = new Layout.Statistics.Row();
+        stats.Rows.Add(row);
+
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = Translate(strNumber, false);
+        row.Items[row.Items.Count - 1].IsMarker = true;
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = Translate(strDate, false);
+        row.Items[row.Items.Count - 1].IsMarker = true;
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = Translate(strCache, false);
+        row.Items[row.Items.Count - 1].IsMarker = true;
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = Translate(strDaysInBetween, false);
+        row.Items[row.Items.Count - 1].IsMarker = true;
+
+        int milestonesIndex = 0;
+        int index = milestones[milestonesIndex] - 1;
+        MyGeocacheFind prev = null;
+        while (index < _myFinds.Count)
+        {
+            row = new Layout.Statistics.Row();
+            stats.Rows.Add(row);
+
+            row.Items.Add(new Layout.Statistics.Item());
+            row.Items[row.Items.Count - 1].Text = (index + 1).ToString();
+            row.Items[row.Items.Count - 1].IsMarker = true;
+            row.Items.Add(new Layout.Statistics.Item());
+            row.Items[row.Items.Count - 1].Text = _myFinds[index].logDate.ToString("d");
+            row.Items.Add(new Layout.Statistics.Item());
+            row.Items[row.Items.Count - 1].Text = _myFinds[index].gc.Name ?? "";
+            row.Items.Add(new Layout.Statistics.Item());
+            if (prev == null)
+            {
+                row.Items[row.Items.Count - 1].Text = "&nbsp;";
+				row.Items[row.Items.Count - 1].IsHtml = true;
+            }
+            else
+            {
+                row.Items[row.Items.Count - 1].Text = (_myFinds[index].logDate - prev.logDate).TotalDays.ToString("0");
+            }
+
+            prev = _myFinds[index];
+            if (milestonesIndex < milestones.Length - 1)
+            {
+                milestonesIndex++;
+                index = milestones[milestonesIndex] - 1;
+            }
+            else
+            {
+                index += every;
+            }
+        }
+        return skin.ToString();

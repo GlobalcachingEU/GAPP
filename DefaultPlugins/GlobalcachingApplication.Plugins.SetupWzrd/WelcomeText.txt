@@ -1,0 +1,3 @@
+﻿Welcome to the Globalcaching Application (short GAPP).
+
+This wizard will guide you through the initial setup. Before you start, you might want to change the language:

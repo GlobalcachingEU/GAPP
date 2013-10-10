@@ -1,0 +1,66 @@
+﻿        StringBuilder sb = new StringBuilder();
+
+        var countries =
+            (from mf in _myFinds
+             where !string.IsNullOrEmpty(mf.gc.Country)
+             select mf.gc.Country).Distinct();
+        sb.AppendFormat("<p><IMG src=\"http://www.world66.com/myworld66/visitedEurope/countrymap?visited={0}", sb.ToString());
+        foreach (var g in countries)
+        {
+            if (g == "Albania") sb.Append("AL");
+            else if (g == "Andorra") sb.Append("AN");
+            else if (g == "Armenia") sb.Append("AR");
+            else if (g == "Austria") sb.Append("AU");
+            else if (g == "Azerbaijan") sb.Append("AZ");
+            else if (g == "Belarus") sb.Append("BL");
+            else if (g == "Belgium") sb.Append("BE");
+            else if (g == "Bosnia Herzogovina") sb.Append("BH");
+            else if (g == "Bulgaria") sb.Append("BU");
+            else if (g == "Croatia") sb.Append("CR");
+            else if (g == "Cyprus") sb.Append("CY");
+            else if (g == "Czech Republic") sb.Append("CZ");
+            else if (g == "Denmark") sb.Append("DK");
+            else if (g == "England") sb.Append("EN");
+            else if (g == "United Kingdom") sb.Append("EN");
+            else if (g == "Estonia") sb.Append("ES");
+            else if (g == "Finland") sb.Append("FI");
+            else if (g == "France") sb.Append("FR");
+            else if (g == "Georgia") sb.Append("GG");
+            else if (g == "Germany") sb.Append("GE");
+            else if (g == "Greece") sb.Append("GR");
+            else if (g == "Hungary") sb.Append("HU");
+            else if (g == "Iceland") sb.Append("IC");
+            else if (g == "Ireland") sb.Append("IE");
+            else if (g == "Italy") sb.Append("IT");
+            else if (g == "Latvia") sb.Append("LE");
+            else if (g == "Liechtenstein") sb.Append("LT");
+            else if (g == "Lithuania") sb.Append("LI");
+            else if (g == "Luxembourg") sb.Append("LU");
+            else if (g == "Macedonia") sb.Append("MA");
+            else if (g == "Malta") sb.Append("ML");
+            else if (g == "Moldova") sb.Append("MO");
+            else if (g == "Monaco") sb.Append("MC");
+            else if (g == "Netherlands") sb.Append("NL");
+            else if (g == "Northern Ireland") sb.Append("NI");
+            else if (g == "Norway") sb.Append("NO");
+            else if (g == "Poland") sb.Append("PO");
+            else if (g == "Portugal") sb.Append("PT");
+            else if (g == "Romania") sb.Append("RO");
+            else if (g == "Russia") sb.Append("RU");
+            else if (g == "Scotland") sb.Append("SC");
+            else if (g == "San Marino") sb.Append("SA");
+            else if (g == "Serbia and Montenegro") sb.Append("SM");
+            else if (g == "Slovenia") sb.Append("SL");
+            else if (g == "Slovakia") sb.Append("SV");
+            else if (g == "Spain") sb.Append("SP");
+            else if (g == "Sweden") sb.Append("SE");
+            else if (g == "Switzerland") sb.Append("SW");
+            else if (g == "Turkey") sb.Append("TU");
+            else if (g == "Ukraine") sb.Append("UK");
+            else if (g == "Vatican City") sb.Append("VC");
+            else if (g == "Wales") sb.Append("WA");
+        }
+        sb.AppendLine("\" /><br><i>(<a href=\"http://www.world66.com/myworld66\">map from world66.com</a>)</i></p>");
+
+        sb.AppendLine("<br />");
+        return sb.ToString();

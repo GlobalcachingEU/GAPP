@@ -1,0 +1,529 @@
+﻿<?xml version="1.0"?>
+
+<?if $(var.Platform) = "x64"  ?> 
+<?define progFolder = "ProgramFiles64Folder"?>
+<?else?>
+<?define progFolder = "ProgramFilesFolder"?>
+<?endif?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+		<DirectoryRef Id="TARGETDIR">
+			<Directory Id="$(var.progFolder)" Name="PFiles">
+				<Directory Id="INSTALLDIR" Name="Globalcaching Application">
+					<Component Id="Main" Guid="2954E955-612D-4449-BC67-F6B7FA394DA7" DiskId="1">
+						<File Id="LicenseFile" Name="license.rtf" Source="license.rtf"/>
+						<File Id="Exec" Name="GlobalcachingApplication.exe" Source="../GlobalcachingApplication/bin/Release/GlobalcachingApplication.exe" />
+						<File Id="Exec1" Name="GlobalcachingApplication.Updater.exe" Source="../GlobalcachingApplication/bin/Release/GlobalcachingApplication.Updater.exe" />
+						<File Id="Exec2" Name="GlobalcachingApplication.Core.dll" Source="../GlobalcachingApplication/bin/Release/GlobalcachingApplication.Core.dll" />
+						<File Id="Exec3" Name="GlobalcachingApplication.Framework.dll" Source="../GlobalcachingApplication/bin/Release/GlobalcachingApplication.Framework.dll" />
+						<File Id="Exec5"  Name="SharpZipLib.dll" Source="../GlobalcachingApplication/bin/Release/SharpZipLib.dll" />
+						<File Id="Exec6" Name="RestoreDefaultSettings.exe" Source="../GlobalcachingApplication/bin/Release/RestoreDefaultSettings.exe" />
+					</Component>
+					<Directory Id="PLUGINDIR" Name="Plugins">
+						<Component Id="Plugins" Guid="8B071A0C-E31C-4149-8CE4-A02EB6232CCE"  DiskId="1">
+							<File Id="plugin1"  Name="GlobalcachingApplication.Plugins.APIPQ.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.APIPQ.dll" />
+							<File Id="plugin2"  Name="GlobalcachingApplication.Plugins.APILOGC.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.APILOGC.dll" />
+							<File Id="plugin3"  Name="GlobalcachingApplication.Plugins.APIUPD.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.APIUPD.dll" />
+							<File Id="plugin4"  Name="GlobalcachingApplication.Plugins.Authorize.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.Authorize.dll" />
+							<File Id="plugin5"  Name="GlobalcachingApplication.Plugins.DataSetup.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.DataSetup.dll" />
+							<File Id="plugin6"  Name="GlobalcachingApplication.Plugins.DbgLog.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.DbgLog.dll" />
+							<File Id="plugin7"  Name="GlobalcachingApplication.Plugins.ExportGPX.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.ExportGPX.dll" />
+							<File Id="plugin8"  Name="GlobalcachingApplication.Plugins.FilterEx.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.FilterEx.dll" />
+							<File Id="plugin9"  Name="GlobalcachingApplication.Plugins.GCView.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.GCView.dll" />
+							<File Id="plugin10"  Name="GlobalcachingApplication.Plugins.Geometry.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.Geometry.dll" />
+							<File Id="plugin11"  Name="GlobalcachingApplication.Plugins.GMap.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.GMap.dll" />
+							<File Id="plugin12"  Name="GlobalcachingApplication.Plugins.ImgRes.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.ImgRes.dll" />
+							<File Id="plugin13"  Name="GlobalcachingApplication.Plugins.ImportGPX.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.ImportGPX.dll" />
+							<File Id="plugin14"  Name="GlobalcachingApplication.Plugins.InternalStorage.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.InternalStorage.dll" />
+							<File Id="plugin15"  Name="GlobalcachingApplication.Plugins.LanguageDutch.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.LanguageDutch.dll" />
+							<File Id="plugin16"  Name="GlobalcachingApplication.Plugins.NoteEdit.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.NoteEdit.dll" />
+							<File Id="plugin17"  Name="GlobalcachingApplication.Plugins.PkgMng.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.PkgMng.dll" />
+							<File Id="plugin18"  Name="GlobalcachingApplication.Plugins.QuickAction.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.QuickAction.dll" />
+							<File Id="plugin19"  Name="GlobalcachingApplication.Plugins.QuickSelect.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.QuickSelect.dll" />
+							<File Id="plugin20"  Name="GlobalcachingApplication.Plugins.SimpleCacheList.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.SimpleCacheList.dll" />
+							<File Id="plugin21"  Name="GlobalcachingApplication.Plugins.TxtSearch.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.TxtSearch.dll" />
+							<File Id="plugin22"  Name="GlobalcachingApplication.Plugins.UIMainWindow.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.UIMainWindow.dll" />
+							<!--File Id="plugin23"  Name="Examples.zip" Source="../GlobalcachingApplication/bin/Release/Plugins/Examples.zip" /-->
+							<File Id="plugin24"  Name="GlobalcachingApplication.Plugins.CAR.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.CAR.dll" />
+							<File Id="plugin25"  Name="GlobalcachingApplication.Plugins.PurgeLogs.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.PurgeLogs.dll" />
+							<File Id="plugin26"  Name="GlobalcachingApplication.Plugins.APIGetC.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.APIGetC.dll" />
+							<File Id="plugin27"  Name="GlobalcachingApplication.Plugins.ImgGrab.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.ImgGrab.dll" />
+							<File Id="plugin28"  Name="GlobalcachingApplication.Plugins.ImportGSAK.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.ImportGSAK.dll" />
+							<File Id="plugin29"  Name="GlobalcachingApplication.Plugins.SetupWzrd.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.SetupWzrd.dll" />
+							<File Id="plugin30"  Name="GlobalcachingApplication.Plugins.LanguageEng.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.LanguageEng.dll" />
+							<File Id="plugin31"  Name="GlobalcachingApplication.Plugins.APINotes.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.APINotes.dll" />
+							<File Id="plugin32"  Name="GlobalcachingApplication.Plugins.Shortcuts.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.Shortcuts.dll" />
+							<File Id="plugin33"  Name="GlobalcachingApplication.Plugins.LanguageFrench.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.LanguageFrench.dll" />
+							<File Id="plugin34"  Name="GlobalcachingApplication.Plugins.ScrPresets.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.ScrPresets.dll" />
+							<File Id="plugin35"  Name="GlobalcachingApplication.Plugins.SqlServer.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.SqlServer.dll" />
+							<File Id="plugin36"  Name="GlobalcachingApplication.Plugins.LanguageGerman.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.LanguageGerman.dll" />
+							<File Id="plugin37"  Name="GlobalcachingApplication.Plugins.SelectArea.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.SelectArea.dll" />
+							<File Id="plugin38"  Name="GlobalcachingApplication.Plugins.ExportGarmin.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.ExportGarmin.dll" />
+							<File Id="plugin39"  Name="GlobalcachingApplication.Plugins.Waymark.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.Waymark.dll" />
+							<File Id="plugin40"  Name="GlobalcachingApplication.Plugins.Script.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.Script.dll" />
+							<File Id="plugin41"  Name="GlobalcachingApplication.Plugins.TrkGroup.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.TrkGroup.dll" />
+							<File Id="plugin42"  Name="GlobalcachingApplication.Plugins.OV2.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.OV2.dll" />
+							<File Id="plugin43"  Name="GlobalcachingApplication.Plugins.GDAK.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.GDAK.dll" />
+							<File Id="plugin44"  Name="GlobalcachingApplication.Plugins.APILogT.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.APILogT.dll" />
+							<File Id="plugin45"  Name="GlobalcachingApplication.Plugins.APIMyF.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.APIMyF.dll" />
+							<File Id="plugin46"  Name="GlobalcachingApplication.Plugins.Attach.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.Attach.dll" />
+							<File Id="plugin47"  Name="GlobalcachingApplication.Plugins.ExportGarminPOI.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.ExportGarminPOI.dll" />
+							<!--File Id="plugin48"  Name="GlobalcachingApplication.Plugins.Gallery.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.Gallery.dll" /-->
+							<File Id="plugin49"  Name="GlobalcachingApplication.Plugins.Sqlite.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.Sqlite.dll" />
+							<!--File Id="plugin50"  Name="GlobalcachingApplication.Plugins.CoordSav.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.CoordSav.dll" /-->
+							<File Id="plugin51"  Name="GlobalcachingApplication.Plugins.Chat.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.Chat.dll" />
+							<File Id="plugin52"  Name="GlobalcachingApplication.Plugins.Maps.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.Maps.dll" />
+							<File Id="plugin53"  Name="GlobalcachingApplication.Plugins.StatsGen.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.StatsGen.dll" />
+							<File Id="plugin54"  Name="GlobalcachingApplication.Plugins.ICal.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.ICal.dll" />
+							<File Id="plugin55"  Name="GlobalcachingApplication.Plugins.Startup.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.Startup.dll" />
+							<File Id="plugin56"  Name="GlobalcachingApplication.Plugins.Solver.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.Solver.dll" />
+							<File Id="plugin57"  Name="GlobalcachingApplication.Plugins.GCEdit.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.GCEdit.dll" />
+							<File Id="plugin58"  Name="GlobalcachingApplication.Plugins.HtmlEditor.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.HtmlEditor.dll" />
+							<File Id="plugin59"  Name="GlobalcachingApplication.Plugins.OLMap.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.OLMap.dll" />
+							<File Id="plugin60"  Name="GlobalcachingApplication.Plugins.SHP.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.SHP.dll" />
+							<File Id="plugin61"  Name="GlobalcachingApplication.Plugins.SelectRgn.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.SelectRgn.dll" />
+							<File Id="plugin62"  Name="GlobalcachingApplication.Plugins.AutoRgn.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.AutoRgn.dll" />
+							<File Id="plugin63"  Name="GlobalcachingApplication.Plugins.ExpExcel.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.ExpExcel.dll" />
+							<File Id="plugin64"  Name="GlobalcachingApplication.Plugins.QryBuilder.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.QryBuilder.dll" />
+							<File Id="plugin65"  Name="GlobalcachingApplication.Plugins.ActBuilder.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.ActBuilder.dll" />
+							<File Id="plugin66"  Name="GlobalcachingApplication.Plugins.MySql.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.MySql.dll" />
+							<File Id="plugin67"  Name="GlobalcachingApplication.Plugins.DataExch.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.DataExch.dll" />
+							<File Id="plugin68"  Name="GlobalcachingApplication.Plugins.GPSRSerial.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.GPSRSerial.dll" />
+							<File Id="plugin69"  Name="GlobalcachingApplication.Plugins.GDirections.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.GDirections.dll" />
+							<File Id="plugin70"  Name="GlobalcachingApplication.Plugins.APIUserWP.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.APIUserWP.dll" />
+							<File Id="plugin71"  Name="GlobalcachingApplication.Plugins.Cachebox.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.Cachebox.dll" />
+							<File Id="plugin72"  Name="GlobalcachingApplication.Plugins.APIBookmark.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.APIBookmark.dll" />
+							<File Id="plugin73"  Name="GlobalcachingApplication.Plugins.APIFindsOfUser.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.APIFindsOfUser.dll" />
+							<File Id="plugin74"  Name="GlobalcachingApplication.Plugins.LogView.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.LogView.dll" />
+							<File Id="plugin75"  Name="GlobalcachingApplication.Plugins.Browser.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.Browser.dll" />
+							<File Id="plugin76"  Name="GlobalcachingApplication.Plugins.APIFavorites.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.APIFavorites.dll" />
+							<File Id="plugin77"  Name="GlobalcachingApplication.Plugins.IgnoreGeocaches.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.IgnoreGeocaches.dll" />
+							<File Id="plugin78"  Name="GlobalcachingApplication.Plugins.GAPPDataStorage.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.GAPPDataStorage.dll" />
+							<File Id="plugin79"  Name="GlobalcachingApplication.Plugins.AutoSelect.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.AutoSelect.dll" />
+							<File Id="plugin80"  Name="GlobalcachingApplication.Plugins.Munzee.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.Munzee.dll" />
+							<File Id="plugin81"  Name="GlobalcachingApplication.Plugins.ActionSequence.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.ActionSequence.dll" />
+							<File Id="plugin82"  Name="GlobalcachingApplication.Plugins.ExportKml.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.ExportKml.dll" />
+							<File Id="plugin83"  Name="GlobalcachingApplication.Plugins.AccountSwitcher.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.AccountSwitcher.dll" />
+							<File Id="plugin84"  Name="GlobalcachingApplication.Plugins.OpenAreas.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.OpenAreas.dll" />
+							<File Id="plugin85"  Name="GlobalcachingApplication.Plugins.GoogleEarth.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.GoogleEarth.dll" />
+							<File Id="plugin86"  Name="GlobalcachingApplication.Plugins.LogImagesViewer.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.LogImagesViewer.dll" />
+							<File Id="plugin87"  Name="GlobalcachingApplication.Plugins.iGeoKnife.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.iGeoKnife.dll" />
+							<File Id="plugin88"  Name="GlobalcachingApplication.Plugins.GCVote.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.GCVote.dll" />
+							<File Id="plugin89"  Name="GlobalcachingApplication.Plugins.Bookmark.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.Bookmark.dll" />
+							<File Id="plugin90"  Name="GlobalcachingApplication.Plugins.Locus.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.Locus.dll" />
+						</Component>
+					</Directory>
+					<Directory Id="PLUGINDEPDIR" Name="PluginDependencies">
+						<Component Id="PluginDependencies" Guid="6AD16576-3D35-40DB-B7D7-F2D9735ACA28"  DiskId="1">
+							<File Id="dep2"  Name="Community.CsharpSqlite.dll" Source="../GlobalcachingApplication/bin/Release/PluginDependencies/Community.CsharpSqlite.dll" />
+							<File Id="dep3"  Name="ExcelLibrary.dll" Source="../GlobalcachingApplication/bin/Release/PluginDependencies/ExcelLibrary.dll" />
+							<File Id="dep4"  Name="Gavaghan.Geodesy.dll" Source="../GlobalcachingApplication/bin/Release/PluginDependencies/Gavaghan.Geodesy.dll" />
+							<File Id="dep5"  Name="Globalcaching.HtmlEditor.dll" Source="../GlobalcachingApplication/bin/Release/PluginDependencies/Globalcaching.HtmlEditor.dll" />
+							<File Id="dep6"  Name="GlobalcachingApplication.Utils.dll" Source="../GlobalcachingApplication/bin/Release/PluginDependencies/GlobalcachingApplication.Utils.dll" />
+							<File Id="dep7"  Name="InterIMAP.dll" Source="../GlobalcachingApplication/bin/Release/PluginDependencies/InterIMAP.dll" />
+							<File Id="dep8"  Name="System.Data.SQLite.dll" Source="../GlobalcachingApplication/bin/Release/PluginDependencies/System.Data.SQLite.dll" />
+							<File Id="dep9"  Name="CSScriptLibrary.dll" Source="../GlobalcachingApplication/bin/Release/PluginDependencies/CSScriptLibrary.dll" />
+							<File Id="dep10"  Name="EPPlus.dll" Source="../GlobalcachingApplication/bin/Release/PluginDependencies/EPPlus.dll" />
+							<File Id="dep11"  Name="MySql.Data.dll" Source="../GlobalcachingApplication/bin/Release/PluginDependencies/MySql.Data.dll" />
+						</Component>
+						<Directory Id="JQDIR" Name="jquery1.7.2">
+							<Component Id="jquery172" Guid="E91F92A4-4BC3-456B-A641-8533643C46B2"  DiskId="1">
+								<File Id="jq1"  Name="jquery.min.js" Source="../GlobalcachingApplication/bin/Release/PluginDependencies/jquery1.7.2/jquery.min.js" />
+							</Component>
+						</Directory>
+					</Directory>
+					<Directory Id="SCRIPTDIR" Name="Scripts">
+						<Component Id="Scripts" Guid="B32D06BC-2EF0-4127-AA3F-8EA8BC4EF1C5"  DiskId="1">
+							<File Id="scr1"  Name="Readme.txt" Source="../GlobalcachingApplication/bin/Release/Scripts/Readme.txt" />
+							<File Id="scr2"  Name="HelloWorld.cs" Source="../GlobalcachingApplication/bin/Release/Scripts/HelloWorld.cs" />
+							<File Id="scr3"  Name="Get city of active geocache.cs" Source="../GlobalcachingApplication/bin/Release/Scripts/Get city of active geocache.cs" />
+							<File Id="scr4"  Name="Select geocache not updated for a week.cs" Source="../GlobalcachingApplication/bin/Release/Scripts/Select geocache not updated for a week.cs" />
+						</Component>
+					</Directory>
+					<Directory Id="IMAGESDIR" Name="Images">
+						<Directory Id="IMAGESDIRDEFAULT" Name="Default">
+							<Component Id="defmsimg" Guid="216A635D-42BF-4293-945F-9BEAFD57A2D8"  DiskId="1">
+								<File Id="defimg1"  Name="image-missing.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/image-missing.png" />
+								<File Id="defimg2"  Name="images.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/images.gif" />
+							</Component>
+							<Directory Id="IMAGESDIRMAPAT" Name="attributes">
+								<Component Id="defattr" Guid="2D9E4505-2E70-4D6E-BF56-0C6AF28C8FE2"  DiskId="1">
+									<File Id="atr1"  Name="_1.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_1.gif" />
+									<File Id="atr2"  Name="_2.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_2.gif" />
+									<File Id="atr3"  Name="_3.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_3.gif" />
+									<File Id="atr4"  Name="_4.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_4.gif" />
+									<File Id="atr5"  Name="_5.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_5.gif" />
+									<File Id="atr6"  Name="_6.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_6.gif" />
+									<File Id="atr7"  Name="_7.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_7.gif" />
+									<File Id="atr8"  Name="_8.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_8.gif" />
+									<File Id="atr9"  Name="_9.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_9.gif" />
+									<File Id="atr10"  Name="_10.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_10.gif" />
+									<File Id="atr11"  Name="_11.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_11.gif" />
+									<File Id="atr12"  Name="_12.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_12.gif" />
+									<File Id="atr13"  Name="_13.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_13.gif" />
+									<File Id="atr14"  Name="_14.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_14.gif" />
+									<File Id="atr15"  Name="_15.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_15.gif" />
+									<File Id="atr16"  Name="_16.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_16.gif" />
+									<File Id="atr17"  Name="_17.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_17.gif" />
+									<File Id="atr18"  Name="_18.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_18.gif" />
+									<File Id="atr19"  Name="_19.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_19.gif" />
+									<File Id="atr20"  Name="_20.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_20.gif" />
+									<File Id="atr21"  Name="_21.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_21.gif" />
+									<File Id="atr22"  Name="_22.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_22.gif" />
+									<File Id="atr23"  Name="_23.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_23.gif" />
+									<File Id="atr24"  Name="_24.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_24.gif" />
+									<File Id="atr25"  Name="_25.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_25.gif" />
+									<File Id="atr26"  Name="_26.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_26.gif" />
+									<File Id="atr27"  Name="_27.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_27.gif" />
+									<File Id="atr28"  Name="_28.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_28.gif" />
+									<File Id="atr29"  Name="_29.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_29.gif" />
+									<File Id="atr30"  Name="_30.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_30.gif" />
+									<File Id="atr31"  Name="_31.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_31.gif" />
+									<File Id="atr32"  Name="_32.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_32.gif" />
+									<File Id="atr33"  Name="_33.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_33.gif" />
+									<File Id="atr34"  Name="_34.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_34.gif" />
+									<File Id="atr35"  Name="_35.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_35.gif" />
+									<File Id="atr36"  Name="_36.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_36.gif" />
+									<File Id="atr37"  Name="_37.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_37.gif" />
+									<File Id="atr38"  Name="_38.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_38.gif" />
+									<File Id="atr39"  Name="_39.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_39.gif" />
+									<File Id="atr40"  Name="_40.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_40.gif" />
+									<File Id="atr41"  Name="_41.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_41.gif" />
+									<File Id="atr42"  Name="_42.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_42.gif" />
+									<File Id="atr43"  Name="_43.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_43.gif" />
+									<File Id="atr44"  Name="_44.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_44.gif" />
+									<File Id="atr45"  Name="_45.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_45.gif" />
+									<File Id="atr46"  Name="_46.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_46.gif" />
+									<File Id="atr47"  Name="_47.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_47.gif" />
+									<File Id="atr48"  Name="_48.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_48.gif" />
+									<File Id="atr49"  Name="_49.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_49.gif" />
+									<File Id="atr50"  Name="_50.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_50.gif" />
+									<File Id="atr51"  Name="_51.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_51.gif" />
+									<File Id="atr52"  Name="_52.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_52.gif" />
+									<File Id="atr53"  Name="_53.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_53.gif" />
+									<File Id="atr54"  Name="_54.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_54.gif" />
+									<File Id="atr55"  Name="_55.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_55.gif" />
+									<File Id="atr56"  Name="_56.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_56.gif" />
+									<File Id="atr57"  Name="_57.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_57.gif" />
+									<File Id="atr58"  Name="_58.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_58.gif" />
+									<File Id="atr59"  Name="_59.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_59.gif" />
+									<File Id="atr60"  Name="_60.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_60.gif" />
+									<File Id="atr61"  Name="_61.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_61.gif" />
+									<File Id="atr62"  Name="_62.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_62.gif" />
+									<File Id="atr63"  Name="_63.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_63.gif" />
+									<File Id="atr64"  Name="_64.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_64.gif" />
+									<File Id="atr65"  Name="_65.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_65.gif" />
+									<File Id="atr66"  Name="_66.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_66.gif" />
+									<File Id="atr106"  Name="_106.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_106.png" />
+									<File Id="atr108"  Name="_108.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_108.png" />
+									<File Id="atr110"  Name="_110.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_110.png" />
+									<File Id="atr123"  Name="_123.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_123.png" />
+									<File Id="atr125"  Name="_125.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_125.png" />
+									<File Id="atr127"  Name="_127.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_127.png" />
+									<File Id="atr130"  Name="_130.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_130.png" />
+									<File Id="atr131"  Name="_131.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_131.png" />
+									<File Id="atr132"  Name="_132.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_132.png" />
+									<File Id="atr133"  Name="_133.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_133.png" />
+									<File Id="atr134"  Name="_134.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_134.png" />
+									<File Id="atr135"  Name="_135.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_135.png" />
+									<File Id="atr137"  Name="_137.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_137.png" />
+									<File Id="atr139"  Name="_139.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_139.png" />
+									<File Id="atr140"  Name="_140.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_140.png" />
+									<File Id="atr141"  Name="_141.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_141.png" />
+									<File Id="atr142"  Name="_142.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_142.png" />
+									<File Id="atr143"  Name="_143.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_143.png" />
+									<File Id="atr147"  Name="_147.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_147.png" />
+									<File Id="atr150"  Name="_150.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_150.png" />
+									<File Id="atr153"  Name="_153.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_153.png" />
+									<File Id="atr154"  Name="_154.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_154.png" />
+									<File Id="atr156"  Name="_156.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_156.png" />
+									<File Id="atr157"  Name="_157.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_157.png" />
+									<File Id="atr158"  Name="_158.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/_158.png" />
+									<File Id="at1"  Name="1.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/1.gif" />
+									<File Id="at2"  Name="2.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/2.gif" />
+									<File Id="at3"  Name="3.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/3.gif" />
+									<File Id="at4"  Name="4.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/4.gif" />
+									<File Id="at5"  Name="5.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/5.gif" />
+									<File Id="at6"  Name="6.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/6.gif" />
+									<File Id="at7"  Name="7.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/7.gif" />
+									<File Id="at8"  Name="8.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/8.gif" />
+									<File Id="at9"  Name="9.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/9.gif" />
+									<File Id="at10"  Name="10.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/10.gif" />
+									<File Id="at11"  Name="11.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/11.gif" />
+									<File Id="at12"  Name="12.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/12.gif" />
+									<File Id="at13"  Name="13.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/13.gif" />
+									<File Id="at14"  Name="14.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/14.gif" />
+									<File Id="at15"  Name="15.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/15.gif" />
+									<File Id="at16"  Name="16.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/16.gif" />
+									<File Id="at17"  Name="17.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/17.gif" />
+									<File Id="at18"  Name="18.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/18.gif" />
+									<File Id="at19"  Name="19.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/19.gif" />
+									<File Id="at20"  Name="20.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/20.gif" />
+									<File Id="at21"  Name="21.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/21.gif" />
+									<File Id="at22"  Name="22.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/22.gif" />
+									<File Id="at23"  Name="23.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/23.gif" />
+									<File Id="at24"  Name="24.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/24.gif" />
+									<File Id="at25"  Name="25.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/25.gif" />
+									<File Id="at26"  Name="26.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/26.gif" />
+									<File Id="at27"  Name="27.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/27.gif" />
+									<File Id="at28"  Name="28.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/28.gif" />
+									<File Id="at29"  Name="29.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/29.gif" />
+									<File Id="at30"  Name="30.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/30.gif" />
+									<File Id="at31"  Name="31.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/31.gif" />
+									<File Id="at32"  Name="32.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/32.gif" />
+									<File Id="at33"  Name="33.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/33.gif" />
+									<File Id="at34"  Name="34.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/34.gif" />
+									<File Id="at35"  Name="35.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/35.gif" />
+									<File Id="at36"  Name="36.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/36.gif" />
+									<File Id="at37"  Name="37.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/37.gif" />
+									<File Id="at38"  Name="38.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/38.gif" />
+									<File Id="at39"  Name="39.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/39.gif" />
+									<File Id="at40"  Name="40.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/40.gif" />
+									<File Id="at41"  Name="41.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/41.gif" />
+									<File Id="at42"  Name="42.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/42.gif" />
+									<File Id="at43"  Name="43.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/43.gif" />
+									<File Id="at44"  Name="44.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/44.gif" />
+									<File Id="at45"  Name="45.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/45.gif" />
+									<File Id="at46"  Name="46.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/46.gif" />
+									<File Id="at47"  Name="47.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/47.gif" />
+									<File Id="at48"  Name="48.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/48.gif" />
+									<File Id="at49"  Name="49.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/49.gif" />
+									<File Id="at50"  Name="50.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/50.gif" />
+									<File Id="at51"  Name="51.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/51.gif" />
+									<File Id="at52"  Name="52.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/52.gif" />
+									<File Id="at53"  Name="53.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/53.gif" />
+									<File Id="at54"  Name="54.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/54.gif" />
+									<File Id="at55"  Name="55.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/55.gif" />
+									<File Id="at56"  Name="56.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/56.gif" />
+									<File Id="at57"  Name="57.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/57.gif" />
+									<File Id="at58"  Name="58.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/58.gif" />
+									<File Id="at59"  Name="59.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/59.gif" />
+									<File Id="at60"  Name="60.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/60.gif" />
+									<File Id="at61"  Name="61.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/61.gif" />
+									<File Id="at62"  Name="62.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/62.gif" />
+									<File Id="at63"  Name="63.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/63.gif" />
+									<File Id="at64"  Name="64.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/64.gif" />
+									<File Id="at65"  Name="65.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/65.gif" />
+									<File Id="at66"  Name="66.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/66.gif" />
+									<File Id="at106"  Name="106.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/106.png" />
+									<File Id="at108"  Name="108.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/108.png" />
+									<File Id="at110"  Name="110.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/110.png" />
+									<File Id="at123"  Name="123.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/123.png" />
+									<File Id="at125"  Name="125.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/125.png" />
+									<File Id="at127"  Name="127.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/127.png" />
+									<File Id="at130"  Name="130.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/130.png" />
+									<File Id="at131"  Name="131.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/131.png" />
+									<File Id="at132"  Name="132.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/132.png" />
+									<File Id="at133"  Name="133.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/133.png" />
+									<File Id="at134"  Name="134.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/134.png" />
+									<File Id="at135"  Name="135.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/135.png" />
+									<File Id="at137"  Name="137.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/137.png" />
+									<File Id="at139"  Name="139.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/139.png" />
+									<File Id="at140"  Name="140.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/140.png" />
+									<File Id="at141"  Name="141.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/141.png" />
+									<File Id="at142"  Name="142.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/142.png" />
+									<File Id="at143"  Name="143.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/143.png" />
+									<File Id="at147"  Name="147.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/147.png" />
+									<File Id="at150"  Name="150.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/150.png" />
+									<File Id="at153"  Name="153.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/153.png" />
+									<File Id="at154"  Name="154.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/154.png" />
+									<File Id="at156"  Name="156.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/156.png" />
+									<File Id="at157"  Name="157.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/157.png" />
+									<File Id="at158"  Name="158.png" Source="../GlobalcachingApplication/bin/Release/Images/Default/attributes/158.png" />
+								</Component>
+							</Directory>
+							<Directory Id="IMAGESDIRDEFCT" Name="cachetypes">
+								<Component Id="defct" Guid="53FE05F2-790C-4A9C-8AE4-6D6F59986368"  DiskId="1">
+									<File Id="dct1"  Name="11.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/11.gif" />
+									<File Id="dct2"  Name="12.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/12.gif" />
+									<File Id="dct3"  Name="137.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/137.gif" />
+									<File Id="dct4"  Name="2.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/2.gif" />
+									<File Id="dct5"  Name="3.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/3.gif" />
+									<File Id="dct6"  Name="5.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/5.gif" />
+									<File Id="dct7"  Name="6.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/6.gif" />
+									<File Id="dct8"  Name="8.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/8.gif" />
+									<File Id="dct9"  Name="4.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/4.gif" />
+									<File Id="dct10"  Name="9.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/9.gif" />
+									<File Id="dct12"  Name="1304.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/1304.gif" />
+									<File Id="dct13"  Name="15.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/15.gif" />
+									<File Id="dct14"  Name="16.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/16.gif" />
+									<File Id="dct15"  Name="1858.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/1858.gif" />
+									<File Id="dct16"  Name="3653.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/3653.gif" />
+									<File Id="dct17"  Name="3773.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/3773.gif" />
+									<File Id="dct18"  Name="3774.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/3774.gif" />
+									<File Id="dct19"  Name="453.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/453.gif" />
+									<File Id="dct20"  Name="4738.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/4738.gif" />
+									<File Id="dct21"  Name="63542.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/63542.gif" />
+									<File Id="dct22"  Name="95342.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/95342.gif" />
+									<File Id="dct23"  Name="95343.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/95343.gif" />
+									<File Id="dct24"  Name="95344.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/95344.gif" />
+									<File Id="dct25"  Name="95345.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/95345.gif" />
+									<File Id="dct26"  Name="95346.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/95346.gif" />
+									<File Id="dct27"  Name="95347.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/95347.gif" />
+									<File Id="dct28"  Name="95348.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/95348.gif" />
+									<File Id="dct29"  Name="13.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/13.gif" />
+								</Component>
+							</Directory>						
+							<Directory Id="IMAGESDIRDEFCP" Name="compass">
+								<Component Id="defcp" Guid="48266AD2-CB1E-4253-B484-4570F4712741"  DiskId="1">
+									<File Id="dcp1"  Name="E.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/compass/E.gif" />
+									<File Id="dcp2"  Name="NE.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/compass/NE.gif" />
+									<File Id="dcp3"  Name="N.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/compass/N.gif" />
+									<File Id="dcp4"  Name="NW.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/compass/NW.gif" />
+									<File Id="dcp5"  Name="W.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/compass/W.gif" />
+									<File Id="dcp6"  Name="S.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/compass/S.gif" />
+									<File Id="dcp7"  Name="SE.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/compass/SE.gif" />
+									<File Id="dcp8"  Name="SW.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/compass/SW.gif" />
+								</Component>
+							</Directory>						
+							<Directory Id="IMAGESDIRDEFCONT" Name="container">
+								<Component Id="defcont" Guid="D7BCC070-7401-408C-940B-35A63A0E06D4"  DiskId="1">
+									<File Id="dco1"  Name="large.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/container/large.gif" />
+									<File Id="dco2"  Name="micro.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/container/micro.gif" />
+									<File Id="dco3"  Name="not_chosen.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/container/not_chosen.gif" />
+									<File Id="dco4"  Name="other.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/container/other.gif" />
+									<File Id="dco5"  Name="regular.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/container/regular.gif" />
+									<File Id="dco6"  Name="small.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/container/small.gif" />
+									<File Id="dco7"  Name="virtual.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/container/virtual.gif" />
+								</Component>
+							</Directory>						
+							<Directory Id="IMAGESDIRDEFLT" Name="logtypes">
+								<Component Id="deflt" Guid="637CF04C-3CF5-4B65-8AB3-9C3A2C37458C"  DiskId="1">
+									<File Id="dlt1"  Name="1.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/logtypes/1.gif" />
+									<File Id="dlt2"  Name="12.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/logtypes/12.gif" />
+									<File Id="dlt3"  Name="10.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/logtypes/10.gif" />
+									<File Id="dlt4"  Name="2.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/logtypes/2.gif" />
+									<File Id="dlt5"  Name="3.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/logtypes/3.gif" />
+									<File Id="dlt6"  Name="5.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/logtypes/5.gif" />
+									<File Id="dlt7"  Name="6.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/logtypes/6.gif" />
+									<File Id="dlt8"  Name="22.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/logtypes/22.gif" />
+									<File Id="dlt9"  Name="4.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/logtypes/4.gif" />
+									<File Id="dlt10"  Name="9.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/logtypes/9.gif" />
+									<File Id="dlt12"  Name="7.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/logtypes/7.gif" />
+									<File Id="dlt13"  Name="15.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/logtypes/15.gif" />
+									<File Id="dlt14"  Name="16.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/logtypes/16.gif" />
+									<File Id="dlt15"  Name="11.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/logtypes/11.gif" />
+									<File Id="dlt16"  Name="13.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/logtypes/13.gif" />
+									<File Id="dlt17"  Name="14.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/logtypes/14.gif" />
+									<File Id="dlt18"  Name="23.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/logtypes/23.gif" />
+									<File Id="dlt19"  Name="18.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/logtypes/18.gif" />
+									<File Id="dlt20"  Name="19.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/logtypes/19.gif" />
+									<File Id="dlt21"  Name="24.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/logtypes/24.gif" />
+									<File Id="dlt22"  Name="25.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/logtypes/25.gif" />
+									<File Id="dlt23"  Name="45.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/logtypes/45.gif" />
+									<File Id="dlt24"  Name="46.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/logtypes/46.gif" />
+									<File Id="dlt25"  Name="47.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/logtypes/47.gif" />
+									<File Id="dlt26"  Name="48.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/logtypes/48.gif" />
+									<File Id="dlt27"  Name="68.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/logtypes/68.gif" />
+									<File Id="dlt28"  Name="69.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/logtypes/69.gif" />
+									<File Id="dlt29"  Name="70.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/logtypes/70.gif" />
+									<File Id="dlt30"  Name="74.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/logtypes/74.gif" />
+									<File Id="dlt31"  Name="75.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/logtypes/75.gif" />
+								</Component>
+							</Directory>						
+							<Directory Id="IMAGESDIRDEFWPT" Name="wptypes">
+								<Component Id="defwpt" Guid="F5D06B6C-A9F6-4C45-85DC-F2034551A275"  DiskId="1">
+									<File Id="wdco1"  Name="217.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/wptypes/217.gif" />
+									<File Id="wdco2"  Name="218.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/wptypes/218.gif" />
+									<File Id="wdco3"  Name="219.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/wptypes/219.gif" />
+									<File Id="wdco4"  Name="220.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/wptypes/220.gif" />
+									<File Id="wdco5"  Name="221.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/wptypes/221.gif" />
+									<File Id="wdco6"  Name="452.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/wptypes/452.gif" />
+								</Component>
+							</Directory>						
+						</Directory>
+						<Directory Id="IMAGESDIRLARGE" Name="Large">
+							<Component Id="larmsimg" Guid="63AA0AA4-1550-4E42-A759-77946642CC02"  DiskId="1">
+								<File Id="larimg1"  Name="image-missing.png" Source="../GlobalcachingApplication/bin/Release/Images/Large/image-missing.png" />
+							</Component>
+						</Directory>
+						<Directory Id="IMAGESDIRMAP" Name="Map">
+							<Component Id="mapmsimg" Guid="01360A42-70B6-4579-AFFF-C5996C699DC3"  DiskId="1">
+								<File Id="mapimg1"  Name="image-missing.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/image-missing.png" />
+								<File Id="mapimg2"  Name="curpos.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/curpos.png" />
+							</Component>
+							<Directory Id="IMAGESDIRMAPCT" Name="cachetypes">
+								<Component Id="mapct" Guid="DE913FC4-AEF4-4487-9B97-26B9433783C9"  DiskId="1">
+									<File Id="mct1"  Name="11.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/11.png" />
+									<File Id="mct2"  Name="12.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/12.png" />
+									<File Id="mct3"  Name="137.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/137.png" />
+									<File Id="mct4"  Name="2.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/2.png" />
+									<File Id="mct5"  Name="3.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/3.png" />
+									<File Id="mct6"  Name="5.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/5.png" />
+									<File Id="mct7"  Name="6.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/6.png" />
+									<File Id="mct8"  Name="8.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/8.png" />
+									<File Id="mct9"  Name="gevonden.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/gevonden.png" />
+									<File Id="mct10"  Name="mrk_flag.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/mrk_flag.png" />
+									<File Id="mct11"  Name="mrk_hitchh.png.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/mrk_hitchh.png" />
+									<File Id="mct12"  Name="mrk_myown.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/mrk_myown.png" />
+									<File Id="mct13"  Name="mrk_other.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/mrk_other.png" />
+									<File Id="mct14"  Name="mrk_pkg.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/mrk_pkg.png" />
+									<File Id="mct15"  Name="mrk_puzzle.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/mrk_puzzle.png" />
+									<File Id="mct16"  Name="mrk_stage.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/mrk_stage.png" />
+									<File Id="mct17"  Name="mrk_trailhead.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/mrk_trailhead.png" />
+									<File Id="mct18"  Name="mrk_virtual.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/mrk_virtual.png" />
+									<File Id="mct19"  Name="mrk_waypoint.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/mrk_waypoint.png" />
+									<File Id="mct20"  Name="63542.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/63542.png" />
+									<File Id="mctc1"  Name="c11.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/c11.png" />
+									<File Id="mctc2"  Name="c12.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/c12.png" />
+									<File Id="mctc3"  Name="c137.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/c137.png" />
+									<File Id="mctc4"  Name="c2.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/c2.png" />
+									<File Id="mctc5"  Name="c3.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/c3.png" />
+									<File Id="mctc6"  Name="c5.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/c5.png" />
+									<File Id="mctc7"  Name="c6.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/c6.png" />
+									<File Id="mctc8"  Name="c8.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/c8.png" />
+									<File Id="mctc20"  Name="c63542.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/c63542.png" />
+									<File Id="mct21"  Name="95342.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/95342.png" />
+									<File Id="mct22"  Name="95343.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/95343.png" />
+									<File Id="mct23"  Name="95344.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/95344.png" />
+									<File Id="mct24"  Name="95345.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/95345.png" />
+									<File Id="mct25"  Name="95346.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/95346.png" />
+									<File Id="mct26"  Name="95347.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/95347.png" />
+									<File Id="mct27"  Name="95348.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/95348.png" />
+									<File Id="mctc21"  Name="c95342.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/c95342.png" />
+									<File Id="mctc22"  Name="c95343.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/c95343.png" />
+									<File Id="mctc23"  Name="c95344.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/c95344.png" />
+									<File Id="mctc24"  Name="c95345.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/c95345.png" />
+									<File Id="mctc25"  Name="c95346.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/c95346.png" />
+									<File Id="mctc26"  Name="c95347.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/c95347.png" />
+									<File Id="mctc27"  Name="c95348.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/c95348.png" />
+								</Component>
+							</Directory>
+						</Directory>
+						<Directory Id="IMAGESDIRMED" Name="Medium">
+							<Component Id="medmsimg" Guid="E7252A81-A56C-41F7-8338-C419215A3777"  DiskId="1">
+								<File Id="medimg1"  Name="image-missing.png" Source="../GlobalcachingApplication/bin/Release/Images/Medium/image-missing.png" />
+							</Component>
+						</Directory>
+						<Directory Id="IMAGESDIRSMAL" Name="Small">
+							<Component Id="smlmsimg" Guid="46EF1ABB-BF9C-4062-B9D0-D1BA9A5535C3"  DiskId="1">
+								<File Id="smlimg1"  Name="image-missing.png" Source="../GlobalcachingApplication/bin/Release/Images/Small/image-missing.png" />
+							</Component>
+						</Directory>
+					</Directory>
+
+				</Directory>
+			</Directory>
+			<Directory Id="ProgramMenuFolder" Name="MFiles">
+				<Directory Id="MENUDIR" Name="Globalcaching Application">
+					<Component Id="ApplicationShortcut" Guid="B0E7C77B-4335-40B6-9ABF-542BCC7167DC" DiskId="1">
+		                <Shortcut Id="ApplicationStartMenuShortcut" 
+		                     Name="Globalcaching Application" 
+		                   Description="Globalcaching Application"
+		                    Target="[INSTALLDIR]GlobalcachingApplication.exe"
+		                          WorkingDirectory="INSTALLDIR"/>
+		                <Shortcut Id="RestoreDefaultStartMenuShortcut" 
+		                     Name="Restore default settings" 
+		                   Description="Restore default settings"
+		                    Target="[INSTALLDIR]RestoreDefaultSettings.exe"
+		                          WorkingDirectory="INSTALLDIR"/>
+		                <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+		                <RegistryValue Root="HKCU" Key="Software\Microsoft\GlobalcachingApplication" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+					</Component>
+				</Directory>
+			</Directory>
+		</DirectoryRef>
+
+	</Fragment>
+</Wix>

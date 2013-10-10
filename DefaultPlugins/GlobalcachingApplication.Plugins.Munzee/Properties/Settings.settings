@@ -1,0 +1,33 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="GlobalcachingApplication.Plugins.Munzee.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="UpgradeNeeded" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="AccountName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="GPXTagMunzee" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Traditional Cache</Value>
+    </Setting>
+    <Setting Name="GPXTagVirtual" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Traditional Cache</Value>
+    </Setting>
+    <Setting Name="GPXTagBusiness" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Traditional Cache</Value>
+    </Setting>
+    <Setting Name="GPXTagMystery" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Traditional Cache</Value>
+    </Setting>
+    <Setting Name="GPXTagNFC" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Traditional Cache</Value>
+    </Setting>
+    <Setting Name="GPXTagMaintenance" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Traditional Cache</Value>
+    </Setting>
+    <Setting Name="GPXTagPremium" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Traditional Cache</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -1,0 +1,88 @@
+﻿        string strLogLengthChar = "Log length (characters)";
+        string strLogLengthWords = "Log length (words)";
+        string strInterval = "Between";
+        string strCount = "Count";
+        string strPercentage = "Percentage";
+
+        RegisterText(new string[]{
+		strLogLengthChar,
+        strInterval,
+        strCount,
+        strPercentage,
+        strLogLengthWords
+		});
+
+        Layout skin = new Layout(2);
+        Layout.Statistics stats = new Layout.Statistics(Translate(strLogLengthChar, false));
+        skin.StatisticsBlocks[0] = stats;
+
+        Layout.Statistics.Row row = new Layout.Statistics.Row();
+        stats.Rows.Add(row);
+
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = Translate(strInterval, false);
+        row.Items[row.Items.Count - 1].IsMarker = true;
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = Translate(strCount, false);
+        row.Items[row.Items.Count - 1].IsMarker = true;
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = Translate(strPercentage, false);
+        row.Items[row.Items.Count - 1].IsMarker = true;
+
+        int[] lengths = (from mf in _myFinds where mf.lg != null select mf.lg.Text.Replace(" ", "").Replace("\r", "").Replace("\n", "").Length).ToArray();
+        int lmax = lengths.Max();
+        for (int i = 0; i < 10; i++)
+        {
+            int minV = (int)((double)lmax * (double)i / 10.0);
+            int maxV = (int)((double)lmax * ((double)i + 1.0) / 10.0);
+            int cnt = (from l in lengths where l > minV && l <= maxV select l).Count();
+
+            row = new Layout.Statistics.Row();
+            stats.Rows.Add(row);
+
+            row.Items.Add(new Layout.Statistics.Item());
+            row.Items[row.Items.Count - 1].Text = string.Format("{0} - {1}", minV, maxV);
+            row.Items[row.Items.Count - 1].IsMarker = true;
+            row.Items.Add(new Layout.Statistics.Item());
+            row.Items[row.Items.Count - 1].Text = cnt.ToString();
+            row.Items.Add(new Layout.Statistics.Item());
+            row.Items[row.Items.Count - 1].Text = string.Format("{0:0.0} %", 100.0 * (double)cnt / (double)_myFinds.Count);
+        }
+
+        //words
+        stats = new Layout.Statistics(Translate(strLogLengthWords, false));
+        skin.StatisticsBlocks[1] = stats;
+
+        row = new Layout.Statistics.Row();
+        stats.Rows.Add(row);
+
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = Translate(strInterval, false);
+        row.Items[row.Items.Count - 1].IsMarker = true;
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = Translate(strCount, false);
+        row.Items[row.Items.Count - 1].IsMarker = true;
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = Translate(strPercentage, false);
+        row.Items[row.Items.Count - 1].IsMarker = true;
+
+        lengths = (from mf in _myFinds where mf.lg != null select mf.lg.Text.Split(new char[] { ' ', '\t', '\r', '\n', '.' }, StringSplitOptions.RemoveEmptyEntries).Length).ToArray();
+        lmax = lengths.Max();
+        for (int i = 0; i < 10; i++)
+        {
+            int minV = (int)((double)lmax * (double)i / 10.0);
+            int maxV = (int)((double)lmax * ((double)i + 1.0) / 10.0);
+            int cnt = (from l in lengths where l > minV && l <= maxV select l).Count();
+
+            row = new Layout.Statistics.Row();
+            stats.Rows.Add(row);
+
+            row.Items.Add(new Layout.Statistics.Item());
+            row.Items[row.Items.Count - 1].Text = string.Format("{0} - {1}", minV, maxV);
+            row.Items[row.Items.Count - 1].IsMarker = true;
+            row.Items.Add(new Layout.Statistics.Item());
+            row.Items[row.Items.Count - 1].Text = cnt.ToString();
+            row.Items.Add(new Layout.Statistics.Item());
+            row.Items[row.Items.Count - 1].Text = string.Format("{0:0.0} %", 100.0 * (double)cnt / (double)_myFinds.Count);
+        }
+        return skin.ToString();

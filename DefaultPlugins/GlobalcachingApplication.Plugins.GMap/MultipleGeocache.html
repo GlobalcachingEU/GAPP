@@ -1,0 +1,22 @@
+﻿<html>
+	<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+    <title></title>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer_compiled.js"></script>
+    <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/keydragzoom/src/keydragzoom_packed.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+    <script type="text/javascript">
+    <!-- %MultipleGeocache.js% -->
+    </script>
+
+	</head>
+    <body>
+       <div id="title">SloadingS...</div>
+       <div id="map" style="border: 2px solid black;"></div>
+      SLocationS:
+      <input name="addr" type="text" id="addr" onkeypress="javascript:if (event.keyCode == 13) { showAddress(this.value); return false; }" />
+      <input name="submit" type="button" id="submit" value="SGoS" onclick="javascript: showAddress(document.getElementById('addr').value); return false;" />
+    </body>
+
+</html>

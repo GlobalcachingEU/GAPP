@@ -1,0 +1,944 @@
+todo:
+
+- cgeo export
+- add markers between records in storage data, so recovery might result in less data loss
+- processdialog, minimize or show on taskbar. Going to desktop fails now
+- add option in action builder to popup dialog for field values (fill in at runtime)
+- add log templates
+- add support for GCComments https://userscripts.org/scripts/show/75959
+
+V1.9.2.0
+
+- fix: Query editor, operator now restored correctly after restarting GAPP
+- fix: Warning dialog text when delete and ignore the active geocache
+- fix: Search geocaches within a region fix for search within selection
+- fix: Search geocaches within region for the first region in the list
+
+V1.9.1.0
+
+- fix: Export to Garmin and GPX for name prefix if geocache has extra/corrected coordinates
+- add: Live API plugin to import the geocache images (image data only)
+- fix: GSAK import, now able to handle attributes where the Inc property has not been set
+- fix: GSAK import, now also reads the Corrected table for additional corrected coordinates
+- change: Trackable group, added the extra delay setting too for importing the trackable logs
+- add: Live API, import logs of geocaches (with setting to import maximum number of logs per geocache)
+- change: French language updated (thanks icaunais and RHCV)
+- fix: Live API, log geocache with geocache_visits.txt now imports also the geocache with prefix correctly
+- change: Live API, import logs of other users now supports filtering on log types
+
+V1.9.0.0
+
+- change: French language updated (thanks icaunais and RHCV)
+- fix: Copy to existing database contained an error when loading the target database file
+- add: Framework, added Geocache Images collection to the framework
+- add: Live API, Geocache images are now imported too (including the ones not in the listing)
+- change: Main Window, status bar now also contains number of geocache images (imported through Live API)
+- add: Data storage, added geocache images (default GAPP Data Storage only)
+- change: Image grabber for offline images now also downloads the images that are listed in Geocache images data (not only in description)
+- change: Geocache viewer, Added Geocache images at the end of the geocache description by name
+- add: added to grab images plugin option to create a photo folder for offline usage (structure for Garmin devices offline picture viewing)
+- add: Export to Garmin device (mass storage) now also has the option to add images
+
+V1.8.12.0
+
+- fix: Live API geocaches import/update using now the correct published date (instead of creation date)
+- change: Live API, import geocaches/update also available for non PM (lite import only)
+- change: Live API, import notes also available for non PM
+- change: Live API, trackable groups also available for non PM
+- change: Live API, import My Finds also available for non PM
+- add: RestoreDefaultSettings application added to clear all settings and data.
+- change: If application fails to start, the user has the option to restore the default settings
+
+V1.8.11.0
+
+- change: French language updated (thanks RHCV)
+
+V1.8.10.0
+
+- fix: UserWaypoints on geocaching.com (corrected waypoints) are now copied to extra coordinate in GAPP
+
+V1.8.9.0
+
+- change: French language updated (thanks icaunais and RHCV)
+- change: German language updated (thanks SKAMS)
+- fix: Geocache collection toolbar button on main window
+- add: Locus - addon GSAK database export plugin added
+- change: Settings screen, increased default width of treeview
+- fix: Google map, changing coupling to main screen now reloads the map.
+- add: Export to GPX now includes an option to add a prefix to the name if extra coords are available (corrected)
+- add: Export to Garmin now includes an option to add a prefix to the name if extra coords are available (corrected)
+
+V1.8.8.0
+
+- add: Windows can now be set to always on top (will decouple from main window). This can be set from system menu.
+- add: Option to set the transparency of windows that stay on top, but are not active
+- fix: Geocoding changed from Google API V2 to Google API V3
+- add: Main screen added toolbar buttons for GCVote and Geocache collections
+- change: French language updated (thanks icaunais)
+
+V1.8.7.0
+
+- fix: Geocache collection fix for creating collections that contain upper case letters
+- change: Geocache collection now highlights active geocache and if code is selected, the geocache is made the active geocache
+
+V1.8.6.0
+
+- fix: OCM GPX files are now read even if Log IDs are not valid IDs. Logs with invalid IDs are now skipped.
+- fix: Live API, Import my finds logs are now added to all found geocaches
+- add: Search geocaches, added filter for owned geocaches
+- add: GCVote dashboard (screen menu)
+- add: Export to Excel, added GCVote
+- change: French language updated (thanks RHCV)
+- add: Geocache collection plugin added (these are bookmarks that are not related to geocaching.com bookmarks)
+- add: Action Builder, added In collection filter
+
+V1.8.5.0
+
+- change: Action Builder, Waypoint counter now has extra option to count the geocache itself also as waypoint
+- add: Action builder, the geocaches can now be sorted before going through the flow
+- add: Backup and restore database option
+- change: default setting for showing or hiding top panel of Cache list and Google map is changed to manual
+- add: GCVote plugin added. Import votes and added filters for the Action Builder
+
+V1.8.4.0
+
+- change: Log geocache form changed position of controls so all will be visible, also on small displays
+- add: Repair database files option in case loading fails
+- change: stack notification messages vertical
+- fix: Live API, import geocaches now assignes extra coordinates if User Waypoint is present with corrected flag
+- fix: Action builder, days agao published now ignoring time (only full days)
+- add: Action builder, add condition Waypoints counter
+- fix: GPX import, Cito events are now marked as Cito events
+- add: Cache list, added Waypoints column indicating number of child waypoints
+- change: Cache list, automatic expand and collaps top panel
+- change: Google maps, automatic expand and collaps top panel
+
+V1.8.3.0
+
+- fix: iGeoKnife export now fills the corrected table also (for corrected coordinates)
+- change: Garmin export using communicator now uses geocaching.com url to javascripts
+- fix: corrected log date for logging trackables
+- change: if after importing geocaches geocaches are ignored, a dialog will be displayed to inform the user
+
+V1.8.2.0
+
+- fix: export to GPX or Garmin, fix for cutting off geocaching name length
+- fix: Google Map, re-opening window after closing will now reload the map
+- change: Google Map, an info window will now be shown when the active geocache is changed (selected or all only)
+
+V1.8.1.0
+
+- fix: Action builder, dates are restored correctly (not reverting to current date)
+- add: Export to iGeoKnife added
+- fix: Google Earth map now places the geocaches on the corrected coords if available
+- add: Export to Garmin using Mass storage now also has the option to limit the length of the cache name
+
+V1.8.0.0
+
+- add: OSM map integrated in Google Maps. You van now switch between both maps types.
+- add: Offline map integrated in Google Maps. You van now switch between both maps types.
+- change: Google Map, optimize loading speed for selected or all geocaches (IE 8 or higher)
+
+
+V1.7.13.0
+
+- change: Live API, import geocaches now shows an error message if Live API call fails.
+- change: Live API, import geocaches from bookmarks now shows an error message if Live API call fails.
+- change: Live API, import Favorites now shows an error message if Live API call fails.
+- change: German language updated (thanks SKAMS)
+- add: Action Builder, counters are displayed at each connector and input to show the geocache counter passed that point
+- change: Main window, Google translate geocache description is now opened in internal browser if this option is set in the Geocache Viewer
+- change: Live API, update geocaches decreased batch size to 30
+- add: Live API, update geocaches now has an option (setting) to automatically unselect the geocaches that are updated
+
+V1.7.12.0
+
+- add: Main window, added google translate option in the toolbar with option of 4 languages
+- fix: Ignore geocache filter, bug in filter by geocache owner
+- fix: Action builder now uses date part only for date comparison (e.g. Published date)
+- add: Action to Clear Flagged. This will clear the Flagged markers of all or selected geocaches
+
+V1.7.11.0
+
+- Live API, geocache batch logging now adds delay to prevent speed limit errors
+- change: Action to delete and ignore geocaches does have a progress bar now
+- fix: Live API, batch log geocaches when opening trackable panel, the panel has the correct size now
+- change: French language updated (thanks RHCV)
+
+V1.7.10.0
+
+- fix: OSM maps now places all geocaches om extra coordinates if available
+- change: Live API Import geocache, dialog window now adds scrollbar if window is too small (low resolution screens)
+- fix: LiveAPI, log geocache/trackable does not check on PM anymore due to the fact that Basic members can also log through Live API
+- fix: Automatic select new geocaches now does not select all geocaches when you open an existing file
+- fix: Live API, log date correction
+
+V1.7.9.0
+
+- add: Cache list, added presets. Easy to create presets and switch to other preset
+- fix: Google map, also found geocaches now are placed on extra (corrected) coords if available
+- add: Export to Excel now has two extra fields. Extra coordinate (presentation) and Auto coords (Custom if available else original coords)
+- fix: Live API, import my finds
+
+V1.7.8.0
+
+- change: Main window, menu items are disabled when not applicable or cannot be performed at that moment
+- add: Log viewer, added option to remove selected logs
+- add: Package manager, added option to download files (but not install)
+- add: Cache list, added hints column
+
+V1.7.7.0
+
+- change: German language updated (thanks SKAMS)
+- change: Added X-UA-Compatible tag to the Google Earth html
+- add: Log images thumbnail overview with filter options
+
+V1.7.6.0
+
+- fix: Garmin Export using GGZ, now creates the ggz folder on the device if it does not exists
+- fix: GGZ export now uses corrected coordinates in index file if corrected coordinates are present
+- add: log photo's can be downloaded for offline use (available within settings)
+
+V1.7.5.0
+
+- add: Google Earth map added
+- add: Quick selection to select geocaches with log images
+- fix: Live API, log images are now importered too
+- add: Action builder, added condition # Logs
+- add: Action builder, added condition # Log images
+- fix: Batch logging using c:geo txt or garmin geocache_vistis.txt file, now not adds other selected geocaches
+- add: Log image viewer
+
+V1.7.4.0
+
+- change: removed option to disable plugins
+- fix: Automatic startup now executes after all plugins handled ApplicationInitialized
+- fix: Automatic startup now executes plugins in selected order
+- fix: Automatic startup, when opening settings the order is maintained
+- change: when updating the GAPP from within GAPP, GAPP is killed instead of closed.
+- change: Export to Garmin now has the option to select the GPX version
+- change: Chat, automatic retry on connection failures (max 3 times)
+- change: Action lists does not show the seperator - anymore
+
+V1.7.3.0
+
+- add: Import GGZ files
+- add: Export to GGZ
+- add: Export to GPX, added option to add personal notes to description
+- add: Export to Garmin GPSr (Mass Storage), added option to create GGZ file
+- add: Export to Garmin GPSr (Mass Storage), added option to add personal notes to description
+- change: GPX creattion now adds extra empty line between personal notes and description
+- add: Export to GPX, make waypoint file optional (settings)
+- add: Export Garmin POI, added option to export only the active geocache
+- fix: Deleting geocaches warning now uses the correct warning text
+
+V1.7.2.0
+
+- change: French language updated (thanks RHCV)
+- add: option to copy geocaches to another database
+- add: option to add geocaches from another database
+
+V1.7.1.0
+
+- add: cache list, added row numbers
+- add: cache list, added column geocache type in text so it will be sortable on cache type
+- add: cache list, added Delete to context menu
+- change: cache list, pressing Delete key wil delete the active geocache
+- add: Export to Garmin using mass storage, option to use the database name as gpx file name
+- add: cache list, added tooltips for Selected, Flagged and Type column
+
+V1.7.0.0
+
+- add: Cache list, added a setting to disable automatic sorting to improve performance (available through settings dialog)
+
+V1.6.14.0
+
+- fix: Open areas, removing custom waypoints now actually removes it.
+- fix: Open areas, displaying only Mystery geocaches with corrected coordinates
+- fix: Open areas, some waypoints caused map not to be shown
+- add: Google maps, added setting to show also the name of the geocache in the tool tip
+- add: Main window, added tool bar icon for Open areas
+
+V1.6.13.0
+
+- fix: Geocache viewer, use local images if available setting now saved and restored
+- fix: Geocache viewer, suppressed script errors
+- fix: Google maps, suppressed script errors
+- change: improved performance of deleting geocaches and logs
+- change: GAPP Data Storage, improved performance for search for empty space
+- fix: cache list, selecting geocaches does not refresh the complete list anymore and is now faster
+- add: Geocache log (single), added event log types
+- change: Internal browser, create pq series now has the option to automatically activate the PQ
+- fix: Log geocache (single) made panel automatic scrollable for very small screens
+- add: Open areas map
+
+V1.6.12.0
+
+- add: Main window, added toolbar for the Action sequence
+- removed: Removed the coordinate backup plugin due to the fact that the Live API now provides coordinates for archived geocaches too
+- fix: Geocache viewer, prevent trying to update viewer at startup while not visible
+- changed: Scripts plugin, removed the option to select another folder
+- change: German language updated (thanks SKAMS)
+- add: Added option to create seperate settings folders to create profiles
+- add: added command line option /f that forces the selection settings folder at startup. With this you can create a new settings folder for factory settings.
+- fix: simple cache list now displays custom attributes correctly
+- change: French language updated (thanks RHCV)
+
+V1.6.11.0
+
+- add: Excel export, added Hints field
+- add: Export to Garmin, added option to set the Hints in the desc field of the GPX (will show as note on older GPSr)
+- add: Export to GPX, added option to set the Hints in the desc field of the GPX (will show as note on older GPSr)
+- fix: Geocache type icon for CITO event was missing. Added the icon to the setup package
+- change: Loading plugins in a fixed order
+- add: New plugin that enables the user to set properties of selected or all geocaches at once
+
+V1.6.10.0
+
+- change: French language updated (thanks RHCV)
+- add: Geocache viewer now has option to show the additional wayponts
+- add: export to GPX, setting to add additional waypoints to description
+- add: export to Garmin, option to add additional waypoints to description
+- add: Main window, added Recent databases to File menu for quick access of previous used databases
+- add: Settings dialog, added a button to clear the Live API authorization
+- fix: Munzee import now does not assign a city name
+- add: Multiple account support for easy switching between accounts
+- change: Internal browser, saving pocket query settings will not overwrite setting with same name instead of creating a new one
+
+V1.6.9.0
+
+- fix: typo in cache list
+- add: LiveAPI, log geocache, now has option to import c:geo visits file to log geocaches
+- fix: Updating the application now checks if Windows version is Vista or higher. If not, the installer will not start with runas
+- add: Main window toolbar, added log trackable icon
+- fix: cache list, also refreshed when logs are added (fix for not showing found date at startup)
+
+V1.6.8.0
+
+- fix: updating the application by the application itself caused an error message.
+- add: Action Builder, added drag and drop possibility for the conditions and actions
+- change: Action Builder, ordered the condition buttons in alfabetical order
+- fix: Main window, fix in removing an action (resulted in duplicating script actions when refreshing)
+- fix: when field notes are imported, existing fieldnotes within database is cleared first (not leaving old geocaching.com notes)
+- add: when field notes are imported, missing geocaches can be optionally imported
+- add: Export to KML plugin (Google Earth)
+- add: cache list now contains 2 additional columns, Personal (geocaching.com) note and Date of data
+
+V1.6.7.0
+
+- change: internal web browser script for creating pqs, increased the maximum number of retries
+- change: LiveAPI, logging geocache_visits.txt, now accepts custom selection and optionally batch logging of selection
+- change: LiveAPI, logging geocache_visits.txt, geocaches are automatically imported of not available in database
+- change: Search geocaches along a route now also has an option to create a route by bycicle
+- add: added Action sequence. This allows you to create lists of actions that should be executed after each other (automation)
+- add: quick select, select geocaches with a geocaching.com note only
+- add: Action Builder, select geocaches with a geocaching.com note only
+
+V1.6.6.0
+
+- change: Live API, refresh or update status now displays a message in case of an error
+- change: Garmin POI export now also supports Munzees
+- change: Scripts, added reference to more assemblies so Live API calls can be used.
+
+V1.6.5.0
+
+- add: added munzee support (geocache types and import through munzee.dfx.at)
+- change: German language updated (thanks SKAMS)
+- add: Action Builder, added Not saved filter
+- fix: Main window, corrected link to instruction videos
+- add: Main window, if selected language is Dutch, then an extra menu item is shown with link to Dutch help
+- change: Action Builder, performance improvements of filter number of waypoints
+
+
+V1.6.4.0
+
+- change: Live API import, when State is None it will be made empty
+- change: Added option to auto save at close
+- add: internal browser, pocket query delete all _gcpqgen_
+- change: Live API update or refresh geocaches can now be cancled
+- add: option to automatically select new geocaches (settings)
+- change: performance improvents on Action Builder
+- change: (huge) performance improvements on loading the geocaches at startup
+- change: improved performance on import geocaches (eg GAPP Data Exchange file)
+- change: French language updated (thanks RHCV)
+- add: added a quick select filter that selects geocaches that are changed after last save
+
+V1.6.3.0
+
+- fix: performance fix on fetching geocache descriptions and log teksts
+- change: on new file or save as, the files are deleten before they are written
+- fix: saving file after deleting geocaches now frees up all slots
+- fix: the name of the new or saved as file will now also be shown in the main screen
+
+V1.6.2.0
+
+- fix: Internal browser, pocket query settings now saves and restores extra options and container types correctly
+
+V1.6.1.0
+
+- add: Main window, split screen toolbar icon
+- change: cache list, improved performance on sorting on Found date
+- add: purge logs with more filter settings
+
+V1.6.0.0
+
+- add: added Geocache Ignore fuctionality to the framework (interface, plugin type and support in Utils)
+- change: before geocaches are added (by importing geocaches eg Pocket Queries), the geocache ignore filter is checked.
+- change: Import geocaches in bookmark now checks geocache ignore filter before importing geocaches
+- add: Geocache ignore filter editor and action to delete and ignore active or selected geocaches.
+- change: when opening a new database or creating a new one, the user will be warned and given the option to save the current database
+- add: added Exit menu item to the File menu of the main screen
+- add: native GAPP data storage plugin added
+- add: maximum number of logs setting on the geocache viewer
+- change: smaller steps for the progress bar when purging logs
+- fix: importing GAPP data exchange file now updates the distance and angle of imported geocache
+- change: speed up getting logs of a geocache by pre-grouping them at loading
+- fix: loading presets for LiveAPI import geocaches is working again
+
+V1.5.10.0
+
+- change: OSM map, clustering disabled above certain zoom level (also performance improvement)
+- change: Internal Web browser script for selecting pocket query settings now saves the list automatically after deleting a setting
+- change: French language updated (thanks RHCV)
+- fix: Internal Web browser script for creating pq series fix that caused an error sometimes and added an automatic retry mechanism
+
+V1.5.9.0
+
+- change: German language updated (thanks SKAMS)
+- add: Google Map, added scale indication
+- add: Google Map, settings to control the cluster marker (available in settings)
+- fix: Internal Web browser script for creating pocket querie series resulted in an error sometimes.
+
+V1.5.8.0
+
+- fix: Dutch translation fix
+- change: Chat window positions are restored to last position
+- add: Action builder contains new condition, Name contains to filter on name of the geocache
+- fix: Garmin export using Garmin Communicator all text are now translatable
+- add: GPX export, added settings to use name instead of code and renaming option
+- add: option to upload and download (share) Action Builder flows
+- add: Log a geocache has now an option to add the geocache to your favorites (geocaching.com favorites)
+- add: Favorites plugin added to import and select your geocaching.com Favorites and to add or remove Favorites.
+- add: Action Builder, added condition Your Favorite to filter on geocaches you have given a Favorite point
+- change: Action Builder, the start action now contains the name of the flow
+- change: GDAK export now exports offline images to folder GrabbedImages without the dot prefix
+
+V1.5.7.0
+
+- add: option to assign shortcut keys to Action Builder flows.
+- add: Added option to create a new geocache within the geocache editor form.
+- add: added change history menu item to the main window
+- fix: cache list window, expanding the top panel after collapsing now restores to correct height
+- change: purge logs now being done in background with progress bar and option to cancel
+- fix: cache list, the selection was not always updated
+- fix: windows presets settings, when removing a preset, the preset will also be removed from the settings list
+- change: Action Builder now displays message when execution has finished. This notification can be disabled.
+- fix: window presets now also work on the maps (other than Google map)
+- fix: Internal browser script to create pocket queries automatically now is able to handle small margin
+
+V1.5.6.0
+
+- fix: Internal web browser script to save and restore pocket query settings now also works when within states is selected
+
+V1.5.5.0
+
+- add: Action Builder now has new type of actions. The Execute Once action. These can be used to perform any action within the flow once (e.g. clear selection)
+- change: Internal web browser script to save and restore pocket query settings now reports is save was successful or restore failed.
+- change: Internal web browser, if the compatibility mode has been changed, a message will be prompted to restart GAPP.
+- fix: Internal web browser script to save and restore pocket query settings now also works if only one email option is available
+
+V1.5.4.0
+
+- fix: Internal web browser script to create pocket queries dates corrected
+
+V1.5.3.0
+
+- add: geocache viewer, links can now be opened in internal browser
+- add: added option to the Garmin POI export to use the geocache name or code (by SKAMS)
+- change: German language updated (thanks SKAMS)
+- change: Main window, changed the combobox for the action flow builder in toolbar to a comboboxlist
+- change: Main window, added tooltips to scripts and action builder selections
+- add: added quick selection, geocaches you own
+- add: Garmin export, option to use the geocache name instead of the geocache code
+- change: Cache list, the 'S' button now inverts the selection of the geocaches
+- add: Internal web browser script to save and restore pocket query settings
+- add: Internal web browser script to create pocket queries (automation)
+
+V1.5.2.0
+
+- add: Aditional setting to integrated web browser to en- or disable javascript error messages.
+- change: French language updated (thanks RHCV)
+- change: The file dialog for opening or creating a new file will now start in folder of active database
+- change: Main screen, forum menu item now opening English forum
+- add: Main screen, instruction videos link added
+- add: Aditional setting to integrated web browser to set the compatibility mode of the browser (default=8) 
+
+V1.5.1.0
+
+- fix: If the geometry.db3 cannot be read, the application will continue to work now.
+- fix: Changed Web browser plugin type to UIChildWindow plugin type
+- add: Added Web browser icon to toolbar
+- change: Web browser script has new constructor to pass the browser page
+- add: Web browser script added to force a rework on the webpage like rescanning the web page for GC codes.
+- add: Live API geocache import now also contains filter on publication date
+
+V1.5.0.0
+
+- change: French language updated (thanks RHCV)
+- add: Integrated web browser with scripting options. Standard scripts to import and select geocaches
+- change: German language updated (thanks SKAMS)
+
+V1.4.19.0
+
+- fix: Cachebox export now uses custom coordinates if available
+- change: Grabbing images for offline viewing optionally now only grabs currently local not present images
+- change: German language updated (thanks SKAMS)
+- add: option to GDAK export to put offline images in sub folders with maximum amount of files (settings)
+- fix: Action builder next flow action
+- add: Action builder option to copy an existing flow
+
+V1.4.18.0
+
+- fix: Cachebox export now does not export Waypoints without a coordinate
+- add: Bookmarks, live api import and geocache selection
+- add: Import all or range on date geocache logs of other user(s)
+- add: Geocache search dialog now also has Found by and Not found by filters
+- add: Logs viewer (filters on geocache or user)
+
+V1.4.17.0
+
+- fix: Live API import geocaches the exlusive filter reversed
+- change: German language updated (thanks SKAMS)
+- add: Export to Cachebox
+- change: The import using live api dialog now contains a default setting selection
+- change: The import using live api dialog made search on location and geocache codes mutual exclusive
+
+V1.4.16.0
+
+- fix: OK button on offline log window will now close the window
+- add: Action Builder now contains condition: Notes contains. To filter caches with notes that contain specific text.
+- add: Action Builder now contains condition: # User Waypoints.
+- add: framework contains user waypoints
+- change: if version check after startup in the background fails, there will be no error message
+- add: the cache list now also contains a field User waypoints that indicates if a user waypoint is present for this cache
+- add: quick selection for caches with user waypoints
+- add: added User Waypoints editor
+- change: Geocache Viewer now also shows User waypoints
+
+V1.4.15.0
+
+- fix: enabled OK button on offline log window
+
+V1.4.14.0
+
+- change: German language updated (thanks SKAMS)
+- add: added found date field in Excel export
+- fix: adding/changing or deleting a waypoint now also updates the map for selected geocache
+- change: maximum log text length set to 4000 characters
+- change: French language updated (thanks RHCV)
+- add: offline geocache logging
+
+V1.4.13.0
+
+- change: French language updated (thanks RHCV)
+- add: External GPS support (serial port, e.g. use Garmun GPS with USB and GpsGate)
+- add: Google map shows current GPS position if available and button to center map on current position
+- add: OSM Map (online and offline) shows current GPS position if available and button to center map on current position
+- change: cluster setting of Google maps set less aggressive
+- add: Create route for selected geocaches (or manually created points)
+
+V1.4.12.0
+
+- fix: terrain and difficulty filter was truncated to an integer. Now it can handle 1.5, 2.5 etc.
+- change: German language updated (thanks SKAMS)
+- add: filter preset option added to Live API geocache import
+- add: quick selection now has an option to select geocaches that contains more than 1 found log by you
+- add: user setting to set the delay between trackables updates in trackable groep feature.
+
+V1.4.11.0
+
+- change: Using new version of the EPPlus library
+- change: cache list now also restores the sorting setting at startup
+- fix: double click on scrollbar in cache list did open cache viewer, not anymore.
+- change: Live API geocache import filter now has 0.5 increment value for terrain and difficulty
+- fix: statistics generation, label of pie chart for founds per terrain has been fixed
+- fix: Garmin GPX export now sends the file in UTF8 format (preserving special characters)
+- add: Option to import the Garmin geocaching_visits.txt caches and log the geocaches.
+- change: French language updated (thanks RHCV)
+- fix: changed radius of geocaching import using LiveAPI from 100 to 50 according API limits
+
+V1.4.10.0
+
+- change: German language updated (thanks SKAMS)
+- fix: disabled MySql timeout on reading data
+- fix: fix SQL Server, creating new database
+- fix: fix SQL Server, adding logs to database (not all were saved)
+- add: added background loading of logs option (settings screen).
+
+V1.4.9.0
+
+- change: German language updated (thanks SKAMS)
+- fix: GPX export cache type Unknown Cache fixed and id attributes for cache type removed
+- add: Garmin export, added option to add or not to add child waypoints
+- add: added Locked state to geocache (cache list, ceache editor). Locked geocaches are not updated by GPX update or Live API update. (only available or archived status are updated)
+
+V1.4.8.0
+
+- fix: log geocache screen when adding trackables, the window has the correct size.
+- add: GAPP data exchange export and import to facilitate internal storage change
+- change: French language updated (thanks RHCV)
+
+V1.4.7.0
+
+- change: exception handling on initial language selection
+
+V1.4.6.0
+
+- fix: Excel export with latitude and longitude of geocache coords
+
+
+V1.4.5.0
+
+- fix: Excel export with corrected coords
+
+V1.4.4.0
+
+- change: German language updated (thanks SKAMS)
+- fix: maps windows
+
+V1.4.2.0
+
+- fix: Live API check on Premium Member now also checks Charter members
+- fix: Google road map, removed OSM contribution
+- add: added google road map to maps toolbar on main screen
+- change: all maps have a seperate window position setting
+
+V1.4.1.0
+
+- add: added google maps without browser (like OSM map)
+- fix: splitscreen is working again
+- add: option for most windows to decouple or couple to main screen (system menu)
+
+V1.4.0.0
+
+- add: MySQL as internal storage option
+- fix: in log visit trackable of caches you found, manual trackable entry removed
+
+V1.3.8.0
+
+- add: Action builder, added Geocache counter
+- add: Action builder, added Geocache attributes
+- fix: logs are added automatically after logging geocache and marked as found if applicable
+- fix: in log visit trackable of caches you found, getting your own trackables.
+- fix: logging geocaches, getting the trackables you have
+- add: cache logging, adding pictures (with automatic scaling)
+
+V1.3.7.0
+
+- change: Action builder different colors for connectors
+- change: Action builder: geocache container and type now only have equal and not equal connectors
+- fix: Action builder: escape while drawing a connection line now stops the action
+- change: German language updated (thanks SKAMS)
+- add: Automate adding visit logs to a trackable for your finds (missing only)
+
+V1.3.6.0
+
+- change: French language updated (thanks RHCV)
+- add: Added toolbars items to main window
+- add: Action Builder
+- change: German language updated (thanks SKAMS)
+- fix: Refreshing the geocache data now also updates waypoints
+
+V1.3.5.0
+
+- change: added images to dropdown menu on main window
+- change: French language updated (thanks RHCV)
+- add: Query Builder
+
+V1.3.4.0
+
+- change: German language updated (thanks SKAMS)
+- fix: OSM map will now start at a higher zoom level when a cache is selected
+- add: Added toolbars to main window
+- fix: added exception handling for downloading geocache images
+- fix: Search geocaches, search within selection
+
+V1.3.3.0
+
+- add: added EPPlus library to be used by plugins for Excel support
+- fix: Solver, Word value is case insensitive now
+- change: LiveAPI, geocache import can be canceled
+- add: Export to Excel file
+- fix: Import geocaches with LiveAPI now contains coordinates for waypoints
+- change: Settings screen changed from tabs to treeview
+- fix: Prevent Map from steeling focus while selecting geocache
+- fix: Main window position at startup
+
+V1.3.2.0
+
+- fix: Select geocaches within selected regions will now work for all languages
+- change: Added municipality to the search filter of the cachelist
+- add: Added municipality and city filter to Search for geocache
+
+V1.3.1.0
+
+- add: Added support for Shapefiles
+- add: Select geocaches within selected regions
+- change: applying settings contains progress bar now
+- add: Shapefiles can be downloaded from within GAPP (Settings/Shapefiles)
+- add: Added municipality to the cache list
+- add: Auto assign region to geocaches (Country, State, Municipality, City)
+
+V1.3.0.0
+
+- change: GPX import now also is able to handle child waypoints within geocache GPX
+- change: GPX import now also is able to read opencaching.de GPX files
+- change: GPX import now also is able to read GCTour GPX files
+- change: GPX import now also is able to read opencaching.com GPX files
+- change: GPX import now also is able to read GSAK GPX files
+- change: French language updated (thanks RHCV)
+- change: German language updated (thanks SKAMS)
+- add: opencaching.de attributes
+- fix: opencaching logs does not display html code
+- fix: Geocache viewer: opencaching geocache description will show the pictures now
+
+V1.2.15.0
+
+- add: more information about activity on splah screen
+- add: Chat is extended with copying a selection from another user
+- add: (WYSIWYG) HTML Editor
+- add: OpenLayers Map supporting Google Street Map, OSM, OCM, Bing Aerial and Bing Road maps
+- fix: Search for text within description is working properly now
+
+V1.2.14.0
+
+- fix: layout of Geocache Editor
+- add: added Geocache editor to context menu (right click) of geocache list
+- add: show activity on splash screen
+- fix: OSM offline maps, improved map rendering (clear cache to use the new tiles)
+- change: OSM offline maps, improved speed on changing zoom levels
+- add: Waypoint editor (also added to context menu (right click) of geocache list)
+
+V1.2.13.0
+
+- add: badgegen statistics (thanks SKAMS)
+- fix: applying settings will now always reload offline OSM maps
+- fix: black spots on the map (most of them)
+- fix: preventing screen distortion by screen refresh during move of a screen
+- add: finished OSM offline mapping with labels and POIs
+
+V1.2.12.0
+
+- change: German language updated (thanks SKAMS)
+- fix: Garmin Export POI index error (thanks SKAMS)
+- fix: in statistics generarion, DefaultExtension. The sorting has been changed
+- change: statistics generation has changed to use a skin
+- add: new statistics added (thanks SKAMS)
+- add: OSM offline (not completed yet)
+
+V1.2.11.0
+
+- fix: text within Geocache editor
+- fix: save geocache in Geocache editor
+
+V1.2.10.0
+
+- add: added Startup plugin for setting autostart plugin actions (Settings)
+- add: the order of the colums with the simple cache list is now restored after re-start
+- add: Solver, a series of tools to solve mysteries (a start has been made)
+- add: Geocache editor to edit any field of the geocache
+- change: French language updated (thanks RHCV)
+
+V1.2.9.0
+
+- change: French language updated (thanks RHCV)
+- fix: Filter on caches not found, not only checks Found flag of geocache and not the logs
+- fix: Filter on caches found, not only checks Found flag of geocache and not the logs
+- change: added select all and unselect all buttons in Live API import Pocket Queries
+- add: added Found / Not found selection filter to the search for caches form
+
+V1.2.8.0
+
+- add: statistics
+- change: made statistics translatable and added Dutch
+- fix: GPX export, symbol now set to Geocache Found if geocache has been found
+- fix: GPX import. if sym ends with Found, the geocache will be marked as found
+- add: added action to add events to outlook or google calendar
+- change: on Google and Open street map, caches with corrected coords have another color and placed on corrected location
+- fix: Export Garmin POI now also works for x64 version
+
+V1.2.7.0
+
+- add: Garmin export with communicator, option to add notes to description
+- add: Garmin export with communicator, option to cut off name of geocache
+- add: new statistics
+- add: new version notification (active check after starting the application)
+- fix: deleting statistics script will now delete it permanently
+- change: German language updated (thanks SKAMS)
+
+V1.2.5.0
+
+- fix: The list of found geocaches will now result in a unique list of geocaches
+
+V1.2.4.0
+
+- add: cache list contains container now
+- add: filter in cachelist now also works on State
+- add: Country and State filters in Geocache search plugin
+- add: Availablity and Archived status added to the cache list
+- add: A new plugin has been added Statistics generator. Still work in progress.
+
+V1.2.3.0
+
+- add: OSM map now also has a view geocache selection filter (All, Selected, Active)
+- change: saved windows position and size of OSM window
+- change: double click on OSM map will zoom in and center on location
+- fix: log ID in GPX imported converted to GL code to prevent double log entries. live API returns GL code
+
+V1.2.2.0
+
+- change: German language updated (thanks SKAMS)
+- add: Open Street Map (online)
+- add: File Drag and Drop on main window to import GPX (gpx or gpx in zip files)
+- add: commandline arguments options (gpx or zip fioe containing gpx files)
+- change: only one instance of the application (second cannot be opened)
+- fix: include hints when importing geocache through Live API
+- fix: All date time fields stored in UTC time and converted back to local time on reading database
+
+V1.2.1.0
+
+- add: Chat, message when user joined the rooom
+- change: sounds in chat
+- fix: filter bad charachters from GPX (export)
+- fix: progressbar in export to garmin with communicator
+- fix: dutch language in export with garmin communicator
+
+V1.2.0.0
+
+- add: GPX export to Garmin using the Garmin Communicator Plugin
+- fix: In the chat made unable to follow your self
+- change: French language updates (thankgs RHCV)
+
+V1.1.12.0
+
+- add: Chat module with option to follow another user
+
+V1.1.11.0
+
+- fix: performance fix for found date column in cache list
+
+V1.1.10.0
+
+- fix: Main window status bar now indicates the file/database which is used on local storage change
+- add: backup/restore geocache coordinates due to missing coordinates in archived geocache import using the Live API
+- add: found date column in cache list
+- fix: date format in the cache list now uses culture of user and therefore now displays correctly
+- add: GDAK export now will also export the grabbed images (setting)
+- add: setup now offers to start the application after finishing installation
+
+V1.1.9.0
+
+- fix: GDAK export now uses a different Sqlite library
+- fix: GDAK export convert log id to number if log id is not a number
+- fix: GSAK import now uses a different Sqlite library
+- add: Main window status bar now indicates the file/database which is used
+- change: default internal storage has been changed to GlobalcachingApplication.Plugins.Sqlite.InternalStorage (slower, but should always work)
+- fix: Include the Geocache ID when importing geocaches using the Live API
+
+V1.1.8.0
+
+- fix: My Finds now also includes archived geocaches
+- fix: Image Gallery now also includes archived geocaches
+
+V1.1.7.0
+
+- add: Another Sqlite library for internal storage
+
+V1.1.6.0
+
+- fix: My Finds now ignores archived logs
+- fix: Image Gallery now ignores archived logs
+- fix: Search actions (like quick select) items now moved to search menu
+- fix: Selection of geocaches with attachements
+- change: French language updated (thanks RHCV)
+
+V1.1.5.0
+
+- add: Export Garmin POI (created by SKAMS)
+- add: Image gallery, search and browse your log images offline
+
+V1.1.4.0
+
+- add: batch logging for geocaches
+- fix: seperator in scripts menu
+- change: background color of trackable menu item of trackable group window
+- add: geocache attachements. Files can be attached to geocaches.
+
+V1.1.3.0
+
+- change: scripts will have a seperate menu
+- change: a confirmation is shown after installing a script
+- add: Live API, retrieve My Finds by getting your logs and corresponding geocaches
+- fix: IsGeocacheFound (in Utils.DataAccess) now also looks at Found flag of geocache if username equals the geocaching.com account name
+- change: updated French language (thanks RHCV)
+- add: quick search; caches not found by you
+
+V1.1.2.0
+
+- fix: test api token now retrieved from settings at startup
+- change: updated French language (thanks RHCV)
+- add: (batch) logging for trackables
+- add: trackable logging when logging a geocache
+- add: changes in scripting folder is detected automatically
+
+V1.1.1.0
+
+- fix: Refresh geocache data thru LiveAPI will also import the field notes.
+- change: Import Pocket Query from LiveAPI; all PQs that are not updated yet are checked automatically for download.
+- change: geocache viewer; link to geocache page will open de page in the default browser
+- change: German language updated (thanks SKAMS)
+- fix: Link to trackable page (from Trackable Groups) on the map corrected.
+- add: export to GDAK (new) database (thanks wolojoli)
+- add: show waypoints of geocache on map when available
+- fix: Import GSAK database; also import corrected coordinates (thanks wolojoli)
+
+Main feature list (V1.1.0):
+
+- Geocaching.com GPX / Pocket Query import
+- GSAK database import
+- GPX export
+- Export to Garmin mass storage GPS receiver
+- Geocache search (by properties or text)
+- Google map (for selection or all geocaches)
+- Custom coordinates
+- Geocache notes (with layout options)
+- Geographical area support
+- Multilangual (English, Dutch, French, German)
+- Package Manager (for updsates and scripts installation)
+- Geocache image grabber for offline image support
+- Offline geocache viewer
+- Geocaches along a route
+- Live API: Get geocaches (by location or other properties)
+- Live API: Log a geocache
+- Live API: Import notes
+- Live API: Import pocket queries
+- Live API: Full update geocaches or refresh status only
+- Live API: Trackable groups (create trackable groups, update the trackables and view them in a list or on the map)
+- Geocache data storage options: SQLite and Sql Server
+- Assign shurtcut keys to actions
+- Precompiled plugins (.NET)
+- C# scripting
+
+Programmers:
+The application contains:
+- Framework (data definitions and interfaces)
+- Plugins (containing the functionalities / features)
+- Core (engine that loads the plugin and acts as a data container)
+
+The application is almost 100% plugins. Plugins and scripts (script runner is also a plugin) can make use of a useful feature rich Utils library.
+Source code of all the code with the exception of the core is available on the website with generated documentation.
+
+Change history
+
+2012-06-?? - V1.1.0
+First public beta

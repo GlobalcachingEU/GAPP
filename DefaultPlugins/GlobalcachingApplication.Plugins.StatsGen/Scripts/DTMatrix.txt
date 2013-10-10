@@ -1,0 +1,57 @@
+﻿        string strDiffTerrCombi = "Difficulty / Terrain combination";
+        string strDifficulty = "Difficulty";
+        string strTerrain = "Terrain";
+
+        RegisterText(new string[]{
+		strDiffTerrCombi,
+		strDifficulty,
+		strTerrain
+		});
+
+        Layout skin = new Layout(1);
+        Layout.Statistics stats = new Layout.Statistics(Translate(strDiffTerrCombi, false));
+        skin.StatisticsBlocks[0] = stats;
+        stats.Width = "60%";
+        stats.Align = "center";
+        stats.AxisLabelX = Translate(strTerrain, false);
+        stats.AxisLabelY = Translate(strDifficulty, false);
+
+        Layout.Statistics.Row row = new Layout.Statistics.Row();
+        stats.Rows.Add(row);
+
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = " ";
+
+        for (double d = 1; d < 5.1; d += 0.5)
+        {
+            row.Items.Add(new Layout.Statistics.Item());
+            row.Items[row.Items.Count - 1].Text = d.ToString("0.#");
+            row.Items[row.Items.Count - 1].Width = "10%";
+            row.Items[row.Items.Count - 1].Align = "center";
+            row.Items[row.Items.Count - 1].IsMarker = true;
+        }
+        for (double d = 1; d < 5.1; d += 0.5)
+        {
+            row = new Layout.Statistics.Row();
+            stats.Rows.Add(row);
+
+            string sd = d.ToString("0.#");
+
+            row.Items.Add(new Layout.Statistics.Item());
+            row.Items[row.Items.Count - 1].Text = d.ToString("0.#");
+            row.Items[row.Items.Count - 1].Width = "10%";
+            row.Items[row.Items.Count - 1].Align = "center";
+            row.Items[row.Items.Count - 1].IsMarker = true;
+
+            for (double t = 1; t < 5.1; t += 0.5)
+            {
+                string st = t.ToString("0.#");
+                int cnt = (from mf in _myFinds where mf.gc.Difficulty.ToString("0.#") == sd && mf.gc.Terrain.ToString("0.#") == st select mf).Count();
+
+                row.Items.Add(new Layout.Statistics.Item());
+                row.Items[row.Items.Count - 1].Text = cnt.ToString();
+                row.Items[row.Items.Count - 1].Width = "10%";
+                row.Items[row.Items.Count - 1].Align = "center";
+            }
+        }
+        return skin.ToString();

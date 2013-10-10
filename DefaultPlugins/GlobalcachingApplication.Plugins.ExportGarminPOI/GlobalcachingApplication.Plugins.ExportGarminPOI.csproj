@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AB2411F6-926D-4167-9543-33B78BAE94E1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GlobalcachingApplication.Plugins.ExportGarminPOI</RootNamespace>
+    <AssemblyName>GlobalcachingApplication.Plugins.ExportGarminPOI</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="GarminPOIExportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GarminPOIExportForm.Designer.cs">
+      <DependentUpon>GarminPOIExportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Icons.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Icons.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="GarminPOIExport.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\GlobalcachingApplication.Framework\GlobalcachingApplication.Framework.csproj">
+      <Project>{45D6B089-F7F0-423A-AC63-83F9BB62A043}</Project>
+      <Name>GlobalcachingApplication.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\GlobalcachingApplication.Utils\GlobalcachingApplication.Utils.csproj">
+      <Project>{10CE1BC5-8951-4043-A9E5-D20C7EC55022}</Project>
+      <Name>GlobalcachingApplication.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="GarminPOIExportForm.resx">
+      <DependentUpon>GarminPOIExportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Icons.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Icons.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\CITO.bmp" />
+    <EmbeddedResource Include="Resources\CITO_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Earth.bmp" />
+    <EmbeddedResource Include="Resources\Earth_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Event.bmp" />
+    <EmbeddedResource Include="Resources\Event_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Final_Location.bmp" />
+    <EmbeddedResource Include="Resources\Final_Location_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Final_Location_Found.bmp" />
+    <EmbeddedResource Include="Resources\Found.bmp" />
+    <EmbeddedResource Include="Resources\Found_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Found_Solved.bmp" />
+    <EmbeddedResource Include="Resources\Groundspeak_Block_Party.bmp" />
+    <EmbeddedResource Include="Resources\Groundspeak_Block_Party_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Groundspeak_HQ.bmp" />
+    <EmbeddedResource Include="Resources\Groundspeak_HQ_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Groundspeak_Lost_and_Found.bmp" />
+    <EmbeddedResource Include="Resources\Groundspeak_Lost_and_Found_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Letterbox.bmp" />
+    <EmbeddedResource Include="Resources\Letterbox_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Locationless.bmp" />
+    <EmbeddedResource Include="Resources\Locationless_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Lost_and_Found_Event.bmp" />
+    <EmbeddedResource Include="Resources\Lost_and_Found_Event_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Maze.bmp" />
+    <EmbeddedResource Include="Resources\Maze_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Mega_Event.bmp" />
+    <EmbeddedResource Include="Resources\Mega_Event_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Micro.bmp" />
+    <EmbeddedResource Include="Resources\Micro_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Multi.bmp" />
+    <EmbeddedResource Include="Resources\Multi_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Multi_Solved.bmp" />
+    <EmbeddedResource Include="Resources\Mystery.bmp" />
+    <EmbeddedResource Include="Resources\Mystery_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Mystery_Solved.bmp" />
+    <EmbeddedResource Include="Resources\Parking_Area.bmp" />
+    <EmbeddedResource Include="Resources\Parking_Area_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Parking_Area_Found.bmp" />
+    <EmbeddedResource Include="Resources\Project_APE.bmp" />
+    <EmbeddedResource Include="Resources\Project_APE_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Question_to_Answer.bmp" />
+    <EmbeddedResource Include="Resources\Question_to_Answer_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Question_to_Answer_Found.bmp" />
+    <EmbeddedResource Include="Resources\Reference_Point.bmp" />
+    <EmbeddedResource Include="Resources\Reference_Point_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Reference_Point_Found.bmp" />
+    <EmbeddedResource Include="Resources\Stages_of_a_Multicache.bmp" />
+    <EmbeddedResource Include="Resources\Stages_of_a_Multicache_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Stages_of_a_Multicache_Found.bmp" />
+    <EmbeddedResource Include="Resources\Traditional.bmp" />
+    <EmbeddedResource Include="Resources\Traditional_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Trailhead.bmp" />
+    <EmbeddedResource Include="Resources\Trailhead_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Trailhead_Found.bmp" />
+    <EmbeddedResource Include="Resources\Virtual.bmp" />
+    <EmbeddedResource Include="Resources\Virtual_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Webcam.bmp" />
+    <EmbeddedResource Include="Resources\Webcam_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Whereigo.bmp" />
+    <EmbeddedResource Include="Resources\Whereigo_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Whereigo_Solved.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Own.bmp" />
+    <EmbeddedResource Include="Resources\Own_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Waymark.bmp" />
+    <EmbeddedResource Include="Resources\Waymark_Disabled.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Munzee.bmp" />
+    <EmbeddedResource Include="Resources\Munzee_Business.bmp" />
+    <EmbeddedResource Include="Resources\Munzee_Business_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Munzee_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Munzee_Maintenance.bmp" />
+    <EmbeddedResource Include="Resources\Munzee_Maintenance_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Munzee_Mystery.bmp" />
+    <EmbeddedResource Include="Resources\Munzee_Mystery_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Munzee_NFC.bmp" />
+    <EmbeddedResource Include="Resources\Munzee_NFC_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Munzee_Premium.bmp" />
+    <EmbeddedResource Include="Resources\Munzee_Premium_Disabled.bmp" />
+    <EmbeddedResource Include="Resources\Munzee_Virtual.bmp" />
+    <EmbeddedResource Include="Resources\Munzee_Virtual_Disabled.bmp" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)\GlobalcachingApplication\bin\$(ConfigurationName)\Plugins\</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

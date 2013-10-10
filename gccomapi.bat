@@ -1,0 +1,1 @@
+"c:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\svcutil.exe" https://api.groundspeak.com/LiveV6/geocaching.svc?wsdl /namespace:*,GlobalcachingApplication.Utils.API.LiveV6

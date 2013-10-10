@@ -1,0 +1,94 @@
+﻿	public class MyGeocacheFind
+	{
+		public Geocache gc;
+		public Log lg;
+	    public DateTime logDate;
+        public DateTime logDateForSort;
+	}
+	private List<MyGeocacheFind> _myFinds;
+
+	private void GetMyFinds()
+	{
+        List<Geocache> gcList = DataAccess.GetFoundGeocaches(_core.Geocaches, _core.Logs, _core.GeocachingComAccount);
+        _myFinds = new List<MyGeocacheFind>();
+        string tl = _core.GeocachingComAccount.AccountName.ToLower();
+        foreach (Geocache gc in gcList)
+        {
+            MyGeocacheFind mf = new MyGeocacheFind();
+            mf.gc = gc;
+            mf.lg = (from Log l in _core.Logs where l.GeocacheCode == gc.Code && l.Finder.ToLower() == tl && l.LogType.AsFound orderby l.Date descending select l).FirstOrDefault();
+            if (mf.lg != null)
+            {
+                mf.logDate = mf.lg.Date;
+                mf.logDateForSort = mf.lg.Date;
+                int logid = 0;
+                if (mf.lg.ID.StartsWith("GL"))
+                {
+                    logid = Conversion.GetCacheIDFromCacheCode(mf.lg.ID);
+                }
+                else
+                {
+                    try
+                    {
+                        logid = int.Parse(mf.lg.ID);
+                    }
+                    catch
+                    {
+                    }
+                }
+                mf.logDateForSort.AddMilliseconds(logid);
+            }
+            else
+            {
+                mf.logDate = DateTime.MinValue;
+                mf.logDateForSort = DateTime.MinValue;
+            }
+            _myFinds.Add(mf);
+        }
+		 _myFinds.Sort(delegate(MyGeocacheFind a, MyGeocacheFind b)
+        {
+          int cv = a.logDate.CompareTo(b.logDate);
+          if (cv == 0) {return a.logDateForSort.CompareTo(b.logDateForSort);}
+          else return cv;
+        });
+	}
+
+    private string ToHtml(string s)
+    {
+        return HttpUtility.HtmlEncode(s);
+    }
+
+    private void RegisterText(string txt)
+    {
+        RegisterText(new string[] { txt });
+    }
+
+    private void RegisterText(string[] txt)
+    {
+        foreach (string s in txt)
+        {
+            _core.LanguageItems.Add(new LanguageItem(s));
+        }
+    }
+
+    private string Translate(string s)
+    {
+        return Translate(s, true);
+    }
+
+    private string Translate(string s, bool toHtml)
+    {
+        if (toHtml)
+        {
+            return ToHtml(LanguageSupport.Instance.GetTranslation(s));
+        }
+        else
+        {
+            return LanguageSupport.Instance.GetTranslation(s);
+        }
+    }
+
+	private void InitExtension()
+	{
+		GetMyFinds();
+	}

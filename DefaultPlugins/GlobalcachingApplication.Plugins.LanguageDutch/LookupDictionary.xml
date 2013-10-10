@@ -1,0 +1,988 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  <string name="maximum number of logs with update (0=all)" value="Maximale aantal logs bij logs bijwerken (0=alles)" />
+  <string name="update geocache logs" value="Werk geocache logs bij" />
+  <string name="extra delay between get geocache logs call" value="Extra wachttijd tussen elke aanroep om logs op te halen." />
+  <string name="automatic" value="Automatisch" />
+  <string name="limit" value="Limiet" />
+  <string name="e.g." value="Vb." />
+  <string name="name prefix" value="Naam prefix" />
+  <string name="exit" value="Afsluiten" />
+  <string name="creating offline image folder" value="Bezig met maken van offline plaatjes folder..." />
+  <string name="ter. min" value="Ter. min" />
+  <string name="poi loader" value="POI Loader" />
+  <string name="restore" value="Herstel database" />
+  <string name="refresh" value="Verversen" />
+  <string name="avg. diff. / terr." value="Gem. Moei. / Terr." />
+  <string name="execute once" value="Eenmalig uitvoeren" />
+  <string name="export gpx" value="Exporteer GPX" />
+  <string name="milestones" value="Mijlpalen" />
+  <string name="location" value="Locatie" />
+  <string name="only with coords" value="Alleen met coord." />
+  <string name="select geocaches by area" value="Selecteer geocaches binnen gebied" />
+  <string name="icon" value="Icoon" />
+  <string name="select notes" value="Selecteer geocaches met notitie" />
+  <string name="post reviewer note" value="Plaats een reviewers notitie" />
+  <string name="print" value="Afdrukken" />
+  <string name="archive" value="Archiveren" />
+  <string name="days or" value="dagen of" />
+  <string name="select flagged" value="Selecteer gemarkeerde" />
+  <string name="create default settings in selected folder" value="Maak standaard instellingen in geselecteerde map" />
+  <string name="placed by" value="Geplaatst door" />
+  <string name="move to collection" value="Verplaats naar collectie" />
+  <string name="map" value="Kaart" />
+  <string name="exclude" value="Exclusief" />
+  <string name="exporting gpx..." value="Bezig met GPX exporteren..." />
+  <string name="import geocaches in bookmark" value="Importeer geocaches in bookmark" />
+  <string name="single" value="Enkel" />
+  <string name="web browser" value="Webbrowser" />
+  <string name="information" value="Informatie" />
+  <string name="execution completed" value="Het schema is uitgevoerd" />
+  <string name="editor" value="Bewerker" />
+  <string name="load all votes" value="Laad all stemmen" />
+  <string name="next &gt;&gt;" value="Volgende &gt;&gt;" />
+  <string name="i do not own" value="Niet mijn eigen" />
+  <string name="word length with space" value="Woordlengte met spatie" />
+  <string name="extra coord. name prefix" value="Extra coordinaten naam voorvoegsel" />
+  <string name="codes" value="Codes" />
+  <string name="edit geocache notes" value="Bewerk geocache notitie" />
+  <string name="add to stops" value="Voeg toe aan tussenpunten" />
+  <string name="copy to existing database" value="Kopieer naar bestaande database" />
+  <string name="# log images" value="# logfoto's" />
+  <string name="keep at least" value="Behoud tenminste" />
+  <string name="importing file..." value="Bezig met importeren bestand..." />
+  <string name="folder" value="Map" />
+  <string name="generic window" value="Algemeen scherm" />
+  <string name="automatic download new geocaches (no prompt)" value="Automatisch nieuwe caches downloaden (geen vraag stellen)" />
+  <string name="trackable groups" value="Trackable groepen" />
+  <string name="you are about to delete" value="Doorgaan voor het verwijderen van" />
+  <string name="your vote" value="Jouw stem" />
+  <string name="gps serial" value="GPS Serieel" />
+  <string name="select folder" value="Selecteer folder" />
+  <string name="no geocache selected for export" value="Geen geocache geselecteerd om te exporteren" />
+  <string name="upload" value="Upload" />
+  <string name="rooms" value="Kamers" />
+  <string name="view angle" value="Camerahoek" />
+  <string name="i can be followed" value="Ik kan gevolgd worden" />
+  <string name="edit geocaches" value="Bewerk geocaches" />
+  <string name="copy to clipboard" value="Kopieer naar clipbord" />
+  <string name="are you sure you want to delete all gcvote data?" value="Weet je zeker dat je all GCVote gegevens wilt verwijderen?" />
+  <string name="coordinate" value="Coordinaat" />
+  <string name="compatibility" value="Compatibiliteit" />
+  <string name="save" value="Opslaan" />
+  <string name="go to trackable page" value="Ga naar trackable pagina" />
+  <string name="update all trackables in group" value="Werk alle trackables in de groep bij" />
+  <string name="create/join" value="Aanmaken/In gaan" />
+  <string name="reload" value="Herladen" />
+  <string name="error" value="Fout" />
+  <string name="in google agenda select other agenda's, import agenda and paste file name" value="In Google agenda, klik Andere agenda, importeer agenda en plak het bestandsnaam" />
+  <string name="locked" value="Vastgezet" />
+  <string name="keep all of owned caches" value="Behoud logs van eigen caches" />
+  <string name="select your favorites" value="Selecteer jouw Favorieten" />
+  <string name="projection from coordinate" value="Projectie vanaf coordinaat" />
+  <string name="use the hints for description" value="Gebruik de hints voor beschrijving" />
+  <string name="log trackable visits my finds" value="Log trackable bezoek van mijn gevonden geocaches" />
+  <string name="waypoint editor" value="Waypoint bewerker" />
+  <string name="importing munzees..." value="Bezig met importeren van Munzees..." />
+  <string name="settings..." value="Instellingen..." />
+  <string name="copy" value="Kopiëren" />
+  <string name="path" value="Pad" />
+  <string name="geocache counter" value="Geocache teller" />
+  <string name="get access only" value="Alleen toegang verkrijgen" />
+  <string name="find" value="Zoek" />
+  <string name="import bookmark" value="Importeer bookmark" />
+  <string name="conversion" value="Conversie" />
+  <string name="loading logimages..." value="Laden van logplaatjes..." />
+  <string name="assigning regions..." value="Bezig met toekennen van regio's" />
+  <string name="the folder does not exists" value="De map bestaat niet" />
+  <string name="add image to log" value="Voeg plaatje toe aan log" />
+  <string name="terr" value="Terr" />
+  <string name="average" value="Gemiddelde" />
+  <string name="delete _gcpqgen_" value="Verwijder _gcpqgen_" />
+  <string name="import missing geocaches" value="Importeer missende geocaches" />
+  <string name="purge logs" value="Logs opschonen" />
+  <string name="gcvote average" value="GCVote gemiddelde" />
+  <string name="the live api limits the amount of geocaches that can be downloaded per day." value="De Live API heeft limieten ten aanzien van geocaches downloaden." />
+  <string name="hidden by" value="Verborgen door" />
+  <string name="owner" value="Eigenaar" />
+  <string name="download before creating folder" value="Download alvorens het aanmaken van de folder" />
+  <string name="import my finds" value="Importeer mijn gevonden" />
+  <string name="add waypoint..." value="Voeg locatie toe..." />
+  <string name="unlock user (unban)" value="Deblokkeer gebruiker" />
+  <string name="not all log dates are known." value="Niet alle logdata zijn bekend" />
+  <string name="i have not found" value="Ik niet heb gevonden" />
+  <string name="personal note on geocaching.com" value="Persoonlijke notitie op geocaching.com" />
+  <string name="import gapp data exchange file" value="Importeer GAPP data uitwissel bestand" />
+  <string name="import all" value="Importeer alle" />
+  <string name="add to calendar" value="Voeg aan kalender toe" />
+  <string name="unable to validate user" value="Kan gebruiker niet valideren" />
+  <string name="version" value="Versie" />
+  <string name="search geocache by text" value="Selecteer geocache met tekst" />
+  <string name="difficulty" value="Moeilijkheid" />
+  <string name="add to your favorites" value="Voeg aan jouw favorieten toe" />
+  <string name="create account" value="Maak gebruiker aan" />
+  <string name="processed" value="Verwerkt" />
+  <string name="download all log images..." value="Download alle logfoto's..." />
+  <string name="copy current settings to selected folder" value="Kopieer huidige instellingen naar geselecteerde map" />
+  <string name="stops (max {0})" value="Tussenstop (max {0})" />
+  <string name="log image viewer" value="Logfoto's scherm" />
+  <string name="export ggz" value="Exporteer GGZ" />
+  <string name="show geocaches" value="Bekijk geocaches" />
+  <string name="distance" value="Afstand" />
+  <string name="selected" value="Geselecteerden" />
+  <string name="minimum start of name length" value="Minimale beginlengte van geocachenaam" />
+  <string name="custom coods" value="Aangepaste coordinaten" />
+  <string name="exporting gdak..." value="Exporteren naar GDAK..." />
+  <string name="show logs for active geocache" value="Laat logs zien van actieve geocache" />
+  <string name="retrieve it from a cache" value="Uit een geocache gehaald" />
+  <string name="not found by" value="Niet gevonden door" />
+  <string name="your favorite" value="Jouw Favoriet" />
+  <string name="downloading data..." value="Bezig met downloaden van data..." />
+  <string name="import missing" value="Importeer ontbrekenden" />
+  <string name="a new version is available" value="Een nieuwe versie is beschikbaar" />
+  <string name="geometry" value="Geometrie" />
+  <string name="unfollow" value="Ontvolgen" />
+  <string name="backup all coordinates" value="Backup alle coordinaten" />
+  <string name="and" value="En" />
+  <string name="extra delay between get geocache images call" value="Extra wachttijd tussen elke aanroep om plaatjes op te halen." />
+  <string name="custom toolbar..." value="Instelbare knoppenbalk..." />
+  <string name="history" value="Geschiedenis" />
+  <string name="projected location" value="Geprojecteerde coordinaat" />
+  <string name="found date" value="Datum gevonden" />
+  <string name="loading data..." value="Bezig met laden van data..." />
+  <string name="enable above # geocaches" value="Aanzetten boven # geocaches" />
+  <string name="# user waypoints" value="# Gebruikers Waypoints" />
+  <string name="load geocaches" value="Laad geocaches" />
+  <string name="municipality" value="Gemeente" />
+  <string name="downloading shapefile..." value="Bezig met downloaden van de shapefile..." />
+  <string name="format" value="Formaat" />
+  <string name="cache type" value="Geocache type" />
+  <string name="show group on map" value="Bekijk groep op de kaart" />
+  <string name="search geocaches along a route" value="Zoek voor geocaches langs de route" />
+  <string name="groundspeak note" value="Groundspeak notitie" />
+  <string name="batch log selected geocaches..." value="Batch log de geselecteerde geocaches..." />
+  <string name="delete selected trackables" value="Verwijder geselecteerde trackables" />
+  <string name="current" value="Huidig" />
+  <string name="no active geocache" value="Geen actieve geocache" />
+  <string name="log viewer" value="Logscherm" />
+  <string name="limits" value="Limieten" />
+  <string name="unselect all" value="Deselecteer alles" />
+  <string name="import logs of all users" value="Importeer logs van alle gebruikers" />
+  <string name="shortcut assignment" value="Sneltoets toekenning" />
+  <string name="show custom toolbar" value="Toon instelbare knoppenbalk" />
+  <string name="google map" value="Google kaart" />
+  <string name="pmo" value="PMO" />
+  <string name="ignore geocaches" value="Negeer geocaches" />
+  <string name="do not overwrite existing" value="Overschrijf huidige gegevens niet" />
+  <string name="pass directory to poi loader" value="Geef folder mee aan POI Loader" />
+  <string name="loading data in background. please wait till this is finished." value="Bezig met het laden van gegevens op de achtergrond. Wacht alsjeblieft tot het is afgerond." />
+  <string name="median" value="Mediaan" />
+  <string name="activate" value="Activeer" />
+  <string name="package version" value="Pakket versie" />
+  <string name="plugins" value="Functies" />
+  <string name="export to excel" value="Exporteer naar Excel" />
+  <string name="create" value="Aanmaken" />
+  <string name="missing coordinates" value="Missende coordinaten" />
+  <string name="export" value="Exporteer" />
+  <string name="created on" value="Aangemaakt op" />
+  <string name="available waypoints (max {0})" value="Beschikbare waypoints (max {0})" />
+  <string name="max. distance" value="Max. afstand" />
+  <string name="select the plugin/action that should be started after startup." value="Selecteer de plugins die automatisch moeten starten bij opstarten" />
+  <string name="days" value="Dagen" />
+  <string name="set munzee type in gpx export" value="Zet munzee type in GPX export" />
+  <string name="add next to calendar" value="Voeg aan kalender toe" />
+  <string name="update and download caches for" value="Bijwerken en downloaden van geocaches voor" />
+  <string name="download shapefile" value="Download shapefile" />
+  <string name="run poi loader after export" value="Executeer POI Loader na export" />
+  <string name="get all your favorites geocache codes" value="Haal al jouw Favoriete geocache codes op" />
+  <string name="no active geocache selected" value="Geen actieve geocache geselecteerd" />
+  <string name="days cached" value="Dagen gecached" />
+  <string name="import all your missing favorites geocaches" value="Importeer al jouw missende Favoriete geocaches." />
+  <string name="presets" value="Voorinstellingen" />
+  <string name="automatic update and download geocaches" value="Automatisch bijwerken en downloaden van geocaches" />
+  <string name="throttle user" value="Knijp gebruiker" />
+  <string name="loading geocaches..." value="Bezig met laden van geocaches..." />
+  <string name="clearing target settings folder..." value="Bezig met leegmaken van doel map" />
+  <string name="go to geocache" value="Ga naar geocache pagina" />
+  <string name="date" value="Datum" />
+  <string name="add to" value="Toevoegen in" />
+  <string name="export grabbed images" value="Exporteer opgelagen plaatjes" />
+  <string name="importing logs..." value="Bezig met importeren logs..." />
+  <string name="plugin manager" value="Functiebeheer" />
+  <string name="select device" value="Selecteer apparaat" />
+  <string name="container" value="Container" />
+  <string name="save as" value="Opslaan als..." />
+  <string name="delay (ms)" value="Wachttijd (ms)" />
+  <string name="word value" value="Woordwaarde" />
+  <string name="retract listing" value="Geocache intrekken" />
+  <string name="no geocache selected" value="Geen geocache geselecteerd" />
+  <string name="notifications" value="Notificaties" />
+  <string name="import ggz" value="Importeer GGZ" />
+  <string name="import real time pocket queries" value="Importeer Real Time Pocket Queries" />
+  <string name="dif. max" value="Moei. max" />
+  <string name="saving logs..." value="Bezig met opslaan van logs..." />
+  <string name="export kml" value="Exporteren naar KML" />
+  <string name="select changed geocaches" value="Selecteer geocaches waarvan gegevens gewijzigd zijn" />
+  <string name="comment" value="Opmerking" />
+  <string name="loading waypoints..." value="Bezig met laden van waypoints..." />
+  <string name="present" value="Aanwezig" />
+  <string name="invert selection" value="Inverteer selectie" />
+  <string name="export with garmin communicator" value="Exporteren met Garmin Communicator" />
+  <string name="select geocaches" value="Selecteer geocaches" />
+  <string name="default" value="Standaard" />
+  <string name="select you own" value="Selecteer jouw eigen" />
+  <string name="generated" value="Gegenereerd" />
+  <string name="date of find" value="Datum van vondst" />
+  <string name="write note" value="Schrijf notitie" />
+  <string name="saving geocaches..." value="Bezig met opslaan van geocaches..." />
+  <string name="getting file list..." value="Bezig met ophalen bestandslijst..." />
+  <string name="user" value="Gebruiker" />
+  <string name="remove" value="Verwijderen" />
+  <string name="export to gapp data exchange file" value="Exporteren naar GAPP data uitwissel bestand" />
+  <string name="install" value="Installeer" />
+  <string name="downloading list..." value="Bezig met downloaden van de lijst..." />
+  <string name="statistics generator" value="Statistieken generator" />
+  <string name="clear authorization" value="Wis autorisatie" />
+  <string name="target directory for poi loader csv files" value="Doel folder voor POI Loader csv bestanden" />
+  <string name="most consecutive days without founds" value="Meest aaneengesloten dagen zonder vondst" />
+  <string name="loading geocache images..." value="Bezig met laden van geocacheplaatjes..." />
+  <string name="per year" value="per jaar" />
+  <string name="published" value="Gepubliceerd" />
+  <string name="owner id" value="Eigenaar id" />
+  <string name="available" value="Beschikbaar" />
+  <string name="flow does not exists or is uploaded by someone else" value="Het schema bestaat niet of is geupload door iemand anders" />
+  <string name="query builder" value="Query bewerker" />
+  <string name="summary" value="Samenvatting" />
+  <string name="enable folder selection at startup" value="Activeer map selectie bij het opstarten" />
+  <string name="by" value="door" />
+  <string name="about" value="Over" />
+  <string name="importing geocaching.com my finds..." value="Bezig met importeren van Mijn Gevonden..." />
+  <string name="the folder is not a valid settings folder" value="De map is geen geldige instellingen map" />
+  <string name="show selected on map" value="Bekijk de selectie op de kaart" />
+  <string name="cache" value="Cache" />
+  <string name="selection options" value="Selectie opties" />
+  <string name="created" value="Aangemaakt" />
+  <string name="edit note" value="Bewerk notitie" />
+  <string name="show flagged only" value="Laat alleen gemarkeerde zien" />
+  <string name="custom latitude" value="Aangepaste breedtegraad" />
+  <string name="position" value="Positie" />
+  <string name="add events to calendar" value="Voeg events toe aan kalender" />
+  <string name="clear cache" value="Leeg cache" />
+  <string name="left" value="Over" />
+  <string name="log date" value="Logdatum" />
+  <string name="selected geocaches" value="Geselecteerde geocaches" />
+  <string name="export data" value="Exporteer data" />
+  <string name="add / create" value="Toevoegen / Aanmaken" />
+  <string name="run script" value="Voer script uit" />
+  <string name="from selection" value="Van selectie" />
+  <string name="saving geocache images..." value="Bezig met opslaan van geocacheplaatjes..." />
+  <string name="openlayers map" value="OpenLayers kaart" />
+  <string name="select all" value="Selecteer alles" />
+  <string name="creating file..." value="Bezig met aanmaken van bestand..." />
+  <string name="import geocaches..." value="Bezig met importeren van geocaches..." />
+  <string name="default name" value="Standaard naam" />
+  <string name="view geocache from original location" value="Bekijk geocache op originele locatie" />
+  <string name="add active geocache to your favorites" value="Voeg actieve geocache toe aan jouw Favorieten" />
+  <string name="change username" value="Verander gebruikersnaam" />
+  <string name="keep window in front" value="Houd scherm op voorgrond" />
+  <string name="center coordinates" value="Middelpunt" />
+  <string name="modified" value="Gewijzigd" />
+  <string name="cache size" value="Cachegrootte" />
+  <string name="update geocache images" value="Werk geocache plaatjes bij" />
+  <string name="step" value="Stap" />
+  <string name="requested selection" value="Verzochte selectie" />
+  <string name="add images" value="Voeg plaatjes toe" />
+  <string name="exporting kml..." value="Bezig met exporteren naar KML..." />
+  <string name="import gcvote" value="Importeer GCVote" />
+  <string name="delete and ignore geocache" value="Verwijder en negeer geocache" />
+  <string name="log length (characters)" value="Loglengte (karakters)" />
+  <string name="web browser settings" value="Webbrowser instellingen" />
+  <string name="check" value="Controleer" />
+  <string name="edit" value="Bewerk" />
+  <string name="event" value="Event" />
+  <string name="cust.coords" value="aang.coord." />
+  <string name="copying current settings folder to target settings folder..." value="Bezig met het kopieren van de huidige instellingen naar doel map..." />
+  <string name="gpx version" value="GPX versie" />
+  <string name="clear saved data" value="Verwijder opgeslagen gegevens" />
+  <string name="geocache search: text" value="Geocache zoeken op tekst" />
+  <string name="geocache editor" value="Geocache bewerker" />
+  <string name="update status" value="Werk status bij" />
+  <string name="finish" value="Klaar" />
+  <string name="max. in folder" value="Max. in folder" />
+  <string name="web browser compatibility mode has been changed. please restart gapp to make it effective." value="De compatibility mode van de webbrowser is veranderd. Herstart GAPP om deze actief te maken." />
+  <string name="grid size" value="Rastergrootte" />
+  <string name="geocache select filter" value="Geocache selectie filter" />
+  <string name="own" value="Eigenaar" />
+  <string name="add visits logs for missing" value="Voeg missende logs toe" />
+  <string name="importing geocaches..." value="Bezig met importeren geocaches..." />
+  <string name="total found" value="Totaal gevonden" />
+  <string name="gps location service is active" value="GPS locatieservice is actief" />
+  <string name="publish listing" value="Publiceer geocache" />
+  <string name="do not keep window in front" value="Houd scherm niet op voorgrond" />
+  <string name="note" value="Notitie" />
+  <string name="result" value="Resultaat" />
+  <string name="attended" value="Aanwezig geweest" />
+  <string name="extension" value="Extensie" />
+  <string name="sub action" value="Subactie" />
+  <string name="upload your flows" value="Upload jouw schema's" />
+  <string name="number" value="Nummer" />
+  <string name="create route for selected geocaches" value="Maak een route aan voor geselecteerde geocaches" />
+  <string name="add waypoints" value="Voeg waypoints toe" />
+  <string name="clear directory before export" value="Maak folder leeg voor exporteren" />
+  <string name="log" value="Log" />
+  <string name="instruction videos" value="Instructiefilmpjes" />
+  <string name="import gpx" value="Importeer GPX" />
+  <string name="account switcher" value="Wissel gebruiker" />
+  <string name="trackables to log (seperated by space, comma or tab)" value="Te loggen trackables (gescheiden dmv spatie, komma of tabs)" />
+  <string name="automatic top panel visibility" value="Automatische tonen en verbergen van top paneel" />
+  <string name="live api limits" value="Live API limieten" />
+  <string name="with the live api, the coordinates of the geocache are not provided. this means that importing an archived geocache using the live api will result in an invalid coordinate. here you can backup all coordinates and restore them." value="Met de Live API worden de coordinaten van gearchiveerde geocaches niet meegegeven. Dit betekent dat een import van een gearchiveerde cache via de Live API een ongeldig coordinaat heeft. Hier kun je alle coordinaten backuppen en herstellen. " />
+  <string name="hide old browser warning" value="Verberg oude browser waarschuwing" />
+  <string name="active" value="Actieve" />
+  <string name="actions" value="Acties" />
+  <string name="clear" value="Wissen" />
+  <string name="oldest cache" value="Oudste cache" />
+  <string name="sequence" value="Actielijst" />
+  <string name="load at startup" value="Inlezen bij opstarten" />
+  <string name="route from" value="Route van" />
+  <string name="log selected" value="Log geselecteerde" />
+  <string name="geocache along a route..." value="Geocache langs een route..." />
+  <string name="submit" value="Opsturen" />
+  <string name="restore default" value="Herstel standaard" />
+  <string name="not available" value="Niet beschikbaar" />
+  <string name="-- all --" value="-- alle --" />
+  <string name="the data has been changed. do you want to save the data first?" value="De gegevens zijn veranderd. Wil je de gegevens opslaan?" />
+  <string name="html editor" value="HTML bewerker" />
+  <string name="collection" value="Collectie" />
+  <string name="or" value="Of" />
+  <string name="this file cannot be processed" value="Dit bestand kan niet worden verwerkt" />
+  <string name="active geocache" value="Actieve geocache" />
+  <string name="startup" value="Opstarten" />
+  <string name="visited" value="Bezocht" />
+  <string name="follow" value="Volgen" />
+  <string name="url name" value="Url naam" />
+  <string name="locations" value="Locaties" />
+  <string name="luxembourg" value="Luxemburg" />
+  <string name="show" value="Bekijk" />
+  <string name="search for geocache distance" value="Zoek voor geocache sfstanden" />
+  <string name="import gsak database" value="Importeer GSAK database" />
+  <string name="import logs of selected user" value="Importeer logs van geselecteerde gebruiker" />
+  <string name="rename" value="Hernoemen" />
+  <string name="get more..." value="Verkrijg meer..." />
+  <string name="italy" value="Italie" />
+  <string name="homepage" value="Startpagina" />
+  <string name="enter captcha" value="Voer captcha in" />
+  <string name="latitude" value="Breedtegraad" />
+  <string name="user names" value="Gerbruikersnamen" />
+  <string name="splitscreen" value="Gespleten scherm" />
+  <string name="create image folder for selection" value="Maak plaatjes folder voor geselecteerden" />
+  <string name="original text" value="Originele tekst" />
+  <string name="areas / codes" value="Gebied / Codes" />
+  <string name="drops" value="Drops" />
+  <string name="debug log viewer" value="Debug logscherm" />
+  <string name="angle and distance" value="Hoek en afstand" />
+  <string name="longitude" value="Lengtegraad" />
+  <string name="create ggz file" value="Maak GGZ bestand aan" />
+  <string name="sort on" value="Sorteren op" />
+  <string name="coordinates" value="Coordinaten" />
+  <string name="discovered it" value="Heb het gezien" />
+  <string name="delete for active" value="Verwijder voor actieve" />
+  <string name="fixed view" value="Vaste invalshoek" />
+  <string name="select pocket query for download" value="Selecteer Pocket Query om te downloaden" />
+  <string name="membership" value="Lidmaatschap" />
+  <string name="restoring backup..." value="Bezig met herstellen van backup...." />
+  <string name="dropped off" value="In een geocache gelegd" />
+  <string name="select file..." value="Selecteer bestand..." />
+  <string name="importing gcvotes..." value="Bezig met importeren van GCVote" />
+  <string name="name field" value="Naamveld" />
+  <string name="use name and not geocache code" value="Gebruik naam en niet geocache code" />
+  <string name="dutch grid" value="RD coordinaten" />
+  <string name="cipher" value="Codering" />
+  <string name="exporting poi..." value="Bezig met exporteren naar POI..." />
+  <string name="geocache collections" value="Geocache collecties" />
+  <string name="unable to get the data from gcvote.com" value="Kan data niet ophalen van gcvote.com" />
+  <string name="unarchive" value="Uit archief" />
+  <string name="seperate file per geocache" value="Afzonderlijk bestand per geocache" />
+  <string name="clear selection" value="Wis selectie" />
+  <string name="export igeoknife" value="Exporteren naar iGeoKnife" />
+  <string name="custom toolbar settings" value="Instelbare knoppenbalk instellingen" />
+  <string name="pkg type" value="Pkt type" />
+  <string name="delete for selection" value="Verwijder voor geselecteerde" />
+  <string name="needs attention" value="Heeft aandacht nodig" />
+  <string name="do not show execution completed message" value="Laat de schema uitgevoerd melding niet zien." />
+  <string name="flows with scripts cannot be shared with other due to security reasons" value="Schema's die scripts bevatten kunnen niet gedeeld worden met anderen vanwege veiligheids redenen." />
+  <string name="cache type percentage per month and total" value="Cachetype percentage per maand en totaal" />
+  <string name="english translations" value="Engelse vertalingen" />
+  <string name="export garmin poi" value="Exporteer Garmin POI" />
+  <string name="get geocaches using live api" value="Verkrijg geocaches middels Live API" />
+  <string name="edit ignored geocaches" value="Bewerk negeer geocache filters" />
+  <string name="get access and sync. settings" value="Toegang verkrijgen en gegevens overnemen" />
+  <string name="generate statistics" value="Genereer statistieken" />
+  <string name="offline osm maps" value="Offline OSM kaarten" />
+  <string name="new" value="Nieuw" />
+  <string name="executing..." value="Bezig met uitvoeren..." />
+  <string name="flow" value="Schema" />
+  <string name="repair active database" value="Repair active database" />
+  <string name="window presets" value="Scherm voorinstellingen" />
+  <string name="properties" value="Eigenschappen" />
+  <string name="generate" value="Genereer" />
+  <string name="track. max" value="Track. max" />
+  <string name="maximum zoom level" value="Maximale zoomniveau" />
+  <string name="deleting geocaches..." value="Bezig met verwijderen van geocaches..." />
+  <string name="select within radius" value="Selecteer binnen straal" />
+  <string name="settings folder" value="Instellingen map" />
+  <string name="unable to access the live api or process its data" value="Geen toegang tot de Live API of een fout bij het verwerken van de data" />
+  <string name="difficulty / terrain combination" value="Moeilijkheid / terrain combinatie" />
+  <string name="open areas" value="Open gebieden" />
+  <string name="show route of selected trackable" value="Bekijk route van geselecteerde trackable" />
+  <string name="shapefiles in use" value="Shapefiles ingebruik" />
+  <string name="trackable code(s)" value="Trackable code(s)" />
+  <string name="founds per terrain" value="Gevonden per terrein" />
+  <string name="center" value="Middelpunt" />
+  <string name="distance to center (km)" value="Afstand tot middelpunt (km)" />
+  <string name="in collection" value="In collectie" />
+  <string name="miles" value="mijlen" />
+  <string name="text" value="Tekst" />
+  <string name="mass geocache editor" value="Massa geocache bewerker" />
+  <string name="select not found" value="Selecteer niet gevonden door jou" />
+  <string name="user scripts" value="Gebruikers scripts" />
+  <string name="copy to custom coordinates" value="Kopieer naar aangepaste coordinaten" />
+  <string name="notes" value="Notities" />
+  <string name="target settings folder" value="Doel instellingen map" />
+  <string name="new account" value="Nieuwe gebruiker" />
+  <string name="new search" value="Nieuwe selectie" />
+  <string name="create series..." value="Maak serie..." />
+  <string name="only images not in geocache description" value="Alleen plaatjes die niet in de beschrijving staan" />
+  <string name="export to cachebox" value="Exporteer naar Cachebox" />
+  <string name="select found" value="Selecteer gevonden door jou" />
+  <string name="{0} geocaches have been ignored during import." value="{0} geocaches zijn genegeerd tijdens het importeren." />
+  <string name="update available!" value="Nieuwe versie(s) beschikbaar!" />
+  <string name="i own" value="Mijn eigen" />
+  <string name="process" value="Proces" />
+  <string name="automatic save data on closing" value="Automatisch bestand opslaan bij afsluiten" />
+  <string name="in possession" value="In bezit" />
+  <string name="needs maintenance" value="Heeft onderhoud nodig" />
+  <string name="webcam photo taken" value="Webcam foto gemaakt" />
+  <string name="downloadable" value="Downloadbaar" />
+  <string name="user waypoint editor" value="Gebruikers Waypoints bewerker" />
+  <string name="automatic selection of new geocaches" value="Automatisch nieuwe caches selecteren" />
+  <string name="(0 = unlimited)" value="(0 = ongelimiteerd)" />
+  <string name="keep last 5" value="Behoud de meest recente 5" />
+  <string name="import waymark gpx" value="Importeer Waymark GPX" />
+  <string name="set opacity" value="Zet ondoorzichtigheid" />
+  <string name="loading logs..." value="Bezig met laden van logs..." />
+  <string name="setup wizard" value="Installatie hulp" />
+  <string name="download and install" value="Download en installeren" />
+  <string name="select whole area" value="Selecteer geheel gebied" />
+  <string name="i found" value="Ik heb gevonden" />
+  <string name="trackables" value="Trackables" />
+  <string name="execute" value="Uitvoeren" />
+  <string name="route to" value="route naar" />
+  <string name="assign regions to geocaches" value="Ken regio's toe aan geocaches" />
+  <string name="account name" value="Accountnaam" />
+  <string name="clear all" value="Alles wissen" />
+  <string name="min. distance" value="Min. afstand" />
+  <string name="get all trackable logs" value="Haal alle trackable logs op" />
+  <string name="scale" value="Schalen" />
+  <string name="get logs" value="Importeer logs" />
+  <string name="load from device..." value="Laad van apparaat..." />
+  <string name="sheets" value="Werkbladen" />
+  <string name="add your own" value="Voeg jouw eigen toe" />
+  <string name="creating backup..." value="Bezig met aanmaken van backup..." />
+  <string name="requesting selection from user... seconds left:" value="Bezig met verzoeken om selectie... seconden over:" />
+  <string name="personal notes" value="Persoonlijke notitie" />
+  <string name="city" value="Plaats" />
+  <string name="ter. max" value="Ter. max" />
+  <string name="force rework" value="Opnieuw uitvoeren" />
+  <string name="create pocket queries" value="Maak Pocket Queries aan" />
+  <string name="the folder is the active settings folder" value="De map is de actieve instellingen map" />
+  <string name="add geocaches" value="Geocaches toevoegen" />
+  <string name="view altitude" value="Camerahoogte" />
+  <string name="plugin type" value="Functie type" />
+  <string name="count geocache as waypoint" value="Tel geocache ook als waypoint" />
+  <string name="select with user waypoints" value="Selecteer met user waypoints" />
+  <string name="tracking number" value="Trackingnummer" />
+  <string name="image resource" value="Bron plaatjes" />
+  <string name="delete for all" value="Verwijder voor alle" />
+  <string name="max. logs" value="Max. logs" />
+  <string name="create image folder for active" value="Maak plaatjes folder voor actieve" />
+  <string name="last cache" value="In cache" />
+  <string name="flagged" value="Gemarkeerd" />
+  <string name="geocaches along a route" value="Geocaches langs een route" />
+  <string name="add" value="Toevoegen" />
+  <string name="finder" value="Logger" />
+  <string name="search geocache" value="Zoek geocache" />
+  <string name="mystery, only if corrected" value="Mysterie, alleen indien gecorrigeerd" />
+  <string name="the folder is not empty.&#xD;&#xA;are you sure you want to delete the existing files?" value="De map is niet leeg.&#xD;&#xA;Weet je zeker dat je de bestanden in die map wilt verwijderen?" />
+  <string name="export geocaches..." value="Bezig met exporteren van geocaches..." />
+  <string name="conditions" value="Condities" />
+  <string name="clear all filters" value="Verwijder all filters" />
+  <string name="retrieving data from geocaching.com" value="Bezig met ophalen van gegevens van geocaching.com..." />
+  <string name="unknown" value="Onbekend" />
+  <string name="copy to new database" value="Kopieer naar nieuwe database" />
+  <string name="founds per difficulty" value="Gevonden per moeilijkheid" />
+  <string name="failed" value="Mislukt" />
+  <string name="update status of geocaches and import new geocaches" value="Bijwerken van de status van geocaches en nieuwe importeren" />
+  <string name="export ov2" value="Exporteer OV2" />
+  <string name="netherlands" value="Nederland" />
+  <string name="run silently" value="Executeer op achtergrond" />
+  <string name="level" value="Nivo" />
+  <string name="joined the room" value="Is binnen gekomen" />
+  <string name="areas" value="Gebieden" />
+  <string name="select geocache" value="Selecteer geocache" />
+  <string name="use database name as gpx file name on device" value="Gebruik databasenaam als GPX bestandsnaam op apparaat" />
+  <string name="show selected only" value="Laat alleen geselecteerde zien" />
+  <string name="days in between" value="Dagen ertussen" />
+  <string name="view logs" value="Bekijk logs" />
+  <string name="size" value="Grootte" />
+  <string name="the flow already exists. overwrite the existing flow?" value="Het schema bestaat al. Het huidige schema vervangen?" />
+  <string name="mark destroyed" value="Markeer als vernield" />
+  <string name="log length (words)" value="Loglengte (woorden)" />
+  <string name="deleting grabbed images" value="Bezig met verwijderen van plaatjes" />
+  <string name="unable to log the geocache. reason:" value="Kan de geocache niet loggen. Reden:" />
+  <string name="select geocaches within region" value="Selecteer geocaches binnen regio" />
+  <string name="remove logs from" value="Verwijder logs van" />
+  <string name="connecting..." value="Bezig met verbinden..." />
+  <string name="insert from database" value="Invoegen van andere database" />
+  <string name="server error" value="Server fout" />
+  <string name="grabbing images..." value="Bezig met ophalen van plaatjes..." />
+  <string name="package manager" value="Pakket beheer" />
+  <string name="not saved" value="Niet opgeslagen" />
+  <string name="poi name" value="POI naam" />
+  <string name="select" value="Selecteer" />
+  <string name="cluster marker" value="Clustering van icoontjes" />
+  <string name="belgium" value="Belgie" />
+  <string name="maximum logs" value="Maximum logs" />
+  <string name="no geocaches selected" value="Geen geocache geselecteerd" />
+  <string name="to" value="Tot" />
+  <string name="max. in last pq" value="Max. in laatste PQ" />
+  <string name="authorize" value="Autoriseren" />
+  <string name="yes" value="Ja" />
+  <string name="custom waypoints" value="Eigen waypoints" />
+  <string name="no" value="Nee" />
+  <string name="downloading pq..." value="Bezig met downloaden PQ..." />
+  <string name="degrees" value="Graden" />
+  <string name="go" value="Ga" />
+  <string name="delete geocache" value="Verwijder geocache" />
+  <string name="use windows authentification" value="Gebruik Windows authenticatie" />
+  <string name="include notes in description" value="Zet notities in beschrijving" />
+  <string name="enable" value="Toepassen" />
+  <string name="fav. min" value="Fav. min" />
+  <string name="search" value="Zoeken" />
+  <string name="custom" value="Eigen" />
+  <string name="internal storage" value="Interne opslag" />
+  <string name="all events" value="Alle events" />
+  <string name="recent databases" value="Recente databases" />
+  <string name="user name" value="Gebruikersnaam" />
+  <string name="word length without space" value="Woordlengte zonder spatie" />
+  <string name="the query will be column wise processed" value="De query wordt kolomsgewijs verwerkt" />
+  <string name="hosted flows" value="Schema's op de server" />
+  <string name="u i child window" value="User Interface scherm" />
+  <string name="delay between trackable updates" value="Wachttijd tussen trackables met bijwerken" />
+  <string name="gc owner" value="GC Eigenaar" />
+  <string name="select available" value="Selecteer beschikbare" />
+  <string name="unable to download package list" value="Kon pakketlijst niet downloaden" />
+  <string name="save all" value="Alles opslaan" />
+  <string name="active event" value="Actieve event" />
+  <string name="mark missing" value="Markeer als vermist" />
+  <string name="days cached / frequency" value="Dagen gecached / frequencie" />
+  <string name="import logs of other users" value="Importeer logs van andere gebruikers" />
+  <string name="set available" value="Zet beschikbaar" />
+  <string name="you must authorize this application in order to execute this plugin" value="Je moet autoriseren alvorens je deze functie kunt gebruiken" />
+  <string name="lock user (ban)" value="Blokkeer gebruiker (verbannen)" />
+  <string name="region selection" value="Regio selectie" />
+  <string name="reviewer note" value="Reviewer notitie" />
+  <string name="export waypoint pois" value="Exporteer Waypoint POI's" />
+  <string name="get owned" value="Haal jouw eigen op" />
+  <string name="deselect geocaches after update" value="Deselecteer geocaches die bijgewerkt zijn" />
+  <string name="zip file" value="Gecomprimeerd bestand" />
+  <string name="rework" value="Opnieuw uitvoeren" />
+  <string name="log type" value="Logtype" />
+  <string name="user waypoint" value="Gebruikers waypoint" />
+  <string name="missing" value="Missen nog" />
+  <string name="found by all" value="Door allen gevonden" />
+  <string name="download more..." value="Meer downloaden..." />
+  <string name="database error" value="Database fout" />
+  <string name="get location" value="Bepaal locatie" />
+  <string name="cancel" value="Annuleren" />
+  <string name="property" value="Eigenschap" />
+  <string name="the flow has been imported" value="Het schema is geimporteerd" />
+  <string name="parameters in function call invalid" value="Parameters in de functie zijn ongeldig." />
+  <string name="geocache attachements" value="Geocache bijlagen" />
+  <string name="area definitions" value="Gebiedsdefinitie" />
+  <string name="select with corrected coords" value="Selecteer geocaches met gecorrigeerde coordinaten" />
+  <string name="date of data" value="Datum van gegevens" />
+  <string name="exporting igeoknife..." value="Exporteren naar iGeoKnife..." />
+  <string name="importing gpx..." value="Bezig met importeren GPX..." />
+  <string name="author" value="Auteur" />
+  <string name="most in 1 month" value="Meeste in 1 maand" />
+  <string name="create route" value="Maak route aan" />
+  <string name="select url" value="Selecteer URL" />
+  <string name="backup/restore coordinates" value="Backup/Herstel coordinaten" />
+  <string name="loading" value="Bezig met laden" />
+  <string name="log all" value="Log alles" />
+  <string name="background" value="Achtergrond" />
+  <string name="found by" value="Gevonden door" />
+  <string name="log selected geocache..." value="Log de geselecteerde geocache..." />
+  <string name="select geocaches in area" value="Selecteer geocaches in gebied" />
+  <string name="add additional waypoints to description" value="Voeg additionele waypoints toe aan beschrijving" />
+  <string name="maximum geocache name length" value="Maximale geocache naamlengte" />
+  <string name="explanation" value="Uitleg" />
+  <string name="opacity" value="Ondoorzichtigheid" />
+  <string name="execute action" value="Voer actie uit" />
+  <string name="processing step..." value="Bewerk stap..." />
+  <string name="u i main window" value="UI Hoofdscherm" />
+  <string name="select a plugin with action and press the key to use as a shortcut." value="Selecteer een functie en druk om de toetsen welke gebruikt moet worden als sneltoets" />
+  <string name="recovered" value="Hersteld" />
+  <string name="exporting to cachebox..." value="Bezig met exporteren naar Cachebox..." />
+  <string name="export to garmin device" value="Exporteren naar Garmin apparaat" />
+  <string name="globalcaching application is geocaching live enabled.&#xD;&#xA;&#xD;&#xA;with the geocaching live api from groundspeak it becomes easy to obtain data from geocaching.com and e.g. log a geocache without the need to go to the website of geocaching.com.&#xD;&#xA;pocket queries can be downloaded right from the application itself and geocaches can be updated instantly.&#xD;&#xA;&#xD;&#xA;in order to use these features, you have to authorize this application to access your account on geocaching.com." value="Globalcaching Application ondersteunt Geocaching Live.&#xD;&#xA;&#xD;&#xA;Met de Geocaching Live API van Groundspeak is het makkelijk om data van geocaching.com te verkrijgen and b.v. een geocache te loggen zonder dat je naar de website van geocaching.com hoeft te gaan.&#xD;&#xA;Pocket Queries kunnen rechtstreeks vanuit de applicatie gedownload worden en geocaches kunnen instantaan bijgewerkt worden.&#xD;&#xA;&#xD;&#xA;Om deze functionaliteiten te gebruiken moet je deze applicatie eerst autoriseren om toegang te krijgen tot de Live API." />
+  <string name="published days ago" value="Dagen terug gepubliceerd" />
+  <string name="most on 1 month" value="Meeste in 1 maand" />
+  <string name="travelled distance" value="Afgelegde afstand" />
+  <string name="fill opacity" value="Dichtheid vulling" />
+  <string name="error processing flow. the flow might have been created with a newer version of gapp" value="Er is een fout opgetreden bij het verwerken van het schema. Het schema is misschien aangemaakt met een recentere versie van GAPP." />
+  <string name="set additional coordinates" value="Zet additionele coordinaten" />
+  <string name="country / state" value="Land / Provincie" />
+  <string name="notes for" value="Notitie voor" />
+  <string name="grab it (not from a cache)" value="Pak het (niet van een geocache)" />
+  <string name="download" value="Download" />
+  <string name="export locus - addon gsak database" value="Exporteren naar Locus - addon GSAK database" />
+  <string name="preview" value="Voorbeeld" />
+  <string name="importing geocaching.com geocaches..." value="Bezig met importeren van geocaching.com geocaches..." />
+  <string name="change history" value="Geschiedenis van de wijzigingen" />
+  <string name="favorites" value="Favorieten" />
+  <string name="caption" value="Titel" />
+  <string name="country" value="Land" />
+  <string name="there are {0} new geocaches found&#xD;&#xA;import these?" value="Er zijn {0} nieuwe geocaches gevonden.&#xD;&#xA;Deze geocaches importeren?" />
+  <string name="users" value="Gebruikers" />
+  <string name="messages" value="Berichten" />
+  <string name="from home location" value="Van thuislocatie" />
+  <string name="owner maintenance" value="Eigenaar heeft onderhoud gepleegd" />
+  <string name="total distance" value="Totale afstand" />
+  <string name="unable to log the geocache. reason unknown" value="Kan de geocache niet loggen. Reden onbekend" />
+  <string name="general" value="Algemeen" />
+  <string name="quick select" value="Snelle selectie" />
+  <string name="copy images to folder" value="Kopieer plaatjes naar folder" />
+  <string name="your uploaded flows" value="Jouw geuploade schema's" />
+  <string name="script installed" value="Script geinstalleerd" />
+  <string name="geocache code" value="Geocache code" />
+  <string name="searching within description..." value="Bezig met zoeken in beschrijvingen..." />
+  <string name="select geocaches with attachements" value="Selecteer geocaches met bijlagen" />
+  <string name="export gapp data exchange file" value="Exporteren naar GAPP data uitwissel bestand" />
+  <string name="language" value="Taal" />
+  <string name="import nl geocache distance..." value="Importeer NL geocache afstanden..." />
+  <string name="automatic selection" value="Automatische selectie" />
+  <string name="connected" value="Verbonden" />
+  <string name="delete" value="Verwijderen" />
+  <string name="grab only images that are not grabbed before." value="Haal alleen plaatjes op die offline nog niet beschikbaar zijn." />
+  <string name="updating geocaches..." value="Bezig met bijwerken van geocaches..." />
+  <string name="batch logging for trackables" value="Batch loggen voor trackables" />
+  <string name="live a p i" value="Live API" />
+  <string name="name" value="Naam" />
+  <string name="export to ov2" value="Exporteren naar OV2" />
+  <string name="importing geocaching.com logs..." value="Bezig met importeren van geocaching.com logs..." />
+  <string name="switch to selected folder" value="Wissel naar geselecteerde map" />
+  <string name="update map" value="Werk kaart bij" />
+  <string name="german translations" value="Duitse vertalingen" />
+  <string name="create the url on munzee.dfx.at and choose json." value="Maak de URL aan op munzee.dfx.at en kies JSON" />
+  <string name="move to inventory" value="Verplaats naar inventaris" />
+  <string name="projection" value="Projectie" />
+  <string name="importing data..." value="Bezig met importeren van data..." />
+  <string name="at least one user" value="Tenminste 1 gebruiker" />
+  <string name="couple to main screen" value="Koppel aan hoofdscherm" />
+  <string name="show logs of user" value="Laat logs zien van gebruiker" />
+  <string name="getting trackable logs..." value="Bezig met ophalen van de trackable logs..." />
+  <string name="download and publish" value="Downloaden en publiceren" />
+  <string name="name contains" value="Naam bevat tekst" />
+  <string name="success" value="Succes" />
+  <string name="sort order" value="Sorteervolgorde" />
+  <string name="keep all own logs" value="Behoud alle eigen logs" />
+  <string name="temporarily disable listing" value="Tijdelijk de geocache net beschikbaar maken" />
+  <string name="geocache type" value="Geocache type" />
+  <string name="coordinate in wgs84 (latitude, longitude) or dutch grid (x y)" value="Coordinaat in WGS84 (lengtegraad, breedtegraad) of RD (x y)" />
+  <string name="fields" value="Velden" />
+  <string name="gc.com notes" value="gc.com notitie" />
+  <string name="show name of geocache in tool tip" value="Laat naam van geocache in tooltip zien" />
+  <string name="restore settings..." value="Laad instellingen..." />
+  <string name="export gdak" value="Exporteren naar GDAK" />
+  <string name="suppress script errors" value="Onderdruk script foutmeldingen" />
+  <string name="importing geocaching.com field notes..." value="Bezig met importeren van geocaching.com veldnotities..." />
+  <string name="preset" value="Voorinstelling" />
+  <string name="log geocache" value="Log geocache" />
+  <string name="saved presets" value="Opgeslage voorinstellingen" />
+  <string name="all" value="Alle" />
+  <string name="preset name" value="Naam voorinstelling" />
+  <string name="language support" value="Taalondersteuning" />
+  <string name="use deferred scrolling" value="Gebruik uitgestelde scrollen" />
+  <string name="descending" value="Aflopend" />
+  <string name="city / coordinates" value="Plaats / Coordinaten" />
+  <string name="gcvote count" value="GCVote aantal" />
+  <string name="clear all votes" value="Wis alle stemmen" />
+  <string name="home coordinates" value="Thuis coordinaten" />
+  <string name="package date" value="Pakket datum" />
+  <string name="import geocache" value="Importeer geocache" />
+  <string name="maps download" value="Kaarten download" />
+  <string name="other" value="Anders" />
+  <string name="needs archived" value="Moet gearchiveerd worden" />
+  <string name="transfer" value="Overdracht" />
+  <string name="search within selection" value="Zoek binnen de selectie" />
+  <string name="action builder" value="Acties bewerker" />
+  <string name="margin" value="Marge" />
+  <string name="months" value="Maanden" />
+  <string name="not connected" value="Niet verbonden" />
+  <string name="filter presets" value="Filter voorinstellingen" />
+  <string name="publication date" value="Publicatiedatum" />
+  <string name="home location" value="Thuis locatie" />
+  <string name="importing log images..." value="Bezig met importeren van plaatjes..." />
+  <string name="remove from collection" value="Verwijder van collectie" />
+  <string name="statistics" value="Statistieken" />
+  <string name="decouple window" value="Ontkoppel scherm" />
+  <string name="track. min" value="Track. min" />
+  <string name="announcement" value="Mededeling" />
+  <string name="update selected trackables" value="Werk alle geselecteerde trackables bij" />
+  <string name="disc." value="Gezien" />
+  <string name="settings" value="Instellingen" />
+  <string name="countries" value="Landen" />
+  <string name="exporting locus - addon gsak database..." value="Bezig met exporteren naar Locus - addon GSAK database" />
+  <string name="failed to load image." value="Fout bij het laden van het plaatje" />
+  <string name="&lt;&lt; back" value="&lt;&lt; Terug" />
+  <string name="action" value="Actie" />
+  <string name="view geocache" value="Bekijk geocache" />
+  <string name="custom longitude" value="Aangepaste lengtegraad" />
+  <string name="open" value="Openen" />
+  <string name="successfully logged" value="met succes gelogd" />
+  <string name="add all to calendar" value="Allemaal toevoegen aan kalender" />
+  <string name="avg. on 1 day" value="Gem. op 1 dag" />
+  <string name="log image thumbs overview" value="Logfoto's dia overzicht" />
+  <string name="accounts" value="Gebruiker" />
+  <string name="c:geo geocache visits" value="c:geo geocache bezoeken" />
+  <string name="activate shortcut" value="Activeer sneltoets" />
+  <string name="quality" value="Kwaliteit" />
+  <string name="keep maximum backups (0=no maximum)" value="Bewaar maximaal aantal backups (0=geen maximum)" />
+  <string name="unable to download package file" value="Kon pakketbestand niet downloaden" />
+  <string name="clear flags" value="Wis markeringen" />
+  <string name="grab for selection" value="Download voor geselecteerde" />
+  <string name="update coordinates" value="Coordinaten bijgewerkt" />
+  <string name="found it" value="Gevonden" />
+  <string name="cache travel distance (direct line from cache to cache)" value="Totale afstand van cache naar cache (hemelsbreed)" />
+  <string name="logging..." value="Loggen..." />
+  <string name="max. poi description length:" value="Max. POI beschrijvingslengte" />
+  <string name="km" value="km" />
+  <string name="log a geocache" value="Log een geocache" />
+  <string name="per day" value="per dag" />
+  <string name="available my finds logs for selected trackable" value="Beschikbare gevonden logs voor geselecteerde trackable" />
+  <string name="backup" value="Backup database" />
+  <string name="use offline images if available" value="Gebruik locale plaatjes indien aanwezig" />
+  <string name="maintenance" value="Onderhoud" />
+  <string name="logging trackable..." value="Bezig met loggen van trackable..." />
+  <string name="keep logs of" value="Behoud logs van" />
+  <string name="radius" value="Radius" />
+  <string name="max. in pq" value="Max. in PQ" />
+  <string name="ok" value="OK" />
+  <string name="total founds per month" value="Totaal gevonden per maand" />
+  <string name="set archived" value="Zet gearchiveerd" />
+  <string name="caches with multiple founds" value="Caches met meerdere gevonden logs door jou" />
+  <string name="dif. min" value="Moei. min" />
+  <string name="automatically activate" value="Automatisch activeren" />
+  <string name="fly to speed" value="Vlieg naar snelheid" />
+  <string name="load logs in background if supported" value="Laad de logs in de achtergrond indien het is ondersteund." />
+  <string name="waypoint counter" value="Waypoint teller" />
+  <string name="size w x h" value="Grootte B x H" />
+  <string name="max. 30 days." value="max. 30 dagen." />
+  <string name="type" value="Type" />
+  <string name="distance to location (km)" value="Afstand tot locatie (km)" />
+  <string name="select action" value="Selecteer actie" />
+  <string name="import munzees from munzee.dfx.at" value="Importeer Munzees van munzee.dfx.at" />
+  <string name="maps" value="Kaarten" />
+  <string name="log trackables" value="Log trackables" />
+  <string name="log text" value="Logtekst" />
+  <string name="home" value="Thuis" />
+  <string name="total maximum" value="Totaal maximum" />
+  <string name="select all geocaches" value="Selecteer alle geocaches" />
+  <string name="current filter settings" value="Huidige filter instellingen" />
+  <string name="description html" value="Beschrijving HTML" />
+  <string name="importing gsak database..." value="Bezig met importeren van GSAK database..." />
+  <string name="select geocaching.com notes" value="Selecteer geocaches met geocaching.com notitie" />
+  <string name="will attend" value="Ben aanwezig" />
+  <string name="importing polygons" value="Bezig met Importeren van polygonen..." />
+  <string name="geocache logged successfully, log another geocache?" value="Geocache is gelogd. Log een andere geocache?" />
+  <string name="selected events" value="Geselecteerde events" />
+  <string name="automatic routing" value="Automatische routering" />
+  <string name="import geocaches" value="Importeer geocaches" />
+  <string name="per week" value="per week" />
+  <string name="published on" value="gepubliceerd op" />
+  <string name="between dates" value="Tussen data" />
+  <string name="password" value="Wachtwoord" />
+  <string name="select trackable" value="Selecteer trackable" />
+  <string name="remove active geocache from your favorites" value="Verwijder actieve geocache uit jouw Favorieten" />
+  <string name="add to current selection" value="Voeg aan huidige selectie toe" />
+  <string name="offline logs" value="Offline logs" />
+  <string name="diff" value="Moei" />
+  <string name="select archived" value="Selecteer gearchiveerde" />
+  <string name="add attachements" value="Voeg bijlagen toe" />
+  <string name="add active geocache to collection" value="Voeg actieve geocache toe aan collectie" />
+  <string name="authorized" value="Geautoriseerd" />
+  <string name="import pocket queries" value="Importeer Pocket Queries" />
+  <string name="gc name" value="GC Naam" />
+  <string name="archived" value="Gearchiveerd" />
+  <string name="add selected geocaches to collection" value="Voeg geselecteerde geocaches toe aan collectie" />
+  <string name="angle" value="Hoek" />
+  <string name="solver" value="Oplosser" />
+  <string name="max. poi name length:" value="Max. POI naamlengte:" />
+  <string name="downloading file..." value="Bezig met downloaden van bestand..." />
+  <string name="most consecutive days with founds" value="Meest aaneengesloten dagen met vondsten" />
+  <string name="from center location" value="Van gecentreerde locatie" />
+  <string name="see website" value="zie website" />
+  <string name="member only" value="Alleen voor PM" />
+  <string name="not found by any" value="Door geen gevonden" />
+  <string name="this will overwrite an existing file&#xD;&#xA;overwrite this file?" value="Dit wil een bestaand bestand overschrijven.&#xD;&#xA;Dit bestand overschrijven?" />
+  <string name="geocache info" value="Geocache informatie" />
+  <string name="unknown function call" value="Onbekende functieaanroep" />
+  <string name="saving waypoints..." value="Bezig met opslaan van waypoints..." />
+  <string name="update" value="Bijwerken" />
+  <string name="updated days ago" value="Dagen terug bijgewerkt" />
+  <string name="importing geocaches" value="Geocaches importeren" />
+  <string name="caches/day" value="Caches/dag" />
+  <string name="import" value="Importeer" />
+  <string name="add new" value="Voeg nieuwe toe" />
+  <string name="all public flows" value="Alle publieke schema's" />
+  <string name="flow is uploaded by someone else" value="Het schema is geupload door iemand anders" />
+  <string name="grab for active" value="Download voor actieve" />
+  <string name="comma separated" value="Komma gescheiden" />
+  <string name="found caches" value="Gevonden caches" />
+  <string name="image gallery" value="Fotogalerij" />
+  <string name="offline logging" value="Offline loggen" />
+  <string name="warning" value="Waarschuwing" />
+  <string name="welcome to the globalcaching application (short gapp).&#xD;&#xA;&#xD;&#xA;this wizard will guide you through the initial setup. before you start, you might want to change the language:" value="Welkom bij de Globalcaching Applicatie (kort GAPP).&#xD;&#xA;&#xD;&#xA;Dit scherm begeleid je bij het zetten van enkele belangrijke instellingen. Voordat je start wil je misschien eerst de taal wijzigen:" />
+  <string name="play sound" value="Speel geluid" />
+  <string name="no geocache selected for update" value="Geen geocaches geselecteerd om bij te werken" />
+  <string name="show label on connection lines" value="Laat label op de verbindingslijnen zien" />
+  <string name="set flagged" value="Zet gemarkeerd" />
+  <string name="select with log images" value="Selecteer geocaches met logfoto's" />
+  <string name="system scripts" value="Systeem scripts" />
+  <string name="you have reached the upload limit" value="Je hebt de limiet bereikt wat je kunt uploaden" />
+  <string name="hidden by users" value="Verborgen door gebruikers" />
+  <string name="create pocket query series" value="Maak Pocket Queries aan" />
+  <string name="stop after each log" value="Stop na elke log" />
+  <string name="most on 1 day" value="Meeste op 1 dag" />
+  <string name="restart" value="Herstart" />
+  <string name="case sensative" value="Hoofdlettergevoelig" />
+  <string name="copy selection" value="Kopieer selectie" />
+  <string name="add child waypoints" value="Voeg waypoints toe" />
+  <string name="geocache note editor" value="Geocache notitie bewerker" />
+  <string name="count" value="Aantal" />
+  <string name="set selected" value="Selecteren" />
+  <string name="deleting images" value="Bezig met verwijderen van plaatjes" />
+  <string name="states/provinces" value="Staten/provincies" />
+  <string name="image to add to log" value="Toe te voegen plaatje" />
+  <string name="public" value="Publiek" />
+  <string name="open in internal web browser" value="Openen in interne browser" />
+  <string name="welcome" value="Welkom" />
+  <string name="new filters only apply for new imports" value="Nieuwe filters worden alleen toegepast op nieuwe imports" />
+  <string name="older than" value="Ouder dan" />
+  <string name="didn't find it" value="Heb het niet gevonden" />
+  <string name="show route" value="Bekijk route" />
+  <string name="c:geo visits file" value="c:geo bezoeken logbestand" />
+  <string name="this feature will allow you to take a trackable and add a visit log to each geocache you have found.&#xD;&#xA;the logdate will be the same as the geocache found log date.&#xD;&#xA;this way it is possible to track your finds by using the trackable map on geocaching.com.&#xD;&#xA;&#xD;&#xA;first get the trackable you own, select a trackable which you want to use." value="Deze functie stelt jou in staat om voor een geselecteerde trackable een 'Bezoek' log te plaatsen bij elk de door jou gevonden geocache.&#xD;&#xA;De logdatum zal hetzelfde zijn als de datum van de vondst.&#xD;&#xA;Op deze manier is het mogelijk om jouw gevonden caches te traceren op de kaart op geocaching.com." />
+  <string name="geocache viewer" value="Geocachescherm" />
+  <string name="set" value="Zet" />
+  <string name="parent" value="Ouder" />
+  <string name="selected only" value="Alleen geselecteerden" />
+  <string name="trackable group" value="Trackable groep" />
+  <string name="description text" value="Beschrijving Text" />
+  <string name="add / update" value="Toevoegen / bijwerken" />
+  <string name="applying settings..." value="Bezig met toepassen van de instellingen..." />
+  <string name="custom coord." value="Aangepaste coord." />
+  <string name="there are no new geocaches found" value="Er zijn geen nieuwe geocaches gevonden." />
+  <string name="apply" value="Toepassen" />
+  <string name="simple cache list" value="Enkelvoudige cachelijst" />
+  <string name="select garmin device" value="Selecteer Garmin apparaat" />
+  <string name="attributes" value="Attributen" />
+  <string name="notes contains" value="Notitie bevat tekst" />
+  <string name="retrieving package list..." value="Bezig met ophalen van de pakketlijst..." />
+  <string name="from" value="Van" />
+  <string name="remove older then days (0=don't remove)" value="Verwijder ouder dan dagen (0=niet verwijderen)" />
+  <string name="exporting to excel..." value="Bezig met exporteren naar Excel..." />
+  <string name="loading..." value="Bezig met laden..." />
+  <string name="french translations" value="Franse vertalingen" />
+  <string name="description" value="Beschrijving" />
+  <string name="every" value="elke" />
+  <string name="export to garmin gpsr" value="Exporteren naar Garmin GPS ontvanger" />
+  <string name="saving..." value="Bezig met opslaan..." />
+  <string name="original image" value="Originele plaatje" />
+  <string name="hops" value="Hops" />
+  <string name="terrain" value="Terrein" />
+  <string name="municipality / city" value="Gemeente / Plaats" />
+  <string name="store offline" value="Sla lokaal op" />
+  <string name="enable automatic sorting" value="Automatische sortering aan" />
+  <string name="loading log images..." value="Bezig met laden van logplaatjes..." />
+  <string name="updating geocache..." value="Werk geocache bij..." />
+  <string name="save settings" value="Instellingen opslaan" />
+  <string name="automatic date ranges" value="Automatische datum intervallen" />
+  <string name="offline images" value="Locale plaatjes" />
+  <string name="unassigned only" value="Alleen niet toegekende" />
+  <string name="sort" value="Sorteren" />
+  <string name="geocaching live" value="Geocache Live" />
+  <string name="from current settings" value="Van huidige instellingen" />
+  <string name="between" value="Tussen" />
+  <string name="window" value="Venster" />
+  <string name="files" value="Bestanden" />
+  <string name="saving data..." value="Bezig met opslaan van data...." />
+  <string name="center location" value="Centreer op deze locatie" />
+  <string name="field" value="Veld" />
+  <string name="searching for text..." value="Bezig met zoeken naar tekst..." />
+  <string name="file" value="Bestand" />
+  <string name="geocache collection" value="Geocache collectie" />
+  <string name="import nl geocache distance" value="Importeer NL geocache afstanden" />
+  <string name="show settings dialog before start" value="Laat instellingenscherm zien voor het starten." />
+  <string name="frequency" value="Frequencie" />
+  <string name="action sequence" value="Actielijst" />
+  <string name="remove and remove logs" value="Verwijder en verwijder logs" />
+  <string name="export geocache pois" value="Exporteer Geocache POI's" />
+  <string name="downloading..." value="Bezig met downloaden..." />
+  <string name="add all selected" value="Voeg alle geselecteerden toe" />
+  <string name="available pocket query settings" value="Beschikbare Pocket Query instellingen" />
+  <string name="overwrite existing" value="Overschrijf huidige gegevens" />
+  <string name="api" value="API" />
+  <string name="new bookmark" value="Nieuwe bookmark" />
+  <string name="premium membership of geocaching.com is required in order to execute this plugin" value="Je moet Premium Member zijn alvorens je deze functie kunt gebruiken" />
+  <string name="update geocaches" value="Ververs geocaches / status" />
+  <string name="decouple from main screen" value="Ontkoppel van hoofdscherm" />
+  <string name="end" value="Einde" />
+  <string name="ascending" value="Oplopend" />
+  <string name="state" value="Provincie" />
+  <string name="importing waypoints..." value="Bezig met importeren van waypoints...." />
+  <string name="enable listing" value="De geocache beschikbaar maken" />
+  <string name="restore all missing" value="Herstel alle missende" />
+  <string name="shift letters count" value="Aantal verschoven letters" />
+  <string name="restore folder" value="Herstel folder" />
+  <string name="text color" value="Tekstkleur" />
+  <string name="found" value="Gevonden" />
+  <string name="fav. max" value="Fav. max" />
+  <string name="click the link to open up the cache page for the event" value="Klik op de link om de event cache-pagina te opnenen" />
+  <string name="geocache batch logging" value="Geocache batch loggen" />
+  <string name="set transparency when inactive..." value="Zet doorzichtigheid wanneer niet actief..." />
+  <string name="saving log images..." value="Bezig met opslaan van logplaatjes..." />
+  <string name="found by users" value="Gevonden door gebruikers" />
+  <string name="clear folder before copy" value="Maak folder leeg voor het kopieren" />
+  <string name="your own" value="Jouw eigen" />
+  <string name="pocket query settings has been saved" value="Pocket Query instellingen zijn opgeslagen" />
+  <string name="log visit my finds for a trackable" value="Log trackable bezoek van mijn gevonden caches" />
+  <string name="maximum per request" value="Maximum per verzoek" />
+  <string name="selection" value="Selectie" />
+  <string name="toolbar" value="Knoppenbalk" />
+  <string name="year" value="Jaar" />
+  <string name="import data" value="Importeer data" />
+  <string name="show additional waypoints" value="Toon additionele waypoints" />
+  <string name="geocaches are missing.&#xD;&#xA;import the missing geocaches?" value=" geocaches missen er in het bestand&#xD;&#xA;Wil je die nu importeren?" />
+  <string name="stroke opacity" value="Dichtheid rand" />
+  <string name="circular reference of queries" value="Circulaire referentie van queries" />
+  <string name="searching..." value="Bezig met zoeken..." />
+  <string name="clear additional coordinates" value="Verwijder additionele coordinaten" />
+  <string name="import geocache notes" value="Importeer geocaching.com persoonlijke notities" />
+  <string name="area" value="Gebied" />
+  <string name="premium member only" value="Alleen Premium Lid" />
+  <string name="add.coords" value="extra coord." />
+  <string name="deselect all" value="Deselecteer alles" />
+</resources>

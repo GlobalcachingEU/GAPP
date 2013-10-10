@@ -1,0 +1,85 @@
+﻿        string strCacheSize = "Cache size";
+        string strSize = "Size";
+        string strFound = "Found";
+        string strPercentage = "Percentage";
+        string strCacheType = "Cache type";
+        string strType = "Type";
+
+        RegisterText(new string[]{
+		strCacheSize,
+		strSize,
+		strFound,
+		strPercentage,
+		strCacheType,
+		strType
+		});
+
+        Layout skin = new Layout(2);
+        Layout.Statistics stats = new Layout.Statistics(Translate(strCacheSize, false));
+        skin.StatisticsBlocks[0] = stats;
+
+        Layout.Statistics.Row row = new Layout.Statistics.Row();
+        stats.Rows.Add(row);
+
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = Translate(strSize, false);
+        row.Items[row.Items.Count - 1].IsMarker = true;
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = Translate(strFound, false);
+        row.Items[row.Items.Count - 1].IsMarker = true;
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = Translate(strPercentage, false);
+        row.Items[row.Items.Count - 1].IsMarker = true;
+
+        var csizeGroups =
+            (from mf in _myFinds
+             group mf by mf.gc.Container into g
+             select new { Container = g.Key, Founds = g }).OrderByDescending(x => x.Founds.Count());
+        foreach (var g in csizeGroups)
+        {
+            row = new Layout.Statistics.Row();
+            stats.Rows.Add(row);
+
+            row.Items.Add(new Layout.Statistics.Item());
+            row.Items[row.Items.Count - 1].Text = Translate(g.Container.Name, false);
+            row.Items[row.Items.Count - 1].IsMarker = true;
+            row.Items.Add(new Layout.Statistics.Item());
+            row.Items[row.Items.Count - 1].Text = g.Founds.Count().ToString();
+            row.Items.Add(new Layout.Statistics.Item());
+            row.Items[row.Items.Count - 1].Text = string.Format("{0:0.0} %", 100.0 * (double)g.Founds.Count() / (double)_myFinds.Count);
+        }
+
+        stats = new Layout.Statistics(Translate(strCacheType, false));
+        skin.StatisticsBlocks[1] = stats;
+
+        row = new Layout.Statistics.Row();
+        stats.Rows.Add(row);
+
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = Translate(strType, false);
+        row.Items[row.Items.Count - 1].IsMarker = true;
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = Translate(strFound, false);
+        row.Items[row.Items.Count - 1].IsMarker = true;
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = Translate(strPercentage, false);
+        row.Items[row.Items.Count - 1].IsMarker = true;
+
+        var csizeTypes =
+            (from mf in _myFinds
+             group mf by mf.gc.GeocacheType into g
+             select new { GeocacheType = g.Key, Founds = g }).OrderByDescending(x => x.Founds.Count());
+        foreach (var g in csizeTypes)
+        {
+            row = new Layout.Statistics.Row();
+            stats.Rows.Add(row);
+
+            row.Items.Add(new Layout.Statistics.Item());
+            row.Items[row.Items.Count - 1].Text = Translate(g.GeocacheType.Name, false);
+            row.Items[row.Items.Count - 1].IsMarker = true;
+            row.Items.Add(new Layout.Statistics.Item());
+            row.Items[row.Items.Count - 1].Text = g.Founds.Count().ToString();
+            row.Items.Add(new Layout.Statistics.Item());
+            row.Items[row.Items.Count - 1].Text = string.Format("{0:0.0} %", 100.0 * (double)g.Founds.Count() / (double)_myFinds.Count);
+        }
+        return skin.ToString();

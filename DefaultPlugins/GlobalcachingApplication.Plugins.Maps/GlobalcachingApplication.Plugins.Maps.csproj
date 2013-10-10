@@ -1,0 +1,290 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AE2F3E8A-52BC-475B-BE0B-310E7A534A3B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GlobalcachingApplication.Plugins.Maps</RootNamespace>
+    <AssemblyName>GlobalcachingApplication.Plugins.Maps</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GetMapsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GetMapsForm.Designer.cs">
+      <DependentUpon>GetMapsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MapContainerControl.xaml.cs">
+      <DependentUpon>MapContainerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MapControl\BitmapStore.cs" />
+    <Compile Include="MapControl\MapCanvas.cs" />
+    <Compile Include="MapControl\MapOffset.cs" />
+    <Compile Include="MapControl\MapControlFactory.cs" />
+    <Compile Include="MapControl\Marker.cs" />
+    <Compile Include="MapControl\MarkerClusterer.cs" />
+    <Compile Include="MapControl\SearchErrorEventArgs.cs" />
+    <Compile Include="MapControl\SearchProvider.cs" />
+    <Compile Include="MapControl\SearchResult.cs" />
+    <Compile Include="MapControl\Tile.cs" />
+    <Compile Include="MapControl\TileGenerator.cs" />
+    <Compile Include="MapControl\TilePanel.cs" />
+    <Compile Include="MapForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MapForm.Designer.cs">
+      <DependentUpon>MapForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MapProviders\Google\BitmapStoreGoogle.cs" />
+    <Compile Include="MapProviders\Google\MapControlFactoryGoogle.cs" />
+    <Compile Include="MapProviders\Google\SearchProviderGoogle.cs" />
+    <Compile Include="MapProviders\Google\TileGeneratorGoogle.cs" />
+    <Compile Include="MapProviders\OSMOffline\BitmapStoreOSMOffline.cs" />
+    <Compile Include="MapProviders\OSMOffline\MapControlFactoryOSMOffline.cs" />
+    <Compile Include="MapProviders\OSMOnline\MapControlFactoryOSMOnline.cs" />
+    <Compile Include="MapProviders\OSM\BitmapStoreOSM.cs" />
+    <Compile Include="MapProviders\OSM\SearchProviderOSM.cs" />
+    <Compile Include="MapProviders\OSM\TileGeneratorOSM.cs" />
+    <Compile Include="MapsPlugin.cs" />
+    <Compile Include="NavigationControls.xaml.cs">
+      <DependentUpon>NavigationControls.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OSMBinMap\ItemRenderer.cs" />
+    <Compile Include="OSMBinMap\RenderInfo.cs" />
+    <Compile Include="OSMBinMap\Tag.cs" />
+    <Compile Include="OSMBinMap\RequestedTileInformation.cs" />
+    <Compile Include="OSMBinMap\SubFile.cs" />
+    <Compile Include="OSMBinMap\FileHeader.cs" />
+    <Compile Include="OSMBinMap\MapFile.cs" />
+    <Compile Include="OSMBinMap\MapFilesHandler.cs" />
+    <Compile Include="OSMBinMap\POI.cs" />
+    <Compile Include="OSMBinMap\TextAlongPath.cs" />
+    <Compile Include="OSMBinMap\TileRenderer.cs" />
+    <Compile Include="OSMBinMap\Way.cs" />
+    <Compile Include="OSMBinMap\ZoomIntervalConfiguration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="SearchControl.xaml.cs">
+      <DependentUpon>SearchControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SettingsPanel.Designer.cs">
+      <DependentUpon>SettingsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TileLocalServer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\GlobalcachingApplication.Framework\GlobalcachingApplication.Framework.csproj">
+      <Project>{45D6B089-F7F0-423A-AC63-83F9BB62A043}</Project>
+      <Name>GlobalcachingApplication.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\GlobalcachingApplication.Utils\GlobalcachingApplication.Utils.csproj">
+      <Project>{10CE1BC5-8951-4043-A9E5-D20C7EC55022}</Project>
+      <Name>GlobalcachingApplication.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="GetMapsForm.resx">
+      <DependentUpon>GetMapsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MapForm.resx">
+      <DependentUpon>MapForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingsPanel.resx">
+      <DependentUpon>SettingsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="MapContainerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NavigationControls.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SearchControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="OSMBinMap\DefaultTheme.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="OSMBinMap\symbols\airport.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\atm.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\bakery.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\bank.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\bench.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\bicycle_rental.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\bus.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\bus_sta.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\cable_car.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\cafe.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\campSite.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\cave_entrance.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\chair_lift_2.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\church.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\cinema.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\fastfood.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\firebrigade.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\florist.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\fountain.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\gondola.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\helipad.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\hospital.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\hostel.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\hotel.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\information.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\kindergarten.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\library.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\mosque.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\oneway.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\parking.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\peak.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\petrolStation.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\pharmacy.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\playground.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\postbox.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\postoffice.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\pub.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\railway-crossing-small.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\railway-crossing.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\recycling.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\restaurant.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\school.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\shelter.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\soccer-borderless.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\supermarket.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\synagogue.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\telephone.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\tennis.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\theatre.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\toilets.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\traffic_signal.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\tree.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\university.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\viewpoint.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\vulcan.png" />
+    <EmbeddedResource Include="OSMBinMap\symbols\windmill.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="OSMBinMap\patterns\access-destination.png" />
+    <EmbeddedResource Include="OSMBinMap\patterns\access-private.png" />
+    <EmbeddedResource Include="OSMBinMap\patterns\cemetery.png" />
+    <EmbeddedResource Include="OSMBinMap\patterns\marsh.png" />
+    <EmbeddedResource Include="OSMBinMap\patterns\military.png" />
+    <EmbeddedResource Include="OSMBinMap\patterns\nature-reserve.png" />
+    <EmbeddedResource Include="OSMBinMap\patterns\wood-coniferous.png" />
+    <EmbeddedResource Include="OSMBinMap\patterns\wood-deciduous.png" />
+    <EmbeddedResource Include="OSMBinMap\patterns\wood-mixed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="OSMBinMap\MissingTile.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)\GlobalcachingApplication\bin\$(ConfigurationName)\Plugins\</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

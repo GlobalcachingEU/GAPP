@@ -1,0 +1,77 @@
+﻿        string strTitle = "myGEOtools Badges";
+
+        /*
+        read about the badges here:
+            http://www.mygeotools.de/content/tools;statistik;badges
+
+        read about the mdCachingPoints here:
+            http://www.macdefender.org/products/GCStatistic/mdCachingPoints.html
+        */
+
+        RegisterText(new string[]{
+		strTitle
+		});
+
+        Layout skin = new Layout(1);
+        Layout.Statistics stats = new Layout.Statistics(Translate(strTitle, false));
+        stats.Align = "center";
+        skin.StatisticsBlocks[0] = stats;
+
+        Layout.Statistics.Row row = new Layout.Statistics.Row();
+        stats.Rows.Add(row);
+
+        StringBuilder sb = new StringBuilder();
+        var csizeTypes =
+            (from mf in _myFinds
+             group mf by mf.gc.GeocacheType into g
+             select new { GeocacheType = g.Key, Founds = g }).OrderByDescending(x => x.Founds.Count());
+        double sumall = 0;
+        foreach (var g in csizeTypes)
+        {
+            double sumdt = 0;
+            double mfBy = 1.0;
+            string cpar = "";
+            //sb.AppendLine(string.Format("<br>Typ:{0}:",Translate(g.GeocacheType.Name)));
+            foreach (var mf in g.Founds)
+            {
+                sumdt += mf.gc.Difficulty * mf.gc.Terrain;
+            }
+            switch (g.GeocacheType.ID)
+            {
+                case 2: mfBy = 1; cpar = "tradi"; break;//Tradi
+                case 3: mfBy = 2; cpar = "multi"; break;//Multi
+                case 4: mfBy = 0.5; cpar = "virtual"; break;//Virtual
+                case 5: mfBy = 1.5; cpar = "letter"; break;//Letterbox
+                case 6: mfBy = 1.5; cpar = "event"; break;//Event
+                case 8: mfBy = 2; cpar = "myst"; break;//Mystery
+                case 9: mfBy = 4; break;//Project_APE
+                case 11: mfBy = 1; cpar = "webcam"; break;//Webcam
+                case 12: mfBy = 0.5; break;//Locationless
+                case 13: mfBy = 1.5; cpar = "cito"; break;//CITO
+                //		case 27: mfBy=1;break;//Benchmark
+                case 137: mfBy = 1.5; cpar = "earth"; break;//Earth
+                case 453: mfBy = 1.75; cpar = "mega"; break;//Mega_Event
+                //		case 605: mfBy=1;break;//Geocache Course
+                case 1304: mfBy = 2; break; //GPS Adventures Exhibit
+                case 1858: mfBy = 2; cpar = "wherigo"; break; //Whereigo
+                case 3653: mfBy = 1.5; break; //Lost_and_Found_Event (geraten)
+                case 3773: mfBy = 1; break; //Groundspeak_HQ (geraten)
+                case 3774: mfBy = 1; break; //Groundspeak_Lost_and_Found (geraten)
+                case 4738: mfBy = 1; break; //Groundspeak_Block_Party (geraten)
+                //10Years ? -> 2
+                default: mfBy = 1; break;
+            }
+            //sb.AppendLine(string.Format("<br>Typ:{0}: {1} pts",Translate(g.GeocacheType.Name),sumdt*mfBy));
+            if (cpar != "" && sumdt * mfBy > 0.4)
+            {
+                sb.AppendLine(string.Format("<img src='http://www.mygeotools.de/badgegen.php?type={0}&points={1}'>",
+                    cpar, Math.Round(sumdt * mfBy, 0)));
+            }
+            sumall += sumdt * mfBy;
+        }
+        sb.AppendLine(string.Format("<br>mdCachingPoints: <b>{0}</b>", Math.Round(sumall, 0)));
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = sb.ToString();
+        row.Items[row.Items.Count - 1].IsHtml = true;
+
+        return skin.ToString();

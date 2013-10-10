@@ -1,0 +1,197 @@
+﻿        string strTypePerMonth = "Cache type percentage per month and total";
+        RegisterText(new string[] {
+	        strTypePerMonth
+        });
+
+        Layout skin = new Layout(1);
+        Layout.Statistics stats = new Layout.Statistics(Translate(strTypePerMonth, false));
+        skin.StatisticsBlocks[0] = stats;
+
+        Layout.Statistics.Row row = new Layout.Statistics.Row();
+        stats.Rows.Add(row);
+
+        //Interval of months to subsum valid:(1,2,3,4,6,12)
+        int interval = 1;
+
+        //graph
+        Dictionary<string, string> pars = new Dictionary<string, string>();
+        Dictionary<string, string> pars2;
+
+        /*
+        ?chxt=y
+           &chbh=a,0,0
+           &chs=300x225
+           &cht=bvs
+           &chco=A2C180,3D7930
+           &chd=t:10,0,60,80,40,60,30|50,0,100,40,20,40,30
+           &chtt=Vertical+bar+chart
+        */
+
+
+        //fixed (data independent)
+        pars.Add("chs", "740x180");
+        pars.Add("chf", "bg,s,FFF4F4");
+        pars.Add("chxt", "r,x,y");
+
+        //label colors
+        //pars.Add("chxs", "0,0000FF|2,FF0000");
+
+        //bar chart
+        pars.Add("cht", "bvs");
+        pars.Add("chbh", "a,0,0");
+
+        //line chart
+        //pars.Add("cht", "lc");
+        //pars.Add("chm", "B,C5D4B5BB,0,0,0|b,FFF4C2B8,1,0,0|b,76A4FBBE,2,1,0|b,C2BDDDBD,3,2,0");
+        //pars.Add("chls", "2|2|2|2");
+
+        pars.Add("chdl", "Traditional|Multi|Mystery|Other");
+        pars.Add("chdlp", "t");
+        pars.Add("chco", "A2C180,FFCC33,4D86FF,A9A9A9");      //normal
+        //pars.Add("chco", "C5D4B5,FFF4C2,76A4FB,C2BDDD");      //light
+        //pars.Add("chco", "3D7930,FF9900,0000FF,6B687AC0");  //contrast
+        pars.Add("chds", "a");
+
+        //variable, data dependent
+        pars.Add("chd", "");
+        pars.Add("chxl", "");
+
+        //second graph
+        pars2 = new Dictionary<string, string>(pars);
+        pars2.Remove("chdl"); //no repeating legend
+        pars2["chs"] = "740x160";
+
+
+        DateTime startAt = (from mf in _myFinds where mf.logDate.Year >= 2000 orderby mf.logDate.Year select mf.logDate).FirstOrDefault();
+        if (startAt.Year >= 2000)
+        {
+            startAt = new DateTime(startAt.Year, startAt.Month, 1);
+            //debug:startAt = new DateTime(2012,1, 1);
+            //start at interval
+            while ((startAt.Month - 1) % interval != 0)
+            {
+                startAt = startAt.AddMonths(-1);
+            }
+
+            DateTime endAt = startAt.AddMonths(interval);
+            DateTime startOfInterval = startAt;
+            StringBuilder chxl = new StringBuilder();
+
+            StringBuilder sbTrad = new StringBuilder();
+            StringBuilder sbMult = new StringBuilder();
+            StringBuilder sbMyst = new StringBuilder();
+            StringBuilder sbOther = new StringBuilder();
+
+            StringBuilder sbTTrad = new StringBuilder();
+            StringBuilder sbTMult = new StringBuilder();
+            StringBuilder sbTMyst = new StringBuilder();
+            StringBuilder sbTOther = new StringBuilder();
+
+            double sumTrad = 0;
+            double sumMult = 0;
+            double sumMyst = 0;
+            double sumOther = 0;
+            double sumAll = 0;
+
+
+            while (startAt <= DateTime.Now)
+            {
+                //debug:sb.AppendLine(string.Format("Mo: {0}<br>",startAt.Month));
+                if (chxl.Length == 0 || startAt.Month == 1)
+                {
+                    chxl.AppendFormat("|{0}", startAt.Year);
+                    startOfInterval = startAt;
+                }
+                else
+                {
+                    chxl.Append("|");
+                }
+
+                double qTrad = (from mf in _myFinds where mf.logDate >= startAt && mf.logDate < endAt && mf.gc.GeocacheType.ID == 2 select mf).Count();
+                double qMult = (from mf in _myFinds where mf.logDate >= startAt && mf.logDate < endAt && mf.gc.GeocacheType.ID == 3 select mf).Count();
+                double qMyst = (from mf in _myFinds where mf.logDate >= startAt && mf.logDate < endAt && mf.gc.GeocacheType.ID == 8 select mf).Count();
+                double qOther = (from mf in _myFinds
+                                 where mf.logDate >= startAt && mf.logDate < endAt &&
+                                     mf.gc.GeocacheType.ID != 2 && mf.gc.GeocacheType.ID != 3 && mf.gc.GeocacheType.ID != 8
+                                 select mf).Count();
+                double qSum = qTrad + qMult + qMyst + qOther;
+
+                sumTrad += qTrad;
+                sumMult += qMult;
+                sumMyst += qMyst;
+                sumOther += qOther;
+
+                sumAll += qSum;
+
+                if (sbTrad.Length != 0)
+                {
+                    sbTrad.Append(",");
+                    sbMult.Append(",");
+                    sbMyst.Append(",");
+                    sbOther.Append(",");
+
+                    sbTTrad.Append(",");
+                    sbTMult.Append(",");
+                    sbTMyst.Append(",");
+                    sbTOther.Append(",");
+                }
+                //data for graph per month
+                if (qSum > 0.9) //>0
+                {
+                    //line chart
+                    //			sbTrad.Append(String.Format("{0}", Math.Round((qTrad/qSum)*100,2)).Replace(",","."));
+                    //			sbMult.Append(String.Format("{0}", Math.Round(((qTrad+qMult)/qSum)*100,2)).Replace(",","."));
+                    //			sbMyst.Append(String.Format("{0}", Math.Round(((qTrad+qMult+qMyst)/qSum)*100,2)).Replace(",","."));
+                    //			sbOther.Append("100");
+                    //bar chart
+                    sbTrad.Append(String.Format("{0}", Math.Round((qTrad / qSum) * 100, 2)).Replace(",", "."));
+                    sbMult.Append(String.Format("{0}", Math.Round(((qMult) / qSum) * 100, 2)).Replace(",", "."));
+                    sbMyst.Append(String.Format("{0}", Math.Round(((qMyst) / qSum) * 100, 2)).Replace(",", "."));
+                    sbOther.Append(String.Format("{0}", Math.Round(((qOther) / qSum) * 100, 2)).Replace(",", "."));
+                }
+                else
+                {
+                    sbTrad.Append("0");
+                    sbMult.Append("0");
+                    sbMyst.Append("0");
+                    sbOther.Append("0");
+                }
+                //data for total graph
+                if (sumAll > 0.9) //>0
+                {
+                    //line chart
+                    //			sbTTrad.Append(String.Format("{0}", Math.Round((sumTrad/sumAll)*100,2)).Replace(",","."));
+                    //			sbTMult.Append(String.Format("{0}", Math.Round(((sumTrad+sumMult)/sumAll)*100,2)).Replace(",","."));
+                    //			sbTMyst.Append(String.Format("{0}", Math.Round(((sumTrad+sumMult+sumMyst)/sumAll)*100,2)).Replace(",","."));
+                    //			sbTOther.Append("100");
+                    //bar chart
+                    sbTTrad.Append(String.Format("{0}", Math.Round((sumTrad / sumAll) * 100, 2)).Replace(",", "."));
+                    sbTMult.Append(String.Format("{0}", Math.Round(((sumMult) / sumAll) * 100, 2)).Replace(",", "."));
+                    sbTMyst.Append(String.Format("{0}", Math.Round(((sumMyst) / sumAll) * 100, 2)).Replace(",", "."));
+                    sbTOther.Append(String.Format("{0}", Math.Round(((sumOther) / sumAll) * 100, 2)).Replace(",", "."));
+                }
+                else
+                {	//probably never happens
+                    sbTTrad.Append("0");
+                    sbTMult.Append("0");
+                    sbTMyst.Append("0");
+                    sbTOther.Append("0");
+                }
+
+                startAt = endAt;
+                endAt = endAt.AddMonths(interval);
+            }
+            pars["chd"] = string.Format("t:{0}|{1}|{2}|{3}", sbTrad.ToString(), sbMult.ToString(), sbMyst.ToString(), sbOther.ToString());
+            pars["chxl"] = string.Format("1:{0}", chxl.ToString());
+
+            pars2["chd"] = string.Format("t:{0}|{1}|{2}|{3}", sbTTrad.ToString(), sbTMult.ToString(), sbTMyst.ToString(), sbTOther.ToString());
+            pars2["chxl"] = string.Format("1:{0}", chxl.ToString());
+
+            //sb.AppendLine("<p>Debug:");
+            //sb.AppendLine(string.Format("{0}<br>{1}<br>{2}<br>{3}</p>", sbTrad.ToString(), sbMult.ToString(), sbMyst.ToString(), sbOther.ToString()));
+        }
+
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = string.Format("<img src=\"{0}\" /><br /><img src=\"{1}\" />", googleChartImgUrl(pars), googleChartImgUrl(pars2));
+		row.Items[row.Items.Count - 1].IsHtml = true;
+        return skin.ToString();

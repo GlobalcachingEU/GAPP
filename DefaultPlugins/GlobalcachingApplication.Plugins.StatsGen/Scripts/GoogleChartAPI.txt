@@ -1,0 +1,19 @@
+﻿    public string googleChartImgUrl(Dictionary<string, string> pars)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.Append("http://chart.apis.google.com/chart?");
+        bool first = true;
+        foreach (var di in pars)
+        {
+            if (!first)
+            {
+                sb.Append("&");
+            }
+            else
+            {
+                first = false;
+            }
+            sb.AppendFormat("{0}={1}", di.Key, di.Value);
+        }
+        return sb.ToString();
+    }

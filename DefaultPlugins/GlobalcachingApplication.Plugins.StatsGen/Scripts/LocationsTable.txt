@@ -1,0 +1,77 @@
+﻿        string strLocations = "Locations";
+        string strStateProv = "States/Provinces";
+        string strCountries = "Countries";
+
+        RegisterText(new string[]{
+		strLocations,
+		strStateProv,
+		strCountries
+		});
+
+        Layout skin = new Layout(1);
+        Layout.Statistics stats = new Layout.Statistics(Translate(strLocations, false));
+        skin.StatisticsBlocks[0] = stats;
+
+        Layout.Statistics.Row row = new Layout.Statistics.Row();
+        stats.Rows.Add(row);
+
+        bool first = true;
+        var states =
+            (from mf in _myFinds
+             where !string.IsNullOrEmpty(mf.gc.State)
+             group mf by mf.gc.State into g
+             select new { State = g.Key, Founds = g }).OrderByDescending(x => x.Founds.Count()).OrderBy(x => x.State);
+
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = string.Format("{1} ({0})", states.Count(), Translate(strStateProv, false));
+        row.Items[row.Items.Count - 1].IsMarker = true;
+
+
+        StringBuilder sb = new StringBuilder();
+        foreach (var g in states)
+        {
+            if (!first)
+            {
+                sb.Append(", ");
+            }
+            else
+            {
+                first = false;
+            }
+            sb.Append(string.Format("{0} ({1})", ToHtml(g.State), g.Founds.Count()));
+        }
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = sb.ToString();
+        row.Items[row.Items.Count - 1].IsHtml = true;
+
+        row = new Layout.Statistics.Row();
+        stats.Rows.Add(row);
+
+        first = true;
+        var countries =
+            (from mf in _myFinds
+             where !string.IsNullOrEmpty(mf.gc.Country)
+             group mf by mf.gc.Country into g
+             select new { Country = g.Key, Founds = g }).OrderByDescending(x => x.Founds.Count()).OrderBy(x => x.Country);
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = string.Format("{1} ({0})", countries.Count(), Translate(strCountries, false));
+        row.Items[row.Items.Count - 1].IsMarker = true;
+
+        sb.Length = 0;
+        foreach (var g in countries)
+        {
+            if (!first)
+            {
+                sb.Append(", ");
+            }
+            else
+            {
+                first = false;
+            }
+            sb.Append(string.Format("{0} ({1})", ToHtml(g.Country), g.Founds.Count()));
+        }
+        row.Items.Add(new Layout.Statistics.Item());
+        row.Items[row.Items.Count - 1].Text = sb.ToString();
+        row.Items[row.Items.Count - 1].IsHtml = true;
+
+        return skin.ToString();

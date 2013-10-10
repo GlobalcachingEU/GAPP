@@ -1,0 +1,112 @@
+﻿        string strFoundsPerDifficulty = "Founds per difficulty";
+        string strFoundsPerTerrain = "Founds per terrain";
+
+        RegisterText(new string[]{
+		strFoundsPerDifficulty,
+		strFoundsPerTerrain
+		});
+
+        Layout skin = new Layout(2);
+        Layout.Statistics stats = new Layout.Statistics(Translate(strFoundsPerDifficulty, false));
+        skin.StatisticsBlocks[0] = stats;
+        stats.Rows.Add(new Layout.Statistics.Row());
+        stats.Rows[0].Items.Add(new Layout.Statistics.Item());
+
+        //graph Difficulty
+        //http://chart.apis.google.com/chart?cht=p3&amp;chs=370x120&amp;chf=bg,s,FFF4F4&amp;chd=t:18.4,46.9,24.0,4.93,3.60,0.85,0.77,0.25,0.14&amp;chl=1%20(18.4%)|1.5%20(46.9%)|2%20(24.0%)|2.5%20(4.93%)|3%20(3.60%)|3.5%20(0.85%)|4%20(0.77%)|4.5%20(0.25%)|5%20(0.14%)&amp;chco=0000f0,ff0000,8080f0,2020f0,8080f0,2020f0,8080f0,2020f0,8080f0
+        Dictionary<string, string> pars = new Dictionary<string, string>();
+        string[] chco = new string[] { "8080f0", "2020f0", "8080f0", "2020f0", "8080f0", "2020f0", "8080f0", "2020f0", "8080f0" };
+
+        pars.Add("cht", "p3");
+        pars.Add("chs", "370x120");
+        pars.Add("chf", "bg,s,FFF4F4");
+        //pars.Add("chco", "0000f0,ff0000,8080f0,2020f0,8080f0,2020f0,8080f0,2020f0,8080f0");
+        pars.Add("chd", "");
+        pars.Add("chl", "");
+        pars.Add("chco", "");
+
+        StringBuilder chd = new StringBuilder();
+        StringBuilder chl = new StringBuilder();
+        double tot = (double)_myFinds.Count;
+        int maxCnt = 0;
+        int maxCntIndex = 0;
+        int index = 0;
+        for (double d = 1.0; d < 5.1; d += 0.5)
+        {
+            string sd = d.ToString("0.#");
+            int cnt = (from mf in _myFinds where mf.gc.Difficulty.ToString("0.#") == sd select mf).Count();
+            if (index == 0)
+            {
+                chd.AppendFormat("t:{0}", (100.0 * (double)cnt / tot).ToString("0.#").Replace(',', '.'));
+                chl.AppendFormat("{0} {1}({2}%)", sd, cnt, (100.0 * (double)cnt / tot).ToString("0.#").Replace(',', '.'));
+            }
+            else
+            {
+                chd.AppendFormat(",{0}", (100.0 * (double)cnt / tot).ToString("0.#").Replace(',', '.'));
+                chl.AppendFormat("|{0} {1}({2}%)", sd, cnt, (100.0 * (double)cnt / tot).ToString("0.#").Replace(',', '.'));
+            }
+            if (cnt > maxCnt)
+            {
+                maxCnt = cnt;
+                maxCntIndex = index;
+            }
+
+            index++;
+        }
+        chco[maxCntIndex] = "ff0000";
+        pars["chd"] = chd.ToString();
+        pars["chl"] = chl.ToString();
+        for (int i = 0; i < chco.Length; i++)
+        {
+            pars["chco"] = string.Concat(pars["chco"], i == 0 ? "" : ",", chco[i]);
+        }
+
+        stats.Rows[0].Items[0].Text = string.Format("<img src=\"{0}\" />", googleChartImgUrl(pars));
+        stats.Rows[0].Items[0].IsHtml = true;
+
+        stats = new Layout.Statistics(Translate(strFoundsPerTerrain, false));
+        skin.StatisticsBlocks[1] = stats;
+        stats.Rows.Add(new Layout.Statistics.Row());
+        stats.Rows[0].Items.Add(new Layout.Statistics.Item());
+
+        //graph Terrain
+        pars["chco"] = "";
+        chd.Length = 0;
+        chl.Length = 0;
+        maxCnt = 0;
+        maxCntIndex = 0;
+        index = 0;
+        for (double d = 1.0; d < 5.1; d += 0.5)
+        {
+            string sd = d.ToString("0.#");
+            int cnt = (from mf in _myFinds where mf.gc.Terrain.ToString("0.#") == sd select mf).Count();
+            if (index == 0)
+            {
+                chd.AppendFormat("t:{0}", (100.0 * (double)cnt / tot).ToString("0.#").Replace(',', '.'));
+                chl.AppendFormat("{0} {1}({2}%)", sd, cnt, (100.0 * (double)cnt / tot).ToString("0.#").Replace(',', '.'));
+            }
+            else
+            {
+                chd.AppendFormat(",{0}", (100.0 * (double)cnt / tot).ToString("0.#").Replace(',', '.'));
+                chl.AppendFormat("|{0} {1}({2}%)", sd, cnt, (100.0 * (double)cnt / tot).ToString("0.#").Replace(',', '.'));
+            }
+            if (cnt > maxCnt)
+            {
+                maxCnt = cnt;
+                maxCntIndex = index;
+            }
+
+            index++;
+        }
+        chco[maxCntIndex] = "ff0000";
+        pars["chd"] = chd.ToString();
+        pars["chl"] = chl.ToString();
+        for (int i = 0; i < chco.Length; i++)
+        {
+            pars["chco"] = string.Concat(pars["chco"], i == 0 ? "" : ",", chco[i]);
+        }
+
+        stats.Rows[0].Items[0].Text = string.Format("<img src=\"{0}\" />", googleChartImgUrl(pars));
+        stats.Rows[0].Items[0].IsHtml = true;
+
+        return skin.ToString();

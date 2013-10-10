@@ -1,0 +1,48 @@
+﻿public class BrowserScript_<id> : BrowserScript
+{
+    public BrowserScript_<id>(WebbrowserForm.BrowserTab browserTab, Plugin ownerPlugin, WebBrowser webBrowser, ICore core)
+        : base(browserTab, ownerPlugin, "<name>", webBrowser, core, false)
+    {
+        core.LanguageItems.Add(new Framework.Data.LanguageItem("<name>"));
+        webBrowser.Navigating += new WebBrowserNavigatingEventHandler(webBrowser_Navigating);
+        webBrowser.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(webBrowser_DocumentCompleted);
+    }
+
+    void webBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+    {
+		//access the browser using the Browser property e.g. this.Browser.Document
+		//access core by using the Core property e.g. this.Core.Geocaches
+    }
+
+    void webBrowser_Navigating(object sender, WebBrowserNavigatingEventArgs e)
+    {
+    }
+
+    public override void Rework()
+    {
+		//rescan or rework the page
+		webBrowser_DocumentCompleted(null,null);
+    }
+
+    public override void CreateControls(Control.ControlCollection collection)
+    {
+		//if you want to add controls, change the constructor call to the base class
+		//: base(ownerPlugin, "<name>", webBrowser, core, true)
+    }
+
+    public override void Pause()
+    {
+		//called when the browser form is closed
+    }
+
+    public override void Resume()
+    {
+		//called when the browser form is shown again
+    }
+
+    public override void Stop()
+    {
+		//called when the tab is closed
+    }
+
+}
