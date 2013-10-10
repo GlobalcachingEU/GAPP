@@ -1,0 +1,38 @@
+This short document describes the design of the application.
+
+Structure:
+Framework - contains the data definitions, interfaces and event argument definitions
+Core - acts as a data container holding all application wide data and events
+Application  - creates the core (engine) and initializes it
+Plugins - contains the actual functionality of GAPP
+Utils - general collection of classes that are commonly used by plugins like Live API
+Additionally external libraries are used like a compression library and an sqlite library.
+
+Although a plugin only needs a reference to Framework in order to be loaded as a plugin, most plugsins
+are derived from Utils.BasePlugin.Plugin. This is much more convenient.
+
+Basic concept:
+The concept of GAPP is easy: All functionality is provided within plugins.
+The Core is just a data container that triggers events when things changed.
+Each plugin is independent at design time. If a plugin wants functionality of another plugin, it should use reflection.
+The plugin cannot assume that another plugin is available.
+
+Design constraints:
+To simplify the design, almost all events from Core should be triggered on UI context.
+This means that changing data, like adding geocaches, should prevent triggering events in case it is done in a separate thread.
+To prevent data (e.q. Framework.Data.Geocache or Framework.Data.GeocacheCollection) from triggering events when changing data,
+you can use the BeginUpdate(). After finishing modifying the data, you can call EndUpdate(). The EndUpdate will trigger an event
+if data has changed. Therefore the EndData() should always be called within the UI context.
+
+Utils contains helpers for this:
+Utils.FrameworkDataUpdater. The constructor calls the BeginUpdate() on all collection of Core and the Dispose will call the EndUpdate()
+usage:
+using (FrameworkDataUpdater upd = new FrameworkDataUpdater(core)) //in UI context!
+{
+alter data (might be in separate thread)
+}
+
+Data storage:
+Data that is not part of Core should be stored by the plugin itself. There are many examples of that. You can use XML or Sqlite e.g.
+The data should generally be stored in the core.PluginDataPath
+
