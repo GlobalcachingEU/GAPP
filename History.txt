@@ -7,6 +7,11 @@ todo:
 - add log templates
 - add support for GCComments https://userscripts.org/scripts/show/75959
 
+V1.9.3.0
+
+- change: French language updated (thanks icaunais and RHCV)
+- change: German language updated (thanks SKAMS)
+
 V1.9.2.0
 
 - fix: Query editor, operator now restored correctly after restarting GAPP
