@@ -51,6 +51,16 @@
             this.textBoxUsername = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.checkedListBoxPlugins = new System.Windows.Forms.CheckedListBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.button2 = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -60,6 +70,7 @@
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -113,6 +124,7 @@
             // 
             // panelGeneral
             // 
+            this.panelGeneral.Controls.Add(this.groupBox3);
             this.panelGeneral.Controls.Add(this.groupBox2);
             this.panelGeneral.Controls.Add(this.groupBox1);
             this.panelGeneral.Controls.Add(this.checkedListBoxPlugins);
@@ -312,12 +324,115 @@
             // checkedListBoxPlugins
             // 
             this.checkedListBoxPlugins.FormattingEnabled = true;
-            this.checkedListBoxPlugins.Location = new System.Drawing.Point(7, 334);
+            this.checkedListBoxPlugins.Location = new System.Drawing.Point(7, 247);
             this.checkedListBoxPlugins.Margin = new System.Windows.Forms.Padding(4);
             this.checkedListBoxPlugins.Name = "checkedListBoxPlugins";
             this.checkedListBoxPlugins.Size = new System.Drawing.Size(728, 191);
             this.checkedListBoxPlugins.TabIndex = 1;
             this.checkedListBoxPlugins.Visible = false;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.textBox1);
+            this.groupBox3.Controls.Add(this.button3);
+            this.groupBox3.Controls.Add(this.label8);
+            this.groupBox3.Controls.Add(this.comboBox1);
+            this.groupBox3.Controls.Add(this.label7);
+            this.groupBox3.Controls.Add(this.button2);
+            this.groupBox3.Controls.Add(this.listView1);
+            this.groupBox3.Location = new System.Drawing.Point(7, 323);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(728, 237);
+            this.groupBox3.TabIndex = 6;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Account names on other geocaching sites";
+            // 
+            // listView1
+            // 
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2});
+            this.listView1.FullRowSelect = true;
+            this.listView1.HideSelection = false;
+            this.listView1.Location = new System.Drawing.Point(30, 33);
+            this.listView1.MultiSelect = false;
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(346, 100);
+            this.listView1.TabIndex = 0;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Code Prefix";
+            this.columnHeader1.Width = 110;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Account name";
+            this.columnHeader2.Width = 211;
+            // 
+            // button2
+            // 
+            this.button2.Enabled = false;
+            this.button2.Location = new System.Drawing.Point(383, 109);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(37, 23);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "X";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(30, 140);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(79, 17);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "Code prefix";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "OC",
+            "OB",
+            "OX",
+            "MZ"});
+            this.comboBox1.Location = new System.Drawing.Point(30, 160);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(82, 24);
+            this.comboBox1.TabIndex = 3;
+            this.comboBox1.TextChanged += new System.EventHandler(this.comboBox1_TextChanged);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(163, 140);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(98, 17);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "Account name";
+            // 
+            // button3
+            // 
+            this.button3.Enabled = false;
+            this.button3.Location = new System.Drawing.Point(383, 158);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(37, 24);
+            this.button3.TabIndex = 6;
+            this.button3.Text = "+";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(163, 160);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(213, 22);
+            this.textBox1.TabIndex = 7;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // FormSettingsTreeView
             // 
@@ -342,6 +457,8 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -371,5 +488,15 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

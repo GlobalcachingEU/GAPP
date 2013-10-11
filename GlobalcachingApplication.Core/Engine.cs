@@ -26,9 +26,11 @@ namespace GlobalcachingApplication.Core
         public event EventHandler SelectedLanguageChanged;
         public event Framework.EventArguments.GeocacheEventHandler ActiveGeocacheChanged;
         public event Framework.EventArguments.GeocacheComAccountEventHandler GeocachingComAccountChanged;
+        public event Framework.EventArguments.GeocachingAccountNamesEventHandler GeocachingAccountNamesChanged;
         public event Framework.EventArguments.DebugLogEventHandler DebugLogAdded;
         public event EventHandler ShortcutInfoChanged;
 
+        private Framework.Data.GeocachingAccountNames _geocachingAccountNames = null;
         private Framework.Data.GeocachingComAccountInfo _geocachingComAccount = null;
         private Framework.Data.Geocache _activeGeocache = null;
         private Framework.Data.GeocacheCollection _geocaches = null;
@@ -85,6 +87,20 @@ namespace GlobalcachingApplication.Core
                     PortableSettings.SaveSettings(PluginDataPath, Properties.Settings.Default);
                     Properties.Settings.Default.SettingsSaving += new System.Configuration.SettingsSavingEventHandler(Default_SettingsSaving);
 
+                    _geocachingAccountNames = new Framework.Data.GeocachingAccountNames();
+                    if (Properties.Settings.Default.GeocachingAccountNames != null)
+                    {
+                        foreach (string s in Properties.Settings.Default.GeocachingAccountNames)
+                        {
+                            string[] parts = s.Split("|".ToArray(), 2);
+                            if (parts.Length == 2)
+                            {
+                                _geocachingAccountNames.SetAccountName(parts[0], parts[1]);
+                            }
+                        }
+                    }
+                    _geocachingAccountNames.Changed += new Framework.EventArguments.GeocachingAccountNamesEventHandler(_geocachingAccountNames_Changed);
+
                     _geocachingComAccount = new Framework.Data.GeocachingComAccountInfo();
                     _geocachingComAccount.AccountName = Properties.Settings.Default.GCComAccountName;
                     _geocachingComAccount.APIToken = Properties.Settings.Default.GCComAccountToken;
@@ -92,6 +108,7 @@ namespace GlobalcachingApplication.Core
                     _geocachingComAccount.MemberType = Properties.Settings.Default.GCComAccountMemberType;
                     _geocachingComAccount.MemberTypeId = Properties.Settings.Default.GCComAccountMemberTypeId;
                     _geocachingComAccount.Changed += new Framework.EventArguments.GeocacheComAccountEventHandler(_geocachingComAccount_Changed);
+                    GeocachingAccountNames.SetAccountName("GC", Properties.Settings.Default.GCComAccountName ?? "");
 
                     _logs = new Framework.Data.LogCollection();
                     _userWaypoints = new Framework.Data.UserWaypointCollection();
@@ -153,6 +170,21 @@ namespace GlobalcachingApplication.Core
             {
                 RestoreDefaultSettings();
             }
+        }
+
+        void _geocachingAccountNames_Changed(object sender, Framework.EventArguments.GeocachingAccountNamesEventArgs e)
+        {
+            if (Properties.Settings.Default.GeocachingAccountNames == null)
+            {
+                Properties.Settings.Default.GeocachingAccountNames = new System.Collections.Specialized.StringCollection();
+            }
+            string[] prefixes = e.AccountNames.GeocachePrefixes;
+            foreach (string s in prefixes)
+            {
+                Properties.Settings.Default.GeocachingAccountNames.Add(String.Format("{0}|{1}", s, e.AccountNames.GetAccountName(s)));
+            }
+            Properties.Settings.Default.Save();
+            OnGeocachingAccountNamesChanged(this);            
         }
 
         public void RestoreDefaultSettings()
@@ -411,6 +443,7 @@ namespace GlobalcachingApplication.Core
             Properties.Settings.Default.GCComAccountMemberType = e.AccountInfo.MemberType;
             Properties.Settings.Default.GCComAccountMemberTypeId = e.AccountInfo.MemberTypeId;
             Properties.Settings.Default.Save();
+            GeocachingAccountNames.SetAccountName("GC", e.AccountInfo.AccountName);
             OnGeocachingComAccountChanged(this);
         }
 
@@ -515,6 +548,19 @@ namespace GlobalcachingApplication.Core
             }
         }
 
+        public Framework.Data.GeocachingAccountNames GeocachingAccountNames
+        {
+            get { return _geocachingAccountNames; }
+            set
+            {
+                if (_geocachingAccountNames != value)
+                {
+                    _geocachingAccountNames = value;
+                    OnGeocachingAccountNamesChanged(this);
+                }
+            }
+        }
+
         public Framework.Data.Geocache ActiveGeocache
         {
             get { return _activeGeocache; }
@@ -543,6 +589,13 @@ namespace GlobalcachingApplication.Core
             }
         }
 
+        public void OnGeocachingAccountNamesChanged(object sender)
+        {
+            if (GeocachingAccountNamesChanged != null)
+            {
+                GeocachingAccountNamesChanged(sender, new Framework.EventArguments.GeocachingAccountNamesEventArgs(GeocachingAccountNames));
+            }
+        }
 
         public Framework.Data.GeocacheCollection Geocaches
         {

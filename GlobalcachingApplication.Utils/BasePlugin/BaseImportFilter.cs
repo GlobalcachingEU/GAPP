@@ -146,7 +146,7 @@ namespace GlobalcachingApplication.Utils.BasePlugin
                     Utils.DataAccess.UpdateLogData(oldwp, l);
                 }
             }
-            if (l.LogType.AsFound && Core.GeocachingComAccount.AccountName.ToLower() == l.Finder.ToLower())
+            if (l.LogType.AsFound && Core.GeocachingAccountNames.GetAccountName(l.GeocacheCode).ToLower() == l.Finder.ToLower())
             {
                 //found
                 Framework.Data.Geocache gc = Utils.DataAccess.GetGeocache(Core.Geocaches, l.GeocacheCode);

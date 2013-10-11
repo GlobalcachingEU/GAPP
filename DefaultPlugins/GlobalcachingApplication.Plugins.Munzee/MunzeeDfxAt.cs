@@ -230,14 +230,7 @@ namespace GlobalcachingApplication.Plugins.Munzee
                             gc.MemberOnly = false;
                             gc.Municipality = "";
                             gc.Name = md.friendly_name;
-                            if (md.owned=="1" || md.username.ToLower() == usrname)
-                            {
-                                gc.Owner = Core.GeocachingComAccount.AccountName;
-                            }
-                            else
-                            {
-                                gc.Owner = md.username;
-                            }
+                            gc.Owner = md.username;
                             gc.OwnerId = "";
                             gc.PlacedBy = md.username;
                             try
@@ -267,7 +260,7 @@ namespace GlobalcachingApplication.Plugins.Munzee
                                     List<Framework.Data.Log> lgs = Core.Logs.GetLogs(gc.Code);
                                     if (lgs != null)
                                     {
-                                        Framework.Data.Log l = (from Framework.Data.Log lg in lgs where lg.LogType.AsFound && lg.Finder == Core.GeocachingComAccount.AccountName select lg).FirstOrDefault();
+                                        Framework.Data.Log l = (from Framework.Data.Log lg in lgs where lg.LogType.AsFound && lg.Finder == Core.GeocachingAccountNames.GetAccountName(gc.Code) select lg).FirstOrDefault();
                                         foundLogPresent = (l != null);
                                     }
                                     if (!foundLogPresent)
@@ -277,7 +270,7 @@ namespace GlobalcachingApplication.Plugins.Munzee
                                         l.Date = new DateTime(1970, 1, 1);
                                         l.Date = l.Date.AddSeconds(long.Parse(md.captured_at));
                                         l.Encoded = false;
-                                        l.Finder = Core.GeocachingComAccount.AccountName;
+                                        l.Finder = Core.GeocachingAccountNames.GetAccountName(gc.Code);
                                         l.FinderId = "0";
                                         l.GeocacheCode = gc.Code;
                                         l.ID = string.Format("ML{0}", gc.Code.Substring(2));

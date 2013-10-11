@@ -618,7 +618,7 @@ namespace GlobalcachingApplication.Plugins.GDAK
                                     cmd.Parameters["@State"].Value = gc.State ?? "";
                                     cmd.Parameters["@Terrain"].Value = gc.Terrain;
                                     cmd.Parameters["@UserFlag"].Value = gc.Flagged ? 1 : 0;
-                                    cmd.Parameters["@IsOwner"].Value = (gc.Owner==Core.GeocachingComAccount.AccountName) ? 1 : 0;
+                                    cmd.Parameters["@IsOwner"].Value = gc.IsOwn ? 1 : 0;
                                     cmd.Parameters["@Status"].Value = gc.Available ? "A" : gc.Archived ? "X" : "T";
                                     cmd.Parameters["@GcNote"].Value = gc.PersonaleNote ?? "";
                                     cmd.Parameters["@IsPremium"].Value = gc.MemberOnly ? 1 : 0;
@@ -677,7 +677,7 @@ namespace GlobalcachingApplication.Plugins.GDAK
                                             {
                                             }
                                             cmd5.Parameters["@lHasHtml"].Value = false;
-                                            cmd5.Parameters["@lIsowner"].Value = (l.Finder==Core.GeocachingComAccount.AccountName);
+                                            cmd5.Parameters["@lIsowner"].Value = (l.Finder==Core.GeocachingAccountNames.GetAccountName(gc.Code));
                                             cmd5.Parameters["@lTime"].Value = "";
 
                                             cmd5.ExecuteNonQuery();

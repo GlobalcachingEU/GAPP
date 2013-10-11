@@ -67,5 +67,13 @@ namespace GlobalcachingApplication.Core
                 Close();
             }
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.PluginDataPath = "";
+            Properties.Settings.Default.Save();
+            DialogResult = System.Windows.Forms.DialogResult.OK;
+            Close();
+        }
     }
 }

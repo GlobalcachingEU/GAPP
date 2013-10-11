@@ -389,5 +389,33 @@ namespace GlobalcachingApplication.Plugins.AccountSwitcher
                 }
             }
         }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            string p = System.IO.Path.Combine(new string[] { System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "GlobalcachingApplication" });
+            string s = p.TrimEnd(new char[] { '\\', '/' });
+            if (s.Length > 2)
+            {
+                if (string.Compare(textBox1.Text, s, true) != 0 &&
+                    (from string sf in listBox1.Items where IsSubOrParentFolder(sf, s) select sf).Count() == 0 &&
+                    !IsSubOrParentFolder(textBox1.Text, s))
+                {
+                    textBox2.Text = s;
+                    if (_plugin.IsValidSettingsFolder(s))
+                    {
+                        string f = (from string sf in listBox1.Items where string.Compare(sf, s, true) == 0 select sf).FirstOrDefault();
+                        if (string.IsNullOrEmpty(f))
+                        {
+                            _plugin.AddToMenu(s);
+                            listBox1.Items.Add(s);
+                            listBox1.SelectedIndex = listBox1.Items.IndexOf(s);
+                            listBox1_SelectedIndexChanged(this, EventArgs.Empty);
+                            savePathList();
+                            textBox2_TextChanged(this, EventArgs.Empty);
+                        }
+                    }
+                }
+            }
+        }
     }
 }

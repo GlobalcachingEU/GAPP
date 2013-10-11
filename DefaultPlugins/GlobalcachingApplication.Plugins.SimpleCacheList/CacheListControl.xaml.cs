@@ -202,7 +202,8 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
 
                 // Set the background color of the DataGrid row based on whatever data you like from 
                 // the row.
-                if (item.Owner == SimpleCacheListForm.FixedCore.GeocachingComAccount.AccountName)
+                //if (item.Owner == SimpleCacheListForm.FixedCore.GeocachingComAccount.AccountName)
+                if (item.IsOwn)
                 {
                     e.Row.Background = _ownBrush;
                 }

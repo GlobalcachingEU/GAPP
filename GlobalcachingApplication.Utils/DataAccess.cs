@@ -26,7 +26,7 @@ namespace GlobalcachingApplication.Utils
         public static bool IsGeocacheFound(Framework.Interfaces.ICore core, Framework.Data.Geocache gc, string byUser)
         {
             bool result = false;
-            if (!string.IsNullOrEmpty(core.GeocachingComAccount.AccountName) && core.GeocachingComAccount.AccountName.ToLower() == byUser.ToLower())
+            if (core.GeocachingAccountNames.GetAccountName(gc.Code).ToLower() == byUser.ToLower())
             {
                 result = gc.Found;
             }

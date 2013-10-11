@@ -125,6 +125,7 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
             core.UserWaypoints.UserWaypointAdded += new Framework.EventArguments.UserWaypointEventHandler(UserWaypoints_UserWaypointAdded);
             core.UserWaypoints.UserWaypointRemoved += new Framework.EventArguments.UserWaypointEventHandler(UserWaypoints_UserWaypointRemoved);
             core.Logs.ListDataChanged += new EventHandler(Logs_ListDataChanged);
+            core.GeocachingAccountNames.Changed += new Framework.EventArguments.GeocachingAccountNamesEventHandler(GeocachingAccountNames_Changed);
 
             cacheListControl1.InitBrushes();
             cacheListControl1.GeocacheDataGrid.SelectionChanged += new System.Windows.Controls.SelectionChangedEventHandler(GeocacheDataGrid_SelectionChanged);
@@ -159,6 +160,11 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
 
             _initializing = false;
             cacheListControl1.OnMouseEnter += new EventHandler<EventArgs>(cacheListControl1_OnMouseEnter);
+        }
+
+        void GeocachingAccountNames_Changed(object sender, Framework.EventArguments.GeocachingAccountNamesEventArgs e)
+        {
+            UpdateList();
         }
 
         void cacheListControl1_OnMouseEnter(object sender, EventArgs e)

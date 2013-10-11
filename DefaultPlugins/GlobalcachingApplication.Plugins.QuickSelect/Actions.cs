@@ -129,15 +129,9 @@ namespace GlobalcachingApplication.Plugins.QuickSelect
                 }
                 else if (action == ACTION_YOUOWN)
                 {
-                    string me = Core.GeocachingComAccount.AccountName;
-                    if (!string.IsNullOrEmpty(me))
+                    foreach (Framework.Data.Geocache gc in Core.Geocaches)
                     {
-                        me = me.ToLower();
-                        foreach (Framework.Data.Geocache gc in Core.Geocaches)
-                        {
-                            //gc.Selected = !Utils.DataAccess.IsGeocacheFound(Core, gc, Core.GeocachingComAccount.AccountName);
-                            gc.Selected = (!string.IsNullOrEmpty(gc.Owner) && gc.Owner.ToLower() == me);
-                        }
+                        gc.Selected = gc.IsOwn;
                     }
                 }
                 else if (action == ACTION_ARCHIVED)

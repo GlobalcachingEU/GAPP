@@ -91,6 +91,7 @@
     <Compile Include="Data\AreaType.cs" />
     <Compile Include="Data\CompassDirection.cs" />
     <Compile Include="Data\GeocacheImageCollection.cs" />
+    <Compile Include="Data\GeocachingAccountNames.cs" />
     <Compile Include="Data\LogImage.cs" />
     <Compile Include="Data\DebugLogLevel.cs" />
     <Compile Include="Data\GeocachingComAccountInfo.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Data\WaypointType.cs" />
     <Compile Include="Data\WaypointTypeCollection.cs" />
     <Compile Include="EventArguments\CommandLineEventArgs.cs" />
+    <Compile Include="EventArguments\GeocacheAccountNamesEventArgs.cs" />
     <Compile Include="EventArguments\GeocacheImageEventArgs.cs" />
     <Compile Include="EventArguments\UserWaypointEventArgs.cs" />
     <Compile Include="EventArguments\GPSLocationEventArgs.cs" />

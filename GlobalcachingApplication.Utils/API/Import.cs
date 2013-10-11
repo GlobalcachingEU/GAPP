@@ -152,7 +152,7 @@ namespace GlobalcachingApplication.Utils.API
                     DataAccess.UpdateLogData(oldwp, l);
                 }
             }
-            if (l.LogType.AsFound && core.GeocachingComAccount.AccountName.ToLower() == l.Finder.ToLower())
+            if (l.LogType.AsFound && core.GeocachingAccountNames.GetAccountName(l.GeocacheCode).ToLower() == l.Finder.ToLower())
             {
                 //found
                 Framework.Data.Geocache gc = DataAccess.GetGeocache(core.Geocaches, l.GeocacheCode);

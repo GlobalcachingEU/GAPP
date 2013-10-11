@@ -27,6 +27,9 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
         private const string STR_LOADINBACKGROUND = "Load logs in background if supported";
         private const string STR_AUTOSAVEONCLOSE = "Automatic save data on closing";
         private const string STR_CLEARAUTHORIZE = "Clear authorization";
+        private const string STR_OTHERACCOUNTNAMES = "Account names on other geocaching sites";
+        private const string STR_CODEPREFIX = "Code prefix";
+        private const string STR_ACCOUNTNAME = "Account name";
 
         private Framework.Interfaces.ICore _core = null;
         private List<Framework.Interfaces.IPlugin> _pluginList = null;
@@ -61,6 +64,9 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
                         new Framework.Data.LanguageItem(STR_LOADINBACKGROUND), 
                         new Framework.Data.LanguageItem(STR_AUTOSAVEONCLOSE), 
                         new Framework.Data.LanguageItem(STR_CLEARAUTHORIZE), 
+                        new Framework.Data.LanguageItem(STR_OTHERACCOUNTNAMES), 
+                        new Framework.Data.LanguageItem(STR_CODEPREFIX), 
+                        new Framework.Data.LanguageItem(STR_ACCOUNTNAME), 
                     });
                 foreach (var t in Enum.GetNames(typeof(Framework.PluginType)))
                 {
@@ -96,6 +102,11 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             this.checkBox1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_LOADINBACKGROUND);
             this.checkBox2.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_AUTOSAVEONCLOSE);
             this.button1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_CLEARAUTHORIZE);
+            this.groupBox3.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_OTHERACCOUNTNAMES);
+            this.listView1.Columns[0].Text = Utils.LanguageSupport.Instance.GetTranslation(STR_CODEPREFIX);
+            this.listView1.Columns[1].Text = Utils.LanguageSupport.Instance.GetTranslation(STR_ACCOUNTNAME);
+            this.label7.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_CODEPREFIX);
+            this.label8.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_ACCOUNTNAME);
 
             TreeNode tn;
             tn = new TreeNode(Utils.LanguageSupport.Instance.GetTranslation(STR_GENERAL));
@@ -177,6 +188,21 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             labelApiMembership.Text = string.IsNullOrEmpty(core.GeocachingComAccount.MemberType) ? "-" : core.GeocachingComAccount.MemberType;
             checkBox1.Checked = core.LoadLogsInBackground;
             checkBox2.Checked = core.AutoSaveOnClose;
+
+            fillGeocacheAccounts();
+        }
+
+        private void fillGeocacheAccounts()
+        {
+            listView1.Items.Clear();
+            string[] pf = _core.GeocachingAccountNames.GeocachePrefixes;
+            foreach (string s in pf)
+            {
+                if (s != "GC")
+                {
+                    listView1.Items.Add(new ListViewItem(new string[] { s, _core.GeocachingAccountNames.GetAccountName(s) }));
+                }
+            }
         }
 
         private void treeView1_BeforeSelect(object sender, TreeViewCancelEventArgs e)
@@ -280,6 +306,30 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             _core.GeocachingComAccount.MemberTypeId = 0;
             labelApiEnabled.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_NO);
             labelApiMembership.Text = "-";
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            button2.Enabled = listView1.SelectedItems.Count > 0;
+        }
+
+        private void comboBox1_TextChanged(object sender, EventArgs e)
+        {
+            button3.Enabled = comboBox1.Text.Length == 2 && textBox1.Text.Length > 0;
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            button3.Enabled = comboBox1.Text.Length == 2 && textBox1.Text.Length > 0;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (comboBox1.Text.Length == 2 && textBox1.Text.Length > 0)
+            {
+                _core.GeocachingAccountNames.SetAccountName(comboBox1.Text.ToUpper(), textBox1.Text);
+                fillGeocacheAccounts();
+            }
         }
     }
 }

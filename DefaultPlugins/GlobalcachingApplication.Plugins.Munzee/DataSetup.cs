@@ -52,6 +52,8 @@ namespace GlobalcachingApplication.Plugins.Munzee
                 addCacheType(95347, "NFC Munzee", Properties.Settings.Default.GPXTagNFC);
                 addCacheType(95348, "Premium Munzee", Properties.Settings.Default.GPXTagPremium);
             }
+
+            core.GeocachingAccountNames.SetAccountName("MZ", Properties.Settings.Default.AccountName);
             return result;
         }
 

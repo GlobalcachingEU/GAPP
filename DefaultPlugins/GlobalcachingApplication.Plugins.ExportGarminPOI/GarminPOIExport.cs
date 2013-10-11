@@ -564,7 +564,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarminPOI
                     postFix = "_Solved";
                 }
             }
-            if (gc.Owner == Core.GeocachingComAccount.AccountName)
+            if (gc.IsOwn)
             {
                 csvName = "Own";
                 postFix = ""; //only allowed: disabled

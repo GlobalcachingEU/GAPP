@@ -353,7 +353,7 @@ namespace GlobalcachingApplication.Plugins.FilterEx
                               (!checkBoxPubDate.Checked || (wp.PublishedTime >= dateTimePickerPubDateFrom.Value && wp.PublishedTime <= dateTimePickerPubDateTo.Value)) &&
                               (!checkBoxAttributes.Checked || validateAttributes(wp, attrYes, attrNo)) &&
                               (!checkBoxFound.Checked || ((radioButtonIFound.Checked && wp.Found) || (radioButtonIHaveNotFound.Checked && !wp.Found))) &&
-                              (!checkBoxOwn.Checked || ((radioButtonIOwn.Checked && wp.Owner == Core.GeocachingComAccount.AccountName) || (radioButtonIDontOwnFound.Checked && wp.Owner != Core.GeocachingComAccount.AccountName))) &&
+                              (!checkBoxOwn.Checked || ((radioButtonIOwn.Checked && wp.IsOwn) || (radioButtonIDontOwnFound.Checked && !wp.IsOwn))) &&
                               (!checkBoxFoundBy.Checked || validateFoundBy(wp)) &&
                               (!checkBoxNotFoundBy.Checked || validateNotFoundBy(wp)) &&
                               (!checkBoxTerrain.Checked || (wp.Terrain >= minTerr && wp.Terrain <= maxTerr))

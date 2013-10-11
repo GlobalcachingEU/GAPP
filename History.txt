@@ -11,6 +11,11 @@ V1.9.3.0
 
 - change: French language updated (thanks icaunais and RHCV)
 - change: German language updated (thanks SKAMS)
+- change: Framework now supports account name per geocache prefix (GC, MZ, OX, OC etc) (re-import Munzees if applicable)
+- add: Action Builder now has a filter Is own
+- add: Settings folder selection at startup of the application now contains a Default button to select the applications default settings folder
+- add: Settings folder selection in file menu now contains a Default button to select the applications default settings folder
+- add: Settings for account names for other sites. Coupling is done by GC code prefix like GC, OX and OC
 
 V1.9.2.0
 

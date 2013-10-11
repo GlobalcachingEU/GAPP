@@ -170,7 +170,7 @@ namespace GlobalcachingApplication.Plugins.ExportKml
                     List<string> fileList = new List<string>();
                     foreach (Framework.Data.GeocacheType gt in Core.GeocacheTypes)
                     {
-                        gs = (from g in _gcList where g.GeocacheType==gt && !g.Found && g.Owner!=Core.GeocachingComAccount.AccountName select g).ToList();
+                        gs = (from g in _gcList where g.GeocacheType==gt && !g.Found && !g.IsOwn select g).ToList();
                         if (gs.Count>0)
                         {
                             if (!addGeocaches(progress, gs, typeList, doc, rootDoc, Utils.LanguageSupport.Instance.GetTranslation(gt.Name), tempImgFolder, fileList))
@@ -189,7 +189,7 @@ namespace GlobalcachingApplication.Plugins.ExportKml
                         }
                     }
 
-                    gs = (from g in _gcList where string.Equals(g.Owner??"",Core.GeocachingComAccount.AccountName, StringComparison.InvariantCultureIgnoreCase) select g).ToList();
+                    gs = (from g in _gcList where g.IsOwn select g).ToList();
                     if (!cancel && gs.Count > 0)
                     {
                         if (!addGeocaches(progress, gs, typeList, doc, rootDoc, Utils.LanguageSupport.Instance.GetTranslation(STR_YOURS), tempImgFolder, fileList))

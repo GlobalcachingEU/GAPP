@@ -1262,6 +1262,57 @@ namespace GlobalcachingApplication.Plugins.ActBuilder
         }
     }
 
+    public class ActionIsOwn : ActionImplementationCondition
+    {
+        public const string STR_NAME = "Is own";
+        public ActionIsOwn(Framework.Interfaces.ICore core)
+            : base(STR_NAME, core)
+        {
+        }
+        public override UIElement GetUIElement()
+        {
+            if (Values.Count == 0)
+            {
+                Values.Add(true.ToString());
+            }
+            ComboBox cb = CreateComboBox(new string[] { true.ToString(), false.ToString() }, Values[0]);
+            return cb;
+        }
+
+        public override void CommitUIData(UIElement uiElement)
+        {
+            ComboBox cb = uiElement as ComboBox;
+            Values[0] = cb.Text;
+        }
+        public override ActionImplementation.Operator AllowOperators
+        {
+            get
+            {
+                return Operator.Equal | Operator.NotEqual;
+            }
+        }
+        public override Operator Process(Framework.Data.Geocache gc)
+        {
+            Operator result = 0;
+            if (Values.Count > 0)
+            {
+                bool value = false;
+                if (bool.TryParse(Values[0], out value))
+                {
+                    if (gc.IsOwn != value)
+                    {
+                        result = Operator.NotEqual;
+                    }
+                    else
+                    {
+                        result = Operator.Equal;
+                    }
+                }
+            }
+            return result;
+        }
+    }
+
     public class ActionLocked : ActionImplementationCondition
     {
         public const string STR_NAME = "Locked";

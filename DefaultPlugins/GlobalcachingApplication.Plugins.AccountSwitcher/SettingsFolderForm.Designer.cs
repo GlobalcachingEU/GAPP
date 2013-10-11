@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -40,15 +44,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.button8 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -71,6 +72,46 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Settings folders";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(109, 157);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(238, 21);
+            this.checkBox1.TabIndex = 12;
+            this.checkBox1.Text = "Enable folder selection at startup";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.HorizontalScrollbar = true;
+            this.listBox1.ItemHeight = 16;
+            this.listBox1.Location = new System.Drawing.Point(109, 66);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(414, 84);
+            this.listBox1.TabIndex = 10;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(90, 65);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(12, 17);
+            this.label5.TabIndex = 9;
+            this.label5.Text = ":";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 65);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(65, 17);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "Available";
             // 
             // textBox1
             // 
@@ -100,6 +141,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.button9);
             this.groupBox2.Controls.Add(this.button5);
             this.groupBox2.Controls.Add(this.button4);
             this.groupBox2.Controls.Add(this.button3);
@@ -174,45 +216,15 @@
             this.label4.TabIndex = 3;
             this.label4.Text = "Folder";
             // 
-            // label5
+            // button8
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(90, 65);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(12, 17);
-            this.label5.TabIndex = 9;
-            this.label5.Text = ":";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 65);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(65, 17);
-            this.label6.TabIndex = 8;
-            this.label6.Text = "Available";
-            // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.HorizontalScrollbar = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(109, 66);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(414, 84);
-            this.listBox1.TabIndex = 10;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(109, 157);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(238, 21);
-            this.checkBox1.TabIndex = 12;
-            this.checkBox1.Text = "Enable folder selection at startup";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.button8.Location = new System.Drawing.Point(246, 397);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(88, 34);
+            this.button8.TabIndex = 2;
+            this.button8.Text = "OK";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // button1
             // 
@@ -256,15 +268,15 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button8
+            // button9
             // 
-            this.button8.Location = new System.Drawing.Point(246, 397);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(88, 34);
-            this.button8.TabIndex = 2;
-            this.button8.Text = "OK";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
+            this.button9.Image = global::GlobalcachingApplication.Plugins.AccountSwitcher.Properties.Resources.home;
+            this.button9.Location = new System.Drawing.Point(529, 62);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(30, 28);
+            this.button9.TabIndex = 10;
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // SettingsFolderForm
             // 
@@ -310,5 +322,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button button9;
     }
 }

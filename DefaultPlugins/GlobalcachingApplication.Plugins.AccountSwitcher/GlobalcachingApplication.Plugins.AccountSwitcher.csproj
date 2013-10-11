@@ -132,6 +132,9 @@
   <ItemGroup>
     <None Include="Resources\delete.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\home.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)\GlobalcachingApplication\bin\$(ConfigurationName)\Plugins\"</PostBuildEvent>

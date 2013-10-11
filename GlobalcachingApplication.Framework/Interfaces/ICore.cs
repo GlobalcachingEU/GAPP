@@ -32,6 +32,9 @@ namespace GlobalcachingApplication.Framework.Interfaces
         event EventArguments.GeocacheComAccountEventHandler GeocachingComAccountChanged;
         Framework.Data.GeocachingComAccountInfo GeocachingComAccount { get; }
 
+        event EventArguments.GeocachingAccountNamesEventHandler GeocachingAccountNamesChanged;
+        Framework.Data.GeocachingAccountNames GeocachingAccountNames { get; }
+
         Framework.Data.GeocacheCollection Geocaches { get; }
         Framework.Data.WaypointCollection Waypoints { get; }
         Framework.Data.LogCollection Logs { get; }

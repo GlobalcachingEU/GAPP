@@ -175,6 +175,7 @@ namespace GlobalcachingApplication.Plugins.Munzee
             {
                 Properties.Settings.Default.AccountName = textBox3.Text;
                 Properties.Settings.Default.Save();
+                _core.GeocachingAccountNames.SetAccountName("MZ", Properties.Settings.Default.AccountName);
                 SelectedUrl = ui.Url;
                 DialogResult = System.Windows.Forms.DialogResult.OK;
                 Close();

@@ -232,10 +232,11 @@ namespace GlobalcachingApplication.Framework.Data
                     {
                         if (Found)
                         {
+                            string usrName = _core.GeocachingAccountNames.GetAccountName(this.Code);
                             List<Framework.Data.Log> lgs = _core.Logs.GetLogs(this.Code);
                             if (lgs != null)
                             {
-                                Framework.Data.Log l = (from Framework.Data.Log lg in lgs where lg.GeocacheCode == Code && lg.LogType.AsFound && lg.Finder == _core.GeocachingComAccount.AccountName select lg).FirstOrDefault();
+                                Framework.Data.Log l = (from Framework.Data.Log lg in lgs where lg.GeocacheCode == Code && lg.LogType.AsFound && lg.Finder == usrName select lg).FirstOrDefault();
                                 if (l != null)
                                 {
                                     //result = l.Date.ToString("yyyy-MM-dd");
@@ -618,6 +619,19 @@ namespace GlobalcachingApplication.Framework.Data
                     _placedBy = value;
                     OnDataChanged(this);
                 }
+            }
+        }
+
+        public bool IsOwn
+        {
+            get
+            {
+                bool result = false;
+                if (_core != null)
+                {
+                    result = (_owner ?? "").Equals(_core.GeocachingAccountNames.GetAccountName(this.Code), StringComparison.CurrentCultureIgnoreCase);
+                }
+                return result;
             }
         }
 
