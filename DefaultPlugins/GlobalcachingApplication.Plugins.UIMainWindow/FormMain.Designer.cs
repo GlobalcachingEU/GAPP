@@ -38,6 +38,7 @@
             this.actionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scriptsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.liveAPIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.oKAPIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.originalLanguageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pluginsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -110,6 +111,7 @@
             this.actionToolStripMenuItem,
             this.scriptsToolStripMenuItem,
             this.liveAPIToolStripMenuItem,
+            this.oKAPIToolStripMenuItem,
             this.languageToolStripMenuItem,
             this.pluginsToolStripMenuItem,
             this.windowToolStripMenuItem,
@@ -171,6 +173,12 @@
             this.liveAPIToolStripMenuItem.Size = new System.Drawing.Size(69, 24);
             this.liveAPIToolStripMenuItem.Text = "LiveAPI";
             this.liveAPIToolStripMenuItem.DropDownOpening += new System.EventHandler(this.menuStripItem_DropDownOpening);
+            // 
+            // oKAPIToolStripMenuItem
+            // 
+            this.oKAPIToolStripMenuItem.Name = "oKAPIToolStripMenuItem";
+            this.oKAPIToolStripMenuItem.Size = new System.Drawing.Size(63, 24);
+            this.oKAPIToolStripMenuItem.Text = "OKAPI";
             // 
             // languageToolStripMenuItem
             // 
@@ -806,5 +814,6 @@
         private System.Windows.Forms.ToolStripMenuItem frenchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem germanToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem englishToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem oKAPIToolStripMenuItem;
     }
 }

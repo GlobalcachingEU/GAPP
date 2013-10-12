@@ -28,6 +28,7 @@ namespace GlobalcachingApplication.Framework
         Map,
         GeocacheIgnoreFilter,
         Account,
-        GeocacheCollection
+        GeocacheCollection,
+        OKAPI
     }
 }

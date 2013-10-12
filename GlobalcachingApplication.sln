@@ -243,6 +243,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Pl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestoreDefaultSettings", "RestoreDefaultSettings\RestoreDefaultSettings.csproj", "{FA0097C9-29AC-419B-846F-D49F1354A629}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.OKAPI", "DefaultPlugins\GlobalcachingApplication.Plugins.OKAPI\GlobalcachingApplication.Plugins.OKAPI.csproj", "{5726AE9F-FD8C-447D-8651-834CB379FA77}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -2055,6 +2057,22 @@ Global
 		{FA0097C9-29AC-419B-846F-D49F1354A629}.Release|x64.Build.0 = Release|x64
 		{FA0097C9-29AC-419B-846F-D49F1354A629}.Release|x86.ActiveCfg = Release|x86
 		{FA0097C9-29AC-419B-846F-D49F1354A629}.Release|x86.Build.0 = Release|x86
+		{5726AE9F-FD8C-447D-8651-834CB379FA77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5726AE9F-FD8C-447D-8651-834CB379FA77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5726AE9F-FD8C-447D-8651-834CB379FA77}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{5726AE9F-FD8C-447D-8651-834CB379FA77}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{5726AE9F-FD8C-447D-8651-834CB379FA77}.Debug|x64.ActiveCfg = Debug|x64
+		{5726AE9F-FD8C-447D-8651-834CB379FA77}.Debug|x64.Build.0 = Debug|x64
+		{5726AE9F-FD8C-447D-8651-834CB379FA77}.Debug|x86.ActiveCfg = Debug|x86
+		{5726AE9F-FD8C-447D-8651-834CB379FA77}.Debug|x86.Build.0 = Debug|x86
+		{5726AE9F-FD8C-447D-8651-834CB379FA77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5726AE9F-FD8C-447D-8651-834CB379FA77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5726AE9F-FD8C-447D-8651-834CB379FA77}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{5726AE9F-FD8C-447D-8651-834CB379FA77}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{5726AE9F-FD8C-447D-8651-834CB379FA77}.Release|x64.ActiveCfg = Release|x64
+		{5726AE9F-FD8C-447D-8651-834CB379FA77}.Release|x64.Build.0 = Release|x64
+		{5726AE9F-FD8C-447D-8651-834CB379FA77}.Release|x86.ActiveCfg = Release|x86
+		{5726AE9F-FD8C-447D-8651-834CB379FA77}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

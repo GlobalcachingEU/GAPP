@@ -18,6 +18,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
         public const string STR_ACTION = "Action";
         public const string STR_SCRIPTS = "Scripts";
         public const string STR_LIVEAPI = "LiveAPI";
+        public const string STR_OKAPI = "OKAPI";
         public const string STR_LANGUAGE = "Language";
         public const string STR_ORIGINALTEXT = "Original text";
         public const string STR_PLUGINS = "Plugins";
@@ -103,6 +104,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_ACTIONSEQUNCER));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_SCRIPTS));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_LIVEAPI));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_OKAPI));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_LANGUAGE));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_ORIGINALTEXT));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_PLUGINS));
@@ -585,6 +587,9 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
                 case Framework.PluginType.LiveAPI:
                     liveAPIToolStripMenuItem.DropDownItems.Add(mi);
                     break;
+                case Framework.PluginType.OKAPI:
+                    oKAPIToolStripMenuItem.DropDownItems.Add(mi);
+                    break;
                 case Framework.PluginType.ImageResource:
                     actionToolStripMenuItem.DropDownItems.Add(mi);
                     break;
@@ -701,6 +706,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             actionToolStripMenuItem.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_ACTION);
             scriptsToolStripMenuItem.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_SCRIPTS);
             liveAPIToolStripMenuItem.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_LIVEAPI);
+            oKAPIToolStripMenuItem.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_OKAPI);
             languageToolStripMenuItem.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_LANGUAGE);
             originalLanguageToolStripMenuItem.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_ORIGINALTEXT);
             pluginsToolStripMenuItem.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_PLUGINS);
