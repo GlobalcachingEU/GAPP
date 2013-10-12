@@ -1070,7 +1070,7 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
                         {
                             //lazy loading
                             ri.FreeSlot = false;
-                            int readCount = Math.Min(32, (int)(ri.Length - lsize - 1));
+                            int readCount = Math.Min(42, (int)(ri.Length - lsize - 1));
                             fs.Read(memBuffer, 0, readCount);
                             ms.Position = 0;
                             ri.ID = br.ReadString();

@@ -73,7 +73,7 @@ namespace GlobalcachingApplication.Utils.API
             return result;
         }
 
-        private static bool AddGeocache(Framework.Interfaces.ICore core, Framework.Data.Geocache gc)
+        public static bool AddGeocache(Framework.Interfaces.ICore core, Framework.Data.Geocache gc)
         {
             bool result = false;
 
@@ -98,7 +98,7 @@ namespace GlobalcachingApplication.Utils.API
             return result;
         }
 
-        private static  bool AddWaypoint(Framework.Interfaces.ICore core, Framework.Data.Waypoint wp)
+        public static bool AddWaypoint(Framework.Interfaces.ICore core, Framework.Data.Waypoint wp)
         {
             bool result = false;
 
@@ -118,7 +118,7 @@ namespace GlobalcachingApplication.Utils.API
             return result;
         }
 
-        private static bool AddUserWaypoint(Framework.Interfaces.ICore core, Framework.Data.UserWaypoint wp)
+        public static bool AddUserWaypoint(Framework.Interfaces.ICore core, Framework.Data.UserWaypoint wp)
         {
             bool result = false;
 
@@ -135,7 +135,7 @@ namespace GlobalcachingApplication.Utils.API
             return result;
         }
 
-        private static bool AddLog(Framework.Interfaces.ICore core, Framework.Data.Log l)
+        public static bool AddLog(Framework.Interfaces.ICore core, Framework.Data.Log l)
         {
             bool result = false;
 
@@ -165,7 +165,7 @@ namespace GlobalcachingApplication.Utils.API
             return result;
         }
 
-        private static bool AddLogImage(Framework.Interfaces.ICore core, Framework.Data.LogImage l)
+        public static bool AddLogImage(Framework.Interfaces.ICore core, Framework.Data.LogImage l)
         {
             bool result = false;
 
@@ -186,7 +186,7 @@ namespace GlobalcachingApplication.Utils.API
             return result;
         }
 
-        private static bool AddGeocacheImage(Framework.Interfaces.ICore core, Framework.Data.GeocacheImage l)
+        public static bool AddGeocacheImage(Framework.Interfaces.ICore core, Framework.Data.GeocacheImage l)
         {
             bool result = false;
 

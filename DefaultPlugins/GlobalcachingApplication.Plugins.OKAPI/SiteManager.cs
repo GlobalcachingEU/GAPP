@@ -7,6 +7,10 @@ namespace GlobalcachingApplication.Plugins.OKAPI
 {
     public class SiteManager
     {
+        public const string STR_NOSITESELECTED = "Please select an opencaching site first by using the settings.";
+        public const string STR_ERROR = "Error";
+        public const string STR_MUSTGETUSERID = "You must obtain a User ID in order to execute this plugin. Please check your settings.";
+
         private static SiteManager _uniqueInstance = null;
         private static object _lockObject = new object();
 
@@ -60,6 +64,24 @@ namespace GlobalcachingApplication.Plugins.OKAPI
                 }
                 Properties.Settings.Default.Save();
             }
+        }
+
+        public bool CheckAPIAccess()
+        {
+            bool result = false;
+            if (ActiveSite == null)
+            {
+                System.Windows.Forms.MessageBox.Show(Utils.LanguageSupport.Instance.GetTranslation(STR_NOSITESELECTED), Utils.LanguageSupport.Instance.GetTranslation(STR_ERROR), System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+            }
+            else if (string.IsNullOrEmpty(ActiveSite.UserID))
+            {
+                System.Windows.Forms.MessageBox.Show(Utils.LanguageSupport.Instance.GetTranslation(STR_MUSTGETUSERID), Utils.LanguageSupport.Instance.GetTranslation(STR_ERROR), System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+            }
+            else
+            {
+                result = true;
+            }
+            return result;
         }
     }
 }

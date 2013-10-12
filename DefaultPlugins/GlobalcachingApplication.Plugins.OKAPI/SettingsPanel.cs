@@ -6,10 +6,6 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Net;
-using System.Web;
-using System.IO;
-using System.Xml;
 
 namespace GlobalcachingApplication.Plugins.OKAPI
 {
@@ -23,7 +19,6 @@ namespace GlobalcachingApplication.Plugins.OKAPI
         public const string STR_SAVE = "Save";
 
         private Framework.Interfaces.ICore _core = null;
-        private bool _manualUpdate = false;
 
         public SettingsPanel()
         {
@@ -72,10 +67,7 @@ namespace GlobalcachingApplication.Plugins.OKAPI
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            if (!_manualUpdate)
-            {
-                textBox2.Text = "";
-            }
+            textBox2.Text = "";
             button1.Enabled = textBox1.Text.Length > 0;
         }
 
@@ -99,37 +91,10 @@ namespace GlobalcachingApplication.Plugins.OKAPI
                 Cursor = Cursors.WaitCursor;
                 try
                 {
-                    //services/users/by_username
-                    HttpWebRequest wr = (HttpWebRequest)WebRequest.Create(string.Format("{0}services/users/by_username?format=xmlmap2&username={1}&fields=uuid|username&consumer_key={2}", si.OKAPIBaseUrl, HttpUtility.UrlEncode(textBox1.Text), HttpUtility.UrlEncode(si.ConsumerKey)));
-                    wr.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.874.121 Safari/535.2";
-                    wr.Method = WebRequestMethods.Http.Get;
-                    using (HttpWebResponse webResponse = (HttpWebResponse)wr.GetResponse())
-                    using (StreamReader reader = new StreamReader(webResponse.GetResponseStream()))
-                    {
-                        //<object><string key="uuid">50e9442e-...934</string></object>
-                        string doc = reader.ReadToEnd();
-
-                        XmlDocument xdoc = new XmlDocument();
-                        xdoc.LoadXml(doc);
-                        XmlNodeList nl = xdoc.SelectNodes("/object/string");
-                        if (nl != null)
-                        {
-                            foreach (XmlNode n in nl)
-                            {
-                                XmlAttribute attr = n.Attributes["key"];
-                                if (attr != null && attr.Value == "uuid")
-                                {
-                                    textBox2.Text = n.InnerText;
-                                }
-                                else if (attr != null && attr.Value == "username")
-                                {
-                                    _manualUpdate = true;
-                                    textBox1.Text = n.InnerText;
-                                    _manualUpdate = false;
-                                }
-                            }
-                        }
-                    }
+                    string username = textBox1.Text;
+                    string userid = OKAPIService.GetUserID(si, ref username);
+                    textBox1.Text = username;
+                    textBox2.Text = userid;
                 }
                 catch
                 {
