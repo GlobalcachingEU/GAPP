@@ -54,7 +54,15 @@ namespace GlobalcachingApplication.Plugins.OKAPI
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsForm.STR_OK));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsForm.STR_TITLE));
 
-            //todo: add geocache types
+            addCacheType(96001, "OC Traditional Cache", "Traditional Cache");
+            addCacheType(96002, "OC Multi-cache", "Multi-cache");
+            addCacheType(96003, "OC Virtual Cache", "Virtual Cache");
+            addCacheType(96004, "OC Event Cache", "Event Cache");
+            addCacheType(96005, "OC Unknown (Mystery) Cache", "Unknown Cache");
+            addCacheType(96006, "OC Webcam Cache", "Webcam Cache");
+            addCacheType(96007, "OC Moving Cache", "Locationless (Reverse) Cache");
+            addCacheType(96008, "OC Quiz Cache", "Unknown Cache");
+            addCacheType(96009, "OC Drive-in Cache", "Traditional Cache");
 
             List<SiteInfo> sites = SiteManager.Instance.AvailableSites;
             foreach (SiteInfo si in sites)

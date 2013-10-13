@@ -214,11 +214,16 @@ namespace GlobalcachingApplication.Utils
 
         public static Framework.Data.GeocacheType GetGeocacheType(Framework.Data.GeocacheTypeCollection gtCollection, string keyWord)
         {
+            return GetGeocacheType(gtCollection, keyWord, 0);
+        }
+        public static Framework.Data.GeocacheType GetGeocacheType(Framework.Data.GeocacheTypeCollection gtCollection, string keyWord, int minID)
+        {
             Framework.Data.GeocacheType result = null;
 
             keyWord = keyWord.ToLower();
             result = (from gt in gtCollection
-                      where gt.Name.ToLower().Contains(keyWord)
+                      where gt.ID>= minID && gt.Name.ToLower().Contains(keyWord)
+                      orderby gt.ID
                       select gt).FirstOrDefault();
             if (result == null)
             {

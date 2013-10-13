@@ -57,31 +57,37 @@ namespace GlobalcachingApplication.Plugins.OKAPI
                 result.Difficulty = gc.difficulty;
                 result.EncodedHints = gc.hint2;
                 result.Found = gc.is_found;
-                //for now, we just map the geocache types
-                //in the future we might want seperate icons
-                if (gc.type == "Traditional")
+                if (gc.type.ToLower().Contains("traditional"))
                 {
-                    result.GeocacheType = Utils.DataAccess.GetGeocacheType(core.GeocacheTypes, 2);
+                    result.GeocacheType = Utils.DataAccess.GetGeocacheType(core.GeocacheTypes, 96001);
                 }
-                else if (gc.type == "Multi")
+                else if (gc.type.ToLower().Contains("multi"))
                 {
-                    result.GeocacheType = Utils.DataAccess.GetGeocacheType(core.GeocacheTypes, 3);
+                    result.GeocacheType = Utils.DataAccess.GetGeocacheType(core.GeocacheTypes, 96002);
                 }
-                else if (gc.type == "Quiz")
+                else if (gc.type.ToLower().Contains("quiz") || gc.type.ToLower().Contains("puzzle"))
                 {
-                    result.GeocacheType = Utils.DataAccess.GetGeocacheType(core.GeocacheTypes, 8);
+                    result.GeocacheType = Utils.DataAccess.GetGeocacheType(core.GeocacheTypes, 96008);
                 }
-                else if (gc.type == "Virtual")
+                else if (gc.type.ToLower().Contains("virtual"))
                 {
-                    result.GeocacheType = Utils.DataAccess.GetGeocacheType(core.GeocacheTypes, 4);
+                    result.GeocacheType = Utils.DataAccess.GetGeocacheType(core.GeocacheTypes, 96003);
                 }
-                else if (gc.type == "Event")
+                else if (gc.type.ToLower().Contains("event"))
                 {
-                    result.GeocacheType = Utils.DataAccess.GetGeocacheType(core.GeocacheTypes, 6);
+                    result.GeocacheType = Utils.DataAccess.GetGeocacheType(core.GeocacheTypes, 96004);
+                }
+                else if (gc.type.ToLower().Contains("webcam"))
+                {
+                    result.GeocacheType = Utils.DataAccess.GetGeocacheType(core.GeocacheTypes, 96006);
+                }
+                else if (gc.type.ToLower().Contains("location") || gc.type.Contains("moving"))
+                {
+                    result.GeocacheType = Utils.DataAccess.GetGeocacheType(core.GeocacheTypes, 96007);
                 }
                 else
                 {
-                    result.GeocacheType = Utils.DataAccess.GetGeocacheType(core.GeocacheTypes, 8);
+                    result.GeocacheType = Utils.DataAccess.GetGeocacheType(core.GeocacheTypes, 96005);
                 }
                 result.Lat = Utils.Conversion.StringToDouble(gc.location.Substring(0, gc.location.IndexOf('|')));
                 result.Lon = Utils.Conversion.StringToDouble(gc.location.Substring(gc.location.IndexOf('|') + 1));

@@ -117,6 +117,7 @@
     <Compile Include="SiteInfo.cs" />
     <Compile Include="SiteInfoGermany.cs" />
     <Compile Include="SiteManager.cs" />
+    <Compile Include="Updater.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\GlobalcachingApplication.Framework\GlobalcachingApplication.Framework.csproj">

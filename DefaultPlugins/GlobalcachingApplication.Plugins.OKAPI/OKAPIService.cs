@@ -218,8 +218,11 @@ namespace GlobalcachingApplication.Plugins.OKAPI
             var dict = (IDictionary<string, object>)json.DeserializeObject(doc);
             foreach (KeyValuePair<string, object> kp in dict)
             {
-                Geocache gc = new Geocache(kp.Value as Dictionary<string, object>);
-                result.Add(gc);
+                if (kp.Value as Dictionary<string, object> != null)
+                {
+                    Geocache gc = new Geocache(kp.Value as Dictionary<string, object>);
+                    result.Add(gc);
+                }
             }
             return result;
         }
