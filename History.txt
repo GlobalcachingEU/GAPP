@@ -19,6 +19,7 @@ V1.9.3.0
 - add: OKAPI support plugin
 - add: OKAPI, Import My Finds plugin (imports all your logs with geocaches)
 - add: OKAPI, Import by bounding box plugin added
+- add: OKAPI, Import bij list of geocache codes
 
 V1.9.2.0
 

@@ -86,6 +86,13 @@
     <Compile Include="Convert.cs" />
     <Compile Include="Import.cs" />
     <Compile Include="ImportByBBox.cs" />
+    <Compile Include="ImportByGCCodes.cs" />
+    <Compile Include="ImportByGCCodesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportByGCCodesForm.Designer.cs">
+      <DependentUpon>ImportByGCCodesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ImportMyLogsWithCaches.cs" />
     <Compile Include="OKAPIService.cs" />
     <Compile Include="ImportByBBoxForm.cs">
@@ -139,6 +146,9 @@
   <ItemGroup>
     <EmbeddedResource Include="ImportByBBoxForm.resx">
       <DependentUpon>ImportByBBoxForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportByGCCodesForm.resx">
+      <DependentUpon>ImportByGCCodesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
