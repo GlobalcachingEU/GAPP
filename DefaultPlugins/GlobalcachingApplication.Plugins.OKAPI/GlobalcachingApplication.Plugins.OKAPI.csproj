@@ -85,8 +85,15 @@
   <ItemGroup>
     <Compile Include="Convert.cs" />
     <Compile Include="Import.cs" />
+    <Compile Include="ImportByBBox.cs" />
     <Compile Include="ImportMyLogsWithCaches.cs" />
     <Compile Include="OKAPIService.cs" />
+    <Compile Include="ImportByBBoxForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportByBBoxForm.Designer.cs">
+      <DependentUpon>ImportByBBoxForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SiteInfoNetherlands.cs" />
     <Compile Include="DataSetup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -129,12 +136,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ImportByBBoxForm.resx">
+      <DependentUpon>ImportByBBoxForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsPanel.resx">
       <DependentUpon>SettingsPanel.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ImportByBBoxPage.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

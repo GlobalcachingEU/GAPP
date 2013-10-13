@@ -25,6 +25,20 @@ namespace GlobalcachingApplication.Plugins.OKAPI
                                 Utils.API.Import.AddLog(core, lg);
                             }
                         }
+                        if (gcApi.alt_wpts != null)
+                        {
+                            foreach (var wp in gcApi.alt_wpts)
+                            {
+                                Utils.API.Import.AddWaypoint(core, Convert.Waypoint(core, wp));
+                            }
+                        }
+                        if (gcApi.images != null)
+                        {
+                            foreach (var imgd in gcApi.images)
+                            {
+                                Utils.API.Import.AddGeocacheImage(core, Convert.GeocacheImage(core, imgd, activeGC.Code));
+                            }
+                        }
                     }
                 }
             }

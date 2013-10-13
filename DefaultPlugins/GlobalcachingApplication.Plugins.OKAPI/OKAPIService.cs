@@ -224,6 +224,27 @@ namespace GlobalcachingApplication.Plugins.OKAPI
             return result;
         }
 
+        public static List<string> GetGeocachesInBBox(SiteInfo si, double minLat, double minLon, double maxLat, double maxLon)
+        {
+            List<string> result = new List<string>();
+            string url = string.Format("{0}services/caches/search/bbox?bbox={1}|{2}|{3}|{4}&limit=500&consumer_key={5}", si.OKAPIBaseUrl, minLat.ToString().Replace(',', '.'), minLon.ToString().Replace(',', '.'), maxLat.ToString().Replace(',', '.'), maxLon.ToString().Replace(',', '.'), HttpUtility.UrlEncode(si.ConsumerKey));
+            string doc = GetResultOfUrl(url);
+            var json = new JavaScriptSerializer() { MaxJsonLength = int.MaxValue };
+            var dict = (IDictionary<string, object>)json.DeserializeObject(doc);
+            foreach (KeyValuePair<string, object> kp in dict)
+            {
+                object[] gcList = kp.Value as object[];
+                if (gcList != null)
+                {
+                    foreach (string gc in gcList)
+                    {
+                        result.Add(gc);
+                    }
+                }
+            }
+            return result;
+        }
+
         public static List<Log> GetLogsOfUserID(SiteInfo si, string userid, int max, int start)
         {
             List<Log> result;

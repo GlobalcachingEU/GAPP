@@ -19,6 +19,7 @@ namespace GlobalcachingApplication.Plugins.OKAPI
                 {
                     result.UpdateFrom(tmp, null);
                 }
+                result.DataFromDate = DateTime.Now;
                 result.Code = gc.code;
                 result.ID = gc.code;
                 result.Archived = gc.status == "Archived";
@@ -134,5 +135,81 @@ namespace GlobalcachingApplication.Plugins.OKAPI
             }
             return result;
         }
+
+        public static Framework.Data.Waypoint Waypoint(Framework.Interfaces.ICore core, OKAPIService.Waypoint wp)
+        {
+            Framework.Data.Waypoint result = null;
+            if (wp != null)
+            {
+                Framework.Data.Waypoint tmp = DataAccess.GetWaypoint(core.Waypoints, wp.name);
+                result = new Framework.Data.Waypoint();
+                if (tmp != null)
+                {
+                    result.UpdateFrom(tmp);
+                }
+                result.Code = wp.name;
+                result.DataFromDate = DateTime.Now;
+                //for now map: parking, path, stage, physical-stage, virtual-stage, final, poi, other
+                if (wp.sym == "parking")
+                {
+                    result.WPType = DataAccess.GetWaypointType(core.WaypointTypes, 217);
+                }
+                else if (wp.sym == "path")
+                {
+                    result.WPType = DataAccess.GetWaypointType(core.WaypointTypes, 452);
+                }
+                else if (wp.sym == "stage" || wp.sym == "physical-stage" || wp.sym == "virtual-stage")
+                {
+                    result.WPType = DataAccess.GetWaypointType(core.WaypointTypes, 219);
+                }
+                else if (wp.sym == "final")
+                {
+                    result.WPType = DataAccess.GetWaypointType(core.WaypointTypes, 220);
+                }
+                else if (wp.sym == "poi")
+                {
+                    result.WPType = DataAccess.GetWaypointType(core.WaypointTypes, 452);
+                }
+                else
+                {
+                    result.WPType = DataAccess.GetWaypointType(core.WaypointTypes, 452);
+                }
+                result.Comment = wp.description;
+                result.Description = wp.description;
+                result.GeocacheCode = wp.cache_code;
+                result.ID = wp.name;
+                result.Lat = Utils.Conversion.StringToDouble(wp.location.Substring(0, wp.location.IndexOf('|')));
+                result.Lon = Utils.Conversion.StringToDouble(wp.location.Substring(wp.location.IndexOf('|') + 1));
+                result.Name = wp.type_name;
+                result.Time = DateTime.Now;
+                result.Url = "";
+                result.UrlName = wp.type_name;
+            }
+            return result;
+        }
+
+        public static Framework.Data.GeocacheImage GeocacheImage(Framework.Interfaces.ICore core, OKAPIService.GeocacheImage img, string GeocacheCode)
+        {
+            Framework.Data.GeocacheImage result = null;
+            if (img != null)
+            {
+                Framework.Data.GeocacheImage tmp = DataAccess.GetGeocacheImage(core.GeocacheImages, img.uuid);
+                result = new Framework.Data.GeocacheImage();
+                if (tmp != null)
+                {
+                    result.UpdateFrom(tmp);
+                }
+                result.ID = img.uuid;
+                result.DataFromDate = DateTime.Now;
+                result.GeocacheCode = GeocacheCode;
+                result.Name = img.caption;
+                result.Url = img.url;
+                result.ThumbUrl = img.thumb_url;
+                result.MobileUrl = img.thumb_url;
+                result.Description = "";
+            }
+            return result;
+        }
+
     }
 }
