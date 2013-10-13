@@ -16,10 +16,10 @@ V1.9.3.0
 - add: Settings folder selection at startup of the application now contains a Default button to select the applications default settings folder
 - add: Settings folder selection in file menu now contains a Default button to select the applications default settings folder
 - add: Settings for account names for other sites. Coupling is done by GC code prefix like GC, OX and OC
-- add: OKAPI support plugin
+- add: OKAPI support plugin (support for opencaching.de, opencaching.pl and opencaching.nl)
 - add: OKAPI, Import My Finds plugin (imports all your logs with geocaches)
 - add: OKAPI, Import by bounding box plugin added
-- add: OKAPI, Import bij list of geocache codes
+- add: OKAPI, Import by list of geocache codes
 
 V1.9.2.0
 

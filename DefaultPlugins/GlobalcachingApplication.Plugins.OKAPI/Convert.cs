@@ -25,7 +25,16 @@ namespace GlobalcachingApplication.Plugins.OKAPI
                 result.Archived = gc.status == "Archived";
                 result.Available = gc.status == "Available";
 
-                //todo: result.AttributeIds
+                List<int> attris = new List<int>();
+                foreach (string at in gc.attr_acodes)
+                {
+                    int code = OKAPIService.MapAttributeACodeToAttributeID(at);
+                    if (code > 0)
+                    {
+                        attris.Add(code);
+                    }
+                }
+                result.AttributeIds = attris;
 
                 // 'none', 'nano', 'micro', 'small', 'regular', 'large', 'xlarge', 'other'
                 // we chose to map the containers

@@ -11,7 +11,7 @@ namespace GlobalcachingApplication.Plugins.OKAPI
 
         public SiteInfoNetherlands()
         {
-            ID = "1";
+            ID = "2";
             Info = STR_INFO;
             OKAPIBaseUrl = "http://www.opencaching.nl/okapi/";
             GeocodePrefix = "OB";

@@ -199,6 +199,80 @@ namespace GlobalcachingApplication.Plugins.OKAPI
             }
         }
 
+
+        public static void develop_CreateAttributesList(SiteInfo si)
+        {
+            StringBuilder sb = new StringBuilder();
+            string url = string.Format("{0}services/attrs/attribute_index?fields=name|gc_equivs&consumer_key={1}", si.OKAPIBaseUrl, HttpUtility.UrlEncode(si.ConsumerKey));
+            string doc = GetResultOfUrl(url);
+            var json = new JavaScriptSerializer() { MaxJsonLength = int.MaxValue };
+            var dict = (IDictionary<string, object>)json.DeserializeObject(doc);
+            foreach (KeyValuePair<string, object> kp in dict)
+            {
+                string name = kp.Key;
+                Dictionary<string, object> attrs = kp.Value as Dictionary<string, object>;
+                if (attrs != null)
+                {
+                    //string name = attrs["name"] as string;
+                    if (attrs["gc_equivs"] as object[] != null)
+                    {
+                        foreach (Dictionary<string, object> attr in attrs["gc_equivs"] as object[])
+                        {
+                            int id = (int)attr["id"];
+                            int inc = (int)attr["inc"];
+                            sb.AppendLine(string.Format("else if (aCode==\"{1}\") result = {2}{0};", id, name, inc == 0 ? "" : "-"));
+                        }
+                    }
+                }
+            }
+        }
+
+        public static int MapAttributeACodeToAttributeID(string aCode)
+        {
+            //generated with develop_CreateAttributesList
+            int result = 0;
+            if (aCode == "A9") result = -60;
+            else if (aCode == "A15") result = -47;
+            else if (aCode == "A18") result = -24;
+            else if (aCode == "A19") result = -53;
+            else if (aCode == "A21") result = -9;
+            else if (aCode == "A22") result = -11;
+            else if (aCode == "A24") result = -10;
+            else if (aCode == "A25") result = -12;
+            else if (aCode == "A26") result = -2;
+            else if (aCode == "A27") result = -32;
+            else if (aCode == "A33") result = -25;
+            else if (aCode == "A34") result = -26;
+            else if (aCode == "A35") result = -27;
+            else if (aCode == "A36") result = -28;
+            else if (aCode == "A37") result = -29;
+            else if (aCode == "A39") result = -13;
+            else if (aCode == "A40") result = 13;
+            else if (aCode == "A41") result = 14;
+            else if (aCode == "A42") result = -14;
+            else if (aCode == "A43") result = -52;
+            else if (aCode == "A44") result = 62;
+            else if (aCode == "A45") result = -62;
+            else if (aCode == "A47") result = -15;
+            else if (aCode == "A52") result = -44;
+            else if (aCode == "A53") result = -3;
+            else if (aCode == "A55") result = -5;
+            else if (aCode == "A56") result = -51;
+            else if (aCode == "A57") result = -4;
+            else if (aCode == "A59") result = -23;
+            else if (aCode == "A61") result = -21;
+            else if (aCode == "A62") result = -22;
+            else if (aCode == "A63") result = -39;
+            else if (aCode == "A64") result = -19;
+            else if (aCode == "A65") result = -20;
+            else if (aCode == "A66") result = -17;
+            else if (aCode == "A67") result = -18;
+            else if (aCode == "A70") result = -6;
+            else if (aCode == "A71") result = -6;
+            else if (aCode == "A73") result = 13;
+            return result;
+        }
+
         public static List<Geocache> GetGeocaches(SiteInfo si, List<string> gcCodes)
         {
             List<Geocache> result = new List<Geocache>();

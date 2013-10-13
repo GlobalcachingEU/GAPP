@@ -70,6 +70,9 @@ namespace GlobalcachingApplication.Plugins.OKAPI
                 core.GeocachingAccountNames.SetAccountName(si.GeocodePrefix, si.Username);
             }
 
+            //delelop only: be sure a valid site is active!
+            //OKAPIService.develop_CreateAttributesList(SiteManager.Instance.ActiveSite);
+
             return result;
         }
 

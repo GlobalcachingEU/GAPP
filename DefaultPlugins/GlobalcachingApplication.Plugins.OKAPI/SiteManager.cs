@@ -22,6 +22,9 @@ namespace GlobalcachingApplication.Plugins.OKAPI
             AvailableSites = new List<SiteInfo>();
             AvailableSites.Add(new SiteInfoGermany());
             AvailableSites.Add(new SiteInfoNetherlands());
+            AvailableSites.Add(new SiteInfoPoland());
+            //AvailableSites.Add(new SiteInfoUSA());
+            //AvailableSites.Add(new SiteInfoUK());
 
             foreach (SiteInfo si in AvailableSites)
             {

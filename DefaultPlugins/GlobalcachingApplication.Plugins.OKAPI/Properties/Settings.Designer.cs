@@ -94,5 +94,77 @@ namespace GlobalcachingApplication.Plugins.OKAPI.Properties {
                 this["SiteInfoNetherlandsUserID"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SiteInfoPolandUsername {
+            get {
+                return ((string)(this["SiteInfoPolandUsername"]));
+            }
+            set {
+                this["SiteInfoPolandUsername"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SiteInfoPolandUserID {
+            get {
+                return ((string)(this["SiteInfoPolandUserID"]));
+            }
+            set {
+                this["SiteInfoPolandUserID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SiteInfoUSAUsername {
+            get {
+                return ((string)(this["SiteInfoUSAUsername"]));
+            }
+            set {
+                this["SiteInfoUSAUsername"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SiteInfoUSAUserID {
+            get {
+                return ((string)(this["SiteInfoUSAUserID"]));
+            }
+            set {
+                this["SiteInfoUSAUserID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SiteInfoUKUsername {
+            get {
+                return ((string)(this["SiteInfoUKUsername"]));
+            }
+            set {
+                this["SiteInfoUKUsername"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SiteInfoUKUserID {
+            get {
+                return ((string)(this["SiteInfoUKUserID"]));
+            }
+            set {
+                this["SiteInfoUKUserID"] = value;
+            }
+        }
     }
 }

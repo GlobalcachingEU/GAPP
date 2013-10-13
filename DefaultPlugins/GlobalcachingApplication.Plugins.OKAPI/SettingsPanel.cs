@@ -43,6 +43,10 @@ namespace GlobalcachingApplication.Plugins.OKAPI
 
         public void Apply()
         {
+            if (button2.Enabled)
+            {
+                button2_Click(this, EventArgs.Empty);
+            }
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
