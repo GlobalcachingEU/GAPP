@@ -49,6 +49,7 @@ Function = 'projection' | 'projektion'
          | 'rot13'
          | 'mid'
          | 'wp' | 'waypoint' | 'wegpunkt'
+         | 'pow'
               
 ! -------------------------------------------------
 ! Rules

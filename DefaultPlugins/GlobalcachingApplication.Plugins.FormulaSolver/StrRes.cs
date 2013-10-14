@@ -58,6 +58,8 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
         public static string STR_INSFORM_DESCRIPTION = "Description";
         public static string STR_INSFORM_INSERT = "Insert";
         public static string STR_INSFORM_CANCEL = "Cancel";
+        public static string STR_DIV_BY_ZERO = "Division by zero";
+        public static string STR_DESCR_POW = "Compute the power of the first to the second parameter\r\nPow(2;10) = 1024";
 
         public static string GetString(string res)
         {

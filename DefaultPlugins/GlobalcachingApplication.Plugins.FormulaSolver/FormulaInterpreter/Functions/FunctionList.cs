@@ -97,6 +97,11 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver.FormulaInterpreter.Func
                 new Functions.NumberFunctions.Pi(),
                 StrRes.GetString(StrRes.STR_DESCR_PI)
             );
+            AddFunction(
+                "Pow", grp, new[] { "Power", "Potenz" },
+                new Functions.NumberFunctions.PowerFunction(),
+                StrRes.GetString(StrRes.STR_DESCR_POW)
+            );
         }
 
         private void AddCoordinateFunctions()

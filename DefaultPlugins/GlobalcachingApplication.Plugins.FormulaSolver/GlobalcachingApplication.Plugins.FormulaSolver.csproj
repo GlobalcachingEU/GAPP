@@ -104,6 +104,7 @@
     <Compile Include="FormulaInterpreter\Exception\ArgumentRangeException.cs" />
     <Compile Include="FormulaInterpreter\Exception\FormulaSolverException.cs" />
     <Compile Include="FormulaInterpreter\Functions\FunctionList.cs" />
+    <Compile Include="FormulaInterpreter\Functions\NumberFunctions\PowerFunction.cs" />
     <Compile Include="FormulaInterpreter\Functions\Utils\ArgumentChecker.cs" />
     <Compile Include="FormulaInterpreter\Functions\TextFunctions\AlphaPos.cs" />
     <Compile Include="FormulaInterpreter\Functions\TextFunctions\AlphaSum.cs" />
