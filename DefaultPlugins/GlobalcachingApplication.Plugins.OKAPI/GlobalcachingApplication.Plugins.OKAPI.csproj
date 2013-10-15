@@ -84,6 +84,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Convert.cs" />
+    <Compile Include="ImportByRadius.cs" />
+    <Compile Include="ImportByRadiusForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportByRadiusForm.Designer.cs">
+      <DependentUpon>ImportByRadiusForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SiteInfoUK.cs" />
     <Compile Include="SiteInfoUSA.cs" />
     <Compile Include="SiteInfoPoland.cs" />
@@ -152,6 +159,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ImportByGCCodesForm.resx">
       <DependentUpon>ImportByGCCodesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportByRadiusForm.resx">
+      <DependentUpon>ImportByRadiusForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>

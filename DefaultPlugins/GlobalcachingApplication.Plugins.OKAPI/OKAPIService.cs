@@ -301,10 +301,30 @@ namespace GlobalcachingApplication.Plugins.OKAPI
             return result;
         }
 
+        public static List<string> GetGeocachesWithinRadius(SiteInfo si, Framework.Data.Location loc, double radiusKm, string filter)
+        {
+            List<string> result;
+            if (!string.IsNullOrEmpty(filter))
+            {
+                filter = string.Concat("&", filter);
+            }
+            string url = string.Format("{0}services/caches/search/nearest?center={1}|{2}&radius={3}{4}&limit=500&consumer_key={5}", si.OKAPIBaseUrl, loc.Lat.ToString().Replace(',', '.'), loc.Lon.ToString().Replace(',', '.'), radiusKm.ToString().Replace(',', '.'), filter, HttpUtility.UrlEncode(si.ConsumerKey));
+            result = GetGeocachesByUrl(url);
+            return result;
+        }
+
         public static List<string> GetGeocachesInBBox(SiteInfo si, double minLat, double minLon, double maxLat, double maxLon)
         {
-            List<string> result = new List<string>();
+            List<string> result;
             string url = string.Format("{0}services/caches/search/bbox?bbox={1}|{2}|{3}|{4}&limit=500&consumer_key={5}", si.OKAPIBaseUrl, minLat.ToString().Replace(',', '.'), minLon.ToString().Replace(',', '.'), maxLat.ToString().Replace(',', '.'), maxLon.ToString().Replace(',', '.'), HttpUtility.UrlEncode(si.ConsumerKey));
+            result = GetGeocachesByUrl(url);
+            return result;
+        }
+
+
+        public static List<string> GetGeocachesByUrl(string url)
+        {
+            List<string> result = new List<string>();
             string doc = GetResultOfUrl(url);
             var json = new JavaScriptSerializer() { MaxJsonLength = int.MaxValue };
             var dict = (IDictionary<string, object>)json.DeserializeObject(doc);
