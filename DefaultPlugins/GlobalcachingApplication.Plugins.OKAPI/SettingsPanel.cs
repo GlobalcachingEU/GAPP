@@ -23,6 +23,8 @@ namespace GlobalcachingApplication.Plugins.OKAPI
         public const string STR_NO = "No";
 
         private Framework.Interfaces.ICore _core = null;
+        private string _token = "";
+        private string _tokenSecret = "";
 
         public SettingsPanel()
         {
@@ -66,6 +68,8 @@ namespace GlobalcachingApplication.Plugins.OKAPI
                 textBox1.Enabled = true;
                 button2.Enabled = true;
                 button3.Enabled = true;
+                _token = si.Token;
+                _tokenSecret = si.TokenSecret;
                 SiteManager.Instance.ActiveSite = si;
             }
             else
@@ -92,6 +96,8 @@ namespace GlobalcachingApplication.Plugins.OKAPI
             {
                 si.Username = textBox1.Text;
                 si.UserID = textBox2.Text;
+                si.Token = _token;
+                si.TokenSecret = _tokenSecret;
                 si.SaveSettings();
             }
         }
@@ -122,15 +128,26 @@ namespace GlobalcachingApplication.Plugins.OKAPI
             SiteInfo si = comboBox1.SelectedItem as SiteInfo;
             if (si != null)
             {
-                si.Token = "";
-                si.TokenSecret = "";
-                textBox3.Text = si.IsAuthorized ? Utils.LanguageSupport.Instance.GetTranslation(STR_YES) : Utils.LanguageSupport.Instance.GetTranslation(STR_NO);
+                _token = "";
+                _tokenSecret = "";
+                textBox3.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_NO);
                 using (KeyRequestForm dlg = new KeyRequestForm(si))
                 {
                     dlg.ShowDialog();
-                    si.Token = dlg.Token??"";
-                    si.TokenSecret = dlg.TokenSecret??"";
-                    textBox3.Text = si.IsAuthorized ? Utils.LanguageSupport.Instance.GetTranslation(STR_YES) : Utils.LanguageSupport.Instance.GetTranslation(STR_NO);
+                    _tokenSecret = dlg.TokenSecret;
+                    _token = dlg.Token;
+                    bool isAuthorized = (!string.IsNullOrEmpty(_tokenSecret) && !string.IsNullOrEmpty(_tokenSecret));
+                    textBox3.Text = isAuthorized ? Utils.LanguageSupport.Instance.GetTranslation(STR_YES) : Utils.LanguageSupport.Instance.GetTranslation(STR_NO);
+                    if (isAuthorized)
+                    {
+                        string uuid = "";
+                        string username = "";
+                        if (OKAPIService.GetAuthorizedUser(si, _token, _tokenSecret, out username, out uuid))
+                        {
+                            textBox1.Text = username;
+                            textBox2.Text = uuid;
+                        }
+                    }
                 }
             }
         }

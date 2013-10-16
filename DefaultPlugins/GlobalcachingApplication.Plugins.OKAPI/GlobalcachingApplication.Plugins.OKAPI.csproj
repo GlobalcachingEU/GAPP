@@ -97,6 +97,7 @@
     <Compile Include="KeyRequestForm.Designer.cs">
       <DependentUpon>KeyRequestForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="OAuthBase.cs" />
     <Compile Include="SiteInfoUK.cs" />
     <Compile Include="SiteInfoUSA.cs" />
     <Compile Include="SiteInfoPoland.cs" />

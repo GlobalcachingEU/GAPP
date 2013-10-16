@@ -378,6 +378,45 @@ namespace GlobalcachingApplication.Plugins.OKAPI
             return result;
         }
 
+        public static bool GetAuthorizedUser(SiteInfo si, string customToken, string customTokenSecret, out string username, out string userid)
+        {
+            username = "";
+            userid = "";
+            try
+            {
+                if (si.IsAuthorized)
+                {
+                    Dictionary<string, string> pars = new Dictionary<string, string>();
+                    pars.Add("fields", "uuid|username");
+                    pars.Add("format", "xmlmap2");
+                    string url = GetAuthURL(si, customToken, customTokenSecret, "services/users/user", pars);
+                    string doc = GetResultOfUrl(url);
+                    XmlDocument xdoc = new XmlDocument();
+                    xdoc.LoadXml(doc);
+                    XmlNodeList nl = xdoc.SelectNodes("/object/string");
+                    if (nl != null)
+                    {
+                        foreach (XmlNode n in nl)
+                        {
+                            XmlAttribute attr = n.Attributes["key"];
+                            if (attr != null && attr.Value == "uuid")
+                            {
+                                userid = n.InnerText;
+                            }
+                            else if (attr != null && attr.Value == "username")
+                            {
+                                username = n.InnerText;
+                            }
+                        }
+                    }
+                }
+            }
+            catch
+            {
+            }
+            return (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(userid));
+        }
+
         public static string GetResultOfUrl(string url)
         {
             string result = "";
@@ -403,6 +442,46 @@ namespace GlobalcachingApplication.Plugins.OKAPI
             {
                 return (T)ser.ReadObject(stream);
             }
+        }
+
+        public static string GetAuthURL(SiteInfo si, string method, Dictionary<string, string> args = null)
+        {
+            return GetAuthURL(si, null, null, method);
+        }
+
+        public static string GetAuthURL(SiteInfo si, string customToken, string customTokenSecret, string method, Dictionary<string, string> args = null)
+        {
+            var oauth = new OAuthBase();
+            if (args == null)
+                args = new Dictionary<string, string>();
+
+            var argPairsEncoded = new List<string>();
+            foreach (var pair in args)
+            {
+                argPairsEncoded.Add(string.Concat(oauth.UrlEncode(pair.Key) , "=" , oauth.UrlEncode(pair.Value)));
+            }
+            string url = string.Concat(si.OKAPIBaseUrl, method);
+            if (argPairsEncoded.Count > 0)
+            {
+                url = string.Concat(url, "?" , string.Join("&", argPairsEncoded));
+            }
+            // We have our base version of the URL, with no OAuth arguments. Now we will
+            // add standard OAuth stuff and sign it given Consumer Secret (and optionally
+            // also with Token Secret).
+
+            string timestamp = oauth.GenerateTimeStamp();
+            string nonce = oauth.GenerateNonce();
+            string normalized_url;
+            string normalized_params;
+            string signature = oauth.GenerateSignature(new System.Uri(url),
+                si.ConsumerKey,
+                si.ConsumerSecret, 
+                customToken == null ? si.Token : customToken,
+                customTokenSecret == null ? si.TokenSecret : customTokenSecret, 
+                "GET", timestamp, nonce, out normalized_url, out normalized_params);
+            url = string.Concat(si.OKAPIBaseUrl, method, "?", normalized_params, "&oauth_signature=", HttpUtility.UrlEncode(signature));
+
+            return url;
         }
 
     }
