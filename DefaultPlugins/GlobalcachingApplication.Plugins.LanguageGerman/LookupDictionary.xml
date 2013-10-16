@@ -1082,4 +1082,60 @@
   <string name="create image folder for selection" value="Erstelle Bildordner für Auswahl" />
   <string name="exporting locus - addon gsak database..." value="Exportiere Locus-Addon GSAK-Datenbank..." />
   <string name="export locus - addon gsak database" value="Exportiere Locus-Addon GSAK-Datenbank" />
+
+<!-- Strings used by Plugin FormulaSolver -->
+  <string name="{0}: argument missing. (min. {1})" value="{0}: Fehlende Argumente. (Min. {1})" />
+  <string name="{0}: to much arguments. (max. {1})" value="{0}: Zu viele Argumente. (Max. {1})" />
+  <string name="{0}: value out of range. ({1} - {2})" value="" />
+  <string name="no crossing" value="Keine Kreuzung" />
+  <string name="pi: maximum digits: 1000" value="Pi: Maximale Stellenzahl: 1000" />
+  <string name="pi: argument out of range: (0 - 1000)" value="Pi: Argument nicht im richtigen Bereich: (0 - 1000)" />
+  <string name="unknown function: " value="Unbekannte Funktion: " />
+  <string name="insert declarations for the missing variables:\n{0}" value="Deklarationen für die fehlenden Variablen einfügen:\n{0}" />
+  <string name="insert formula" value="Formel einfügen" />
+  <string name="insert waypoint" value="Wegpunkt einfügen" />
+  <string name="solve" value="Lösen" />
+  <string name="as waypoint" value="Als Wegpunkt" />
+  <string name="as center" value="Als Zentrum" />
+  <string name="number functions" value="Zahlenfunktionen" />
+  <string name="coordinate functions" value="Koordinatenfunktionen" />
+  <string name="text functions" value="Textfunktionen" />
+  <string name="unknown function group" value="Unbekannte Funktionsgruppe" />
+  <string name="sum of all single numbers in the parameter.\r\nexample: ct(654321) = 21" value="Summe der Ziffern des Parameters.\r\nBeispiel: CT(654321) = 21" />
+  <string name="iterated crosstotal until result has only 1 digit.\r\nexample: ict(123456) = 3" value="Iterierte Quersumme, bis das Resultat nur noch eine Ziffer hat.\r\nBeispiel: ICT(123456) = 3" />
+  <string name="product of all single numbers in the number.\r\nexample: cp(1234) = 24" value="Produkt der Ziffern des Parameters.\r\nBeispiel: CP(1234) = 24" />
+  <string name="iterated crossproduct until result has only 1 digit.\r\nexample: icp(1234) = 8" value="Iteriertes Querprodukt, bis das Resultat nur noch eine Ziffer hat.\r\nBeispiel: ICP(1234) = 8" />
+  <string name="primenumber(x) gives the x-th prime number.\r\nexample: primenumber(5) = 11" value="Primzahl(x) ermittelt die x-te Primzahl.\r\nBeispiel: Primenumber(5) = 11" />
+  <string name="primeindex(y) gives the index of the prime number y.\r\nexample: primeindex(11) = 5" value="Ermittelt den Index einer Primzahl.\r\nBeispiel: Primeindex(11) = 5" />
+  <string name="gives the number before the decimal point\r\nint(-5.8) = -5" value="Ermittelt den ganzzahligen Anteil einer Zahl.\r\nInt(-5.8) = -5" />
+  <string name="rounds the number to x digits\r\nround(1.8672; 2) = 1.87" value="Rundet auf x Nachkommastellen.\r\nRound(1.8672; 2) = 1.87" />
+  <string name="roman numerals to decimal" value="Wandelt römische in Dezimalzahlen" />
+  <string name="gives the number pi with n digits after decimal point\r\npi(4) = 3.1415" value="Berechnet Pi auf n Nachkommastellen.\r\nPi(4) = 3.1415" />
+  <string name="gives the bearing from coord1 to coord2\r\nbearing(coord1; coord2)" value="Berechnet die Richtung zwischen zwei Koordinaten.\r\nBearing(coord1; coord2)" />
+  <string name="gives the distance between coord1 and coord2 in meters\r\ndistance(coord1; coord2)" value="Berechnet die Entfernung zwischen zwei Koordinaten.\r\nDistance(coord1; coord2)" />
+  <string name="crossbearing between 2 points and 2 directions\r\ncrossbearing(coord1; angle1; coord2; angle2)" value="Berechnet den Schnittpunkt zweier Linien aus Startpunkt und Richtung.\r\nCrossbearing(coord1; angle1; coord2; angle2)" />
+  <string name="intersection of 2 lines (coord1-coord2) with (coord3-coord4).\r\nintersection(coord1; coord2; coord3; coord4)" value="Berechnet den Schnittpunkt zweier durch Koordinaten beschriebener Linien.\r\nIntersection(coord1; coord2; coord3; coord4)" />
+  <string name="projection of coordinate.\r\nprojection(coord; length; angle)" value="Projektion einer Koordinate.\r\nProjection(coord; length; angle)" />
+  <string name="sum of the positions of all characters in the alphabet" value="Summe der Positionen der Buchstaben im Alphabet." />
+  <string name="position of the first character in the alphabet" value="Position des ersten Buchstabens im Alphabet." />
+  <string name="position of the first character on the phone keyboard" value="Position des ersten Buchstabens auf der Handytastatur." />
+  <string name="sum of the positions of all characters on the phone keyboard" value="Summe aller Buchstabenpositionen auf der Handytastatur." />
+  <string name="numbers of characters in the string" value="Anzahl der Zeichen im Text." />
+  <string name="return a substring of a string. parameter 3: default=1\r\nmid(&quot;string&quot;;startposition;[charactercount])" value="Liefert einen Teilstring zurück. Parameter 3: Default = 1\r\nMid(&quot;String&quot;;Startposition;[Anzahl])" />
+  <string name="reverses the string\r\nreverse(&quot;abc&quot;) = cba" value="Kehrt den String um.\r\nReverse(&quot;abc&quot;) = cba" />
+  <string name="gives the rot13 encryption\r\nrot13(&quot;abc&quot;) = nop" value="Ermittelt die ROT13-Verschlüsselung des Textes.\r\nRot13(&quot;abc&quot;) = nop" />
+  <string name="get coordinates of a geocache waypoint by its name.\r\nwaypoint(&quot;fn2y73e&quot;) = &quot;n 51° 12.345 e 006° 43.210&quot;\r\nno param gives cache coordinates." value="Ermittelt die Koordinaten eines Wegpunktes anhand seines Namens.\r\nWaypoint(&quot;fn2y73e&quot;) = &quot;n 51° 12.345 e 006° 43.210&quot;" />
+  <string name="select waypoint" value="Wegpunkt wählen" />
+  <string name="insert formula" value="Formel einfügen" />
+  <string name="group" value="Gruppe" />
+  <string name="functions" value="Funktionen" />
+  <string name="other names" value="Andere Bezeichnungen" />
+  <string name="description" value="Beschreibung" />
+  <string name="insert" value="Einfügen" />
+  <string name="division by zero" value="Division durch Null" />
+  <string name="compute the power of the first to the second parameter\r\npow(2;10) = 1024" value="Berechnet die Potenz " />
+  <string name="compute the factorial of an integer.\r\nfact(10) = 3628800" value="" />
+  <string name="no cache selected." value="Kein Cache ausgewählt." />
+<!-- End of Strings used by Plugin FormulaSolver -->
+
 </resources>

@@ -62,6 +62,7 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
         public static string STR_DIV_BY_ZERO = "Division by zero";
         public static string STR_DESCR_POW = "Compute the power of the first to the second parameter\r\nPow(2;10) = 1024";
         public static string STR_DESCR_FACTORIAL = "Compute the factorial of an integer.\r\nFact(10) = 3628800";
+        public static string STR_NO_CACHE_SELECTED = "No cache selected.";
 
         public static string GetString(string res)
         {

@@ -94,7 +94,7 @@
             // 
             this.bnInsertFormula.Location = new System.Drawing.Point(16, 12);
             this.bnInsertFormula.Name = "bnInsertFormula";
-            this.bnInsertFormula.Size = new System.Drawing.Size(93, 23);
+            this.bnInsertFormula.Size = new System.Drawing.Size(110, 23);
             this.bnInsertFormula.TabIndex = 1;
             this.bnInsertFormula.Text = "Insert Formula";
             this.bnInsertFormula.UseVisualStyleBackColor = true;
@@ -102,9 +102,9 @@
             // 
             // bnInsertWaypoint
             // 
-            this.bnInsertWaypoint.Location = new System.Drawing.Point(115, 12);
+            this.bnInsertWaypoint.Location = new System.Drawing.Point(141, 12);
             this.bnInsertWaypoint.Name = "bnInsertWaypoint";
-            this.bnInsertWaypoint.Size = new System.Drawing.Size(93, 23);
+            this.bnInsertWaypoint.Size = new System.Drawing.Size(110, 23);
             this.bnInsertWaypoint.TabIndex = 2;
             this.bnInsertWaypoint.Text = "Insert Waypoint";
             this.bnInsertWaypoint.UseVisualStyleBackColor = true;
@@ -124,6 +124,7 @@
             // bnAsCenter
             // 
             this.bnAsCenter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bnAsCenter.Enabled = false;
             this.bnAsCenter.Location = new System.Drawing.Point(660, 12);
             this.bnAsCenter.Name = "bnAsCenter";
             this.bnAsCenter.Size = new System.Drawing.Size(93, 23);
@@ -135,6 +136,7 @@
             // bnAsWaypoint
             // 
             this.bnAsWaypoint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bnAsWaypoint.Enabled = false;
             this.bnAsWaypoint.Location = new System.Drawing.Point(561, 12);
             this.bnAsWaypoint.Name = "bnAsWaypoint";
             this.bnAsWaypoint.Size = new System.Drawing.Size(93, 23);

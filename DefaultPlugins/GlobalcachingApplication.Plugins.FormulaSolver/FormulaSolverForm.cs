@@ -57,7 +57,7 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
             {
                 return ((activeCode != null) && (activeCode.Length > 0))
                     ? string.Format("{0}: {1}", activeCode, activeName)
-                    : "No cache selected.";
+                    : StrRes.GetString(StrRes.STR_NO_CACHE_SELECTED);
             }
             private set {}
         }
@@ -108,6 +108,7 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
             bnSolve.Text = StrRes.GetString(StrRes.STR_SOLVE);
             bnAsWaypoint.Text = StrRes.GetString(StrRes.STR_AS_WAYPOINT);
             bnAsCenter.Text = StrRes.GetString(StrRes.STR_AS_CENTER);
+            OnPropertyChanged("activeTitle");
         }
 
         void core_ActiveGeocacheChanged(object sender, Framework.EventArguments.GeocacheEventArgs e)
@@ -117,14 +118,20 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
 
         public void UpdateView()
         {
+            StoreFormula();
+            tbFormula.Text = "";
+            tbSolutions.Text = "";
+
             if (Core.ActiveGeocache != null)
             {
-                StoreFormula();
                 activeCode = Core.ActiveGeocache.Code;
                 activeName = Core.ActiveGeocache.Name;
-                tbFormula.Text = "";
-                tbSolutions.Text = "";
                 LoadFormula();
+            }
+            else
+            {
+                activeCode = null;
+                activeName = null;
             }
         }
 
@@ -217,6 +224,7 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
 
         private void FormulaSolverForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            StoreFormula();
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 e.Cancel = true;
