@@ -11,10 +11,9 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver.FormulaInterpreter.Func
 
         public override object Execute(object[] args, ExecutionContext ctx)
         {
-            ArgumentChecker checker = new ArgumentChecker(ctx, this.GetType().Name);
-            return (checker.CheckForMinimumArguments(ref args, 1))
-                ? Evaluate(Convert.ToInt32(args[0]))
-                : 0;
+            ArgumentChecker checker = new ArgumentChecker(this.GetType().Name);
+            checker.CheckForNumberOfArguments(ref args, 1, null);
+            return Evaluate(Convert.ToInt32(args[0]));
         }
     }
 }

@@ -70,13 +70,11 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver.FormulaInterpreter.Func
 
         public override object Execute(object[] args, ExecutionContext ctx)
         {
-            ArgumentChecker checker = new ArgumentChecker(ctx, this.GetType().Name);
+            ArgumentChecker checker = new ArgumentChecker(this.GetType().Name);
             UInt64? nth = null;
 
-            if (checker.CheckForMinimumArguments(ref args, 1))
-            {
-                nth = checker.GetRangedUInt64(ref args[0], 0, 664579);
-            }
+            checker.CheckForNumberOfArguments(ref args, 1, null);
+            nth = checker.GetRangedUInt64(ref args[0], 0, 664579);
 
             return (nth != null)? FindNthPrimeNumber(10000000, Convert.ToUInt32(nth)).ToString(): "";
         }

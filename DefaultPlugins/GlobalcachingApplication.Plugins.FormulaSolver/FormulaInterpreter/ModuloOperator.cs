@@ -6,12 +6,12 @@ using bsn.GoldParser.Semantic;
 
 namespace GlobalcachingApplication.Plugins.FormulaSolver.FormulaInterpreter
 {
-    [Terminal("%")]
-    public class ModuloOperator : BinaryOperator
+    [Terminal("/")]
+    public class DivisionOperator : BinaryOperator
     {
         public override object Evaluate(object left, object right)
         {
-            return Convert.ToDecimal(left) % Convert.ToDecimal(right);
+            return Convert.ToDecimal(left) / Convert.ToDecimal(right);
         }
     }
 }

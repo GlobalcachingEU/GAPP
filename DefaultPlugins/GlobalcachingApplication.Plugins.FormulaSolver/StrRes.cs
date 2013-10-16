@@ -8,6 +8,7 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
     public class StrRes
     {
         public static string STR_MISSING_ARGUMENT = "{0}: Argument missing. (Min. {1})";
+        public static string STR_TO_MUCH_ARGUMENTS = "{0}: To much arguments. (Max. {1})";
         public static string STR_VALUE_OUT_OF_RANGE = "{0}: Value out of range. ({1} - {2})";
         public static string STR_NO_CROSSING = "No crossing";
         public static string STR_MAX_1000_DIGITS = "Pi: Maximum digits: 1000";
@@ -60,6 +61,7 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
         public static string STR_INSFORM_CANCEL = "Cancel";
         public static string STR_DIV_BY_ZERO = "Division by zero";
         public static string STR_DESCR_POW = "Compute the power of the first to the second parameter\r\nPow(2;10) = 1024";
+        public static string STR_DESCR_FACTORIAL = "Compute the factorial of an integer.\r\nFact(10) = 3628800";
 
         public static string GetString(string res)
         {

@@ -10,7 +10,7 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver.FormulaInterpreter.Func
     {
         public override object Execute(object[] args, ExecutionContext ctx)
         {
-            ArgumentChecker checker = new ArgumentChecker(ctx, this.GetType().Name);
+            ArgumentChecker checker = new ArgumentChecker(this.GetType().Name);
             if (ctx.Core.ActiveGeocache != null)
             {
                 string codeToSearch = (args.Length == 0)
@@ -70,27 +70,20 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver.FormulaInterpreter.Func
             {
                 lat = (double)geocache.CustomLat;
             }
-            else if (geocache.Lat != null)
+            else 
             {
                 lat = (double)geocache.Lat;
-            }
-            else
-            {
-                return "";
             }
 
             if (geocache.CustomLon != null)
             {
                 lon = (double)geocache.CustomLon;
             }
-            else if (geocache.Lon != null)
+            else 
             {
                 lon = (double)geocache.Lon;
             }
-            else
-            {
-                return "";
-            }
+
             return Utils.Conversion.GetCoordinatesPresentation(lat, lon);
         }
 

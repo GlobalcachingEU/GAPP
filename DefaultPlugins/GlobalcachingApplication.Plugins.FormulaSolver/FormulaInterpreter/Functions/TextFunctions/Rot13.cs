@@ -9,27 +9,23 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver.FormulaInterpreter.Func
     {
         public override object Execute(object[] args, ExecutionContext ctx)
         {
-            string res = "";
-            ArgumentChecker checker = new ArgumentChecker(ctx, this.GetType().Name);
-            if (checker.CheckForMinimumArguments(ref args, 1))
+            ArgumentChecker checker = new ArgumentChecker(this.GetType().Name);
+            checker.CheckForNumberOfArguments(ref args, 1, null);
+            char[] array = args[0].ToString().ToCharArray();
+            for (int i = 0; i < array.Length; ++i)
             {
-                char[] array = args[0].ToString().ToCharArray();
-                for (int i = 0; i < array.Length; ++i)
+                int number = (int)array[i];
+                if (number >= 'a' && number <= 'z')
                 {
-                    int number = (int)array[i];
-                    if (number >= 'a' && number <= 'z')
-                    {
-                        number += (number > 'm')? -13: 13;
-                    }
-                    else if (number >= 'A' && number <= 'Z')
-                    {
-                        number += (number > 'M') ? -13 : 13;
-                    }
-                    array[i] = (char)number;
+                    number += (number > 'm')? -13: 13;
                 }
-                res = new string(array);
+                else if (number >= 'A' && number <= 'Z')
+                {
+                    number += (number > 'M') ? -13 : 13;
+                }
+                array[i] = (char)number;
             }
-            return res;
+            return new string(array);
         }
     }
 }
