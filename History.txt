@@ -11,6 +11,7 @@ V1.9.4.0
 
 - add: OKAPI, Import geocaches within radius
 - add: OKAPI, Authorization added. This will add features to be implemented that requires Authentication level 3
+- fix: LiveAPI, Import geocaches when not PM now skips PM filters
 
 V1.9.3.0
 
