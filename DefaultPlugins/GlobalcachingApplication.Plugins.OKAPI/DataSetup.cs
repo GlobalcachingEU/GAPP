@@ -49,6 +49,10 @@ namespace GlobalcachingApplication.Plugins.OKAPI
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_SITES));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_USERID));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_USERNAME));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_AUTHORIZE));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_AUTHORIZED));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_NO));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_YES));
 
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SiteInfoGermany.STR_INFO));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsForm.STR_OK));

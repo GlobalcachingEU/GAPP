@@ -15,19 +15,24 @@ namespace GlobalcachingApplication.Plugins.OKAPI
             Info = STR_INFO;
             OKAPIBaseUrl = "http://www.opencaching.us/okapi/";
             GeocodePrefix = "OU";
-            ConsumerKey = "avLrxfq5h3D5emAbKVuA";
         }
 
         public override void LoadSettings()
         {
             Username = Properties.Settings.Default.SiteInfoUSAUsername ?? "";
             UserID = Properties.Settings.Default.SiteInfoUSAUserID ?? "";
+            Token = Properties.Settings.Default.SiteInfoUSAToken ?? "";
+            TokenSecret = Properties.Settings.Default.SiteInfoUSATokenSecret ?? "";
+
+            base.LoadSettings();
         }
 
         public override void SaveSettings()
         {
             Properties.Settings.Default.SiteInfoUSAUsername = Username;
             Properties.Settings.Default.SiteInfoUSAUserID = UserID;
+            Properties.Settings.Default.SiteInfoUSAToken = Token;
+            Properties.Settings.Default.SiteInfoUSATokenSecret = TokenSecret;
             Properties.Settings.Default.Save();
         }
 

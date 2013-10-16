@@ -91,6 +91,12 @@
     <Compile Include="ImportByRadiusForm.Designer.cs">
       <DependentUpon>ImportByRadiusForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="KeyRequestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KeyRequestForm.Designer.cs">
+      <DependentUpon>KeyRequestForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SiteInfoUK.cs" />
     <Compile Include="SiteInfoUSA.cs" />
     <Compile Include="SiteInfoPoland.cs" />
@@ -163,6 +169,9 @@
     <EmbeddedResource Include="ImportByRadiusForm.resx">
       <DependentUpon>ImportByRadiusForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="KeyRequestForm.resx">
+      <DependentUpon>KeyRequestForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -173,9 +182,18 @@
   <ItemGroup>
     <EmbeddedResource Include="ImportByBBoxPage.html" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ConsumerKeys.xml.example" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ConsumerKeys.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)GlobalcachingApplication\bin\$(ConfigurationName)\Plugins\"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>if NOT exist "$(ProjectDir)ConsumerKeys.xml" copy "$(ProjectDir)ConsumerKeys.xml.example" "$(ProjectDir)ConsumerKeys.xml"</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

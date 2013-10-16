@@ -166,5 +166,125 @@ namespace GlobalcachingApplication.Plugins.OKAPI.Properties {
                 this["SiteInfoUKUserID"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SiteInfoGermanyToken {
+            get {
+                return ((string)(this["SiteInfoGermanyToken"]));
+            }
+            set {
+                this["SiteInfoGermanyToken"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SiteInfoGermanyTokenSecret {
+            get {
+                return ((string)(this["SiteInfoGermanyTokenSecret"]));
+            }
+            set {
+                this["SiteInfoGermanyTokenSecret"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SiteInfoNetherlandsToken {
+            get {
+                return ((string)(this["SiteInfoNetherlandsToken"]));
+            }
+            set {
+                this["SiteInfoNetherlandsToken"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SiteInfoNetherlandsTokenSecret {
+            get {
+                return ((string)(this["SiteInfoNetherlandsTokenSecret"]));
+            }
+            set {
+                this["SiteInfoNetherlandsTokenSecret"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SiteInfoPolandToken {
+            get {
+                return ((string)(this["SiteInfoPolandToken"]));
+            }
+            set {
+                this["SiteInfoPolandToken"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SiteInfoPolandTokenSecret {
+            get {
+                return ((string)(this["SiteInfoPolandTokenSecret"]));
+            }
+            set {
+                this["SiteInfoPolandTokenSecret"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SiteInfoUSAToken {
+            get {
+                return ((string)(this["SiteInfoUSAToken"]));
+            }
+            set {
+                this["SiteInfoUSAToken"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SiteInfoUSATokenSecret {
+            get {
+                return ((string)(this["SiteInfoUSATokenSecret"]));
+            }
+            set {
+                this["SiteInfoUSATokenSecret"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SiteInfoUKToken {
+            get {
+                return ((string)(this["SiteInfoUKToken"]));
+            }
+            set {
+                this["SiteInfoUKToken"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SiteInfoUKTokenSecret {
+            get {
+                return ((string)(this["SiteInfoUKTokenSecret"]));
+            }
+            set {
+                this["SiteInfoUKTokenSecret"] = value;
+            }
+        }
     }
 }

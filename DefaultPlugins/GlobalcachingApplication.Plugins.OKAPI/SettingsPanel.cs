@@ -17,6 +17,10 @@ namespace GlobalcachingApplication.Plugins.OKAPI
         public const string STR_USERID = "User ID";
         public const string STR_RETRIEVE = "Retrieve";
         public const string STR_SAVE = "Save";
+        public const string STR_AUTHORIZE = "Authorize";
+        public const string STR_AUTHORIZED = "Authorized";
+        public const string STR_YES = "Yes";
+        public const string STR_NO = "No";
 
         private Framework.Interfaces.ICore _core = null;
 
@@ -39,6 +43,8 @@ namespace GlobalcachingApplication.Plugins.OKAPI
             this.label6.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_USERID);
             this.button1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_RETRIEVE);
             this.button2.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_SAVE);
+            this.label8.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_AUTHORIZED);
+            this.button3.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_AUTHORIZE);
         }
 
         public void Apply()
@@ -56,16 +62,20 @@ namespace GlobalcachingApplication.Plugins.OKAPI
             {
                 textBox1.Text = si.Username;
                 textBox2.Text = si.UserID;
+                textBox3.Text = si.IsAuthorized ? Utils.LanguageSupport.Instance.GetTranslation(STR_YES) : Utils.LanguageSupport.Instance.GetTranslation(STR_NO);
                 textBox1.Enabled = true;
                 button2.Enabled = true;
+                button3.Enabled = true;
                 SiteManager.Instance.ActiveSite = si;
             }
             else
             {
                 textBox1.Text = "";
                 textBox2.Text = "";
+                textBox3.Text = "";
                 textBox1.Enabled = false;
                 button2.Enabled = false;
+                button3.Enabled = false;
             }
         }
 
@@ -104,6 +114,24 @@ namespace GlobalcachingApplication.Plugins.OKAPI
                 {
                 }
                 Cursor = Cursors.Default;
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            SiteInfo si = comboBox1.SelectedItem as SiteInfo;
+            if (si != null)
+            {
+                si.Token = "";
+                si.TokenSecret = "";
+                textBox3.Text = si.IsAuthorized ? Utils.LanguageSupport.Instance.GetTranslation(STR_YES) : Utils.LanguageSupport.Instance.GetTranslation(STR_NO);
+                using (KeyRequestForm dlg = new KeyRequestForm(si))
+                {
+                    dlg.ShowDialog();
+                    si.Token = dlg.Token??"";
+                    si.TokenSecret = dlg.TokenSecret??"";
+                    textBox3.Text = si.IsAuthorized ? Utils.LanguageSupport.Instance.GetTranslation(STR_YES) : Utils.LanguageSupport.Instance.GetTranslation(STR_NO);
+                }
             }
         }
     }
