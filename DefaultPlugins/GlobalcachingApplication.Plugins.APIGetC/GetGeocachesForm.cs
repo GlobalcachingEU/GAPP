@@ -150,6 +150,17 @@ namespace GlobalcachingApplication.Plugins.APIGetC
             _defaultSettings.Name = Utils.LanguageSupport.Instance.GetTranslation(STR_DEFAULT);
             comboBox1.Items.Add(_defaultSettings);
             LoadPresets();
+
+            if (_core.GeocachingComAccount.MemberTypeId > 1)
+            {
+                groupBox5.Enabled = true;
+                groupBox7.Enabled = true;
+            }
+            else
+            {
+                groupBox5.Enabled = false;
+                groupBox7.Enabled = false;
+            }
         }
 
         private void LoadPresets()
@@ -591,31 +602,35 @@ namespace GlobalcachingApplication.Plugins.APIGetC
                 SearchForGeocachesRequestProperties.CacheCode.CacheCodes = (from s in parts select s.ToUpper()).ToArray();
             }
             SearchForGeocachesRequestProperties.GeocacheLogCount = (int)numericUpDownLogCount.Value;
-            SearchForGeocachesRequestProperties.FavoritePoints = new Utils.API.LiveV6.FavoritePointsFilter();
-            SearchForGeocachesRequestProperties.FavoritePoints.MinFavoritePoints = (int)numericUpDownMinFav.Value;
-            SearchForGeocachesRequestProperties.FavoritePoints.MaxFavoritePoints = (int)numericUpDownMaxFav.Value;
-            SearchForGeocachesRequestProperties.Difficulty = new Utils.API.LiveV6.DifficultyFilter();
-            SearchForGeocachesRequestProperties.Difficulty.MinDifficulty = (double)numericUpDownMinDif.Value;
-            SearchForGeocachesRequestProperties.Difficulty.MaxDifficulty = (double)numericUpDownMaxDif.Value;
-            SearchForGeocachesRequestProperties.Terrain = new Utils.API.LiveV6.TerrainFilter();
-            SearchForGeocachesRequestProperties.Terrain.MinTerrain = (double)numericUpDownMinTer.Value;
-            SearchForGeocachesRequestProperties.Terrain.MaxTerrain = (double)numericUpDownMaxTer.Value;
-            if (checkBoxArchived.CheckState != CheckState.Indeterminate ||
-                checkBoxAvailable.CheckState != CheckState.Indeterminate ||
-                checkBoxPremium.CheckState != CheckState.Indeterminate)
+            if (_core.GeocachingComAccount.MemberTypeId > 1)
             {
-                SearchForGeocachesRequestProperties.GeocacheExclusions = new Utils.API.LiveV6.GeocacheExclusionsFilter();
-                if (checkBoxArchived.CheckState != CheckState.Indeterminate)
+                SearchForGeocachesRequestProperties.FavoritePoints = new Utils.API.LiveV6.FavoritePointsFilter();
+                SearchForGeocachesRequestProperties.FavoritePoints.MinFavoritePoints = (int)numericUpDownMinFav.Value;
+                SearchForGeocachesRequestProperties.FavoritePoints.MaxFavoritePoints = (int)numericUpDownMaxFav.Value;
+                SearchForGeocachesRequestProperties.Difficulty = new Utils.API.LiveV6.DifficultyFilter();
+                SearchForGeocachesRequestProperties.Difficulty.MinDifficulty = (double)numericUpDownMinDif.Value;
+                SearchForGeocachesRequestProperties.Difficulty.MaxDifficulty = (double)numericUpDownMaxDif.Value;
+                SearchForGeocachesRequestProperties.Terrain = new Utils.API.LiveV6.TerrainFilter();
+                SearchForGeocachesRequestProperties.Terrain.MinTerrain = (double)numericUpDownMinTer.Value;
+                SearchForGeocachesRequestProperties.Terrain.MaxTerrain = (double)numericUpDownMaxTer.Value;
+
+                if (checkBoxArchived.CheckState != CheckState.Indeterminate ||
+                    checkBoxAvailable.CheckState != CheckState.Indeterminate ||
+                    checkBoxPremium.CheckState != CheckState.Indeterminate)
                 {
-                    SearchForGeocachesRequestProperties.GeocacheExclusions.Archived = (checkBoxArchived.CheckState != CheckState.Checked);
-                }
-                if (checkBoxAvailable.CheckState != CheckState.Indeterminate)
-                {
-                    SearchForGeocachesRequestProperties.GeocacheExclusions.Available = (checkBoxAvailable.CheckState != CheckState.Checked);
-                }
-                if (checkBoxPremium.CheckState != CheckState.Indeterminate)
-                {
-                    SearchForGeocachesRequestProperties.GeocacheExclusions.Premium = (checkBoxPremium.CheckState != CheckState.Checked);
+                    SearchForGeocachesRequestProperties.GeocacheExclusions = new Utils.API.LiveV6.GeocacheExclusionsFilter();
+                    if (checkBoxArchived.CheckState != CheckState.Indeterminate)
+                    {
+                        SearchForGeocachesRequestProperties.GeocacheExclusions.Archived = (checkBoxArchived.CheckState != CheckState.Checked);
+                    }
+                    if (checkBoxAvailable.CheckState != CheckState.Indeterminate)
+                    {
+                        SearchForGeocachesRequestProperties.GeocacheExclusions.Available = (checkBoxAvailable.CheckState != CheckState.Checked);
+                    }
+                    if (checkBoxPremium.CheckState != CheckState.Indeterminate)
+                    {
+                        SearchForGeocachesRequestProperties.GeocacheExclusions.Premium = (checkBoxPremium.CheckState != CheckState.Checked);
+                    }
                 }
             }
             if (textBoxName.Text != "")
@@ -623,29 +638,32 @@ namespace GlobalcachingApplication.Plugins.APIGetC
                 SearchForGeocachesRequestProperties.GeocacheName = new Utils.API.LiveV6.GeocacheNameFilter();
                 SearchForGeocachesRequestProperties.GeocacheName.GeocacheName = textBoxName.Text;
             }
-            long[] gcTypeIds = (from ListViewItem s in listViewGeocacheType.Items where s.Checked select (long)Utils.DataAccess.GetGeocacheType(_core.GeocacheTypes, s.SubItems[0].Text).ID).ToArray();
-            if (gcTypeIds.Length < listViewGeocacheType.Items.Count)
+            if (_core.GeocachingComAccount.MemberTypeId > 1)
             {
-                SearchForGeocachesRequestProperties.GeocacheType = new Utils.API.LiveV6.GeocacheTypeFilter();
-                SearchForGeocachesRequestProperties.GeocacheType.GeocacheTypeIds = gcTypeIds;
-            }
-            long[]  cntTypeIds = (from ListViewItem s in listViewContainer.Items where s.Checked select (long)Utils.DataAccess.GetGeocacheContainer(_core.GeocacheContainers, s.SubItems[0].Text).ID).ToArray();
-            if (cntTypeIds.Length < listViewContainer.Items.Count)
-            {
-                SearchForGeocachesRequestProperties.GeocacheContainerSize = new Utils.API.LiveV6.GeocacheContainerSizeFilter();
-                SearchForGeocachesRequestProperties.GeocacheContainerSize.GeocacheContainerSizeIds = cntTypeIds;
-            }
-            if (textBoxNotFound.Text != "")
-            {
-                SearchForGeocachesRequestProperties.NotFoundByUsers = new Utils.API.LiveV6.NotFoundByUsersFilter();
-                string[] parts = textBoxNotFound.Text.Split(new char[] { ',', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-                SearchForGeocachesRequestProperties.NotFoundByUsers.UserNames = (from s in parts select s.Trim()).ToArray();
-            }
-            if (textBoxNotHidden.Text != "")
-            {
-                SearchForGeocachesRequestProperties.NotHiddenByUsers = new Utils.API.LiveV6.NotHiddenByUsersFilter();
-                string[] parts = textBoxNotHidden.Text.Split(new char[] { ',', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-                SearchForGeocachesRequestProperties.NotHiddenByUsers.UserNames = (from s in parts select s.Trim()).ToArray();
+                long[] gcTypeIds = (from ListViewItem s in listViewGeocacheType.Items where s.Checked select (long)Utils.DataAccess.GetGeocacheType(_core.GeocacheTypes, s.SubItems[0].Text).ID).ToArray();
+                if (gcTypeIds.Length < listViewGeocacheType.Items.Count)
+                {
+                    SearchForGeocachesRequestProperties.GeocacheType = new Utils.API.LiveV6.GeocacheTypeFilter();
+                    SearchForGeocachesRequestProperties.GeocacheType.GeocacheTypeIds = gcTypeIds;
+                }
+                long[] cntTypeIds = (from ListViewItem s in listViewContainer.Items where s.Checked select (long)Utils.DataAccess.GetGeocacheContainer(_core.GeocacheContainers, s.SubItems[0].Text).ID).ToArray();
+                if (cntTypeIds.Length < listViewContainer.Items.Count)
+                {
+                    SearchForGeocachesRequestProperties.GeocacheContainerSize = new Utils.API.LiveV6.GeocacheContainerSizeFilter();
+                    SearchForGeocachesRequestProperties.GeocacheContainerSize.GeocacheContainerSizeIds = cntTypeIds;
+                }
+                if (textBoxNotFound.Text != "")
+                {
+                    SearchForGeocachesRequestProperties.NotFoundByUsers = new Utils.API.LiveV6.NotFoundByUsersFilter();
+                    string[] parts = textBoxNotFound.Text.Split(new char[] { ',', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                    SearchForGeocachesRequestProperties.NotFoundByUsers.UserNames = (from s in parts select s.Trim()).ToArray();
+                }
+                if (textBoxNotHidden.Text != "")
+                {
+                    SearchForGeocachesRequestProperties.NotHiddenByUsers = new Utils.API.LiveV6.NotHiddenByUsersFilter();
+                    string[] parts = textBoxNotHidden.Text.Split(new char[] { ',', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                    SearchForGeocachesRequestProperties.NotHiddenByUsers.UserNames = (from s in parts select s.Trim()).ToArray();
+                }
             }
             if (textBoxHiddenBy.Text != "")
             {
@@ -653,16 +671,19 @@ namespace GlobalcachingApplication.Plugins.APIGetC
                 string[] parts = textBoxHiddenBy.Text.Split(new char[] { ',', '\t' }, StringSplitOptions.RemoveEmptyEntries);
                 SearchForGeocachesRequestProperties.HiddenByUsers.UserNames = (from s in parts select s.Trim()).ToArray();
             }
-            SearchForGeocachesRequestProperties.TrackableCount = new Utils.API.LiveV6.TrackableCountFilter();
-            SearchForGeocachesRequestProperties.TrackableCount.MinTrackables = (int)numericUpDownTrackMin.Value;
-            SearchForGeocachesRequestProperties.TrackableCount.MaxTrackables = (int)numericUpDownTrackMax.Value;
-            SearchForGeocachesRequestProperties.TrackableLogCount = 0;
-            if (checkBox1.Checked)
+            if (_core.GeocachingComAccount.MemberTypeId > 1)
             {
-                SearchForGeocachesRequestProperties.CachePublishedDate = new Utils.API.LiveV6.CachePublishedDateFilter();
-                SearchForGeocachesRequestProperties.CachePublishedDate.Range = new Utils.API.LiveV6.DateRange();
-                SearchForGeocachesRequestProperties.CachePublishedDate.Range.StartDate = dateTimePicker1.Value < dateTimePicker2.Value ? dateTimePicker1.Value : dateTimePicker2.Value;
-                SearchForGeocachesRequestProperties.CachePublishedDate.Range.EndDate = dateTimePicker2.Value > dateTimePicker1.Value ? dateTimePicker2.Value : dateTimePicker1.Value;
+                SearchForGeocachesRequestProperties.TrackableCount = new Utils.API.LiveV6.TrackableCountFilter();
+                SearchForGeocachesRequestProperties.TrackableCount.MinTrackables = (int)numericUpDownTrackMin.Value;
+                SearchForGeocachesRequestProperties.TrackableCount.MaxTrackables = (int)numericUpDownTrackMax.Value;
+                SearchForGeocachesRequestProperties.TrackableLogCount = 0;
+                if (checkBox1.Checked)
+                {
+                    SearchForGeocachesRequestProperties.CachePublishedDate = new Utils.API.LiveV6.CachePublishedDateFilter();
+                    SearchForGeocachesRequestProperties.CachePublishedDate.Range = new Utils.API.LiveV6.DateRange();
+                    SearchForGeocachesRequestProperties.CachePublishedDate.Range.StartDate = dateTimePicker1.Value < dateTimePicker2.Value ? dateTimePicker1.Value : dateTimePicker2.Value;
+                    SearchForGeocachesRequestProperties.CachePublishedDate.Range.EndDate = dateTimePicker2.Value > dateTimePicker1.Value ? dateTimePicker2.Value : dateTimePicker1.Value;
+                }
             }
         }
 
