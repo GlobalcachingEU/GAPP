@@ -24,13 +24,9 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver.FormulaInterpreter.Func
 
         public override object Execute(object[] args, ExecutionContext ctx)
         {
-            int res = 0;
-            ArgumentChecker checker = new ArgumentChecker(ctx, this.GetType().Name);
-            if (checker.CheckForMinimumArguments(ref args, 1))
-            {
-                res = Roman2Decimal(Convert.ToString(args[0]));
-            }
-            return res;
+            ArgumentChecker checker = new ArgumentChecker(this.GetType().Name);
+            checker.CheckForNumberOfArguments(ref args, 1, null);
+            return Roman2Decimal(Convert.ToString(args[0]));
         }
     }
 }

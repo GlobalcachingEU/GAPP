@@ -9,25 +9,17 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver.FormulaInterpreter.Func
     {
         public override object Execute(object[] args, ExecutionContext ctx)
         {
-            ArgumentChecker checker = new ArgumentChecker(ctx, this.GetType().Name);
-            if (checker.CheckForMinimumArguments(ref args, 2))
+            ArgumentChecker checker = new ArgumentChecker(this.GetType().Name);
+            checker.CheckForNumberOfArguments(ref args, 2, 2);
+            double b = Convert.ToDouble(args[0]);
+            double ex = Convert.ToDouble(args[1]);
+
+            if ((b == 0) && (ex == -1))
             {
-                double b = Convert.ToDouble(args[0]);
-                double ex = Convert.ToDouble(args[1]);
-
-                if ((b == 0) && (ex == -1))
-                {
-                    throw new ArgumentRangeException(StrRes.GetString(StrRes.STR_DIV_BY_ZERO));                    
-                }
-
-                if (ex == 0)
-                {
-                    return 1;
-                }
-
-                return Math.Pow(b, ex);
+                throw new ArgumentRangeException(StrRes.GetString(StrRes.STR_DIV_BY_ZERO));                    
             }
-            return "";
+
+            return Math.Pow(b, ex);
         }
     }
 }

@@ -12,10 +12,11 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver.FormulaInterpreter
         private readonly BinaryOperator _op;
         private readonly Expression _right;
 
-        [Rule("<Expression>  ::= <Expression> '+' <Mult Exp> ")]
-        [Rule("<Expression>  ::= <Expression> '-' <Mult Exp> ")]
-        [Rule("<Mult Exp>    ::= <Mult Exp> '*' <Negate Exp> ")]
-        [Rule("<Mult Exp>    ::= <Mult Exp> '/' <Negate Exp> ")]
+        [Rule("<Expression>  ::= <Expression> '+' <Mult Exp>")]
+        [Rule("<Expression>  ::= <Expression> '-' <Mult Exp>")]
+        [Rule("<Mult Exp>    ::= <Mult Exp> '*' <Negate Exp>")]
+        [Rule("<Mult Exp>    ::= <Mult Exp> '/' <Negate Exp>")]
+        [Rule("<Mult Exp>    ::= <Mult Exp> '%' <Negate Exp>")]
         public BinaryOperation(Expression left, BinaryOperator op, Expression right)
         {
             _left = left;

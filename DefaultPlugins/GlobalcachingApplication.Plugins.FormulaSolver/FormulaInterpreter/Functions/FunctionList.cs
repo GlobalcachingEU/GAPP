@@ -102,6 +102,11 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver.FormulaInterpreter.Func
                 new Functions.NumberFunctions.PowerFunction(),
                 StrRes.GetString(StrRes.STR_DESCR_POW)
             );
+            AddFunction(
+                "Fact", grp, new[] { "Factorial", "Fakultät" },
+                new Functions.NumberFunctions.Factorial(),
+                StrRes.GetString(StrRes.STR_DESCR_FACTORIAL)
+            );
         }
 
         private void AddCoordinateFunctions()
