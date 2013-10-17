@@ -183,6 +183,7 @@
     <None Include="Resources\Geocaching_LIVE_poweredby_64.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\mathematics.png" />
     <None Include="Resources\gcvote.png" />
     <None Include="Resources\nl.gif" />
     <None Include="Resources\fr.gif" />

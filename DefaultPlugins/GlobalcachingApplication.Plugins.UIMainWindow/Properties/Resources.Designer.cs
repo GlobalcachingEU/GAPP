@@ -312,6 +312,13 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap mathematics {
+            get {
+                object obj = ResourceManager.GetObject("mathematics", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap nl {
             get {
                 object obj = ResourceManager.GetObject("nl", resourceCulture);

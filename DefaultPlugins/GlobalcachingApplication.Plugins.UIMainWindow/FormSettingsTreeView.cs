@@ -30,6 +30,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
         private const string STR_OTHERACCOUNTNAMES = "Account names on other geocaching sites";
         private const string STR_CODEPREFIX = "Code prefix";
         private const string STR_ACCOUNTNAME = "Account name";
+        private const string STR_SHOWOKAPIMENU = "Show OKAPI menu";
 
         private Framework.Interfaces.ICore _core = null;
         private List<Framework.Interfaces.IPlugin> _pluginList = null;
@@ -67,6 +68,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
                         new Framework.Data.LanguageItem(STR_OTHERACCOUNTNAMES), 
                         new Framework.Data.LanguageItem(STR_CODEPREFIX), 
                         new Framework.Data.LanguageItem(STR_ACCOUNTNAME), 
+                        new Framework.Data.LanguageItem(STR_SHOWOKAPIMENU), 
                     });
                 foreach (var t in Enum.GetNames(typeof(Framework.PluginType)))
                 {
@@ -107,6 +109,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             this.listView1.Columns[1].Text = Utils.LanguageSupport.Instance.GetTranslation(STR_ACCOUNTNAME);
             this.label7.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_CODEPREFIX);
             this.label8.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_ACCOUNTNAME);
+            this.checkBox3.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_SHOWOKAPIMENU);
 
             TreeNode tn;
             tn = new TreeNode(Utils.LanguageSupport.Instance.GetTranslation(STR_GENERAL));
@@ -188,6 +191,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             labelApiMembership.Text = string.IsNullOrEmpty(core.GeocachingComAccount.MemberType) ? "-" : core.GeocachingComAccount.MemberType;
             checkBox1.Checked = core.LoadLogsInBackground;
             checkBox2.Checked = core.AutoSaveOnClose;
+            checkBox3.Checked = Properties.Settings.Default.ShowOKAPIMenu; ;
 
             fillGeocacheAccounts();
         }
@@ -261,6 +265,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
                 _core.GeocachingComAccount.AccountName = textBoxUsername.Text;
                 _core.LoadLogsInBackground = checkBox1.Checked;
                 _core.AutoSaveOnClose = checkBox2.Checked;
+                Properties.Settings.Default.ShowOKAPIMenu = checkBox3.Checked;
                 if (_ucList.Count > 0)
                 {
                     using (Utils.ProgressBlock prog = new Utils.ProgressBlock(this._ownerPlugin, Utils.LanguageSupport.Instance.GetTranslation(STR_APPLYINGSETTINGS), Utils.LanguageSupport.Instance.GetTranslation(STR_APPLYINGSETTINGS), _pluginList.Count, 0))

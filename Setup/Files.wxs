@@ -113,6 +113,7 @@
 							<File Id="plugin89"  Name="GlobalcachingApplication.Plugins.Bookmark.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.Bookmark.dll" />
 							<File Id="plugin90"  Name="GlobalcachingApplication.Plugins.Locus.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.Locus.dll" />
 							<File Id="plugin91"  Name="GlobalcachingApplication.Plugins.OKAPI.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.OKAPI.dll" />
+							<File Id="plugin91"  Name="GlobalcachingApplication.Plugins.FormulaSolver.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.FormulaSolver.dll" />
 						</Component>
 					</Directory>
 					<Directory Id="PLUGINDEPDIR" Name="PluginDependencies">

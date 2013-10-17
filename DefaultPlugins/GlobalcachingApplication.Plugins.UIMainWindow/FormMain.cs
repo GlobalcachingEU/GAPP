@@ -167,6 +167,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             _toolbarActionProperties.Add(new ToolbarActionProperties(Framework.PluginType.GenericWindow, "Presets", "Splitscreen", Properties.Resources.Icon_Split, toolStripWindows));
             _toolbarActionProperties.Add(new ToolbarActionProperties(Framework.PluginType.UIChildWindow, "GCVote dashboard", "", Properties.Resources.gcvote, toolStripWindows));
             _toolbarActionProperties.Add(new ToolbarActionProperties(Framework.PluginType.GeocacheCollection, "Geocache collections", "", Properties.Resources.categories, toolStripWindows));
+            _toolbarActionProperties.Add(new ToolbarActionProperties(Framework.PluginType.UIChildWindow, "Formula Solver", "", Properties.Resources.mathematics, toolStripWindows));
 
             //maps toolbar
             _toolbarActionProperties.Add(new ToolbarActionProperties(Framework.PluginType.Map, "Google Map", "", Properties.Resources.google, toolStripMaps));
@@ -290,6 +291,8 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             _exitMeniItem.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_EXIT);
             fileToolStripMenuItem.DropDownItems.Add(_exitMeniItem);
             _exitMeniItem.Click += new EventHandler(_exitMeniItem_Click);
+
+            oKAPIToolStripMenuItem.Visible = Properties.Settings.Default.ShowOKAPIMenu;
         }
 
         void _exitMeniItem_Click(object sender, EventArgs e)
@@ -801,6 +804,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             {
                 if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
+                    oKAPIToolStripMenuItem.Visible = Properties.Settings.Default.ShowOKAPIMenu;
                     SelectedLanguageChanged(this, EventArgs.Empty);
                 }
             }

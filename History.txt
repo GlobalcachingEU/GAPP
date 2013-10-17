@@ -12,6 +12,9 @@ V1.9.4.0
 - add: OKAPI, Import geocaches within radius
 - add: OKAPI, Authorization added. This will add features to be implemented that requires Authentication level 3
 - fix: LiveAPI, Import geocaches when not PM now skips PM filters
+- add: option to hide the OKAPI menu
+- add: Formula Solver plugin (by superudo)
+- add: Main screen, added Formula solver to the taskbar
 
 V1.9.3.0
 
