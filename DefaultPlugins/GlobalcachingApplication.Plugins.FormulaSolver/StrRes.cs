@@ -7,6 +7,7 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
 {
     public class StrRes
     {
+
         public static string STR_MISSING_ARGUMENT = "{0}: Argument missing. (Min. {1})";
         public static string STR_TO_MUCH_ARGUMENTS = "{0}: To much arguments. (Max. {1})";
         public static string STR_VALUE_OUT_OF_RANGE = "{0}: Value out of range. ({1} - {2})";
@@ -63,6 +64,65 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
         public static string STR_DESCR_POW = "Compute the power of the first to the second parameter\r\nPow(2;10) = 1024";
         public static string STR_DESCR_FACTORIAL = "Compute the factorial of an integer.\r\nFact(10) = 3628800";
         public static string STR_NO_CACHE_SELECTED = "No cache selected.";
+
+        public static void InitializeCoreLanguageItems(Framework.Interfaces.ICore core) {
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_MISSING_ARGUMENT));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_TO_MUCH_ARGUMENTS));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_VALUE_OUT_OF_RANGE));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_NO_CROSSING));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_MAX_1000_DIGITS));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_MIN_0_DIGITS));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_UNKNOWN_FUNCTION));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_MISSING_VARIABLES));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_INSERT_FORMULA));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_INSERT_WAYPOINT));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_SOLVE));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_AS_WAYPOINT));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_AS_CENTER));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_NUMBER_GROUP));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_COORDINATE_GROUP));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_TEXT_GROUP));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_UNKNOWN_GROUP));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_CROSSTOTAL));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_ICROSSTOTAL));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_CROSSPRODUCT));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_ICROSSPRODUCT));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_PRIMENUMBER));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_PRIMEINDEX));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_INT));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_ROUND));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_ROM2DEC));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_PI));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_BEARING));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_DISTANCE));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_CROSSBEARING));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_INTERSECTION));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_PROJECTION));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_ALPHASUM));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_ALPHAPOS));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_PHONECODE));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_PHONESUM));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_LEN));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_MID));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_REVERSE));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_ROT13));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_WAYPOINT));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_WPSEL_TITLE));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_WPSEL_WAYPOINTS));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_WPSEL_INSERT));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_WPSEL_CANCEL));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_INSFORM_TITLE));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_INSFORM_GROUP));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_INSFORM_FUNCTIONS));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_INSFORM_OTHER));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_INSFORM_DESCRIPTION));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_INSFORM_INSERT));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_INSFORM_CANCEL));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DIV_BY_ZERO));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_POW));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_FACTORIAL));
+			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_NO_CACHE_SELECTED));
+        }
 
         public static string GetString(string res)
         {

@@ -113,7 +113,10 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
 
         void core_ActiveGeocacheChanged(object sender, Framework.EventArguments.GeocacheEventArgs e)
         {
-            UpdateView();
+            if (this.Visible)
+            {
+                UpdateView();
+            }
         }
 
         public void UpdateView()

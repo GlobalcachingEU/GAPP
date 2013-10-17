@@ -5,10 +5,12 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
     public class FormulaSolver: Utils.BasePlugin.BaseUIChildWindow
     {
         public const string ACTION_SHOW = "Formula Solver";
+        private FormulaSolverForm frm;
 
         public override bool Initialize(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SHOW);
+            StrRes.InitializeCoreLanguageItems(core);
             return base.Initialize(core);
         }
 
@@ -22,7 +24,8 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
 
         protected override Utils.BasePlugin.BaseUIChildWindowForm CreateUIChildWindowForm(Framework.Interfaces.ICore core)
         {
-            return (new FormulaSolverForm(this, core));
+            frm = new FormulaSolverForm(this, core);
+            return frm;
         }
 
         public override bool Action(string action)
@@ -36,6 +39,7 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
                     {
                         if (!UIChildWindowForm.Visible)
                         {
+                            (UIChildWindowForm as FormulaSolverForm).UpdateView();
                             UIChildWindowForm.Show();
                         }
                         if (UIChildWindowForm.WindowState == FormWindowState.Minimized)
