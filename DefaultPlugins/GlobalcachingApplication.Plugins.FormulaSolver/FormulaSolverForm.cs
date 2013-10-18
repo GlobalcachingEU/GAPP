@@ -335,6 +335,12 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
             if (ll != null)
             {
                 Core.CenterLocation.SetLocation(ll.Lat, ll.Lon);
+                Core.Geocaches.BeginUpdate();
+                foreach (Framework.Data.Geocache gc in Core.Geocaches)
+                {
+                    Utils.Calculus.SetDistanceAndAngleGeocacheFromLocation(gc, Core.CenterLocation);
+                }
+                Core.Geocaches.EndUpdate();
             }
             else
             {
