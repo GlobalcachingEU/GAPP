@@ -113,7 +113,7 @@
 							<File Id="plugin89"  Name="GlobalcachingApplication.Plugins.Bookmark.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.Bookmark.dll" />
 							<File Id="plugin90"  Name="GlobalcachingApplication.Plugins.Locus.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.Locus.dll" />
 							<File Id="plugin91"  Name="GlobalcachingApplication.Plugins.OKAPI.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.OKAPI.dll" />
-							<File Id="plugin91"  Name="GlobalcachingApplication.Plugins.FormulaSolver.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.FormulaSolver.dll" />
+							<File Id="plugin92"  Name="GlobalcachingApplication.Plugins.FormulaSolver.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.FormulaSolver.dll" />
 						</Component>
 					</Directory>
 					<Directory Id="PLUGINDEPDIR" Name="PluginDependencies">
@@ -128,6 +128,7 @@
 							<File Id="dep9"  Name="CSScriptLibrary.dll" Source="../GlobalcachingApplication/bin/Release/PluginDependencies/CSScriptLibrary.dll" />
 							<File Id="dep10"  Name="EPPlus.dll" Source="../GlobalcachingApplication/bin/Release/PluginDependencies/EPPlus.dll" />
 							<File Id="dep11"  Name="MySql.Data.dll" Source="../GlobalcachingApplication/bin/Release/PluginDependencies/MySql.Data.dll" />
+							<File Id="dep12"  Name="bsn.GoldParser.dll" Source="../GlobalcachingApplication/bin/Release/PluginDependencies/bsn.GoldParser.dll" />
 						</Component>
 						<Directory Id="JQDIR" Name="jquery1.7.2">
 							<Component Id="jquery172" Guid="E91F92A4-4BC3-456B-A641-8533643C46B2"  DiskId="1">
