@@ -1132,4 +1132,5 @@
   <string name="compute the factorial of an integer.&#xD;&#xA;fact(10) = 3628800" value="Berechnet die Fakultät des Parameters.&#xD;&#xA;Fact(10) = 3628800" />
   <string name="no cache selected. (quicknotes)" value="Kein Cache markiert. (Notizblock)" />
   <string name="formula solver" value="Formellöser" />
+  <string name="no proper coordinate string selected.&#xD;&#xA;please select a complete coordinate string and try again." value="Keine korrekte Koordinate markiert.&#xD;&#xA;Bitte markieren Sie eine komplette Koordinate&#xD;&#xA;und versuchen Sie es noch einmal." />
 </resources>

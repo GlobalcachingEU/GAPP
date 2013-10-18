@@ -7,7 +7,6 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
 {
     public class StrRes
     {
-
         public static string STR_MISSING_ARGUMENT = "{0}: Argument missing. (Min. {1})";
         public static string STR_TO_MUCH_ARGUMENTS = "{0}: To much arguments. (Max. {1})";
         public static string STR_VALUE_OUT_OF_RANGE = "{0}: Value out of range. ({1} - {2})";
@@ -64,6 +63,7 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
         public static string STR_DESCR_POW = "Compute the power of the first to the second parameter\r\nPow(2;10) = 1024";
         public static string STR_DESCR_FACTORIAL = "Compute the factorial of an integer.\r\nFact(10) = 3628800";
         public static string STR_NO_CACHE_SELECTED = "No cache selected. (Quicknotes)";
+        public static string NO_PROPER_COORDINATES_SELECTED = "No proper coordinate string selected.\r\nPlease select a complete coordinate string and try again.";
 
         public static void InitializeCoreLanguageItems(Framework.Interfaces.ICore core) {
 			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_MISSING_ARGUMENT));
@@ -122,6 +122,7 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
 			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_POW));
 			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_FACTORIAL));
 			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_NO_CACHE_SELECTED));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(NO_PROPER_COORDINATES_SELECTED));
         }
 
         public static string GetString(string res)

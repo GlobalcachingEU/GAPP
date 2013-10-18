@@ -125,7 +125,6 @@
             // bnAsCenter
             // 
             this.bnAsCenter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bnAsCenter.Enabled = false;
             this.bnAsCenter.Location = new System.Drawing.Point(660, 12);
             this.bnAsCenter.Name = "bnAsCenter";
             this.bnAsCenter.Size = new System.Drawing.Size(93, 23);
@@ -144,6 +143,7 @@
             this.bnAsWaypoint.TabIndex = 5;
             this.bnAsWaypoint.Text = "As Waypoint";
             this.bnAsWaypoint.UseVisualStyleBackColor = true;
+            this.bnAsWaypoint.Visible = false;
             this.bnAsWaypoint.Click += new System.EventHandler(this.bnAsWaypoint_Click);
             // 
             // formulaSolverFormBindingSource

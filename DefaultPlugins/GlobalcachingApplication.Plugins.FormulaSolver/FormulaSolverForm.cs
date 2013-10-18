@@ -249,7 +249,7 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
             WaypointSelectorForm wps = new WaypointSelectorForm(Core);
             if (wps.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
             {
-                string wp = "\"" + wps.WaypointName + "\"";
+                string wp = "WP(\"" + wps.WaypointName + "\")";
                 UpdateFormulaText(wp, 0);
             }
         }
@@ -327,7 +327,24 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
 
         private void bnAsCenter_Click(object sender, EventArgs e)
         {
-
+            Framework.Data.Location ll = null;
+            if (tbSolutions.SelectionLength > 0)
+            {
+                ll = Utils.Conversion.StringToLocation(tbSolutions.SelectedText);
+            }
+            if (ll != null)
+            {
+                Core.CenterLocation.SetLocation(ll.Lat, ll.Lon);
+            }
+            else
+            {
+                MessageBox.Show(
+                    StrRes.GetString(StrRes.NO_PROPER_COORDINATES_SELECTED),
+                    "Formula Solver",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
