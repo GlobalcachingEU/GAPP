@@ -1130,6 +1130,6 @@
   <string name="division by zero" value="Division durch Null" />
   <string name="compute the power of the first to the second parameter&#xD;&#xA;pow(2;10) = 1024" value="Berechnet die Potenz des ersten zum zweiten Parameter.&#xD;&#xA;Pow(2;10) = 1024" />
   <string name="compute the factorial of an integer.&#xD;&#xA;fact(10) = 3628800" value="Berechnet die Fakultät des Parameters.&#xD;&#xA;Fact(10) = 3628800" />
-  <string name="no cache selected." value="Kein Cache ausgewählt." />
+  <string name="no cache selected. (quicknotes)" value="Kein Cache markiert. (Notizblock)" />
   <string name="formula solver" value="Formellöser" />
 </resources>

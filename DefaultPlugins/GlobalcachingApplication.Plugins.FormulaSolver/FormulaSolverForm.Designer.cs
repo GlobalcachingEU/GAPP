@@ -76,6 +76,7 @@
             this.tbFormula.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.tbFormula.Size = new System.Drawing.Size(367, 470);
             this.tbFormula.TabIndex = 0;
+            this.tbFormula.WordWrap = false;
             // 
             // tbSolutions
             // 

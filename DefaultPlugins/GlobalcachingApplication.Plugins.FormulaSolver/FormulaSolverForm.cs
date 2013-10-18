@@ -115,36 +115,36 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
         {
             if (this.Visible)
             {
+                StoreFormula();
                 UpdateView();
             }
         }
 
         public void UpdateView()
         {
-            StoreFormula();
             tbFormula.Text = "";
             tbSolutions.Text = "";
-
             if (Core.ActiveGeocache != null)
             {
                 activeCode = Core.ActiveGeocache.Code;
                 activeName = Core.ActiveGeocache.Name;
-                LoadFormula();
             }
             else
             {
                 activeCode = null;
                 activeName = null;
             }
+            LoadFormula();
         }
 
         private void LoadFormula()
         {
-            if ((activeCode != null) && (initDatabase() != null))
+            if (initDatabase() != null)
             {
+                string cacheName = (activeCode != null) ? activeCode : "NOTES";
                 try
                 {
-                    string cmd = string.Format("SELECT formula FROM formulas WHERE code='{0}'", activeCode.Replace("'", "''"));
+                    string cmd = string.Format("SELECT formula FROM formulas WHERE code='{0}'", cacheName.Replace("'", "''"));
                     using (DbDataReader dr = _dbcon.ExecuteReader(cmd))
                     {
                         if (dr.Read())
@@ -186,17 +186,17 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
             return _dbcon;
         }
 
-        
         private void StoreFormula()
         {
-            if ((activeCode != null) && (initDatabase() != null))
+            if (initDatabase() != null)
             {
+                string cacheName = (activeCode != null) ? activeCode : "NOTES";
                 UTF8Encoding enc = new UTF8Encoding();
                 try
                 {
                     int count = Convert.ToInt32(
                         _dbcon.ExecuteScalar(
-                            string.Format("SELECT COUNT() FROM formulas WHERE code='{0}'", activeCode)).ToString());
+                            string.Format("SELECT COUNT() FROM formulas WHERE code='{0}'", cacheName)).ToString());
 
                     byte[] decoded = enc.GetBytes(tbFormula.Text);
                     string encoded = Convert.ToBase64String(decoded);
@@ -206,7 +206,7 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
                             ? "UPDATE formulas SET formula='{1}' WHERE code='{0}'"
                             : "INSERT INTO formulas (code, formula) VALUES('{0}', '{1}')";
                     }
-                    string cmd = string.Format(fmt, activeCode, encoded);
+                    string cmd = string.Format(fmt, cacheName, encoded);
                     _dbcon.ExecuteNonQuery(cmd);
                 }
                 catch (Exception ex)
@@ -274,6 +274,7 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
 
         private void bnSolve_Click(object sender, EventArgs e)
         {
+            StoreFormula();
             String formula = tbFormula.Text;
             tbSolutions.Text = "";
 
