@@ -7,6 +7,11 @@ todo:
 - add log templates
 - add support for GCComments https://userscripts.org/scripts/show/75959
 
+V1.9.5.0
+
+- change: French language updated (thanks icaunais and RHCV)
+- change: Language maintenance improvement. The complete XML will be saved if changes are made and is sorted for easier merging.
+
 V1.9.4.0
 
 - add: OKAPI, Import geocaches within radius

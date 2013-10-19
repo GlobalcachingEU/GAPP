@@ -85,7 +85,10 @@ namespace GlobalcachingApplication.Plugins.LanguageEng
             {
                 foreach (XmlNode sn in strngs)
                 {
-                    _fixedLookupTable[sn.Attributes["name"].InnerText.ToLower()] = sn.Attributes["value"].InnerText;
+                    if (!string.IsNullOrEmpty(sn.Attributes["value"].InnerText))
+                    {
+                        _fixedLookupTable[sn.Attributes["name"].InnerText.ToLower()] = sn.Attributes["value"].InnerText;
+                    }
                 }
             }
 
@@ -115,11 +118,18 @@ namespace GlobalcachingApplication.Plugins.LanguageEng
             string result = null;
             if (targetCulture.LCID == 1033)
             {
-                result = _customLookupTable[text.ToLower()] as string;
-                if (string.IsNullOrEmpty(result))
-                {
-                    result = _fixedLookupTable[text.ToLower()] as string;
-                }
+                result = GetTranslation(text);
+            }
+            return result;
+        }
+
+        private string GetTranslation(string text)
+        {
+            string result = null;
+            result = _customLookupTable[text.ToLower()] as string;
+            if (string.IsNullOrEmpty(result))
+            {
+                result = _fixedLookupTable[text.ToLower()] as string;
             }
             return result;
         }
@@ -163,19 +173,21 @@ namespace GlobalcachingApplication.Plugins.LanguageEng
                                 }
                             }
                         }
+#if DEBUG
+                        if (true)
+#else
                         if (changed)
+#endif
                         {
+                            List<DictionaryItem> sortedDict = (from a in dict orderby a.Key select a).ToList();
                             XmlDocument doc = new XmlDocument();
                             XmlElement root = doc.CreateElement("resources");
-                            foreach (DictionaryItem di in dict)
+                            foreach (DictionaryItem di in sortedDict)
                             {
-                                if (!string.IsNullOrEmpty(di.Value))
-                                {
-                                    XmlElement lngElement = doc.CreateElement("string");
-                                    lngElement.SetAttribute("name", di.Key);
-                                    lngElement.SetAttribute("value", di.Value);
-                                    root.AppendChild(lngElement);
-                                }
+                                XmlElement lngElement = doc.CreateElement("string");
+                                lngElement.SetAttribute("name", di.Key);
+                                lngElement.SetAttribute("value", GetTranslation(di.Key) ?? "");
+                                root.AppendChild(lngElement);
                             }
                             doc.AppendChild(root);
                             using (TextWriter sw = new StreamWriter(System.IO.Path.Combine(Core.PluginDataPath, "LanguageEng.xml" ), false, Encoding.UTF8)) //Set encoding
