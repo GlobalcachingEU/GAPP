@@ -56,6 +56,7 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button13 = new System.Windows.Forms.Button();
             this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
             this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
@@ -345,6 +346,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button13);
             this.groupBox1.Controls.Add(this.numericUpDown4);
             this.groupBox1.Controls.Add(this.label20);
             this.groupBox1.Controls.Add(this.label21);
@@ -363,12 +365,22 @@
             this.groupBox1.Controls.Add(this.button8);
             this.groupBox1.Controls.Add(this.button7);
             this.groupBox1.Enabled = false;
-            this.groupBox1.Location = new System.Drawing.Point(387, 179);
+            this.groupBox1.Location = new System.Drawing.Point(387, 156);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(223, 355);
+            this.groupBox1.Size = new System.Drawing.Size(223, 406);
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Automatic date ranges";
+            // 
+            // button13
+            // 
+            this.button13.Location = new System.Drawing.Point(40, 248);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(163, 30);
+            this.button13.TabIndex = 27;
+            this.button13.Text = "From GC-Project...";
+            this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
             // 
             // numericUpDown4
             // 
@@ -377,7 +389,7 @@
             0,
             0,
             0});
-            this.numericUpDown4.Location = new System.Drawing.Point(144, 259);
+            this.numericUpDown4.Location = new System.Drawing.Point(144, 298);
             this.numericUpDown4.Maximum = new decimal(new int[] {
             5000,
             0,
@@ -395,7 +407,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(126, 261);
+            this.label20.Location = new System.Drawing.Point(126, 300);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(12, 17);
             this.label20.TabIndex = 25;
@@ -404,7 +416,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(6, 261);
+            this.label21.Location = new System.Drawing.Point(6, 300);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(76, 17);
             this.label21.TabIndex = 24;
@@ -417,7 +429,7 @@
             0,
             0,
             0});
-            this.numericUpDown3.Location = new System.Drawing.Point(144, 291);
+            this.numericUpDown3.Location = new System.Drawing.Point(144, 330);
             this.numericUpDown3.Maximum = new decimal(new int[] {
             500,
             0,
@@ -440,7 +452,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(126, 293);
+            this.label18.Location = new System.Drawing.Point(126, 332);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(12, 17);
             this.label18.TabIndex = 22;
@@ -449,7 +461,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(6, 293);
+            this.label19.Location = new System.Drawing.Point(6, 332);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(51, 17);
             this.label19.TabIndex = 21;
@@ -547,7 +559,7 @@
             // 
             // button11
             // 
-            this.button11.Location = new System.Drawing.Point(40, 319);
+            this.button11.Location = new System.Drawing.Point(40, 358);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(163, 30);
             this.button11.TabIndex = 14;
@@ -736,5 +748,6 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button button13;
     }
 }

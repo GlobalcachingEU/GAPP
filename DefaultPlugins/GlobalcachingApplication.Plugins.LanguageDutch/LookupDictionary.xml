@@ -180,6 +180,7 @@
   <string name="copy current settings to selected folder" value="Kopieer huidige instellingen naar geselecteerde map" />
   <string name="copy images to folder" value="Kopieer plaatjes naar folder" />
   <string name="copy selection" value="Kopieer selectie" />
+  <string name="copy the pq split result as shown in picture&#xD;&#xA;and paste it into the textbox" value="Kopieer de PQ split resultaat zoals in plaatje staat&#xD;&#xA;en plak die in de tekstbox hieronder." />
   <string name="copy to clipboard" value="Kopieer naar clipbord" />
   <string name="copy to custom coordinates" value="Kopieer naar aangepaste coordinaten" />
   <string name="copy to existing database" value="Kopieer naar bestaande database" />
@@ -399,6 +400,7 @@
   <string name="from center location" value="Van gecentreerde locatie" />
   <string name="from current settings" value="Van huidige instellingen" />
   <string name="from home location" value="Van thuislocatie" />
+  <string name="from project-gc..." value="Van Project-GC..." />
   <string name="from selection" value="Van selectie" />
   <string name="functions" value="Functies" />
   <string name="garmin geocache_visits.txt" value="" />
@@ -843,6 +845,7 @@
   <string name="plugin type" value="Functie type" />
   <string name="plugins" value="Functies" />
   <string name="pmo" value="PMO" />
+  <string name="pocket queries" value="" />
   <string name="pocket query settings has been saved" value="Pocket Query instellingen zijn opgeslagen" />
   <string name="poi loader" value="POI Loader" />
   <string name="poi name" value="POI naam" />
@@ -996,6 +999,7 @@
   <string name="selection options" value="Selectie opties" />
   <string name="seperate file per geocache" value="Afzonderlijk bestand per geocache" />
   <string name="sequence" value="Actielijst" />
+  <string name="serie" value="" />
   <string name="server error" value="Server fout" />
   <string name="set" value="Zet" />
   <string name="set additional coordinates" value="Zet additionele coordinaten" />

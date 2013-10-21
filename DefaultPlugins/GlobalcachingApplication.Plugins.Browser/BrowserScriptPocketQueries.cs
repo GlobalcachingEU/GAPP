@@ -60,7 +60,11 @@ namespace GlobalcachingApplication.Plugins.Browser
             core.LanguageItems.Add(new Framework.Data.LanguageItem(BrowserScriptPocketQueriesPQSeriesForm.STR_START));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(BrowserScriptPocketQueriesPQSeriesForm.STR_TEMPLATE));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(BrowserScriptPocketQueriesPQSeriesForm.STR_TITLE));
-            core.LanguageItems.Add(new Framework.Data.LanguageItem(BrowserScriptPocketQueriesPQSeriesForm.STR_AUTOMATICACTIVATE));            
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(BrowserScriptPocketQueriesPQSeriesForm.STR_AUTOMATICACTIVATE));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(BrowserScriptPocketQueriesPQSeriesForm.STR_FROMGCPROJECT));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(BrowserScriptPocketQueriesPQSeriesGCProjectForm.STR_DESCRIPTION));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(BrowserScriptPocketQueriesPQSeriesGCProjectForm.STR_OK));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(BrowserScriptPocketQueriesPQSeriesGCProjectForm.STR_TITLE));
 
             webBrowser.Navigating += new WebBrowserNavigatingEventHandler(webBrowser_Navigating);
             webBrowser.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(webBrowser_DocumentCompleted);

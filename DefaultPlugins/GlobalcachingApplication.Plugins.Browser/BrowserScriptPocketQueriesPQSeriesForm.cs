@@ -40,6 +40,7 @@ namespace GlobalcachingApplication.Plugins.Browser
         public const string STR_MARGIN = "Margin";
         public const string STR_AUTOMATIC = "Automatic";
         public const string STR_AUTOMATICACTIVATE = "Automatically activate";
+        public const string STR_FROMGCPROJECT = "From Project-GC...";
 
         private string _settingsFilename = "";
         private string _seriesFilename = "";
@@ -100,6 +101,7 @@ namespace GlobalcachingApplication.Plugins.Browser
             this.label19.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_MARGIN);
             this.button11.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_AUTOMATIC);
             this.checkBox1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_AUTOMATICACTIVATE);
+            this.button13.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_FROMGCPROJECT);
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -978,6 +980,30 @@ namespace GlobalcachingApplication.Plugins.Browser
                 }
             }
             return result;
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            using (BrowserScriptPocketQueriesPQSeriesGCProjectForm dlg = new BrowserScriptPocketQueriesPQSeriesGCProjectForm())
+            {
+                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    BrowserScriptPocketQueriesPQSeries pqs = comboBox1.SelectedItem as BrowserScriptPocketQueriesPQSeries;
+                    if (pqs != null)
+                    {
+                        _init = true;
+                        pqs.Dates.Clear();
+                        pqs.Dates.AddRange(dlg.DateList);
+                        if (pqs.Dates.Count == 0)
+                        {
+                            pqs.Dates.Add(new DateTime(2001, 1, 1));
+                        }
+                        pqs.Dates.Add(DateTime.Now.AddMonths(6));
+                        _init = false;
+                        comboBox1_SelectedIndexChanged(this, EventArgs.Empty);
+                    }
+                }
+            }
         }
 
     }
