@@ -142,6 +142,16 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver.FormulaInterpreter.Func
                 new Functions.CoordinateFunctions.Waypoint(),
                 StrRes.GetString(StrRes.STR_DESCR_WAYPOINT)
             );
+            AddFunction(
+                "Latitude", grp, new[] { "Lat", "Länge" },
+                new Functions.CoordinateFunctions.Latitude(),
+                StrRes.GetString(StrRes.STR_DESCR_LATITUDE)
+            );
+            AddFunction(
+                "Longitude", grp, new[] { "Lon", "Breite" },
+                new Functions.CoordinateFunctions.Longitude(),
+                StrRes.GetString(StrRes.STR_DESCR_LONGITUDE)
+            );
         }
 
         private void AddTextFunctions()

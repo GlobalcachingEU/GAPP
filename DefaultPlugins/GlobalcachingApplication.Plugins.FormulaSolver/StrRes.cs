@@ -64,6 +64,8 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
         public static string STR_DESCR_FACTORIAL = "Compute the factorial of an integer.\r\nFact(10) = 3628800";
         public static string STR_NO_CACHE_SELECTED = "No cache selected. (Quicknotes)";
         public static string NO_PROPER_COORDINATES_SELECTED = "No proper coordinate string selected.\r\nPlease select a complete coordinate string and try again.";
+        public static string STR_DESCR_LATITUDE = "Gets the latitude from a coordinate as decimal number.\r\nLatitude(\"N 51° 12.081 E 6° 50.328\") = 51.20135";
+        public static string STR_DESCR_LONGITUDE = "Gets the latitude from a coordinate as decimal number.\r\nLongitude(\"N 51° 12.081 E 6° 50.328\") = 6.8388";
 
         public static void InitializeCoreLanguageItems(Framework.Interfaces.ICore core) {
 			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_MISSING_ARGUMENT));
@@ -123,6 +125,8 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
 			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_FACTORIAL));
 			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_NO_CACHE_SELECTED));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(NO_PROPER_COORDINATES_SELECTED));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_LATITUDE));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_LONGITUDE));
         }
 
         public static string GetString(string res)

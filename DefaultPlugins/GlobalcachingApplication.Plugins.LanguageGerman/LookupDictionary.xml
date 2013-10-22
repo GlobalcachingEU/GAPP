@@ -1241,4 +1241,6 @@
   <string name="your uploaded flows" value="Deine hochgeladenen Ablaufdiagramme" />
   <string name="your vote" value="Deine Wertung" />
   <string name="zip file" value="ZIP-Datei" />
+  <string name="gets the latitude from a coordinate as decimal number.&#xD;&#xA;latitude(&quot;n 51° 12.081 e 6° 50.328&quot;) = 51.20135" value="Ermittelt die geografische Länge einer Koordinate in Dezimalgrad.&#xD;&#xA;Länge(&quot;N51° 12.081 E 6° 50.328&quot;) = 51.20135" />
+  <string name="gets the latitude from a coordinate as decimal number.&#xD;&#xA;longitude(&quot;n 51° 12.081 e 6° 50.328&quot;) = 6.8388" value="Ermittelt die geografische Breite einer Koordinate in Dezimalgrad.&#xD;&#xA;Länge(&quot;N51° 12.081 E 6° 50.328&quot;) = 6.8388" />
 </resources>
