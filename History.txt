@@ -12,6 +12,8 @@ V1.9.5.0
 - change: French language updated (thanks icaunais and RHCV)
 - change: Language maintenance improvement. The complete XML will be saved if changes are made and is sorted for easier merging.
 - add: Internal web browser, option to paste project-gc pq slitter result in pq series generator
+- add: Formula Solver, added functions Latitude and Longitude
+- add: LiveAPI, Log geocache now has the option to rotate images
 
 V1.9.4.0
 

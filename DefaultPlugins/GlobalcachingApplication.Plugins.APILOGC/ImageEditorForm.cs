@@ -30,6 +30,7 @@ namespace GlobalcachingApplication.Plugins.APILOGC
 
         private Image _originalImage = null;
         private TemporaryFile tmpFile = null;
+        private int _rotation = 0;
 
         public string Caption { get; private set; }
         public string Description { get; private set; }
@@ -67,35 +68,61 @@ namespace GlobalcachingApplication.Plugins.APILOGC
         {
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                button2.Enabled = false;
-                if (_originalImage != null)
+                textBox1.Text = openFileDialog1.FileName;
+                loadImage(0);
+            }
+        }
+
+        protected void loadImage(int rotation)
+        {
+            button2.Enabled = false;
+            if (_originalImage != null)
+            {
+                _originalImage.Dispose();
+                _originalImage = null;
+                textBox1.Text = "";
+                label7.Text = "-";
+                label8.Text = "-";
+                textBox2.Text = "";
+                pictureBox1.Image = null;
+                button3.Enabled = false;
+                button4.Enabled = false;
+            }
+            try
+            {
+                _originalImage = Image.FromFile(openFileDialog1.FileName);
+                _rotation = rotation;
+                switch (rotation)
                 {
-                    _originalImage.Dispose();
-                    _originalImage = null;
-                    textBox1.Text = "";
-                    label7.Text = "-";
-                    label8.Text = "-";
-                    textBox2.Text = "";
-                    pictureBox1.Image = null;
+                    case 0:
+                        break;
+                    case 1:
+                        _originalImage.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                        break;
+                    case 2:
+                        _originalImage.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                        break;
+                    case 3:
+                        _originalImage.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                        break;
                 }
-                try
-                {
-                    textBox1.Text = openFileDialog1.FileName;
-                    _originalImage = Image.FromFile(openFileDialog1.FileName);
-                    label8.Text = string.Format("{0} x {1}", _originalImage.Width, _originalImage.Height);
-                    FileInfo fi = new FileInfo(openFileDialog1.FileName);
-                    label7.Text = string.Format("{0:0.000} MB", (double)fi.Length / (1024.0 * 1024.0));
-                    textBox2.Text = Path.GetFileName(openFileDialog1.FileName);
-                    textBox3.Text = Path.GetFileName(openFileDialog1.FileName);
-                    Size sz = Utils.ImageUtilities.GetNewSize(_originalImage.Size, pictureBox1.Size);
-                    pictureBox1.Image = Utils.ImageUtilities.ResizeImage(_originalImage, sz.Width, sz.Height);
-                    getImageResult();
-                }
-                catch
-                {
-                    _originalImage = null;
-                    MessageBox.Show(Utils.LanguageSupport.Instance.GetTranslation(STR_NOTSUPPORTEDIMAGETYPE), Utils.LanguageSupport.Instance.GetTranslation(STR_ERROR));
-                }
+                label8.Text = string.Format("{0} x {1}", _originalImage.Width, _originalImage.Height);
+                FileInfo fi = new FileInfo(openFileDialog1.FileName);
+                label7.Text = string.Format("{0:0.000} MB", (double)fi.Length / (1024.0 * 1024.0));
+                textBox2.Text = Path.GetFileName(openFileDialog1.FileName);
+                textBox3.Text = Path.GetFileName(openFileDialog1.FileName);
+                Size sz = Utils.ImageUtilities.GetNewSize(_originalImage.Size, pictureBox1.Size);
+                pictureBox1.Image = Utils.ImageUtilities.ResizeImage(_originalImage, sz.Width, sz.Height);
+                getImageResult();
+                button3.Enabled = true;
+                button4.Enabled = true;
+            }
+            catch
+            {
+                _originalImage = null;
+                button3.Enabled = false;
+                button4.Enabled = false;
+                MessageBox.Show(Utils.LanguageSupport.Instance.GetTranslation(STR_NOTSUPPORTEDIMAGETYPE), Utils.LanguageSupport.Instance.GetTranslation(STR_ERROR));
             }
         }
 
@@ -200,6 +227,22 @@ namespace GlobalcachingApplication.Plugins.APILOGC
                 tmpFile.Dispose();
                 tmpFile = null;
             }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (_busy || _originalImage == null) return;
+            _rotation += 1;
+            if (_rotation >= 4) _rotation = 0;
+            loadImage(_rotation);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (_busy || _originalImage == null) return;
+            _rotation -= 1;
+            if (_rotation < 0) _rotation = 3;
+            loadImage(_rotation);
         }
 
     }

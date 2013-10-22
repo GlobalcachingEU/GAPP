@@ -51,6 +51,9 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
             this.label28 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
@@ -70,9 +73,8 @@
             this.label17 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.label29 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -86,6 +88,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button4);
+            this.groupBox1.Controls.Add(this.button3);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label5);
@@ -379,6 +383,31 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Image to add to log";
             // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(100, 149);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(12, 17);
+            this.label29.TabIndex = 32;
+            this.label29.Text = ":";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(6, 149);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(79, 17);
+            this.label30.TabIndex = 31;
+            this.label30.Text = "Description";
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(119, 146);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(248, 22);
+            this.textBox3.TabIndex = 30;
+            // 
             // label28
             // 
             this.label28.AutoSize = true;
@@ -558,30 +587,27 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // label29
+            // button3
             // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(100, 149);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(12, 17);
-            this.label29.TabIndex = 32;
-            this.label29.Text = ":";
+            this.button3.Enabled = false;
+            this.button3.Image = global::GlobalcachingApplication.Plugins.APILOGC.Properties.Resources.rotateleft;
+            this.button3.Location = new System.Drawing.Point(480, 198);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(24, 28);
+            this.button3.TabIndex = 19;
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // label30
+            // button4
             // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(6, 149);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(79, 17);
-            this.label30.TabIndex = 31;
-            this.label30.Text = "Description";
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(119, 146);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(248, 22);
-            this.textBox3.TabIndex = 30;
+            this.button4.Enabled = false;
+            this.button4.Image = global::GlobalcachingApplication.Plugins.APILOGC.Properties.Resources.rotateright;
+            this.button4.Location = new System.Drawing.Point(480, 232);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(24, 28);
+            this.button4.TabIndex = 20;
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // ImageEditorForm
             // 
@@ -660,5 +686,7 @@
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
     }
 }
