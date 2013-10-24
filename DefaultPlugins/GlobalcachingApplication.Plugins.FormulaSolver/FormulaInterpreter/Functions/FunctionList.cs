@@ -143,12 +143,12 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver.FormulaInterpreter.Func
                 StrRes.GetString(StrRes.STR_DESCR_WAYPOINT)
             );
             AddFunction(
-                "Latitude", grp, new[] { "Lat", "Länge" },
+                "Latitude", grp, new[] { "Lat", "Längengrad" },
                 new Functions.CoordinateFunctions.Latitude(),
                 StrRes.GetString(StrRes.STR_DESCR_LATITUDE)
             );
             AddFunction(
-                "Longitude", grp, new[] { "Lon", "Breite" },
+                "Longitude", grp, new[] { "Lon", "Breitengrad" },
                 new Functions.CoordinateFunctions.Longitude(),
                 StrRes.GetString(StrRes.STR_DESCR_LONGITUDE)
             );
