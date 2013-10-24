@@ -521,6 +521,138 @@ noscript {display:none;} /* Fixes a feature in Firefox 1.5.0.2 where print previ
 </div>
 <!--POST-SHADOWAREA-->
 <div id="storeArea">
+<div title="AdvancedOptionsPlugin" creator="SuperUdo" modifier="ELSDesignStudios" created="200804081651" modified="200907240906" tags="systemConfig" server.type="file" server.host="http://www.tiddlytools.com/#PageTemplate" server.page.revision="200907240906">
+<pre>/***
+|Name|AdvancedOptionsPlugin|
+|Source|http://www.TiddlyTools.com/#AdvancedOptionsPlugin|
+|Documentation|http://www.TiddlyTools.com/#AdvancedOptionsPlugin|
+|Version|1.2.0|
+|Author|Eric Shulman|
+|License|http://www.TiddlyTools.com/#LegalStatements|
+|~CoreVersion|2.3|
+|Type|plugin|
+|Description|automatically add plugin-defined options to the [[AdvancedOptions]] shadow tiddler|
+!!!!!Usage
+&lt;&lt;&lt;
+At document startup, this plugin examines each tiddler tagged with &lt;&lt;tag systemConfig&gt;&gt; and looks for a tiddler slice named &quot;Options&quot; whose value refers to a tiddler section (or separate tiddler) that contains an 'advanced options control panel' for configuring that plugin's features and behavior.  For each plugin that contains an &quot;Options&quot; slice, a tabbed entry is automatically created in the [[AdvancedOptions]] shadow tiddler to display that plugin's control panel.
+
+As an optional fallback for backward-compatibility with plugin tiddlers that do not define the &quot;Options&quot; slice, this plugin will also look for a section heading named &quot;Configuration&quot; within those tiddlers, so that older plugins that define this section can automatically have their settings added to the [[AdvancedOptions]] tiddler without requiring the &quot;Options&quot; slice to be added.
+
+This plugin also extends the standard {{{&lt;&lt;option&gt;&gt;}}} macro syntax so you can directly set the internal value of a boolean or text option, without displaying a corresponding checkbox or input field control simply by appending {{{=value}}} syntax to the end of the option ID parameter:
+{{{
+&lt;&lt;option &quot;txtSomeOption=some text&quot;&gt;&gt;
+&lt;&lt;option chkSomeOtherOption=true&gt;&gt; OR &lt;&lt;option chkSomeOtherOption=false&gt;&gt;
+}}}
+Example: {{{&lt;&lt;option chkAnimate=false&gt;&gt;}}}
+&lt;&lt;&lt;
+!!!!!Configuration
+&lt;&lt;&lt;
+&lt;&lt;option chkAdvancedOptions&gt;&gt; automatically add plugin-defined options to the [[AdvancedOptions]] shadow tiddler
+&lt;&lt;option chkAdvancedOptionsBackstage&gt;&gt; automatically add plugin-defined options to Backstage menu
+&lt;&lt;option chkAdvancedOptionsFallback&gt;&gt; use &lt;&lt;option txtAdvancedOptionsFallback&gt;&gt; section as a fallback for plugins that don't define an ~AdvancedOptions slice
+//note: these settings only take effect after reloading the document//
+&lt;&lt;&lt;
+!!!!!Revisions
+&lt;&lt;&lt;
+2009.07.23 [1.2.0] added support for enhanced {{{&lt;&lt;option id=value&gt;&gt;}}} 'direct assignment' syntax
+2008.05.09 [1.1.0] add &quot;options&quot; panel to backstage
+2008.04.08 [1.0.0] initial release
+&lt;&lt;&lt;
+!!!!!Code
+***/
+//{{{
+version.extensions.AdvancedOptionsPlugin= {major: 1, minor: 2, revision: 0, date: new Date(2009,7,23)};
+
+if (config.options.chkAdvancedOptions===undefined)
+	config.options.chkAdvancedOptions=true;
+if (config.options.chkAdvancedOptionsBackstage===undefined)
+	config.options.chkAdvancedOptionsBackstage=true;
+if (config.options.chkAdvancedOptionsFallback===undefined)
+	config.options.chkAdvancedOptionsFallback=true;
+if (config.options.txtAdvancedOptionsFallback===undefined)
+	config.options.txtAdvancedOptionsFallback=&quot;Configuration&quot;;
+if (config.optionsDesc) config.optionsDesc.chkAdvancedOptions=
+	&quot;automatically add plugin-defined options to [[AdvancedOptions]]&quot;;
+//}}}
+//{{{
+var items=[];
+var fmt=&quot;[[%0 ]] [[view options for %0]] [[%1]]\n&quot;;
+var section=config.options.txtAdvancedOptionsFallback;
+var plugins=store.getTaggedTiddlers(&quot;systemConfig&quot;);
+for (var p=0; p&lt;plugins.length; p++) {
+	var tid=plugins[p].title;
+	var settings=store.getTiddlerSlice(tid,&quot;Options&quot;);
+	if (!settings &amp;&amp; config.options.chkAdvancedOptionsFallback &amp;&amp; store.getTiddlerText(tid+&quot;##&quot;+section))
+		settings=&quot;##&quot;+section; // fallback handling for older plugins
+	if (settings&amp;&amp;settings.length) {
+		if (settings.substr(0,2)==&quot;##&quot;) settings=tid+settings;
+		items.push(fmt.format([tid,settings]));
+	}
+}
+if (items.length) config.shadowTiddlers.PluginOptions=
+	&quot;!![[Plugin-defined options|PluginManager]]\n&gt;@@text-align:left;&lt;&lt;tabs '' \n&quot;+items.join(' ')+&quot;&gt;&gt;@@&quot;;
+if (config.options.chkAdvancedOptions)
+	config.shadowTiddlers.AdvancedOptions+=&quot;{{smallform{{{wrap{&lt;&lt;tiddler PluginOptions&gt;&gt;}}}}}}&quot;;
+//}}}
+//{{{
+// // add &quot;options&quot; backstage task
+if (config.tasks &amp;&amp; config.options.chkAdvancedOptionsBackstage) { // for TW2.2b3 or above
+	config.tasks.options = {
+		text: &quot;options&quot;,
+		tooltip: &quot;manage plugin-defined option settings&quot;,
+		content: &quot;{{smallform{{{groupbox{{{wrap{&lt;&lt;tiddler PluginOptions&gt;&gt;}}}}}}\n{{groupbox small {&lt;&lt;options&gt;&gt;}}}}}}&quot;
+	}
+	config.backstageTasks.splice(config.backstageTasks.indexOf(&quot;plugins&quot;)+1,0,&quot;options&quot;);
+}
+//}}}
+//{{{
+config.macros.option.AOPsave_handler=config.macros.option.handler;
+config.macros.option.handler=function(place,macroName,params,wikifier,paramString,tiddler) {
+	var parts=params[0].split('=');
+	if (parts.length==1) return this.AOPsave_handler.apply(this,arguments);
+	var id=parts[0]; var val=(id.substr(0,3)=='txt')?parts[1]:(parts[1]=='true');
+	config.options[id]=val;
+}
+//}}}</pre>
+</div>
+<div title="BackstageTweaks" creator="SuperUdo" modifier="ELSDesignStudios" created="200702281726" modified="200805130805" tags="systemConfig" server.type="file" server.host="http://www.tiddlytools.com/#PageTemplate" server.page.revision="200805130805">
+<pre>/***
+!!!Adjustments to Backstage appearances
+***/
+//{{{
+if (config.tasks!=undefined) { // TW2.2B3 or above
+
+// hide &quot;backstage/close&quot; text, use alternative glyphs
+config.messages.backstage.open.text=&quot;&quot;;
+config.messages.backstage.close.text=&quot;&quot;;
+config.glyphs.codes.bentArrowLeft=[&quot;\u00ab&quot;,&quot;\u00ab&quot;]; // left double-angle quote (&amp;laquo;)
+config.glyphs.codes.bentArrowRight=[&quot;\u00bb&quot;,&quot;\u00bb&quot;]; // right double-angle quote (&amp;raquo;)
+// config.glyphs.codes.downTriangle=[&quot;\u25bc&quot;,&quot;\u25bc&quot;]; // down triangle
+
+// adjust backstage panel styles
+setStylesheet(&quot;\
+	#backstagePanel \
+		{ background:#eee !important; padding:.5em; \
+		border:2px solid; border-width-top:0px; \
+		-moz-border-radius-bottomleft:1em; -moz-border-radius-bottomright:1em} \
+		-webkit-border-bottom-left-radius:1em; -webkit-border-bottom-right-radius:1em} \
+	#backstageButton \
+		{ font-size:9pt; } \
+	#backstageArea \
+		{ font-size:7pt; } \
+	&quot;,&quot;BackstageTweaks&quot;);
+
+// Hijack backstage.init() to add &quot;mouseover&quot; class to backstage button
+backstage.save_init=backstage.init;
+backstage.init=function() {
+	this.save_init.apply(this,arguments);
+	var btn=document.getElementById(&quot;backstageShow&quot;);
+	if (btn &amp;&amp; (addClass instanceof Function)) addClass(btn,&quot;mouseover&quot;);
+}
+
+} // end if (config.tasks)
+//}}}</pre>
+</div>
 <div title="BreadcrumbsPlugin" modifier="ELSDesignStudios" created="200601291821" modified="201206101819" tags="NavigationPackage systemConfig" server.type="file" server.host="http://www.tiddlytools.com/#BreadcrumbsPlugin" server.page.revision="201206101819">
 <pre>/***
 |Name|BreadcrumbsPlugin|
@@ -1406,10 +1538,19 @@ window.invokeMacro = function(place,macro,params,wikifier,tiddler) {
 <div title="DefaultTiddlers" creator="YourName" modifier="Superudo" created="201310241101" modified="201310241105" changecount="5">
 <pre>[[Übersicht]] </pre>
 </div>
-<div title="Dialog &quot;Formel einfügen&quot;" creator="SuperUdo" modifier="SuperUdo" created="201310241920" modified="201310241925" changecount="2">
+<div title="Dialog &quot;Formel einfügen&quot;" creator="SuperUdo" modifier="SuperUdo" created="201310241920" modified="201310241952" changecount="7">
 <pre>Der Dialog &quot;Formel einfügen&quot; gibt eine Übersicht über alle im Formellöser zur Verfügung stehenden [[Funktionen]] und ihre alternativen Schreibweisen. Er ermöglicht das schnelle Einfügen der ausgewählten Funktion in den [[Formeleingabebereich|Formeleingabe]].
 
-[img[insertformula.png]]</pre>
+[img[insertformula.png]]
+
+In der Lliste &quot;Gruppe&quot; lässt sich eine Funktionsgruppe auswählen, woraufhin die Liste &quot;Funktionen&quot; entsprechend gefiltert wird. Wählt man hier eine einzelne Funktion aus, wird im Feld &quot;Description&quot; eine kurze Beschreibung der Funktion sowie ein Beispiel angezeigt. Die Liste &quot;Andere Namen&quot; zeigt weitere Namen für dieselbe Funktion.
+
+Ein Doppelklick auf den Funktionsnamen oder die Schaltfläche &quot;Insert&quot; fügt die ausgewählte Funktion an der Cursorposition in das Formeleingabefeld ein. </pre>
+</div>
+<div title="Dialog &quot;Wegpunkt einfügen&quot;" creator="SuperUdo" modifier="SuperUdo" created="201310242003" modified="201310242012" changecount="5">
+<pre>Der Dialog ermöglicht das schnelle Einfügen eines Wegpunktes (bzw. dessen Koordinaten) in das Formeleingabefenster. Ist ein Cache ausgewählt, listet der Dialog alle vorhandenen Wegpunkte mit ihrem Namen auf. Ein ausgewählter Wegpunkt wird durch einen Doppelklick auf den Namen oder durch die Schaltfläche &quot;Insert&quot; in das Formeleingabefenster als Funktion {{{WP(&quot;Wegpunktname&quot;)}}} übernommen. Bei der Formelauswertung ergibt die ~WP-Funktion die Koordinate des Wegpunktes.
+
+[img[waypoints.png]]</pre>
 </div>
 <div title="Formeleingabe" creator="SuperUdo" modifier="SuperUdo" created="201310241202" modified="201310241211" changecount="6">
 <pre>Formeln sind die Basis der Berechnungen. Eine Formel kann aus [[Zuweisungen]], [[Operationen]], [[Funktionen]] oder [[Texten|Texte]] sowie [[Variablen]] bestehen.
@@ -1446,17 +1587,17 @@ Folgende Koordinatenfunktionen sind im Formellöser bekannt:
 !!!!Beispiele
 [img[bsp_koordinatenfunktionen.png]]</pre>
 </div>
-<div title="MainMenu" creator="Superudo" modifier="SuperUdo" created="201310241107" modified="201310241921" changecount="33">
+<div title="MainMenu" creator="Superudo" modifier="WikiAdmin" created="201310241107" modified="201310242136" changecount="40">
 <pre>[img[globalcaching.eu|Globalcaching.png][http://gapp.globalcaching.eu]]
-#[[Übersicht]]
-#[[Programmfenster]]
-#[[Formeleingabe]]
-#[[Funktionen]]
-**{{smallText{[[Zahlen|Zahlenfunktionen]]}}}
-**{{smallText{[[Text|Textfunktionen]]}}}
-**{{smallText{[[Koordinaten|Koordinatenfunktionen]]}}}
-#[[Dialog &quot;Formel einfügen&quot;]]
-</pre>
+[[Übersicht]]
+[[Programmfenster]]
+[[Formeleingabe]]
+[[Funktionen]]
+{{smallText{[[Zahlen|Zahlenfunktionen]]}}}
+{{smallText{[[Text|Textfunktionen]]}}}
+{{smallText{[[Koordinaten|Koordinatenfunktionen]]}}}
+[[&quot;Formel einfügen&quot;|Dialog &quot;Formel einfügen&quot;]]
+[[&quot;Wegpunkt einfügen&quot;|Dialog &quot;Wegpunkt einfügen&quot;]]</pre>
 </div>
 <div title="Operationen" creator="SuperUdo" modifier="SuperUdo" created="201310241235" modified="201310241324" changecount="7">
 <pre>Operationen sind Rechenschritte, die aus einem Operator und dessen Operanden bestehen. Die Operatoren sind Zahlen oder Texte, die als Zahlen interpretiert werden können. Der Formellöser unterstützt folgende Operatoren:
@@ -1471,17 +1612,54 @@ Es gelten die bekannten Rechenregeln. Punkt- wird vor Strichrechnung ausgeführt
 
 [img[operationen.png]]</pre>
 </div>
-<div title="Programmfenster" creator="Superudo" modifier="SuperUdo" created="201310241120" modified="201310241200" changecount="6">
+<div title="PageTemplate" creator="SuperUdo" modifier="SuperUdo" created="201310242042" changecount="1">
+<pre>&lt;!--{{{--&gt;
+&lt;div class='header' role='banner' macro='gradient vert [[ColorPalette::PrimaryLight]] [[ColorPalette::PrimaryMid]]'&gt;
+&lt;div class='headerShadow'&gt;
+&lt;span class='siteTitle' refresh='content' tiddler='SiteTitle'&gt;&lt;/span&gt;&amp;nbsp;
+&lt;span class='siteSubtitle' refresh='content' tiddler='SiteSubtitle'&gt;&lt;/span&gt;
+&lt;/div&gt;
+&lt;div class='headerForeground'&gt;
+&lt;span class='siteTitle' refresh='content' tiddler='SiteTitle'&gt;&lt;/span&gt;&amp;nbsp;
+&lt;span class='siteSubtitle' refresh='content' tiddler='SiteSubtitle'&gt;&lt;/span&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id='mainMenu' role='navigation' refresh='content' tiddler='MainMenu'&gt;&lt;/div&gt;
+&lt;div id='sidebar'&gt;
+&lt;div id='sidebarOptions' role='navigation' refresh='content' tiddler='SideBarOptions'&gt;&lt;/div&gt;
+&lt;div id='sidebarTabs' role='complementary' refresh='content' force='true' tiddler='SideBarTabs'&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id='displayArea' role='main'&gt;
+&lt;div id='messageArea'&gt;&lt;/div&gt;
+&lt;div id='storyMenu' class='storyMenu' refresh='content' force='true' tiddler='StoryMenu'&gt;&lt;/div&gt;
+&lt;div id='tiddlerDisplay'&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;!--}}}--&gt;
+</pre>
+</div>
+<div title="Programmfenster" creator="Superudo" modifier="SuperUdo" created="201310241120" modified="201310242003" changecount="13">
 <pre>Das Programmfenster besteht aus einem Eingabebereich für die Formeln (Textbox links), einem Ausgabebereich für die Berechnungen (Textbox rechts) und den Schaltflächen &quot;Formel einfügen&quot;, &quot;Wegpunkt einfügen&quot;, &quot;Lösen&quot; und &quot;Als Zentrum&quot;.
 
 [img[window.png]]
 
-''Eingabebereich''
-Das linke Textfeld des Programmfensters ist der Eingabebereich. Hier können zeilenweise [[Formeln|Formeleingabe]] eingegeben werden, die nach Betätigen der Schaltfläche &quot;Lösen&quot; berechnet werden. 
-
-''Ausgabebereich''
-Nach der Formelauswertung erscheinen in der rechten Textbox die Ergebnisse der Berechnungen. Pro Zeile in der Eingabe findet sich eine Zeile in der Ausgabe. Treten während der Berechnung Fehler auf, werden diese im Ausgabefenster angezeigt. 
+;Eingabebereich
+:Das linke Textfeld des Programmfensters ist der Eingabebereich. Hier können zeilenweise [[Formeln|Formeleingabe]] eingegeben werden, die nach Betätigen der Schaltfläche &quot;Lösen&quot; berechnet werden. 
+;Ausgabebereich
+:Nach der Formelauswertung erscheinen in der rechten Textbox die Ergebnisse der Berechnungen. Pro Zeile in der Eingabe findet sich eine Zeile in der Ausgabe. Treten während der Berechnung Fehler auf, werden diese im Ausgabefenster angezeigt. 
+;Schaltfläche &quot;Formel einfügen&quot;
+:Öffnet den [[Dialog &quot;Formel einfügen&quot;]], der die Auswahl von vordefinierten Funktionen ermöglicht.
+;Schaltfläche &quot;Wegpunkt einfügen&quot;
+:Öffnet den [[Dialog &quot;Wegpunkt einfügen&quot;]], der es ermöglich, Koordinaten von Wegpunkten des aktuell ausgewählten Caches einzufügen.
+;Schaltfläche &quot;Lösen&quot;
+:Startet die Formelauswertung. Die eingegebenen Formeln werden analysiert und berechnet. Das Ergebnis wird in der rechten Textbox ausgegeben.
+;Schaltfläche &quot;Als Zentrum&quot;
+:Setzt das aktuelle Zentrum auf eine im Ausgabebereich markierte Koordinate.
 </pre>
+</div>
+<div title="SidebarOptions" creator="SuperUdo" modifier="SuperUdo" created="201310242044" modified="201310242044" tags="systemConfig" changecount="2">
+<pre>config.options.chkShowRightSidebar=false;
+config.options.txtToggleRightSideBarLabelShow=&quot;◄&quot;;
+config.options.txtToggleRightSideBarLabelHide=&quot;►&quot;;</pre>
 </div>
 <div title="SinglePageModePlugin" creator="SuperUdo" modifier="ELSDesignStudios" created="200508151715" modified="201011301918" tags="NavigationPackage systemConfig" server.type="file" server.host="http://www.tiddlytools.com/#BreadcrumbsPlugin" server.page.revision="201011301918">
 <pre>/***
@@ -1650,8 +1828,249 @@ Story.prototype.displayTiddlers = function() {
 <div title="SiteTitle" creator="YourName" modifier="SuperUdo" created="201310241100" modified="201310241539" changecount="4">
 <pre>Formula Solver</pre>
 </div>
-<div title="StyleSheet" creator="SuperUdo" modifier="SuperUdo" created="201310241349" changecount="1">
-<pre>.smallText { font-size: 80% }</pre>
+<div title="StoryMenu" creator="SuperUdo" modifier="SuperUdo" created="201310242030" modified="201310242036" changecount="9">
+<pre>{{floatright{&lt;&lt;tiddler ToggleRightSidebar&gt;&gt;}}}</pre>
+</div>
+<div title="StyleSheet" creator="SuperUdo" modifier="SuperUdo" created="201310241349" modified="201310242041" changecount="3">
+<pre>.smallText { font-size: 80% }
+[[StyleSheetShortcuts]]</pre>
+</div>
+<div title="StyleSheetShortcuts" creator="SuperUdo" modifier="ELSDesignStudios" created="200611070646" modified="200910050520" tags="CSS ThemePackage QuickEditPackage" server.type="file" server.host="http://www.tiddlytools.com" server.page.revision="200910050520">
+<pre>/***
+|Name|StyleSheetShortcuts|
+|Source|http://www.TiddlyTools.com/#StyleSheetShortcuts|
+|Version||
+|Author|Eric Shulman|
+|License|http://www.TiddlyTools.com/#LegalStatements|
+|~CoreVersion|2.1|
+|Type|CSS|
+|Description|'convenience' classes for common formatting, alignment, boxes, tables, etc.|
+
+These 'style tweaks' can be easily included in other stylesheet tiddler so they can share a baseline look-and-feel that can then be customized to create a wide variety of 'flavors'.
+***/
+/*{{{*/
+
+/* text alignments */
+.left
+	{ display:block;text-align:left; }
+.center
+	{ display:block;text-align:center; }
+.center table
+	{ margin:auto !important; }
+.right	
+	{ display:block;text-align:right; }
+.justify
+	{ display:block;text-align:justify; }
+.indent
+	{ display:block;margin:0;padding:0;border:0;margin-left:2em; }
+.floatleft
+	{ float:left; }
+.floatright
+	{ float:right; }
+.valignTop, .valignTop table, .valignTop tbody, .valignTop th, .valignTop tr, .valignTop td
+	{ vertical-align:top; }
+.valignBottom, .valignBottom table, .valignBottom tbody, .valignBottom th, .valignBottom tr, .valignBottom td
+	{ vertical-align:bottom; }
+.clear
+	{ clear:both; }
+.wrap
+	{ white-space:normal; }
+.nowrap
+	{ white-space:nowrap; }
+.hidden
+	{ display:none; }
+.show
+	{ display:inline !important; }
+.span
+	{ display:span; }
+.block
+	{ display:block; }
+.relative
+	{ position:relative; }
+.absolute
+	{ position:absolute; }
+
+/* font sizes */
+.big
+	{ font-size:14pt;line-height:120% }
+.medium
+	{ font-size:12pt;line-height:120% }
+.normal
+	{ font-size:9pt;line-height:120% }
+.small
+	{ font-size:8pt;line-height:120% }
+.fine
+	{ font-size:7pt;line-height:120% }
+.tiny
+	{ font-size:6pt;line-height:120% }
+.larger
+	{ font-size:120%; }
+.smaller
+	{ font-size:80%; }
+
+/* font styles */
+.bold
+	{ font-weight:bold; }
+.italic
+	{ font-style:italic; }
+.underline
+	{ text-decoration:underline; }
+
+/* plain list items (no bullets or indent) */
+.nobullets li { list-style-type: none; margin-left:-2em; }
+
+/* vertical tabsets - courtesy of Tobias Beer */
+.vTabs .tabset {float:left;display:block;padding:0px;margin-top:.5em;min-width:20%;}
+.vTabs .tabset .tab {display:block;text-align:right;padding:2px 3px 2px 7px; margin:0 1px 1px 0;}
+.vTabs .tabContents {margin-left:20%;max-width:80%;padding:5px;}
+.vTabs .tabContents .tabContents {border:none; background:transparent;}
+
+/* multi-column tiddler content (not supported in Internet Explorer) */
+.twocolumns { display:block;
+	-moz-column-count:2; -moz-column-gap:1em; -moz-column-width:50%; /* FireFox */
+	-webkit-column-count:2; -webkit-column-gap:1em; -webkit-column-width:50%; /* Safari */
+	column-count:2; column-gap:1em; column-width:50%; /* Opera */
+}
+.threecolumns { display:block;
+	-moz-column-count:3; -moz-column-gap:1em; -moz-column-width:33%; /* FireFox */
+	-webkit-column-count:3; -webkit-column-gap:1em; -webkit-column-width:33%; /* Safari */
+	column-count:3; column-gap:1em; column-width:33%; /* Opera */
+}
+.fourcolumns { display:block;
+	-moz-column-count:4; -moz-column-gap:1em; -moz-column-width:25%; /* FireFox */
+	-webkit-column-count:4; -webkit-column-gap:1em; -webkit-column-width:25%; /* Safari */
+	column-count:4; column-gap:1em; column-width:25%; /* Opera */
+}
+
+/* page breaks */
+.breakbefore { page-break-before:always; }
+.breakafter { page-break-before:always; } 
+
+/* show/hide browser-specific content for InternetExplorer vs. non-IE (&quot;moz&quot;) browsers */
+*[class=&quot;ieOnly&quot;]
+	{ display:none; } /* hide in moz (uses CSS selector) */
+* html .mozOnly, *:first-child+html .mozOnly
+	{ display: none; } /* hide in IE (uses IE6/IE7 CSS hacks) */
+
+/* borderless tables */
+.borderless, .borderless table, .borderless td, .borderless tr, .borderless th, .borderless tbody
+	{ border:0 !important; margin:0 !important; padding:0 !important; }
+.widetable, .widetable table
+	{ width:100%; }
+
+/* thumbnail images (fixed-sized scaled images) */
+.thumbnail img { height:5em !important; }
+
+/* stretchable images (auto-size to fit tiddler) */
+.stretch img { width:95%; }
+
+/* grouped content */
+.outline
+	{ display:block; padding:1em; -moz-border-radius:1em;-webkit-border-radius:1em; border:1px solid; }
+.menubox
+	{ display:block; padding:1em; -moz-border-radius:1em;-webkit-border-radius:1em; border:1px solid; background:#fff; color:#000; }
+.menubox .button, .menubox .tiddlyLinkExisting, .menubox .tiddlyLinkNonExisting
+	{ color:#009 !important; }
+.groupbox
+	{ display:block; padding:1em; -moz-border-radius:1em;-webkit-border-radius:1em; border:1px solid; background:#ffe; color:#000; }
+.groupbox a, .groupbox .button, .groupbox .tiddlyLinkExisting, .groupbox .tiddlyLinkNonExisting
+	{ color:#009 !important; }
+.groupbox code
+	{ color:#333 !important; }
+.borderleft
+	{ margin:0;padding:0;border:0;margin-left:1em; border-left:1px dotted; padding-left:.5em; }
+.borderright
+	{ margin:0;padding:0;border:0;margin-right:1em; border-right:1px dotted; padding-right:.5em; }
+.borderbottom
+	{ margin:0;padding:1px 0;border:0;border-bottom:1px dotted; margin-bottom:1px; padding-bottom:1px; }
+.bordertop
+	{ margin:0;padding:0;border:0;border-top:1px dotted; margin-top:1px; padding-top:1px; }
+
+/* scrolled content */
+.scrollbars { overflow:auto; }
+.height10em { height:10em; }
+.height15em { height:15em; }
+.height20em { height:20em; }
+.height25em { height:25em; }
+.height30em { height:30em; }
+.height35em { height:35em; }
+.height40em { height:40em; }
+
+/* compact form */
+.smallform
+	{ white-space:nowrap; }
+.smallform input, .smallform textarea, .smallform button, .smallform checkbox, .smallform radio, .smallform select
+	{ font-size:8pt; }
+
+/* stretchable edit fields and textareas (auto-size to fit tiddler) */
+.stretch input { width:99%; }
+.stretch textarea { width:99%; }
+
+/* compact input fields (limited to a few characters for entering percentages and other small values) */
+.onechar input   { width:1em; }
+.twochar input   { width:2em; }
+.threechar input { width:3em; }
+.fourchar input  { width:4em; }
+.fivechar input  { width:5em; }
+
+/* text colors */
+.white { color:#fff !important }
+.gray  { color:#999 !important }
+.black { color:#000 !important }
+.red   { color:#f66 !important }
+.green { color:#0c0 !important }
+.blue  { color:#99f !important }
+
+/* rollover highlighting */
+.mouseover 
+	{color:[[ColorPalette::TertiaryLight]] !important;}
+.mouseover a
+	{color:[[ColorPalette::TertiaryLight]] !important;}
+.selected .mouseover
+	{color:[[ColorPalette::Foreground]] !important;}
+.selected .mouseover .button, .selected .mouseover a
+	{color:[[ColorPalette::PrimaryDark]] !important;}
+
+/* rollover zoom text */
+.zoomover
+	{ font-size:80% !important; }
+.selected .zoomover
+	{ font-size:100% !important; }
+
+/* [[ColorPalette]] text colors */
+.Background	{ color:[[ColorPalette::Background]];	 }
+.Foreground	{ color:[[ColorPalette::Foreground]];	 }
+.PrimaryPale	{ color:[[ColorPalette::PrimaryPale]];	 }
+.PrimaryLight	{ color:[[ColorPalette::PrimaryLight]];	 }
+.PrimaryMid	{ color:[[ColorPalette::PrimaryMid]];	 }
+.PrimaryDark	{ color:[[ColorPalette::PrimaryDark]];	 }
+.SecondaryPale	{ color:[[ColorPalette::SecondaryPale]]; }
+.SecondaryLight	{ color:[[ColorPalette::SecondaryLight]];}
+.SecondaryMid	{ color:[[ColorPalette::SecondaryMid]];	 }
+.SecondaryDark	{ color:[[ColorPalette::SecondaryDark]]; }
+.TertiaryPale	{ color:[[ColorPalette::TertiaryPale]];	 }
+.TertiaryLight	{ color:[[ColorPalette::TertiaryLight]]; }
+.TertiaryMid	{ color:[[ColorPalette::TertiaryMid]];	 }
+.TertiaryDark	{ color:[[ColorPalette::TertiaryDark]];	 }
+.Error		{ color:[[ColorPalette::Error]];	 }
+
+/* [[ColorPalette]] background colors */
+.BGBackground	  { background-color:[[ColorPalette::Background]];	}
+.BGForeground	  { background-color:[[ColorPalette::Foreground]];	}
+.BGPrimaryPale	  { background-color:[[ColorPalette::PrimaryPale]];	}
+.BGPrimaryLight	  { background-color:[[ColorPalette::PrimaryLight]];	}
+.BGPrimaryMid	  { background-color:[[ColorPalette::PrimaryMid]];	}
+.BGPrimaryDark	  { background-color:[[ColorPalette::PrimaryDark]];	}
+.BGSecondaryPale  { background-color:[[ColorPalette::SecondaryPale]]; 	}
+.BGSecondaryLight { background-color:[[ColorPalette::SecondaryLight]];	}
+.BGSecondaryMid	  { background-color:[[ColorPalette::SecondaryMid]];	}
+.BGSecondaryDark  { background-color:[[ColorPalette::SecondaryDark]]; 	}
+.BGTertiaryPale	  { background-color:[[ColorPalette::TertiaryPale]];	}
+.BGTertiaryLight  { background-color:[[ColorPalette::TertiaryLight]]; 	}
+.BGTertiaryMid	  { background-color:[[ColorPalette::TertiaryMid]];	}
+.BGTertiaryDark	  { background-color:[[ColorPalette::TertiaryDark]];	}
+.BGError	  { background-color:[[ColorPalette::Error]];	 	}
+/*}}}*/</pre>
 </div>
 <div title="Texte" creator="SuperUdo" modifier="SuperUdo" created="201310241204" modified="201310241215" changecount="8">
 <pre>Texte sind durch doppelte Anführungszeichen eingeschlossene Buchstabenfolgen. 
@@ -1838,11 +2257,6 @@ onclick=&quot;
 	'$2'!='$'+'2'?'$2':tip;
 }}&gt;&gt;</pre>
 </div>
-<div title="ToggleSideBar Settings" creator="SuperUdo" modifier="SuperUdo" created="201310241917" modified="201310241917" tags="systemConfig" changecount="2">
-<pre>config.options.chkShowRightSidebar=true;
-config.options.txtToggleRightSideBarLabelShow=&quot;◄&quot;;
-config.options.txtToggleRightSideBarLabelHide=&quot;►&quot;;</pre>
-</div>
 <div title="Variablen" creator="SuperUdo" modifier="SuperUdo" created="201310241219" modified="201310241327" changecount="7">
 <pre>Variablen sind Platzhalter für Werte innerhalb der Formelauswertung. Sie erhalten ihren Wert durch [[Zuweisungen]] und können an jeder Stelle verwendet werden, wo in einer Formel Zahlen oder Textwerte verwendet werden können. Die Variable wird bei der Formelauswertung durch ihren Wert ersetzt. 
 
@@ -1908,10 +2322,22 @@ Folgende Zahlenfunktionen sind im Formellöser bekannt:
 
 [img[assignments.png]]</pre>
 </div>
-<div title="Übersicht" creator="Superudo" modifier="SuperUdo" created="201310241107" modified="201310241155" changecount="7">
-<pre>Der Formula Solver (oder Formellöser) ist ein Plugin für das Cacheverwaltungsprogramm [[GAPP|http://gapp.globalcaching.eu]] und dient als Hilfsmittel zum Lösen cacherelevanter Aufgaben. Vor allem bei Mystery Caches kann es sehr von Nutzen sein. Es wird aufgerufen durch den Menüeintrag &quot;Fenster\Formellöser&quot; oder das entsprechende Icon [img[mathematics.png]] in der Toolbar.
+<div title="zzConfigOptions" creator="SuperUdo" modifier="SuperUdo" created="201310241917" modified="201310242134" tags="systemConfig" changecount="6">
+<pre>config.options.chkShowRightSidebar=true;
+config.options.txtToggleRightSideBarLabelShow=&quot;◄&quot;;
+config.options.txtToggleRightSideBarLabelHide=&quot;►&quot;;
 
-Zu jedem Cache der Cacheliste kann ein Satz Formeln gespeichert werden. Das [[Programmfenster]] des Formellösers zeigt die zum markierten Cache gehörenden Einträge. Außerdem stellt der Formellöser einen separaten Eintrag bereit, der mit keinem Cache verknüpft ist und damit als Bereich für schnelle Berechnungen ohne Cachebezug genutzt werden kann. Dieser Eintrag ist immer dann zu sehen, wenn in der Cacheliste kein Cache ausgewählt wurde.</pre>
+if (config.options.txtUserName != &quot;WikiAdmin&quot;) {
+        config.options.chkShowRightSidebar=false;
+	showBackstage = false;
+	readOnly = true;
+}</pre>
+</div>
+<div title="Übersicht" creator="Superudo" modifier="SuperUdo" created="201310241107" modified="201310242112" changecount="10">
+<pre>Der Formula Solver (oder Formellöser) ist ein Plugin für das Cacheverwaltungsprogramm [[GAPP|http://gapp.globalcaching.eu]] und dient als Hilfsmittel zum Lösen cacherelevanter Aufgaben. Vor allem bei Mystery Caches kann er sehr von Nutzen sein. Er wird aufgerufen durch den Menüeintrag &quot;Fenster\Formellöser&quot; oder das entsprechende Icon [img[mathematics.png]] in der Toolbar.
+
+Zu jedem Cache der Cacheliste kann ein Satz Formeln gespeichert werden. Das [[Programmfenster]] des Formellösers zeigt die zum markierten Cache gehörenden Einträge. Außerdem stellt der Formellöser einen separaten Eintrag bereit, der mit keinem Cache verknüpft ist und damit als Bereich für schnelle Berechnungen ohne Cachebezug genutzt werden kann. Dieser Eintrag ist immer dann zu sehen, wenn in der Cacheliste kein Cache ausgewählt wurde.
+</pre>
 </div>
 </div>
 <!--POST-STOREAREA-->
