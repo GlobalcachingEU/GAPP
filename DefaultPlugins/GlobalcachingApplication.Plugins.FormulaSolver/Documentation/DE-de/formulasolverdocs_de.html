@@ -541,6 +541,23 @@ Der Formellöser unterscheidet bei den Funktionsnamen keine Groß- und Kleinschr
 
 Für eine vereinfachte Eingabe von Funktionen im Formelfenster eignet sich der [[Dialog &quot;Formel einfügen&quot;|FormelEinfügen]], der sich öffnet, wenn man die gleichnamig Schaltfläche im Programmfenster betätigt.</pre>
 </div>
+<div title="Koordinatenfunktionen" creator="SuperUdo" modifier="SuperUdo" created="201310241609" changecount="1">
+<pre>Koordinatenfunktionen sind Funktionen, die sich mit der Be- und Verarbeitung von geografischen Koordinaten beschäftigen. Prominentes Beispiel für eine solche Funktion ist die Projektion: {{{Projektion(&quot;N 51° 12.345 E 6° 54.321&quot;;100;200) = &quot;N 51° 12.294 E 6° 54.292&quot;}}}.
+
+Folgende Koordinatenfunktionen sind im Formellöser bekannt:
+|!Name|!Alternativen|!Syntax|!Berechnung|
+|Peilung|Bearing|{{{Peilung(Koord1; Koord2)}}}|Berechnet die Richtung zwischen zwei Koordinaten.|
+|Kreuzpeilung|~CrossBearing|{{{Kreuzpeilung(Koord1;Winkel1;Koord2;Winkel2)}}}|Berechnet den Schnittpunkt zweier Linien jeweils gegeben durch Startpunkt und Richtung.|
+|Abstand|Distance|{{{Abstand(Koord1; Koord2)}}}|Berechnet die Entfernung zwischen zwei Koordinaten.|
+|Schnittpunkt|Intersection|{{{Schnittpunkt(Koord1; Koord2; Koord3; Koord4)}}}|Berechnet den Schnittpunkt zweier durch Koordinaten beschriebener Linien.|
+|Längengrad|Latitude, Lat|{{{Längengrad(Koord)}}}|Ermittelt die geografische Länge einer Koordinate in Dezimalgrad.|
+|Breitengrad|Longitude, Lon|{{{Breitengrad(Koord)}}}|Ermittelt die geografische Breite einer Koordinate in Dezimalgrad.|
+|Projektion|Projection|{{{Projektion(Koord; Länge; Winkel}}}|Projektion einer Koordinate aus Punkt, Richtung und Winkel.|
+|Wegpunkt|WP, Waypoint|{{{Wegpunkt(Text)}}}|Ermittelt die Koordinaten eines Wegpunktes anhand seines Namens. (ohne Parameter: Cachekoordinaten)|
+
+!!!!Beispiele
+</pre>
+</div>
 <div title="MainMenu" creator="Superudo" modifier="SuperUdo" created="201310241107" modified="201310241539" changecount="32">
 <pre>[img[globalcaching.eu|Globalcaching.png][http://gapp.globalcaching.eu]]
 #[[Übersicht]]
