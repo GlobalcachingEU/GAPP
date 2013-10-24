@@ -529,13 +529,31 @@ noscript {display:none;} /* Fixes a feature in Firefox 1.5.0.2 where print previ
 
 Eine Formel belegt genau eine Zeile im Eingabebereich. Das Ergebnis ihrer Berechnung findet sich nach dem Betätigen der Schaltfläche &quot;Lösen&quot; im Ausgabebereich auf der gleichen Höhe. </pre>
 </div>
-<div title="MainMenu" creator="Superudo" modifier="SuperUdo" created="201310241107" modified="201310241244" changecount="17">
-<pre>[img[Globalcaching.png]]
+<div title="Funktionen" creator="SuperUdo" modifier="SuperUdo" created="201310241331" modified="201310241504" changecount="7">
+<pre>Funktionen sind komplexe Formelbestandteile, die aus einem Funktionsnamen und einer dem Namen in runden Klammern folgenden, optionalen Parameterliste bestehen. Die Funktionen des Formellösers besitzen haben immer einen Wert, der der Formel für weitere Berechnungen oder [[Zuweisungen]] verwendet werden kann. 
+
+Die Funktionen im Formellöser können in drei Gruppen eingeteilt werden:
+* [[Zahlenfunktionen]]
+* [[Koordinatenfunktionen]]
+* [[Textfunktionen]]
+
+Der Formellöser unterscheidet bei den Funktionsnamen keine Groß- und Kleinschreibung: {{{QuerSumme}}}, {{{QUERSUMME}}} und {{{quersumme}}} bezeichnen also dieselbe Funktion.
+
+Für eine vereinfachte Eingabe von Funktionen im Formelfenster eignet sich der [[Dialog &quot;Formel einfügen&quot;|FormelEinfügen]], der sich öffnet, wenn man die gleichnamig Schaltfläche im Programmfenster betätigt.</pre>
+</div>
+<div title="MainMenu" creator="Superudo" modifier="SuperUdo" created="201310241107" modified="201310241356" changecount="28">
+<pre>[img[globalcaching.eu|Globalcaching.png][http://gapp.globalcaching.eu]]
 #[[Übersicht]]
 #[[Programmfenster]]
-#[[Formeleingabe]]</pre>
+#[[Formeleingabe]]
+#[[Funktionen]]
+**{{smallText{[[Zahlen|Zahlenfunktionen]]}}}
+**{{smallText{[[Text|Textfunktionen]]}}}
+**{{smallText{[[Koordinaten|Koordinatenfunktionen]]}}}
+#[[Dialog &quot;Formel einfügen&quot;|FormelEinfügen]]
+</pre>
 </div>
-<div title="Operationen" creator="SuperUdo" modifier="SuperUdo" created="201310241235" modified="201310241239" changecount="4">
+<div title="Operationen" creator="SuperUdo" modifier="SuperUdo" created="201310241235" modified="201310241324" changecount="7">
 <pre>Operationen sind Rechenschritte, die aus einem Operator und dessen Operanden bestehen. Die Operatoren sind Zahlen oder Texte, die als Zahlen interpretiert werden können. Der Formellöser unterstützt folgende Operatoren:
 |!Operation|!Zeichen|!Funktion|
 | Plus | {{{+}}} | Addition |
@@ -544,8 +562,9 @@ Eine Formel belegt genau eine Zeile im Eingabebereich. Das Ergebnis ihrer Berech
 | Geteilt durch | {{{/}}} | Division |
 | Modulo | {{{%}}} | Ganzzahliger Rest bei der Division |
 | Vorzeichen | {{{-}}} | Vorzeichenwechsel |
+Es gelten die bekannten Rechenregeln. Punkt- wird vor Strichrechnung ausgeführt. Eine andere Reihenfolge kann durch das Setzen von Klammern erreicht werden.
 
-</pre>
+[img[operationen.png]]</pre>
 </div>
 <div title="Programmfenster" creator="Superudo" modifier="SuperUdo" created="201310241120" modified="201310241200" changecount="6">
 <pre>Das Programmfenster besteht aus einem Eingabebereich für die Formeln (Textbox links), einem Ausgabebereich für die Berechnungen (Textbox rechts) und den Schaltflächen &quot;Formel einfügen&quot;, &quot;Wegpunkt einfügen&quot;, &quot;Lösen&quot; und &quot;Als Zentrum&quot;.
@@ -565,6 +584,9 @@ Nach der Formelauswertung erscheinen in der rechten Textbox die Ergebnisse der B
 <div title="SiteTitle" creator="YourName" modifier="Superudo" created="201310241100" modified="201310241101" changecount="2">
 <pre>Formula Solver</pre>
 </div>
+<div title="StyleSheet" creator="SuperUdo" modifier="SuperUdo" created="201310241349" changecount="1">
+<pre>.smallText { font-size: 80% }</pre>
+</div>
 <div title="Texte" creator="SuperUdo" modifier="SuperUdo" created="201310241204" modified="201310241215" changecount="8">
 <pre>Texte sind durch doppelte Anführungszeichen eingeschlossene Buchstabenfolgen. 
 Auch Koordinatenwerte werden als Text angegeben. 
@@ -575,34 +597,74 @@ Beispiele:
 Texte können als einzelne Formel stehen oder in [[Zuweisungen]], [[Operationen]] und Parametern von [[Funktionen]] verwendet werden.
 </pre>
 </div>
-<div title="Variablen" creator="SuperUdo" modifier="SuperUdo" created="201310241219" modified="201310241226" changecount="6">
+<div title="Textfunktionen" creator="SuperUdo" modifier="SuperUdo" created="201310241521" modified="201310241524" changecount="3">
+<pre>Zahlenfunktionen sind Funktionen, die vorwiegend mit Zeichenketten arbeiten. Prominentes Beispiel für eine solche Funktion ist der Caesar-Chiffre: {{{ROT13(&quot;GAPP&quot;) = &quot;TNCC&quot;}}}.
+
+Folgende Textfunktionen sind im Formellöser bekannt:
+|!Name|!Alternativen|!Syntax|!Berechnung|
+|~AlphaPos|AP|{{{AlphaPos(Text)}}}|Position des ersten Buchstabens im Alphabet. (A = 1)|
+|~AlphaSum|AS|{{{AlphaSum(Text)}}}|Summe der Positionen aller Buchstaben des Textes im Alphabet. (A = 1)|
+|Länge|Length|{{{Länge(Text)}}}|Anzahl der Zeichen im Text.|
+|Mid||{{{Mid(Text,Start,Anzahl)}}}|Liefert einen Teil des Textes zurück, beginnend bei Start mit Anzahl Zeichen.&lt;br /&gt;Anzahl ist optional und hat den Defaultwert 1.|
+|~HandyCode|~PhoneCode, HC, PC|{{{HandyCode(Text)}}}|Position des ersten Buchstabens auf der Handytastatur.|
+|~HandySum|~PhoneSum, HS, PS|{{{HandySum(Text)}}}|Summe aller Buchstabenpositionen auf der Handytastatur.|
+|Reverse||{{{Reverse(Text)}}}|Kehrt die Reihenfolge der Zeichen des Textes um.|
+|Rot13||{{{Rot13(Text)}}}|Ermittelt die ~ROT13-Verschlüsselung des Textes.|
+
+!!!!Beispiele
+[img[bsp_textfunktionen.png]]</pre>
+</div>
+<div title="Variablen" creator="SuperUdo" modifier="SuperUdo" created="201310241219" modified="201310241327" changecount="7">
 <pre>Variablen sind Platzhalter für Werte innerhalb der Formelauswertung. Sie erhalten ihren Wert durch [[Zuweisungen]] und können an jeder Stelle verwendet werden, wo in einer Formel Zahlen oder Textwerte verwendet werden können. Die Variable wird bei der Formelauswertung durch ihren Wert ersetzt. 
+
+Variablen können Zahlen oder Texte (bzw. durch Texte repräsentierte Koordinaten) enthalten.
 
 Ist eine Variable bei ihrer ersten Verwendung noch ohne Wert, d.h. ist bis dahin noch keine [[Zuweisung|Zuweisungen]] zu dieser Variablen erfolgt, wird der Formellöser nach Beendigung der Auswertung eine Dialogbox zeigen, die die nicht definierten Variablen zeigt und vorschlägt, Zuweisungsformeln an den Anfang der Eingabe zu stellen. 
 
 [[Beispiel für das Einfügen fehlender Variablendefinitionen|Variablendeklarationen]]
 </pre>
 </div>
-<div title="Variablendeklarationen" creator="SuperUdo" modifier="SuperUdo" created="201310241226" modified="201310241231" changecount="5">
+<div title="Variablendeklarationen" creator="SuperUdo" modifier="SuperUdo" created="201310241226" modified="201310241327" changecount="6">
 <pre>!!!!Eingabe im Formelfenster
 [img[missing_deklarations_before.png]]
+
 In der eingegebenen Formel soll der Variablen C die Summe der Variablen A und B zugewiesen werden. A und B sind aber noch nicht deklariert worden, d.h. sie enthalten noch keine Werte. Deswegen kann die Formel nicht gelöst werden, es erscheint eine Dialogbox, die die betreffenden Variablen auflistet und anbietet, Deklarationen für diese Variablen an den Anfang des Formeleingabefensters zu setzen.
 !!!!Dialogbox nach Betätigen der Schaltfläche &quot;Lösen&quot;
 [img[missing_declarations.png]]
+
 Klicken auf &quot;Ja&quot; fügt die Deklarationen in das Eingabefenster ein. Bei Klick auf &quot;Nein&quot; bleibt die Eingabe unverändert. 
 !!!!Formelfenster nach Klick auf &quot;Ja&quot;
 [img[missing_deklarations_after.png]]
+
 Die Deklarationen für A und B sind eingefügt worden. Welche Werte die Variablen haben sollen, muss der Anwender selbst hinzufügen.
 
 </pre>
 </div>
-<div title="Zuweisungen" creator="SuperUdo" modifier="SuperUdo" created="201310241213" modified="201310241215" changecount="3">
+<div title="Zahlenfunktionen" creator="SuperUdo" modifier="SuperUdo" created="201310241337" modified="201310241505" changecount="25">
+<pre>Zahlenfunktionen sind Funktionen, die im weitesten Sinne mit Zahlen arbeiten. Prominentes Beispiel für eine solche Funktion ist die Quersumme: {{{Quersumme(54321) = 15}}}, die die Summe der Ziffern einer Zahl berechnet.
+
+Folgende Zahlenfunktionen sind im Formellöser bekannt:
+|!Name|!Alternativen|!Syntax|!Berechnung|
+|Querprodukt|QP, ~CrossProduct, CP|{{{Querprodukt(Zahl)}}}|Ermittelt das Produkt der Ziffern einer Zahl|
+|Quersumme|QS, ~CrossTotal, CT|{{{Quersumme(Zahl)}}}|Ermittelt die Summe der Ziffern einer Zahl|
+|Fakultät|Factorial, Fact|{{{Fakultät(Zahl)}}}|Berechnet die Fakultät des Parameters (Produkt aller natürlicher Zahlen von 1 bis zur angegebenen Zahl)|
+|~IQuerprodukt|IQP, ~ICrossProduct, ICP|{{{IQuerprodukt(Zahl)}}}|Iteriertes Querprodukt (mehrmalige Anwendung auf das Ergebnis), bis das Ergebnis einstellig ist.|
+|~IQuersumme|IQS, ~ICrossTotal, ICT|{{{IQuersumme(Zahl)}}}|Iterierte Quersumme (mehrmalige Anwendung auf das Ergebnis), bis das Ergebnis einstellig ist.|
+|Ganzzahl|Int|{{{Ganzzahl(Zahl)}}}|Ermittelt den ganzzahligen Anteil einer Zahl|
+|Pi||{{{Pi(n)}}}|Berechnet die Zahl Pi auf n Nachkommastellen genau.&lt;br /&gt;Der Parameter ist optional.|
+|Potenz|Pow, Power|{{{Potenz(Basis;Exponent)}}}|Berechnet die Potenz der Basis zum Exponenten.|
+|~PrimIndex|~PrimeIndex|{{{PrimIndex(Zahl)}}}|Ermittelt den Index einer Primzahl.|
+|Primzahl|~PrimeNumber|{{{Primzahl(n)}}}|Ermittelt die n-te Primzahl.|
+|~Rom2Dec||{{{Rom2Dec(Text)}}}|Wandelt römische in Dezimalzahlen um.|
+|Runden|Round|{{{Runden(Zahl;Stellen)}}}|Rundet eine Zahl auf eine bestimmte Anzahl Nachkommastellen|
+
+!!!!Beispiele
+[img[bsp_zahlenfunktionen.png]]</pre>
+</div>
+<div title="Zuweisungen" creator="SuperUdo" modifier="SuperUdo" created="201310241213" modified="201310241327" changecount="6">
 <pre>Eine Zuweisung speichert den Wert einer Formel in einer [[Variablen]]. Zuweisungen werden durch ein Gleichheitszeichen symbolisiert. 
-Beispiel:
-*{{{A = 1}}}
-*{{{B = A+1}}}
-*{{{C = &quot;Text&quot;}}}
-Variablen können Zahlen oder Texte (bzw. durch Texte repräsentierte Koordinaten) enthalten.</pre>
+
+[img[assignments.png]]</pre>
 </div>
 <div title="Übersicht" creator="Superudo" modifier="SuperUdo" created="201310241107" modified="201310241155" changecount="7">
 <pre>Der Formula Solver (oder Formellöser) ist ein Plugin für das Cacheverwaltungsprogramm [[GAPP|http://gapp.globalcaching.eu]] und dient als Hilfsmittel zum Lösen cacherelevanter Aufgaben. Vor allem bei Mystery Caches kann es sehr von Nutzen sein. Es wird aufgerufen durch den Menüeintrag &quot;Fenster\Formellöser&quot; oder das entsprechende Icon [img[mathematics.png]] in der Toolbar.
