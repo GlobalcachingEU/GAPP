@@ -521,15 +521,902 @@ noscript {display:none;} /* Fixes a feature in Firefox 1.5.0.2 where print previ
 </div>
 <!--POST-SHADOWAREA-->
 <div id="storeArea">
+<div title="BreadcrumbsPlugin" modifier="ELSDesignStudios" created="200601291821" modified="201206101819" tags="NavigationPackage systemConfig" server.type="file" server.host="http://www.tiddlytools.com/#BreadcrumbsPlugin" server.page.revision="201206101819">
+<pre>/***
+|Name|BreadcrumbsPlugin|
+|Author|Eric Shulman|
+|Source|http://www.TiddlyTools.com/#BreadcrumbsPlugin|
+|Documentation|http://www.TiddlyTools.com/#BreadcrumbsPluginInfo|
+|Version|2.1.5|
+|License|http://www.TiddlyTools.com/#LegalStatements|
+|~CoreVersion|2.1|
+|Type|plugin|
+|Description|list/jump to tiddlers viewed during this session plus &quot;back&quot; button/macro|
+This plugin provides a list of links to all tiddlers opened during the session, creating a &quot;trail of breadcrumbs&quot; from one tiddler to the next, allowing you to quickly navigate to any previously viewed tiddler, or select 'home' to reset the display to the initial set of tiddlers that were open at the start of the session (i.e., when the document was loaded into the browser).
+!!!!!Documentation
+&lt;&lt;&lt;
+see [[BreadcrumbsPluginInfo]]
+&lt;&lt;&lt;
+!!!!!Configuration
+&lt;&lt;&lt;
+&lt;&lt;option chkCreateDefaultBreadcrumbs&gt;&gt; automatically create breadcrumbs display (if needed)
+&lt;&lt;option chkShowBreadcrumbs&gt;&gt; show/hide breadcrumbs display
+&lt;&lt;option chkReorderBreadcrumbs&gt;&gt; re-order breadcrumbs when visiting a previously viewed tiddler
+&lt;&lt;option chkBreadcrumbsHideHomeLink&gt;&gt; omit 'Home' link from breadcrumbs display
+&lt;&lt;option chkBreadcrumbsSave&gt;&gt; prompt to save breadcrumbs when 'Home' link is pressed
+&lt;&lt;option chkShowStartupBreadcrumbs&gt;&gt; show breadcrumbs for 'startup' tiddlers
+&lt;&lt;option chkBreadcrumbsReverse&gt;&gt; show breadcrumbs in reverse order (most recent first)
+&lt;&lt;option chkBreadcrumbsLimit&gt;&gt; limit breadcrumbs display to {{twochar{&lt;&lt;option txtBreadcrumbsLimit&gt;&gt;}}} items
+&lt;&lt;option chkBreadcrumbsLimitOpenTiddlers&gt;&gt; limit open tiddlers to {{twochar{&lt;&lt;option txtBreadcrumbsLimitOpenTiddlers&gt;&gt;}}} items
+
+&lt;&lt;&lt;
+!!!!!Revisions
+&lt;&lt;&lt;
+2012.06.10 2.1.5 refactored default options to eliminate global variable and use init() handling
+| Please see [[BreadcrumbsPluginInfo]] for previous revision details |
+2006.02.01 1.0.0 initial release
+&lt;&lt;&lt;
+!!!!!Code
+***/
+//{{{
+version.extensions.BreadcrumbsPlugin = { major: 2, minor: 1, revision: 5, date: new Date(2012,6,10) };
+config.macros.breadcrumbs = {
+	crumbs: [], // the list of current breadcrumbs
+	askMsg: &quot;Save current breadcrumbs before clearing?\n&quot;
+		+&quot;Press OK to save, or CANCEL to continue without saving.&quot;,
+	saveMsg: 'Enter the name of a tiddler in which to save the current breadcrumbs',
+	saveTitle: 'SavedBreadcrumbs',
+	options: {
+		chkShowBreadcrumbs:		true,
+		chkReorderBreadcrumbs:		true,
+		chkCreateDefaultBreadcrumbs:	true,
+		chkShowStartupBreadcrumbs:	false,
+		chkBreadcrumbsReverse:		false,
+		chkBreadcrumbsLimit:		false,
+		txtBreadcrumbsLimit:		5,
+		chkBreadcrumbsLimitOpenTiddlers:false,
+		txtBreadcrumbsLimitOpenTiddlers:5,
+		chkBreadcrumbsHideHomeLink:	false,
+		chkBreadcrumbsSave:		false,
+		txtBreadcrumbsHomeSeparator:	' | ',
+		txtBreadcrumbsCrumbSeparator:	' &gt; '
+	},
+	init: function() {
+		merge(config.options,this.options,true);
+	},
+	handler: function(place,macroName,params,wikifier,paramString,tiddler) {
+		var area=createTiddlyElement(place,&quot;span&quot;,null,&quot;breadCrumbs&quot;,null);
+		area.setAttribute(&quot;homeSep&quot;,params[0]||config.options.txtBreadcrumbsHomeSeparator);
+		area.setAttribute(&quot;crumbSep&quot;,params[1]||config.options.txtBreadcrumbsCrumbSeparator);
+		this.render(area);
+	},
+	add: function (title) {
+		var thisCrumb = title;
+		var ind = this.crumbs.indexOf(thisCrumb);
+		if(ind === -1)
+			this.crumbs.push(thisCrumb);
+		else if (config.options.chkReorderBreadcrumbs)
+			this.crumbs.push(this.crumbs.splice(ind,1)[0]); // reorder crumbs
+		else
+			this.crumbs=this.crumbs.slice(0,ind+1); // trim crumbs
+		if (config.options.chkBreadcrumbsLimitOpenTiddlers)
+			this.limitOpenTiddlers();
+		this.refresh();
+		return false;
+	},
+	getAreas: function() {
+		var crumbAreas=[];
+		// find all DIVs with classname==&quot;breadCrumbs&quot;
+		var all=document.getElementsByTagName(&quot;*&quot;);
+		for (var i=0; i&lt;all.length; i++)
+			try{ if (hasClass(all[i],&quot;breadCrumbs&quot;)) crumbAreas.push(all[i]); } catch(e) {;}
+		// or, find single DIV w/fixed ID (backward compatibility)
+		var byID=document.getElementById(&quot;breadCrumbs&quot;)
+		if (byID &amp;&amp; !hasClass(byID,&quot;breadCrumbs&quot;)) crumbAreas.push(byID);
+		if (!crumbAreas.length &amp;&amp; config.options.chkCreateDefaultBreadcrumbs) {
+			// no crumbs display... create one
+			var defaultArea = createTiddlyElement(null,&quot;span&quot;,null,&quot;breadCrumbs&quot;,null);
+		 	defaultArea.style.display= &quot;none&quot;;
+			var targetArea= document.getElementById(&quot;tiddlerDisplay&quot;);
+		 	targetArea.parentNode.insertBefore(defaultArea,targetArea);
+			crumbAreas.push(defaultArea);
+		}
+		return crumbAreas;
+	},
+	refresh: function() {
+		var crumbAreas=this.getAreas();
+		for (var i=0; i&lt;crumbAreas.length; i++) {
+			crumbAreas[i].style.display = config.options.chkShowBreadcrumbs?&quot;inline&quot;:&quot;none&quot;;
+			removeChildren(crumbAreas[i]);
+			this.render(crumbAreas[i]);
+		}
+	},
+	render: function(here) {
+		var co=config.options; var out=&quot;&quot;
+		if (!co.chkBreadcrumbsHideHomeLink) {
+			createTiddlyButton(here,&quot;Home&quot;,null,this.home,&quot;tiddlyLink tiddlyLinkExisting&quot;);
+			out+=here.getAttribute(&quot;homeSep&quot;)||config.options.txtBreadcrumbsHomeSeparator;
+		}
+		for (c=0; c&lt;this.crumbs.length; c++) // remove non-existing tiddlers from crumbs
+			if (!store.tiddlerExists(this.crumbs[c]) &amp;&amp; !store.isShadowTiddler(this.crumbs[c]))
+				this.crumbs.splice(c,1);
+		var count=this.crumbs.length;
+		if (co.chkBreadcrumbsLimit &amp;&amp; co.txtBreadcrumbsLimit&lt;count) count=co.txtBreadcrumbsLimit;
+		var list=[];
+		for (c=this.crumbs.length-count; c&lt;this.crumbs.length; c++) list.push('[['+this.crumbs[c]+']]');
+		if (co.chkBreadcrumbsReverse) list.reverse();
+		out+=list.join(here.getAttribute(&quot;crumbSep&quot;)||config.options.txtBreadcrumbsCrumbSeparator);
+		wikify(out,here);
+	},
+	home: function() {
+		var cmb=config.macros.breadcrumbs;
+		if (config.options.chkBreadcrumbsSave &amp;&amp; confirm(cmb.askMsg)) cmb.saveCrumbs();
+		story.closeAllTiddlers(); restart();
+		cmb.crumbs = []; var crumbAreas=cmb.getAreas();
+		for (var i=0; i&lt;crumbAreas.length; i++) crumbAreas[i].style.display = &quot;none&quot;;
+		return false;
+	},
+	saveCrumbs: function() {
+		var tid=prompt(this.saveMsg,this.saveTitle); if (!tid||!tid.length) return; // cancelled by user
+		var t=store.getTiddler(tid);
+		if(t &amp;&amp; !confirm(config.messages.overwriteWarning.format([tid]))) return;
+		var who=config.options.txtUserName;
+		var when=new Date();
+		var text='[['+this.crumbs.join(']]\n[[')+']]';
+		var tags=t?t.tags:[]; tags.pushUnique('story');
+		var fields=t?t.fields:{};
+		store.saveTiddler(tid,tid,text,who,when,tags,fields);
+		story.displayTiddler(null,tid);
+		story.refreshTiddler(tid,null,true);
+		displayMessage(tid+' has been '+(t?'updated':'created'));
+	},
+	limitOpenTiddlers: function() {
+		var limit=config.options.txtBreadcrumbsLimitOpenTiddlers; if (limit&lt;1) limit=1;
+		for (c=this.crumbs.length-1; c&gt;=0; c--) {
+			var tid=this.crumbs[c];
+			var elem=story.getTiddler(tid);
+			if (elem) { // tiddler is displayed
+				if (limit &lt;=0) { // display limit has been reached
+					if (elem.getAttribute(&quot;dirty&quot;)==&quot;true&quot;) { // tiddler is being edited
+						var msg= &quot;'&quot;+tid+&quot;' is currently being edited.\n\n&quot;
+							+&quot;Press OK to save and close this tiddler\n&quot;
+							+&quot;or press Cancel to leave it opened&quot;;
+						if (confirm(msg)) {
+							story.saveTiddler(tid);
+							story.closeTiddler(tid);
+						}
+					}
+					else story.closeTiddler(this.crumbs[c]);
+				}
+				limit--;
+			}
+		}
+	}
+};
+//}}}
+// // PreviousTiddler ('back') command and macro
+//{{{
+config.commands.previousTiddler = {
+	text: 'back',
+	tooltip: 'view the previous tiddler',
+	handler: function(event,src,title) {
+		var crumbs=config.macros.breadcrumbs.crumbs;
+		if (crumbs.length&lt;2) config.macros.breadcrumbs.home();
+		else story.displayTiddler(story.findContainingTiddler(src),crumbs[crumbs.length-2]);
+		return false;
+	}
+};
+config.macros.previousTiddler= {
+	label: 'back',
+	prompt: 'view the previous tiddler',
+	handler: function(place,macroName,params,wikifier,paramString,tiddler) {
+		var label=params.shift(); if (!label) label=this.label;
+		var prompt=params.shift(); if (!prompt) prompt=this.prompt;
+		createTiddlyButton(place,label,prompt,function(ev){
+			return config.commands.previousTiddler.handler(ev,this)
+		});
+	}
+}
+//}}}
+// // HIJACKS
+//{{{
+// update crumbs when a tiddler is displayed
+if (Story.prototype.breadCrumbs_coreDisplayTiddler==undefined)
+	Story.prototype.breadCrumbs_coreDisplayTiddler=Story.prototype.displayTiddler;
+Story.prototype.displayTiddler = function(srcElement,tiddler) {
+	var title=(tiddler instanceof Tiddler)?tiddler.title:tiddler;
+	this.breadCrumbs_coreDisplayTiddler.apply(this,arguments);
+	if (!startingUp || config.options.chkShowStartupBreadcrumbs)
+		config.macros.breadcrumbs.add(title);
+}
+
+// update crumbs when a tiddler is deleted
+if (TiddlyWiki.prototype.breadCrumbs_coreRemoveTiddler==undefined)
+	TiddlyWiki.prototype.breadCrumbs_coreRemoveTiddler=TiddlyWiki.prototype.removeTiddler;
+TiddlyWiki.prototype.removeTiddler= function() {
+	this.breadCrumbs_coreRemoveTiddler.apply(this,arguments);
+	config.macros.breadcrumbs.refresh();
+}
+//}}}</pre>
+</div>
+<div title="CoreTweaks" modifier="ELSDesignStudios" created="200608201502" modified="201112270158" tags="systemConfig" server.type="file" server.host="http://www.tiddlytools.com/#CoreTweaks" server.page.revision="201112270158">
+<pre>/***
+|Name|CoreTweaks|
+|Source|http://www.TiddlyTools.com/#CoreTweaks|
+|Version||
+|Author|Eric Shulman|
+|License|http://www.TiddlyTools.com/#LegalStatements|
+|~CoreVersion|2.2.0|
+|Type|plugin|
+|Description|a small collection of overrides to TW core functions|
+This tiddler contains small changes to TW core functions that correct or enhance standard features or behaviors.
+***/
+//{{{
+// calculate TW version number - used to determine which tweaks should be applied
+var ver=version.major+version.minor/10+version.revision/100;
+//}}}
+/***
+----
+
+***/
+// // closed: won't fix //(leave as core tweaks)//
+// // {{block{
+/***
+!!!637 TiddlyLink tooltip - custom formatting
+***/
+// // {{groupbox small{
+/***
+http://trac.tiddlywiki.org/ticket/637 - CLOSED: WON'T FIX
+This tweak modifies the tooltip format that appears when you mouseover a link to a tiddler.  It adds an option to control the date format, as well as displaying the size of the tiddler (in bytes)
+
+Tiddler link tooltip format:
+{{stretch{&lt;&lt;option txtTiddlerLinkTootip&gt;&gt;}}}
+^^where: %0=title, %1=username, %2=modification date, %3=size in bytes, %4=description slice, %5=first N characters of tiddler content^^
+Tiddler link tooltip date format:
+{{stretch{&lt;&lt;option txtTiddlerLinkTooltipDate&gt;&gt;}}}
+Tiddler excerpt limit (chars):
+{{stretch{&lt;&lt;option txtTiddlerLinkTooltipLimit&gt;&gt;}}}
+***/
+//{{{
+config.messages.tiddlerLinkTooltip='%0 - %1, %2 (%3 bytes) - %4';
+config.messages.tiddlerLinkTooltipDate='DDD, MMM DDth YYYY 0hh12:0mm AM';
+config.messages.tiddlerLinkTooltipLimit=50;
+
+config.options.txtTiddlerLinkTootip=
+	config.options.txtTiddlerLinkTootip||config.messages.tiddlerLinkTooltip;
+config.options.txtTiddlerLinkTooltipDate=
+	config.options.txtTiddlerLinkTooltipDate||config.messages.tiddlerLinkTooltipDate;
+config.options.txtTiddlerLinkTooltipLimit=
+	config.options.txtTiddlerLinkTooltipLimit||config.messages.tiddlerLinkTooltipLimit;
+
+Tiddler.prototype.getSubtitle = function() {
+	var modifier = this.modifier;
+	if(!modifier) modifier = config.messages.subtitleUnknown;
+	var modified = this.modified;
+	if(modified) modified = modified.formatString(config.options.txtTiddlerLinkTooltipDate);
+	else modified = config.messages.subtitleUnknown;
+	var descr=store.getTiddlerSlice(this.title,'Description')||'';
+	var txt=this.text.substr(0,config.options.txtTiddlerLinkTooltipLimit);
+	if (this.text.length&gt;config.options.txtTiddlerLinkTooltipLimit) txt+=&quot;...&quot;;
+	return config.options.txtTiddlerLinkTootip.format([this.title,modifier,modified,this.text.length,descr,txt]);
+};
+//}}}
+// // }}}}}}// // {{block{
+/***
+!!!607 add HREF link on permaview command
+***/
+// // {{groupbox small{
+/***
+http://trac.tiddlywiki.org/ticket/607 - CLOSED: WON'T FIX
+This tweak automatically sets the HREF for the 'permaview' sidebar command link so you can use the 'right click' context menu for faster, easier bookmarking.  Note that this does ''not'' automatically set the permaview in the browser's current location URL... it just sets the HREF on the command link.  You still have to click the link to apply the permaview.
+***/
+//{{{
+config.macros.permaview.handler = function(place)
+{
+	var btn=createTiddlyButton(place,this.label,this.prompt,this.onClick);
+	addEvent(btn,'mouseover',this.setHREF);
+	addEvent(btn,'focus',this.setHREF);
+};
+config.macros.permaview.setHREF = function(event){
+	var links = [];
+	story.forEachTiddler(function(title,element) {
+		links.push(String.encodeTiddlyLink(title));
+	});
+	var newURL=document.location.href;
+	var hashPos=newURL.indexOf('#');
+	if (hashPos!=-1) newURL=newURL.substr(0,hashPos);
+	this.href=newURL+'#'+encodeURIComponent(links.join(' '));
+}
+//}}}
+// // }}}}}}// // {{block{
+/***
+!!!458 add permalink-like HREFs on internal TiddlyLinks
+***/
+// // {{groupbox small{
+/***
+http://trac.tiddlywiki.org/ticket/458 - CLOSED: WON'T FIX
+This tweak assigns a permalink-like HREF to internal Tiddler links (which normally do not have any HREF defined).  This permits the link's context menu (right-click) to include 'open link in another window/tab' command.  Based on a request from Dustin Spicuzza.
+***/
+//{{{
+window.coreTweaks_createTiddlyLink=window.createTiddlyLink;
+window.createTiddlyLink=function(place,title,includeText,theClass,isStatic,linkedFromTiddler,noToggle)
+{
+	// create the core button, then add the HREF (to internal links only)
+	var link=window.coreTweaks_createTiddlyLink.apply(this,arguments);
+	if (!isStatic)
+		link.href=document.location.href.split('#')[0]+'#'+encodeURIComponent(String.encodeTiddlyLink(title));
+	return link;
+}
+//}}}
+// // }}}}}}
+// // to be fixed in 2.6.0:
+// // {{block{
+/***
+!!!1151 adjust popup placement when root element is in scrolled DIV
+***/
+// // {{groupbox small{
+/***
+http://trac.tiddlywiki.org/ticket/1151
+When a popup link is placed inside a DIV with style &quot;overflow:scroll&quot; or &quot;overflow:auto&quot; and that DIV is then scrolled, the position of the resulting popup appears further down the page that intended, because it is not adjusting for the relative scroll offset of the containing DIV.  This tweak patches the Popup.place() function to calculate and subtract the current scroll offset from the computed popup position, so that it appears in the correct location on the page.
+
+Test case: //(scroll to the bottom of this DIV and click on &quot;test popup&quot;)//
+{{groupbox{
+ &lt;&lt;tiddler ScrollBox with: CoreTweaks##1151test 12em&gt;&gt;}}}/%
+!1151test
+&lt;&lt;tiddler About&gt;&gt;
+&lt;&lt;showPopup tiddler:About label:&quot;test popup&quot; tip:About popupClass:sticky&gt;&gt;
+!end
+%/
+***/
+//{{{
+window.findScrollOffsetX=function(obj) {
+	var x=0;
+	while(obj) {
+		if (obj.scrollLeft &amp;&amp; obj.nodeName!='HTML')
+			x+=obj.scrollLeft;
+		obj=obj.parentNode;
+	}
+	return -x;
+}
+
+window.findScrollOffsetY=function(obj) {
+	var y=0;
+	while(obj) {
+		if (obj.scrollTop &amp;&amp; obj.nodeName!='HTML')
+			y+=obj.scrollTop;
+		obj=obj.parentNode;
+	}
+	return -y;
+}
+
+var fn=Popup.place.toString();
+if (fn.indexOf('findScrollOffsetX')==-1) { // only once
+	fn=fn.replace(/var\s*rootLeft\s*=/,'var rootLeft = window.findScrollOffsetX(root) +');
+	fn=fn.replace(/var\s*rootTop\s*=/,'var rootTop = window.findScrollOffsetY(root) +');
+	eval('Popup.place='+fn);
+}
+//}}}
+// // }}}}}}// // {{block{
+/***
+!!!1147 tiddler macro with params does not refresh
+***/
+// // {{groupbox small{
+/***
+http://trac.tiddlywiki.org/ticket/1147
+when the {{{&lt;&lt;tiddler SomeTiddler&gt;&gt;}}} macro is handled, the resulting span has extra attributes: {{{refresh='content'}}} and {{{tiddler='SomeTiddler'}}}.  If SomeTiddler is changed, {{{store.notify('SomeTiddler')}}} triggers {{{refreshDisplay()}}}, which automatically re-renders transcluded content in any span that has these extra attributes.  However, when additional arguments are passed by using {{{&lt;&lt;tiddler SomeTiddler with: arg arg arg ...&gt;&gt;}}} then the resulting span does NOT get the extra attributes noted above and, as a consequence, the transcluded content is not being refreshed, even though the underlying tiddler has changed
+
+To correct this, in {{{config.macros.tiddler.handler}}}:
+*set the 'refresh' and 'tiddler' attributes even when arguments are present in the macro
+*store the arguments themselves in an attribute (e.g, 'args'), using as a space-separated, bracketed list
+Then, in {{{config.refreshers.content}}}:
+*retrieve the stored arguments (if any) and the tiddler source
+*substitute arguments into source and re-render the span with the updated content
+
+***/
+//{{{
+config.refreshers.content=function(e,changeList) {
+		var title = e.getAttribute(&quot;tiddler&quot;);
+		var force = e.getAttribute(&quot;force&quot;);
+		var args = e.getAttribute(&quot;args&quot;); // ADDED
+		if(force != null || changeList == null || changeList.indexOf(title) != -1) {
+			removeChildren(e);
+//			wikify(store.getTiddlerText(title,&quot;&quot;),e,null,store.fetchTiddler(title)); // REMOVED
+			config.macros.tiddler.transclude(e,title,args); // ADDED
+			return true;
+		} else
+			return false;
+};
+
+config.macros.tiddler.handler=function(place,macroName,params,wikifier,paramString,tiddler) {
+	params = paramString.parseParams(&quot;name&quot;,null,true,false,true);
+	var names = params[0][&quot;name&quot;];
+	var tiddlerName = names[0];
+	var className = names[1] || null;
+	var args = params[0][&quot;with&quot;];
+	var wrapper = createTiddlyElement(place,&quot;span&quot;,null,className);
+//	if(!args) { // REMOVED
+		wrapper.setAttribute(&quot;refresh&quot;,&quot;content&quot;);
+		wrapper.setAttribute(&quot;tiddler&quot;,tiddlerName);
+// 	} // REMOVED
+	if(args!==undefined) wrapper.setAttribute(&quot;args&quot;,'[['+args.join(']] [[')+']]'); // ADDED
+	this.transclude(wrapper,tiddlerName,args); // REFACTORED TO ...tiddler.transclude
+}
+
+// REFACTORED FROM ...tiddler.handler
+config.macros.tiddler.transclude=function(wrapper,tiddlerName,args) {
+	var text = store.getTiddlerText(tiddlerName); if (!text) return;
+	var stack = config.macros.tiddler.tiddlerStack;
+	if(stack.indexOf(tiddlerName) !== -1) return;
+	stack.push(tiddlerName);
+	try {
+		if (typeof args == &quot;string&quot;) args=args.readBracketedList(); // ADDED
+		var n = args ? Math.min(args.length,9) : 0;
+		for(var i=0; i&lt;n; i++) {
+			var placeholderRE = new RegExp(&quot;\\$&quot; + (i + 1),&quot;mg&quot;);
+			text = text.replace(placeholderRE,args[i]);
+		}
+		config.macros.tiddler.renderText(wrapper,text,tiddlerName,null); // REMOVED UNUSED 'params'
+	} finally {
+		stack.pop();
+	}
+};
+//}}}
+// // }}}}}}// // {{block{
+/***
+!!!1134 allow leading whitespace in section headings / TBD handle shadow tiddler sections
+***/
+// // {{groupbox small{
+/***
+http://trac.tiddlywiki.org/ticket/1134
+This tweak REPLACES and extends {{{store.getTiddlerText()}}} so it can return sections defined in shadow tiddlers as well as permitting use of leading whitespace in section headings.
+***/
+//{{{
+TiddlyWiki.prototype.getTiddlerText = function(title,defaultText)
+{
+	if(!title) return defaultText;
+	var parts = title.split(config.textPrimitives.sectionSeparator);
+	var title = parts[0];
+	var section = parts[1];
+	var parts = title.split(config.textPrimitives.sliceSeparator);
+	var title = parts[0];
+	var slice = parts[1]?this.getTiddlerSlice(title,parts[1]):null;
+	if(slice) return slice;
+	var tiddler = this.fetchTiddler(title);
+	var text = defaultText;
+	if(this.isShadowTiddler(title))
+		text = this.getShadowTiddlerText(title);
+	if(tiddler)
+		text = tiddler.text;
+	if(!section) return text;
+	var re = new RegExp(&quot;(^!{1,6}[ \t]*&quot; + section.escapeRegExp() + &quot;[ \t]*\n)&quot;,&quot;mg&quot;);
+	re.lastIndex = 0;
+	var match = re.exec(text);
+	if(match) {
+		var t = text.substr(match.index+match[1].length);
+		var re2 = /^!/mg;
+		re2.lastIndex = 0;
+		match = re2.exec(t); //# search for the next heading
+		if(match)
+			t = t.substr(0,match.index-1);//# don't include final \n
+		return t;
+	}
+	return defaultText;
+};
+//}}}
+// // }}}}}}// // {{block{
+/***
+!!!824 ~WindowTitle - alternative to combined ~SiteTitle/~SiteSubtitle in window titlebar
+***/
+// // {{groupbox small{
+/***
+http://trac.tiddlywiki.org/ticket/824 - OPEN
+This tweak allows definition of an optional [[WindowTitle]] tiddler that, when present, provides alternative text for display in the browser window's titlebar, instead of using the combined text content from [[SiteTitle]] and [[SiteSubtitle]] (which will still be displayed as usual in the TiddlyWiki document header area).
+
+Note: this ticket replaces http://trac.tiddlywiki.org/ticket/401 (closed), which proposed using a custom [[PageTitle]] tiddler for this purpose.  ''If you were using the previous '401 ~PageTitle' tweak, you will need to rename [[PageTitle]] to [[WindowTitle]] to continue to use your custom window title text''
+***/
+//{{{
+config.shadowTiddlers.WindowTitle='&lt;&lt;tiddler SiteTitle&gt;&gt; - &lt;&lt;tiddler SiteSubtitle&gt;&gt;';
+window.getPageTitle=function() { return wikifyPlain('WindowTitle'); }
+store.addNotification('WindowTitle',refreshPageTitle); // so title stays in sync with tiddler changes
+//}}}
+// // }}}}}}// // {{block{
+/***
+!!!471 'creator' field for new tiddlers
+***/
+// // {{groupbox small{
+/***
+http://trac.tiddlywiki.org/ticket/471 - OPEN
+This tweak HIJACKS the core's saveTiddler() function to automatically add a 'creator' field to a tiddler when it is FIRST created. You can use &quot;&quot;&quot;&lt;&lt;view creator&gt;&gt;&quot;&quot;&quot; (or &quot;&quot;&quot;&lt;&lt;view creator wikified&gt;&gt;&quot;&quot;&quot; if you prefer) to show this value embedded directly within the tiddler content, or {{{&lt;span macro=&quot;view creator&quot;&gt;&lt;/span&gt;}}} in the ViewTemplate and/or EditTemplate to display the creator value in each tiddler.  
+***/
+//{{{
+// hijack saveTiddler()
+TiddlyWiki.prototype.CoreTweaks_creatorSaveTiddler=TiddlyWiki.prototype.saveTiddler;
+TiddlyWiki.prototype.saveTiddler=function(title,newTitle,newBody,modifier,modified,tags,fields)
+{
+	var existing=store.tiddlerExists(title);
+	var tiddler=this.CoreTweaks_creatorSaveTiddler.apply(this,arguments);
+	if (!existing) store.setValue(title,'creator',config.options.txtUserName);
+	return tiddler;
+}
+//}}}
+// // }}}}}}
+// // fixed in ~TW2.4.3
+// // {{block{
+/***
+!!!444 'tiddler' and 'place' - global variables for use in computed macro parameters
+***/
+// // {{groupbox small{
+/***
+http://trac.tiddlywiki.org/ticket/444 - CLOSED:FIXED - TW2.4.3 - http://trac.tiddlywiki.org/changeset/8367
+When invoking a macro, this tweak makes the current containing tiddler object and DOM rendering location available as global variables (window.tiddler and window.place, respectively).  These globals can then be used within //computed macro parameters// to retrieve tiddler-relative and/or DOM-relative values or perform tiddler-specific side-effect functionality.
+***/
+//{{{
+if (ver&lt;2.43) {
+window.coreTweaks_invokeMacro = window.invokeMacro;
+window.invokeMacro = function(place,macro,params,wikifier,tiddler) {
+	var here=story.findContainingTiddler(place);
+	window.tiddler=here?store.getTiddler(here.getAttribute('tiddler')):tiddler;
+	window.place=place;
+	window.coreTweaks_invokeMacro.apply(this,arguments);
+}
+}
+//}}}
+// // }}}}}}
+// // fixed in ~TW2.4.2:
+// // {{block{
+/***
+!!!823 apply option values via paramifiers (e.g. #chk...and #txt...)
+***/
+// // {{groupbox small{
+/***
+http://trac.tiddlywiki.org/ticket/823 - CLOSED:FIXED - TW2.4.2 http://trac.tiddlywiki.org/changeset/7988
+This tweak extends and ''//replaces//'' the core {{{invokeParamifier()}}} function to support use of ''option paramifiers'' that set TiddlyWiki option values on-the-fly, directly from a document URL.
+
+If a paramifier begins with 'chk' (checkbox) or 'txt' (text field), it's value will be automatically stored in {{{config.options.*}}}, adding to or overriding any existing 'chk' or 'txt' option values that may have already been loaded from browser cookies and/or assigned by the TW core or plugin initialization functions using hard-coded default values.  Note: option values that have been overriden by paramifiers are only applied during the current document session, and are not //automatically// retained.  However, if you edit an overridden option value during that session, then the modified value is, of course, saved in a browser cookie, as usual.
+***/
+//{{{
+if (ver&lt;2.42) {
+function invokeParamifier(params,handler)
+{
+	if(!params || params.length == undefined || params.length &lt;= 1)
+		return;
+	for(var t=1; t&lt;params.length; t++) {
+		var p = config.paramifiers[params[t].name];
+		if(p &amp;&amp; p[handler] instanceof Function)
+			p[handler](params[t].value);
+		else { // not a paramifier with handler()... check for an 'option' prefix
+			var h=config.optionHandlers[params[t].name.substr(0,3)];
+			if (h &amp;&amp; h.set instanceof Function)
+				h.set(params[t].name,params[t].value);
+		}
+	}
+}
+}
+//}}}
+// // }}}}}}
+// // open tickets:
+// // {{block{
+/***
+!!!608/609/610 toolbars - toggles, separators and transclusion
+***/
+// // {{groupbox small{
+/***
+http://trac.tiddlywiki.org/ticket/608 - OPEN (more/less toggle)
+http://trac.tiddlywiki.org/ticket/609 - OPEN (separators)
+http://trac.tiddlywiki.org/ticket/610 - OPEN (wikify tiddler/slice/section content)
+
+This combination tweak extends the &quot;&quot;&quot;&lt;&lt;toolbar&gt;&gt;&quot;&quot;&quot; macro to add use of '&lt;' to insert a 'less' menu command (the opposite of '&gt;' == 'more'), as well as use of '*' to insert linebreaks and &quot;!&quot; to insert a vertical line separator between toolbar items.  In addition, this tweak add the ability to use references to tiddlernames, slices, or sections and render their content inline within the toolbar, allowing easy creation of new toolbar commands using TW content (such as macros, links, inline scripts, etc.)
+
+To produce a one-line style, with &quot;less&quot; at the end, use
+| ViewToolbar| foo bar baz &gt; yabba dabba doo &lt; |
+or to use a two-line style with more/less toggle:
+| ViewToolbar| foo bar baz &gt; &lt; * yabba dabba doo |
+***/
+//{{{
+merge(config.macros.toolbar,{
+	moreLabel: 'more\u25BC',
+	morePrompt: 'Show additional commands',
+	lessLabel: '\u25C4less',
+	lessPrompt: 'Hide additional commands',
+	separator: '|'
+});
+config.macros.toolbar.onClickMore = function(ev) {
+	var e = this.nextSibling;
+	e.style.display = 'inline'; // show menu
+	this.style.display = 'none'; // hide button
+	return false;
+};
+config.macros.toolbar.onClickLess = function(ev) {
+	var e = this.parentNode;
+	var m = e.previousSibling;
+	e.style.display = 'none'; // hide menu
+	m.style.display = 'inline'; // show button
+	return false;
+};
+config.macros.toolbar.handler = function(place,macroName,params,wikifier,paramString,tiddler) {
+	for(var t=0; t&lt;params.length; t++) {
+		var c = params[t];
+		switch(c) {
+			case '!':  // ELS - SEPARATOR (added)
+				createTiddlyText(place,this.separator);
+				break;
+			case '*':  // ELS - LINEBREAK (added)
+				createTiddlyElement(place,'BR');
+				break;
+			case '&lt;': // ELS - LESS COMMAND (added)
+				var btn = createTiddlyButton(place,
+					this.lessLabel,this.lessPrompt,config.macros.toolbar.onClickLess,'moreCommand');
+				break;
+			case '&gt;':
+				var btn = createTiddlyButton(place,
+					this.moreLabel,this.morePrompt,config.macros.toolbar.onClickMore,'moreCommand');
+				var e = createTiddlyElement(place,'span',null,'moreCommand');
+				e.style.display = 'none';
+				place = e;
+				break;
+			default:
+				var theClass = '';
+				switch(c.substr(0,1)) {
+					case '+':
+						theClass = 'defaultCommand';
+						c = c.substr(1);
+						break;
+					case '-':
+						theClass = 'cancelCommand';
+						c = c.substr(1);
+						break;
+				}
+				if(c in config.commands)
+
+					this.createCommand(place,c,tiddler,theClass);
+				else { // ELS - WIKIFY TIDDLER/SLICE/SECTION (added)
+					if (c.substr(0,1)=='~') c=c.substr(1); // ignore leading ~
+					var txt=store.getTiddlerText(c);
+					if (txt) {
+						// trim any leading/trailing newlines
+						txt=txt.replace(/^\n*/,'').replace(/\n*$/,'');
+						// trim PRE format wrapper if any
+						txt=txt.replace(/^\{\{\{\n/,'').replace(/\n\}\}\}$/,'');
+						// render content into toolbar
+						wikify(txt,createTiddlyElement(place,'span'),null,tiddler);
+					}
+				} // ELS - end WIKIFY CONTENT
+				break;
+		}
+	}
+};
+//}}}
+// // }}}}}}// // {{block{
+/***
+!!!529 IE fixup - case-sensitive element lookup of tiddler elements
+***/
+// // {{groupbox small{
+/***
+http://trac.tiddlywiki.org/ticket/529 - OPEN
+This tweak hijacks the standard browser function, document.getElementById(), to work-around the case-INsensitivity error in Internet Explorer (all versions up to and including IE7) //''Note: This tweak is only applied when using IE, and only for lookups of rendered tiddler elements within the containing 'tiddlerDisplay' element.''//
+***/
+//{{{
+if (config.browser.isIE) {
+document.coreTweaks_coreGetElementById=document.getElementById;
+document.getElementById=function(id) {
+	var e=document.coreTweaks_coreGetElementById(id);
+	if (!e || !e.parentNode || e.parentNode.id!='tiddlerDisplay') return e;
+	for (var i=0; i&lt;e.parentNode.childNodes.length; i++)
+		if (id==e.parentNode.childNodes[i].id) return e.parentNode.childNodes[i];
+	return null;
+};
+}
+//}}}
+// // }}}}}}// // {{block{
+/***
+!!!890 add conditional test to &quot;&quot;&quot;&lt;&lt;tiddler&gt;&gt;&quot;&quot;&quot; macro
+***/
+// // {{groupbox small{
+/***
+http://trac.tiddlywiki.org/ticket/890 - OPEN
+This tweak extends the {{{&lt;&lt;tiddler&gt;&gt;}}} macro syntax so you can include a javascript-based //test expression// to determine if the tiddler transclusion should be performed:
+{{{
+&lt;&lt;tiddler TiddlerName if:{{...}} with: param param etc.&gt;&gt;
+}}}
+If the test is ''true'', then the tiddler is transcluded as usual.  If the test is ''false'', then the transclusion is skipped and //no output is produced//.
+***/
+//{{{
+config.macros.tiddler.if_handler = config.macros.tiddler.handler;
+config.macros.tiddler.handler = function(place,macroName,params,wikifier,paramString,tiddler)
+{
+	params = paramString.parseParams('name',null,true,false,true);
+	if (!getParam(params,'if',true)) return;
+	this.if_handler.apply(this,arguments);
+};
+//}}}
+// // }}}}}}// // {{block{
+/***
+!!!831 backslash-quoting for embedding newlines in 'line-mode' formats
+***/
+// // {{groupbox small{
+/***
+http://trac.tiddlywiki.org/ticket/831 - OPEN
+This tweak pre-processes source content to convert 'double-backslash-newline' into {{{&lt;br&gt;}}} before wikify(), so that literal newlines can be embedded in line-mode wiki syntax (e.g., tables, bullets, etc.)
+***/
+//{{{
+window.coreWikify = wikify;
+window.wikify = function(source,output,highlightRegExp,tiddler)
+{
+	if (source) arguments[0]=source.replace(/\\\\\n/mg,'&lt;br&gt;');
+	coreWikify.apply(this,arguments);
+}
+//}}}
+// // }}}}}}// // {{block{
+/***
+!!!683 FireFox3 Import bug: 'browse' button replacement
+***/
+// // {{groupbox small{
+/***
+http://trac.tiddlywiki.org/ticket/683 - OPEN
+The web standard 'type=file' input control that has been used as a local path/file picker for TiddlyWiki no longer works as expected in FireFox3, which has, for security reasons, limited javascript access to this control so that *no* local filesystem path information can be revealed, even when it is intentional and necessary, as it is with TiddlyWiki.  This tweak provides alternative HTML source that patches the backstage import panel.  It replaces the 'type=file' input control with a text+button combination of controls that invokes a system-native secure 'file-chooser' dialog box to provide TiddlyWiki with access to a complete path+filename so that TW functions properly locate user-selected local files.
+&gt;Note: ''This tweak also requires http://trac.tiddlywiki.org/ticket/604 - cross-platform askForFilename()''
+***/
+//{{{
+if (window.Components) {
+	var fixhtml='&lt;input name=&quot;txtBrowse&quot; style=&quot;width:30em&quot;&gt;&lt;input type=&quot;button&quot; value=&quot;...&quot;'
+		+' onClick=&quot;window.browseForFilename(this.previousSibling,true)&quot;&gt;';
+	var cmi=config.macros.importTiddlers;
+	cmi.step1Html=cmi.step1Html.replace(/&lt;input type='file' size=50 name='txtBrowse'&gt;/,fixhtml);
+}
+
+merge(config.messages,{selectFile:'Please enter or select a file'}); // ready for I18N translation
+
+window.browseForFilename=function(target,mustExist) { // note: both params are optional
+	var msg=config.messages.selectFile;
+	if (target &amp;&amp; target.title) msg=target.title; // use target field tooltip (if any) as dialog prompt text
+	// get local path for current document
+	var path=getLocalPath(document.location.href);
+	var p=path.lastIndexOf('/'); if (p==-1) p=path.lastIndexOf('\\'); // Unix or Windows
+	if (p!=-1) path=path.substr(0,p+1); // remove filename, leave trailing slash
+	var file=''
+	var result=window.askForFilename(msg,path,file,mustExist); // requires #604
+	if (target &amp;&amp; result.length) // set target field and trigger handling
+		{ target.value=result; target.onchange(); }
+	return result; 
+}
+//}}}
+// // }}}}}}// // {{block{
+/***
+!!!604 cross-platform askForFilename()
+***/
+// // {{groupbox small{
+/***
+http://trac.tiddlywiki.org/ticket/604 - OPEN
+invokes a system-native secure 'file-chooser' dialog box to provide TiddlyWiki with access to a complete path+filename so that TW functions properly locate user-selected local files.
+***/
+//{{{
+window.askForFilename=function(msg,path,file,mustExist) {
+	var r = window.mozAskForFilename(msg,path,file,mustExist);
+	if(r===null || r===false)
+		r = window.ieAskForFilename(msg,path,file,mustExist);
+	if(r===null || r===false)
+		r = window.javaAskForFilename(msg,path,file,mustExist);
+	if(r===null || r===false)
+		r = prompt(msg,path+file);
+	return r||'';
+}
+
+window.mozAskForFilename=function(msg,path,file,mustExist) {
+	if(!window.Components) return false;
+	try {
+		netscape.security.PrivilegeManager.enablePrivilege('UniversalXPConnect');
+		var nsIFilePicker = window.Components.interfaces.nsIFilePicker;
+		var picker = Components.classes['@mozilla.org/filepicker;1'].createInstance(nsIFilePicker);
+		picker.init(window, msg, mustExist?nsIFilePicker.modeOpen:nsIFilePicker.modeSave);
+		var thispath = Components.classes['@mozilla.org/file/local;1'].createInstance(Components.interfaces.nsILocalFile);
+		thispath.initWithPath(path);
+		picker.displayDirectory=thispath;
+		picker.defaultExtension='html';
+		picker.defaultString=file;
+		picker.appendFilters(nsIFilePicker.filterAll|nsIFilePicker.filterText|nsIFilePicker.filterHTML);
+		if (picker.show()!=nsIFilePicker.returnCancel)
+			var result=picker.file.path;
+	}
+	catch(ex) { displayMessage(ex.toString()); }
+	return result;
+}
+
+window.ieAskForFilename=function(msg,path,file,mustExist) {
+	if(!config.browser.isIE) return false;
+	try {
+		var s = new ActiveXObject('UserAccounts.CommonDialog');
+		s.Filter='All files|*.*|Text files|*.txt|HTML files|*.htm;*.html|';
+		s.FilterIndex=3; // default to HTML files;
+		s.InitialDir=path;
+		s.FileName=file;
+		return s.showOpen()?s.FileName:'';
+	}
+	catch(ex) { displayMessage(ex.toString()); }
+	return result;
+}
+
+window.javaAskForFilename=function(msg,path,file,mustExist) {
+	if(!document.applets['TiddlySaver']) return false;
+	// TBD: implement java-based askFile(...) function
+	try { return document.applets['TiddlySaver'].askFile(msg,path,file,mustExist); } 
+	catch(ex) { displayMessage(ex.toString()); }
+}
+//}}}
+// // }}}}}}// // {{block{
+/***
+!!!657 wrap tabs onto multiple lines
+***/
+// // {{groupbox small{
+/***
+http://trac.tiddlywiki.org/ticket/657 - OPEN
+This tweak inserts an extra space element following each tab, allowing them to wrap onto multiple lines if needed.
+***/
+//{{{
+config.macros.tabs.handler = function(place,macroName,params)
+{
+	var cookie = params[0];
+	var numTabs = (params.length-1)/3;
+	var wrapper = createTiddlyElement(null,'div',null,'tabsetWrapper ' + cookie);
+	var tabset = createTiddlyElement(wrapper,'div',null,'tabset');
+	tabset.setAttribute('cookie',cookie);
+	var validTab = false;
+	for(var t=0; t&lt;numTabs; t++) {
+		var label = params[t*3+1];
+		var prompt = params[t*3+2];
+		var content = params[t*3+3];
+		var tab = createTiddlyButton(tabset,label,prompt,this.onClickTab,'tab tabUnselected');
+		createTiddlyElement(tab,'span',null,null,' ',{style:'font-size:0pt;line-height:0px'}); // ELS
+		tab.setAttribute('tab',label);
+		tab.setAttribute('content',content);
+		tab.title = prompt;
+		if(config.options[cookie] == label)
+			validTab = true;
+	}
+	if(!validTab)
+		config.options[cookie] = params[1];
+	place.appendChild(wrapper);
+	this.switchTab(tabset,config.options[cookie]);
+};
+//}}}
+// // }}}}}}// // {{block{
+/***
+!!!628 hide 'no such macro' errors
+***/
+// // {{groupbox small{
+/***
+http://trac.tiddlywiki.org/ticket/628 - OPEN
+When invoking a macro that is not defined, this tweak prevents the display of the 'error in macro... no such macro' message.  This is useful when rendering tiddler content or templates that reference macros that are defined by //optional// plugins that have not been installed in the current document.
+
+&lt;&lt;option chkHideMissingMacros&gt;&gt; hide 'no such macro' error messages
+***/
+//{{{
+if (config.options.chkHideMissingMacros===undefined)
+	config.options.chkHideMissingMacros=false;
+
+window.coreTweaks_missingMacro_invokeMacro = window.invokeMacro;
+window.invokeMacro = function(place,macro,params,wikifier,tiddler) {
+	if (!config.macros[macro] || !config.macros[macro].handler)
+		if (config.options.chkHideMissingMacros) return;
+	window.coreTweaks_missingMacro_invokeMacro.apply(this,arguments);
+}
+//}}}
+// // }}}}}}
+// // &lt;&lt;foldHeadings&gt;&gt;</pre>
+</div>
 <div title="DefaultTiddlers" creator="YourName" modifier="Superudo" created="201310241101" modified="201310241105" changecount="5">
 <pre>[[Übersicht]] </pre>
+</div>
+<div title="Dialog &quot;Formel einfügen&quot;" creator="SuperUdo" modifier="SuperUdo" created="201310241920" modified="201310241925" changecount="2">
+<pre>Der Dialog &quot;Formel einfügen&quot; gibt eine Übersicht über alle im Formellöser zur Verfügung stehenden [[Funktionen]] und ihre alternativen Schreibweisen. Er ermöglicht das schnelle Einfügen der ausgewählten Funktion in den [[Formeleingabebereich|Formeleingabe]].
+
+[img[insertformula.png]]</pre>
 </div>
 <div title="Formeleingabe" creator="SuperUdo" modifier="SuperUdo" created="201310241202" modified="201310241211" changecount="6">
 <pre>Formeln sind die Basis der Berechnungen. Eine Formel kann aus [[Zuweisungen]], [[Operationen]], [[Funktionen]] oder [[Texten|Texte]] sowie [[Variablen]] bestehen.
 
 Eine Formel belegt genau eine Zeile im Eingabebereich. Das Ergebnis ihrer Berechnung findet sich nach dem Betätigen der Schaltfläche &quot;Lösen&quot; im Ausgabebereich auf der gleichen Höhe. </pre>
 </div>
-<div title="Funktionen" creator="SuperUdo" modifier="SuperUdo" created="201310241331" modified="201310241504" changecount="7">
+<div title="Funktionen" creator="SuperUdo" modifier="SuperUdo" created="201310241331" modified="201310241921" changecount="8">
 <pre>Funktionen sind komplexe Formelbestandteile, die aus einem Funktionsnamen und einer dem Namen in runden Klammern folgenden, optionalen Parameterliste bestehen. Die Funktionen des Formellösers besitzen haben immer einen Wert, der der Formel für weitere Berechnungen oder [[Zuweisungen]] verwendet werden kann. 
 
 Die Funktionen im Formellöser können in drei Gruppen eingeteilt werden:
@@ -539,10 +1426,11 @@ Die Funktionen im Formellöser können in drei Gruppen eingeteilt werden:
 
 Der Formellöser unterscheidet bei den Funktionsnamen keine Groß- und Kleinschreibung: {{{QuerSumme}}}, {{{QUERSUMME}}} und {{{quersumme}}} bezeichnen also dieselbe Funktion.
 
-Für eine vereinfachte Eingabe von Funktionen im Formelfenster eignet sich der [[Dialog &quot;Formel einfügen&quot;|FormelEinfügen]], der sich öffnet, wenn man die gleichnamig Schaltfläche im Programmfenster betätigt.</pre>
+Für eine vereinfachte Eingabe von Funktionen im Formelfenster eignet sich der [[Dialog &quot;Formel einfügen&quot;]], der sich öffnet, wenn man die gleichnamig Schaltfläche im Programmfenster betätigt.</pre>
 </div>
-<div title="Koordinatenfunktionen" creator="SuperUdo" modifier="SuperUdo" created="201310241609" changecount="1">
-<pre>Koordinatenfunktionen sind Funktionen, die sich mit der Be- und Verarbeitung von geografischen Koordinaten beschäftigen. Prominentes Beispiel für eine solche Funktion ist die Projektion: {{{Projektion(&quot;N 51° 12.345 E 6° 54.321&quot;;100;200) = &quot;N 51° 12.294 E 6° 54.292&quot;}}}.
+<div title="Koordinatenfunktionen" creator="SuperUdo" modifier="YourName" created="201310241609" modified="201310241801" changecount="3">
+<pre>Koordinatenfunktionen sind Funktionen, die sich mit der Be- und Verarbeitung von geografischen Koordinaten beschäftigen. 
+Prominentes Beispiel für eine solche Funktion ist die Projektion: {{{Projektion(&quot;N 51° 12.345 E 6° 54.321&quot;;100;200) = &quot;N 51° 12.294 E 6° 54.292&quot;}}}.
 
 Folgende Koordinatenfunktionen sind im Formellöser bekannt:
 |!Name|!Alternativen|!Syntax|!Berechnung|
@@ -556,9 +1444,9 @@ Folgende Koordinatenfunktionen sind im Formellöser bekannt:
 |Wegpunkt|WP, Waypoint|{{{Wegpunkt(Text)}}}|Ermittelt die Koordinaten eines Wegpunktes anhand seines Namens. (ohne Parameter: Cachekoordinaten)|
 
 !!!!Beispiele
-</pre>
+[img[bsp_koordinatenfunktionen.png]]</pre>
 </div>
-<div title="MainMenu" creator="Superudo" modifier="SuperUdo" created="201310241107" modified="201310241539" changecount="32">
+<div title="MainMenu" creator="Superudo" modifier="SuperUdo" created="201310241107" modified="201310241921" changecount="33">
 <pre>[img[globalcaching.eu|Globalcaching.png][http://gapp.globalcaching.eu]]
 #[[Übersicht]]
 #[[Programmfenster]]
@@ -567,7 +1455,7 @@ Folgende Koordinatenfunktionen sind im Formellöser bekannt:
 **{{smallText{[[Zahlen|Zahlenfunktionen]]}}}
 **{{smallText{[[Text|Textfunktionen]]}}}
 **{{smallText{[[Koordinaten|Koordinatenfunktionen]]}}}
-#[[Dialog &quot;Formel einfügen&quot;|FormelEinfügen]]
+#[[Dialog &quot;Formel einfügen&quot;]]
 </pre>
 </div>
 <div title="Operationen" creator="SuperUdo" modifier="SuperUdo" created="201310241235" modified="201310241324" changecount="7">
@@ -595,6 +1483,167 @@ Das linke Textfeld des Programmfensters ist der Eingabebereich. Hier können zei
 Nach der Formelauswertung erscheinen in der rechten Textbox die Ergebnisse der Berechnungen. Pro Zeile in der Eingabe findet sich eine Zeile in der Ausgabe. Treten während der Berechnung Fehler auf, werden diese im Ausgabefenster angezeigt. 
 </pre>
 </div>
+<div title="SinglePageModePlugin" creator="SuperUdo" modifier="ELSDesignStudios" created="200508151715" modified="201011301918" tags="NavigationPackage systemConfig" server.type="file" server.host="http://www.tiddlytools.com/#BreadcrumbsPlugin" server.page.revision="201011301918">
+<pre>/***
+|Name|SinglePageModePlugin|
+|Source|http://www.TiddlyTools.com/#SinglePageModePlugin|
+|Documentation|http://www.TiddlyTools.com/#SinglePageModePluginInfo|
+|Version|2.9.7|
+|Author|Eric Shulman|
+|License|http://www.TiddlyTools.com/#LegalStatements|
+|~CoreVersion|2.1|
+|Type|plugin|
+|Description|Show tiddlers one at a time with automatic permalink, or always open tiddlers at top/bottom of page.|
+This plugin allows you to configure TiddlyWiki to navigate more like a traditional multipage web site with only one tiddler displayed at a time.
+!!!!!Documentation
+&gt;see [[SinglePageModePluginInfo]]
+!!!!!Configuration
+&lt;&lt;&lt;
+&lt;&lt;option chkSinglePageMode&gt;&gt; Display one tiddler at a time
+&gt;&lt;&lt;option chkSinglePagePermalink&gt;&gt; Automatically permalink current tiddler
+&gt;&lt;&lt;option chkSinglePageKeepFoldedTiddlers&gt;&gt; Don't close tiddlers that are folded
+&gt;&lt;&lt;option chkSinglePageKeepEditedTiddlers&gt;&gt; Don't close tiddlers that are being edited
+&lt;&lt;option chkTopOfPageMode&gt;&gt; Open tiddlers at the top of the page
+&lt;&lt;option chkBottomOfPageMode&gt;&gt; Open tiddlers at the bottom of the page
+&lt;&lt;option chkSinglePageAutoScroll&gt;&gt; Automatically scroll tiddler into view (if needed)
+
+Notes:
+* The &quot;display one tiddler at a time&quot; option can also be //temporarily// set/reset by including a 'paramifier' in the document URL: {{{#SPM:true}}} or {{{#SPM:false}}}.
+* If more than one display mode is selected, 'one at a time' display takes precedence over both 'top' and 'bottom' settings, and if 'one at a time' setting is not used, 'top of page' takes precedence over 'bottom of page'.
+* When using Apple's Safari browser, automatically setting the permalink causes an error and is disabled.
+&lt;&lt;&lt;
+!!!!!Revisions
+&lt;&lt;&lt;
+2010.11.30 2.9.7 use story.getTiddler()
+2008.10.17 2.9.6 changed chkSinglePageAutoScroll default to false
+| Please see [[SinglePageModePluginInfo]] for previous revision details |
+2005.08.15 1.0.0 Initial Release.  Support for BACK/FORWARD buttons adapted from code developed by Clint Checketts.
+&lt;&lt;&lt;
+!!!!!Code
+***/
+//{{{
+version.extensions.SinglePageModePlugin= {major: 2, minor: 9, revision: 7, date: new Date(2010,11,30)};
+//}}}
+//{{{
+config.paramifiers.SPM = { onstart: function(v) {
+	config.options.chkSinglePageMode=eval(v);
+	if (config.options.chkSinglePageMode &amp;&amp; config.options.chkSinglePagePermalink &amp;&amp; !config.browser.isSafari) {
+		config.lastURL = window.location.hash;
+		if (!config.SPMTimer) config.SPMTimer=window.setInterval(function() {checkLastURL();},1000);
+	}
+} };
+//}}}
+//{{{
+if (config.options.chkSinglePageMode==undefined)
+	config.options.chkSinglePageMode=false;
+if (config.options.chkSinglePagePermalink==undefined)
+	config.options.chkSinglePagePermalink=true;
+if (config.options.chkSinglePageKeepFoldedTiddlers==undefined)
+	config.options.chkSinglePageKeepFoldedTiddlers=false;
+if (config.options.chkSinglePageKeepEditedTiddlers==undefined)
+	config.options.chkSinglePageKeepEditedTiddlers=false;
+if (config.options.chkTopOfPageMode==undefined)
+	config.options.chkTopOfPageMode=false;
+if (config.options.chkBottomOfPageMode==undefined)
+	config.options.chkBottomOfPageMode=false;
+if (config.options.chkSinglePageAutoScroll==undefined)
+	config.options.chkSinglePageAutoScroll=false;
+//}}}
+//{{{
+config.SPMTimer = 0;
+config.lastURL = window.location.hash;
+function checkLastURL()
+{
+	if (!config.options.chkSinglePageMode)
+		{ window.clearInterval(config.SPMTimer); config.SPMTimer=0; return; }
+	if (config.lastURL == window.location.hash) return; // no change in hash
+	var tids=decodeURIComponent(window.location.hash.substr(1)).readBracketedList();
+	if (tids.length==1) // permalink (single tiddler in URL)
+		story.displayTiddler(null,tids[0]);
+	else { // restore permaview or default view
+		config.lastURL = window.location.hash;
+		if (!tids.length) tids=store.getTiddlerText(&quot;DefaultTiddlers&quot;).readBracketedList();
+		story.closeAllTiddlers();
+		story.displayTiddlers(null,tids);
+	}
+}
+
+
+if (Story.prototype.SPM_coreDisplayTiddler==undefined)
+	Story.prototype.SPM_coreDisplayTiddler=Story.prototype.displayTiddler;
+Story.prototype.displayTiddler = function(srcElement,tiddler,template,animate,slowly)
+{
+	var title=(tiddler instanceof Tiddler)?tiddler.title:tiddler;
+	var tiddlerElem=story.getTiddler(title); // ==null unless tiddler is already displayed
+	var opt=config.options;
+	var single=opt.chkSinglePageMode &amp;&amp; !startingUp;
+	var top=opt.chkTopOfPageMode &amp;&amp; !startingUp;
+	var bottom=opt.chkBottomOfPageMode &amp;&amp; !startingUp;
+	if (single) {
+		story.forEachTiddler(function(tid,elem) {
+			// skip current tiddler and, optionally, tiddlers that are folded.
+			if (	tid==title
+				|| (opt.chkSinglePageKeepFoldedTiddlers &amp;&amp; elem.getAttribute(&quot;folded&quot;)==&quot;true&quot;))
+				return;
+			// if a tiddler is being edited, ask before closing
+			if (elem.getAttribute(&quot;dirty&quot;)==&quot;true&quot;) {
+				if (opt.chkSinglePageKeepEditedTiddlers) return;
+				// if tiddler to be displayed is already shown, then leave active tiddler editor as is
+				// (occurs when switching between view and edit modes)
+				if (tiddlerElem) return;
+				// otherwise, ask for permission
+				var msg=&quot;'&quot;+tid+&quot;' is currently being edited.\n\n&quot;;
+				msg+=&quot;Press OK to save and close this tiddler\nor press Cancel to leave it opened&quot;;
+				if (!confirm(msg)) return; else story.saveTiddler(tid);
+			}
+			story.closeTiddler(tid);
+		});
+	}
+	else if (top)
+		arguments[0]=null;
+	else if (bottom)
+		arguments[0]=&quot;bottom&quot;;
+	if (single &amp;&amp; opt.chkSinglePagePermalink &amp;&amp; !config.browser.isSafari) {
+		window.location.hash = encodeURIComponent(String.encodeTiddlyLink(title));
+		config.lastURL = window.location.hash;
+		document.title = wikifyPlain(&quot;SiteTitle&quot;) + &quot; - &quot; + title;
+		if (!config.SPMTimer) config.SPMTimer=window.setInterval(function() {checkLastURL();},1000);
+	}
+	if (tiddlerElem &amp;&amp; tiddlerElem.getAttribute(&quot;dirty&quot;)==&quot;true&quot;) { // editing... move tiddler without re-rendering
+		var isTopTiddler=(tiddlerElem.previousSibling==null);
+		if (!isTopTiddler &amp;&amp; (single || top))
+			tiddlerElem.parentNode.insertBefore(tiddlerElem,tiddlerElem.parentNode.firstChild);
+		else if (bottom)
+			tiddlerElem.parentNode.insertBefore(tiddlerElem,null);
+		else this.SPM_coreDisplayTiddler.apply(this,arguments); // let CORE render tiddler
+	} else
+		this.SPM_coreDisplayTiddler.apply(this,arguments); // let CORE render tiddler
+	var tiddlerElem=story.getTiddler(title);
+	if (tiddlerElem&amp;&amp;opt.chkSinglePageAutoScroll) {
+		// scroll to top of page or top of tiddler
+		var isTopTiddler=(tiddlerElem.previousSibling==null);
+		var yPos=isTopTiddler?0:ensureVisible(tiddlerElem);
+		// if animating, defer scroll until after animation completes
+		var delay=opt.chkAnimate?config.animDuration+10:0;
+		setTimeout(&quot;window.scrollTo(0,&quot;+yPos+&quot;)&quot;,delay); 
+	}
+}
+
+if (Story.prototype.SPM_coreDisplayTiddlers==undefined)
+	Story.prototype.SPM_coreDisplayTiddlers=Story.prototype.displayTiddlers;
+Story.prototype.displayTiddlers = function() {
+	// suspend single/top/bottom modes when showing multiple tiddlers
+	var opt=config.options;
+	var saveSPM=opt.chkSinglePageMode; opt.chkSinglePageMode=false;
+	var saveTPM=opt.chkTopOfPageMode; opt.chkTopOfPageMode=false;
+	var saveBPM=opt.chkBottomOfPageMode; opt.chkBottomOfPageMode=false;
+	this.SPM_coreDisplayTiddlers.apply(this,arguments);
+	opt.chkBottomOfPageMode=saveBPM;
+	opt.chkTopOfPageMode=saveTPM;
+	opt.chkSinglePageMode=saveSPM;
+}
+//}}}</pre>
+</div>
 <div title="SiteSubtitle" creator="YourName" modifier="Superudo" created="201310241100" modified="201310241101" changecount="2">
 <pre>a Globalcaching Application Plugin</pre>
 </div>
@@ -614,8 +1663,9 @@ Beispiele:
 Texte können als einzelne Formel stehen oder in [[Zuweisungen]], [[Operationen]] und Parametern von [[Funktionen]] verwendet werden.
 </pre>
 </div>
-<div title="Textfunktionen" creator="SuperUdo" modifier="SuperUdo" created="201310241521" modified="201310241524" changecount="3">
-<pre>Zahlenfunktionen sind Funktionen, die vorwiegend mit Zeichenketten arbeiten. Prominentes Beispiel für eine solche Funktion ist der Caesar-Chiffre: {{{ROT13(&quot;GAPP&quot;) = &quot;TNCC&quot;}}}.
+<div title="Textfunktionen" creator="SuperUdo" modifier="YourName" created="201310241521" modified="201310241801" changecount="5">
+<pre>Zahlenfunktionen sind Funktionen, die vorwiegend mit Zeichenketten arbeiten. 
+Prominentes Beispiel für eine solche Funktion ist der ~Caesar-Chiffre: {{{ROT13(&quot;GAPP&quot;) = &quot;TNCC&quot;}}}.
 
 Folgende Textfunktionen sind im Formellöser bekannt:
 |!Name|!Alternativen|!Syntax|!Berechnung|
@@ -630,6 +1680,168 @@ Folgende Textfunktionen sind im Formellöser bekannt:
 
 !!!!Beispiele
 [img[bsp_textfunktionen.png]]</pre>
+</div>
+<div title="ToggleLeftSidebar" creator="SuperUdo" modifier="ELSDesignStudios" created="200607182327" modified="200909262132" tags="transclusion bookmarklet" server.type="file" server.host="http://www.tiddlytools.com/#BreadcrumbsPlugin" server.page.revision="200909262132">
+<pre>/%
+!info
+|Name|ToggleLeftSidebar|
+|Source|http://www.TiddlyTools.com/#ToggleLeftSidebar|
+|Version|2.0.0|
+|Author|Eric Shulman|
+|License|http://www.TiddlyTools.com/#LegalStatements|
+|~CoreVersion|2.1|
+|Type|transclusion|
+|Description|show/hide left sidebar (MainMenu)|
+Usage
+&lt;&lt;&lt;
+{{{
+&lt;&lt;tiddler ToggleLeftSidebar&gt;&gt;
+&lt;&lt;tiddler ToggleLeftSidebar with: label tooltip&gt;&gt;
+}}}
+Try it: &lt;&lt;tiddler ToggleLeftSidebar##show
+	with: {{config.options.chkShowLeftSidebar?'◄':'►'}}&gt;&gt;
+&lt;&lt;&lt;
+Configuration:
+&lt;&lt;&lt;
+{{{
+config.options.chkShowLeftSidebar (true)
+config.options.txtToggleLeftSideBarLabelShow (►)
+config.options.txtToggleLeftSideBarLabelHide (◄)
+}}}
+&lt;&lt;&lt;
+!end
+!show
+&lt;&lt;tiddler {{
+	var co=config.options;
+	if (co.chkShowLeftSidebar===undefined) co.chkShowLeftSidebar=true;
+	var mm=document.getElementById('mainMenu');
+	var da=document.getElementById('displayArea');
+	if (mm) {
+		mm.style.display=co.chkShowLeftSidebar?'block':'none';
+		da.style.marginLeft=co.chkShowLeftSidebar?'':'1em';
+	}
+'';}}&gt;&gt;&lt;html&gt;&lt;nowiki&gt;&lt;a href='javascript:;' title=&quot;$2&quot;
+onmouseover=&quot;
+	this.href='javascript:void(eval(decodeURIComponent(%22(function(){try{('
+	+encodeURIComponent(encodeURIComponent(this.onclick))
+	+')()}catch(e){alert(e.description?e.description:e.toString())}})()%22)))';&quot;
+onclick=&quot;
+	var co=config.options;
+	var opt='chkShowLeftSidebar';
+	var show=co[opt]=!co[opt];
+	var mm=document.getElementById('mainMenu');
+	var da=document.getElementById('displayArea');
+	if (mm) {
+		mm.style.display=show?'block':'none';
+		da.style.marginLeft=show?'':'1em';
+	}
+	saveOptionCookie(opt);
+	var labelShow=co.txtToggleLeftSideBarLabelShow||'&amp;#x25BA;';
+	var labelHide=co.txtToggleLeftSideBarLabelHide||'&amp;#x25C4;';
+	if (this.innerHTML==labelShow||this.innerHTML==labelHide) 
+		this.innerHTML=show?labelHide:labelShow;
+	this.title=(show?'hide':'show')+' left sidebar';
+	var sm=document.getElementById('storyMenu');
+	if (sm) config.refreshers.content(sm);
+	return false;
+&quot;&gt;$1&lt;/a&gt;&lt;/html&gt;
+!end
+%/&lt;&lt;tiddler {{
+	var src='ToggleLeftSidebar';
+	src+(tiddler&amp;&amp;tiddler.title==src?'##info':'##show');
+}} with: {{
+	var co=config.options;
+	var labelShow=co.txtToggleLeftSideBarLabelShow||'&amp;#x25BA;';
+	var labelHide=co.txtToggleLeftSideBarLabelHide||'&amp;#x25C4;';
+	'$1'!='$'+'1'?'$1':(co.chkShowLeftSidebar?labelHide:labelShow);
+}} {{
+	var tip=(config.options.chkShowLeftSidebar?'hide':'show')+' left sidebar';
+	'$2'!='$'+'2'?'$2':tip;
+}}&gt;&gt;</pre>
+</div>
+<div title="ToggleRightSidebar" modifier="ELSDesignStudios" created="200607182328" modified="200909262139" tags="transclusion bookmarklet" server.type="file" server.host="http://www.tiddlytools.com/#BreadcrumbsPlugin" server.page.revision="200909262139">
+<pre>/%
+!info
+|Name|ToggleRightSidebar|
+|Source|http://www.TiddlyTools.com/#ToggleRightSidebar|
+|Version|2.0.0|
+|Author|Eric Shulman|
+|License|http://www.TiddlyTools.com/#LegalStatements|
+|~CoreVersion|2.1|
+|Type|transclusion|
+|Description|show/hide right sidebar (SideBarOptions)|
+Usage
+&lt;&lt;&lt;
+{{{
+&lt;&lt;tiddler ToggleRightSidebar&gt;&gt;
+&lt;&lt;tiddler ToggleRightSidebar with: label tooltip&gt;&gt;
+}}}
+Try it: &lt;&lt;tiddler ToggleRightSidebar##show
+	with: {{config.options.chkShowRightSidebar?'►':'◄'}}&gt;&gt;
+&lt;&lt;&lt;
+Configuration:
+&lt;&lt;&lt;
+copy/paste the following settings into a tiddler tagged with &lt;&lt;tag systemConfig&gt;&gt; and then modify the values to suit your preferences:
+{{{
+config.options.chkShowRightSidebar=true;
+config.options.txtToggleRightSideBarLabelShow=&quot;◄&quot;;
+config.options.txtToggleRightSideBarLabelHide=&quot;►&quot;;
+}}}
+&lt;&lt;&lt;
+!end
+!show
+&lt;&lt;tiddler {{
+	var co=config.options;
+	if (co.chkShowRightSidebar===undefined) co.chkShowRightSidebar=true;
+	var sb=document.getElementById('sidebar');
+	var da=document.getElementById('displayArea');
+	if (sb) {
+		sb.style.display=co.chkShowRightSidebar?'block':'none';
+		da.style.marginRight=co.chkShowRightSidebar?'':'1em';
+	}
+'';}}&gt;&gt;&lt;html&gt;&lt;nowiki&gt;&lt;a href='javascript:;' title=&quot;$2&quot;
+onmouseover=&quot;
+	this.href='javascript:void(eval(decodeURIComponent(%22(function(){try{('
+	+encodeURIComponent(encodeURIComponent(this.onclick))
+	+')()}catch(e){alert(e.description?e.description:e.toString())}})()%22)))';&quot;
+onclick=&quot;
+	var co=config.options;
+	var opt='chkShowRightSidebar';
+	var show=co[opt]=!co[opt];
+	var sb=document.getElementById('sidebar');
+	var da=document.getElementById('displayArea');
+	if (sb) {
+		sb.style.display=show?'block':'none';
+		da.style.marginRight=show?'':'1em';
+	}
+	saveOptionCookie(opt);
+	var labelShow=co.txtToggleRightSideBarLabelShow||'&amp;#x25C4;';
+	var labelHide=co.txtToggleRightSideBarLabelHide||'&amp;#x25BA;';
+	if (this.innerHTML==labelShow||this.innerHTML==labelHide) 
+		this.innerHTML=show?labelHide:labelShow;
+	this.title=(show?'hide':'show')+' right sidebar';
+	var sm=document.getElementById('storyMenu');
+	if (sm) config.refreshers.content(sm);
+	return false;
+&quot;&gt;$1&lt;/a&gt;&lt;/html&gt;
+!end
+%/&lt;&lt;tiddler {{
+	var src='ToggleRightSidebar';
+	src+(tiddler&amp;&amp;tiddler.title==src?'##info':'##show');
+}} with: {{
+	var co=config.options;
+	var labelShow=co.txtToggleRightSideBarLabelShow||'&amp;#x25C4;';
+	var labelHide=co.txtToggleRightSideBarLabelHide||'&amp;#x25BA;';
+	'$1'!='$'+'1'?'$1':(co.chkShowRightSidebar?labelHide:labelShow);
+}} {{
+	var tip=(config.options.chkShowRightSidebar?'hide':'show')+' right sidebar';
+	'$2'!='$'+'2'?'$2':tip;
+}}&gt;&gt;</pre>
+</div>
+<div title="ToggleSideBar Settings" creator="SuperUdo" modifier="SuperUdo" created="201310241917" modified="201310241917" tags="systemConfig" changecount="2">
+<pre>config.options.chkShowRightSidebar=true;
+config.options.txtToggleRightSideBarLabelShow=&quot;◄&quot;;
+config.options.txtToggleRightSideBarLabelHide=&quot;►&quot;;</pre>
 </div>
 <div title="Variablen" creator="SuperUdo" modifier="SuperUdo" created="201310241219" modified="201310241327" changecount="7">
 <pre>Variablen sind Platzhalter für Werte innerhalb der Formelauswertung. Sie erhalten ihren Wert durch [[Zuweisungen]] und können an jeder Stelle verwendet werden, wo in einer Formel Zahlen oder Textwerte verwendet werden können. Die Variable wird bei der Formelauswertung durch ihren Wert ersetzt. 
@@ -669,8 +1881,9 @@ Die Deklarationen für A und B sind eingefügt worden. Welche Werte die Variable
 &lt;!--}}}--&gt;
 </pre>
 </div>
-<div title="Zahlenfunktionen" creator="SuperUdo" modifier="SuperUdo" created="201310241337" modified="201310241505" changecount="25">
-<pre>Zahlenfunktionen sind Funktionen, die im weitesten Sinne mit Zahlen arbeiten. Prominentes Beispiel für eine solche Funktion ist die Quersumme: {{{Quersumme(54321) = 15}}}, die die Summe der Ziffern einer Zahl berechnet.
+<div title="Zahlenfunktionen" creator="SuperUdo" modifier="YourName" created="201310241337" modified="201310241801" changecount="26">
+<pre>Zahlenfunktionen sind Funktionen, die im weitesten Sinne mit Zahlen arbeiten.
+Prominentes Beispiel für eine solche Funktion ist die Quersumme: {{{Quersumme(54321) = 15}}}, die die Summe der Ziffern einer Zahl berechnet.
 
 Folgende Zahlenfunktionen sind im Formellöser bekannt:
 |!Name|!Alternativen|!Syntax|!Berechnung|
