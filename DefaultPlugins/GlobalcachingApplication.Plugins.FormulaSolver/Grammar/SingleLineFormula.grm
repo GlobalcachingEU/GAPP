@@ -51,8 +51,8 @@ Function = 'projection' | 'projektion'
          | 'wp' | 'waypoint' | 'wegpunkt'
          | 'pow' | 'power' | 'potenz'
          | 'fact' | 'factorial' | 'fakultät'
-         | 'lat' | 'latitude' | 'länge'
-         | 'lon' | 'longitude' | 'breite'
+         | 'lat' | 'latitude' | 'längengrad'
+         | 'lon' | 'longitude' | 'breitengrad'
               
 ! -------------------------------------------------
 ! Rules
