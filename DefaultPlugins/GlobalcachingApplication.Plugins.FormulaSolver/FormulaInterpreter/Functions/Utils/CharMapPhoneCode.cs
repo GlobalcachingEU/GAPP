@@ -14,7 +14,7 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver.FormulaInterpreter.Func
             char c = Char.ToUpper(character);
             for (int i = 0; i < map.Length; ++i)
             {
-                if (map[i].IndexOf(c) > 0)
+                if (map[i].IndexOf(c) >= 0)
                 {
                     return i;
                 }
