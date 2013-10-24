@@ -129,7 +129,7 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver.FormulaInterpreter.Func
             );
             AddFunction(
                 "Intersection", grp, new[] { "Schnittpunkt" },
-                new Functions.CoordinateFunctions.Bearing(),
+                new Functions.CoordinateFunctions.Intersection(),
                 StrRes.GetString(StrRes.STR_DESCR_INTERSECTION)
             );
             AddFunction(
