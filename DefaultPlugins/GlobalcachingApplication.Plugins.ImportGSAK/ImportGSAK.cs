@@ -114,10 +114,54 @@ namespace GlobalcachingApplication.Plugins.ImportGSAK
                         using (Utils.ProgressBlock progress = new Utils.ProgressBlock(this, STR_IMPORTING, STR_IMPORTINGGEOCACHES, gcCount, 0))
                         {
 
+                            bool isPremiumAvailable = false;
+                            bool isFavPointAvailable = false;
+                            bool isGCNoteAvailable = false;
+
+                            try
+                            {
+                                import.CommandText = "select IsPremium from Caches limit 1";
+                                using (SqliteDataReader checkdr = import.ExecuteReader())
+                                {
+                                    isPremiumAvailable = true;
+                                }
+                            }
+                            catch
+                            {
+                            }
+
+                            try
+                            {
+                                import.CommandText = "select FavPoints from Caches limit 1";
+                                using (SqliteDataReader checkdr = import.ExecuteReader())
+                                {
+                                    isFavPointAvailable = true;
+                                }
+                            }
+                            catch
+                            {
+                            }
+
+                            try
+                            {
+                                import.CommandText = "select gcnote from Caches limit 1";
+                                using (SqliteDataReader checkdr = import.ExecuteReader())
+                                {
+                                    isGCNoteAvailable = true;
+                                }
+                            }
+                            catch
+                            {
+                            }
+
                             import.CommandText = "select caches.Code, Name, LastGPXDate, PlacedDate, Latitude, Longitude, Status, " +
                                 "Archived, Country, State, CacheType, PlacedBy, OwnerName, OwnerId, Container, Terrain, Difficulty, ShortHTM" +
-                                ", LongHTM, IsPremium, HasCorrected, LatOriginal, LonOriginal, UserFlag, Found, FavPoints," +
-                                " ShortDescription, LongDescription, Hints, Url, UserNote, gcnote" +
+                                ", LongHTM, " +
+                                string.Format("{0}", isPremiumAvailable? "IsPremium, ":"") +
+                                " HasCorrected, LatOriginal, LonOriginal, UserFlag, Found, " +
+                                string.Format("{0}", isFavPointAvailable? "FavPoints, ":"") +
+                                " ShortDescription, LongDescription, Hints, Url, UserNote" +
+                                string.Format("{0}", isGCNoteAvailable ? ", gcnote" : "") +
                                 " from caches" +
                                 " inner join cachememo on cachememo.code = caches.code";
 
@@ -158,7 +202,14 @@ namespace GlobalcachingApplication.Plugins.ImportGSAK
                                 gc.LongDescriptionInHtml = (int)dr["LongHTM"] != 0;
                                 gc.EncodedHints = (string)dr["Hints"];
                                 gc.Url = (string)dr["url"];
-                                gc.MemberOnly = (int)dr["IsPremium"] != 0;
+                                if (isPremiumAvailable)
+                                {
+                                    gc.MemberOnly = (int)dr["IsPremium"] != 0;
+                                }
+                                else
+                                {
+                                    gc.MemberOnly = false;
+                                }
                                 gc.CustomCoords = (int)dr["HasCorrected"] != 0;
                                 if (gc.CustomCoords)
                                 {
@@ -190,11 +241,26 @@ namespace GlobalcachingApplication.Plugins.ImportGSAK
 
                                 gc.Notes = (string)dr["UserNote"];
                                 gc.PublishedTime = DateTime.Parse((string)dr["PlacedDate"]);
-                                gc.PersonaleNote = (string)dr["gcnote"];
+                                if (isGCNoteAvailable)
+                                {
+                                    gc.PersonaleNote = (string)dr["gcnote"];
+                                }
+                                else
+                                {
+                                    gc.PersonaleNote = "";
+                                }
                                 gc.Flagged = (int)dr["UserFlag"] != 0;
                                 gc.Found = (int)dr["Found"] != 0;
 
-                                gc.Favorites = (int)(int)dr["FavPoints"];
+                                if (isFavPointAvailable)
+                                {
+                                    gc.Favorites = (int)(int)dr["FavPoints"];
+                                }
+                                else
+                                {
+                                    gc.Favorites = 0;
+                                }
+
                                 gc.Selected = false;
 
                                 Calculus.SetDistanceAndAngleGeocacheFromLocation(gc, Core.CenterLocation);
@@ -257,7 +323,15 @@ namespace GlobalcachingApplication.Plugins.ImportGSAK
                         }
                         import.CommandText = "select count(1) from logimages";
 
-                        int logimgCount = (int)(long)import.ExecuteScalar();
+                        int logimgCount = 0;
+                        try
+                        {
+                            logimgCount = (int)(long)import.ExecuteScalar();
+                        }
+                        catch
+                        {
+                            //table does not exists
+                        }
                         if (logimgCount > 0)
                         {
                             using (Utils.ProgressBlock progress = new Utils.ProgressBlock(this, STR_IMPORTING, STR_IMPORTINGLOGIMAGES, logimgCount, 0))

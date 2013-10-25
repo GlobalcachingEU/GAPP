@@ -14,6 +14,9 @@ V1.9.5.0
 - add: Internal web browser, option to paste project-gc pq slitter result in pq series generator
 - add: Formula Solver, added functions Latitude and Longitude
 - add: LiveAPI, Log geocache now has the option to rotate images
+- add: Help added to the GAPP framework
+- add: Help implemented for Formula Solver (German)
+- fix: GSAK database import, now imports also database where LiveAPI columns are missing
 
 V1.9.4.0
 
