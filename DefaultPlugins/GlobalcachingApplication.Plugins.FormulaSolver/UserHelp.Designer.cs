@@ -37,16 +37,18 @@
             this.webHelp.Location = new System.Drawing.Point(0, 0);
             this.webHelp.MinimumSize = new System.Drawing.Size(20, 20);
             this.webHelp.Name = "webHelp";
-            this.webHelp.Size = new System.Drawing.Size(565, 436);
+            this.webHelp.Size = new System.Drawing.Size(954, 562);
             this.webHelp.TabIndex = 0;
             // 
             // UserHelp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(565, 436);
+            this.ClientSize = new System.Drawing.Size(954, 562);
             this.Controls.Add(this.webHelp);
+            this.MinimumSize = new System.Drawing.Size(970, 600);
             this.Name = "UserHelp";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "UserHelp";
             this.Load += new System.EventHandler(this.UserHelp_Load);
             this.ResumeLayout(false);

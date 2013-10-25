@@ -39,6 +39,7 @@
             this.bnAsCenter = new System.Windows.Forms.Button();
             this.bnAsWaypoint = new System.Windows.Forms.Button();
             this.formulaSolverFormBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.bnHelp = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerFormula)).BeginInit();
             this.splitContainerFormula.Panel1.SuspendLayout();
             this.splitContainerFormula.Panel2.SuspendLayout();
@@ -136,23 +137,36 @@
             // bnAsWaypoint
             // 
             this.bnAsWaypoint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bnAsWaypoint.Enabled = false;
             this.bnAsWaypoint.Location = new System.Drawing.Point(561, 12);
             this.bnAsWaypoint.Name = "bnAsWaypoint";
             this.bnAsWaypoint.Size = new System.Drawing.Size(93, 23);
             this.bnAsWaypoint.TabIndex = 5;
             this.bnAsWaypoint.Text = "As Waypoint";
             this.bnAsWaypoint.UseVisualStyleBackColor = true;
+            this.bnAsWaypoint.Visible = false;
             this.bnAsWaypoint.Click += new System.EventHandler(this.bnAsWaypoint_Click);
             // 
             // formulaSolverFormBindingSource
             // 
             this.formulaSolverFormBindingSource.DataSource = typeof(GlobalcachingApplication.Plugins.FormulaSolver.FormulaSolverForm);
             // 
+            // bnHelp
+            // 
+            this.bnHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bnHelp.Location = new System.Drawing.Point(467, 12);
+            this.bnHelp.Name = "bnHelp";
+            this.bnHelp.Size = new System.Drawing.Size(23, 23);
+            this.bnHelp.TabIndex = 6;
+            this.bnHelp.Text = "?";
+            this.bnHelp.UseVisualStyleBackColor = true;
+            // 
             // FormulaSolverForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(768, 529);
+            this.Controls.Add(this.bnHelp);
             this.Controls.Add(this.bnAsWaypoint);
             this.Controls.Add(this.bnAsCenter);
             this.Controls.Add(this.bnSolve);
@@ -161,8 +175,9 @@
             this.Controls.Add(this.splitContainerFormula);
             this.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.formulaSolverFormBindingSource, "activeTitle", true));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(630, 300);
+            this.MinimumSize = new System.Drawing.Size(720, 300);
             this.Name = "FormulaSolverForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "FormulaSolverForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormulaSolverForm_FormClosing);
             this.LocationChanged += new System.EventHandler(this.FormulaSolverForm_LocationOrSizeChanged);
@@ -189,5 +204,6 @@
         private System.Windows.Forms.Button bnAsCenter;
         private System.Windows.Forms.Button bnAsWaypoint;
         private System.Windows.Forms.BindingSource formulaSolverFormBindingSource;
+        private System.Windows.Forms.Button bnHelp;
     }
 }

@@ -8,12 +8,13 @@ using System.Data.Common;
 
 namespace GlobalcachingApplication.Plugins.FormulaSolver
 {
-    public partial class FormulaSolverForm : Utils.BasePlugin.BaseUIChildWindowForm, INotifyPropertyChanged
+    public partial class FormulaSolverForm : Utils.BasePlugin.BaseUIChildWindowForm, INotifyPropertyChanged, ITempDirProvider
     {
         private FormulaSolver formulaSolver;
         private FormulaInterpreter.FormulaInterpreter interpreter;
         private string _databaseFile = null;
         private Utils.DBCon _dbcon = null;
+        private UserHelp dlgHelp = null;
 
         private string _activeCode = null;
         public string activeCode
@@ -60,6 +61,13 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
                     : StrRes.GetString(StrRes.STR_NO_CACHE_SELECTED);
             }
             private set {}
+        }
+
+        public string GetPluginTempDirectory()
+        {
+            string dir = System.IO.Path.Combine(Core.PluginDataPath, "FormulaSolver");
+            System.IO.Directory.CreateDirectory(dir);
+            return dir;
         }
 
         public FormulaSolverForm()
@@ -218,8 +226,7 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
         
         private void InitGrammar()
         {
-            Assembly ass = Assembly.GetExecutingAssembly();
-            using (var strm = ass.GetManifestResourceStream("GlobalcachingApplication.Plugins.FormulaSolver.Grammar.SingleLineFormula.egt"))
+            using (var strm = Assembly.GetExecutingAssembly().GetManifestResourceStream("GlobalcachingApplication.Plugins.FormulaSolver.Grammar.SingleLineFormula.egt"))
             using (System.IO.BinaryReader br = new System.IO.BinaryReader(strm))
             {
                 interpreter = new FormulaInterpreter.FormulaInterpreter(br);
@@ -323,10 +330,11 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
 
         private void bnAsWaypoint_Click(object sender, EventArgs e)
         {
-            using (UserHelp hlp = new UserHelp())
+            if (dlgHelp == null)
             {
-                hlp.Show();
+                dlgHelp = new UserHelp(this);
             }
+            dlgHelp.Show(this);
         }
 
         private void bnAsCenter_Click(object sender, EventArgs e)
@@ -363,11 +371,6 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
             if (PropertyChanged != null) {
                 PropertyChanged( this, new PropertyChangedEventArgs(propertyName) );
             }
-        }
-
-        private void FormulaSolverForm_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }
