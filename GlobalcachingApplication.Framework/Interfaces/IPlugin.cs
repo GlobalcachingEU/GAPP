@@ -22,12 +22,15 @@ namespace GlobalcachingApplication.Framework.Interfaces
         CultureInfo CultureInfo { get; }
         string FriendlyName { get; }
         string DefaultAction { get; }
+        bool IsHelpAvailable { get; }
 
         List<System.Windows.Forms.UserControl> CreateConfigurationPanels();
         bool ApplySettings(List<System.Windows.Forms.UserControl> configPanels);
         bool Action(string action);
         bool ActionEnabled(string action, int selectCount, bool active);
         List<string> GetActionSubactionList(char subActionSeperator);
+
+        void ShowHelp();
 
         void ApplicationInitialized();
         void ApplicationClosing();

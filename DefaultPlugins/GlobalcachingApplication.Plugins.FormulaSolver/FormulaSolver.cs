@@ -14,6 +14,14 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
             return base.Initialize(core);
         }
 
+        public override string FriendlyName
+        {
+            get
+            {
+                return ACTION_SHOW;
+            }
+        }
+
         public override string DefaultAction
         {
             get
@@ -54,5 +62,17 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
             return result;
         }
 
+        public override bool IsHelpAvailable
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+        public override void ShowHelp()
+        {
+            frm.ShowHelp();
+        }
     }
 }

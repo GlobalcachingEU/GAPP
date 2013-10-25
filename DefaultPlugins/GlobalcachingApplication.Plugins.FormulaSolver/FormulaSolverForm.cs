@@ -365,5 +365,10 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
         {
 
         }
+
+        public void ShowHelp()
+        {
+            MessageBox.Show("Help");
+        }
     }
 }

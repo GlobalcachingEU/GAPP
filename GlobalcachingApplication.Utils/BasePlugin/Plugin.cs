@@ -271,5 +271,16 @@ namespace GlobalcachingApplication.Utils.BasePlugin
                 EndProgress(this, new Framework.EventArguments.ProgressEventArgs(this, actionTitle, actionText, max, position));
             }
         }
+
+        public virtual bool IsHelpAvailable {
+            get {
+                return false;
+            }
+        }
+
+        public virtual void ShowHelp()
+        {
+        }
+
     }
 }

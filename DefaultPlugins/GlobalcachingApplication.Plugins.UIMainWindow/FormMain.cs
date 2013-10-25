@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using GlobalcachingApplication.Framework.Interfaces;
 
 namespace GlobalcachingApplication.Plugins.UIMainWindow
 {
@@ -293,6 +294,35 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             _exitMeniItem.Click += new EventHandler(_exitMeniItem_Click);
 
             oKAPIToolStripMenuItem.Visible = Properties.Settings.Default.ShowOKAPIMenu;
+
+            FillHelpPluginMenu();
+        }
+
+        private void FillHelpPluginMenu()
+        {
+            menuItemPlugins.Enabled = false;
+            menuItemPlugins.DropDownItems.Clear();
+
+            foreach (IPlugin plugin in Core.GetPlugins())
+            {
+                if (plugin.IsHelpAvailable)
+                {
+                    menuItemPlugins.Enabled = true;
+                    ToolStripItem item = new ToolStripMenuItem();
+                    item.Text = Utils.LanguageSupport.Instance.GetTranslation(plugin.FriendlyName);
+                    item.Enabled = true;
+                    item.Tag = plugin;
+                    item.Click += new EventHandler(helpItem_Click);
+                    menuItemPlugins.DropDownItems.Add(item);
+                }
+            }
+        }
+
+        void helpItem_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem clicked = (ToolStripMenuItem)sender;
+            IPlugin plugin = (IPlugin)clicked.Tag;
+            plugin.ShowHelp();
         }
 
         void _exitMeniItem_Click(object sender, EventArgs e)
@@ -739,6 +769,9 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             {
                 _exitMeniItem.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_EXIT);
             }
+
+            FillHelpPluginMenu();
+
             if (Core.SelectedLanguage != null)
             {
                 nederlandstaligeHelpToolStripMenuItem.Visible = Core.SelectedLanguage.LCID == 1043;
