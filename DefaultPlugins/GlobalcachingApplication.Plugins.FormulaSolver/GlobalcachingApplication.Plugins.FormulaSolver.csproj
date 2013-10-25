@@ -212,6 +212,12 @@
     <Compile Include="Settings.cs" />
     <Compile Include="StrRes.cs" />
     <Compile Include="TypeChecker.cs" />
+    <Compile Include="UserHelp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserHelp.Designer.cs">
+      <DependentUpon>UserHelp.cs</DependentUpon>
+    </Compile>
     <Compile Include="WaypointSelectorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -222,6 +228,9 @@
   <ItemGroup>
     <EmbeddedResource Include="InsertFormulaForm.resx">
       <DependentUpon>InsertFormulaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserHelp.resx">
+      <DependentUpon>UserHelp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WaypointSelectorForm.resx">
       <DependentUpon>WaypointSelectorForm.cs</DependentUpon>
@@ -258,7 +267,22 @@
       <Name>bsn.GoldParser</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Documentation\DE-de\assignments.png" />
+    <EmbeddedResource Include="Documentation\DE-de\bsp_koordinatenfunktionen.png" />
+    <EmbeddedResource Include="Documentation\DE-de\bsp_textfunktionen.png" />
+    <EmbeddedResource Include="Documentation\DE-de\bsp_zahlenfunktionen.png" />
+    <EmbeddedResource Include="Documentation\DE-de\formulasolverdocs_de.html" />
+    <EmbeddedResource Include="Documentation\DE-de\Globalcaching.png" />
+    <EmbeddedResource Include="Documentation\DE-de\insertformula.png" />
+    <EmbeddedResource Include="Documentation\DE-de\mathematics.png" />
+    <EmbeddedResource Include="Documentation\DE-de\missing_declarations.png" />
+    <EmbeddedResource Include="Documentation\DE-de\missing_deklarations_after.png" />
+    <EmbeddedResource Include="Documentation\DE-de\missing_deklarations_before.png" />
+    <EmbeddedResource Include="Documentation\DE-de\operationen.png" />
+    <EmbeddedResource Include="Documentation\DE-de\waypoints.png" />
+    <EmbeddedResource Include="Documentation\DE-de\window.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)\GlobalcachingApplication\bin\$(ConfigurationName)\Plugins\"</PostBuildEvent>

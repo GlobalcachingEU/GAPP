@@ -218,7 +218,8 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
         
         private void InitGrammar()
         {
-            using (var strm = Assembly.GetExecutingAssembly().GetManifestResourceStream("GlobalcachingApplication.Plugins.FormulaSolver.Grammar.SingleLineFormula.egt"))
+            Assembly ass = Assembly.GetExecutingAssembly();
+            using (var strm = ass.GetManifestResourceStream("GlobalcachingApplication.Plugins.FormulaSolver.Grammar.SingleLineFormula.egt"))
             using (System.IO.BinaryReader br = new System.IO.BinaryReader(strm))
             {
                 interpreter = new FormulaInterpreter.FormulaInterpreter(br);
@@ -322,7 +323,10 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
 
         private void bnAsWaypoint_Click(object sender, EventArgs e)
         {
-
+            using (UserHelp hlp = new UserHelp())
+            {
+                hlp.Show();
+            }
         }
 
         private void bnAsCenter_Click(object sender, EventArgs e)
