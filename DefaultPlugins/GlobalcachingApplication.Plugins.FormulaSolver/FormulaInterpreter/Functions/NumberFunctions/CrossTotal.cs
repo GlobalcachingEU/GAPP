@@ -6,7 +6,7 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver.FormulaInterpreter.Func
     {
         private UInt64 Evaluate(UInt64 iNumber)
         {
-            return iNumber % 10 + (iNumber > 10 ? Evaluate(iNumber / 10) : 0);
+            return iNumber % 10 + (iNumber >= 10 ? Evaluate(iNumber / 10) : 0);
         }
 
         public override object Execute(object[] args, ExecutionContext ctx)
