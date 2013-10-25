@@ -367,14 +367,9 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
             }
         }
 
-        private void bnHelp_Click(object sender, EventArgs e)
-        {
-            new UserHelp(this).Show(this);
-        }
-
         public void ShowHelp()
         {
-            MessageBox.Show("Help");
+            new UserHelp(this).Show(this);
         }
     }
 }
