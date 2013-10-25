@@ -8,7 +8,7 @@ using System.Data.Common;
 
 namespace GlobalcachingApplication.Plugins.FormulaSolver
 {
-    public partial class FormulaSolverForm : Utils.BasePlugin.BaseUIChildWindowForm, INotifyPropertyChanged
+    public partial class FormulaSolverForm : Utils.BasePlugin.BaseUIChildWindowForm, INotifyPropertyChanged, ITempDirProvider
     {
         private FormulaSolver formulaSolver;
         private FormulaInterpreter.FormulaInterpreter interpreter;
@@ -60,6 +60,13 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
                     : StrRes.GetString(StrRes.STR_NO_CACHE_SELECTED);
             }
             private set {}
+        }
+
+        public string GetPluginTempDirectory()
+        {
+            string dir = System.IO.Path.Combine(Core.PluginDataPath, "FormulaSolver");
+            System.IO.Directory.CreateDirectory(dir);
+            return dir;
         }
 
         public FormulaSolverForm()
@@ -322,7 +329,6 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
 
         private void bnAsWaypoint_Click(object sender, EventArgs e)
         {
-
         }
 
         private void bnAsCenter_Click(object sender, EventArgs e)
@@ -361,9 +367,9 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
             }
         }
 
-        private void FormulaSolverForm_Load(object sender, EventArgs e)
+        private void bnHelp_Click(object sender, EventArgs e)
         {
-
+            new UserHelp(this).Show(this);
         }
 
         public void ShowHelp()
