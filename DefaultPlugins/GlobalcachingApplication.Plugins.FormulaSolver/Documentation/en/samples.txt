@@ -1,0 +1,43 @@
+Bearing("N 41 27.163 E 005 07.699"; "N 41 44.540 E 005 39.834")
+Crossbearing("N 41 27.163 E 005 07.699"; 180; "N 41 25.063 E 005 40.494"; 70)
+Distance("N 41 27.163 E 005 07.699"; "N 41 44.540 E 005 39.834")
+Intersection("N 41 27.163 E 005 07.699"; "N 41 44.540 E 005 39.834"; "N 41 25.063 E 005 40.494"; "N 41 46.752 E 005 08.359")
+Latitude("N 41 27.163 E 005 07.699")
+Longitude("N 41 27.163 E 005 07.699")
+Projection("N 41 27.163 E 005 07.699"; 200; 33)
+Waypoint("GC2Y73E")
+
+
+AlphaPos("X")
+AlphaSum("GAPP")
+Length("GAPP")
+Mid("GAPP";2;2)
+Mid("GAPP";2)
+PhoneCode("X")
+PhoneSum("GAPP")
+Reverse("GAPP")
+Rot13("GAPP")
+
+
+CrossProduct(1234)
+CrossTotal(1234)
+Fact(6)
+ICrossProduct(1234)
+ICrossTotal(1234)
+Int(2.75)
+Pi(7)
+Power(2;10)
+PrimeIndex(17)
+PrimeNumber(5)
+Rom2Dec("MMXII")
+Round(2.786;2)
+
+
+4 + 5
+17 * 38
+3 + 4 * 5
+(3 + 4) * 5
+2 * -1
+14 % 4
+14 / 4
+
