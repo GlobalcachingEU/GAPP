@@ -286,6 +286,55 @@
     <EmbeddedResource Include="Documentation\de\smpl_operations.png" />
     <EmbeddedResource Include="Documentation\de\smpl_textfunctions.png" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Documentation\en\dlg_insertformula.png" />
+    <EmbeddedResource Include="Documentation\en\dlg_mainwindow.png" />
+    <EmbeddedResource Include="Documentation\en\dlg_waypoints.png" />
+    <EmbeddedResource Include="Documentation\en\formulasolverdocs.html" />
+    <EmbeddedResource Include="Documentation\en\icon_gapp.png" />
+    <EmbeddedResource Include="Documentation\en\icon_solver.png" />
+    <EmbeddedResource Include="Documentation\en\missing_declarations.png" />
+    <EmbeddedResource Include="Documentation\en\missing_declarations_after.png" />
+    <EmbeddedResource Include="Documentation\en\missing_declarations_before.png" />
+    <EmbeddedResource Include="Documentation\en\smpl_assignments.png" />
+    <EmbeddedResource Include="Documentation\en\smpl_coordinatefunctions.png" />
+    <EmbeddedResource Include="Documentation\en\smpl_numberfunctions.png" />
+    <EmbeddedResource Include="Documentation\en\smpl_operations.png" />
+    <EmbeddedResource Include="Documentation\en\smpl_textfunctions.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Documentation\fr\dlg_insertformula.png" />
+    <EmbeddedResource Include="Documentation\fr\dlg_mainwindow.png" />
+    <EmbeddedResource Include="Documentation\fr\dlg_waypoints.png" />
+    <EmbeddedResource Include="Documentation\fr\formulasolverdocs.html" />
+    <EmbeddedResource Include="Documentation\fr\icon_gapp.png" />
+    <EmbeddedResource Include="Documentation\fr\icon_solver.png" />
+    <EmbeddedResource Include="Documentation\fr\missing_declarations.png" />
+    <EmbeddedResource Include="Documentation\fr\missing_declarations_after.png" />
+    <EmbeddedResource Include="Documentation\fr\missing_declarations_before.png" />
+    <EmbeddedResource Include="Documentation\fr\smpl_assignments.png" />
+    <EmbeddedResource Include="Documentation\fr\smpl_coordinatefunctions.png" />
+    <EmbeddedResource Include="Documentation\fr\smpl_numberfunctions.png" />
+    <EmbeddedResource Include="Documentation\fr\smpl_operations.png" />
+    <EmbeddedResource Include="Documentation\fr\smpl_textfunctions.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Documentation\nl\dlg_insertformula.png" />
+    <EmbeddedResource Include="Documentation\nl\dlg_mainwindow.png" />
+    <EmbeddedResource Include="Documentation\nl\dlg_waypoints.png" />
+    <EmbeddedResource Include="Documentation\nl\formulasolverdocs.html" />
+    <EmbeddedResource Include="Documentation\nl\icon_gapp.png" />
+    <EmbeddedResource Include="Documentation\nl\icon_solver.png" />
+    <EmbeddedResource Include="Documentation\nl\missing_declarations.png" />
+    <EmbeddedResource Include="Documentation\nl\missing_declarations_after.png" />
+    <EmbeddedResource Include="Documentation\nl\missing_declarations_before.png" />
+    <EmbeddedResource Include="Documentation\nl\smpl_assignments.png" />
+    <EmbeddedResource Include="Documentation\nl\smpl_coordinatefunctions.png" />
+    <EmbeddedResource Include="Documentation\nl\smpl_numberfunctions.png" />
+    <EmbeddedResource Include="Documentation\nl\smpl_operations.png" />
+    <EmbeddedResource Include="Documentation\nl\smpl_textfunctions.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)\GlobalcachingApplication\bin\$(ConfigurationName)\Plugins\"</PostBuildEvent>

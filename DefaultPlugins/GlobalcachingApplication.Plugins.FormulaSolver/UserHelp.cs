@@ -15,10 +15,12 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
     public partial class UserHelp : Form
     {
         private ITempDirProvider _tmpDirProvider = null;
+        private Framework.Interfaces.ICore _core = null;
 
-        public UserHelp(ITempDirProvider tmpDirProvider)
+        public UserHelp(ITempDirProvider tmpDirProvider, Framework.Interfaces.ICore core)
         {
             _tmpDirProvider = tmpDirProvider;
+            _core = core;
             InitializeComponent();
         }
 
@@ -66,7 +68,24 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
 
         private void UserHelp_Load(object sender, EventArgs e)
         {
-            if (ExtractHelpFiles("de"))
+            string defaultLanguage = "en";
+            if (_core != null)
+            {
+                if (_core.SelectedLanguage != null)
+                {
+                    if (_core.SelectedLanguage.Name.Length > 1)
+                    {
+                        defaultLanguage = _core.SelectedLanguage.Name.Substring(0, 2).ToLower();
+                        if (defaultLanguage != "de" &&
+                            defaultLanguage != "nl" &&
+                            defaultLanguage != "fr")
+                        {
+                            defaultLanguage = "en";
+                        }
+                    }
+                }
+            }
+            if (ExtractHelpFiles(defaultLanguage))
             {
                 Uri uri = new System.Uri(System.IO.Path.Combine(
                         _tmpDirProvider.GetPluginTempDirectory(), 
