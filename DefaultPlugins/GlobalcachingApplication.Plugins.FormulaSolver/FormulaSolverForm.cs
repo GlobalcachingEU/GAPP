@@ -369,7 +369,7 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
 
         public void ShowHelp()
         {
-            new UserHelp(this).Show(this);
+            new UserHelp(this).Show();
         }
     }
 }
