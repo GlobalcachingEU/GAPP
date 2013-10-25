@@ -765,6 +765,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             actionSequencerToolbarToolStripMenuItem.Text = string.Format("{0} {1}", Utils.LanguageSupport.Instance.GetTranslation(STR_ACTIONSEQUNCER), Utils.LanguageSupport.Instance.GetTranslation(STR_TOOLBAR));
             toolStripButtonExecuteAction.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_EXECUTE);
             toolStripButtonExecuteActionSequence.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_EXECUTE);
+            menuItemPlugins.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_PLUGINS);
             if (_exitMeniItem != null)
             {
                 _exitMeniItem.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_EXIT);
