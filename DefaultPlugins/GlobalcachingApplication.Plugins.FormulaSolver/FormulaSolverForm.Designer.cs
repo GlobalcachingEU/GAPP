@@ -153,13 +153,14 @@
             // 
             // bnHelp
             // 
-            this.bnHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bnHelp.Location = new System.Drawing.Point(467, 12);
+            this.bnHelp.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.bnHelp.Location = new System.Drawing.Point(392, 12);
             this.bnHelp.Name = "bnHelp";
             this.bnHelp.Size = new System.Drawing.Size(23, 23);
             this.bnHelp.TabIndex = 6;
             this.bnHelp.Text = "?";
             this.bnHelp.UseVisualStyleBackColor = true;
+            this.bnHelp.Click += new System.EventHandler(this.bnHelp_Click);
             // 
             // FormulaSolverForm
             // 

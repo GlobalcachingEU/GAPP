@@ -14,7 +14,6 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
         private FormulaInterpreter.FormulaInterpreter interpreter;
         private string _databaseFile = null;
         private Utils.DBCon _dbcon = null;
-        private UserHelp dlgHelp = null;
 
         private string _activeCode = null;
         public string activeCode
@@ -330,11 +329,6 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
 
         private void bnAsWaypoint_Click(object sender, EventArgs e)
         {
-            if (dlgHelp == null)
-            {
-                dlgHelp = new UserHelp(this);
-            }
-            dlgHelp.Show(this);
         }
 
         private void bnAsCenter_Click(object sender, EventArgs e)
@@ -371,6 +365,11 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
             if (PropertyChanged != null) {
                 PropertyChanged( this, new PropertyChangedEventArgs(propertyName) );
             }
+        }
+
+        private void bnHelp_Click(object sender, EventArgs e)
+        {
+            new UserHelp(this).Show(this);
         }
     }
 }

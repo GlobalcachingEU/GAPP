@@ -269,20 +269,22 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Documentation\de\assignments.png" />
-    <EmbeddedResource Include="Documentation\de\bsp_koordinatenfunktionen.png" />
-    <EmbeddedResource Include="Documentation\de\bsp_textfunktionen.png" />
-    <EmbeddedResource Include="Documentation\de\bsp_zahlenfunktionen.png" />
     <EmbeddedResource Include="Documentation\de\formulasolverdocs.html" />
-    <EmbeddedResource Include="Documentation\de\Globalcaching.png" />
-    <EmbeddedResource Include="Documentation\de\insertformula.png" />
-    <EmbeddedResource Include="Documentation\de\mathematics.png" />
     <EmbeddedResource Include="Documentation\de\missing_declarations.png" />
-    <EmbeddedResource Include="Documentation\de\missing_deklarations_after.png" />
-    <EmbeddedResource Include="Documentation\de\missing_deklarations_before.png" />
-    <EmbeddedResource Include="Documentation\de\operationen.png" />
-    <EmbeddedResource Include="Documentation\de\waypoints.png" />
-    <EmbeddedResource Include="Documentation\de\window.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Documentation\de\dlg_insertformula.png" />
+    <EmbeddedResource Include="Documentation\de\dlg_mainwindow.png" />
+    <EmbeddedResource Include="Documentation\de\dlg_waypoints.png" />
+    <EmbeddedResource Include="Documentation\de\icon_gapp.png" />
+    <EmbeddedResource Include="Documentation\de\icon_solver.png" />
+    <EmbeddedResource Include="Documentation\de\missing_declarations_after.png" />
+    <EmbeddedResource Include="Documentation\de\missing_declarations_before.png" />
+    <EmbeddedResource Include="Documentation\de\smpl_assignments.png" />
+    <EmbeddedResource Include="Documentation\de\smpl_coordinatefunctions.png" />
+    <EmbeddedResource Include="Documentation\de\smpl_numberfunctions.png" />
+    <EmbeddedResource Include="Documentation\de\smpl_operations.png" />
+    <EmbeddedResource Include="Documentation\de\smpl_textfunctions.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

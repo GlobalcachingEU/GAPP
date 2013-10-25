@@ -1538,21 +1538,21 @@ window.invokeMacro = function(place,macro,params,wikifier,tiddler) {
 <div title="DefaultTiddlers" creator="YourName" modifier="Superudo" created="201310241101" modified="201310241105" changecount="5">
 <pre>[[Übersicht]] </pre>
 </div>
-<div title="Dialog &quot;Formel einfügen&quot;" creator="SuperUdo" modifier="SuperUdo" created="201310241920" modified="201310241952" changecount="7">
+<div title="Dialog &quot;Formel einfügen&quot;" creator="SuperUdo" modifier="WikiAdmin" created="201310241920" modified="201310251157" changecount="8">
 <pre>Der Dialog &quot;Formel einfügen&quot; gibt eine Übersicht über alle im Formellöser zur Verfügung stehenden [[Funktionen]] und ihre alternativen Schreibweisen. Er ermöglicht das schnelle Einfügen der ausgewählten Funktion in den [[Formeleingabebereich|Formeleingabe]].
 
-[img[insertformula.png]]
+[img[dlg_insertformula.png]]
 
 In der Lliste &quot;Gruppe&quot; lässt sich eine Funktionsgruppe auswählen, woraufhin die Liste &quot;Funktionen&quot; entsprechend gefiltert wird. Wählt man hier eine einzelne Funktion aus, wird im Feld &quot;Description&quot; eine kurze Beschreibung der Funktion sowie ein Beispiel angezeigt. Die Liste &quot;Andere Namen&quot; zeigt weitere Namen für dieselbe Funktion.
 
 Ein Doppelklick auf den Funktionsnamen oder die Schaltfläche &quot;Insert&quot; fügt die ausgewählte Funktion an der Cursorposition in das Formeleingabefeld ein. </pre>
 </div>
-<div title="Dialog &quot;Wegpunkt einfügen&quot;" creator="SuperUdo" modifier="SuperUdo" created="201310242003" modified="201310242012" changecount="5">
+<div title="Dialog &quot;Wegpunkt einfügen&quot;" creator="SuperUdo" modifier="WikiAdmin" created="201310242003" modified="201310251157" changecount="6">
 <pre>Der Dialog ermöglicht das schnelle Einfügen eines Wegpunktes (bzw. dessen Koordinaten) in das Formeleingabefenster. Ist ein Cache ausgewählt, listet der Dialog alle vorhandenen Wegpunkte mit ihrem Namen auf. Ein ausgewählter Wegpunkt wird durch einen Doppelklick auf den Namen oder durch die Schaltfläche &quot;Insert&quot; in das Formeleingabefenster als Funktion {{{WP(&quot;Wegpunktname&quot;)}}} übernommen. Bei der Formelauswertung ergibt die ~WP-Funktion die Koordinate des Wegpunktes.
 
-[img[waypoints.png]]</pre>
+[img[dlg_waypoints.png]]</pre>
 </div>
-<div title="Formeleingabe" creator="SuperUdo" modifier="SuperUdo" created="201310241202" modified="201310241211" changecount="6">
+<div title="Formeleingabe" creator="SuperUdo" modifier="WikiAdmin" created="201310241202" modified="201310251155" changecount="7">
 <pre>Formeln sind die Basis der Berechnungen. Eine Formel kann aus [[Zuweisungen]], [[Operationen]], [[Funktionen]] oder [[Texten|Texte]] sowie [[Variablen]] bestehen.
 
 Eine Formel belegt genau eine Zeile im Eingabebereich. Das Ergebnis ihrer Berechnung findet sich nach dem Betätigen der Schaltfläche &quot;Lösen&quot; im Ausgabebereich auf der gleichen Höhe. </pre>
@@ -1569,7 +1569,7 @@ Der Formellöser unterscheidet bei den Funktionsnamen keine Groß- und Kleinschr
 
 Für eine vereinfachte Eingabe von Funktionen im Formelfenster eignet sich der [[Dialog &quot;Formel einfügen&quot;]], der sich öffnet, wenn man die gleichnamig Schaltfläche im Programmfenster betätigt.</pre>
 </div>
-<div title="Koordinatenfunktionen" creator="SuperUdo" modifier="YourName" created="201310241609" modified="201310241801" changecount="3">
+<div title="Koordinatenfunktionen" creator="SuperUdo" modifier="WikiAdmin" created="201310241609" modified="201310251156" changecount="4">
 <pre>Koordinatenfunktionen sind Funktionen, die sich mit der Be- und Verarbeitung von geografischen Koordinaten beschäftigen. 
 Prominentes Beispiel für eine solche Funktion ist die Projektion: {{{Projektion(&quot;N 51° 12.345 E 6° 54.321&quot;;100;200) = &quot;N 51° 12.294 E 6° 54.292&quot;}}}.
 
@@ -1585,13 +1585,14 @@ Folgende Koordinatenfunktionen sind im Formellöser bekannt:
 |Wegpunkt|WP, Waypoint|{{{Wegpunkt(Text)}}}|Ermittelt die Koordinaten eines Wegpunktes anhand seines Namens. (ohne Parameter: Cachekoordinaten)|
 
 !!!!Beispiele
-[img[bsp_koordinatenfunktionen.png]]</pre>
+[img[smpl_coordinatefunctions.png]]</pre>
 </div>
-<div title="MainMenu" creator="Superudo" modifier="WikiAdmin" created="201310241107" modified="201310242136" changecount="40">
-<pre>[img[globalcaching.eu|Globalcaching.png][http://gapp.globalcaching.eu]]
+<div title="MainMenu" creator="Superudo" modifier="WikiAdmin" created="201310241107" modified="201310251158" changecount="42">
+<pre>[img[globalcaching.eu|icon_gapp.png][http://gapp.globalcaching.eu]]
 [[Übersicht]]
 [[Programmfenster]]
 [[Formeleingabe]]
+[[Variablen]]
 [[Funktionen]]
 {{smallText{[[Zahlen|Zahlenfunktionen]]}}}
 {{smallText{[[Text|Textfunktionen]]}}}
@@ -1599,7 +1600,7 @@ Folgende Koordinatenfunktionen sind im Formellöser bekannt:
 [[&quot;Formel einfügen&quot;|Dialog &quot;Formel einfügen&quot;]]
 [[&quot;Wegpunkt einfügen&quot;|Dialog &quot;Wegpunkt einfügen&quot;]]</pre>
 </div>
-<div title="Operationen" creator="SuperUdo" modifier="SuperUdo" created="201310241235" modified="201310241324" changecount="7">
+<div title="Operationen" creator="SuperUdo" modifier="WikiAdmin" created="201310241235" modified="201310251152" changecount="8">
 <pre>Operationen sind Rechenschritte, die aus einem Operator und dessen Operanden bestehen. Die Operatoren sind Zahlen oder Texte, die als Zahlen interpretiert werden können. Der Formellöser unterstützt folgende Operatoren:
 |!Operation|!Zeichen|!Funktion|
 | Plus | {{{+}}} | Addition |
@@ -1610,7 +1611,7 @@ Folgende Koordinatenfunktionen sind im Formellöser bekannt:
 | Vorzeichen | {{{-}}} | Vorzeichenwechsel |
 Es gelten die bekannten Rechenregeln. Punkt- wird vor Strichrechnung ausgeführt. Eine andere Reihenfolge kann durch das Setzen von Klammern erreicht werden.
 
-[img[operationen.png]]</pre>
+[img[bsp_operationen.png]]</pre>
 </div>
 <div title="PageTemplate" creator="SuperUdo" modifier="SuperUdo" created="201310242042" changecount="1">
 <pre>&lt;!--{{{--&gt;
@@ -1637,10 +1638,10 @@ Es gelten die bekannten Rechenregeln. Punkt- wird vor Strichrechnung ausgeführt
 &lt;!--}}}--&gt;
 </pre>
 </div>
-<div title="Programmfenster" creator="Superudo" modifier="SuperUdo" created="201310241120" modified="201310242003" changecount="13">
+<div title="Programmfenster" creator="Superudo" modifier="WikiAdmin" created="201310241120" modified="201310251155" changecount="14">
 <pre>Das Programmfenster besteht aus einem Eingabebereich für die Formeln (Textbox links), einem Ausgabebereich für die Berechnungen (Textbox rechts) und den Schaltflächen &quot;Formel einfügen&quot;, &quot;Wegpunkt einfügen&quot;, &quot;Lösen&quot; und &quot;Als Zentrum&quot;.
 
-[img[window.png]]
+[img[dlg_mainwindow.png]]
 
 ;Eingabebereich
 :Das linke Textfeld des Programmfensters ist der Eingabebereich. Hier können zeilenweise [[Formeln|Formeleingabe]] eingegeben werden, die nach Betätigen der Schaltfläche &quot;Lösen&quot; berechnet werden. 
@@ -1831,8 +1832,14 @@ Story.prototype.displayTiddlers = function() {
 <div title="StoryMenu" creator="SuperUdo" modifier="SuperUdo" created="201310242030" modified="201310242036" changecount="9">
 <pre>{{floatright{&lt;&lt;tiddler ToggleRightSidebar&gt;&gt;}}}</pre>
 </div>
-<div title="StyleSheet" creator="SuperUdo" modifier="SuperUdo" created="201310241349" modified="201310242041" changecount="3">
+<div title="StyleSheet" creator="SuperUdo" modifier="WikiAdmin" created="201310241349" modified="201310251206" changecount="5">
 <pre>.smallText { font-size: 80% }
+
+.header {position:relative; height: 5.5em;}
+.header a:hover {background:transparent;}
+.headerShadow {position:relative; padding:1.0em 0 1em 1em; left:-1px; top:-1px;}
+.headerForeground {position:absolute; padding:1.0em 0 1em 1em; left:0; top:0;}
+
 [[StyleSheetShortcuts]]</pre>
 </div>
 <div title="StyleSheetShortcuts" creator="SuperUdo" modifier="ELSDesignStudios" created="200611070646" modified="200910050520" tags="CSS ThemePackage QuickEditPackage" server.type="file" server.host="http://www.tiddlytools.com" server.page.revision="200910050520">
@@ -2082,7 +2089,7 @@ Beispiele:
 Texte können als einzelne Formel stehen oder in [[Zuweisungen]], [[Operationen]] und Parametern von [[Funktionen]] verwendet werden.
 </pre>
 </div>
-<div title="Textfunktionen" creator="SuperUdo" modifier="YourName" created="201310241521" modified="201310241801" changecount="5">
+<div title="Textfunktionen" creator="SuperUdo" modifier="WikiAdmin" created="201310241521" modified="201310251156" changecount="6">
 <pre>Zahlenfunktionen sind Funktionen, die vorwiegend mit Zeichenketten arbeiten. 
 Prominentes Beispiel für eine solche Funktion ist der ~Caesar-Chiffre: {{{ROT13(&quot;GAPP&quot;) = &quot;TNCC&quot;}}}.
 
@@ -2098,7 +2105,7 @@ Folgende Textfunktionen sind im Formellöser bekannt:
 |Rot13||{{{Rot13(Text)}}}|Ermittelt die ~ROT13-Verschlüsselung des Textes.|
 
 !!!!Beispiele
-[img[bsp_textfunktionen.png]]</pre>
+[img[smpl_textfunctions.png]]</pre>
 </div>
 <div title="ToggleLeftSidebar" creator="SuperUdo" modifier="ELSDesignStudios" created="200607182327" modified="200909262132" tags="transclusion bookmarklet" server.type="file" server.host="http://www.tiddlytools.com/#BreadcrumbsPlugin" server.page.revision="200909262132">
 <pre>/%
@@ -2267,9 +2274,9 @@ Ist eine Variable bei ihrer ersten Verwendung noch ohne Wert, d.h. ist bis dahin
 [[Beispiel für das Einfügen fehlender Variablendefinitionen|Variablendeklarationen]]
 </pre>
 </div>
-<div title="Variablendeklarationen" creator="SuperUdo" modifier="SuperUdo" created="201310241226" modified="201310241327" changecount="6">
+<div title="Variablendeklarationen" creator="SuperUdo" modifier="WikiAdmin" created="201310241226" modified="201310251157" changecount="7">
 <pre>!!!!Eingabe im Formelfenster
-[img[missing_deklarations_before.png]]
+[img[missing_declarations_before.png]]
 
 In der eingegebenen Formel soll der Variablen C die Summe der Variablen A und B zugewiesen werden. A und B sind aber noch nicht deklariert worden, d.h. sie enthalten noch keine Werte. Deswegen kann die Formel nicht gelöst werden, es erscheint eine Dialogbox, die die betreffenden Variablen auflistet und anbietet, Deklarationen für diese Variablen an den Anfang des Formeleingabefensters zu setzen.
 !!!!Dialogbox nach Betätigen der Schaltfläche &quot;Lösen&quot;
@@ -2277,7 +2284,7 @@ In der eingegebenen Formel soll der Variablen C die Summe der Variablen A und B 
 
 Klicken auf &quot;Ja&quot; fügt die Deklarationen in das Eingabefenster ein. Bei Klick auf &quot;Nein&quot; bleibt die Eingabe unverändert. 
 !!!!Formelfenster nach Klick auf &quot;Ja&quot;
-[img[missing_deklarations_after.png]]
+[img[missing_declarations_after.png]]
 
 Die Deklarationen für A und B sind eingefügt worden. Welche Werte die Variablen haben sollen, muss der Anwender selbst hinzufügen.
 
@@ -2295,7 +2302,7 @@ Die Deklarationen für A und B sind eingefügt worden. Welche Werte die Variable
 &lt;!--}}}--&gt;
 </pre>
 </div>
-<div title="Zahlenfunktionen" creator="SuperUdo" modifier="YourName" created="201310241337" modified="201310241801" changecount="26">
+<div title="Zahlenfunktionen" creator="SuperUdo" modifier="WikiAdmin" created="201310241337" modified="201310251155" changecount="27">
 <pre>Zahlenfunktionen sind Funktionen, die im weitesten Sinne mit Zahlen arbeiten.
 Prominentes Beispiel für eine solche Funktion ist die Quersumme: {{{Quersumme(54321) = 15}}}, die die Summe der Ziffern einer Zahl berechnet.
 
@@ -2315,15 +2322,17 @@ Folgende Zahlenfunktionen sind im Formellöser bekannt:
 |Runden|Round|{{{Runden(Zahl;Stellen)}}}|Rundet eine Zahl auf eine bestimmte Anzahl Nachkommastellen|
 
 !!!!Beispiele
-[img[bsp_zahlenfunktionen.png]]</pre>
+[img[smpl_numberfunctions.png]]</pre>
 </div>
 <div title="Zuweisungen" creator="SuperUdo" modifier="SuperUdo" created="201310241213" modified="201310241327" changecount="6">
 <pre>Eine Zuweisung speichert den Wert einer Formel in einer [[Variablen]]. Zuweisungen werden durch ein Gleichheitszeichen symbolisiert. 
 
 [img[assignments.png]]</pre>
 </div>
-<div title="zzConfigOptions" creator="SuperUdo" modifier="SuperUdo" created="201310241917" modified="201310242134" tags="systemConfig" changecount="6">
-<pre>config.options.chkShowRightSidebar=true;
+<div title="zzConfigOptions" creator="SuperUdo" modifier="WikiAdmin" created="201310241917" modified="201310251150" tags="systemConfig" changecount="7">
+<pre>config.options.chkSinglePageMode=true;
+
+config.options.chkShowRightSidebar=true;
 config.options.txtToggleRightSideBarLabelShow=&quot;◄&quot;;
 config.options.txtToggleRightSideBarLabelHide=&quot;►&quot;;
 
@@ -2331,10 +2340,11 @@ if (config.options.txtUserName != &quot;WikiAdmin&quot;) {
         config.options.chkShowRightSidebar=false;
 	showBackstage = false;
 	readOnly = true;
-}</pre>
+}
+</pre>
 </div>
-<div title="Übersicht" creator="Superudo" modifier="SuperUdo" created="201310241107" modified="201310242112" changecount="10">
-<pre>Der Formula Solver (oder Formellöser) ist ein Plugin für das Cacheverwaltungsprogramm [[GAPP|http://gapp.globalcaching.eu]] und dient als Hilfsmittel zum Lösen cacherelevanter Aufgaben. Vor allem bei Mystery Caches kann er sehr von Nutzen sein. Er wird aufgerufen durch den Menüeintrag &quot;Fenster\Formellöser&quot; oder das entsprechende Icon [img[mathematics.png]] in der Toolbar.
+<div title="Übersicht" creator="Superudo" modifier="WikiAdmin" created="201310241107" modified="201310251154" changecount="11">
+<pre>Der Formula Solver (oder Formellöser) ist ein Plugin für das Cacheverwaltungsprogramm [[GAPP|http://gapp.globalcaching.eu]] und dient als Hilfsmittel zum Lösen cacherelevanter Aufgaben. Vor allem bei Mystery Caches kann er sehr von Nutzen sein. Er wird aufgerufen durch den Menüeintrag &quot;Fenster\Formellöser&quot; oder das entsprechende Icon [img[icon_solver.png]] in der Toolbar.
 
 Zu jedem Cache der Cacheliste kann ein Satz Formeln gespeichert werden. Das [[Programmfenster]] des Formellösers zeigt die zum markierten Cache gehörenden Einträge. Außerdem stellt der Formellöser einen separaten Eintrag bereit, der mit keinem Cache verknüpft ist und damit als Bereich für schnelle Berechnungen ohne Cachebezug genutzt werden kann. Dieser Eintrag ist immer dann zu sehen, wenn in der Cacheliste kein Cache ausgewählt wurde.
 </pre>
