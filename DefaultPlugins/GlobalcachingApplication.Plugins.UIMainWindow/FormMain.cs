@@ -770,7 +770,10 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
                 _exitMeniItem.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_EXIT);
             }
 
-            FillHelpPluginMenu();
+            foreach (ToolStripItem tmi in menuItemPlugins.DropDownItems)
+            {
+                tmi.Text = Utils.LanguageSupport.Instance.GetTranslation((tmi.Tag as Framework.Interfaces.IPlugin).FriendlyName);
+            }
 
             if (Core.SelectedLanguage != null)
             {
