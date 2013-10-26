@@ -15,7 +15,7 @@ V1.9.5.0
 - add: Formula Solver, added functions Latitude and Longitude
 - add: LiveAPI, Log geocache now has the option to rotate images
 - add: Help added to the GAPP framework
-- add: Help implemented for Formula Solver (German)
+- add: Help implemented for Formula Solver (German and Dutch)
 - fix: GSAK database import, now imports also database where LiveAPI columns are missing
 
 V1.9.4.0

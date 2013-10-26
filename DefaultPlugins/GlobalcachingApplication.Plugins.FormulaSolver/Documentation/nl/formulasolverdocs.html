@@ -46,7 +46,7 @@ DAMAGE.
 <!--}}}-->
 
 <!--PRE-HEAD-END-->
-<title> Formule oplosser - een Globalcaching Application Plugin (vertaling is nog niet compleet) </title>
+<title> Formule oplosser - een Globalcaching Application Plugin </title>
 <style id="styleArea" type="text/css">
 #saveTest {display:none;}
 #messageArea {display:none;}
@@ -1535,72 +1535,94 @@ window.invokeMacro = function(place,macro,params,wikifier,tiddler) {
 // // }}}}}}
 // // &lt;&lt;foldHeadings&gt;&gt;</pre>
 </div>
+<div title="Co&#246;rdinaten functies" creator="SuperUdo" modifier="WikiAdmin" created="201310241609" modified="201310261126" changecount="12">
+<pre>Co&#246;rdinaten functies zijn functies die werken op co&#246;rdinaten.
+Voorbeeld van een co&#246;rdinaten functie is de projectie: {{{Projection(&quot;N 51&#176; 12.345 E 6&#176; 54.321&quot;;100;200) = &quot;N 51&#176; 12.294 E 6&#176; 54.292&quot;}}}.
+
+De volgende co&#246;rdinaten functies zijn o.a. bekend:
+|!Naam|!Alternatieven|!Syntax|!Berekening|
+|Bearing|Peilung|{{{Bearing(Coord1; Koord2)}}}|Berekent de richting tussen twee co&#246;rdinaten.|
+|~CrossBearing|Kreuzpeilung|{{{~CrossBearing(Coord1;Hoek1;Coord2;Hoek2)}}}|Berekent het snijpunt tussen twee lijnen beide gegeven door startpunt en richting|
+|Distance|Abstand|{{{Distance(Coord1; Coord2)}}}|Berekent de afstand tussen twee co&#246;rdinaten in meters|
+|Intersection|Schnittpunkt|{{{Intersection(Coord1; Coord2; Coord3; Coord4)}}}|Berekent het snijpunt tussen twee lijnen.|
+|Latitude|L&#228;ngengrad, Lat|{{{Latitude(Koord)}}}|Geeft de lengtegraad terug van een gegeven co&#246;rdinaat.|
+|Longitude|Breitengrad, Lon|{{{Longitude(Coord)}}}|Geeft de breedtegraad terug van een gegeven co&#246;rdinaat.|
+|Projection|Projektion|{{{Projection(Coord; Afstand; Hoek}}}|Geeft het geprojecteerde co&#246;rdinaat terug van een gegeven co&#246;rdinaat, richting en afstand|
+|Waypoint|WP, Wegpunkt|{{{Waypoint(Tekst)}}}|Geeft het co&#246;rdinaat terug van een Waypoint a.d.h.v. zijn naam. Bij geen parameter geeft het de cachecoordinaten terug|
+
+!!!!Voorbeelden
+[img[smpl_coordinatefunctions.png]]</pre>
+</div>
 <div title="DefaultTiddlers" creator="YourName" modifier="WikiAdmin" created="201310241101" modified="201310251946" changecount="6">
 <pre>[[Overzicht]] </pre>
 </div>
-<div title="Dialog &quot;Formel einf&#252;gen&quot;" creator="SuperUdo" modifier="WikiAdmin" created="201310241920" modified="201310251157" changecount="8">
-<pre>Der Dialog &quot;Formel einf&#252;gen&quot; gibt eine &#220;bersicht &#252;ber alle im Formell&#246;ser zur Verf&#252;gung stehenden [[Funktionen]] und ihre alternativen Schreibweisen. Er erm&#246;glicht das schnelle Einf&#252;gen der ausgew&#228;hlten Funktion in den [[Formeleingabebereich|Formeleingabe]].
+<div title="Dialog &quot;Formule invoegen&quot;" creator="SuperUdo" modifier="WikiAdmin" created="201310241920" modified="201310260859" changecount="12">
+<pre>De Dialoog &quot;Formule invoegen&quot; geeft een overzicht van alle beschikbare [[Functies]] en hun alternatieve notaties. Het maakt het mogelijk om snel functies in te voegen in het [[invoerveld|Formuleinvoer]] die je geselecteerd hebt.
 
 [img[dlg_insertformula.png]]
 
-In der Lliste &quot;Gruppe&quot; l&#228;sst sich eine Funktionsgruppe ausw&#228;hlen, woraufhin die Liste &quot;Funktionen&quot; entsprechend gefiltert wird. W&#228;hlt man hier eine einzelne Funktion aus, wird im Feld &quot;Description&quot; eine kurze Beschreibung der Funktion sowie ein Beispiel angezeigt. Die Liste &quot;Andere Namen&quot; zeigt weitere Namen f&#252;r dieselbe Funktion.
+De functies zijn verdeeld in functiegroepen. Klik je op een functie, dan zal er een beschrijving van de functie getoond worden met een voorbeeld erbij.
 
-Ein Doppelklick auf den Funktionsnamen oder die Schaltfl&#228;che &quot;Insert&quot; f&#252;gt die ausgew&#228;hlte Funktion an der Cursorposition in das Formeleingabefeld ein. </pre>
+Bij een dubbelklik op de functie of na het drukken op de knop &quot;Invoegen&quot; wordt de functie ingevoegd op de plaats van de cursorpositie in het invoerveld.</pre>
 </div>
-<div title="Dialog &quot;Wegpunkt einf&#252;gen&quot;" creator="SuperUdo" modifier="WikiAdmin" created="201310242003" modified="201310251157" changecount="6">
+<div title="Dialog &quot;Waypoint invoegen&quot;" creator="SuperUdo" modifier="WikiAdmin" created="201310242003" modified="201310260907" changecount="7">
 <pre>Der Dialog erm&#246;glicht das schnelle Einf&#252;gen eines Wegpunktes (bzw. dessen Koordinaten) in das Formeleingabefenster. Ist ein Cache ausgew&#228;hlt, listet der Dialog alle vorhandenen Wegpunkte mit ihrem Namen auf. Ein ausgew&#228;hlter Wegpunkt wird durch einen Doppelklick auf den Namen oder durch die Schaltfl&#228;che &quot;Insert&quot; in das Formeleingabefenster als Funktion {{{WP(&quot;Wegpunktname&quot;)}}} &#252;bernommen. Bei der Formelauswertung ergibt die ~WP-Funktion die Koordinate des Wegpunktes.
 
 [img[dlg_waypoints.png]]</pre>
 </div>
-<div title="Formeleingabe" creator="SuperUdo" modifier="WikiAdmin" created="201310241202" modified="201310251155" changecount="7">
-<pre>Formeln sind die Basis der Berechnungen. Eine Formel kann aus [[Zuweisungen]], [[Operationen]], [[Funktionen]] oder [[Texten|Texte]] sowie [[Variablen]] bestehen.
+<div title="Formuleinvoer" creator="SuperUdo" modifier="WikiAdmin" created="201310241202" modified="201310260910" changecount="12">
+<pre>Formules zijn de basis van de berekeningen. Een formule kan uit [[Toekenningen]], [[Operatoren]], [[Functies]] of [[Teksten|Teksten]] alswel uit [[Variabelen]] bestaan.
 
-Eine Formel belegt genau eine Zeile im Eingabebereich. Das Ergebnis ihrer Berechnung findet sich nach dem Bet&#228;tigen der Schaltfl&#228;che &quot;L&#246;sen&quot; im Ausgabebereich auf der gleichen H&#246;he. </pre>
+Elke formule neemt precies 1 regel in het invoerveld in beslag. Het resultaat van de berekening komt na het op de knop drukken van &quot;oplossen&quot; op dezelfde hoogte in het uitvoerveld.</pre>
 </div>
-<div title="Funktionen" creator="SuperUdo" modifier="SuperUdo" created="201310241331" modified="201310241921" changecount="8">
-<pre>Funktionen sind komplexe Formelbestandteile, die aus einem Funktionsnamen und einer dem Namen in runden Klammern folgenden, optionalen Parameterliste bestehen. Die Funktionen des Formell&#246;sers besitzen haben immer einen Wert, der der Formel f&#252;r weitere Berechnungen oder [[Zuweisungen]] verwendet werden kann. 
+<div title="Functies" creator="SuperUdo" modifier="WikiAdmin" created="201310241331" modified="201310261022" changecount="18">
+<pre>Functies zijn complexe formuleonderdelen die bestaan uit een functienaam en daarachter haakjes waarbinnen optioneel parameters staan. De functies binnen Formule oplosser bevatten altijd een waarde die weer gebruikt kunnen worden bij verdere berekeningen of [[Toekenningen]].
 
-Die Funktionen im Formell&#246;ser k&#246;nnen in drei Gruppen eingeteilt werden:
-* [[Zahlenfunktionen]]
-* [[Koordinatenfunktionen]]
-* [[Textfunktionen]]
+De functies in de Formule oplosser kunnen in drie groepen opgedeeld worden:
+* [[Numerieke functies]]
+* [[Co&#246;rdinaten functies]]
+* [[Tekst functies]]
 
-Der Formell&#246;ser unterscheidet bei den Funktionsnamen keine Gro&#223;- und Kleinschreibung: {{{QuerSumme}}}, {{{QUERSUMME}}} und {{{quersumme}}} bezeichnen also dieselbe Funktion.
+De formulenamen zijn niet hoofdlettergevoelig: {{{QuerSumme}}}, {{{QUERSUMME}}} en {{{quersumme}}} hebben dezelfde betekenis.
 
-F&#252;r eine vereinfachte Eingabe von Funktionen im Formelfenster eignet sich der [[Dialog &quot;Formel einf&#252;gen&quot;]], der sich &#246;ffnet, wenn man die gleichnamig Schaltfl&#228;che im Programmfenster bet&#228;tigt.</pre>
+Voor vereenvoudigde invoer van functies in het invoerveld is het  [[Dialog &quot;Formule invoegen&quot;]] zeer geschikt.</pre>
 </div>
-<div title="Koordinatenfunktionen" creator="SuperUdo" modifier="WikiAdmin" created="201310241609" modified="201310251156" changecount="4">
-<pre>Koordinatenfunktionen sind Funktionen, die sich mit der Be- und Verarbeitung von geografischen Koordinaten besch&#228;ftigen. 
-Prominentes Beispiel f&#252;r eine solche Funktion ist die Projektion: {{{Projektion(&quot;N 51&#176; 12.345 E 6&#176; 54.321&quot;;100;200) = &quot;N 51&#176; 12.294 E 6&#176; 54.292&quot;}}}.
-
-Folgende Koordinatenfunktionen sind im Formell&#246;ser bekannt:
-|!Name|!Alternativen|!Syntax|!Berechnung|
-|Peilung|Bearing|{{{Peilung(Koord1; Koord2)}}}|Berechnet die Richtung zwischen zwei Koordinaten.|
-|Kreuzpeilung|~CrossBearing|{{{Kreuzpeilung(Koord1;Winkel1;Koord2;Winkel2)}}}|Berechnet den Schnittpunkt zweier Linien jeweils gegeben durch Startpunkt und Richtung.|
-|Abstand|Distance|{{{Abstand(Koord1; Koord2)}}}|Berechnet die Entfernung zwischen zwei Koordinaten.|
-|Schnittpunkt|Intersection|{{{Schnittpunkt(Koord1; Koord2; Koord3; Koord4)}}}|Berechnet den Schnittpunkt zweier durch Koordinaten beschriebener Linien.|
-|L&#228;ngengrad|Latitude, Lat|{{{L&#228;ngengrad(Koord)}}}|Ermittelt die geografische L&#228;nge einer Koordinate in Dezimalgrad.|
-|Breitengrad|Longitude, Lon|{{{Breitengrad(Koord)}}}|Ermittelt die geografische Breite einer Koordinate in Dezimalgrad.|
-|Projektion|Projection|{{{Projektion(Koord; L&#228;nge; Winkel}}}|Projektion einer Koordinate aus Punkt, Richtung und Winkel.|
-|Wegpunkt|WP, Waypoint|{{{Wegpunkt(Text)}}}|Ermittelt die Koordinaten eines Wegpunktes anhand seines Namens. (ohne Parameter: Cachekoordinaten)|
-
-!!!!Beispiele
-[img[smpl_coordinatefunctions.png]]</pre>
-</div>
-<div title="MainMenu" creator="Superudo" modifier="WikiAdmin" created="201310241107" modified="201310251955" changecount="44">
+<div title="MainMenu" creator="Superudo" modifier="WikiAdmin" created="201310241107" modified="201310261022" changecount="56">
 <pre>[img[globalcaching.eu|icon_gapp.png][http://gapp.globalcaching.eu]]
 [[Overzicht]]
 [[Programma scherm]]
-[[Formeleingabe]]
-[[Variablen]]
-[[Funktionen]]
-{{smallText{[[Zahlen|Zahlenfunktionen]]}}}
-{{smallText{[[Text|Textfunktionen]]}}}
-{{smallText{[[Koordinaten|Koordinatenfunktionen]]}}}
-[[&quot;Formel einf&#252;gen&quot;|Dialog &quot;Formel einf&#252;gen&quot;]]
-[[&quot;Wegpunkt einf&#252;gen&quot;|Dialog &quot;Wegpunkt einf&#252;gen&quot;]]</pre>
+[[Formuleinvoer]]
+[[Variabelen]]
+[[Functies]]
+{{smallText{[[Getallen|Numerieke functies]]}}}
+{{smallText{[[Tekst|Tekst functies]]}}}
+{{smallText{[[Co&#246;rdinaten|Co&#246;rdinaten functies]]}}}
+[[&quot;Formule invoegen&quot;|Dialog &quot;Formule invoegen&quot;]]
+[[&quot;Waypoint invoegen&quot;|Dialog &quot;Waypoint invoegen&quot;]]</pre>
 </div>
-<div title="Operationen" creator="SuperUdo" modifier="WikiAdmin" created="201310241235" modified="201310251152" changecount="8">
+<div title="Numerieke functies" creator="SuperUdo" modifier="WikiAdmin" created="201310241337" modified="201310261045" changecount="38">
+<pre>Numerieke functies zijn functies die in de breedste zin met getallen werken.
+Voorbeeld voor zo'n functie is de kruisproduct functie ~CrossProduct: {{{CrossProduct(54321) = 15}}}, die het product uitrekent van alle afzonderlijke cijfers.
+
+De volgende numerieke functies zijn o.a. bekend:
+|!Naam|!Alternatieven|!Syntax|!Berekening|
+|~CrossProduct|QP, Querprodukt, CP|{{{CrossProduct(getal)}}}|Berekent het product van alle afzonderlijke cijfers|
+|~CrossTotal|QS, Quersumme, CT|{{{CrossTotal(getal)}}}|Berekent de som van alle afzonderlijke cijfers|
+|Factorial|Fakult&#228;t, Fact|{{{Factorial(getal)}}}|Berekent de faculteit van de parameter|
+|~ICrossProduct|IQP, ~IQuerprodukt, ICP|{{{ICrossProduct(getal)}}}|Itereert kruisproduct totdat er 1 cijfer overblijft|
+|~ICrossTotal|IQS, ~IQuersumme, ~ICrossTotal, ICT|{{{ICrossTotal(getal)}}}|Itereert kruissom totdat er 1 cijfer overblijft (beter bekend als stapeltellen) einstellig ist.|
+|Int|Ganzzahl|{{{Int(getal)}}}|Kapt het gebroken getal af tot een geheel getal|
+|Pi||{{{Pi(n)}}}|Geeft de waarde van PI op n cijfers achter de komma&lt;br /&gt;De parameter is optioneel.|
+|Pow|Potenz, Power|{{{Pow(Basis;Exponent)}}}|Berekent de macht van basis over exponent|
+|~PrimeIndex|~PrimIndex|{{{PrimeIndex(getal)}}}|Geeft de index aan van een priemgetal (1=1, 3=2, 5=3 etc)|
+|~PrimeNumber|Primzahl|{{{PrimeNumber(n)}}}|Geeft de n-de priemgetal|
+|~Rom2Dec||{{{Rom2Dec(Text)}}}|Zet romeinse getallen om in decimaal getal|
+|Round|Runden|{{{Round(getal;Stellen)}}}|Rond een gebroken getal af naar een geheel getal|
+
+!!!!Voorbeeld
+[img[smpl_numberfunctions.png]]</pre>
+</div>
+<div title="Operatoren" creator="SuperUdo" modifier="WikiAdmin" created="201310241235" modified="201310260901" changecount="9">
 <pre>Operationen sind Rechenschritte, die aus einem Operator und dessen Operanden bestehen. Die Operatoren sind Zahlen oder Texte, die als Zahlen interpretiert werden k&#246;nnen. Der Formell&#246;ser unterst&#252;tzt folgende Operatoren:
 |!Operation|!Zeichen|!Funktion|
 | Plus | {{{+}}} | Addition |
@@ -1618,7 +1640,7 @@ Es gelten die bekannten Rechenregeln. Punkt- wird vor Strichrechnung ausgef&#252
 
 Voor elke cache in de cachelijst kan een lijst met formules opgeslagen worden. Het [[Programma scherm]] van de formule oplosser geeft aan bij welke cache de gegevens horen. Daarnaast biedt de formule oplosser de mogelijkheid om gegevens in te voeren die niet bij een geocache horen, waarmee je even snel een berekening kunt doen zonder dat deze gegevens bij die geocache opgeslagen wordt. Deze gegevens zijn dan te zien wanneer er geen actieve geocache is (via cachelijst)</pre>
 </div>
-<div title="PageTemplate" creator="SuperUdo" modifier="SuperUdo" created="201310242042" changecount="1">
+<div title="PageTemplate" creator="SuperUdo" modifier="WikiAdmin" created="201310242042" modified="201310261052" changecount="2">
 <pre>&lt;!--{{{--&gt;
 &lt;div class='header' role='banner' macro='gradient vert [[ColorPalette::PrimaryLight]] [[ColorPalette::PrimaryMid]]'&gt;
 &lt;div class='headerShadow'&gt;
@@ -1643,23 +1665,23 @@ Voor elke cache in de cachelijst kan een lijst met formules opgeslagen worden. H
 &lt;!--}}}--&gt;
 </pre>
 </div>
-<div title="Programma scherm" creator="Superudo" modifier="WikiAdmin" created="201310241120" modified="201310251955" changecount="16">
-<pre>Das Programmfenster besteht aus einem Eingabebereich f&#252;r die Formeln (Textbox links), einem Ausgabebereich f&#252;r die Berechnungen (Textbox rechts) und den Schaltfl&#228;chen &quot;Formel einf&#252;gen&quot;, &quot;Wegpunkt einf&#252;gen&quot;, &quot;L&#246;sen&quot; und &quot;Als Zentrum&quot;.
+<div title="Programma scherm" creator="Superudo" modifier="WikiAdmin" created="201310241120" modified="201310261127" changecount="23">
+<pre>Het programma bestaat uit een invoerveld voor formules (tekstveld links), een uitvoerveld voor de berekeningen (tekstveld rechts) en een panel met de knoppen &quot;Formule invoegen&quot;, &quot;Waypoint invoegen&quot;, &quot;Oplossen&quot; en &quot;Als middelpunt&quot;.
 
 [img[dlg_mainwindow.png]]
 
-;Eingabebereich
-:Das linke Textfeld des Programmfensters ist der Eingabebereich. Hier k&#246;nnen zeilenweise [[Formeln|Formeleingabe]] eingegeben werden, die nach Bet&#228;tigen der Schaltfl&#228;che &quot;L&#246;sen&quot; berechnet werden. 
-;Ausgabebereich
-:Nach der Formelauswertung erscheinen in der rechten Textbox die Ergebnisse der Berechnungen. Pro Zeile in der Eingabe findet sich eine Zeile in der Ausgabe. Treten w&#228;hrend der Berechnung Fehler auf, werden diese im Ausgabefenster angezeigt. 
-;Schaltfl&#228;che &quot;Formel einf&#252;gen&quot;
-:&#214;ffnet den [[Dialog &quot;Formel einf&#252;gen&quot;]], der die Auswahl von vordefinierten Funktionen erm&#246;glicht.
-;Schaltfl&#228;che &quot;Wegpunkt einf&#252;gen&quot;
-:&#214;ffnet den [[Dialog &quot;Wegpunkt einf&#252;gen&quot;]], der es erm&#246;glich, Koordinaten von Wegpunkten des aktuell ausgew&#228;hlten Caches einzuf&#252;gen.
-;Schaltfl&#228;che &quot;L&#246;sen&quot;
-:Startet die Formelauswertung. Die eingegebenen Formeln werden analysiert und berechnet. Das Ergebnis wird in der rechten Textbox ausgegeben.
-;Schaltfl&#228;che &quot;Als Zentrum&quot;
-:Setzt das aktuelle Zentrum auf eine im Ausgabebereich markierte Koordinate.
+;Invoerveld
+:Het linker tekstveld is het invoerveld. Hier kun je per regel [[Formules|Functies]] formules ingeven die na bevestiging dmv de knop &quot;Oplossen&quot; berekend wordt.
+;Uitvoerveld
+:Na het berekenen verschijnt in het rechter tekstvak de resultaten van de berekeningen. Per regel van de invoer komt er een regel bij de uitvoer. Indien er een fout optreedt bij een berekening wordt dit in het uitvoerveld aangegeven.
+;Knop &quot;Formule invoegen&quot;
+:Opent de dialoog [[Dialog &quot;Formule invoegen&quot;]], die een selectie uit de beschikbare formules mogelijk maakt.
+;Knop &quot;Waypoint invoegen&quot;
+:Opent de [[Dialog &quot;Waypoint invoegen&quot;]], die het mogelijk maakt co&#246;rdinaten van Waypoints van de actieve geocache in te voegen.
+;Knop &quot;Oplossen&quot;
+:Start de berekeningen. De ingegeven formules worden geanalyseerd en berekend. Het resultaat komt in het rechter tekstveld te staan.
+;Knop &quot;Als middelpunt&quot;
+:Zet het middelpunt op de in de rechter tekstveld gemarkeerde co&#246;rdinaat.
 </pre>
 </div>
 <div title="SidebarOptions" creator="SuperUdo" modifier="SuperUdo" created="201310242044" modified="201310242044" tags="systemConfig" changecount="2">
@@ -1828,8 +1850,8 @@ Story.prototype.displayTiddlers = function() {
 }
 //}}}</pre>
 </div>
-<div title="SiteSubtitle" creator="YourName" modifier="WikiAdmin" created="201310241100" modified="201310251927" changecount="3">
-<pre>een Globalcaching Application Plugin (vertaling is nog niet compleet)</pre>
+<div title="SiteSubtitle" creator="YourName" modifier="WikiAdmin" created="201310241100" modified="201310261127" changecount="4">
+<pre>een Globalcaching Application Plugin</pre>
 </div>
 <div title="SiteTitle" creator="YourName" modifier="WikiAdmin" created="201310241100" modified="201310251927" changecount="5">
 <pre>Formule oplosser</pre>
@@ -2084,7 +2106,25 @@ These 'style tweaks' can be easily included in other stylesheet tiddler so they 
 .BGError	  { background-color:[[ColorPalette::Error]];	 	}
 /*}}}*/</pre>
 </div>
-<div title="Texte" creator="SuperUdo" modifier="SuperUdo" created="201310241204" modified="201310241215" changecount="8">
+<div title="Tekst functies" creator="SuperUdo" modifier="WikiAdmin" created="201310241521" modified="201310261111" changecount="9">
+<pre>Tekstfuncties zijn functies die hoofdzakelijk op tekst werken.
+Voorbeels van een tekstfunctie is bv de encrypty die geocachimg.com gebruikt voor hints: {{{ROT13(&quot;GAPP&quot;) = &quot;TNCC&quot;}}}.
+
+De volgende tekstfuncties zijn o.a. bekend:
+|!Naam|!Alternatieven|!Syntax|!Berekening|
+|~AlphaPos|AP|{{{AlphaPos(Tekst)}}}|Positie van de eerste letter in het alfabet. (A = 1)|
+|~AlphaSum|AS|{{{AlphaSum(Tekst)}}}|Som van de positie van de letters van de tekst in het alfabet (woordwaarde). (A = 1)|
+|Length|L&#228;nge|{{{Length(Tekst)}}}|Aantal karakters in de tekst|
+|Mid||{{{Mid(Tekst,Start,Aantal)}}}|Geeft een deel van de tekst terug, beginnend bij start.&lt;br /&gt;Aantal is optioneel en indien weggelaten is het 1 karaketer.|
+|~PhoneCode|~HandyCode, HC, PC|{{{HandyCode(Tekst)}}}|Positie van het eerste karakter in de telefoon code|
+|~PhoneSum|~HandySum, HS, PS|{{{PhoneSum(Tekst)}}}|Som van alle telefooncode karaketers|
+|Reverse||{{{Reverse(Text)}}}|Draait de volgorde van de tekst om|
+|Rot13||{{{Rot13(Text)}}}|Geeft de ~ROT13 encryptie van de gegeven tekst|
+
+!!!!Voorbeelden
+[img[smpl_textfunctions.png]]</pre>
+</div>
+<div title="Teksten" creator="SuperUdo" modifier="WikiAdmin" created="201310241204" modified="201310260903" changecount="9">
 <pre>Texte sind durch doppelte Anf&#252;hrungszeichen eingeschlossene Buchstabenfolgen. 
 Auch Koordinatenwerte werden als Text angegeben. 
 Beispiele: 
@@ -2094,23 +2134,10 @@ Beispiele:
 Texte k&#246;nnen als einzelne Formel stehen oder in [[Zuweisungen]], [[Operationen]] und Parametern von [[Funktionen]] verwendet werden.
 </pre>
 </div>
-<div title="Textfunktionen" creator="SuperUdo" modifier="WikiAdmin" created="201310241521" modified="201310251156" changecount="6">
-<pre>Zahlenfunktionen sind Funktionen, die vorwiegend mit Zeichenketten arbeiten. 
-Prominentes Beispiel f&#252;r eine solche Funktion ist der ~Caesar-Chiffre: {{{ROT13(&quot;GAPP&quot;) = &quot;TNCC&quot;}}}.
+<div title="Toekenningen" creator="SuperUdo" modifier="WikiAdmin" created="201310241213" modified="201310260910" changecount="8">
+<pre>Eine Zuweisung speichert den Wert einer Formel in einer [[Variablen]]. Zuweisungen werden durch ein Gleichheitszeichen symbolisiert. 
 
-Folgende Textfunktionen sind im Formell&#246;ser bekannt:
-|!Name|!Alternativen|!Syntax|!Berechnung|
-|~AlphaPos|AP|{{{AlphaPos(Text)}}}|Position des ersten Buchstabens im Alphabet. (A = 1)|
-|~AlphaSum|AS|{{{AlphaSum(Text)}}}|Summe der Positionen aller Buchstaben des Textes im Alphabet. (A = 1)|
-|L&#228;nge|Length|{{{L&#228;nge(Text)}}}|Anzahl der Zeichen im Text.|
-|Mid||{{{Mid(Text,Start,Anzahl)}}}|Liefert einen Teil des Textes zur&#252;ck, beginnend bei Start mit Anzahl Zeichen.&lt;br /&gt;Anzahl ist optional und hat den Defaultwert 1.|
-|~HandyCode|~PhoneCode, HC, PC|{{{HandyCode(Text)}}}|Position des ersten Buchstabens auf der Handytastatur.|
-|~HandySum|~PhoneSum, HS, PS|{{{HandySum(Text)}}}|Summe aller Buchstabenpositionen auf der Handytastatur.|
-|Reverse||{{{Reverse(Text)}}}|Kehrt die Reihenfolge der Zeichen des Textes um.|
-|Rot13||{{{Rot13(Text)}}}|Ermittelt die ~ROT13-Verschl&#252;sselung des Textes.|
-
-!!!!Beispiele
-[img[smpl_textfunctions.png]]</pre>
+[img[assignments.png]]</pre>
 </div>
 <div title="ToggleLeftSidebar" creator="SuperUdo" modifier="ELSDesignStudios" created="200607182327" modified="200909262132" tags="transclusion bookmarklet" server.type="file" server.host="http://www.tiddlytools.com/#BreadcrumbsPlugin" server.page.revision="200909262132">
 <pre>/%
@@ -2269,29 +2296,28 @@ onclick=&quot;
 	'$2'!='$'+'2'?'$2':tip;
 }}&gt;&gt;</pre>
 </div>
-<div title="Variablen" creator="SuperUdo" modifier="SuperUdo" created="201310241219" modified="201310241327" changecount="7">
-<pre>Variablen sind Platzhalter f&#252;r Werte innerhalb der Formelauswertung. Sie erhalten ihren Wert durch [[Zuweisungen]] und k&#246;nnen an jeder Stelle verwendet werden, wo in einer Formel Zahlen oder Textwerte verwendet werden k&#246;nnen. Die Variable wird bei der Formelauswertung durch ihren Wert ersetzt. 
+<div title="Variabelen" creator="SuperUdo" modifier="WikiAdmin" created="201310241219" modified="201310260911" changecount="14">
+<pre>Variabelen zijn labels voor waarden binnen formuleuitvoeringen. Zij krijgen hun waarde door [[Toekenningen]] en kunnen op elke plek gebruikt worden, zoals in een numerieke formule of tekstwaarden. De variabele wordt door de formuleberekeningen vervangen door hun waarde.
 
-Variablen k&#246;nnen Zahlen oder Texte (bzw. durch Texte repr&#228;sentierte Koordinaten) enthalten.
+Variabelen kunnen getallen of tekst (bv door tekst aangeduide co&#246;rdinaten) bevatten.
 
-Ist eine Variable bei ihrer ersten Verwendung noch ohne Wert, d.h. ist bis dahin noch keine [[Zuweisung|Zuweisungen]] zu dieser Variablen erfolgt, wird der Formell&#246;ser nach Beendigung der Auswertung eine Dialogbox zeigen, die die nicht definierten Variablen zeigt und vorschl&#228;gt, Zuweisungsformeln an den Anfang der Eingabe zu stellen. 
-
-[[Beispiel f&#252;r das Einf&#252;gen fehlender Variablendefinitionen|Variablendeklarationen]]
+Indien de variabele bij de eerste berekening nog geen waarde heeft, m.a.w. er is nog geen [[Toekenningen]] aan deze variable gedaan, zal de Formule oplosser na het einde van berekeningen een dialoog laten zien indien de variabele niet gedefinieerd is en hij het voor je wil defini&#235;ren.
+[[Voorbeeld van het invoeren van missende variabelendeclaraties|Variabelendeclaraties]]
 </pre>
 </div>
-<div title="Variablendeklarationen" creator="SuperUdo" modifier="WikiAdmin" created="201310241226" modified="201310251157" changecount="7">
-<pre>!!!!Eingabe im Formelfenster
+<div title="Variabelendeclaraties" creator="SuperUdo" modifier="WikiAdmin" created="201310241226" modified="201310260846" changecount="9">
+<pre>!!!!Invoer in formulevenster
 [img[missing_declarations_before.png]]
 
-In der eingegebenen Formel soll der Variablen C die Summe der Variablen A und B zugewiesen werden. A und B sind aber noch nicht deklariert worden, d.h. sie enthalten noch keine Werte. Deswegen kann die Formel nicht gel&#246;st werden, es erscheint eine Dialogbox, die die betreffenden Variablen auflistet und anbietet, Deklarationen f&#252;r diese Variablen an den Anfang des Formeleingabefensters zu setzen.
-!!!!Dialogbox nach Bet&#228;tigen der Schaltfl&#228;che &quot;L&#246;sen&quot;
+In de aangegeven formule moet de variabele C de som zijn van A en B. A en B zijn echter nog niet gedeclareerd en ze hebben dus nog geen waarde. Daarom zal de formule niet opgelost worden, maar verschijnt er een dialoogscherm welke aangeeft welke variabelendeclaraties missen en vraagt of hij die voor je zal toevoegen.
+!!!!Dialogscherm na het op de knop &quot;Oplossen&quot; drukken
 [img[missing_declarations.png]]
 
-Klicken auf &quot;Ja&quot; f&#252;gt die Deklarationen in das Eingabefenster ein. Bei Klick auf &quot;Nein&quot; bleibt die Eingabe unver&#228;ndert. 
-!!!!Formelfenster nach Klick auf &quot;Ja&quot;
+Bij het drukken op &quot;Ja&quot; zullen de declaraties voor A en B toegevoegd worden aan het begin. Bij het drukken op &quot;Nee&quot; verandert er niets aan de forumuleinvoer.
+!!!!Formuleinvoer na het drukken op &quot;Ja&quot;
 [img[missing_declarations_after.png]]
 
-Die Deklarationen f&#252;r A und B sind eingef&#252;gt worden. Welche Werte die Variablen haben sollen, muss der Anwender selbst hinzuf&#252;gen.
+De declaraties voor A en B zijn ingevoegd. De waarde die A en B moeten hebben, moet de gebruiker nog zelf ingeven.
 
 </pre>
 </div>
@@ -2306,33 +2332,6 @@ Die Deklarationen f&#252;r A und B sind eingef&#252;gt worden. Welche Werte die 
 &lt;div class='tagClear'&gt;&lt;/div&gt;
 &lt;!--}}}--&gt;
 </pre>
-</div>
-<div title="Zahlenfunktionen" creator="SuperUdo" modifier="WikiAdmin" created="201310241337" modified="201310251155" changecount="27">
-<pre>Zahlenfunktionen sind Funktionen, die im weitesten Sinne mit Zahlen arbeiten.
-Prominentes Beispiel f&#252;r eine solche Funktion ist die Quersumme: {{{Quersumme(54321) = 15}}}, die die Summe der Ziffern einer Zahl berechnet.
-
-Folgende Zahlenfunktionen sind im Formell&#246;ser bekannt:
-|!Name|!Alternativen|!Syntax|!Berechnung|
-|Querprodukt|QP, ~CrossProduct, CP|{{{Querprodukt(Zahl)}}}|Ermittelt das Produkt der Ziffern einer Zahl|
-|Quersumme|QS, ~CrossTotal, CT|{{{Quersumme(Zahl)}}}|Ermittelt die Summe der Ziffern einer Zahl|
-|Fakult&#228;t|Factorial, Fact|{{{Fakult&#228;t(Zahl)}}}|Berechnet die Fakult&#228;t des Parameters (Produkt aller nat&#252;rlicher Zahlen von 1 bis zur angegebenen Zahl)|
-|~IQuerprodukt|IQP, ~ICrossProduct, ICP|{{{IQuerprodukt(Zahl)}}}|Iteriertes Querprodukt (mehrmalige Anwendung auf das Ergebnis), bis das Ergebnis einstellig ist.|
-|~IQuersumme|IQS, ~ICrossTotal, ICT|{{{IQuersumme(Zahl)}}}|Iterierte Quersumme (mehrmalige Anwendung auf das Ergebnis), bis das Ergebnis einstellig ist.|
-|Ganzzahl|Int|{{{Ganzzahl(Zahl)}}}|Ermittelt den ganzzahligen Anteil einer Zahl|
-|Pi||{{{Pi(n)}}}|Berechnet die Zahl Pi auf n Nachkommastellen genau.&lt;br /&gt;Der Parameter ist optional.|
-|Potenz|Pow, Power|{{{Potenz(Basis;Exponent)}}}|Berechnet die Potenz der Basis zum Exponenten.|
-|~PrimIndex|~PrimeIndex|{{{PrimIndex(Zahl)}}}|Ermittelt den Index einer Primzahl.|
-|Primzahl|~PrimeNumber|{{{Primzahl(n)}}}|Ermittelt die n-te Primzahl.|
-|~Rom2Dec||{{{Rom2Dec(Text)}}}|Wandelt r&#246;mische in Dezimalzahlen um.|
-|Runden|Round|{{{Runden(Zahl;Stellen)}}}|Rundet eine Zahl auf eine bestimmte Anzahl Nachkommastellen|
-
-!!!!Beispiele
-[img[smpl_numberfunctions.png]]</pre>
-</div>
-<div title="Zuweisungen" creator="SuperUdo" modifier="SuperUdo" created="201310241213" modified="201310241327" changecount="6">
-<pre>Eine Zuweisung speichert den Wert einer Formel in einer [[Variablen]]. Zuweisungen werden durch ein Gleichheitszeichen symbolisiert. 
-
-[img[assignments.png]]</pre>
 </div>
 <div title="zzConfigOptions" creator="SuperUdo" modifier="WikiAdmin" created="201310241917" modified="201310251150" tags="systemConfig" changecount="7">
 <pre>config.options.chkSinglePageMode=true;
