@@ -85,7 +85,7 @@ namespace GlobalcachingApplication.Plugins.CGeo
         {
 
             long result;
-            result = (long)(dt - (new DateTime(1970, 1, 1))).TotalSeconds;
+            result = (long)(dt - (new DateTime(1970, 1, 1))).TotalMilliseconds;
             return result;
         }
 
@@ -368,7 +368,7 @@ namespace GlobalcachingApplication.Plugins.CGeo
                         par = cmd.CreateParameter();
                         par.ParameterName = "@disabled";
                         par.DbType = DbType.Int32;
-                        par.Value = gc.Available ? 1 : 0;
+                        par.Value = gc.Available ? 0 : 1;
                         cmd.Parameters.Add(par);
                         par = cmd.CreateParameter();
                         par.ParameterName = "@archived";
@@ -423,6 +423,7 @@ namespace GlobalcachingApplication.Plugins.CGeo
                                 string atname = htAttributes[Math.Abs(att)] as string;
                                 if (!string.IsNullOrEmpty(atname))
                                 {
+                                    atname = atname.ToLower();
                                     cmd.Parameters["@geocode"].Value = gc.Code;
                                     cmd.Parameters["@updated"].Value = GetcgeoTime(DateTime.Now);
                                     cmd.Parameters["@attribute"].Value = att > 0 ? string.Format("{0}_yes", atname) : string.Format("{0}_no", atname);
@@ -488,34 +489,35 @@ namespace GlobalcachingApplication.Plugins.CGeo
                                     switch (wp.WPType.ID)
                                     {
                                         case 217:
-                                            cmd.Parameters["@updated"].Value = "pkg";
+                                            cmd.Parameters["@type"].Value = "pkg";
                                             break;
                                         case 220:
-                                            cmd.Parameters["@updated"].Value = "flag";
+                                            cmd.Parameters["@type"].Value = "flag";
                                             break;
                                         case 218:
-                                            cmd.Parameters["@updated"].Value = "puzzle";
+                                            cmd.Parameters["@type"].Value = "puzzle";
                                             break;
                                         case 452:
-                                            cmd.Parameters["@updated"].Value = "waypoint";
+                                            cmd.Parameters["@type"].Value = "waypoint";
                                             break;
                                         case 219:
-                                            cmd.Parameters["@updated"].Value = "stage";
+                                            cmd.Parameters["@type"].Value = "stage";
                                             break;
                                         case 221:
-                                            cmd.Parameters["@updated"].Value = "trailhead";
+                                            cmd.Parameters["@type"].Value = "trailhead";
                                             break;
                                         default:
-                                            cmd.Parameters["@updated"].Value = "waypoint";
+                                            cmd.Parameters["@type"].Value = "waypoint";
                                             break;
                                     }
                                     cmd.Parameters["@prefix"].Value = wp.Code.Substring(0,2);
-                                    cmd.Parameters["@lookup"].Value = wp.Name??"";
-                                    cmd.Parameters["@name"].Value = wp.Description??"";
+                                    cmd.Parameters["@lookup"].Value = "---";
+                                    cmd.Parameters["@name"].Value = wp.Description ?? "";
                                     cmd.Parameters["@latlon"].Value = Utils.Conversion.GetCoordinatesPresentation((double)wp.Lat,(double)wp.Lon);
                                     cmd.Parameters["@latitude"].Value = (double)wp.Lat;
                                     cmd.Parameters["@longitude"].Value = (double)wp.Lon;
                                     cmd.Parameters["@note"].Value = wp.Comment??"";
+
                                     cmd.ExecuteNonQuery();
                                 }
                             }
@@ -582,7 +584,8 @@ namespace GlobalcachingApplication.Plugins.CGeo
                     _dbcon.Dispose();
                     _dbcon = null;
 
-                    System.IO.File.Copy(cbFile, cbDataFile);
+                    //not working. you have to go through recover database on c:geo
+                    //System.IO.File.Copy(cbFile, cbDataFile);
                 }
             }
         }

@@ -332,7 +332,7 @@
   <string name="export kml" value="Exporteren naar KML" />
   <string name="export locus - addon gsak database" value="Exporteren naar Locus - addon GSAK database" />
   <string name="export ov2" value="Exporteer OV2" />
-  <string name="export to c:geo" value="" />
+  <string name="export to c:geo" value="Exporteren naar c:geo" />
   <string name="export to cachebox" value="Exporteer naar Cachebox" />
   <string name="export to excel" value="Exporteer naar Excel" />
   <string name="export to gapp data exchange file" value="Exporteren naar GAPP data uitwissel bestand" />
@@ -347,7 +347,7 @@
   <string name="exporting kml..." value="Bezig met exporteren naar KML..." />
   <string name="exporting locus - addon gsak database..." value="Bezig met exporteren naar Locus - addon GSAK database" />
   <string name="exporting poi..." value="Bezig met exporteren naar POI..." />
-  <string name="exporting to c:geo..." value="" />
+  <string name="exporting to c:geo..." value="Bezig met exporteren naar c:geo..." />
   <string name="exporting to cachebox..." value="Bezig met exporteren naar Cachebox..." />
   <string name="exporting to excel..." value="Bezig met exporteren naar Excel..." />
   <string name="extension" value="Extensie" />

@@ -1,6 +1,5 @@
 todo:
 
-- cgeo export
 - add markers between records in storage data, so recovery might result in less data loss
 - processdialog, minimize or show on taskbar. Going to desktop fails now
 - add option in action builder to popup dialog for field values (fill in at runtime)
@@ -10,6 +9,7 @@ todo:
 V1.9.6.0
 
 - fix: LiveAPI, log geocache using geocache_visits.txt now logs the geocaches ordered by time
+- add: Export to c:geo plugin added. Copy to .cgeo on the phone and perform a database recovery to import the data
 
 V1.9.5.0
 
