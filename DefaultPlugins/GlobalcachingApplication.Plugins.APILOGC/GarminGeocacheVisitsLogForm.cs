@@ -101,21 +101,30 @@ namespace GlobalcachingApplication.Plugins.APILOGC
                             vi.Code = vi.Code.Substring(vi.Code.IndexOf("GC"));
                         }
 
-                        ListViewItem lvi = new ListViewItem(new string[] {
+                        _geocacheVisitsItems.Add(vi);
+                    }
+                }
+            }
+            catch
+            {
+            }
+            if (_geocacheVisitsItems.Count > 0)
+            {
+                _geocacheVisitsItems.Sort(delegate(GeocacheVisitsItem t1, GeocacheVisitsItem t2)
+                    { return (t1.LogDate.CompareTo(t2.LogDate)); }
+                );
+                foreach (GeocacheVisitsItem vi in _geocacheVisitsItems)
+                {
+                    ListViewItem lvi = new ListViewItem(new string[] {
                             vi.InDatabase?Utils.LanguageSupport.Instance.GetTranslation(STR_YES):Utils.LanguageSupport.Instance.GetTranslation(STR_NO),
                             vi.Code,
                             vi.LogDate.ToString("d"),
                             Utils.LanguageSupport.Instance.GetTranslation(vi.LogType.Name),
                             vi.Comment
                         });
-                        lvi.Tag = vi;
-                        _geocacheVisitsItems.Add(vi);
-                        listView1.Items.Add(lvi);
-                    }
+                    lvi.Tag = vi;
+                    listView1.Items.Add(lvi);
                 }
-            }
-            catch
-            {
             }
             button3.Enabled = (from a in _geocacheVisitsItems where !a.InDatabase select a).Count() > 0;
             button5.Enabled = (from a in _geocacheVisitsItems where a.InDatabase select a).Count() > 0;
@@ -275,12 +284,21 @@ namespace GlobalcachingApplication.Plugins.APILOGC
         {
             if (listView1.SelectedItems.Count > 0 && addGeocachesToDatabase((from ListViewItem a in listView1.SelectedItems select a).ToList()))
             {
-                foreach (ListViewItem lvi in listView1.SelectedItems)
+                //right order
+                List<ListViewItem> lvil = new List<ListViewItem>();
+                foreach (ListViewItem lvi in listView1.Items)
+                {
+                    if (lvi.Selected)
+                    {
+                        lvil.Add(lvi);
+                    }
+                }
+                foreach (ListViewItem lvi in lvil)
                 {
                     Framework.Data.Geocache gc = Utils.DataAccess.GetGeocache(_core.Geocaches, (lvi.Tag as GeocacheVisitsItem).Code);
                     if (gc != null)
                     {
-                        using (GeocacheLogForm dlg = new GeocacheLogForm(_core, _client, gc, listView1.SelectedItems[0].Tag as GeocacheVisitsItem))
+                        using (GeocacheLogForm dlg = new GeocacheLogForm(_core, _client, gc, lvil[0].Tag as GeocacheVisitsItem))
                         {
                             dlg.AskForNext = false;
                             if (dlg.ShowDialog() != System.Windows.Forms.DialogResult.OK)

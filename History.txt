@@ -7,6 +7,10 @@ todo:
 - add log templates
 - add support for GCComments https://userscripts.org/scripts/show/75959
 
+V1.9.6.0
+
+- fix: LiveAPI, log geocache using geocache_visits.txt now logs the geocaches ordered by time
+
 V1.9.5.0
 
 - change: French language updated (thanks icaunais and RHCV)
