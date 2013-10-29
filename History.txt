@@ -5,11 +5,13 @@ todo:
 - add option in action builder to popup dialog for field values (fill in at runtime)
 - add log templates
 - add support for GCComments https://userscripts.org/scripts/show/75959
+- add plugin that selects geocaches that are also present (or not) in another database
 
 V1.9.6.0
 
 - fix: LiveAPI, log geocache using geocache_visits.txt now logs the geocaches ordered by time
 - add: Export to c:geo plugin added. Copy to .cgeo on the phone and perform a database recovery to import the data
+- fix: Shapefile, changed text decoding to get the correct names
 
 V1.9.5.0
 

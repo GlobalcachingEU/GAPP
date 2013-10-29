@@ -260,7 +260,8 @@ namespace DotNetDBF
                             //    sb.Append((char)b_array[c]);
                             //}
                             //recordObjects[i] = sb.ToString().TrimEnd();
-                            recordObjects[i] = CharEncoding.GetString(b_array).TrimEnd();
+                            //recordObjects[i] = CharEncoding.GetString(b_array).TrimEnd();
+                            recordObjects[i] = Encoding.GetEncoding("ISO-8859-1").GetString(b_array).TrimEnd();
                             break;
 
                         case NativeDbType.Date:
