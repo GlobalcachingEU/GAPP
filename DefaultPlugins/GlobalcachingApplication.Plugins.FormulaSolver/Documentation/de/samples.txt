@@ -19,10 +19,10 @@ Umkehr("GAPP")
 Rot13("GAPP")
 
 
-Querproduct(1234)
+Querprodukt(1234)
 Quersumme(1234)
 Fakultät(6)
-IQuerprdukt(1234)
+IQuerprodukt(1234)
 IQuersumme(1234)
 Ganzzahl(2.75)
 Pi(7)
