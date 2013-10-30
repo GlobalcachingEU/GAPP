@@ -229,8 +229,8 @@ namespace GlobalcachingApplication.Plugins.Browser
 
                     if (usedQuotes)
                     {
-                        pos = docText.IndexOf("\"", pos, StringComparison.OrdinalIgnoreCase);
-                        pos2 = docText.IndexOf("\"", pos + 1, StringComparison.OrdinalIgnoreCase);
+                        pos = docText.IndexOf("\"", pos, StringComparison.OrdinalIgnoreCase)+1;
+                        pos2 = docText.IndexOf("\"", pos, StringComparison.OrdinalIgnoreCase);
                         elementId = docText.Substring(pos, pos2 - pos);
                     }
                     else

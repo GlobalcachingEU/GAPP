@@ -736,6 +736,14 @@ namespace GlobalcachingApplication.Plugins.Browser
                     wb.Document.GetElementById("ctl00_ContentBody_cbIncludePQNameInFileName").InvokeMember("Click");
                 }
 
+                //javascript might have been triggered and therefore the document completed
+                //wait a sec
+                for (int i=0; i<10; i++)
+                {
+                    Application.DoEvents();
+                    System.Threading.Thread.Sleep(100);
+                }
+
                 result = true;
             }
             catch

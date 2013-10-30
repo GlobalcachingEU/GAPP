@@ -708,6 +708,10 @@ namespace GlobalcachingApplication.Plugins.Browser
             bool result = false;
             if (_wb.Url.OriginalString != url)
             {
+                if (_wb.ReadyState != WebBrowserReadyState.Complete)
+                {
+                    _wb.Stop();
+                }
                 _browserReady.Reset();
                 _wb.Navigate(url);
                 result = waitForPageReady(url);
@@ -736,7 +740,7 @@ namespace GlobalcachingApplication.Plugins.Browser
             {
                 if (!_cancel)
                 {
-                    if (string.IsNullOrEmpty(url) || _wb.Url.ToString() == url)
+                    if ((_wb.Document!=null && _wb.Document.Body != null) && string.IsNullOrEmpty(url) || _wb.Url.ToString() == url)
                     {
                         result = true;
                     }
