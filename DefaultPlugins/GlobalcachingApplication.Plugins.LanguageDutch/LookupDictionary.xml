@@ -495,6 +495,7 @@
   <string name="globalcachingapplication.plugins.exportkml" value="" />
   <string name="globalcachingapplication.plugins.filterex" value="" />
   <string name="globalcachingapplication.plugins.gallery" value="" />
+  <string name="globalcachingapplication.plugins.gappdatastorage" value="" />
   <string name="globalcachingapplication.plugins.gcedit" value="" />
   <string name="globalcachingapplication.plugins.gcvote" value="" />
   <string name="globalcachingapplication.plugins.gdirections" value="" />
@@ -816,6 +817,7 @@
   <string name="original image" value="Originele plaatje" />
   <string name="original text" value="Originele tekst" />
   <string name="other" value="Anders" />
+  <string name="other database" value="Andere database" />
   <string name="other names" value="Andere namen" />
   <string name="overwrite existing" value="Overschrijf huidige gegevens" />
   <string name="own" value="Eigenaar" />
@@ -972,8 +974,10 @@
   <string name="select garmin device" value="Selecteer Garmin apparaat" />
   <string name="select geocache" value="Selecteer geocache" />
   <string name="select geocaches" value="Selecteer geocaches" />
+  <string name="select geocaches also present in other gpp database" value="Selecteer geocaches die ook aanwezig zijn in een gpp andere database" />
   <string name="select geocaches by area" value="Selecteer geocaches binnen gebied" />
   <string name="select geocaches in area" value="Selecteer geocaches in gebied" />
+  <string name="select geocaches not present in other gpp database" value="Selecteer geocaches die niet aanwezig zijn in een gpp andere database" />
   <string name="select geocaches with attachements" value="Selecteer geocaches met bijlagen" />
   <string name="select geocaches within region" value="Selecteer geocaches binnen regio" />
   <string name="select geocaching.com notes" value="Selecteer geocaches met geocaching.com notitie" />

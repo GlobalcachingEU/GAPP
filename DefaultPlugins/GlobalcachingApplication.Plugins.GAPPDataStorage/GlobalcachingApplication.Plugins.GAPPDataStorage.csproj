@@ -99,6 +99,7 @@
     <Compile Include="RestoreForm.Designer.cs">
       <DependentUpon>RestoreForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SelectExternal.cs" />
     <Compile Include="SettingsPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
