@@ -52,6 +52,10 @@ namespace GlobalcachingApplication.Plugins.FilterEx
         public const string STR_ATLEASTONE = "At least one user";
         public const string STR_ALLUSERS = "Found by all";
         public const string STR_NOTBYANY = "Not found by any";
+        public const string STR_STATUS = "Status";
+        public const string STR_AVAILABLE = "Available";
+        public const string STR_DISABLED = "Disabled";
+        public const string STR_ARCHIVED = "Archived";
 
         public GeocacheSearchForm()
         {
@@ -110,6 +114,10 @@ namespace GlobalcachingApplication.Plugins.FilterEx
             this.checkBoxOwn.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_OWN);
             this.radioButtonIOwn.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_IOWN);
             this.radioButtonIDontOwnFound.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_IDONOTOWN);
+            this.checkBoxStatus.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_STATUS);
+            this.radioButtonAvailable.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_AVAILABLE);
+            this.radioButtonDisabled.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_DISABLED);
+            this.radioButtonArchived.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_ARCHIVED);
         }
 
         public GeocacheSearchForm(Framework.Interfaces.IPlugin owner, Framework.Interfaces.ICore core)
@@ -183,6 +191,10 @@ namespace GlobalcachingApplication.Plugins.FilterEx
         private void checkBoxOwn_CheckedChanged(object sender, EventArgs e)
         {
             panelOwn.Visible = checkBoxOwn.Checked;
+        }
+        private void checkBoxStatus_CheckedChanged(object sender, EventArgs e)
+        {
+            panelStatus.Visible = checkBoxStatus.Checked;
         }
         private void checkBoxFoundBy_CheckedChanged(object sender, EventArgs e)
         {
@@ -356,7 +368,8 @@ namespace GlobalcachingApplication.Plugins.FilterEx
                               (!checkBoxOwn.Checked || ((radioButtonIOwn.Checked && wp.IsOwn) || (radioButtonIDontOwnFound.Checked && !wp.IsOwn))) &&
                               (!checkBoxFoundBy.Checked || validateFoundBy(wp)) &&
                               (!checkBoxNotFoundBy.Checked || validateNotFoundBy(wp)) &&
-                              (!checkBoxTerrain.Checked || (wp.Terrain >= minTerr && wp.Terrain <= maxTerr))
+                              (!checkBoxTerrain.Checked || (wp.Terrain >= minTerr && wp.Terrain <= maxTerr)) &&
+                              (!checkBoxStatus.Checked || ((radioButtonAvailable.Checked && wp.Available) || (radioButtonDisabled.Checked && !wp.Available && !wp.Archived) || (radioButtonArchived.Checked && wp.Archived)))
                               select wp).ToList();
 
                 if (radioButtonWithinSelection.Checked || radioButtonNewSearch.Checked)
@@ -602,6 +615,10 @@ namespace GlobalcachingApplication.Plugins.FilterEx
             core.LanguageItems.Add(new Framework.Data.LanguageItem(GeocacheSearchForm.STR_OWN));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(GeocacheSearchForm.STR_IDONOTOWN));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(GeocacheSearchForm.STR_IOWN));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(GeocacheSearchForm.STR_STATUS));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(GeocacheSearchForm.STR_AVAILABLE));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(GeocacheSearchForm.STR_DISABLED));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(GeocacheSearchForm.STR_ARCHIVED));
             
             return base.Initialize(core);
         }

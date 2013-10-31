@@ -265,6 +265,7 @@
   <string name="diff" value="Moei" />
   <string name="difficulty" value="Moeilijkheid" />
   <string name="difficulty / terrain combination" value="Moeilijkheid / terrain combinatie" />
+  <string name="disabled" value="Niet beschikbaar" />
   <string name="disc." value="Gezien" />
   <string name="discovered it" value="Heb het gezien" />
   <string name="distance" value="Afstand" />
@@ -1059,6 +1060,7 @@
   <string name="states/provinces" value="Staten/provincies" />
   <string name="statistics" value="Statistieken" />
   <string name="statistics generator" value="Statistieken generator" />
+  <string name="status" value="" />
   <string name="step" value="Stap" />
   <string name="stop" value="" />
   <string name="stop after each log" value="Stop na elke log" />

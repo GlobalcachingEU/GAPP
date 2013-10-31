@@ -41,6 +41,11 @@
             this.panelOwn = new System.Windows.Forms.Panel();
             this.radioButtonIDontOwnFound = new System.Windows.Forms.RadioButton();
             this.radioButtonIOwn = new System.Windows.Forms.RadioButton();
+            this.checkBoxStatus = new System.Windows.Forms.CheckBox();
+            this.panelStatus = new System.Windows.Forms.Panel();
+            this.radioButtonAvailable = new System.Windows.Forms.RadioButton();
+            this.radioButtonDisabled = new System.Windows.Forms.RadioButton();
+            this.radioButtonArchived = new System.Windows.Forms.RadioButton();
             this.checkBoxFound = new System.Windows.Forms.CheckBox();
             this.panelFound = new System.Windows.Forms.Panel();
             this.radioButtonIHaveNotFound = new System.Windows.Forms.RadioButton();
@@ -141,6 +146,7 @@
             this.flowLayoutPanel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panelOwn.SuspendLayout();
+            this.panelStatus.SuspendLayout();
             this.panelFound.SuspendLayout();
             this.panelFoundBy.SuspendLayout();
             this.panelNotFoundBy.SuspendLayout();
@@ -183,6 +189,8 @@
             this.flowLayoutPanel1.AutoSize = true;
             this.flowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flowLayoutPanel1.Controls.Add(this.panel3);
+            this.flowLayoutPanel1.Controls.Add(this.checkBoxStatus);
+            this.flowLayoutPanel1.Controls.Add(this.panelStatus);
             this.flowLayoutPanel1.Controls.Add(this.checkBoxOwn);
             this.flowLayoutPanel1.Controls.Add(this.panelOwn);
             this.flowLayoutPanel1.Controls.Add(this.checkBoxFound);
@@ -312,6 +320,67 @@
             this.radioButtonIOwn.TabIndex = 0;
             this.radioButtonIOwn.Text = "I own";
             this.radioButtonIOwn.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxStatus
+            // 
+            this.checkBoxStatus.AutoSize = true;
+            this.checkBoxStatus.Location = new System.Drawing.Point(4, 56);
+            this.checkBoxStatus.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBoxStatus.Name = "checkBoxStatus";
+            this.checkBoxStatus.Size = new System.Drawing.Size(58, 21);
+            this.checkBoxStatus.TabIndex = 1;
+            this.checkBoxStatus.Text = "Status";
+            this.checkBoxStatus.UseVisualStyleBackColor = true;
+            this.checkBoxStatus.CheckedChanged += new System.EventHandler(this.checkBoxStatus_CheckedChanged);
+            // 
+            // panelStatus
+            // 
+            this.panelStatus.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panelStatus.Controls.Add(this.radioButtonAvailable);
+            this.panelStatus.Controls.Add(this.radioButtonDisabled);
+            this.panelStatus.Controls.Add(this.radioButtonArchived);
+            this.panelStatus.Location = new System.Drawing.Point(4, 85);
+            this.panelStatus.Margin = new System.Windows.Forms.Padding(4);
+            this.panelStatus.Name = "panelStatus";
+            this.panelStatus.Size = new System.Drawing.Size(593, 33);
+            this.panelStatus.TabIndex = 0;
+            this.panelStatus.Visible = false;
+            // 
+            // radioButtonAvailable
+            // 
+            this.radioButtonAvailable.AutoSize = true;
+            this.radioButtonAvailable.Checked = true;
+            this.radioButtonAvailable.Location = new System.Drawing.Point(14, 3);
+            this.radioButtonAvailable.Name = "radioButtonAvailable";
+            this.radioButtonAvailable.Size = new System.Drawing.Size(131, 21);
+            this.radioButtonAvailable.TabIndex = 0;
+            this.radioButtonAvailable.TabStop = true;
+            this.radioButtonAvailable.Text = "Available";
+            this.radioButtonAvailable.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonDisabled
+            // 
+            this.radioButtonDisabled.AutoSize = true;
+            this.radioButtonDisabled.Checked = false;
+            this.radioButtonDisabled.Location = new System.Drawing.Point(200, 3);
+            this.radioButtonDisabled.Name = "radioButtonDisabled";
+            this.radioButtonDisabled.Size = new System.Drawing.Size(131, 21);
+            this.radioButtonDisabled.TabIndex = 1;
+            this.radioButtonDisabled.TabStop = true;
+            this.radioButtonDisabled.Text = "Disabled";
+            this.radioButtonDisabled.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonArchived
+            // 
+            this.radioButtonArchived.AutoSize = true;
+            this.radioButtonArchived.Checked = false;
+            this.radioButtonArchived.Location = new System.Drawing.Point(400, 3);
+            this.radioButtonArchived.Name = "radioButtonArchived";
+            this.radioButtonArchived.Size = new System.Drawing.Size(131, 21);
+            this.radioButtonArchived.TabIndex = 2;
+            this.radioButtonArchived.TabStop = true;
+            this.radioButtonArchived.Text = "Archived";
+            this.radioButtonArchived.UseVisualStyleBackColor = true;
             // 
             // checkBoxFound
             // 
@@ -1402,6 +1471,8 @@
             this.flowLayoutPanel1.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.panelStatus.ResumeLayout(false);
+            this.panelStatus.PerformLayout();
             this.panelOwn.ResumeLayout(false);
             this.panelOwn.PerformLayout();
             this.panelFound.ResumeLayout(false);
@@ -1443,6 +1514,11 @@
         private System.Windows.Forms.CheckBox checkBoxOwn;
         private System.Windows.Forms.RadioButton radioButtonIOwn;
         private System.Windows.Forms.RadioButton radioButtonIDontOwnFound;
+        private System.Windows.Forms.Panel panelStatus;
+        private System.Windows.Forms.CheckBox checkBoxStatus;
+        private System.Windows.Forms.RadioButton radioButtonAvailable;
+        private System.Windows.Forms.RadioButton radioButtonDisabled;
+        private System.Windows.Forms.RadioButton radioButtonArchived;
         private System.Windows.Forms.CheckBox checkBoxLocation;
         private System.Windows.Forms.Panel panelLocation;
         private System.Windows.Forms.CheckBox checkBoxFound;
