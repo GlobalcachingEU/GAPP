@@ -5,8 +5,12 @@ todo:
 - add option in action builder to popup dialog for field values (fill in at runtime)
 - add log templates
 - add support for GCComments https://userscripts.org/scripts/show/75959
-- add plugin that selects geocaches that are also present (or not) in another database
 - add proxy support (Core data and accessible by plugins)
+
+V1.9.7.0
+
+- change: French language updated (thanks icaunais and RHCV)
+
 
 V1.9.6.0
 
