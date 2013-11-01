@@ -875,7 +875,7 @@
   <string name="result" value="Résultat" />
   <string name="retract listing" value="Rétracter la liste" />
   <string name="retrieve" value="Récupérer " />
-  <string name="retrieve it from a cache" value="Récupérer d'une cache" />
+  <string name="retrieve it from a cache" value="Récupéré d'une cache" />
   <string name="retrieving data from geocaching.com" value="Récupération des données de geocaching.com" />
   <string name="retrieving package list..." value="Récupère la liste des paquetages... " />
   <string name="return a substring of a string. parameter 3: default=1&#xD;&#xA;mid(&quot;string&quot;;startposition;[charactercount])" value="Retour la sous-chaîne d'une chaîne. paramètre 3 : par défaut = 1&#xD;&#xA;mid(&quot;string&quot;;startposition;[charactercount])" />
@@ -1072,7 +1072,7 @@
   <string name="trackable code(s)" value="Codes des traçables" />
   <string name="trackable group" value="Groupe de traçable" />
   <string name="trackable groups" value="Groupes des objects traçables" />
-  <string name="trackables" value="traçables" />
+  <string name="trackables" value="Traçables" />
   <string name="trackables to log (seperated by space, comma or tab)" value="Objets traçables à loguer (séparés par une espace, virgule ou tabulation) " />
   <string name="tracking number" value="numéro de traçable" />
   <string name="transfer" value="Transférer" />
