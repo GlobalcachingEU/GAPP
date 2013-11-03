@@ -511,6 +511,7 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
         public override bool NewFile()
         {
             bool result = true;
+            Save(_fileCollection, true);
             return result;
         }
         public override bool PrepareOpen()

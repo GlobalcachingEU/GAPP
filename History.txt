@@ -11,6 +11,7 @@ V1.9.7.0
 
 - change: French language updated (thanks icaunais and RHCV)
 - add: Search window now has option to filter on geocache status
+- change: When creating a new database, the new files are automatically saved.
 
 V1.9.6.0
 
