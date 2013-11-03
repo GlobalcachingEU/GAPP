@@ -4,7 +4,6 @@ todo:
 - processdialog, minimize or show on taskbar. Going to desktop fails now
 - add option in action builder to popup dialog for field values (fill in at runtime)
 - add log templates
-- add support for GCComments https://userscripts.org/scripts/show/75959
 - add proxy support (Core data and accessible by plugins)
 
 V1.9.7.0
@@ -12,6 +11,7 @@ V1.9.7.0
 - change: French language updated (thanks icaunais and RHCV)
 - add: Search window now has option to filter on geocache status
 - change: When creating a new database, the new files are automatically saved.
+- add: New import plugin, import GCComments
 
 V1.9.6.0
 

@@ -115,6 +115,7 @@
 							<File Id="plugin91"  Name="GlobalcachingApplication.Plugins.OKAPI.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.OKAPI.dll" />
 							<File Id="plugin92"  Name="GlobalcachingApplication.Plugins.FormulaSolver.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.FormulaSolver.dll" />
 							<File Id="plugin93"  Name="GlobalcachingApplication.Plugins.CGeo.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.CGeo.dll" />
+							<File Id="plugin94"  Name="GlobalcachingApplication.Plugins.GCComments.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.GCComments.dll" />
 						</Component>
 					</Directory>
 					<Directory Id="PLUGINDEPDIR" Name="PluginDependencies">
