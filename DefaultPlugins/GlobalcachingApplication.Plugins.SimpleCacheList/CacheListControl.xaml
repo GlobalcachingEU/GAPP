@@ -12,6 +12,7 @@
         <src:CompassPathConverter x:Key="ConvertToCompassPath"></src:CompassPathConverter>
         <src:CustomPropertyConverter x:Key="CustomPropertyConverter"></src:CustomPropertyConverter>
         <src:ContainerConverter x:Key="ContainerConverter"></src:ContainerConverter>
+        <src:GeocacheCoordConverter x:Key="GeocacheCoordConverter"></src:GeocacheCoordConverter>
         <properties:Settings x:Key="Settings" />
     </UserControl.Resources>
     <Grid x:Name="topGrid">
@@ -95,6 +96,7 @@
                 <DataGridTextColumn Binding="{Binding GeocacheType}" Header="Type" Width="{Binding Source={StaticResource Settings}, Path=Default.ColumnGeocacheTypeWidth}" IsReadOnly="True" Visibility="Hidden" />
                 <DataGridTextColumn Binding="{Binding EncodedHints, Mode=OneWay}" Header="Hints"  Width="{Binding Source={StaticResource Settings}, Path=Default.ColumnHintsWidth}" IsReadOnly="True" />
                 <DataGridTextColumn Binding="{Binding WaypointInfoString, Mode=OneWay}" Header="Waypoints" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Path=., Converter={StaticResource GeocacheCoordConverter}}" Header="Coordinates" IsReadOnly="True" Visibility="Hidden"/>
                 <DataGridTextColumn Binding="{Binding CustomAttributeIndex0, Mode=OneWay}" Header="Test" IsReadOnly="True"  Visibility="Hidden"/>
                 <DataGridTextColumn Binding="{Binding CustomAttributeIndex1, Mode=OneWay}" Header="Test" IsReadOnly="True"  Visibility="Hidden"/>
                 <DataGridTextColumn Binding="{Binding CustomAttributeIndex2, Mode=OneWay}" Header="Test" IsReadOnly="True"  Visibility="Hidden"/>

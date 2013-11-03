@@ -444,4 +444,33 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
         }
     }
 
+    public class GeocacheCoordConverter : IValueConverter
+    {
+        public GeocacheCoordConverter()
+        {
+        }
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            Framework.Data.Geocache gc = value as Framework.Data.Geocache;
+            if (gc != null)
+            {
+                if (gc.ContainsCustomLatLon)
+                {
+                    return Utils.Conversion.GetCoordinatesPresentation((double)gc.CustomLat, (double)gc.CustomLon);
+                }
+                else
+                {
+                    return Utils.Conversion.GetCoordinatesPresentation(gc.Lat, gc.Lon);
+                }
+            }
+            return null;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
+
 }

@@ -12,6 +12,7 @@ V1.9.7.0
 - add: Search window now has option to filter on geocache status
 - change: When creating a new database, the new files are automatically saved.
 - add: New import plugin, import GCComments
+- add: Cache list now contains a Coordinate column
 
 V1.9.6.0
 
