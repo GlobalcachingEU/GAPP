@@ -84,6 +84,34 @@ namespace GlobalcachingApplication.Plugins.SHP
             return result;
         }
 
+        public List<Framework.Data.AreaInfo> GetEnvelopAreasOfLocation(Framework.Data.Location loc)
+        {
+            List<Framework.Data.AreaInfo> result = new List<Framework.Data.AreaInfo>();
+            foreach (var sf in _shapeFiles)
+            {
+                List<Framework.Data.AreaInfo> areas = sf.GetEnvelopAreasOfLocation(loc);
+                if (areas != null)
+                {
+                    result.AddRange(areas);
+                }
+            }
+            return result;
+        }
+
+        public List<Framework.Data.AreaInfo> GetEnvelopAreasOfLocation(Framework.Data.Location loc, List<Framework.Data.AreaInfo> inAreas)
+        {
+            List<Framework.Data.AreaInfo> result = new List<Framework.Data.AreaInfo>();
+            foreach (var sf in _shapeFiles)
+            {
+                List<Framework.Data.AreaInfo> areas = sf.GetEnvelopAreasOfLocation(loc, inAreas);
+                if (areas != null)
+                {
+                    result.AddRange(areas);
+                }
+            }
+            return result;
+        }
+
         public List<Framework.Data.AreaInfo> GetAreasByName(string name)
         {
             List<Framework.Data.AreaInfo> result = new List<Framework.Data.AreaInfo>();

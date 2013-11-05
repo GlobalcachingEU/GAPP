@@ -5,6 +5,7 @@ todo:
 - add option in action builder to popup dialog for field values (fill in at runtime)
 - add log templates
 - add proxy support (Core data and accessible by plugins)
+- add option to set the logcount for GPX export
 
 V1.9.7.0
 
@@ -13,6 +14,8 @@ V1.9.7.0
 - change: When creating a new database, the new files are automatically saved.
 - add: New import plugin, import GCComments
 - add: Cache list now contains a Coordinate column
+- change: Geometry interface, added getting areas if location is within envelop of area
+- change: Select geocaches within a region, now has option to select geocaches within envelop of region/area
 
 V1.9.6.0
 

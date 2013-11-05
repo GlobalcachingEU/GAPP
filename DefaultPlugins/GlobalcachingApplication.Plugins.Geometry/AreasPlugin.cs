@@ -156,6 +156,54 @@ namespace GlobalcachingApplication.Plugins.Geometry
             return result;
         }
 
+        public List<Framework.Data.AreaInfo> GetEnvelopAreasOfLocation(Framework.Data.Location loc)
+        {
+            List<Framework.Data.AreaInfo> result = new List<Framework.Data.AreaInfo>();
+            PreLoadAreaInfo();
+            List<Framework.Data.AreaInfo> affectedAreas = (from ai in _cachedAreaInfo
+                                                           where ai.MinLat <= loc.Lat && ai.MaxLat >= loc.Lat && ai.MinLon <= loc.Lon && ai.MaxLon >= loc.Lon
+                                                           select ai).ToList();
+            foreach (Framework.Data.AreaInfo ai in affectedAreas)
+            {
+                GetPolygonOfArea(ai);
+                if (ai.Polygons != null)
+                {
+                    if ((from pg in ai.Polygons
+                         where pg.MinLat <= loc.Lat && pg.MaxLat >= loc.Lat && pg.MinLon <= loc.Lon && pg.MaxLon >= loc.Lon
+                         select pg).Count() > 0)
+                    {
+                        result.Add(ai);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public List<Framework.Data.AreaInfo> GetEnvelopAreasOfLocation(Framework.Data.Location loc, List<Framework.Data.AreaInfo> inAreas)
+        {
+            List<Framework.Data.AreaInfo> result = new List<Framework.Data.AreaInfo>();
+            PreLoadAreaInfo();
+            List<Framework.Data.AreaInfo> affectedAreas = (from ai in _cachedAreaInfo
+                                                           join b in inAreas on ai equals b
+                                                           where ai.MinLat <= loc.Lat && ai.MaxLat >= loc.Lat && ai.MinLon <= loc.Lon && ai.MaxLon >= loc.Lon
+                                                           select ai).ToList();
+            foreach (Framework.Data.AreaInfo ai in affectedAreas)
+            {
+                GetPolygonOfArea(ai);
+                if (ai.Polygons != null)
+                {
+                    if ((from pg in ai.Polygons
+                         where pg.MinLat <= loc.Lat && pg.MaxLat >= loc.Lat && pg.MinLon <= loc.Lon && pg.MaxLon >= loc.Lon
+                         select pg).Count() > 0)
+                    {
+                        result.Add(ai);
+                    }
+                }
+            }
+            return result;
+        }
+
+
         public List<Framework.Data.AreaInfo> GetAreasByName(string name)
         {
             PreLoadAreaInfo();

@@ -124,6 +124,16 @@ namespace GlobalcachingApplication.Plugins.SHP
             return _shapeFilesManager.GetAreasOfLocation(loc, inAreas);
         }
 
+        public List<Framework.Data.AreaInfo> GetEnvelopAreasOfLocation(Framework.Data.Location loc)
+        {
+            return _shapeFilesManager.GetEnvelopAreasOfLocation(loc);
+        }
+
+        public List<Framework.Data.AreaInfo> GetEnvelopAreasOfLocation(Framework.Data.Location loc, List<Framework.Data.AreaInfo> inAreas)
+        {
+            return _shapeFilesManager.GetEnvelopAreasOfLocation(loc, inAreas);
+        }
+
         public List<Framework.Data.AreaInfo> GetAreasByName(string name)
         {
             return _shapeFilesManager.GetAreasByName(name);

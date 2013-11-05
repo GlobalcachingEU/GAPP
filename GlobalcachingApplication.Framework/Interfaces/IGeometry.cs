@@ -9,6 +9,8 @@ namespace GlobalcachingApplication.Framework.Interfaces
     {
         List<Data.AreaInfo> GetAreasOfLocation(Data.Location loc);
         List<Data.AreaInfo> GetAreasOfLocation(Data.Location loc, List<Data.AreaInfo> inAreas);
+        List<Data.AreaInfo> GetEnvelopAreasOfLocation(Data.Location loc);
+        List<Data.AreaInfo> GetEnvelopAreasOfLocation(Data.Location loc, List<Data.AreaInfo> inAreas);
         List<Data.AreaInfo> GetAreasByName(string name);
         List<Data.AreaInfo> GetAreasByName(string name, Data.AreaType level);
         List<Data.AreaInfo> GetAreasByID(object id);

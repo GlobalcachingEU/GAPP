@@ -291,6 +291,56 @@ namespace GlobalcachingApplication.Plugins.SHP
             return result;
         }
 
+        public List<Framework.Data.AreaInfo> GetEnvelopAreasOfLocation(Framework.Data.Location loc)
+        {
+            List<Framework.Data.AreaInfo> result = null;
+            if (loc.Lat >= _shpYMin && loc.Lat <= _shpYMax && loc.Lon >= _shpXMin && loc.Lon <= _shpXMax)
+            {
+                //all areas with point in envelope
+                var ais = from r in _areaInfos where loc.Lat >= r.MinLat && loc.Lat <= r.MaxLat && loc.Lon >= r.MinLon && loc.Lon <= r.MaxLon select r;
+                foreach (var ai in ais)
+                {
+                    if (IsLocationInEnvelopArea(loc, ai))
+                    {
+                        if (result == null)
+                        {
+                            result = new List<Framework.Data.AreaInfo>();
+                        }
+                        result.Add(ai);
+                    }
+                }
+
+            }
+            return result;
+        }
+
+        public List<Framework.Data.AreaInfo> GetEnvelopAreasOfLocation(Framework.Data.Location loc, List<Framework.Data.AreaInfo> inAreas)
+        {
+            List<Framework.Data.AreaInfo> result = null;
+            if (loc.Lat >= _shpYMin && loc.Lat <= _shpYMax && loc.Lon >= _shpXMin && loc.Lon <= _shpXMax)
+            {
+                //all areas with point in envelope
+                var ais = from r in _areaInfos
+                          join b in inAreas on r equals b
+                          where loc.Lat >= r.MinLat && loc.Lat <= r.MaxLat && loc.Lon >= r.MinLon && loc.Lon <= r.MaxLon
+                          select r;
+                foreach (var ai in ais)
+                {
+                    if (IsLocationInEnvelopArea(loc, ai))
+                    {
+                        if (result == null)
+                        {
+                            result = new List<Framework.Data.AreaInfo>();
+                        }
+                        result.Add(ai);
+                    }
+                }
+
+            }
+            return result;
+        }
+
+
         private bool IsLocationInArea(Framework.Data.Location loc, Framework.Data.AreaInfo area)
         {
             bool result = false;
@@ -311,6 +361,31 @@ namespace GlobalcachingApplication.Plugins.SHP
                                 result = true;
                                 break;
                             }
+                        }
+                    }
+                }
+                if (releasePoly) area.Polygons = null;
+            }
+            return result;
+        }
+
+        private bool IsLocationInEnvelopArea(Framework.Data.Location loc, Framework.Data.AreaInfo area)
+        {
+            bool result = false;
+            //point in envelope of area
+            if (loc.Lat >= area.MinLat && loc.Lat <= area.MaxLat && loc.Lon >= area.MinLon && loc.Lon <= area.MaxLon)
+            {
+                bool releasePoly = area.Polygons == null;
+                if (area.Polygons == null) GetPolygonOfArea(area);
+                if (area.Polygons != null)
+                {
+                    foreach (var r in area.Polygons)
+                    {
+                        //point in envelope of polygon
+                        if (loc.Lat >= r.MinLat && loc.Lat <= r.MaxLat && loc.Lon >= r.MinLon && loc.Lon <= r.MaxLon)
+                        {
+                            result = true;
+                            break;
                         }
                     }
                 }

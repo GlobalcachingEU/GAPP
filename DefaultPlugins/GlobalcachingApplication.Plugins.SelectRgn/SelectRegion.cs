@@ -30,6 +30,7 @@ namespace GlobalcachingApplication.Plugins.SelectRgn
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SelectRegionForm.STR_SELECTIONOPTIONS));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SelectRegionForm.STR_STATE));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SelectRegionForm.STR_TITLE));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(SelectRegionForm.STR_INENVELOPE));
 
             return base.Initialize(core);
         }

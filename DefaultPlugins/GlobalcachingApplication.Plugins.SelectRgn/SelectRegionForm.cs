@@ -29,6 +29,7 @@ namespace GlobalcachingApplication.Plugins.SelectRgn
         public const string STR_OTHER = "Other";
         public const string STR_ALL = "-- All --";
         public const string STR_SEARCHING = "Searching...";
+        public const string STR_INENVELOPE = "In envelope";
 
         private Framework.Interfaces.ICore _core = null;
         private SelectRegion _plugin = null;
@@ -38,6 +39,7 @@ namespace GlobalcachingApplication.Plugins.SelectRgn
         private Framework.Data.AreaType _level;
         private string _prefix = "";
         private string _areaName = "";
+        private bool _inEnvelope = false;
 
         public SelectRegionForm()
         {
@@ -61,6 +63,7 @@ namespace GlobalcachingApplication.Plugins.SelectRgn
             this.label4.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_AREA);
             this.label6.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_PREFIX);
             this.button1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_SELECT);
+            this.checkBox1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_INENVELOPE);
 
             comboBox1.Items.Add(Utils.LanguageSupport.Instance.GetTranslation(STR_COUNTRY));
             comboBox1.Items.Add(Utils.LanguageSupport.Instance.GetTranslation(STR_STATE));
@@ -99,6 +102,7 @@ namespace GlobalcachingApplication.Plugins.SelectRgn
 
         private void button1_Click(object sender, EventArgs e)
         {
+            _inEnvelope = checkBox1.Checked;
             if (radioButtonNewSearch.Checked)
             {
                 _gcList = (from Framework.Data.Geocache g in _core.Geocaches select g).ToList();
@@ -166,6 +170,7 @@ namespace GlobalcachingApplication.Plugins.SelectRgn
         {
             try
             {
+                DateTime nextUpdate = DateTime.Now.AddSeconds(1);
                 using (Utils.ProgressBlock prog = new Utils.ProgressBlock(_plugin, STR_SEARCHING, STR_SEARCHING, _gcList.Count, 0, true))
                 {
                     int index = 0;
@@ -197,15 +202,23 @@ namespace GlobalcachingApplication.Plugins.SelectRgn
                             g.Selected = (pointInAreas != null &&
                                 (from a in areas join b in pointInAreas on a equals b select a).Count() > 0);
                             */
-                            g.Selected = Utils.GeometrySupport.Instance.GetAreasOfLocation(new Framework.Data.Location(g.Lat, g.Lon), areas).Count > 0;
+                            if (_inEnvelope)
+                            {
+                                g.Selected = Utils.GeometrySupport.Instance.GetEnvelopAreasOfLocation(new Framework.Data.Location(g.Lat, g.Lon), areas).Count > 0;
+                            }
+                            else
+                            {
+                                g.Selected = Utils.GeometrySupport.Instance.GetAreasOfLocation(new Framework.Data.Location(g.Lat, g.Lon), areas).Count > 0;
+                            }
 
                             index++;
-                            if (index % 50 == 0)
+                            if (DateTime.Now>=nextUpdate)
                             {
                                 if (!prog.UpdateProgress(STR_SEARCHING, STR_SEARCHING, _gcList.Count, index))
                                 {
                                     break;
                                 }
+                                nextUpdate = DateTime.Now.AddSeconds(1);
                             }
                         }
                     }

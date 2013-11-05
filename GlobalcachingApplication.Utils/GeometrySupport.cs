@@ -73,6 +73,26 @@ namespace GlobalcachingApplication.Utils
             return result;
         }
 
+        public List<Framework.Data.AreaInfo> GetEnvelopAreasOfLocation(Framework.Data.Location loc)
+        {
+            List<Framework.Data.AreaInfo> result = new List<Framework.Data.AreaInfo>();
+            foreach (Framework.Interfaces.IGeometry g in _geometryPlugins)
+            {
+                result.AddRange(g.GetEnvelopAreasOfLocation(loc));
+            }
+            return result;
+        }
+
+        public List<Framework.Data.AreaInfo> GetEnvelopAreasOfLocation(Framework.Data.Location loc, List<Framework.Data.AreaInfo> inAreas)
+        {
+            List<Framework.Data.AreaInfo> result = new List<Framework.Data.AreaInfo>();
+            foreach (Framework.Interfaces.IGeometry g in _geometryPlugins)
+            {
+                result.AddRange(g.GetEnvelopAreasOfLocation(loc, inAreas));
+            }
+            return result;
+        }
+
 
         public List<Framework.Data.AreaInfo> GetAreasByName(string name)
         {
