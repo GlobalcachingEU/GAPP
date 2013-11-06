@@ -1557,13 +1557,16 @@ Ein Doppelklick auf den Funktionsnamen oder die Schaltfläche &quot;Insert&quot;
 
 Eine Formel belegt genau eine Zeile im Eingabebereich. Das Ergebnis ihrer Berechnung findet sich nach dem Betätigen der Schaltfläche &quot;Lösen&quot; im Ausgabebereich auf der gleichen Höhe. </pre>
 </div>
-<div title="Funktionen" creator="SuperUdo" modifier="SuperUdo" created="201310241331" modified="201310241921" changecount="8">
+<div title="Funktionen" creator="SuperUdo" modifier="WikiAdmin" created="201310241331" modified="201311061203" changecount="9">
 <pre>Funktionen sind komplexe Formelbestandteile, die aus einem Funktionsnamen und einer dem Namen in runden Klammern folgenden, optionalen Parameterliste bestehen. Die Funktionen des Formellösers besitzen haben immer einen Wert, der der Formel für weitere Berechnungen oder [[Zuweisungen]] verwendet werden kann. 
 
-Die Funktionen im Formellöser können in drei Gruppen eingeteilt werden:
+Die Funktionen im Formellöser können in folgende Gruppen eingeteilt werden:
 * [[Zahlenfunktionen]]
+* [[Trigonometrische Funktionen]]
 * [[Koordinatenfunktionen]]
 * [[Textfunktionen]]
+
+Zusätzlich gibt es noch die [[Umgebungsfunktionen]], welche die Ausführungsumgebung für die Formeln beeinflussen.
 
 Der Formellöser unterscheidet bei den Funktionsnamen keine Groß- und Kleinschreibung: {{{QuerSumme}}}, {{{QUERSUMME}}} und {{{quersumme}}} bezeichnen also dieselbe Funktion.
 
@@ -1587,7 +1590,7 @@ Folgende Koordinatenfunktionen sind im Formellöser bekannt:
 !!!!Beispiele
 [img[smpl_coordinatefunctions.png]]</pre>
 </div>
-<div title="MainMenu" creator="Superudo" modifier="WikiAdmin" created="201310241107" modified="201310251158" changecount="42">
+<div title="MainMenu" creator="Superudo" modifier="WikiAdmin" created="201310241107" modified="201311061211" changecount="44">
 <pre>[img[globalcaching.eu|icon_gapp.png][http://gapp.globalcaching.eu]]
 [[Übersicht]]
 [[Programmfenster]]
@@ -1595,8 +1598,10 @@ Folgende Koordinatenfunktionen sind im Formellöser bekannt:
 [[Variablen]]
 [[Funktionen]]
 {{smallText{[[Zahlen|Zahlenfunktionen]]}}}
+{{smallText{[[Trigonometrisch|TrigonometrischeFunktionen]]}}}
 {{smallText{[[Text|Textfunktionen]]}}}
 {{smallText{[[Koordinaten|Koordinatenfunktionen]]}}}
+{{smallText{[[Umgebung|Umgebungsfunktionen]]}}}
 [[&quot;Formel einfügen&quot;|Dialog &quot;Formel einfügen&quot;]]
 [[&quot;Wegpunkt einfügen&quot;|Dialog &quot;Wegpunkt einfügen&quot;]]</pre>
 </div>
@@ -2263,6 +2268,40 @@ onclick=&quot;
 	var tip=(config.options.chkShowRightSidebar?'hide':'show')+' right sidebar';
 	'$2'!='$'+'2'?'$2':tip;
 }}&gt;&gt;</pre>
+</div>
+<div title="TrigonometrischeFunktionen" creator="WikiAdmin" modifier="WikiAdmin" created="201311061208" modified="201311061242" changecount="12">
+<pre>Trigonometrische Funktionen sind rechnerische Zusammenhänge zwischen Winkel und Seitenverhältnissen in Dreiecken.
+Prominentes Beispiel für eine solche Funktion ist der Sinus: {{{Sin(π) = 0}}}.
+
+Folgende trigonometrische Funktionen sind im Formellöser bekannt:
+|!Name|!Alternativen|!Syntax|!Berechnung|
+|Sin||{{{Sin(Zahl)}}}|Ermittelt den Sinus einer Zahl|
+|Cos||{{{Cos(Zahl)}}}|Ermittelt den Cosinus einer Zahl|
+|Tan||{{{Tan(Zahl)}}}|Ermittelt den Tangens einer Zahl|
+|~SinH||{{{SinH(Zahl)}}}|Ermittelt den Sinus hyperbolicus einer Zahl|
+|~CosH||{{{CosH(Zahl)}}}|Ermittelt den Cosinus hyperbolicus einer Zahl|
+|~TanH||{{{TanH(Zahl)}}}|Ermittelt den Tangens hyperbolicus einer Zahl|
+|~ASin||{{{ASin(Zahl)}}}|Ermittelt die Zahl, deren Sinus angegeben ist|
+|~ACos||{{{ACos(Zahl)}}}|Ermittelt die Zahl, deren Cosinus angegeben ist|
+|~ATan||{{{ATan(Zahl)}}}|Ermittelt die Zahl, deren Tangens angegeben ist|
+
+''Für alle trigonometrischen Funktionen gilt:'' 
+Die Einheit der Winkelangaben wird innerhalb des Formellösers durch die [[Umgebungsfunktion|Umgebungsfunktionen]] {{{SetContext}}} auf Grad, Neugrad oder Bogenmaß eingestellt.</pre>
+</div>
+<div title="Umgebungsfunktionen" creator="WikiAdmin" modifier="WikiAdmin" created="201311061231" modified="201311061241" changecount="12">
+<pre>Umgebungsfunktionen beeinflussen die Ausführungsumgebung der im Formellöser zu berechnenden Funktionen. Pro Lösungsvorgang (Schaltfläche &quot;Lösen&quot;) wird eine Ausführungsumgebung mit Standardeigenschaften erstellt, die mit den Umgebungsfunktionen beeinflusst werden können.
+
+Folgende Umgebungsfunktionen sind im Formellöser bekannt:
+|!Name|!Alternativen|!Syntax|!Anmerkung|
+|~SetContext|~SetzeKontext|{{{SetContext(Parameter)}}}|Ändert die Ausführungsumgebung für die Formelberechnung&lt;br&gt;Siehe Erläuterungen|
+
+!! Erläuterungen ~SetContext
+Die folgenden Parameter der Funktion ~SetContext beeinflussen die Ausführung [[trigonometrischer Funktionen|TrigonometrischeFunktionen]]
+|!~SetContext-Parameter|!Auswirkung|
+|{{{Rad}}}|Berechnungen in Bogenminuten|
+|{{{Grad}}}|Berechnungen in Grad (Vollkreis 360°)|
+|{{{Deg}}}|Berechnungen in Neugrad (Vollkreis 400°)|
+</pre>
 </div>
 <div title="Variablen" creator="SuperUdo" modifier="SuperUdo" created="201310241219" modified="201310241327" changecount="7">
 <pre>Variablen sind Platzhalter für Werte innerhalb der Formelauswertung. Sie erhalten ihren Wert durch [[Zuweisungen]] und können an jeder Stelle verwendet werden, wo in einer Formel Zahlen oder Textwerte verwendet werden können. Die Variable wird bei der Formelauswertung durch ihren Wert ersetzt. 
