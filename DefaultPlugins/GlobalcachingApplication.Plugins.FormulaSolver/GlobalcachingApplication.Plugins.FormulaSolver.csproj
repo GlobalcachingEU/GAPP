@@ -107,6 +107,7 @@
     <Compile Include="FormulaInterpreter\Functions\TrigonometricFunctions\ATan.cs" />
     <Compile Include="FormulaInterpreter\Functions\TrigonometricFunctions\Cos.cs" />
     <Compile Include="FormulaInterpreter\Functions\TrigonometricFunctions\CosH.cs" />
+    <Compile Include="FormulaInterpreter\Functions\TrigonometricFunctions\InverseTrigonometricFunction.cs" />
     <Compile Include="FormulaInterpreter\Functions\TrigonometricFunctions\Sin.cs" />
     <Compile Include="FormulaInterpreter\Functions\TrigonometricFunctions\SinH.cs" />
     <Compile Include="FormulaInterpreter\Functions\TrigonometricFunctions\Tan.cs" />

@@ -5,9 +5,9 @@ using System.Text;
 
 namespace GlobalcachingApplication.Plugins.FormulaSolver.FormulaInterpreter.Functions.TrigonometricFunctions
 {
-    public class ATan : TrigonometricFunction
+    public class ATan : InverseTrigonometricFunction
     {
-        protected override object ExecuteTrigFunction(double arg)
+        protected override double ExecuteTrigFunction(double arg)
         {
             return Math.Atan(arg);
         }
