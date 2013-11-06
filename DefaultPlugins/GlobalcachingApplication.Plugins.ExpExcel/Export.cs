@@ -85,7 +85,13 @@ namespace GlobalcachingApplication.Plugins.ExpExcel
             ppi = new PropertyItemFoundDate(core);
             ppi = new PropertyItemHints(core);
             ppi = new PropertyItemGCVote(core);
-
+#if DEBUG
+            ppi = new PropertyItemRDx(core);
+            ppi = new PropertyItemRDy(core);
+            ppi = new PropertyItemEnvelopAreaOther(core);
+            ppi = new PropertyItemInAreaOther(core);
+            ppi = new PropertyItemGlobalcachingUrl(core);
+#endif
             return base.Initialize(core);
         }
 

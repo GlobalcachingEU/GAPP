@@ -42,6 +42,59 @@ namespace GlobalcachingApplication.Plugins.ExpExcel
         public const string STR_CUSTOMCOORD = "Custom coord.";
         public const string STR_AUTOCOORD = "Auto coord.";
         public const string STR_GCVOTE = "GCVote";
+        public const string STR_RDX = "RD x";
+        public const string STR_RDY = "RD y";
+        public const string STR_ENVELOPEAREA_OTHER = "In region envelop - other";
+        public const string STR_INAREA_OTHER = "In region - other";
+        public const string STR_GLOBALCACHINGURL = "Globalcaching URL";
+    }
+
+    public class PropertyItemGlobalcachingUrl : PropertyItem
+    {
+        public PropertyItemGlobalcachingUrl(Framework.Interfaces.ICore core)
+            : base(core, PropertyName.STR_GLOBALCACHINGURL)
+        {
+        }
+        public override object GetValue(Framework.Data.Geocache gc)
+        {
+            return string.Concat("http://www.globalcaching.eu/gmap/DefaultV3.aspx?wp={0}", gc.Code);
+        }
+    }
+
+    public class PropertyItemEnvelopAreaOther : PropertyItem
+    {
+        public PropertyItemEnvelopAreaOther(Framework.Interfaces.ICore core)
+            : base(core, PropertyName.STR_ENVELOPEAREA_OTHER)
+        {
+        }
+        public override object GetValue(Framework.Data.Geocache gc)
+        {
+            StringBuilder result = new StringBuilder();
+            List<Framework.Data.AreaInfo> al = Utils.GeometrySupport.Instance.GetEnvelopAreasOfLocation(new Framework.Data.Location(gc.Lat, gc.Lon), Utils.GeometrySupport.Instance.GetAreasByLevel(Framework.Data.AreaType.Other));
+            foreach (Framework.Data.AreaInfo a in al)
+            {
+                result.AppendLine(a.Name);
+            }
+            return result.ToString();
+        }
+    }
+
+    public class PropertyItemInAreaOther : PropertyItem
+    {
+        public PropertyItemInAreaOther(Framework.Interfaces.ICore core)
+            : base(core, PropertyName.STR_INAREA_OTHER)
+        {
+        }
+        public override object GetValue(Framework.Data.Geocache gc)
+        {
+            StringBuilder result = new StringBuilder();
+            List<Framework.Data.AreaInfo> al = Utils.GeometrySupport.Instance.GetAreasOfLocation(new Framework.Data.Location(gc.Lat, gc.Lon), Utils.GeometrySupport.Instance.GetAreasByLevel(Framework.Data.AreaType.Other));
+            foreach (Framework.Data.AreaInfo a in al)
+            {
+                result.AppendLine(a.Name);
+            }
+            return result.ToString();
+        }
     }
 
     public class PropertyItemName : PropertyItem
@@ -97,6 +150,44 @@ namespace GlobalcachingApplication.Plugins.ExpExcel
         public override object GetValue(Framework.Data.Geocache gc)
         {
             return gc.Lon.ToString();
+        }
+    }
+    public class PropertyItemRDx : PropertyItem
+    {
+        public PropertyItemRDx(Framework.Interfaces.ICore core)
+            : base(core, PropertyName.STR_RDX)
+        {
+        }
+        public override object GetValue(Framework.Data.Geocache gc)
+        {
+            double x, y;
+            if (Utils.Calculus.RDFromLatLong(gc.Lat, gc.Lon, out x, out y))
+            {
+                return x.ToString();
+            }
+            else
+            {
+                return "";
+            }
+        }
+    }
+    public class PropertyItemRDy : PropertyItem
+    {
+        public PropertyItemRDy(Framework.Interfaces.ICore core)
+            : base(core, PropertyName.STR_RDY)
+        {
+        }
+        public override object GetValue(Framework.Data.Geocache gc)
+        {
+            double x, y;
+            if (Utils.Calculus.RDFromLatLong(gc.Lat, gc.Lon, out x, out y))
+            {
+                return y.ToString();
+            }
+            else
+            {
+                return "";
+            }
         }
     }
     public class PropertyItemCoordinate : PropertyItem
