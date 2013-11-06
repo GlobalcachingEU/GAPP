@@ -66,6 +66,18 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
         public static string NO_PROPER_COORDINATES_SELECTED = "No proper coordinate string selected.\r\nPlease select a complete coordinate string and try again.";
         public static string STR_DESCR_LATITUDE = "Gets the latitude from a coordinate as decimal number.\r\nLatitude(\"N 51° 12.081 E 6° 50.328\") = 51.20135";
         public static string STR_DESCR_LONGITUDE = "Gets the latitude from a coordinate as decimal number.\r\nLongitude(\"N 51° 12.081 E 6° 50.328\") = 6.8388";
+        public static string STR_CONTEXT_GROUP = "Execution context functions";
+        public static string STR_DESCR_CONTEXT = "Set options of execution context.\r\nSetContext(\"Rad\")";
+        public static string STR_TRIGONOMETRIC_GROUP = "Trigonometric functions";
+        public static string STR_DESC_SIN = "Trigonometric function Sine";
+        public static string STR_DESC_COS = "Trigonometric function Cosine";
+        public static string STR_DESC_TAN = "Trigonometric function Tangent";
+        public static string STR_DESC_SINH = "Trigonometric function Hyperbolic Sine";
+        public static string STR_DESC_COSH = "Trigonometric function Hyperbolic Cosine";
+        public static string STR_DESC_TANH = "Trigonometric function Hyperbolic Tangent";
+        public static string STR_DESC_ASIN = "Trigonometric function Inverse Sine";
+        public static string STR_DESC_ACOS = "Trigonometric function Inverse Cosine";
+        public static string STR_DESC_ATAN = "Trigonometric function Inverse Tangent";
 
         public static void InitializeCoreLanguageItems(Framework.Interfaces.ICore core) {
 			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_MISSING_ARGUMENT));
@@ -127,6 +139,18 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
             core.LanguageItems.Add(new Framework.Data.LanguageItem(NO_PROPER_COORDINATES_SELECTED));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_LATITUDE));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_LONGITUDE));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_CONTEXT_GROUP));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESCR_CONTEXT));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_TRIGONOMETRIC_GROUP));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESC_SIN));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESC_COS));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESC_TAN));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESC_SINH));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESC_COSH));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESC_TANH));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESC_ASIN));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESC_ACOS));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DESC_ATAN));
         }
 
         public static string GetString(string res)

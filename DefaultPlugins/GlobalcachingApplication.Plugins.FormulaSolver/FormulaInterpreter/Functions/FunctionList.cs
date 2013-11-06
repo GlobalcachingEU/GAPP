@@ -26,6 +26,8 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver.FormulaInterpreter.Func
             AddTextFunctions();
             AddCoordinateFunctions();
             AddNumberFunctions();
+            AddTrigonometricFunctions();
+            AddContextFunctions();
         }
 
         public string GetFunctionGroupString(FunctionDescriptor.FunctionGroup grp)
@@ -38,6 +40,10 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver.FormulaInterpreter.Func
                     return StrRes.GetString(StrRes.STR_COORDINATE_GROUP);
                 case FunctionDescriptor.FunctionGroup.TextGroup:
                     return StrRes.GetString(StrRes.STR_TEXT_GROUP);
+                case FunctionDescriptor.FunctionGroup.ContextGroup:
+                    return StrRes.GetString(StrRes.STR_CONTEXT_GROUP);
+                case FunctionDescriptor.FunctionGroup.TrigonometricGroup:
+                    return StrRes.GetString(StrRes.STR_TRIGONOMETRIC_GROUP);
                 default:
                     return StrRes.GetString(StrRes.STR_UNKNOWN_GROUP);
             }
@@ -198,6 +204,67 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver.FormulaInterpreter.Func
                 StrRes.GetString(StrRes.STR_DESCR_ROT13)
             );
         }
+
+        private void AddTrigonometricFunctions()
+        {
+            FunctionDescriptor.FunctionGroup grp = FunctionDescriptor.FunctionGroup.TrigonometricGroup;
+            AddFunction(
+                "Sin", grp, null,
+                new Functions.TrigonometricFunctions.Sin(),
+                StrRes.GetString(StrRes.STR_DESC_SIN)
+            );
+            AddFunction(
+                "Cos", grp, null,
+                new Functions.TrigonometricFunctions.Cos(),
+                StrRes.GetString(StrRes.STR_DESC_COS)
+            );
+            AddFunction(
+                "Tan", grp, null,
+                new Functions.TrigonometricFunctions.Tan(),
+                StrRes.GetString(StrRes.STR_DESC_TAN)
+            );
+            AddFunction(
+                "SinH", grp, null,
+                new Functions.TrigonometricFunctions.SinH(),
+                StrRes.GetString(StrRes.STR_DESC_SINH)
+            );
+            AddFunction(
+                "CosH", grp, null,
+                new Functions.TrigonometricFunctions.CosH(),
+                StrRes.GetString(StrRes.STR_DESC_COSH)
+            );
+            AddFunction(
+                "TanH", grp, null,
+                new Functions.TrigonometricFunctions.TanH(),
+                StrRes.GetString(StrRes.STR_DESC_TANH)
+            );
+            AddFunction(
+                "ASin", grp, null,
+                new Functions.TrigonometricFunctions.ASin(),
+                StrRes.GetString(StrRes.STR_DESC_ASIN)
+            );
+            AddFunction(
+                "ACos", grp, null,
+                new Functions.TrigonometricFunctions.ACos(),
+                StrRes.GetString(StrRes.STR_DESC_ACOS)
+            );
+            AddFunction(
+                "ATan", grp, null,
+                new Functions.TrigonometricFunctions.ATan(),
+                StrRes.GetString(StrRes.STR_DESC_ATAN)
+            );
+        }
+
+        private void AddContextFunctions()
+        {
+            FunctionDescriptor.FunctionGroup grp = FunctionDescriptor.FunctionGroup.ContextGroup;
+            AddFunction(
+                "SetContext", grp, new[] { "SetzeKontext" },
+                new Functions.ContextFunctions.SetContext(),
+                StrRes.GetString(StrRes.STR_DESCR_CONTEXT)
+            );
+        }
+
 
         private void AddFunction(string name, FunctionDescriptor.FunctionGroup functionGroup, 
             string[] alternates, Functor functor, string description)

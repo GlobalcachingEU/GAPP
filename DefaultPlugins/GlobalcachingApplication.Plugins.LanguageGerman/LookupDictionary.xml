@@ -16,7 +16,6 @@
   <string name="about" value="Über" />
   <string name="account" value="Konto" />
   <string name="account name" value="GC Username" />
-  <string name="account names on other geocaching sites" value="" />
   <string name="account switcher" value="Konto wechseln" />
   <string name="accounts" value="Konten" />
   <string name="action" value="Aktion" />
@@ -89,13 +88,11 @@
   <string name="auto coord." value="Auto-Koord." />
   <string name="automatic" value="Automatisch" />
   <string name="automatic date ranges" value="Automatische Datumsbereiche" />
-  <string name="automatic download new geocaches (no prompt)" value="" />
   <string name="automatic routing" value="Automatisches Routing" />
   <string name="automatic save data on closing" value="Daten beim Schließen automatisch speichern" />
   <string name="automatic selection" value="Automatische Auswahl" />
   <string name="automatic selection of new geocaches" value="Automatische Auswahl neuer Geocaches" />
   <string name="automatic top panel visibility" value="Automatische Sichtbarkeit des oberen Fensterabschnittes" />
-  <string name="automatic update and download geocaches" value="" />
   <string name="automatically activate" value="Automatisch aktivieren" />
   <string name="available" value="Verfügbar" />
   <string name="available my finds logs for selected trackable" value="Verfügbare &quot;Meine Funde&quot; Logs für ausgewählten Trackable" />
@@ -157,7 +154,6 @@
   <string name="click the link to open up the cache page for the event" value="Klicke auf den Link um das Cachelisting für das Event anzuzeigen" />
   <string name="cluster marker" value="Gruppierungs-Marker" />
   <string name="code" value="GC-Code" />
-  <string name="code prefix" value="" />
   <string name="codes" value="GC-Codes" />
   <string name="collection" value="Sammlung" />
   <string name="comma separated" value="Durch Kommas getrennt" />
@@ -230,7 +226,6 @@
   <string name="days cached / frequency" value="Cachingtage / Frequenz" />
   <string name="days in between" value="Tage zwischen" />
   <string name="days or" value="Tage oder" />
-  <string name="dbg: import images" value="" />
   <string name="debug" value="Debug" />
   <string name="debug log viewer" value="Debug-Loganzeige" />
   <string name="decouple from main screen" value="Vom Hauptfenster entkoppeln" />
@@ -314,6 +309,7 @@
   <string name="execute once" value="Einmal ausführen" />
   <string name="executing..." value="Wird ausgeführt..." />
   <string name="execution completed" value="Ausführung abgeschlossen" />
+  <string name="execution context functions" value="Umgebungsfunktionen" />
   <string name="exit" value="Beenden" />
   <string name="explanation" value="Erklärung" />
   <string name="export" value="Exportieren" />
@@ -400,7 +396,6 @@
   <string name="from home location" value="Von Deiner &quot;Home Location&quot;" />
   <string name="from selection" value="von Auswahl" />
   <string name="functions" value="Funktionen" />
-  <string name="garmin geocache_visits.txt" value="" />
   <string name="gc code" value="GC Code" />
   <string name="gc name" value="GC Bezeichnung" />
   <string name="gc owner" value="GC Owner" />
@@ -449,6 +444,8 @@
   <string name="get logs" value="Logs laden" />
   <string name="get more..." value="Lade weitere..." />
   <string name="get owned" value="Nehme Eigenen" />
+  <string name="gets the latitude from a coordinate as decimal number.&#xD;&#xA;latitude(&quot;n 51° 12.081 e 6° 50.328&quot;) = 51.20135" value="Ermittelt die geografische Länge einer Koordinate in Dezimalgrad.&#xD;&#xA;Länge(&quot;N51° 12.081 E 6° 50.328&quot;) = 51.20135" />
+  <string name="gets the latitude from a coordinate as decimal number.&#xD;&#xA;longitude(&quot;n 51° 12.081 e 6° 50.328&quot;) = 6.8388" value="Ermittelt die geografische Breite einer Koordinate in Dezimalgrad.&#xD;&#xA;Länge(&quot;N51° 12.081 E 6° 50.328&quot;) = 6.8388" />
   <string name="getting file list..." value="Lade Dateiliste..." />
   <string name="getting trackable logs..." value="Lade Trackable Logs..." />
   <string name="gives the bearing from coord1 to coord2&#xD;&#xA;bearing(coord1; coord2)" value="Berechnet die Richtung zwischen zwei Koordinaten.&#xD;&#xA;Bearing(coord1; coord2)" />
@@ -457,70 +454,6 @@
   <string name="gives the number pi with n digits after decimal point&#xD;&#xA;pi(4) = 3.1415" value="Berechnet Pi auf n Nachkommastellen.&#xD;&#xA;Pi(4) = 3.1415" />
   <string name="gives the rot13 encryption&#xD;&#xA;rot13(&quot;abc&quot;) = nop" value="Ermittelt die ROT13-Verschlüsselung des Textes.&#xD;&#xA;Rot13(&quot;abc&quot;) = nop" />
   <string name="globalcaching application is geocaching live enabled.&#xD;&#xA;&#xD;&#xA;with the geocaching live api from groundspeak it becomes easy to obtain data from geocaching.com and e.g. log a geocache without the need to go to the website of geocaching.com.&#xD;&#xA;pocket queries can be downloaded right from the application itself and geocaches can be updated instantly.&#xD;&#xA;&#xD;&#xA;in order to use these features, you have to authorize this application to access your account on geocaching.com." value="Die Globalcaching Application kann auf &quot;Geocaching Live&quot; zugreifen.&#xD;&#xA;&#xD;&#xA;Mit der Geocaching Live API von Groundspeak kann man auf einfache Art und Weise Daten von geocaching.com laden. So kann man z.B. direkt einen Geocache loggen, ohne auf die Website geocaching.com gehen zu müssen.&#xD;&#xA;&#xD;&#xA;Um diese Funktion nutzen zu können, musst Du dieses Programm für die Nutzung Deiner Profildaten auf geocaching.com autorisieren." />
-  <string name="globalcachingapplication.plugins.accountswitcher" value="" />
-  <string name="globalcachingapplication.plugins.actionsequence" value="" />
-  <string name="globalcachingapplication.plugins.apibookmark" value="" />
-  <string name="globalcachingapplication.plugins.apifavorites" value="" />
-  <string name="globalcachingapplication.plugins.apifindsofuser" value="" />
-  <string name="globalcachingapplication.plugins.apigetc" value="" />
-  <string name="globalcachingapplication.plugins.apilimits" value="" />
-  <string name="globalcachingapplication.plugins.apilogc" value="" />
-  <string name="globalcachingapplication.plugins.apilogt" value="" />
-  <string name="globalcachingapplication.plugins.apimyf" value="" />
-  <string name="globalcachingapplication.plugins.apinotes" value="" />
-  <string name="globalcachingapplication.plugins.apipq" value="" />
-  <string name="globalcachingapplication.plugins.apiupd" value="" />
-  <string name="globalcachingapplication.plugins.apiuserwp" value="" />
-  <string name="globalcachingapplication.plugins.attach" value="" />
-  <string name="globalcachingapplication.plugins.authorize" value="" />
-  <string name="globalcachingapplication.plugins.autorgn" value="" />
-  <string name="globalcachingapplication.plugins.bookmark" value="" />
-  <string name="globalcachingapplication.plugins.browser" value="" />
-  <string name="globalcachingapplication.plugins.car" value="" />
-  <string name="globalcachingapplication.plugins.cgeo" value="" />
-  <string name="globalcachingapplication.plugins.chat" value="" />
-  <string name="globalcachingapplication.plugins.coordsav" value="" />
-  <string name="globalcachingapplication.plugins.dataexch" value="" />
-  <string name="globalcachingapplication.plugins.datasetup" value="" />
-  <string name="globalcachingapplication.plugins.dbglog" value="" />
-  <string name="globalcachingapplication.plugins.developtests" value="" />
-  <string name="globalcachingapplication.plugins.expexcel" value="" />
-  <string name="globalcachingapplication.plugins.exportgarmin" value="" />
-  <string name="globalcachingapplication.plugins.exportgarminpoi" value="" />
-  <string name="globalcachingapplication.plugins.exportkml" value="" />
-  <string name="globalcachingapplication.plugins.filterex" value="" />
-  <string name="globalcachingapplication.plugins.formulasolver" value="" />
-  <string name="globalcachingapplication.plugins.gallery" value="" />
-  <string name="globalcachingapplication.plugins.gcedit" value="" />
-  <string name="globalcachingapplication.plugins.gcvote" value="" />
-  <string name="globalcachingapplication.plugins.gdirections" value="" />
-  <string name="globalcachingapplication.plugins.getimg" value="" />
-  <string name="globalcachingapplication.plugins.htmleditor" value="" />
-  <string name="globalcachingapplication.plugins.ical" value="" />
-  <string name="globalcachingapplication.plugins.ignoregeocaches" value="" />
-  <string name="globalcachingapplication.plugins.imggrab" value="" />
-  <string name="globalcachingapplication.plugins.imgres" value="" />
-  <string name="globalcachingapplication.plugins.logview" value="" />
-  <string name="globalcachingapplication.plugins.munzee" value="" />
-  <string name="globalcachingapplication.plugins.nlcachedist" value="" />
-  <string name="globalcachingapplication.plugins.okapi" value="" />
-  <string name="globalcachingapplication.plugins.olmap" value="" />
-  <string name="globalcachingapplication.plugins.openareas" value="" />
-  <string name="globalcachingapplication.plugins.ov2" value="" />
-  <string name="globalcachingapplication.plugins.pkgmng" value="" />
-  <string name="globalcachingapplication.plugins.purgelogs" value="" />
-  <string name="globalcachingapplication.plugins.qrybuilder" value="" />
-  <string name="globalcachingapplication.plugins.quickaction" value="" />
-  <string name="globalcachingapplication.plugins.quickselect" value="" />
-  <string name="globalcachingapplication.plugins.script" value="" />
-  <string name="globalcachingapplication.plugins.selectarea" value="" />
-  <string name="globalcachingapplication.plugins.selectrgn" value="" />
-  <string name="globalcachingapplication.plugins.setupwzrd" value="" />
-  <string name="globalcachingapplication.plugins.solver" value="" />
-  <string name="globalcachingapplication.plugins.statsgen" value="" />
-  <string name="globalcachingapplication.plugins.txtsearch" value="" />
-  <string name="globalcachingapplication.plugins.uimainwindow" value="" />
-  <string name="globalcachingapplication.plugins.waymark" value="" />
   <string name="go" value="Start" />
   <string name="go to geocache" value="Gehe zum Geocache" />
   <string name="go to trackable page" value="Trackable Seite öffnen" />
@@ -565,7 +498,6 @@
   <string name="image to add to log" value="Bild, das zum Log hinzugefügt werden soll" />
   <string name="import" value="Importieren" />
   <string name="import all" value="Alle importieren" />
-  <string name="import all my logs" value="" />
   <string name="import all your missing favorites geocaches" value="Alle fehlenden deiner Geocache Favoriten importieren" />
   <string name="import bookmark" value="Bookmark-Liste importieren" />
   <string name="import data" value="Importiere Daten" />
@@ -574,10 +506,7 @@
   <string name="import geocache" value="Geocache importieren" />
   <string name="import geocache notes" value="Cachenotizen importieren" />
   <string name="import geocaches" value="Importiere Geocaches" />
-  <string name="import geocaches by codes" value="" />
-  <string name="import geocaches in area on map" value="" />
   <string name="import geocaches in bookmark" value="Geocaches von Bookmarks importieren" />
-  <string name="import geocaches within radius" value="" />
   <string name="import geocaches..." value="Importiere Geocaches..." />
   <string name="import ggz" value="Importiere GGZ" />
   <string name="import gpx" value="Importiere GPX" />
@@ -589,8 +518,6 @@
   <string name="import missing geocaches" value="Importiere fehlende Geocaches" />
   <string name="import munzees from munzee.dfx.at" value="Importiere Munzees von munzee.dfx.at" />
   <string name="import my finds" value="Meine Funde importieren" />
-  <string name="import nl geocache distance" value="" />
-  <string name="import nl geocache distance..." value="" />
   <string name="import pocket queries" value="Importiere Pocket Queries" />
   <string name="import waymark gpx" value="Waymark-GPX importieren" />
   <string name="importing data..." value="Importiere Daten..." />
@@ -607,8 +534,6 @@
   <string name="importing log images..." value="Importiere Log Bilder..." />
   <string name="importing logs..." value="Importiere Logs..." />
   <string name="importing munzees..." value="Importiere Munzees..." />
-  <string name="importing opencaching geocaches..." value="" />
-  <string name="importing opencaching logs..." value="" />
   <string name="importing polygons" value="Importiere Polygone" />
   <string name="importing waypoints..." value="Importiere Wegpunkte..." />
   <string name="in collection" value="in Sammlung" />
@@ -616,9 +541,7 @@
   <string name="in google agenda select other agenda's, import agenda and paste file name" value="Wähle 'andere Agendas' in Google Agenda, importiere die Agenda und füge den Dateinamen ein" />
   <string name="in possession" value="In Besitz" />
   <string name="include notes in description" value="Notizen in Beschreibung aufnehmen" />
-  <string name="info" value="" />
   <string name="information" value="Information" />
-  <string name="insert" value="" />
   <string name="insert declarations for the missing variables:&#xA;{0}" value="Deklarationen für die fehlenden Variablen einfügen:&#xD;&#xA;{0}" />
   <string name="insert formula" value="Formel einfügen" />
   <string name="insert from database" value="Füge von Datenbank ein" />
@@ -628,7 +551,6 @@
   <string name="internal storage" value="Interne Speicherung" />
   <string name="intersection of 2 lines (coord1-coord2) with (coord3-coord4).&#xD;&#xA;intersection(coord1; coord2; coord3; coord4)" value="Berechnet den Schnittpunkt zweier durch Koordinaten beschriebener Linien.&#xD;&#xA;Intersection(coord1; coord2; coord3; coord4)" />
   <string name="invert selection" value="Auswahl umkehren" />
-  <string name="is own" value="" />
   <string name="italy" value="Italien" />
   <string name="iterated crossproduct until result has only 1 digit.&#xD;&#xA;example: icp(1234) = 8" value="Iteriertes Querprodukt, bis das Ergebnis einstellig ist.&#xD;&#xA;Beispiel: ICT(1234) = 8" />
   <string name="iterated crosstotal until result has only 1 digit.&#xD;&#xA;example: ict(123456) = 3" value="Iterierte Quersumme, bis das Ergebnis einstellig ist.&#xD;&#xA;Beispiel: ICT(123456) = 3" />
@@ -694,7 +616,6 @@
   <string name="logging trackable..." value="Logge Trackable..." />
   <string name="logging..." value="Logge..." />
   <string name="longitude" value="Länge (longitude)" />
-  <string name="luxembourg" value="" />
   <string name="maintenance" value="Wartung" />
   <string name="map" value="Karte" />
   <string name="maps" value="Karten" />
@@ -703,7 +624,6 @@
   <string name="mark missing" value="Markiere als fehlend" />
   <string name="mass geocache editor" value="Editor für große Mengen von Geocaches" />
   <string name="max. 30 days." value="max. 30 Tage." />
-  <string name="max. distance" value="" />
   <string name="max. in folder" value="Max. pro Verz." />
   <string name="max. in last pq" value="Max. vorh. PQ" />
   <string name="max. in pq" value="Max. in PQ" />
@@ -723,12 +643,10 @@
   <string name="miles" value="Meilen" />
   <string name="milestones" value="Meilensteine" />
   <string name="min. #" value="mind.Anz." />
-  <string name="min. distance" value="" />
   <string name="minimum start of name length" value="Minimale Länge des Namensbeginns" />
   <string name="missing" value="Nicht besucht" />
   <string name="missing coordinates" value="Fehlende Koordinaten" />
   <string name="modified" value="Verändert" />
-  <string name="modified since" value="" />
   <string name="months" value="Monate" />
   <string name="most consecutive days with founds" value="Max. zusammenhängende Tage mit Funden" />
   <string name="most consecutive days without founds" value="Max. zusammenhängende Tage ohne Fund" />
@@ -747,7 +665,6 @@
   <string name="name contains" value="Name enthält" />
   <string name="name field" value="Namensfeld" />
   <string name="name prefix" value="Namenspräfix" />
-  <string name="namespaces" value="" />
   <string name="nederlandse vertalingen" value="Niederländisch" />
   <string name="needs archived" value="Soll archiviert werden" />
   <string name="needs attention" value="Benötigt Beachtung" />
@@ -759,7 +676,6 @@
   <string name="new filters only apply for new imports" value="Neue Filter werden nur auf neue Imports angewendet." />
   <string name="new search" value="Neue Suche" />
   <string name="next &gt;&gt;" value="Weiter &gt;&gt;" />
-  <string name="nl geocache distance" value="" />
   <string name="no" value="Nein" />
   <string name="no active geocache" value="Es ist kein Geocache aktiv" />
   <string name="no active geocache selected" value="Es ist kein aktiver Geocache ausgewählt" />
@@ -784,14 +700,12 @@
   <string name="number" value="Anzahl" />
   <string name="number functions" value="Zahlenfunktionen" />
   <string name="numbers of characters in the string" value="Anzahl der Zeichen im Text." />
-  <string name="o k a p i" value="" />
   <string name="offline" value="Offline" />
   <string name="offline images" value="Offline-Bilder" />
   <string name="offline logging" value="Offline loggen" />
   <string name="offline logs" value="Offline Logs" />
   <string name="offline osm maps" value="Offline OSM Karten" />
   <string name="ok" value="OK" />
-  <string name="okapi" value="" />
   <string name="older than" value="Älter als" />
   <string name="oldest cache" value="Ältester Cache" />
   <string name="only images not in geocache description" value="Nur Bilder außerhalb der Cachebescheibung" />
@@ -804,8 +718,6 @@
   <string name="open street map - online" value="Openstreetmap - online" />
   <string name="open street map (online)" value="Openstreetmap (online)" />
   <string name="open street maps" value="OpenStreetMap" />
-  <string name="opencaching sites" value="" />
-  <string name="opencaching.de" value="" />
   <string name="openlayers map" value="OpenLayers Karte" />
   <string name="or" value="ODER" />
   <string name="original image" value="Originalbild" />
@@ -821,7 +733,6 @@
   <string name="package manager" value="Package Manager" />
   <string name="package version" value="Package Version" />
   <string name="parameters in function call invalid" value="Falsche Parameter im Funktionsaufruf" />
-  <string name="parel of de maand" value="" />
   <string name="parent" value="Übergeordnet" />
   <string name="pass directory to poi loader" value="CSV-Verzeichnis an POI Loader übergeben" />
   <string name="password" value="Kennwort" />
@@ -871,7 +782,6 @@
   <string name="projection of coordinate.&#xD;&#xA;projection(coord; length; angle)" value="Projektion einer Koordinate aus Punkt, Richtung und Winkel.&#xD;&#xA;Projection(coord; length; angle)" />
   <string name="properties" value="Eigenschaften" />
   <string name="property" value="Eigenschaft" />
-  <string name="provide list of geocache codes" value="" />
   <string name="public" value="Öffentlich" />
   <string name="publication date" value="Veröffentlichungsdatum" />
   <string name="publish listing" value="Listing veröffentlichen (publish)" />
@@ -884,7 +794,6 @@
   <string name="query builder" value="Query Builder (Datenbankabfragen)" />
   <string name="quick select" value="Schnellauswahl" />
   <string name="radius" value="Radius" />
-  <string name="random geocache selector" value="" />
   <string name="recent databases" value="Zuletzt geöffnet" />
   <string name="recovered" value="Gesichtet (recovered)" />
   <string name="refresh" value="Aktualisieren" />
@@ -909,7 +818,6 @@
   <string name="restoring backup..." value="Stelle Backup wieder her..." />
   <string name="result" value="Ergebnis" />
   <string name="retract listing" value="Listing zurückziehen" />
-  <string name="retrieve" value="" />
   <string name="retrieve it from a cache" value="Aus Cache entnommen (retrieve)" />
   <string name="retrieving data from geocaching.com" value="Lade Daten von geocaching.com" />
   <string name="retrieving package list..." value="Lade Package-Liste..." />
@@ -1006,6 +914,7 @@
   <string name="set flagged" value="Markieren (M)" />
   <string name="set munzee type in gpx export" value="Setze Munzee-Typ für GPX Export" />
   <string name="set opacity" value="Setze Undurchsichtigkeit" />
+  <string name="set options of execution context.&#xD;&#xA;setcontext(&quot;rad&quot;)" value="Setzt Optionen innerhalb der Ausführungsumgebung.&#xD;&#xA;SetzeKontext(&quot;rad&quot;)" />
   <string name="set selected" value="Auswählen (A)" />
   <string name="set transparency when inactive..." value="Setze Transparenz wenn inaktiv..." />
   <string name="settings" value="Einstellungen" />
@@ -1028,12 +937,10 @@
   <string name="show logs for active geocache" value="Zeige Logs für aktiven Geocache" />
   <string name="show logs of user" value="Zeige Logs eines Users" />
   <string name="show name of geocache in tool tip" value="Namen des Geocaches unter Mauszeiger anzeigen" />
-  <string name="show okapi menu" value="" />
   <string name="show route" value="Weg zeigen" />
   <string name="show route of selected trackable" value="Weg des Trackables zeigen" />
   <string name="show selected on map" value="Ausgewählte auf Karte anzeigen" />
   <string name="show selected only" value="Nur ausgewählte anzeigen" />
-  <string name="show settings dialog before start" value="" />
   <string name="simple cache list" value="Einfache Cacheliste" />
   <string name="single" value="Einzeln" />
   <string name="size" value="Größe" />
@@ -1046,7 +953,6 @@
   <string name="sort on" value="Sortiere nach" />
   <string name="sort order" value="Sortierreihenfolge" />
   <string name="splitscreen" value="Split-Screen" />
-  <string name="stadswandelcaches in nederland" value="" />
   <string name="start" value="Start" />
   <string name="start #foundcount" value="Start #foundcount" />
   <string name="startup" value="Programmstart" />
@@ -1080,9 +986,6 @@
   <string name="ter. min" value="Terr. Min" />
   <string name="terr" value="Terr." />
   <string name="terrain" value="Terrain" />
-  <string name="test" value="" />
-  <string name="test emmen" value="" />
-  <string name="testje" value="" />
   <string name="text" value="Text" />
   <string name="text color" value="Textfarbe" />
   <string name="text functions" value="Textfunktionen" />
@@ -1095,13 +998,10 @@
   <string name="the folder is the active settings folder" value="Das Verzeichnis ist das aktuelle Einstellungsverzeichnis" />
   <string name="the live api limits the amount of geocaches that can be downloaded per day." value="Die Live API begrenzt die Anzahl von Geocaches, welche an einem Tag abgefragt werden können" />
   <string name="the query will be column wise processed" value="Diese Query wird spaltenweise verarbeitet" />
-  <string name="there are {0} new geocaches found&#xD;&#xA;import these?" value="" />
-  <string name="there are no new geocaches found" value="" />
   <string name="this feature will allow you to take a trackable and add a visit log to each geocache you have found.&#xD;&#xA;the logdate will be the same as the geocache found log date.&#xD;&#xA;this way it is possible to track your finds by using the trackable map on geocaching.com.&#xD;&#xA;&#xD;&#xA;first get the trackable you own, select a trackable which you want to use." value="Diese Funktion erlaubt es einen Trackable jeden Geocache, den Du gefunden hast besuchen zu lassen.&#xD;&#xA;Das Besuchsdatum wird dabei identisch mit dem Logdatum gewählt.&#xD;&#xA;Dieser Weg wird von einigen gewählt um seine Funde anhand der Trackable-Karte auf geocaching.com verfolgen zu können.&#xD;&#xA;Wähle zunächst einen Deiner aktivierten Trackables." />
   <string name="this file cannot be processed" value="Diese Datei kann nicht verarbeitet werden" />
   <string name="this will overwrite an existing file&#xD;&#xA;overwrite this file?" value="Dies über schreibt eine bereits existierende Datei. Diese Datei wirklich überschreiben?" />
   <string name="throttle user" value="User begrenzen" />
-  <string name="tmp" value="" />
   <string name="to" value="Bis" />
   <string name="toolbar" value="Toolbar" />
   <string name="total distance" value="Gesamtstrecke" />
@@ -1118,11 +1018,20 @@
   <string name="tracking number" value="Trackingnummer" />
   <string name="transfer" value="Übertragen (transfer)" />
   <string name="travelled distance" value="Reisestrecke" />
+  <string name="trigonometric function cosine" value="Cosinus-Funktion" />
+  <string name="trigonometric function hyperbolic cosine" value="Cosinus Hyperbolicus" />
+  <string name="trigonometric function hyperbolic sine" value="Sinus Hyperbolicus" />
+  <string name="trigonometric function hyperbolic tangent" value="Tangens Hyperbolicus" />
+  <string name="trigonometric function inverse cosine" value="Inverse Cosinusfunktion" />
+  <string name="trigonometric function inverse sine" value="Inverse Sinusfunktion" />
+  <string name="trigonometric function inverse tangent" value="Inverse Tangensfunktion" />
+  <string name="trigonometric function sine" value="Sinus-Funktion" />
+  <string name="trigonometric function tangent" value="Tangens-Funktion" />
+  <string name="trigonometric functions" value="Trigonometrische Funktionen" />
   <string name="type" value="Typ" />
   <string name="u i child window" value="U I Fenster" />
   <string name="u i main window" value="U I Hauptfenster" />
   <string name="unable to access the live api or process its data" value="Kann auf die Live API nicht zugreifen oder die Antwort nicht verarbeiten" />
-  <string name="unable to access the okapi or process its data" value="" />
   <string name="unable to download package file" value="Kann Package-Datei nicht herunterladen" />
   <string name="unable to download package list" value="Kann Package-Liste nicht herunterladen" />
   <string name="unable to get the data from gcvote.com" value="Konnte keine Daten von gcvote.com abrufen" />
@@ -1140,7 +1049,6 @@
   <string name="unselect all" value="Alle abwählen" />
   <string name="update" value="Aktualisieren" />
   <string name="update all trackables in group" value="Alle Trackables in Gruppe aktualisieren" />
-  <string name="update and download caches for" value="" />
   <string name="update available!" value="Ein Update ist verfügbar!" />
   <string name="update coordinates" value="Aktualisiere Koordinaten" />
   <string name="update geocache images" value="Aktualisiere Geocache Bilder" />
@@ -1149,7 +1057,6 @@
   <string name="update map" value="Karte aktualisieren" />
   <string name="update selected trackables" value="Ausgewählte Trackables" />
   <string name="update status" value="Aktualisiere Status" />
-  <string name="update status of geocaches and import new geocaches" value="" />
   <string name="updated days ago" value="Aktualisiert vor n Tagen" />
   <string name="updating geocache..." value="Aktualisiere Geocache..." />
   <string name="updating geocaches..." value="Aktualisiere Geocaches..." />
@@ -1195,7 +1102,6 @@
   <string name="use the hints for description" value="Verwende die Hints als Beschreibung" />
   <string name="use windows authentification" value="Windows Authentifizierung verwenden" />
   <string name="user" value="User" />
-  <string name="user id" value="" />
   <string name="user name" value="Benutzername" />
   <string name="user names" value="Usernamen" />
   <string name="user scripts" value="Benutzerscripte" />
@@ -1241,6 +1147,4 @@
   <string name="your uploaded flows" value="Deine hochgeladenen Ablaufdiagramme" />
   <string name="your vote" value="Deine Wertung" />
   <string name="zip file" value="ZIP-Datei" />
-  <string name="gets the latitude from a coordinate as decimal number.&#xD;&#xA;latitude(&quot;n 51° 12.081 e 6° 50.328&quot;) = 51.20135" value="Ermittelt die geografische Länge einer Koordinate in Dezimalgrad.&#xD;&#xA;Länge(&quot;N51° 12.081 E 6° 50.328&quot;) = 51.20135" />
-  <string name="gets the latitude from a coordinate as decimal number.&#xD;&#xA;longitude(&quot;n 51° 12.081 e 6° 50.328&quot;) = 6.8388" value="Ermittelt die geografische Breite einer Koordinate in Dezimalgrad.&#xD;&#xA;Länge(&quot;N51° 12.081 E 6° 50.328&quot;) = 6.8388" />
 </resources>

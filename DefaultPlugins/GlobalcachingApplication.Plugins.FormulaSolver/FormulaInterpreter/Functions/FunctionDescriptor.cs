@@ -13,6 +13,8 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
             NumberGroup,
             TextGroup,
             CoordinateGroup,
+            ContextGroup,
+            TrigonometricGroup,
             NoGroup
         };
 
@@ -25,6 +27,10 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
                     return StrRes.GetString(StrRes.STR_COORDINATE_GROUP);
                 case FunctionGroup.TextGroup:
                     return StrRes.GetString(StrRes.STR_TEXT_GROUP);
+                case FunctionGroup.ContextGroup:
+                    return StrRes.GetString(StrRes.STR_CONTEXT_GROUP);
+                case FunctionGroup.TrigonometricGroup:
+                    return StrRes.GetString(StrRes.STR_TRIGONOMETRIC_GROUP);
                 default:
                     return null;
             }

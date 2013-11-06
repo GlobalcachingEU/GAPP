@@ -60,7 +60,6 @@
             this.lbGroup.Location = new System.Drawing.Point(6, 19);
             this.lbGroup.Name = "lbGroup";
             this.lbGroup.Size = new System.Drawing.Size(188, 134);
-            this.lbGroup.Sorted = true;
             this.lbGroup.TabIndex = 0;
             // 
             // lblFunctions

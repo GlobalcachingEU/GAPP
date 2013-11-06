@@ -91,18 +91,31 @@
     <Compile Include="FormulaInterpreter\BinaryOperation.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="FormulaInterpreter\BinaryOperator.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="FormulaInterpreter\BinaryOperator.cs" />
     <Compile Include="FormulaInterpreter\ConcatElement.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="FormulaInterpreter\Concatenation.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="FormulaInterpreter\DivisionOperator.cs" />
     <Compile Include="FormulaInterpreter\Functions\CoordinateFunctions\Longitude.cs" />
     <Compile Include="FormulaInterpreter\Functions\CoordinateFunctions\Latitude.cs" />
+    <Compile Include="FormulaInterpreter\Functions\ContextFuntions\SetContext.cs" />
+    <Compile Include="FormulaInterpreter\Functions\TrigonometricFunctions\ACos.cs" />
+    <Compile Include="FormulaInterpreter\Functions\TrigonometricFunctions\ASin.cs" />
+    <Compile Include="FormulaInterpreter\Functions\TrigonometricFunctions\ATan.cs" />
+    <Compile Include="FormulaInterpreter\Functions\TrigonometricFunctions\Cos.cs" />
+    <Compile Include="FormulaInterpreter\Functions\TrigonometricFunctions\CosH.cs" />
+    <Compile Include="FormulaInterpreter\Functions\TrigonometricFunctions\Sin.cs" />
+    <Compile Include="FormulaInterpreter\Functions\TrigonometricFunctions\SinH.cs" />
+    <Compile Include="FormulaInterpreter\Functions\TrigonometricFunctions\Tan.cs" />
+    <Compile Include="FormulaInterpreter\Functions\TrigonometricFunctions\TanH.cs" />
+    <Compile Include="FormulaInterpreter\Functions\TrigonometricFunctions\TrigonometricFunction.cs" />
+    <Compile Include="FormulaInterpreter\MinusOperator.cs" />
     <Compile Include="FormulaInterpreter\ModuloOperator.cs" />
+    <Compile Include="FormulaInterpreter\MultiplyOperator.cs" />
+    <Compile Include="FormulaInterpreter\PlusOperator.cs" />
     <Compile Include="FormulaInterpreter\Exception\ArgumentCountException.cs" />
     <Compile Include="FormulaInterpreter\Exception\ArgumentRangeException.cs" />
     <Compile Include="FormulaInterpreter\Exception\FormulaSolverException.cs" />
@@ -127,9 +140,6 @@
     <Compile Include="FormulaInterpreter\Functions\TextFunctions\Reverse.cs" />
     <Compile Include="FormulaInterpreter\Functions\TextFunctions\Rot13.cs" />
     <Compile Include="FormulaInterpreter\Functions\TextFunctions\TextLen.cs" />
-    <Compile Include="FormulaInterpreter\DivisionOperator.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="FormulaInterpreter\ExecutionContext.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -161,12 +171,6 @@
     <Compile Include="FormulaInterpreter\Identifier.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="FormulaInterpreter\MinusOperator.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormulaInterpreter\MultiplyOperator.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="FormulaInterpreter\Negate.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -174,9 +178,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="FormulaInterpreter\Optional.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormulaInterpreter\PlusOperator.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="FormulaInterpreter\Sequence.cs">
