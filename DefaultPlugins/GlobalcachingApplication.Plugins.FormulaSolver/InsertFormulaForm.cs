@@ -77,29 +77,25 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
             SetLanguageSpecificControlText();
 
             lbGroup.Items.Clear();
-            lbGroup.Items.Add(
-                new GroupItemData(
-                    FunctionDescriptor.FunctionGroup.TextGroup, 
-                    _fList.GetFunctionGroupString(FunctionDescriptor.FunctionGroup.TextGroup)
-                )
-            );
-            lbGroup.Items.Add(
-                new GroupItemData(
-                    FunctionDescriptor.FunctionGroup.NumberGroup,
-                    _fList.GetFunctionGroupString(FunctionDescriptor.FunctionGroup.NumberGroup)
-                )
-            );
-            lbGroup.Items.Add(
-                new GroupItemData(
-                    FunctionDescriptor.FunctionGroup.CoordinateGroup,
-                    _fList.GetFunctionGroupString(FunctionDescriptor.FunctionGroup.CoordinateGroup)
-                )
-            );
+            AddFunctionGroup(lbGroup, FunctionDescriptor.FunctionGroup.TextGroup);
+            AddFunctionGroup(lbGroup, FunctionDescriptor.FunctionGroup.NumberGroup);
+            AddFunctionGroup(lbGroup, FunctionDescriptor.FunctionGroup.TrigonometricGroup);
+            AddFunctionGroup(lbGroup, FunctionDescriptor.FunctionGroup.CoordinateGroup);
+            AddFunctionGroup(lbGroup, FunctionDescriptor.FunctionGroup.ContextGroup);
 
             lbGroup.SelectedIndexChanged += new System.EventHandler(lbGroup_SelectedIndexChanged);
             lbFunction.SelectedIndexChanged += new System.EventHandler(lbFunction_SelectedIndexChanged);
 
             lbGroup.SelectedIndex = 0;
+        }
+
+        private void AddFunctionGroup(ListBox lbGroup, FunctionDescriptor.FunctionGroup functionGroup)
+        {
+            lbGroup.Items.Add(
+                new GroupItemData(
+                    functionGroup, _fList.GetFunctionGroupString(functionGroup)
+                )
+            );
         }
 
         private void SetLanguageSpecificControlText()

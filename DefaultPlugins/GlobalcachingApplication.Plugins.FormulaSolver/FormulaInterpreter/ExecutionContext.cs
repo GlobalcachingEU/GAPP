@@ -52,6 +52,13 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver.FormulaInterpreter
 
         #endregion
 
+        #region Trigonometric Base
+
+        public enum TrigonometricBase { Degree, Radians, Grad };
+        public TrigonometricBase TrigonometricMeasure = TrigonometricBase.Radians;
+
+        #endregion
+
         #region FunctionList
 
         private FunctionList _flist = new FunctionList();

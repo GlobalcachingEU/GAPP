@@ -53,6 +53,10 @@ Function = 'projection' | 'projektion'
          | 'fact' | 'factorial' | 'fakultät'
          | 'lat' | 'latitude' | 'längengrad'
          | 'lon' | 'longitude' | 'breitengrad'
+         | 'setcontext' | 'setzekontext'
+         | 'sin' | 'cos' | 'tan'
+         | 'asin' | 'acos' | 'atan'
+         | 'sinh' | 'cosh' | 'tanh'
               
 ! -------------------------------------------------
 ! Rules

@@ -1,0 +1,20 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace GlobalcachingApplication.Plugins.FormulaSolver.FormulaInterpreter.Functions.TrigonometricFunctions
+{
+    public class ASin : InverseTrigonometricFunction
+    {
+        protected override double ExecuteTrigFunction(double arg)
+        {
+            double res = Math.Asin(arg);
+            if (Double.IsNaN(res))
+            {
+               throw new ArgumentRangeException(String.Format(StrRes.GetString(StrRes.STR_VALUE_OUT_OF_RANGE), GetType().Name, -1, 1));
+            }
+            return res;
+        }
+    }
+}
