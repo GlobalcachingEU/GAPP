@@ -9,7 +9,12 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver.FormulaInterpreter.Func
     {
         protected override double ExecuteTrigFunction(double arg)
         {
-            return Math.Asin(arg);
+            double res = Math.Asin(arg);
+            if (Double.IsNaN(res))
+            {
+               throw new ArgumentRangeException(String.Format(StrRes.GetString(StrRes.STR_VALUE_OUT_OF_RANGE), GetType().Name, -1, 1));
+            }
+            return res;
         }
     }
 }

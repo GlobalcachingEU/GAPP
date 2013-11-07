@@ -10,6 +10,7 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
         public static string STR_MISSING_ARGUMENT = "{0}: Argument missing. (Min. {1})";
         public static string STR_TO_MUCH_ARGUMENTS = "{0}: To much arguments. (Max. {1})";
         public static string STR_VALUE_OUT_OF_RANGE = "{0}: Value out of range. ({1} - {2})";
+        public static string STR_BAD_PARAMETER_VALUE = "{0}: Bad parameter value";
         public static string STR_NO_CROSSING = "No crossing";
         public static string STR_MAX_1000_DIGITS = "Pi: Maximum digits: 1000";
         public static string STR_MIN_0_DIGITS = "Pi: Argument out of range: (0 - 1000)";
@@ -83,6 +84,7 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
 			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_MISSING_ARGUMENT));
 			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_TO_MUCH_ARGUMENTS));
 			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_VALUE_OUT_OF_RANGE));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_BAD_PARAMETER_VALUE));
 			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_NO_CROSSING));
 			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_MAX_1000_DIGITS));
 			core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_MIN_0_DIGITS));
