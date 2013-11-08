@@ -6,6 +6,12 @@ todo:
 - add log templates
 - add proxy support (Core data and accessible by plugins)
 - add option to set the logcount for GPX export
+- add tooltip for counters in main screen
+
+V1.9.8.0
+
+- fix: Sql Server storage plugin fix for saving the Longitude value of custom coords
+
 
 V1.9.7.0
 
