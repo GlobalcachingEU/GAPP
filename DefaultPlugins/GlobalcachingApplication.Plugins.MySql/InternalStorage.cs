@@ -1322,7 +1322,7 @@ namespace GlobalcachingApplication.Plugins.MySql
                                             }
                                             else
                                             {
-                                                cmd.Parameters["@customlon"].Value = gc.CustomLat;
+                                                cmd.Parameters["@customlon"].Value = gc.CustomLon;
                                             }
                                             cmd.Parameters["@notes"].Value = gc.Notes ?? "";
                                             cmd.Parameters["@publiceddate"].Value = gc.PublishedTime.ToUniversalTime().ToString("u");

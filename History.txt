@@ -16,6 +16,8 @@ V1.9.7.0
 - add: Cache list now contains a Coordinate column
 - change: Geometry interface, added getting areas if location is within envelop of area
 - change: Select geocaches within a region, now has option to select geocaches within envelop of region/area
+- fix: MySql storage plugin fix for saving the Longitude value of custom coords
+- change: GPX generator now always includes the inc attribute for geocache attributes
 
 V1.9.6.0
 

@@ -462,13 +462,17 @@ namespace GlobalcachingApplication.Utils
                             attr.AppendChild(txt);
                             el.Attributes.Append(attr);
 
+                            attr = doc.CreateAttribute("inc");
                             if (attrId < 0)
                             {
-                                attr = doc.CreateAttribute("inc");
                                 txt = doc.CreateTextNode("0");
-                                attr.AppendChild(txt);
-                                el.Attributes.Append(attr);
                             }
+                            else
+                            {
+                                txt = doc.CreateTextNode("1");
+                            }
+                            attr.AppendChild(txt);
+                            el.Attributes.Append(attr);
                         }
                     }
                 }
