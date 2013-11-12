@@ -19,7 +19,7 @@ function init() {
         center: new google.maps.LatLng(0.0, 0.0),
 		scaleControl: true,
         mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
+    };
     map = new google.maps.Map(document.getElementById("map"), myOptions);
 	geocoder = new google.maps.Geocoder();
     map.enableKeyDragZoom({

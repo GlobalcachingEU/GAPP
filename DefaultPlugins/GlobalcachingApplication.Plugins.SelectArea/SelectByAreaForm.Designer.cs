@@ -48,7 +48,7 @@
             this.panel1.Controls.Add(this.radioButtonNewSearch);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1053, 92);
             this.panel1.TabIndex = 0;
@@ -57,7 +57,7 @@
             // 
             this.buttonWholeArea.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonWholeArea.Location = new System.Drawing.Point(347, 44);
-            this.buttonWholeArea.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonWholeArea.Margin = new System.Windows.Forms.Padding(4);
             this.buttonWholeArea.Name = "buttonWholeArea";
             this.buttonWholeArea.Size = new System.Drawing.Size(224, 28);
             this.buttonWholeArea.TabIndex = 8;
@@ -69,7 +69,7 @@
             // 
             this.buttonWithinRadius.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonWithinRadius.Location = new System.Drawing.Point(20, 44);
-            this.buttonWithinRadius.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonWithinRadius.Margin = new System.Windows.Forms.Padding(4);
             this.buttonWithinRadius.Name = "buttonWithinRadius";
             this.buttonWithinRadius.Size = new System.Drawing.Size(217, 28);
             this.buttonWithinRadius.TabIndex = 7;
@@ -81,7 +81,7 @@
             // 
             this.radioButtonAddToCurrent.AutoSize = true;
             this.radioButtonAddToCurrent.Location = new System.Drawing.Point(388, 15);
-            this.radioButtonAddToCurrent.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioButtonAddToCurrent.Margin = new System.Windows.Forms.Padding(4);
             this.radioButtonAddToCurrent.Name = "radioButtonAddToCurrent";
             this.radioButtonAddToCurrent.Size = new System.Drawing.Size(179, 21);
             this.radioButtonAddToCurrent.TabIndex = 6;
@@ -93,7 +93,7 @@
             // 
             this.radioButtonWithinSelection.AutoSize = true;
             this.radioButtonWithinSelection.Location = new System.Drawing.Point(177, 15);
-            this.radioButtonWithinSelection.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioButtonWithinSelection.Margin = new System.Windows.Forms.Padding(4);
             this.radioButtonWithinSelection.Name = "radioButtonWithinSelection";
             this.radioButtonWithinSelection.Size = new System.Drawing.Size(173, 21);
             this.radioButtonWithinSelection.TabIndex = 5;
@@ -105,7 +105,7 @@
             this.radioButtonNewSearch.AutoSize = true;
             this.radioButtonNewSearch.Checked = true;
             this.radioButtonNewSearch.Location = new System.Drawing.Point(20, 15);
-            this.radioButtonNewSearch.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioButtonNewSearch.Margin = new System.Windows.Forms.Padding(4);
             this.radioButtonNewSearch.Name = "radioButtonNewSearch";
             this.radioButtonNewSearch.Size = new System.Drawing.Size(103, 21);
             this.radioButtonNewSearch.TabIndex = 4;
@@ -127,9 +127,10 @@
             // 
             this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.webBrowser1.Location = new System.Drawing.Point(0, 92);
-            this.webBrowser1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.webBrowser1.Margin = new System.Windows.Forms.Padding(4);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(27, 25);
             this.webBrowser1.Name = "webBrowser1";
+            this.webBrowser1.ScriptErrorsSuppressed = true;
             this.webBrowser1.Size = new System.Drawing.Size(1053, 655);
             this.webBrowser1.TabIndex = 2;
             // 
@@ -141,7 +142,7 @@
             this.Controls.Add(this.webBrowser1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "SelectByAreaForm";
             this.Text = "SelectByAreaForm";
             this.panel1.ResumeLayout(false);
