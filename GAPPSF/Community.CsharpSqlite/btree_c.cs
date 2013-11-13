@@ -6249,7 +6249,7 @@ freepage_out:
     */
     static void dropCell( MemPage pPage, int idx, int sz, ref int pRC )
     {
-      int i;          /* Loop counter */
+      //int i;          /* Loop counter */
       u32 pc;         /* Offset to cell content of cell being deleted */
       u8[] data;      /* pPage.aData */
       int ptr;        /* Used to move bytes around within data[] */
@@ -6327,7 +6327,7 @@ freepage_out:
       int ins;          /* Index in data[] where new cell pointer is inserted */
       int cellOffset;   /* Address of first cell pointer in data[] */
       u8[] data;        /* The content of the whole page */
-      u8 ptr;           /* Used for moving information around in data[] */
+      //u8 ptr;           /* Used for moving information around in data[] */
 
       int nSkip = ( iChild != 0 ? 4 : 0 );
 
@@ -6847,7 +6847,7 @@ if (false)
       int subtotal;                /* Subtotal of bytes in cells on one page */
       //int iSpace1 = 0;             /* First unused byte of aSpace1[] */
       int iOvflSpace = 0;          /* First unused byte of aOvflSpace[] */
-      int szScratch;               /* Size of scratch memory requested */
+      //int szScratch;               /* Size of scratch memory requested */
       int pRight;                  /* Location in parent of right-sibling pointer */
       u8[][] apCell = null;                 /* All cells begin balanced */
       //u16[] szCell;                         /* Local size of all cells in apCell[] */

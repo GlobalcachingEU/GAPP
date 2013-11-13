@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GAPPSF.Core.Data
 {
-    public class Geocache: DataObject, IGeocacheData, INotifyPropertyChanged
+    public class Geocache : DataObject, IGeocacheData, INotifyPropertyChanged, IComparable
     {
         private static byte[] _buffer = new byte[10000000];
 
@@ -55,7 +55,7 @@ namespace GAPPSF.Core.Data
                 {
                     bw.Write((double)0.0);
                 }
-                bw.Write(data.CustomLat != null); //224
+                bw.Write(data.CustomLon != null); //224
                 if (data.CustomLon != null)
                 {
                     bw.Write((double)data.CustomLon); //225
@@ -112,6 +112,11 @@ namespace GAPPSF.Core.Data
             db.GeocacheCollection.Add(this);
         }
 
+        public int CompareTo(object obj)
+        {
+            return string.Compare(this.Code, ((Geocache)obj).Code);
+        }
+
         protected override void StoreProperty(long pos, string name, object value)
         {
             if (name == "ShortDescription")
@@ -137,6 +142,80 @@ namespace GAPPSF.Core.Data
                 base.StoreProperty(pos, name, value);
             }
         }
+
+        public void ResetWaypointsData()
+        {
+            _waypointsInfo = null;
+        }
+
+
+        private string _waypointsInfo = null;
+        public string WaypointInfoString
+        {
+            get
+            {
+                if (_waypointsInfo == null)
+                {
+                    List<Data.Waypoint> wpl = RecordInfo.Database.WaypointCollection.GetWaypoints(Code);
+                    _waypointsInfo = string.Format("{0:00}/{1:00}", wpl.Count, (from w in wpl where w.Lat != null && w.Lon != null select w).Count());
+                }
+                return _waypointsInfo;
+            }
+        }
+
+        public void ResetCachedUserWaypointsData()
+        {
+            _hasUserWaypoints = null;
+        }
+
+        private bool? _hasUserWaypoints = null;
+        public bool HasUserWaypoints
+        {
+            get
+            {
+                if (_hasUserWaypoints == null)
+                {
+                    _hasUserWaypoints = (from Data.UserWaypoint w in RecordInfo.Database.UserWaypointCollection where w.GeocacheCode == Code select w).FirstOrDefault() != null;
+                }
+                return (bool)_hasUserWaypoints;
+            }
+        }
+
+        public void ResetCachedLogData()
+        {
+            _cachedFoundDateValid = false;
+        }
+
+        private bool _cachedFoundDateValid = false;
+        private object _cachedFoundDate = null;
+        public object FoundDate
+        {
+            get
+            {
+                if (!_cachedFoundDateValid)
+                {
+                    if (Found)
+                    {
+                        /*
+                        string usrName = _core.GeocachingAccountNames.GetAccountName(this.Code);
+                        List<Framework.Data.Log> lgs = _core.Logs.GetLogs(this.Code);
+                        if (lgs != null)
+                        {
+                            Framework.Data.Log l = (from Framework.Data.Log lg in lgs where lg.GeocacheCode == Code && lg.LogType.AsFound && lg.Finder == usrName select lg).FirstOrDefault();
+                            if (l != null)
+                            {
+                                //result = l.Date.ToString("yyyy-MM-dd");
+                                _cachedFoundDate = l.Date;
+                            }
+                        }
+                         * */
+                    }
+                    _cachedFoundDateValid = true;
+                }
+                return _cachedFoundDate;
+            }
+        }
+
 
         private bool _selected = false;
         public bool Selected

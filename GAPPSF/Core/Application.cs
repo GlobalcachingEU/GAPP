@@ -23,6 +23,7 @@ namespace GAPPSF.Core
         public GeocacheTypeCollection GeocacheTypes { get; private set; }
         public GeocacheContainerCollection GeocacheContainers { get; private set; }
         public LogTypeCollection LogTypes { get; private set; }
+        public WaypointTypeCollection WaypointTypes { get; private set; }
         public Data.Location HomeLocation { get; private set; }
         public Data.Location CenterLocation { get; private set; }
 
@@ -96,6 +97,7 @@ namespace GAPPSF.Core
             Databases = new Storage.DatabaseCollection();
             GeocacheTypes = new GeocacheTypeCollection();
             GeocacheContainers = new GeocacheContainerCollection();
+            WaypointTypes = new WaypointTypeCollection();
             LogTypes = new LogTypeCollection();
             HomeLocation = new Location(Settings.Default.HomeLocationLat, Settings.Default.HomeLocationLon);
             CenterLocation = new Location(Settings.Default.CenterLocationLat, Settings.Default.CenterLocationLon);
@@ -205,6 +207,14 @@ namespace GAPPSF.Core
             addLogType(73, "Change Username", false);
             addLogType(74, "Announcement", false);
             addLogType(75, "Visited", false);
+
+            addWaypointType(217, "Parking Area");
+            addWaypointType(220, "Final Location");
+            addWaypointType(218, "Question to Answer");
+            addWaypointType(452, "Reference Point");
+            addWaypointType(219, "Stages of a Multicache");
+            addWaypointType(221, "Trailhead");
+
         }
 
         void CenterLocation_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -296,6 +306,13 @@ namespace GAPPSF.Core
             LogTypes.Add(lt);
         }
 
+        protected void addWaypointType(int id, string name)
+        {
+            Data.WaypointType attr = new Data.WaypointType();
+            attr.ID = id;
+            attr.Name = name;
+            WaypointTypes.Add(attr);
+        }
 
     }
 }

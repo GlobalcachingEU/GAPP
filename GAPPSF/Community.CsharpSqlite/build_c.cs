@@ -2074,7 +2074,7 @@ primary_key_exit:
       int nErr = 0;     /* Number of errors encountered */
       int n;            /* Temporarily holds the number of cursors assigned */
       sqlite3 db = pParse.db;  /* Database connection for malloc errors */
-      dxAuth xAuth;     //)(void*,int,const char*,const char*,const char*,const char*);
+      //dxAuth xAuth;     //)(void*,int,const char*,const char*,const char*,const char*);
 
       Debug.Assert( pTable != null );
 
@@ -2560,7 +2560,7 @@ exit_drop_table:
       FKey pFKey = null;
       FKey pNextTo;
       Table p = pParse.pNewTable;
-      int nByte;
+      //int nByte;
       int i;
       int nCol;
       //string z;
@@ -3646,7 +3646,7 @@ exit_drop_index:
       if ( pSrc.nSrc + nExtra > pSrc.nAlloc )
       {
         int nAlloc = pSrc.nSrc + nExtra;
-        int nGot;
+        //int nGot;
         // sqlite3DbRealloc(db, pSrc,
         //     sizeof(*pSrc) + (nAlloc-1)*sizeof(pSrc.a[0]) );
         pSrc.nAlloc = (i16)nAlloc;

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GAPPSF.Core.Data
 {
-    public class Log : DataObject, ILogData, INotifyPropertyChanged
+    public class Log : DataObject, ILogData, INotifyPropertyChanged, IComparable
     {
         private static byte[] _buffer = new byte[50000];
 
@@ -37,19 +37,24 @@ namespace GAPPSF.Core.Data
                 bw.Write(data.DataFromDate.ToFileTime()); //162
                 bw.Write(data.Encoded); //170
                 ms.Position = 180;
-                bw.Write(data.GeocacheCode);
+                bw.Write(data.GeocacheCode??"");
                 ms.Position = 220;
-                bw.Write(data.Finder);
+                bw.Write(data.Finder??"");
                 ms.Position = 320;
-                bw.Write(data.FinderId);
+                bw.Write(data.FinderId??"");
                 ms.Position = 350;
-                bw.Write(data.TBCode);
+                bw.Write(data.TBCode??"");
                 ms.Position = 380;
-                bw.Write(data.Text);
+                bw.Write(data.Text??"");
 
                 RecordInfo = db.RequestLogRecord(data.ID, _buffer, ms.Position, 100);
             }
             db.LogCollection.Add(this);
+        }
+
+        public int CompareTo(object obj)
+        {
+            return string.Compare(this.ID, ((Log)obj).ID);
         }
 
         //buffered READONLY

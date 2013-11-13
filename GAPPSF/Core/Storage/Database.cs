@@ -15,6 +15,10 @@ namespace GAPPSF.Core.Storage
         public const byte RECORD_EMPTY = 0;
         public const byte RECORD_GEOCACHE = 1;
         public const byte RECORD_LOG = 2;
+        public const byte RECORD_WAYPOINT = 3;
+        public const byte RECORD_USERWAYPOINT = 4;
+        public const byte RECORD_LOGIMAGE = 5;
+        public const byte RECORD_GEOCACHEIMAGE = 6;
         public const long RECORD_POS_LENGTH = 0;
         public const long RECORD_POS_FIELDTYPE = 8;
         public const long RECORD_POS_ID = 50;
@@ -24,8 +28,12 @@ namespace GAPPSF.Core.Storage
         public BinaryReader BinaryReader { get; private set; }
         public BinaryWriter BinaryWriter { get; private set; }
 
-        public GeocacheCollection GeocacheCollection { get; private set; }
         public LogCollection LogCollection { get; private set; }
+        public LogImageCollection LogImageCollection { get; private set; }
+        public WaypointCollection WaypointCollection { get; private set; }
+        public UserWaypointCollection UserWaypointCollection { get; private set; }
+        public GeocacheImageCollection GeocacheImageCollection { get; private set; }
+        public GeocacheCollection GeocacheCollection { get; private set; }
 
         private Hashtable _records = new Hashtable();
         private List<RecordInfo> _emptyRecords = new List<RecordInfo>();
@@ -36,6 +44,10 @@ namespace GAPPSF.Core.Storage
             FileName = fn;
             this.GeocacheCollection = new GeocacheCollection(this);
             this.LogCollection = new LogCollection(this);
+            this.LogImageCollection = new LogImageCollection(this);
+            this.WaypointCollection = new WaypointCollection(this);
+            this.UserWaypointCollection = new UserWaypointCollection(this);
+            this.GeocacheImageCollection = new GeocacheImageCollection(this);
         }
 
         public override string ToString()
@@ -120,6 +132,30 @@ namespace GAPPSF.Core.Storage
                                     _records.Add(ri.ID, ri);
                                     this.LogCollection.Add(new Data.Log(ri));
                                     break;
+                                case RECORD_WAYPOINT:
+                                    ms.Position = RECORD_POS_ID;
+                                    ri.ID = br.ReadString();
+                                    _records.Add(ri.ID, ri);
+                                    this.WaypointCollection.Add(new Data.Waypoint(ri));
+                                    break;
+                                case RECORD_USERWAYPOINT:
+                                    ms.Position = RECORD_POS_ID;
+                                    ri.ID = br.ReadString();
+                                    _records.Add(ri.ID, ri);
+                                    this.UserWaypointCollection.Add(new Data.UserWaypoint(ri));
+                                    break;
+                                case RECORD_LOGIMAGE:
+                                    ms.Position = RECORD_POS_ID;
+                                    ri.ID = br.ReadString();
+                                    _records.Add(ri.ID, ri);
+                                    this.LogImageCollection.Add(new Data.LogImage(ri));
+                                    break;
+                                case RECORD_GEOCACHEIMAGE:
+                                    ms.Position = RECORD_POS_ID;
+                                    ri.ID = br.ReadString();
+                                    _records.Add(ri.ID, ri);
+                                    this.GeocacheImageCollection.Add(new Data.GeocacheImage(ri));
+                                    break;
                             }
                             fs.Position = ri.Offset + ri.Length;
 
@@ -148,6 +184,24 @@ namespace GAPPSF.Core.Storage
         public RecordInfo RequestLogRecord(string id, byte[] recordData, long minimumLength, long extraBuffer)
         {
             return RequestRecord(id, RECORD_LOG, recordData, minimumLength, extraBuffer);
+        }
+
+        public RecordInfo RequestWaypointRecord(string id, byte[] recordData, long minimumLength, long extraBuffer)
+        {
+            return RequestRecord(id, RECORD_WAYPOINT, recordData, minimumLength, extraBuffer);
+        }
+
+        public RecordInfo RequestUserWaypointRecord(string id, byte[] recordData, long minimumLength, long extraBuffer)
+        {
+            return RequestRecord(id, RECORD_USERWAYPOINT, recordData, minimumLength, extraBuffer);
+        }
+        public RecordInfo RequestLogImageRecord(string id, byte[] recordData, long minimumLength, long extraBuffer)
+        {
+            return RequestRecord(id, RECORD_LOGIMAGE, recordData, minimumLength, extraBuffer);
+        }
+        public RecordInfo RequestGeocacheImageRecord(string id, byte[] recordData, long minimumLength, long extraBuffer)
+        {
+            return RequestRecord(id, RECORD_GEOCACHEIMAGE, recordData, minimumLength, extraBuffer);
         }
 
         private RecordInfo RequestRecord(string id, byte recordType, byte[] recordData, long minimumLength, long extraBuffer)

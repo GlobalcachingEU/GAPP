@@ -52,6 +52,40 @@ namespace GAPPSF.Utils
             return result;
         }
 
+        public static GAPPSF.Core.Data.WaypointType GetWaypointType(int typeId)
+        {
+            GAPPSF.Core.Data.WaypointType result = null;
+
+            result = (from gt in Core.ApplicationData.Instance.WaypointTypes
+                      where gt.ID == typeId
+                      select gt).FirstOrDefault();
+            if (result == null)
+            {
+                //take special ID
+                result = (from gt in Core.ApplicationData.Instance.WaypointTypes
+                          where gt.ID == 0
+                          select gt).FirstOrDefault();
+            }
+            return result;
+        }
+
+        public static GAPPSF.Core.Data.WaypointType GetWaypointType(string keyWord)
+        {
+            GAPPSF.Core.Data.WaypointType result = null;
+
+            keyWord = keyWord.ToLower();
+            result = (from gt in Core.ApplicationData.Instance.WaypointTypes
+                      where gt.Name.ToLower().Contains(keyWord)
+                      select gt).FirstOrDefault();
+            if (result == null)
+            {
+                //take special ID
+                result = GetWaypointType(0);
+            }
+            return result;
+        }
+
+
         public static GAPPSF.Core.Data.LogType GetLogType(int typeId)
         {
             GAPPSF.Core.Data.LogType result = null;

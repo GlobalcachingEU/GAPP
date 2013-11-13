@@ -243,7 +243,7 @@ namespace Community.CsharpSqlite
     {
       string z = "";
       byte[] zBLOB = null;
-      string z2;
+      //string z2;
       int len;
       int p0type;
       int p1, p2;
@@ -452,9 +452,9 @@ namespace Community.CsharpSqlite
     sqlite3_value[] argv
     )
     {
-      string z1;
+      //string z1;
       string z2;
-      int i, n;
+      int /*i,*/ n;
       UNUSED_PARAMETER( argc );
       z2 = sqlite3_value_text( argv[0] );
       n = sqlite3_value_bytes( argv[0] );
@@ -481,9 +481,9 @@ namespace Community.CsharpSqlite
     sqlite3_value[] argv
     )
     {
-      string z1;
+      //string z1;
       string z2;
-      int i, n;
+      int /*i,*/ n;
       UNUSED_PARAMETER( argc );
       z2 = sqlite3_value_text( argv[0] );
       n = sqlite3_value_bytes( argv[0] );
@@ -1232,7 +1232,7 @@ break;
       int nRep;                /* Size of zRep */
       int nOut;                /* Maximum size of zOut */
       //int loopLimit;           /* Last zStr[] that might match zPattern[] */
-      int i, j;                /* Loop counters */
+      int /*i,*/ j;                /* Loop counters */
 
       Debug.Assert( argc == 3 );
       UNUSED_PARAMETER( argc );

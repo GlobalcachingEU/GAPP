@@ -27,6 +27,105 @@ namespace GAPPSF.Core.Data
         public GeocacheCollection(Database db)
         {
             _db = db;
+
+            _db.LogCollection.CollectionChanged += LogCollection_CollectionChanged;
+            _db.LogCollection.LogDataChanged += LogCollection_LogDataChanged;
+            _db.LogCollection.LogPropertyChanged += LogCollection_LogPropertyChanged;
+
+            _db.UserWaypointCollection.CollectionChanged += UserWaypointCollection_CollectionChanged;
+            _db.UserWaypointCollection.WaypointDataChanged += UserWaypointCollection_WaypointDataChanged;
+            _db.UserWaypointCollection.WaypointPropertyChanged += UserWaypointCollection_WaypointPropertyChanged;
+
+            _db.WaypointCollection.CollectionChanged += WaypointCollection_CollectionChanged;
+            _db.WaypointCollection.WaypointDataChanged += WaypointCollection_WaypointDataChanged;
+            _db.WaypointCollection.WaypointPropertyChanged += WaypointCollection_WaypointPropertyChanged;
+        }
+
+        void WaypointCollection_WaypointPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            WaypointCollection_WaypointDataChanged(sender, EventArgs.Empty);
+        }
+
+        void WaypointCollection_WaypointDataChanged(object sender, EventArgs e)
+        {
+            Data.Waypoint l = sender as Data.Waypoint;
+            if (l != null)
+            {
+                if (!string.IsNullOrEmpty(l.GeocacheCode))
+                {
+                    Data.Geocache gc = GetGeocache(l.GeocacheCode);
+                    if (gc != null)
+                    {
+                        gc.ResetWaypointsData();
+                    }
+                }
+            }
+        }
+
+        void WaypointCollection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            foreach (Data.Geocache gc in this)
+            {
+                gc.ResetWaypointsData();
+            }
+        }
+
+        void UserWaypointCollection_WaypointPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            UserWaypointCollection_WaypointDataChanged(sender, EventArgs.Empty);
+        }
+
+        void UserWaypointCollection_WaypointDataChanged(object sender, EventArgs e)
+        {
+            Data.UserWaypoint l = sender as Data.UserWaypoint;
+            if (l != null)
+            {
+                if (!string.IsNullOrEmpty(l.GeocacheCode))
+                {
+                    Data.Geocache gc = GetGeocache(l.GeocacheCode);
+                    if (gc != null)
+                    {
+                        gc.ResetCachedUserWaypointsData();
+                    }
+                }
+            }
+        }
+
+        void UserWaypointCollection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            foreach (Data.Geocache gc in this)
+            {
+                gc.ResetCachedUserWaypointsData();
+            }
+        }
+
+        void LogCollection_LogPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            LogCollection_LogDataChanged(sender, EventArgs.Empty);
+        }
+
+        void LogCollection_LogDataChanged(object sender, EventArgs e)
+        {
+            Data.Log l = sender as Data.Log;
+            if (l != null)
+            {
+                if (!string.IsNullOrEmpty(l.GeocacheCode))
+                {
+                    Data.Geocache gc = GetGeocache(l.GeocacheCode);
+                    if (gc != null)
+                    {
+                        gc.ResetCachedLogData();
+                    }
+                }
+            }
+        }
+
+        void LogCollection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            foreach (Data.Geocache gc in this)
+            {
+                gc.ResetCachedLogData();
+            }
         }
 
         public Geocache GetGeocache(string code)

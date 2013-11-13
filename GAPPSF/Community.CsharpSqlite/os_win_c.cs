@@ -686,7 +686,7 @@ return FALSE;
     {
       //LONG upperBits;                 /* Most sig. 32 bits of new offset */
       //LONG lowerBits;                 /* Least sig. 32 bits of new offset */
-      DWORD dwRet;                    /* Value returned by SetFilePointer() */
+      //DWORD dwRet;                    /* Value returned by SetFilePointer() */
       sqlite3_file pFile = id;
 
       //upperBits = (LONG)((iOffset>>32) & 0x7fffffff);
@@ -706,7 +706,7 @@ return FALSE;
       {
         id.fs.Seek( iOffset, SeekOrigin.Begin ); // SetFilePointer(pFile.fs.Name, lowerBits, upperBits, FILE_BEGIN);
       }
-      catch ( Exception e )
+      catch 
       {
 #if SQLITE_SILVERLIGHT
         pFile.lastErrno = 1;
@@ -786,7 +786,7 @@ free(pFile.zDeleteOnClose);
     )
     {
 
-      long rc;
+      //long rc;
       sqlite3_file pFile = id;
       int nRead;                    /* Number of bytes actually read from file */
 
@@ -809,7 +809,7 @@ free(pFile.zDeleteOnClose);
       {
         nRead = id.fs.Read( pBuf, 0, amt ); // i  if( !ReadFile(pFile->h, pBuf, amt, &nRead, 0) ){
       }
-      catch ( Exception e )
+      catch
       {
 #if SQLITE_SILVERLIGHT
 pFile.lastErrno = 1;
@@ -2695,7 +2695,7 @@ pFile.zDeleteOnClose = zConverted;
     {
       int cnt = 0;
       int rc;
-      int error;
+      //int error;
       string zConverted;
       UNUSED_PARAMETER( pVfs );
       UNUSED_PARAMETER( syncDir );

@@ -1126,7 +1126,7 @@ sqlite3DbFree( db, ref p.u._zToken );
     {
       SrcList pNew;
       int i;
-      int nByte;
+      //int nByte;
       if ( p == null )
         return null;
       //nByte = sizeof(*p) + (p.nSrc>0 ? sizeof(p.a[0]) * (p.nSrc-1) : 0);
@@ -1256,7 +1256,7 @@ return null;
       }
       if ( pList.nAlloc <= pList.nExpr )
       {
-        ExprList_item a;
+        //ExprList_item a;
         int n = pList.nAlloc * 2 + 4;
         //a = sqlite3DbRealloc(db, pList.a, n*sizeof(pList.a[0]));
         //if( a==0 ){
