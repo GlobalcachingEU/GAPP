@@ -27,7 +27,7 @@ function init() {
         center: new google.maps.LatLng(0.0, 0.0),
         mapTypeId: google.maps.MapTypeId.ROADMAP,
 		mapTypeControlOptions: { mapTypeIds: mapTypeIds }
-    }
+    };
     map = new google.maps.Map(document.getElementById("map"), myOptions);
 
 	//Define OSM map type pointing at the OpenStreetMap tile server
