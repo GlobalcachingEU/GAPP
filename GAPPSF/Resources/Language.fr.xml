@@ -1,0 +1,1201 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  <string name="-" value="" />
+  <string name="-- all --" value="-- tout --" />
+  <string name="# log images" value="" />
+  <string name="# logs" value="" />
+  <string name="# user waypoints" value="# waypoints d'utilisateur" />
+  <string name="# waypoints" value="" />
+  <string name="(0 = unlimited)" value="(0 = illimité)" />
+  <string name="{0} geocaches have been ignored during import." value="{0} géocaches ont été ignorées pendant l'importation. " />
+  <string name="{0}: argument missing. (min. {1})" value="{0}: Argument manquant. (min. {1})" />
+  <string name="{0}: to much arguments. (max. {1})" value="{0}: Trop d'arguments. (max. {1})" />
+  <string name="{0}: value out of range. ({1} - {2})" value="{0}: Valeur hors plage. ({1} - {2})" />
+  <string name="&lt;&lt; back" value="&lt;&lt; Arrière" />
+  <string name="a new version is available" value="Une nouvelle version est disponible " />
+  <string name="about" value="À propos" />
+  <string name="account" value="Compte" />
+  <string name="account name" value="Nom d'utilisateur " />
+  <string name="account names on other geocaching sites" value="Noms de compte sur d'autres sites geocache" />
+  <string name="account switcher" value="Changeur de compte" />
+  <string name="accounts" value="Comptes" />
+  <string name="action" value="" />
+  <string name="action builder" value="Entrepreneur d'action" />
+  <string name="action sequence" value="Séquence d'actions " />
+  <string name="actions" value="Actions" />
+  <string name="activate" value="Activer" />
+  <string name="activate shortcut" value="Activer le raccourci " />
+  <string name="active" value="Actif" />
+  <string name="active event" value="Événements actifs " />
+  <string name="active geocache" value="Geocache active" />
+  <string name="add" value="Ajouter" />
+  <string name="add / create" value="Ajouter / créer" />
+  <string name="add / update" value="Ajouter / Mettre à jour " />
+  <string name="add active geocache to collection" value="Ajouter geocache active  dans collection" />
+  <string name="add active geocache to your favorites" value="Ajouter la geocache active à vos favoris " />
+  <string name="add additional waypoints to description" value="Ajouter waypoints supplémentaires à la description " />
+  <string name="add all selected" value="Ajouter tous les sélectionné" />
+  <string name="add all to calendar" value="Tout ajouter au calendrier " />
+  <string name="add attachements" value="Ajouter pièce jointe" />
+  <string name="add child waypoints" value="Ajouter waypoints enfant " />
+  <string name="add events to calendar" value="Ajouter les événements au calendrier " />
+  <string name="add geocaches" value="Ajouter des geocaches" />
+  <string name="add image to log" value="Ajouter des images au log" />
+  <string name="add images" value="Ajouter des photos " />
+  <string name="add new" value="Ajouter nouveau " />
+  <string name="add next to calendar" value="Ajouter le suivant au calendrier " />
+  <string name="add selected geocaches to collection" value="Ajouter geocache sélectionné dans collection" />
+  <string name="add to" value="Ajouter à" />
+  <string name="add to calendar" value="Ajouter au calendrier " />
+  <string name="add to current selection" value="Ajouter à la sélection actuelle" />
+  <string name="add to stops" value="Ajouter aux arrêts " />
+  <string name="add to your favorites" value="Ajouter à vos favoris" />
+  <string name="add visits logs for missing" value="Ajouter visite logs pour manquant" />
+  <string name="add waypoint..." value="Ajouter waypoint..." />
+  <string name="add waypoints" value="Ajouter waypoints " />
+  <string name="add your own" value="Ajouter les votres" />
+  <string name="add.coords" value="Coords supp." />
+  <string name="all" value="Tous" />
+  <string name="all events" value="Tous les événements " />
+  <string name="all public flows" value="Tous les flux publics " />
+  <string name="and" value="Et" />
+  <string name="angle" value="" />
+  <string name="angle and distance" value="Angle et de la distance " />
+  <string name="announcement" value="Annonce" />
+  <string name="api" value="" />
+  <string name="apply" value="Appliquer" />
+  <string name="applying settings..." value="Appliquer les paramètres..." />
+  <string name="archive" value="Archiver" />
+  <string name="archived" value="Archivée" />
+  <string name="are you sure you want to delete all gcvote data?" value="Êtes-vous sûrs que vous voulez effacer toutes les données GCVote ?" />
+  <string name="area" value="Zone" />
+  <string name="area definitions" value="Définitions de zone" />
+  <string name="areas" value="Zones" />
+  <string name="areas / codes" value="Zones / Codes" />
+  <string name="as center" value="Comme centre" />
+  <string name="as waypoint" value="Comme waypoint" />
+  <string name="ascending" value="Ascendant" />
+  <string name="ascii" value="" />
+  <string name="ascii (dec)" value="" />
+  <string name="ascii (hex)" value="" />
+  <string name="assign regions to geocaches" value="Attribuer région à la Geocache" />
+  <string name="assigning regions..." value="Attribution des régions... " />
+  <string name="at least one user" value="Au moins un utilisateur " />
+  <string name="attended" value="Participé" />
+  <string name="attributes" value="Attributs" />
+  <string name="author" value="Auteur" />
+  <string name="authorize" value="Autoriser" />
+  <string name="authorized" value="Autorisé" />
+  <string name="auto coord." value="Coord automatique" />
+  <string name="automatic" value="Automatique " />
+  <string name="automatic date ranges" value="Limites de date automatique " />
+  <string name="automatic download new geocaches (no prompt)" value="Téléchargement automatique nouvelles géocaches (sans invite) " />
+  <string name="automatic routing" value="Routage automatique " />
+  <string name="automatic save data on closing" value="Enregistrement automatique des données à la fermeture" />
+  <string name="automatic selection" value="Sélection automatique" />
+  <string name="automatic selection of new geocaches" value="Sélection automatique des nouvelles geocaches " />
+  <string name="automatic top panel visibility" value="Visibilité du panneau supérieur automatique" />
+  <string name="automatic update and download geocaches" value="Automatique mise à jour et téléchargement des géocaches " />
+  <string name="available" value="Disponible" />
+  <string name="available my finds logs for selected trackable" value="Disponnible mes logs de trouvailles pour les trackables sélectionné" />
+  <string name="available pocket query settings" value="Paramètres disponibles de PQ" />
+  <string name="available waypoints (max {0})" value="Waypoints disponibles (max {0}) " />
+  <string name="average" value="Moyenne " />
+  <string name="background" value="Fond" />
+  <string name="backup" value="Sauvegarde  " />
+  <string name="backup all coordinates" value="Sauvegarde toutes les coordonnées" />
+  <string name="backup folder" value="Dossier de sauvegarde" />
+  <string name="backup/restore coordinates" value="Sauvegarde/Restauration coordonnées " />
+  <string name="backups" value="Sauvegardes " />
+  <string name="batch log selected geocaches..." value="Écrire les logs par lot des géocaches sélectionnées" />
+  <string name="batch logging for trackables" value="Logue par lot d'objets traçables" />
+  <string name="belgium" value="Belgique " />
+  <string name="between" value="Entre" />
+  <string name="between dates" value="Entre les dates " />
+  <string name="bookmark" value="Signet" />
+  <string name="bookmarks" value="Signet" />
+  <string name="by" value="Par" />
+  <string name="bytes" value="" />
+  <string name="c:geo geocache visits" value="c:geo geocache visites" />
+  <string name="c:geo visits file" value="Fichier de visites c:geo " />
+  <string name="cache type" value="Type de cache" />
+  <string name="caches with multiple founds" value="Caches avec multiple trouvée" />
+  <string name="cancel" value="Annuler" />
+  <string name="caption" value="Titre" />
+  <string name="case sensative" value="Respecter la casse" />
+  <string name="center" value="Centre" />
+  <string name="center coordinates" value="Coordonnées centre" />
+  <string name="center location" value="Localisation centrale" />
+  <string name="change history" value="Historique de changement" />
+  <string name="change username" value="Changer le nom utilisateur" />
+  <string name="chat" value="Chat" />
+  <string name="check" value="Vérifier" />
+  <string name="cipher" value="" />
+  <string name="circular reference of queries" value="Référence circulaire de requêtes " />
+  <string name="city" value="Ville" />
+  <string name="city / coordinates" value="Ville / coordonnées" />
+  <string name="ckeditor (online)" value="" />
+  <string name="clear" value="Effacer" />
+  <string name="clear additional coordinates" value="Effacer les coordonnées supplémentaires " />
+  <string name="clear all" value="Effacer tout" />
+  <string name="clear all filters" value="Effacer tous les filtres " />
+  <string name="clear all votes" value="Effacer tous les votes" />
+  <string name="clear authorization" value="Effacer autorisation" />
+  <string name="clear cache" value="Effacer la mémoire cache" />
+  <string name="clear directory before export" value="Effacer répertoire avant l'exportation" />
+  <string name="clear flags" value="Effacer les marqueurs " />
+  <string name="clear folder before copy" value="Vider le dossier avant la copie" />
+  <string name="clear saved data" value="Effacer données sauvegardées" />
+  <string name="clear selection" value="Effacer la sélection " />
+  <string name="clearing target settings folder..." value="Effacement dossier des paramètres de cible ..." />
+  <string name="click the link to open up the cache page for the event" value="Cliquer sur le lien pour ouvrir la page de l'événement" />
+  <string name="cluster marker" value="marqueur de cluster " />
+  <string name="code" value="" />
+  <string name="code prefix" value="" />
+  <string name="codes" value="Codes" />
+  <string name="collection" value="Collection" />
+  <string name="comma separated" value="Séparé par une virgule" />
+  <string name="comment" value="Commentaire" />
+  <string name="compatibility" value="Compatibilité" />
+  <string name="compute the factorial of an integer.&#xD;&#xA;fact(10) = 3628800" value="Calculer la factorielle d'un integer.&#xD;&#xA;fact(10) = 3628800" />
+  <string name="compute the power of the first to the second parameter&#xD;&#xA;pow(2;10) = 1024" value="Calculer la puissance du premier au deuxième paramètre&#xD;&#xA;pow(2;10) = 1024" />
+  <string name="conditions" value="Conditions" />
+  <string name="connected" value="Connecté" />
+  <string name="connecting..." value="Connexion..." />
+  <string name="container" value="Contenant" />
+  <string name="conversion" value="" />
+  <string name="coordinate" value="Coordonnée" />
+  <string name="coordinate functions" value="Fonctions Coordonnées" />
+  <string name="coordinate in wgs84 (latitude, longitude) or dutch grid (x y)" value="Coordonnées en WGS84 (latitude, longitude) ou grille néerlandaise (x, y)" />
+  <string name="coordinates" value="Coordonnées" />
+  <string name="copy" value="Copier" />
+  <string name="copy current settings to selected folder" value="Copier les paramètres actuels dans le dossier sélectionné" />
+  <string name="copy images to folder" value="Copier les images dans le dossier" />
+  <string name="copy selection" value="Copier la sélection" />
+  <string name="copy to clipboard" value="Copier dans le presse-papiers" />
+  <string name="copy to custom coordinates" value="Copier dans coordonnées personnalisées " />
+  <string name="copy to existing database" value="Copier dans base de données existante" />
+  <string name="copy to new database" value="Copier dans nouvelle base de données" />
+  <string name="copying current settings folder to target settings folder..." value="Copie du dossier paramètres actuel dans le dossier paramètres cible ..." />
+  <string name="count" value="Compte" />
+  <string name="count geocache as waypoint" value="Comte geocache comme waypoint" />
+  <string name="country" value="Pays" />
+  <string name="country / state" value="Pays / Région" />
+  <string name="couple to main screen" value="Couple de l'écran principal" />
+  <string name="create" value="Créer" />
+  <string name="create account" value="Créer un compte" />
+  <string name="create default settings in selected folder" value="Créer des paramètres par défaut dans le dossier sélectionné" />
+  <string name="create ggz file" value="Créer fichier ggz" />
+  <string name="create image folder for active" value="Créer le dossier d'images pour active" />
+  <string name="create image folder for selection" value="Créer le dossier d'images pour la sélection" />
+  <string name="create pocket queries" value="Créer du PQ " />
+  <string name="create pocket query series" value="Créer des séries de PQ " />
+  <string name="create route" value="Créer le trajet" />
+  <string name="create route for selected geocaches" value="Créer trajet pour geocaches choisies" />
+  <string name="create series..." value="Créer une série..." />
+  <string name="create the url on munzee.dfx.at and choose json." value="Créer l'url sur munzee.dfx.at et choisir json." />
+  <string name="create/join" value="Créer/Associer" />
+  <string name="created" value="Créé " />
+  <string name="created on" value="Créé le" />
+  <string name="creating backup..." value="Création d'une sauvegarde... " />
+  <string name="creating file..." value="Création du fichier..." />
+  <string name="creating offline image folder" value="Crée le dossier d'images hors connexion " />
+  <string name="crossbearing between 2 points and 2 directions&#xD;&#xA;crossbearing(coord1; angle1; coord2; angle2)" value="Crossbearing entre 2 points et 2 directions&#xD;&#xA;crossbearing(coord1; angle1; coord2; angle2)" />
+  <string name="current" value="Actuel" />
+  <string name="current filter settings" value="Arrangements actuels de filtre " />
+  <string name="cust.coords" value="Coords perso." />
+  <string name="custom" value="" />
+  <string name="custom coods" value="Coordonnées personnalisées " />
+  <string name="custom coord." value="Coord. personnalisé." />
+  <string name="custom latitude" value="Latitude personnalisée " />
+  <string name="custom longitude" value="Longitude personnalisé " />
+  <string name="custom toolbar settings" value="Paramètres de barre d'outils personnalisée " />
+  <string name="custom toolbar..." value="Barre d'outils personnalisée..." />
+  <string name="custom waypoints" value="" />
+  <string name="d" value="" />
+  <string name="database error" value="Erreur de base de données" />
+  <string name="date" value="Date" />
+  <string name="date of data" value="Date des données" />
+  <string name="date of find" value="Date du trouvée" />
+  <string name="days" value="Jours" />
+  <string name="debug" value="Déboguer" />
+  <string name="debug log viewer" value="Visionneur de Débogage" />
+  <string name="decouple from main screen" value="Decouple de l'écran principal" />
+  <string name="decouple window" value="Découpler fenêtre" />
+  <string name="default" value="Par défaut " />
+  <string name="default name" value="Nom par défaut" />
+  <string name="degrees" value="Degrés" />
+  <string name="delay (ms)" value="Retard (ms) " />
+  <string name="delay between trackable updates" value="Délai entre les mises à jour des traçables" />
+  <string name="delete" value="Effacer" />
+  <string name="delete _gcpqgen_" value="Supprimer _gcpqgen_" />
+  <string name="delete and ignore geocache" value="Supprimer et ignorer la géocache " />
+  <string name="delete for active" value="Effacer pour actif" />
+  <string name="delete for all" value="Effacer pour tout" />
+  <string name="delete for selection" value="Effacer pour sélection" />
+  <string name="delete geocache" value="Effacer geocache" />
+  <string name="delete selected trackables" value="Supprimer les traçables sélectionnés" />
+  <string name="deleting geocaches..." value="Suppression de géocaches ..." />
+  <string name="deleting grabbed images" value="Supprimer les images récupérées" />
+  <string name="deleting images" value="Effacer des images" />
+  <string name="descending" value="Descendant" />
+  <string name="description" value="Description " />
+  <string name="description html" value="Html de description" />
+  <string name="description text" value="Texte de description " />
+  <string name="deselect all" value="Désélectionner tout" />
+  <string name="deselect geocaches after update" value="Désélectionner les geocaches après la mise à jour " />
+  <string name="didn't find it" value="pas trouvées" />
+  <string name="dif. max" value="Dif. max" />
+  <string name="dif. min" value="Dif. min" />
+  <string name="diff" value="" />
+  <string name="difficulty" value="Difficulté" />
+  <string name="disc." value="" />
+  <string name="discovered it" value="Découvert " />
+  <string name="distance" value="Distance" />
+  <string name="distance to center (km)" value="Distance au Centre (km)" />
+  <string name="distance to location (km)" value="Distance à la localisation" />
+  <string name="division by zero" value="Division par zéro" />
+  <string name="do not keep window in front" value="Ne pas garder la fenêtre en face" />
+  <string name="do not overwrite existing" value="Ne pas remplacer l'existant" />
+  <string name="do not show execution completed message" value="Ne pas montrer le message que l'exécution est finie" />
+  <string name="download" value="Télécharger" />
+  <string name="download all log images..." value="Télécharger toutes les images des logs " />
+  <string name="download and install" value="Télécharger et installer " />
+  <string name="download and publish" value="Télécharger et publier " />
+  <string name="download before creating folder" value="Téléchargement avant créez le dossier" />
+  <string name="download more..." value="Télécharger plus..." />
+  <string name="download shapefile" value="Télécharger shapefile" />
+  <string name="downloadable" value="Téléchargeable" />
+  <string name="downloading data..." value="Téléchargement de données " />
+  <string name="downloading file..." value="Téléchargement du fichier " />
+  <string name="downloading list..." value="Téléchargement de la liste..." />
+  <string name="downloading pq..." value="Téléchargement de pq " />
+  <string name="downloading shapefile..." value="Téléchargement shapefile..." />
+  <string name="downloading..." value="Téléchargement..." />
+  <string name="dropped off" value="Déposé" />
+  <string name="drops" value="Déposes" />
+  <string name="dutch grid" value="Grille néerlandaise" />
+  <string name="e.g." value="" />
+  <string name="edit" value="Éditer" />
+  <string name="edit geocache notes" value="Éditer des notes geocache" />
+  <string name="edit geocaches" value="Éditer les geocaches" />
+  <string name="edit ignored geocaches" value="Éditer les geocaches ignorées" />
+  <string name="edit note" value="Éditer la note" />
+  <string name="editor" value="Éditeur" />
+  <string name="eigen" value="Ses propres" />
+  <string name="enable" value="Autoriser" />
+  <string name="enable above # geocaches" value="Activer # geocaches ci-dessus" />
+  <string name="enable automatic sorting" value="Activer le tri automatique" />
+  <string name="enable folder selection at startup" value="Permettre la sélection du dossier au démarrage" />
+  <string name="enable listing" value="Activer la liste" />
+  <string name="end" value="Fin" />
+  <string name="english translations" value="Traductions anglaise" />
+  <string name="enter captcha" value="Remplir le code captcha" />
+  <string name="error" value="Erreur" />
+  <string name="error processing flow. the flow might have been created with a newer version of gapp" value="Erreur de traitement du flux. Le flux pourrait ont été créée avec une version plus récente du GAPP." />
+  <string name="event" value="Événement" />
+  <string name="exclude" value="Exclure" />
+  <string name="execute" value="Exécuter" />
+  <string name="execute action" value="Exéxuter l'action" />
+  <string name="execute once" value="Exécuter une fois" />
+  <string name="executing..." value="Exécution..." />
+  <string name="execution completed" value="Exécution accomplie" />
+  <string name="exit" value="Quitter" />
+  <string name="explanation" value="Explication" />
+  <string name="export" value="Exporter" />
+  <string name="export data" value="Exporter les données" />
+  <string name="export gapp data exchange file" value="Exporter fichier d'échange de données de GAPP" />
+  <string name="export garmin poi" value="Exporter garmin POI " />
+  <string name="export gdak" value="Exporter GDAK" />
+  <string name="export geocache pois" value="exporter géocaches poi" />
+  <string name="export geocaches..." value="Exporter les geocaches..." />
+  <string name="export ggz" value="Exporter ggz " />
+  <string name="export gpx" value="Exporter gpx " />
+  <string name="export grabbed images" value="Exporter les images récupérées" />
+  <string name="export igeoknife" value="Exporter igeoknife  " />
+  <string name="export kml" value="Exporter kml" />
+  <string name="export locus - addon gsak database" value="Exportation Locus - addon base de données  gsak " />
+  <string name="export ov2" value="Exporter ov2" />
+  <string name="export to c:geo" value="Exporter vers c:geo" />
+  <string name="export to cachebox" value="Exporter vers Cachebox " />
+  <string name="export to excel" value="Exporter vers excel " />
+  <string name="export to gapp data exchange file" value="Exporter au fichier d'échange de données de GAPP" />
+  <string name="export to garmin device" value="exporter vers appareil Garmin " />
+  <string name="export to garmin gpsr" value="Exporter vers Garmin gpsr" />
+  <string name="export to ov2" value="Exporter vers ov2" />
+  <string name="export waypoint pois" value="exporter waypoints poi" />
+  <string name="export with garmin communicator" value="Exporter avec Garmin Communicator " />
+  <string name="exporting gdak..." value="Exportation GDAK..." />
+  <string name="exporting gpx..." value="Exportation gpx..." />
+  <string name="exporting igeoknife..." value="Exportation igeoknife... " />
+  <string name="exporting kml..." value="Exportation kml..." />
+  <string name="exporting locus - addon gsak database..." value="Exportation Locus - addon base de données gsak" />
+  <string name="exporting poi..." value="Exportation de POI..." />
+  <string name="exporting to c:geo..." value="Exportation vers c:geo ..." />
+  <string name="exporting to cachebox..." value="Exportation vers  Cachebox… " />
+  <string name="exporting to excel..." value="Exportation vers excel ... " />
+  <string name="extension" value="" />
+  <string name="extra coord. name prefix" value="Extra coord. préfixe du nom" />
+  <string name="extra delay between get geocache images call" value="Délai entre les mises à jour des images" />
+  <string name="extra delay between get geocache logs call" value="Délai entre les mises à jour des logs" />
+  <string name="f" value="" />
+  <string name="failed" value="Échoué," />
+  <string name="failed to load image." value="Échoué pour charger l'image. " />
+  <string name="fav." value="" />
+  <string name="fav. max" value="Fav. max" />
+  <string name="fav. min" value="Fav. min" />
+  <string name="favorites" value="Favoris" />
+  <string name="field" value="Le champ" />
+  <string name="fields" value="champs" />
+  <string name="file" value="Fichier" />
+  <string name="files" value="Fichiers" />
+  <string name="fill opacity" value="Remplir l'opacité " />
+  <string name="filter presets" value="Préréglages de filtre " />
+  <string name="filter..." value="Filtre... " />
+  <string name="filters" value="Filtres" />
+  <string name="find" value="Chercher" />
+  <string name="finder" value="trouveur" />
+  <string name="finish" value="Fin" />
+  <string name="fixed view" value="Vue fixe  " />
+  <string name="flagged" value="Marqué" />
+  <string name="flow" value="Flux" />
+  <string name="flow does not exists or is uploaded by someone else" value="Le flux n'existe pas ou est transféré par quelqu'un d'autre " />
+  <string name="flow is uploaded by someone else" value="Le flux est transféré par quelqu'un d'autre" />
+  <string name="flows with scripts cannot be shared with other due to security reasons" value="Flux avec les scripts ne peuvent être partagées avec d'autres pour des raisons de sécurité " />
+  <string name="fly to speed" value="Voler à la vitesse de" />
+  <string name="folder" value="Dossier" />
+  <string name="follow" value="Suivant" />
+  <string name="force rework" value="Force retravailler " />
+  <string name="format" value="" />
+  <string name="formula solver" value="Formule solver" />
+  <string name="forum..." value="" />
+  <string name="found" value="Trouvée" />
+  <string name="found by" value="Trouvée par" />
+  <string name="found by all" value="Trouvée par tous" />
+  <string name="found by users" value="Trouvée par" />
+  <string name="found date" value="date du trouvée" />
+  <string name="found it" value="Trouvée" />
+  <string name="french translations" value="Traductions française" />
+  <string name="frequency" value="Fréquence" />
+  <string name="from" value="De" />
+  <string name="from center location" value="De la localisation centrale" />
+  <string name="from current settings" value="Des arrangements actuels " />
+  <string name="from home location" value="De la maison" />
+  <string name="from selection" value="De la sélection " />
+  <string name="functions" value="" />
+  <string name="garmin geocache_visits.txt" value="" />
+  <string name="gc code" value="" />
+  <string name="gc name" value="GC nom" />
+  <string name="gc owner" value="GC propriétaire" />
+  <string name="gc.com notes" value="Notes de gc.com" />
+  <string name="gcvote" value="" />
+  <string name="gcvote average" value="Moyenne Gcvote " />
+  <string name="gcvote count" value="GCVote compte" />
+  <string name="gcvote dashboard" value="Tableau GCVote" />
+  <string name="general" value="Général" />
+  <string name="generate" value="Générer" />
+  <string name="generate statistics" value="Générer des statistiques" />
+  <string name="generated" value="Généré" />
+  <string name="generic window" value="Fenêtre générique" />
+  <string name="geocache" value="" />
+  <string name="geocache along a route..." value="Geocache le long d'une route..." />
+  <string name="geocache attachements" value="Pièces jointes des geocaches" />
+  <string name="geocache batch logging" value="Écrire les logs par lot de geocaches" />
+  <string name="geocache code" value="Code geocache" />
+  <string name="geocache collection" value="Collection des geocaches" />
+  <string name="geocache collections" value="Collections de geocaches" />
+  <string name="geocache counter" value="Compteur de geocache" />
+  <string name="geocache editor" value="Éditeur de geocache" />
+  <string name="geocache event" value="Géocache événement" />
+  <string name="geocache ignore filter" value="Filtre des geocaches à ignorer" />
+  <string name="geocache info" value="L'information du geocache" />
+  <string name="geocache logged successfully, log another geocache?" value="Geocache loguée avec succès, loguer une autre Geocache ?&#xD;&#xA;" />
+  <string name="geocache note editor" value="Éditeur de geocache note" />
+  <string name="geocache search: text" value="Recherche de geocache : texte " />
+  <string name="geocache select filter" value="Filter de sélection de Géocache" />
+  <string name="geocache type" value="Type du geocache" />
+  <string name="geocache viewer" value="Geocache viewer" />
+  <string name="geocaches" value="Geocaches" />
+  <string name="geocaches along a route" value="Geocaches le long d'une route" />
+  <string name="geocaches are missing.&#xD;&#xA;import the missing geocaches?" value="Geocaches sont absentes. Importer les geocaches absentes ? " />
+  <string name="geocaching live" value="" />
+  <string name="geocaching.com account" value="Compte Geocaching.com " />
+  <string name="geometry" value="Géométrie" />
+  <string name="german translations" value="Traductions allemandes" />
+  <string name="gespleten scherm" value="Écran partagé" />
+  <string name="get access and sync. settings" value="Obtenir l'accès et les paramètres de synchronisation" />
+  <string name="get access only" value="Obtenir seulement l'accès " />
+  <string name="get all trackable logs" value="Obtenir tous les logs des traçables" />
+  <string name="get all your favorites geocache codes" value="Obtenir tous vos codes de geocaches préférées" />
+  <string name="get coordinates of a geocache waypoint by its name.&#xD;&#xA;waypoint(&quot;fn2y73e&quot;) = &quot;n 51° 12.345 e 006° 43.210&quot;&#xD;&#xA;no param gives cache coordinates." value="Obtenir les coordonnées d'un waypoint géocache par son nom.&#xD;&#xA;waypoint(&quot;fn2y73e&quot;) = &quot;n 51° 12.345 e 006° 43.210&quot;&#xD;&#xA;Aucun param donne les coordonnées du geocache." />
+  <string name="get geocaches using live api" value="Obtenir des geocaches en utilisant les api live" />
+  <string name="get location" value="Recevoir la localisation" />
+  <string name="get logs" value="Télécharger les logs " />
+  <string name="get more..." value="Obtenir plus ... " />
+  <string name="get owned" value="Obtenir les votres" />
+  <string name="gets the latitude from a coordinate as decimal number.&#xD;&#xA;latitude(&quot;n 51° 12.081 e 6° 50.328&quot;) = 51.20135" value="" />
+  <string name="gets the latitude from a coordinate as decimal number.&#xD;&#xA;longitude(&quot;n 51° 12.081 e 6° 50.328&quot;) = 6.8388" value="" />
+  <string name="getting file list..." value="Obtention de la liste de fichiers " />
+  <string name="getting trackable logs..." value="Obtenir les logs des traçables..." />
+  <string name="gives the bearing from coord1 to coord2&#xD;&#xA;bearing(coord1; coord2)" value="Donne le roulement de coord1 de coord2&#xD;&#xA;bearing(coord1; coord2)" />
+  <string name="gives the distance between coord1 and coord2 in meters&#xD;&#xA;distance(coord1; coord2)" value="Donne la distance entre coord1 et coord2 en mètres&#xD;&#xA;distance(coord1; coord2)" />
+  <string name="gives the number before the decimal point&#xD;&#xA;int(-5.8) = -5" value="Donne le nombre avant le point décimal&#xD;&#xA;int(-5.8) = -5" />
+  <string name="gives the number pi with n digits after decimal point&#xD;&#xA;pi(4) = 3.1415" value="Donne le nombre pi avec n chiffres après le point décimal&#xD;&#xA;pi(4) = 3.1415" />
+  <string name="gives the rot13 encryption&#xD;&#xA;rot13(&quot;abc&quot;) = nop" value="Donne le rot13 cryptage&#xD;&#xA;rot13(&quot;abc&quot;)" />
+  <string name="globalcaching application is geocaching live enabled.&#xD;&#xA;&#xD;&#xA;with the geocaching live api from groundspeak it becomes easy to obtain data from geocaching.com and e.g. log a geocache without the need to go to the website of geocaching.com.&#xD;&#xA;pocket queries can be downloaded right from the application itself and geocaches can be updated instantly.&#xD;&#xA;&#xD;&#xA;in order to use these features, you have to authorize this application to access your account on geocaching.com." value="L'application de globalcaching est autorisée à utiliser geocaching Live.&#xD;&#xA;&#xD;&#xA;Avec geocaching live api de groundspeak il devient plus facile d'obtenir des données du site geocaching.com et par exemple loguer une geocache sans avoir besoin d'aller sur le site de geocaching.com. &#xD;&#xA;Pocket queries peuvent être téléchargées directement à partir de l'application elle-même et les géocaches peuvent être mise à jour instantanément. &#xD;&#xA;&#xD;&#xA;Afin d'utiliser ces fonctions, vous devez autoriser cette application pour accéder à votre compte sur geocaching.com " />
+  <string name="globalcachingapplication.plugins.accountswitcher" value="" />
+  <string name="globalcachingapplication.plugins.actionsequence" value="" />
+  <string name="globalcachingapplication.plugins.apibookmark" value="" />
+  <string name="globalcachingapplication.plugins.apifavorites" value="" />
+  <string name="globalcachingapplication.plugins.apifindsofuser" value="" />
+  <string name="globalcachingapplication.plugins.apigetc" value="" />
+  <string name="globalcachingapplication.plugins.apilogc" value="" />
+  <string name="globalcachingapplication.plugins.apilogt" value="" />
+  <string name="globalcachingapplication.plugins.apimyf" value="" />
+  <string name="globalcachingapplication.plugins.apinotes" value="" />
+  <string name="globalcachingapplication.plugins.apipq" value="" />
+  <string name="globalcachingapplication.plugins.apiupd" value="" />
+  <string name="globalcachingapplication.plugins.apiuserwp" value="" />
+  <string name="globalcachingapplication.plugins.attach" value="" />
+  <string name="globalcachingapplication.plugins.authorize" value="" />
+  <string name="globalcachingapplication.plugins.autorgn" value="" />
+  <string name="globalcachingapplication.plugins.bookmark" value="" />
+  <string name="globalcachingapplication.plugins.browser" value="" />
+  <string name="globalcachingapplication.plugins.car" value="" />
+  <string name="globalcachingapplication.plugins.cgeo" value="" />
+  <string name="globalcachingapplication.plugins.chat" value="" />
+  <string name="globalcachingapplication.plugins.dataexch" value="" />
+  <string name="globalcachingapplication.plugins.datasetup" value="" />
+  <string name="globalcachingapplication.plugins.dbglog" value="" />
+  <string name="globalcachingapplication.plugins.expexcel" value="" />
+  <string name="globalcachingapplication.plugins.exportgarmin" value="" />
+  <string name="globalcachingapplication.plugins.exportgarminpoi" value="" />
+  <string name="globalcachingapplication.plugins.exportkml" value="" />
+  <string name="globalcachingapplication.plugins.filterex" value="" />
+  <string name="globalcachingapplication.plugins.gappdatastorage" value="" />
+  <string name="globalcachingapplication.plugins.gcedit" value="" />
+  <string name="globalcachingapplication.plugins.gcvote" value="" />
+  <string name="globalcachingapplication.plugins.gdirections" value="" />
+  <string name="globalcachingapplication.plugins.htmleditor" value="" />
+  <string name="globalcachingapplication.plugins.ical" value="" />
+  <string name="globalcachingapplication.plugins.ignoregeocaches" value="" />
+  <string name="globalcachingapplication.plugins.imggrab" value="" />
+  <string name="globalcachingapplication.plugins.imgres" value="" />
+  <string name="globalcachingapplication.plugins.logview" value="" />
+  <string name="globalcachingapplication.plugins.munzee" value="" />
+  <string name="globalcachingapplication.plugins.nlcachedist" value="" />
+  <string name="globalcachingapplication.plugins.okapi" value="" />
+  <string name="globalcachingapplication.plugins.olmap" value="" />
+  <string name="globalcachingapplication.plugins.openareas" value="" />
+  <string name="globalcachingapplication.plugins.ov2" value="" />
+  <string name="globalcachingapplication.plugins.pkgmng" value="" />
+  <string name="globalcachingapplication.plugins.purgelogs" value="" />
+  <string name="globalcachingapplication.plugins.qrybuilder" value="" />
+  <string name="globalcachingapplication.plugins.quickaction" value="" />
+  <string name="globalcachingapplication.plugins.quickselect" value="" />
+  <string name="globalcachingapplication.plugins.script" value="" />
+  <string name="globalcachingapplication.plugins.selectarea" value="" />
+  <string name="globalcachingapplication.plugins.selectrgn" value="" />
+  <string name="globalcachingapplication.plugins.setupwzrd" value="" />
+  <string name="globalcachingapplication.plugins.solver" value="" />
+  <string name="globalcachingapplication.plugins.statsgen" value="" />
+  <string name="globalcachingapplication.plugins.txtsearch" value="" />
+  <string name="globalcachingapplication.plugins.uimainwindow" value="" />
+  <string name="globalcachingapplication.plugins.waymark" value="" />
+  <string name="go" value="Aller" />
+  <string name="go to geocache" value="Aller à la geocache" />
+  <string name="go to trackable page" value="Aller à la page traçable" />
+  <string name="google earth" value="" />
+  <string name="google map" value="Carte de Google" />
+  <string name="google road map - online" value="Carte de route de Google - en ligne" />
+  <string name="gps location service is active" value="Le service d'endroit de Gps est actif" />
+  <string name="gps serial" value="GPS série " />
+  <string name="gpx version" value="Version gpx" />
+  <string name="grab for active" value="Récupérer pour actif" />
+  <string name="grab for selection" value="Récupérer pour sélection" />
+  <string name="grab it (not from a cache)" value="Le récupérer (pas d'une cache)" />
+  <string name="grab only images that are not grabbed before." value="Récupérer seulement les images qui n'ont pas été récupérées avant." />
+  <string name="grabbing images..." value="Récupère des images..." />
+  <string name="grid size" value="Taille de la grille " />
+  <string name="groundspeak note" value="Note de Groundspeak" />
+  <string name="group" value="Groupe" />
+  <string name="help" value="Aide " />
+  <string name="hidden by" value="Placée par" />
+  <string name="hidden by users" value="Placée par" />
+  <string name="hide old browser warning" value="Cacher le vieil avertissement de navigateur" />
+  <string name="hints" value="Indices" />
+  <string name="home" value="" />
+  <string name="home coordinates" value="Coordonnées maison" />
+  <string name="home location" value="Localisation de la maison" />
+  <string name="homepage" value="Page d'accueil " />
+  <string name="hops" value="Sauts" />
+  <string name="hosted flows" value="Flux hôte" />
+  <string name="html" value="" />
+  <string name="html editor" value="Éditeur de HTML" />
+  <string name="i can be followed" value="Je peux être suivie" />
+  <string name="i do not own" value="Je ne possède pas" />
+  <string name="i found" value="J'ai trouvé " />
+  <string name="i have not found" value="Je n'ai pas trouvé " />
+  <string name="i own" value="Je possède" />
+  <string name="icon" value="" />
+  <string name="id" value="" />
+  <string name="ignore geocaches" value="Ignorer les geocaches " />
+  <string name="image gallery" value="Le galerie des photos" />
+  <string name="image resource" value="Ressource d'image " />
+  <string name="image to add to log" value="Image à ajouter au log" />
+  <string name="import" value="Importer" />
+  <string name="import all" value="Importer tout" />
+  <string name="import all my logs" value="Importer tous mes logs" />
+  <string name="import all your missing favorites geocaches" value="Importer toutes vos geocaches favoris manquantes " />
+  <string name="import bookmark" value="Importer signet" />
+  <string name="import data" value="Importer des données " />
+  <string name="import gapp data exchange file" value="Importation du fichier d'échange de données de GAPP" />
+  <string name="import gcvote" value="Importer gcvote  " />
+  <string name="import geocache" value="Importer geocache" />
+  <string name="import geocache notes" value="Importer les notes de terrain" />
+  <string name="import geocaches" value="Importer des geocaches" />
+  <string name="import geocaches by codes" value="Importer des géocaches vers codes" />
+  <string name="import geocaches in area on map" value="Importer des géocaches en zone sur la carte" />
+  <string name="import geocaches in bookmark" value="Importe des geocaches au signet" />
+  <string name="import geocaches within radius" value="Importer des géocaches dans rayon" />
+  <string name="import geocaches..." value="Importer les geocaches..." />
+  <string name="import ggz" value="Importer ggz" />
+  <string name="import gpx" value="Importer gpx" />
+  <string name="import gsak database" value="Importer GSAK base de données" />
+  <string name="import logs of all users" value="Importer des logs de tous les utilisateurs " />
+  <string name="import logs of other users" value="Importer les logs des autres utilisateurs" />
+  <string name="import logs of selected user" value="Importer des logs d'utilisateurs sélectionnés " />
+  <string name="import missing" value="Importer manquant" />
+  <string name="import missing geocaches" value="Importe les geocaches absentes" />
+  <string name="import munzees from munzee.dfx.at" value="Importer des munzees de munzee.dfx.at " />
+  <string name="import my finds" value="Importer mes caches trouvées" />
+  <string name="import nl geocache distance" value="Importation de la distance du geocache NL" />
+  <string name="import nl geocache distance..." value="Importation de la distance du geocache NL..." />
+  <string name="import pocket queries" value="Importer pocket queries" />
+  <string name="import waymark gpx" value="Importer gpx waymarking" />
+  <string name="importing data..." value="Importation des données... " />
+  <string name="importing file..." value="Import du fichier..." />
+  <string name="importing gcvotes..." value="Importation gcvotes... " />
+  <string name="importing geocaches" value="Importation des geocaches" />
+  <string name="importing geocaches..." value="Importation de geocaches" />
+  <string name="importing geocaching.com field notes..." value="Importation de notes de terrain (mémo-GPS) de geocaching.com" />
+  <string name="importing geocaching.com geocaches..." value="Importation des geocaches geocaching.com..." />
+  <string name="importing geocaching.com logs..." value="Importation des logs geocaching.com..." />
+  <string name="importing geocaching.com my finds..." value="Importation mes trouvailles geocaching.com..." />
+  <string name="importing gpx..." value="Importation gpx" />
+  <string name="importing gsak database..." value="Importation de base de données de gsak..." />
+  <string name="importing log images..." value="Importation d'images du log..." />
+  <string name="importing logs..." value="Importation de logs..." />
+  <string name="importing munzees..." value="Importe munzees..." />
+  <string name="importing opencaching geocaches..." value="Importation des geocaches d'Opencaching..." />
+  <string name="importing opencaching logs..." value="Importation des journaux d'Opencaching..." />
+  <string name="importing polygons" value="Importation des polygones " />
+  <string name="importing waypoints..." value="Importation des waypoints..." />
+  <string name="in collection" value="Dans la collection" />
+  <string name="in geocache" value="Dans geocache" />
+  <string name="in google agenda select other agenda's, import agenda and paste file name" value="Dans google agenda sélectionner autres agenda's, importer l'agenda et coller le nom de fichier" />
+  <string name="in possession" value="En possession " />
+  <string name="include notes in description" value="Inclure des notes dans la description" />
+  <string name="info" value="" />
+  <string name="information" value="" />
+  <string name="insert" value="Insérer" />
+  <string name="insert declarations for the missing variables:&#xA;{0}" value="Insérer déclarations pour les variables manquantes:&#xD;&#xA;{0}" />
+  <string name="insert formula" value="Insérer le formule" />
+  <string name="insert from database" value="Insérer depuis la base de données " />
+  <string name="insert waypoint" value="Insérer le waypoint" />
+  <string name="install" value="Installer" />
+  <string name="instruction videos" value="Vidéos d'instruction " />
+  <string name="internal storage" value="Stockage interne " />
+  <string name="intersection of 2 lines (coord1-coord2) with (coord3-coord4).&#xD;&#xA;intersection(coord1; coord2; coord3; coord4)" value="Intersection de 2 lignes (coord1-coord2) avec (coord3-coord4).&#xD;&#xA;intersection(coord1; coord2; coord3; coord4)" />
+  <string name="invert selection" value="Inverser la sélection " />
+  <string name="is own" value="est moi même" />
+  <string name="italy" value="Italie " />
+  <string name="iterated crossproduct until result has only 1 digit.&#xD;&#xA;example: icp(1234) = 8" value="Crossproduct itérée jusqu'à ce que le résultat n'a que 1 chiffres.&#xD;&#xA;example: icp(1234) = 8" />
+  <string name="iterated crosstotal until result has only 1 digit.&#xD;&#xA;example: ict(123456) = 3" value="Crosstotal itérée jusqu'à ce que le résultat n'a que 1 chiffres.&#xD;&#xA;example: ict(123456) = 3" />
+  <string name="joined the room" value="Rejoint le chatroom" />
+  <string name="keep all of owned caches" value="Conserver toutes vos geocaches" />
+  <string name="keep all own logs" value="Conserver tous vos logs" />
+  <string name="keep at least" value="Conserver au moins" />
+  <string name="keep last 5" value="Conserver les 5 derniers" />
+  <string name="keep logs of" value="Conserver les logs de" />
+  <string name="keep maximum backups (0=no maximum)" value="Maximum de sauvegardes gardées (0 pas de maximum) " />
+  <string name="keep window in front" value="Garder la fenêtre en face" />
+  <string name="km" value="km" />
+  <string name="language" value="Langue" />
+  <string name="language support" value="Prise en charge de la langue " />
+  <string name="last cache" value="Dernière cache" />
+  <string name="latitude" value="" />
+  <string name="left" value="Restant" />
+  <string name="level" value="Niveau" />
+  <string name="limit" value="Limite" />
+  <string name="limits" value="Limites" />
+  <string name="live a p i" value="" />
+  <string name="live api limits" value="Limite de Live API" />
+  <string name="liveapi" value="" />
+  <string name="load all votes" value="Charger tous les votes" />
+  <string name="load at startup" value="Charger au démarrage" />
+  <string name="load from device..." value="Charge depuis l'appareil… " />
+  <string name="load geocaches" value="Charger les géocaches " />
+  <string name="load logs in background if supported" value="Charge à l'arrière-plan, si soutenu " />
+  <string name="loading" value="Chargement" />
+  <string name="loading data in background. please wait till this is finished." value="Chargement des données en tache de fond. Attendez s'il vous plaît que ce soit fini." />
+  <string name="loading data..." value="Chargement de données..." />
+  <string name="loading geocache images..." value="Chargement des images geocache..." />
+  <string name="loading geocaches..." value="Chargement des geocaches..." />
+  <string name="loading log images..." value="Chargement des images log..." />
+  <string name="loading logimages..." value="Chargement logimages..." />
+  <string name="loading logs..." value="Chargement des logs..." />
+  <string name="loading waypoints..." value="Chargement des waypoints..." />
+  <string name="loading..." value="Chargement..." />
+  <string name="location" value="Localisation" />
+  <string name="lock user (ban)" value="Bloquer un utilisateur (interdire)" />
+  <string name="locked" value="Verrouillé" />
+  <string name="log" value="log" />
+  <string name="log a geocache" value="Loguer un geocache" />
+  <string name="log all" value="Loguer tout" />
+  <string name="log date" value="Date du log" />
+  <string name="log geocache" value="Loguer des geocaches" />
+  <string name="log image thumbs overview" value="Aperçu des images miniatures des logs" />
+  <string name="log image viewer" value="Visionneur d'images des logs" />
+  <string name="log online" value="Écrire le log en ligne " />
+  <string name="log selected" value="log sélectionné" />
+  <string name="log selected geocache..." value="Log geocaches sélectionnées..." />
+  <string name="log text" value="Texte du log" />
+  <string name="log trackable visits my finds" value="Les traçables visitent les caches trouvées" />
+  <string name="log trackables" value="Loguer les objets traçables" />
+  <string name="log type" value="Type du log" />
+  <string name="log types" value="Types de journaux " />
+  <string name="log viewer" value="Visionneur de logs" />
+  <string name="log visit my finds for a trackable" value="Logue visite mes trouvées pour des traçables" />
+  <string name="logging trackable..." value="log des traçables..." />
+  <string name="logging..." value="Enregistrement" />
+  <string name="longitude" value="" />
+  <string name="luxembourg" value="" />
+  <string name="maintenance" value="Entretien" />
+  <string name="map" value="Carte" />
+  <string name="maps" value="Cartes" />
+  <string name="maps download" value="Téléchargement de cartes " />
+  <string name="margin" value="Marge " />
+  <string name="mark destroyed" value="Marque détruit " />
+  <string name="mark missing" value="Marquer manquant" />
+  <string name="mass geocache editor" value="Éditeur de geocache par lot" />
+  <string name="max. 30 days." value="Max. 30 jours." />
+  <string name="max. distance" value="" />
+  <string name="max. in folder" value="Max. dans le dossier " />
+  <string name="max. in last pq" value="Max. dans le dernier PQ" />
+  <string name="max. in pq" value="Max. dans le PQ" />
+  <string name="max. logs" value="" />
+  <string name="max. poi description length:" value="Max. longueur de la description POI " />
+  <string name="max. poi name length:" value="Max. longueur du nom de POI" />
+  <string name="maximum geocache name length" value="Longueur maximale du nom de geocache  " />
+  <string name="maximum logs" value="Maximum logs" />
+  <string name="maximum number of logs with update (0=all)" value="Nombre maximum de logs à mettre à jour (0=tous)" />
+  <string name="maximum per request" value="Maximum par demande" />
+  <string name="maximum zoom level" value="Niveau de zoom maximal " />
+  <string name="median" value="Médiane " />
+  <string name="member only" value="Membre uniquement " />
+  <string name="membership" value="Adhésion " />
+  <string name="messages" value="Des messages" />
+  <string name="met stip op de kaart ... " value="Avec point sur la carte  " />
+  <string name="metchat" value="Avec chat" />
+  <string name="meters" value="Mètres" />
+  <string name="metgoogleearth" value="Avec Google Earth" />
+  <string name="metosm" value="Avec OSM" />
+  <string name="miles" value="Miles" />
+  <string name="min. #" value="" />
+  <string name="min. distance" value="" />
+  <string name="minimum start of name length" value="Démarrage minimal de la longueur du nom" />
+  <string name="missing" value="Disparu" />
+  <string name="missing coordinates" value="Coordonnées manquantes " />
+  <string name="modified" value="Modifié" />
+  <string name="modified since" value="Modifié depuis" />
+  <string name="months" value="Mois" />
+  <string name="move to collection" value="Déplacer dans la collection " />
+  <string name="move to inventory" value="Déplacer à l'inventaire" />
+  <string name="municipality" value="Département" />
+  <string name="municipality / city" value="Département / Ville" />
+  <string name="munzee" value="" />
+  <string name="munzee.com account" value="Compte de munzee.com " />
+  <string name="mystery, only if corrected" value="Mystère, que si corrigé " />
+  <string name="name" value="Nom" />
+  <string name="name contains" value="Nom contient " />
+  <string name="name field" value="Champ nom " />
+  <string name="name prefix" value="Préfixe nom " />
+  <string name="namespaces" value="Espaces de noms" />
+  <string name="nederlandse vertalingen" value="Traductions néerlandaise" />
+  <string name="needs archived" value="Besoins d'archiver" />
+  <string name="needs attention" value="Attention requise" />
+  <string name="needs maintenance" value="Maintenance requise" />
+  <string name="netherlands" value="Pays-Bas" />
+  <string name="new" value="Nouveau" />
+  <string name="new account" value="Nouveau compte" />
+  <string name="new bookmark" value="Nouveau signet " />
+  <string name="new filters only apply for new imports" value="Les nouveaux filtres s'appliquent seulement pour de nouvelles importations " />
+  <string name="new search" value="Nouvelle recherche" />
+  <string name="next &gt;&gt;" value="Suivant &gt;&gt;" />
+  <string name="nl geocache distance" value="Distance des geocaches NL" />
+  <string name="no" value="non" />
+  <string name="no active geocache" value="Aucune geocache active " />
+  <string name="no active geocache selected" value="Aucune geocache active choisie" />
+  <string name="no cache selected. (quicknotes)" value="Aucun cache sélectionné. (Messages rapide)" />
+  <string name="no crossing" value="Aucune traversée" />
+  <string name="no geocache selected" value="Aucune geocache sélectionnée " />
+  <string name="no geocache selected for export" value="Aucune geocache sélectionnée pour l'exportation" />
+  <string name="no geocache selected for update" value="Aucune geocache sélectionnée pour la mise à jour " />
+  <string name="no geocaches selected" value="Aucune geocache sélectionnée" />
+  <string name="no proper coordinate string selected.&#xD;&#xA;please select a complete coordinate string and try again." value="Aucune chaîne de coordination appropriée sélectionnée.&#xD;&#xA;s'il vous plaît sélectionnez une chaîne complète de coordination et réessayez." />
+  <string name="not all log dates are known." value="Toutes les dates du log ne sont pas connues" />
+  <string name="not available" value="Non disponible" />
+  <string name="not connected" value="Non connecté" />
+  <string name="not found by" value="Pas trouvée par" />
+  <string name="not found by any" value="Personne n'a trouvé" />
+  <string name="not saved" value="Pas enregistré" />
+  <string name="note" value="Note" />
+  <string name="notes" value="Notes" />
+  <string name="notes contains" value="Les notes contiennent" />
+  <string name="notes for" value="notes pour" />
+  <string name="notifications" value="" />
+  <string name="number functions" value="Fonctions numéros" />
+  <string name="numbers of characters in the string" value="Nombre de caractères de la chaîne" />
+  <string name="o k a p i" value="" />
+  <string name="offline" value="Hors connexion" />
+  <string name="offline images" value="Images hors ligne" />
+  <string name="offline logging" value="En train d'écrire des logs hors connexion" />
+  <string name="offline logs" value="logs hors connexion " />
+  <string name="offline osm maps" value="Hors ligne cartes d'OSM" />
+  <string name="ok" value="OK" />
+  <string name="okapi" value="" />
+  <string name="older than" value="Plus vieux que" />
+  <string name="only images not in geocache description" value="Seulement les images dans la description de géocache" />
+  <string name="only with coords" value="Uniquement avec coords" />
+  <string name="opacity" value="Opacité" />
+  <string name="open" value="Ouvrir" />
+  <string name="open areas" value="Les zones ouvertes" />
+  <string name="open in internal web browser" value="Ouvrir dans le navigateur interne " />
+  <string name="open street map - offline" value="OpenStreetMap - hors ligne" />
+  <string name="open street map - online" value="OpenStreetMap - en ligne" />
+  <string name="open street maps" value="" />
+  <string name="opencaching sites" value="" />
+  <string name="opencaching.de" value="" />
+  <string name="openlayers map" value="Carte openlayers" />
+  <string name="or" value="Ou" />
+  <string name="original image" value="Image originale" />
+  <string name="original text" value="Texte original" />
+  <string name="other" value="Autres" />
+  <string name="other database" value="D'autres bases de données" />
+  <string name="other names" value="Autres noms" />
+  <string name="overwrite existing" value="Remplacer existant  " />
+  <string name="own" value="placée" />
+  <string name="owner" value="Propriétaire " />
+  <string name="owner id" value="ID propriétaire " />
+  <string name="owner maintenance" value="Maintenance propriétaire" />
+  <string name="package date" value="" />
+  <string name="package manager" value="" />
+  <string name="package version" value="Version du paquetage" />
+  <string name="parameters in function call invalid" value="Paramètres dans l'appel de fonction pas valide" />
+  <string name="parent" value="Parent" />
+  <string name="pass directory to poi loader" value="Passer le répertoire au chargeur poi" />
+  <string name="password" value="Mot de passe  " />
+  <string name="path" value="" />
+  <string name="personal note on geocaching.com" value="Note personnelle sur geocaching.com" />
+  <string name="personal notes" value="Notes personnelles" />
+  <string name="pi: argument out of range: (0 - 1000)" value="Pi: arguments hors de portée (0 - 1000)" />
+  <string name="pi: maximum digits: 1000" value="Pi : chiffres maximum : 1000" />
+  <string name="pkg type" value="Type de paquetage" />
+  <string name="placed by" value="Placée par " />
+  <string name="play sound" value="Jouer un son" />
+  <string name="plugin" value="" />
+  <string name="plugin manager" value="" />
+  <string name="plugin type" value="Type du plugin" />
+  <string name="plugins" value="" />
+  <string name="pmo" value="" />
+  <string name="pocket query settings has been saved" value="Les paramètres de PQ's ont été enregistré" />
+  <string name="poi loader" value="Chargeur poi " />
+  <string name="poi name" value="nom du POI" />
+  <string name="position" value="" />
+  <string name="position of the first character in the alphabet" value="Position du premier caractère de l'alphabet" />
+  <string name="position of the first character on the phone keyboard" value="Position du premier caractère sur le clavier du téléphone" />
+  <string name="post reviewer note" value="Placer une note bénévole" />
+  <string name="prefix" value="Préfixe " />
+  <string name="premium member only" value="Membre Premium seulement" />
+  <string name="premium membership of geocaching.com is required in order to execute this plugin" value="Il est nécessaire d'être membre premium de geocaching.com afin d'exécuter ce plugin" />
+  <string name="present" value="Présent" />
+  <string name="preset" value="Un préréglage" />
+  <string name="preset name" value="Nom du preset" />
+  <string name="presets" value="Les préréglages" />
+  <string name="preview" value="Avant-première" />
+  <string name="primeindex(y) gives the index of the prime number y.&#xD;&#xA;example: primeindex(11) = 5" value="Primeindex(y) donne l'index du premier nombre y.&#xD;&#xA;example: primeindex(11) = 5" />
+  <string name="primenumber(x) gives the x-th prime number.&#xD;&#xA;example: primenumber(5) = 11" value="Primenumber(x) donne la x-ème nombre premier.&#xD;&#xA;example: primenumber(5) = 11" />
+  <string name="print" value="Imprimer" />
+  <string name="process" value="Processus" />
+  <string name="processed" value="Traité" />
+  <string name="processing step..." value="Étape du traitement..." />
+  <string name="product of all single numbers in the number.&#xD;&#xA;example: cp(1234) = 24" value="Produit de tous les nombres uniques dans le numéro.&#xD;&#xA;example: cp(1234) = 24" />
+  <string name="projected location" value="localisation projetée" />
+  <string name="projection" value="" />
+  <string name="projection from coordinate" value="Projection de coordonnées " />
+  <string name="projection of coordinate.&#xD;&#xA;projection(coord; length; angle)" value="Projection de coordonner.&#xD;&#xA;projection(coord; length; angle)" />
+  <string name="properties" value="Propriétes" />
+  <string name="property" value="Propriété" />
+  <string name="provide list of geocache codes" value="Fournir la liste des codes des geocaches" />
+  <string name="public" value="Public" />
+  <string name="publication date" value="Date de publication " />
+  <string name="publish listing" value="Publier la liste" />
+  <string name="published" value="Publiée" />
+  <string name="published days ago" value="Il y a jours publiés" />
+  <string name="purge logs" value="Purger des logs" />
+  <string name="quality" value="Qualité" />
+  <string name="query" value="Requête" />
+  <string name="query builder" value="Générateur de requêtes" />
+  <string name="quick select" value="Sélection rapide" />
+  <string name="radius" value="Rayon" />
+  <string name="random geocache selector" value="Sélecteur de geocache aléatoires" />
+  <string name="recent databases" value="Bases de données récentes " />
+  <string name="recovered" value="Récupéré" />
+  <string name="refresh" value="Rafraîchir" />
+  <string name="region selection" value="Sélection de la région " />
+  <string name="reload" value="Rechargement " />
+  <string name="remove" value="Effacer" />
+  <string name="remove active geocache from your favorites" value="Supprimer la geocache active de vos favoris" />
+  <string name="remove and remove logs" value="Effacer et effacer les logs " />
+  <string name="remove from collection" value="Supprimer de la collection " />
+  <string name="remove logs from" value="Supprimer des logs de " />
+  <string name="remove older then days (0=don't remove)" value="Retirer plus vieux que x jours (0=ne pas retirer) " />
+  <string name="rename" value="Renommer" />
+  <string name="repair active database" value="Réparer la base de données active" />
+  <string name="requested selection" value="Sélection demandée" />
+  <string name="requesting selection from user... seconds left:" value="Demande de sélection del'utilisateur ... secondes restantes :" />
+  <string name="restart" value="Redémarrer " />
+  <string name="restore" value="Restauration  " />
+  <string name="restore all missing" value="Restaurer tous les manquant " />
+  <string name="restore default" value="Restituer le défaut" />
+  <string name="restore folder" value="Dossier de restauration " />
+  <string name="restore settings..." value="Restaurer les paramètres..." />
+  <string name="restoring backup..." value="Restauration de sauvegarde... " />
+  <string name="result" value="Résultat" />
+  <string name="retract listing" value="Rétracter la liste" />
+  <string name="retrieve" value="Récupérer " />
+  <string name="retrieve it from a cache" value="Récupéré d'une cache" />
+  <string name="retrieving data from geocaching.com" value="Récupération des données de geocaching.com" />
+  <string name="retrieving package list..." value="Récupère la liste des paquetages... " />
+  <string name="return a substring of a string. parameter 3: default=1&#xD;&#xA;mid(&quot;string&quot;;startposition;[charactercount])" value="Retour la sous-chaîne d'une chaîne. paramètre 3 : par défaut = 1&#xD;&#xA;mid(&quot;string&quot;;startposition;[charactercount])" />
+  <string name="reverses the string&#xD;&#xA;reverse(&quot;abc&quot;) = cba" value="Inverse la chaîne&#xD;&#xA;reverse(&quot;abc&quot;) = cba" />
+  <string name="reviewer note" value="Note du bénévole" />
+  <string name="rework" value="Retravailler" />
+  <string name="roman numerals to decimal" value="Les chiffres romains vers décimal" />
+  <string name="rooms" value="Chambres" />
+  <string name="rot13" value="" />
+  <string name="rounds the number to x digits&#xD;&#xA;round(1.8672; 2) = 1.87" value="Arrondit le nombre de x chiffres&#xD;&#xA;round(1.8672; 2) = 1.87" />
+  <string name="route from" value="Route des" />
+  <string name="route to" value="Route vers" />
+  <string name="run poi loader after export" value="Exécuter chargeur poi après l'exportation " />
+  <string name="run script" value="Exécuter le script " />
+  <string name="run silently" value="Exécuter silencieusement " />
+  <string name="s" value="" />
+  <string name="save" value="Enregistrer" />
+  <string name="save all" value="Enregistrer tout" />
+  <string name="save as" value="Enregistrer sous" />
+  <string name="save settings" value="Enregistrer les paramètres " />
+  <string name="saved presets" value="Préréglages enregistrés " />
+  <string name="saving data..." value="Enregistrement des données..." />
+  <string name="saving geocache images..." value="Enregistrer des images geocache..." />
+  <string name="saving geocaches..." value="Enregistrement des geocaches..." />
+  <string name="saving log images..." value="Enregistrement des images de log..." />
+  <string name="saving logs..." value="Enregistrement des logs..." />
+  <string name="saving waypoints..." value="Enregistrement waypoints..." />
+  <string name="saving..." value="Enregistrement..." />
+  <string name="scale" value="Échelle" />
+  <string name="script" value="" />
+  <string name="script installed" value="Script installé " />
+  <string name="scripts" value="" />
+  <string name="search" value="Recherche" />
+  <string name="search for geocache distance" value="Recherche la distance de geocache" />
+  <string name="search geocache" value="Chercher des geocaches" />
+  <string name="search geocache by text" value="Recherche des geocaches par texte " />
+  <string name="search geocaches along a route" value="Chercher des geocaches le long d'une route" />
+  <string name="search within selection" value="Recherche au sein de la sélection" />
+  <string name="searching for text..." value="Recherche du texte..." />
+  <string name="searching within description..." value="Recherche dans discription..." />
+  <string name="searching..." value="Recherche..." />
+  <string name="see website" value="Voir le Web " />
+  <string name="select" value="Sélectionner" />
+  <string name="select a plugin with action and press the key to use as a shortcut." value="Sélectionner un plugin avec action et appuyer sur la touche pour utiliser comme un raccourci " />
+  <string name="select action" value="Sélectionner l'action " />
+  <string name="select all" value="Sélectionner tout" />
+  <string name="select all geocaches" value="Sélectionner toutes les geocaches " />
+  <string name="select archived" value="Sélectionner archivées" />
+  <string name="select available" value="Sélectionner disponibles" />
+  <string name="select changed geocaches" value="Sélectionner les géocaches modifiées" />
+  <string name="select device" value="Choisir l'appareil" />
+  <string name="select file..." value="Sélectionner un fichier… " />
+  <string name="select flagged" value="Sélectionner marquées" />
+  <string name="select folder" value="Sélectionner le dossier" />
+  <string name="select found" value="Sélectionner trouvées" />
+  <string name="select garmin device" value="Choisir l'appareil Garmin" />
+  <string name="select geocache" value="Sélectionner geocache" />
+  <string name="select geocaches" value="Sélectionner les geocaches " />
+  <string name="select geocaches also present in other gpp database" value="Sélectionnez les géocaches également présents dans les autres bases de données gpp" />
+  <string name="select geocaches by area" value="Choisir geocache par région" />
+  <string name="select geocaches in area" value="Sélectionner les geocache par région" />
+  <string name="select geocaches not present in other gpp database" value="Sélectionnez les géocaches absent d'autres bases de données gpp" />
+  <string name="select geocaches with attachements" value="Sélectionner les geocaches avec pièces jointes" />
+  <string name="select geocaches within region" value="Sélectionner les géocaches au sein de la région " />
+  <string name="select geocaching.com notes" value="Sélectionner geocaching.com notes " />
+  <string name="select not found" value="Sélectionner pas trouvées" />
+  <string name="select notes" value="Sélectionner des notes" />
+  <string name="select pocket query for download" value="Sélectionner la pocket querie à télécharger" />
+  <string name="select the plugin/action that should be started after startup." value="Sélectionner le plugin/action qui devrait être lancé après le démarrage" />
+  <string name="select trackable" value="Sélectionner traçable" />
+  <string name="select url" value="Sélectionner l'url " />
+  <string name="select waypoint" value="Sélectionnez le waypoint" />
+  <string name="select whole area" value="Choisir la région entière" />
+  <string name="select with corrected coords" value="Sélectionner avec coordonnées corrigées" />
+  <string name="select with log images" value="Sélectionner avec images de log " />
+  <string name="select with user waypoints" value="Sélectionner avec waypoints utilisateur " />
+  <string name="select within radius" value="Sélectionner dans le rayon" />
+  <string name="select you own" value="Sélectionner vos placées" />
+  <string name="select your favorites" value="Sélectionner vos favoris" />
+  <string name="selected" value="Sélectionné(es)" />
+  <string name="selected events" value="Événements sélectionnés " />
+  <string name="selected geocaches" value="Geocaches sélectionnées " />
+  <string name="selected only" value="Sélectionné uniquement" />
+  <string name="selection" value="Sélection" />
+  <string name="selection options" value="Options de sélection" />
+  <string name="seperate file per geocache" value="Séparer les fichiers par geocache" />
+  <string name="sequence" value="Séquence " />
+  <string name="serie" value="Série " />
+  <string name="server error" value="Erreur du serveur " />
+  <string name="set" value="Définir" />
+  <string name="set additional coordinates" value="Set coordonnées supplémentaires " />
+  <string name="set archived" value="Mettre archivée" />
+  <string name="set available" value="Mettre disponible" />
+  <string name="set flagged" value="Mettre marqué" />
+  <string name="set munzee type in gpx export" value="Placer le type du munzee dans l'export gpx" />
+  <string name="set opacity" value="Régler l'opacité " />
+  <string name="set selected" value="Mettre sélectionné" />
+  <string name="set transparency when inactive..." value="Régler la transparence quand inactif ... " />
+  <string name="settings" value="Paramètres " />
+  <string name="settings folder" value="Dossier paramètres" />
+  <string name="settings..." value="Paramètres..." />
+  <string name="setup wizard" value="Assistant d'installation " />
+  <string name="shapefile" value="" />
+  <string name="shapefiles" value="" />
+  <string name="shapefiles in use" value="Shapefiles en utilisation " />
+  <string name="sheets" value="Feuilles" />
+  <string name="shift letters count" value="Compteur de lettres de décalage " />
+  <string name="shortcut assignment" value="Assignation de raccourci " />
+  <string name="show" value="Afficher" />
+  <string name="show additional waypoints" value="Montrer les waypoints supplémentaires " />
+  <string name="show custom toolbar" value="Afficher la barre d'outils personnalisée " />
+  <string name="show flagged only" value="Afficher seulement les marquées" />
+  <string name="show geocaches" value="Afficher les geocaches" />
+  <string name="show group on map" value="Afficher groupe sur carte" />
+  <string name="show label on connection lines" value="Afficher étiquette sur lignes de connexion" />
+  <string name="show logs for active geocache" value="Montrer les logs pour la geocache active " />
+  <string name="show logs of user" value="Montrer les logs d'utilisateur" />
+  <string name="show name of geocache in tool tip" value="Afficher le nom de géocache dans l'info-bulle  " />
+  <string name="show okapi menu" value="Afficher le menu okapi" />
+  <string name="show route" value="Afficher trajet" />
+  <string name="show route of selected trackable" value="Afficher le trajet pour le traçable sélectionné" />
+  <string name="show selected on map" value="Afficher les sélectionnées sur la carte" />
+  <string name="show selected only" value="Afficher seulement les sélectionnées" />
+  <string name="show settings dialog before start" value="Voir la boîte de dialogue configuration avant de démarrer  " />
+  <string name="simple cache list" value="Liste des caches" />
+  <string name="single" value="Une seule" />
+  <string name="size" value="Grandeur" />
+  <string name="size w x h" value="Grandeur w x h" />
+  <string name="skin" value="Peau" />
+  <string name="slideshow" value="Diaporama " />
+  <string name="solve" value="Résoudre" />
+  <string name="solver" value="Solveur " />
+  <string name="sort" value="Genre" />
+  <string name="sort on" value="Trier par " />
+  <string name="sort order" value="Ordre de tri " />
+  <string name="splitscreen" value="Écran partagé" />
+  <string name="start" value="Commencer" />
+  <string name="start #foundcount" value="Début #nombredetrouvée" />
+  <string name="startup" value="Démarrage" />
+  <string name="state" value="Région" />
+  <string name="statistics" value="Statistiques" />
+  <string name="statistics generator" value="Générateur de statistiques" />
+  <string name="step" value="Étape" />
+  <string name="stop" value="Arrêter" />
+  <string name="stop after each log" value="Arrêter après chaque log" />
+  <string name="stops (max {0})" value="Arrêts (max {0})" />
+  <string name="store offline" value="Stocker off-line " />
+  <string name="stroke opacity" value="Opacité du trait" />
+  <string name="sub action" value="Sous action " />
+  <string name="submit" value="Soumettre" />
+  <string name="success" value="Succès" />
+  <string name="successfully logged" value="Avec succès noté" />
+  <string name="sum of all single numbers in the parameter.&#xD;&#xA;example: ct(654321) = 21" value="Somme de tous les nombres uniques dans le paramètre.&#xD;&#xA;example: ct(654321) = 21" />
+  <string name="sum of the positions of all characters in the alphabet" value="Somme des positions de tous les caractères de l'alphabet" />
+  <string name="sum of the positions of all characters on the phone keyboard" value="Somme des positions de tous les caractères sur le clavier du téléphone" />
+  <string name="summary" value="Résumé" />
+  <string name="suppress script errors" value="Effacer les erreurs de script " />
+  <string name="switch to selected folder" value="Basculer vers le dossier sélectionné " />
+  <string name="system scripts" value="Scripts de système " />
+  <string name="t" value="" />
+  <string name="target directory for poi loader csv files" value="Répertoire cible de poi loader fichiers csv" />
+  <string name="target settings folder" value="Dossier de paramètres cible  " />
+  <string name="template" value="Modèle " />
+  <string name="temporarily disable listing" value="Désactiver temporairement la liste" />
+  <string name="ter. max" value="Terrain max." />
+  <string name="ter. min" value="Terrain min." />
+  <string name="terr" value="" />
+  <string name="terrain" value="Terrain" />
+  <string name="text" value="Texte" />
+  <string name="text color" value="Couleur du texte" />
+  <string name="text functions" value="Fonctions texte" />
+  <string name="the data has been changed. do you want to save the data first?" value="Les données ont été modifiées. Voulez-vous enregistrer les données? " />
+  <string name="the flow already exists. overwrite the existing flow?" value="Le flux existe déjà, écraser les flux existant?" />
+  <string name="the flow has been imported" value="Le flux a été importé" />
+  <string name="the folder does not exists" value="Le dossier n'existe pas" />
+  <string name="the folder is not a valid settings folder" value="Le dossier n'est pas un dossier de paramètres valide" />
+  <string name="the folder is not empty.&#xD;&#xA;are you sure you want to delete the existing files?" value="Le dossier n'est pas vide.&#xD;&#xA;Êtes vous sûr de vouloir supprimer les fichiers existants ? " />
+  <string name="the folder is the active settings folder" value="Le dossier est le dossier de réglages actif" />
+  <string name="the live api limits the amount of geocaches that can be downloaded per day." value="L'api live limite le nombre de geocaches qui peuvent être téléchargées par jour." />
+  <string name="the query will be column wise processed" value="La requête sera traitée colonne par colonne" />
+  <string name="there are {0} new geocaches found&#xD;&#xA;import these?" value="Il y a {0} nouvelles géocaches trouvées&#xD;&#xA;Importer celles-ci ?" />
+  <string name="there are no new geocaches found" value="Il n'y a aucune nouvelle géocache trouvée" />
+  <string name="this feature will allow you to take a trackable and add a visit log to each geocache you have found.&#xD;&#xA;the logdate will be the same as the geocache found log date.&#xD;&#xA;this way it is possible to track your finds by using the trackable map on geocaching.com.&#xD;&#xA;&#xD;&#xA;first get the trackable you own, select a trackable which you want to use." value="Cette fonctionnalité vous permettra de prendre un traçable et ajouter un log de visite à chaque geocache que vous avez trouvé.&#xD;&#xA;La date du log sera la même que la date du log trouvé.&#xD;&#xA;De cette façon, il est possible de suivre  vos trouvailles à l' aide de la carte faciles à suivre sur le site geocaching.com&#xD;&#xA;&#xD;&#xA;Obtenez d'abord le traçable que vous possédez, sélectionnez un traçable que vous voulez utiliser" />
+  <string name="this file cannot be processed" value="Ce fichier ne peut pas être traité" />
+  <string name="this will overwrite an existing file&#xD;&#xA;overwrite this file?" value="Cela va écraser un fichier existant&#xD;&#xA;Ecraser le file existant ? " />
+  <string name="throttle user" value="L'utilisateur d'accélérateur " />
+  <string name="tmp" value="" />
+  <string name="to" value="à" />
+  <string name="toolbar" value="Barre d'outils " />
+  <string name="total distance" value="Distance totale" />
+  <string name="total maximum" value="Maximum total" />
+  <string name="track. max" value="Track. max" />
+  <string name="track. min" value="Track. min" />
+  <string name="trackable code(s)" value="Codes des traçables" />
+  <string name="trackable group" value="Groupe de traçable" />
+  <string name="trackable groups" value="Groupes des objects traçables" />
+  <string name="trackables" value="Traçables" />
+  <string name="trackables to log (seperated by space, comma or tab)" value="Objets traçables à loguer (séparés par une espace, virgule ou tabulation) " />
+  <string name="tracking number" value="numéro de traçable" />
+  <string name="transfer" value="Transférer" />
+  <string name="travelled distance" value="Distance parcouru" />
+  <string name="type" value="Type" />
+  <string name="u i child window" value="Fenêtre enfant de l'interface utilisateur " />
+  <string name="u i main window" value="Fenêtre principale de l'interface utilisateur " />
+  <string name="unable to access the live api or process its data" value="Impossible d'accéder à l'api live ou traiter ses données " />
+  <string name="unable to access the okapi or process its data" value="Impossible d'accéder à l'okapi ou de traiter ses données" />
+  <string name="unable to download package file" value="Impossible de télécharger le fichier de paquetage" />
+  <string name="unable to download package list" value="Impossible de télécharger la liste des paquetages" />
+  <string name="unable to get the data from gcvote.com" value="Impossible d'obtenir les données de gcvote.com  " />
+  <string name="unable to log the geocache. reason unknown" value="Impossible de loguer la geocache. Raison inconnue" />
+  <string name="unable to log the geocache. reason:" value="Impossible de loguer la geocache. Raison : " />
+  <string name="unable to validate user" value="Impossible de valider l'utilisateur " />
+  <string name="unarchive" value="Réactivation" />
+  <string name="unassigned only" value="Non attribué uniquement" />
+  <string name="unfollow" value="Cesser de suivre" />
+  <string name="unknown" value="Inconnu" />
+  <string name="unknown function call" value="Appel de fonction inconnue " />
+  <string name="unknown function group" value="Groupe des fonctions inconnue" />
+  <string name="unknown function: " value="Function inconnue" />
+  <string name="unlock user (unban)" value="Débloquer un utilisateur (non interdire)" />
+  <string name="unselect all" value="Désélectionner tout" />
+  <string name="update" value="Mise à jour " />
+  <string name="update all trackables in group" value="Mise à jour de tous les traçables dans le groupe " />
+  <string name="update and download caches for" value="Mettre à jour et télécharger les caches pour " />
+  <string name="update available!" value="Mise à jour disponible !" />
+  <string name="update coordinates" value="Mise à jour coordonnées " />
+  <string name="update geocache images" value="Mettre à jour les images des geocaches" />
+  <string name="update geocache logs" value="Mettre à jour les logs des geocaches" />
+  <string name="update geocaches" value="Mise à jour des geocaches" />
+  <string name="update map" value="Mise à jour carte" />
+  <string name="update selected trackables" value="Mise à jour le traçable sélectionné" />
+  <string name="update status" value="Mettre à jour les statuts" />
+  <string name="update status of geocaches and import new geocaches" value="Mettre à jour de statut de géocaches et importer de nouvelles géocaches  " />
+  <string name="updated days ago" value="Il y a jours actualisés" />
+  <string name="updating geocache..." value="Mise à jour de la geocache" />
+  <string name="updating geocaches..." value="Mise à jour des geocaches..." />
+  <string name="upload" value="Télécharger" />
+  <string name="upload jeep 4x4 contest photo" value="Télécharger la photo concours jeep 4x4" />
+  <string name="upload your flows" value="Télécharger vos flux" />
+  <string name="uploaded goal photo for &quot;a true original&quot;" value="Téléchargé la photo but pour &quot;un vrai original&quot;" />
+  <string name="uploaded goal photo for &quot;adventure starts here&quot;" value="Téléchargé la photo but pour &quot;l'aventure commence ici&quot;" />
+  <string name="uploaded goal photo for &quot;adventure&quot;" value="Téléchargé la photo but pour &quot;aventure&quot;" />
+  <string name="uploaded goal photo for &quot;american flag&quot;" value="Téléchargé la photo but pour &quot;drapeau américain&quot;" />
+  <string name="uploaded goal photo for &quot;american heritage&quot;" value="Téléchargé la photo but pour &quot;héritage américain&quot;" />
+  <string name="uploaded goal photo for &quot;camaraderie&quot;" value="Téléchargé la photo but pour &quot;camaraderie&quot;" />
+  <string name="uploaded goal photo for &quot;camping&quot;" value="Téléchargé la photo but pour &quot;camping&quot;" />
+  <string name="uploaded goal photo for &quot;construction site&quot;" value="Téléchargé la photo but pour &quot;terrain à bâtir&quot;" />
+  <string name="uploaded goal photo for &quot;definition of freedom&quot;" value="Télécharge la photo but pour &quot;définition de liberté&quot;" />
+  <string name="uploaded goal photo for &quot;discover new places&quot;" value="Téléchargé la photo but pour &quot;découvrir de nouvelle places&quot;" />
+  <string name="uploaded goal photo for &quot;discovery&quot;" value="Téléchargé la photo but pour &quot;découverte&quot;" />
+  <string name="uploaded goal photo for &quot;fighting diabetes&quot;" value="Téléchargé la photo but pour &quot;bagarre contre le diabète&quot;" />
+  <string name="uploaded goal photo for &quot;fitness&quot;" value="Téléchargé la photo but pour &quot;santé physique&quot;" />
+  <string name="uploaded goal photo for &quot;freedom&quot;" value="Téléchargé la photo but pour &quot;liberté&quot;" />
+  <string name="uploaded goal photo for &quot;fun&quot;" value="Téléchargé la photo but pour &quot;amusement&quot;" />
+  <string name="uploaded goal photo for &quot;ground clearance&quot;" value="Téléchargé la photo but pour &quot;déblayage de terre&quot;" />
+  <string name="uploaded goal photo for &quot;heritage&quot;" value="Téléchargé la photo but pour &quot;patrimoine&quot;" />
+  <string name="uploaded goal photo for &quot;hiking&quot;" value="Téléchargé la photo but pour &quot;tourisme à pied&quot;" />
+  <string name="uploaded goal photo for &quot;landmark/memorial&quot;" value="Téléchargé la photo but pour &quot;repère/mémorial&quot;" />
+  <string name="uploaded goal photo for &quot;no boundaries&quot;" value="Téléchargé la photo but pour &quot;aucune limite&quot;" />
+  <string name="uploaded goal photo for &quot;only in a jeep&quot;" value="Téléchargé la photo but pour &quot;seulement dans un jeep&quot;" />
+  <string name="uploaded goal photo for &quot;paint job&quot;" value="Téléchargé la photo but pour &quot;travail de peinture&quot;" />
+  <string name="uploaded goal photo for &quot;peaks and valleys&quot;" value="Téléchargé la photo but pour &quot;pics et vallées&quot;" />
+  <string name="uploaded goal photo for &quot;state symbol&quot;" value="Téléchargé la photo but pour &quot;symbole public&quot;" />
+  <string name="uploaded goal photo for &quot;tow package&quot;" value="Téléchargé la photo but pour &quot;paquet de remorquage&quot;" />
+  <string name="uploaded goal photo for &quot;traction&quot;" value="Téléchargé la photo but pour &quot;traction&quot;" />
+  <string name="uploaded goal photo for &quot;ultimate makeover&quot;" value="Téléchargé la photo but pour &quot;ultimate makeover&quot;" />
+  <string name="uploaded goal photo for &quot;water fording&quot;" value="Téléchargé la photo but pour &quot;le fait de passer à gué d'eau&quot;" />
+  <string name="uploaded goal photo for &quot;yellow jeep wrangler&quot;" value="Téléchargé la photo but pour &quot;Wrengler Jeep jaune&quot;" />
+  <string name="url" value="" />
+  <string name="url name" value="Nom de l'url " />
+  <string name="urls" value="" />
+  <string name="use database name as gpx file name on device" value="Utiliser le nom de la base de données comme nom de fichier gpx sur l'appareil  " />
+  <string name="use deferred scrolling" value="Utilisation différée défilement " />
+  <string name="use name and not geocache code" value="Utiliser le nom et pas le code géocache " />
+  <string name="use offline images if available" value="Utiliser des images en mode hors connexion si possible " />
+  <string name="use the hints for description" value="Utiliser les indices pour la description" />
+  <string name="user" value="Utilisateur" />
+  <string name="user id" value="" />
+  <string name="user name" value="Nom d'utilisateur" />
+  <string name="user names" value="Les noms d'utilisateurs" />
+  <string name="user scripts" value="Scripts utilisateur " />
+  <string name="user waypoint" value="Waypoint d'utilisateur" />
+  <string name="user waypoint editor" value="Éditeur des waypoints d'utilisateurs" />
+  <string name="user waypoints" value="Waypoints d'utilisateurs" />
+  <string name="users" value="Utilisateurs" />
+  <string name="version" value="Version" />
+  <string name="view altitude" value="Vue altitude" />
+  <string name="view angle" value="Angle de vue" />
+  <string name="view geocache" value="Vue geocache" />
+  <string name="view geocache from original location" value="Afficher la geocache à sa localisation d'origine " />
+  <string name="view logs" value="Visionner les logs " />
+  <string name="visited" value="Visité" />
+  <string name="warning" value="Attention" />
+  <string name="waypoint" value="" />
+  <string name="waypoint counter" value="Waypoint compteur " />
+  <string name="waypoint editor" value="Éditeur de Waypoint" />
+  <string name="waypoints" value="" />
+  <string name="web browser" value="Navigateur Web" />
+  <string name="web browser compatibility mode has been changed. please restart gapp to make it effective." value="Le mode compatible de web browser a été changé. S'il vous plaît redémarrer GAPP pour la rendre efficace." />
+  <string name="web browser settings" value="Paramètres du navigateur Web " />
+  <string name="webcam photo taken" value="Prise de photo webcam" />
+  <string name="welcome" value="Bienvenue" />
+  <string name="welcome to the globalcaching application (short gapp).&#xD;&#xA;&#xD;&#xA;this wizard will guide you through the initial setup. before you start, you might want to change the language:" value="Bienvenue sur l'application de globalcaching (court GAPP).&#xD;&#xA;&#xD;&#xA;Cet Assistant vous guidera dans l'installation initiale. Avant de commencer, vous pouvez changer la langue :" />
+  <string name="wgs84" value="" />
+  <string name="will attend" value="Participera à " />
+  <string name="window" value="Fenêtre" />
+  <string name="window presets" value="Fenêtre prédéfinie " />
+  <string name="with the live api, the coordinates of the geocache are not provided. this means that importing an archived geocache using the live api will result in an invalid coordinate. here you can backup all coordinates and restore them." value="Avec le liveapi, les coordonnées de lageocache ne sont pas fournis. Cela signifie que l'importation d'une geocache archivée à l'aide du live api entraînera des coordonnées non valide. Ici vous pouvez sauvegarder toutes les coordonnées et les restaurer." />
+  <string name="word length with space" value="Longueur des mots avec une espace" />
+  <string name="word length without space" value="Longueur des mots sans espace" />
+  <string name="word value" value="Valeur du mot " />
+  <string name="write jeep 4x4 contest essay" value="Écrire l'essai de concours jeep 4 x 4 " />
+  <string name="write note" value="Écrire une note" />
+  <string name="yes" value="Oui" />
+  <string name="you are about to delete" value="Vous êtes sur le point de supprimer " />
+  <string name="you have reached the upload limit" value="Vous avez atteint la limite de téléchargement " />
+  <string name="you must authorize this application in order to execute this plugin" value="Vous devez autoriser cette application pour exécuter ce plugin" />
+  <string name="your favorite" value="Votre favori " />
+  <string name="your own" value="les votres" />
+  <string name="your uploaded flows" value="Vos flux téléchargés " />
+  <string name="your vote" value="Votre vote" />
+  <string name="zip file" value="Fichier zip " />
+</resources>

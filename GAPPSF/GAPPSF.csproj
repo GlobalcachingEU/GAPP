@@ -1,0 +1,495 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DEE3C2B3-236E-42AC-BD54-2EA0100BCEF9}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GAPPSF</RootNamespace>
+    <AssemblyName>GAPPSF</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;SQLITE_DEBUG TRUE WIN32 _MSC_VER NO_TCL SQLITE_ASCII SQLITE_DISABLE_LFS SQLITE_HAS_CODEC SQLITE_MEM_POOL SQLITE_MUTEX_W32 SQLITE_THREADSAFE SQLITE_OMIT_AUTHORIZATION SQLITE_OMIT_DEPRECATED SQLITE_OMIT_GET_TABLE SQLITE_OMIT_INCRBLOB SQLITE_OMIT_LOOKASIDE SQLITE_OMIT_SHARED_CACHE SQLITE_OMIT_UTF16 SQLITE_OMIT_VIRTUALTABLE SQLITE_OMIT_WAL SQLITE_OS_WIN SQLITE_SYSTEM_MALLOC  VDBE_PROFILE_OFF NET_40</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;TRUE WIN32 _MSC_VER NDEBUG NO_TCL SQLITE_ASCII SQLITE_DISABLE_LFS SQLITE_MUTEX_OMIT SQLITE_OMIT_AUTHORIZATION SQLITE_OMIT_DEPRECATED SQLITE_OMIT_GET_TABLE SQLITE_OMIT_INCRBLOB SQLITE_OMIT_LOOKASIDE SQLITE_OMIT_SHARED_CACHE SQLITE_OMIT_UTF16 SQLITE_OMIT_VIRTUALTABLE SQLITE_OMIT_WAL SQLITE_OS_WIN SQLITE_SYSTEM_MALLOC VDBE_PROFILE_OFF NET_40</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;SQLITE_DEBUG TRUE WIN32 _MSC_VER NO_TCL SQLITE_ASCII SQLITE_DISABLE_LFS SQLITE_HAS_CODEC SQLITE_MEM_POOL SQLITE_MUTEX_W32 SQLITE_THREADSAFE SQLITE_OMIT_AUTHORIZATION SQLITE_OMIT_DEPRECATED SQLITE_OMIT_GET_TABLE SQLITE_OMIT_INCRBLOB SQLITE_OMIT_LOOKASIDE SQLITE_OMIT_SHARED_CACHE SQLITE_OMIT_UTF16 SQLITE_OMIT_VIRTUALTABLE SQLITE_OMIT_WAL SQLITE_OS_WIN SQLITE_SYSTEM_MALLOC  VDBE_PROFILE_OFF NET_40</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;TRUE WIN32 _MSC_VER NDEBUG NO_TCL SQLITE_ASCII SQLITE_DISABLE_LFS SQLITE_MUTEX_OMIT SQLITE_OMIT_AUTHORIZATION SQLITE_OMIT_DEPRECATED SQLITE_OMIT_GET_TABLE SQLITE_OMIT_INCRBLOB SQLITE_OMIT_LOOKASIDE SQLITE_OMIT_SHARED_CACHE SQLITE_OMIT_UTF16 SQLITE_OMIT_VIRTUALTABLE SQLITE_OMIT_WAL SQLITE_OS_WIN SQLITE_SYSTEM_MALLOC VDBE_PROFILE_OFF NET_40</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;SQLITE_DEBUG TRUE WIN32 _MSC_VER NO_TCL SQLITE_ASCII SQLITE_DISABLE_LFS SQLITE_HAS_CODEC SQLITE_MEM_POOL SQLITE_MUTEX_W32 SQLITE_THREADSAFE SQLITE_OMIT_AUTHORIZATION SQLITE_OMIT_DEPRECATED SQLITE_OMIT_GET_TABLE SQLITE_OMIT_INCRBLOB SQLITE_OMIT_LOOKASIDE SQLITE_OMIT_SHARED_CACHE SQLITE_OMIT_UTF16 SQLITE_OMIT_VIRTUALTABLE SQLITE_OMIT_WAL SQLITE_OS_WIN SQLITE_SYSTEM_MALLOC  VDBE_PROFILE_OFF NET_40</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;TRUE WIN32 _MSC_VER NDEBUG NO_TCL SQLITE_ASCII SQLITE_DISABLE_LFS SQLITE_MUTEX_OMIT SQLITE_OMIT_AUTHORIZATION SQLITE_OMIT_DEPRECATED SQLITE_OMIT_GET_TABLE SQLITE_OMIT_INCRBLOB SQLITE_OMIT_LOOKASIDE SQLITE_OMIT_SHARED_CACHE SQLITE_OMIT_UTF16 SQLITE_OMIT_VIRTUALTABLE SQLITE_OMIT_WAL SQLITE_OS_WIN SQLITE_SYSTEM_MALLOC VDBE_PROFILE_OFF NET_40</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Commands\AsyncDelegateCommand.cs" />
+    <Compile Include="Commands\ForAllGeocachesCommand.cs" />
+    <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Core\Data\CompassDirection.cs" />
+    <Compile Include="Core\Data\GeocacheContainerCollection.cs" />
+    <Compile Include="Core\Data\GeocacheTypeCollection.cs" />
+    <Compile Include="Core\Data\ILogData.cs" />
+    <Compile Include="Core\Data\Location.cs" />
+    <Compile Include="Core\Data\Log.cs" />
+    <Compile Include="Core\Data\LogCollection.cs" />
+    <Compile Include="Core\Data\LogData.cs" />
+    <Compile Include="Core\Data\LogType.cs" />
+    <Compile Include="Core\Data\LogTypeCollection.cs" />
+    <Compile Include="Core\Settings\AppDataInfoSettings.cs" />
+    <Compile Include="Core\Settings\ApplicationSettings.cs" />
+    <Compile Include="Core\Settings\CacheListSettings.cs" />
+    <Compile Include="Core\Settings\GeocacheViewerSettings.cs" />
+    <Compile Include="Core\Settings\MainWindowSettings.cs" />
+    <Compile Include="Core\Settings\Settings.cs" />
+    <Compile Include="Core\Settings\ISettingsStorage.cs" />
+    <Compile Include="Core\Settings\SqliteSettingsStorage.cs" />
+    <Compile Include="Core\Storage\DatabaseCollection.cs" />
+    <Compile Include="Dialogs\ProgessWindow.xaml.cs">
+      <DependentUpon>ProgessWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FeatureWindow.xaml.cs">
+      <DependentUpon>FeatureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GAPPDataStorage\RecordInfo.cs" />
+    <Compile Include="Gavaghan.Geodesy\Angle.cs" />
+    <Compile Include="Gavaghan.Geodesy\Ellipsoid.cs" />
+    <Compile Include="Gavaghan.Geodesy\GeodeticCalculator.cs" />
+    <Compile Include="Gavaghan.Geodesy\GeodeticCurve.cs" />
+    <Compile Include="Gavaghan.Geodesy\GeodeticMeasurement.cs" />
+    <Compile Include="Gavaghan.Geodesy\GlobalCoordinates.cs" />
+    <Compile Include="Gavaghan.Geodesy\GlobalPosition.cs" />
+    <Compile Include="Localization\ITranslationProvider.cs" />
+    <Compile Include="Localization\LanguageChangedEventManager.cs" />
+    <Compile Include="Localization\ResxTranslationProvider.cs" />
+    <Compile Include="Localization\TranslateExtension.cs" />
+    <Compile Include="Localization\TranslationData.cs" />
+    <Compile Include="Localization\TranslationManager.cs" />
+    <Compile Include="Resources\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="UIControls\ApplicationDataInfo.xaml.cs">
+      <DependentUpon>ApplicationDataInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UIControls\CacheList.xaml.cs">
+      <DependentUpon>CacheList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UIControls\GeocacheViewer.xaml.cs">
+      <DependentUpon>GeocacheViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UIControls\IUIControl.cs" />
+    <Compile Include="UIControls\UIControlContainer.xaml.cs">
+      <DependentUpon>UIControlContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\Calculus.cs" />
+    <Compile Include="Utils\Conversion.cs" />
+    <Compile Include="Utils\DataAccess.cs" />
+    <Compile Include="Utils\DataUpdater.cs" />
+    <Compile Include="Utils\DBCon.cs" />
+    <Compile Include="Utils\DBConComSqlite.cs" />
+    <Compile Include="Utils\ProgressBlock.cs" />
+    <Compile Include="Utils\ResourceHelper.cs" />
+    <Page Include="Dialogs\ProgessWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FeatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Community.CsharpSqlite\alter_c.cs" />
+    <Compile Include="Community.CsharpSqlite\analyze_c.cs" />
+    <Compile Include="Community.CsharpSqlite\attach_c.cs" />
+    <Compile Include="Community.CsharpSqlite\auth_c.cs" />
+    <Compile Include="Community.CsharpSqlite\backup_c.cs" />
+    <Compile Include="Community.CsharpSqlite\bitvec_c.cs" />
+    <Compile Include="Community.CsharpSqlite\btmutex_c.cs" />
+    <Compile Include="Community.CsharpSqlite\BtreeInt_h.cs" />
+    <Compile Include="Community.CsharpSqlite\btree_c.cs" />
+    <Compile Include="Community.CsharpSqlite\Btree_h.cs" />
+    <Compile Include="Community.CsharpSqlite\build_c.cs" />
+    <Compile Include="Community.CsharpSqlite\callback_c.cs" />
+    <Compile Include="Community.CsharpSqlite\complete_c.cs" />
+    <Compile Include="Community.CsharpSqlite\crypto.cs" />
+    <Compile Include="Community.CsharpSqlite\ctime_c.cs" />
+    <Compile Include="Community.CsharpSqlite\date_c.cs" />
+    <Compile Include="Community.CsharpSqlite\Delegates.cs" />
+    <Compile Include="Community.CsharpSqlite\delete_c.cs" />
+    <Compile Include="Community.CsharpSqlite\expr_c.cs" />
+    <Compile Include="Community.CsharpSqlite\fault_c.cs" />
+    <Compile Include="Community.CsharpSqlite\fkey_c.cs" />
+    <Compile Include="Community.CsharpSqlite\func_c.cs" />
+    <Compile Include="Community.CsharpSqlite\global_c.cs" />
+    <Compile Include="Community.CsharpSqlite\hash_c.cs" />
+    <Compile Include="Community.CsharpSqlite\Hash_h.cs" />
+    <Compile Include="Community.CsharpSqlite\hwtime_c.cs" />
+    <Compile Include="Community.CsharpSqlite\insert_c.cs" />
+    <Compile Include="Community.CsharpSqlite\journal_c.cs" />
+    <Compile Include="Community.CsharpSqlite\keywordhash_h.cs" />
+    <Compile Include="Community.CsharpSqlite\legacy_c.cs" />
+    <Compile Include="Community.CsharpSqlite\loadext_c.cs" />
+    <Compile Include="Community.CsharpSqlite\main_c.cs" />
+    <Compile Include="Community.CsharpSqlite\malloc_c.cs" />
+    <Compile Include="Community.CsharpSqlite\memjournal_c.cs" />
+    <Compile Include="Community.CsharpSqlite\mem_Pool.cs" />
+    <Compile Include="Community.CsharpSqlite\mutex_c.cs" />
+    <Compile Include="Community.CsharpSqlite\mutex_h.cs" />
+    <Compile Include="Community.CsharpSqlite\mutex_noop_c.cs" />
+    <Compile Include="Community.CsharpSqlite\mutex_w32.cs" />
+    <Compile Include="Community.CsharpSqlite\notify_c.cs" />
+    <Compile Include="Community.CsharpSqlite\opcodes_c.cs" />
+    <Compile Include="Community.CsharpSqlite\opcodes_h.cs" />
+    <Compile Include="Community.CsharpSqlite\os_c.cs" />
+    <Compile Include="Community.CsharpSqlite\os_common_h.cs" />
+    <Compile Include="Community.CsharpSqlite\os_h.cs" />
+    <Compile Include="Community.CsharpSqlite\os_win_c.cs" />
+    <Compile Include="Community.CsharpSqlite\pager_c.cs" />
+    <Compile Include="Community.CsharpSqlite\pager_h.cs" />
+    <Compile Include="Community.CsharpSqlite\parse_c.cs" />
+    <Compile Include="Community.CsharpSqlite\parse_h.cs" />
+    <Compile Include="Community.CsharpSqlite\pcache1_c.cs" />
+    <Compile Include="Community.CsharpSqlite\pcache_c.cs" />
+    <Compile Include="Community.CsharpSqlite\pcache_h.cs" />
+    <Compile Include="Community.CsharpSqlite\pragma_c.cs" />
+    <Compile Include="Community.CsharpSqlite\prepare_c.cs" />
+    <Compile Include="Community.CsharpSqlite\printf_c.cs" />
+    <Compile Include="Community.CsharpSqlite\random_c.cs" />
+    <Compile Include="Community.CsharpSqlite\resolve_c.cs" />
+    <Compile Include="Community.CsharpSqlite\rowset_c.cs" />
+    <Compile Include="Community.CsharpSqlite\select_c.cs" />
+    <Compile Include="Community.CsharpSqlite\sqlite3_h.cs" />
+    <Compile Include="Community.CsharpSqlite\SQLiteClient\SqliteClientFactory.cs" />
+    <Compile Include="Community.CsharpSqlite\SQLiteClient\SqliteCommand.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Community.CsharpSqlite\SQLiteClient\SqliteCommandBuilder.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Community.CsharpSqlite\SQLiteClient\SqliteConnection.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Community.CsharpSqlite\SQLiteClient\SqliteConnectionStringBuilder.cs" />
+    <Compile Include="Community.CsharpSqlite\SQLiteClient\SqliteDataAdapter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Community.CsharpSqlite\SQLiteClient\SqliteDataReader.cs" />
+    <Compile Include="Community.CsharpSqlite\SQLiteClient\SqliteDataSourceEnumerator.cs" />
+    <Compile Include="Community.CsharpSqlite\SQLiteClient\SqliteError.cs" />
+    <Compile Include="Community.CsharpSqlite\SQLiteClient\SqliteExceptions.cs" />
+    <Compile Include="Community.CsharpSqlite\SQLiteClient\SqliteParameter.cs" />
+    <Compile Include="Community.CsharpSqlite\SQLiteClient\SqliteParameterCollection.cs" />
+    <Compile Include="Community.CsharpSqlite\SQLiteClient\SqliteRowUpdatedEventArgs.cs" />
+    <Compile Include="Community.CsharpSqlite\SQLiteClient\SqliteRowUpdatedEventHandler.cs" />
+    <Compile Include="Community.CsharpSqlite\SQLiteClient\SqliteRowUpdatingEventArgs.cs" />
+    <Compile Include="Community.CsharpSqlite\SQLiteClient\SqliteRowUpdatingEventHandler.cs" />
+    <Compile Include="Community.CsharpSqlite\SQLiteClient\SqliteTransaction.cs" />
+    <Compile Include="Community.CsharpSqlite\sqliteInt_h.cs" />
+    <Compile Include="Community.CsharpSqlite\sqliteLimit_h.cs" />
+    <Compile Include="Community.CsharpSqlite\status_c.cs" />
+    <Compile Include="Community.CsharpSqlite\table_c.cs" />
+    <Compile Include="Community.CsharpSqlite\tokenize_c.cs" />
+    <Compile Include="Community.CsharpSqlite\trigger_c.cs" />
+    <Compile Include="Community.CsharpSqlite\update_c.cs" />
+    <Compile Include="Community.CsharpSqlite\utf_c.cs" />
+    <Compile Include="Community.CsharpSqlite\util_c.cs" />
+    <Compile Include="Community.CsharpSqlite\vacuum_c.cs" />
+    <Compile Include="Community.CsharpSqlite\vdbeapi_c.cs" />
+    <Compile Include="Community.CsharpSqlite\vdbeaux_c.cs" />
+    <Compile Include="Community.CsharpSqlite\vdbeblob_c.cs" />
+    <Compile Include="Community.CsharpSqlite\VdbeInt_h.cs" />
+    <Compile Include="Community.CsharpSqlite\vdbemem_c.cs" />
+    <Compile Include="Community.CsharpSqlite\vdbetrace_c.cs" />
+    <Compile Include="Community.CsharpSqlite\vdbe_c.cs" />
+    <Compile Include="Community.CsharpSqlite\Vdbe_h.cs" />
+    <Compile Include="Community.CsharpSqlite\vtab_c.cs" />
+    <Compile Include="Community.CsharpSqlite\walker_c.cs" />
+    <Compile Include="Community.CsharpSqlite\wal_c.cs" />
+    <Compile Include="Community.CsharpSqlite\wal_h.cs" />
+    <Compile Include="Community.CsharpSqlite\where_c.cs" />
+    <Compile Include="Community.CsharpSqlite\_Custom.cs" />
+    <Compile Include="Core\Application.cs" />
+    <Compile Include="Core\Data\DataObject.cs" />
+    <Compile Include="Core\Data\Geocache.cs" />
+    <Compile Include="Core\Data\GeocacheCollection.cs" />
+    <Compile Include="Core\Data\GeocacheContainer.cs" />
+    <Compile Include="Core\Data\GeocacheData.cs" />
+    <Compile Include="Core\Data\GeocacheType.cs" />
+    <Compile Include="Core\Data\IGeocacheData.cs" />
+    <Compile Include="Core\Storage\Database.cs" />
+    <Compile Include="Core\Storage\RecordInfo.cs" />
+    <Compile Include="GAPPDataStorage\Importer.cs" />
+    <Compile Include="GSAK\Importer.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="UIControls\ApplicationDataInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\CacheList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\GeocacheViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\UIControlContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Resources\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Compass\E.gif" />
+    <Resource Include="Resources\Compass\N.gif" />
+    <Resource Include="Resources\Compass\NE.gif" />
+    <Resource Include="Resources\Compass\NW.gif" />
+    <Resource Include="Resources\Compass\S.gif" />
+    <Resource Include="Resources\Compass\SE.gif" />
+    <Resource Include="Resources\Compass\SW.gif" />
+    <Resource Include="Resources\Compass\W.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\CacheTypes\11.gif" />
+    <Resource Include="Resources\CacheTypes\12.gif" />
+    <Resource Include="Resources\CacheTypes\13.gif" />
+    <Resource Include="Resources\CacheTypes\1304.gif" />
+    <Resource Include="Resources\CacheTypes\137.gif" />
+    <Resource Include="Resources\CacheTypes\15.GIF" />
+    <Resource Include="Resources\CacheTypes\16.GIF" />
+    <Resource Include="Resources\CacheTypes\1858.gif" />
+    <Resource Include="Resources\CacheTypes\2.gif" />
+    <Resource Include="Resources\CacheTypes\3.gif" />
+    <Resource Include="Resources\CacheTypes\3653.gif" />
+    <Resource Include="Resources\CacheTypes\3773.gif" />
+    <Resource Include="Resources\CacheTypes\3774.gif" />
+    <Resource Include="Resources\CacheTypes\4.gif" />
+    <Resource Include="Resources\CacheTypes\453.gif" />
+    <Resource Include="Resources\CacheTypes\4738.gif" />
+    <Resource Include="Resources\CacheTypes\5.gif" />
+    <Resource Include="Resources\CacheTypes\6.gif" />
+    <Resource Include="Resources\CacheTypes\63542.gif" />
+    <Resource Include="Resources\CacheTypes\8.gif" />
+    <Resource Include="Resources\CacheTypes\9.gif" />
+    <Resource Include="Resources\CacheTypes\95342.gif" />
+    <Resource Include="Resources\CacheTypes\95343.gif" />
+    <Resource Include="Resources\CacheTypes\95344.gif" />
+    <Resource Include="Resources\CacheTypes\95345.gif" />
+    <Resource Include="Resources\CacheTypes\95346.gif" />
+    <Resource Include="Resources\CacheTypes\95347.gif" />
+    <Resource Include="Resources\CacheTypes\95348.gif" />
+    <Resource Include="Resources\CacheTypes\96001.gif" />
+    <Resource Include="Resources\CacheTypes\96002.gif" />
+    <Resource Include="Resources\CacheTypes\96003.gif" />
+    <Resource Include="Resources\CacheTypes\96004.gif" />
+    <Resource Include="Resources\CacheTypes\96005.gif" />
+    <Resource Include="Resources\CacheTypes\96006.gif" />
+    <Resource Include="Resources\CacheTypes\96007.gif" />
+    <Resource Include="Resources\CacheTypes\96008.gif" />
+    <Resource Include="Resources\CacheTypes\96009.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Container\large.gif" />
+    <Resource Include="Resources\Container\micro.gif" />
+    <Resource Include="Resources\Container\not_chosen.gif" />
+    <Resource Include="Resources\Container\other.gif" />
+    <Resource Include="Resources\Container\regular.gif" />
+    <Resource Include="Resources\Container\small.gif" />
+    <Resource Include="Resources\Container\virtual.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="MSHTML">
+      <Guid>{3050F1C5-98B5-11CF-BB82-00AA00BDCE0B}</Guid>
+      <VersionMajor>4</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Language.nl.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Language.de.xml" />
+    <Resource Include="Resources\Language.fr.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Language.en.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\MainWindow\48.gif" />
+    <Resource Include="Resources\MainWindow\browser.png" />
+    <Resource Include="Resources\MainWindow\categories.png" />
+    <Resource Include="Resources\MainWindow\chat.gif" />
+    <Resource Include="Resources\MainWindow\clear_selection.gif" />
+    <Resource Include="Resources\MainWindow\database.png" />
+    <Resource Include="Resources\MainWindow\database_add.png" />
+    <Resource Include="Resources\MainWindow\database_save.png" />
+    <Resource Include="Resources\MainWindow\dbimport.png" />
+    <Resource Include="Resources\MainWindow\de.gif" />
+    <Resource Include="Resources\MainWindow\deselect_all.png" />
+    <Resource Include="Resources\MainWindow\download.png" />
+    <Resource Include="Resources\MainWindow\en.gif" />
+    <Resource Include="Resources\MainWindow\execute.gif" />
+    <Resource Include="Resources\MainWindow\exportpoi.png" />
+    <Resource Include="Resources\MainWindow\exportpoisel.png" />
+    <Resource Include="Resources\MainWindow\Flowchart.gif" />
+    <Resource Include="Resources\MainWindow\found.png" />
+    <Resource Include="Resources\MainWindow\foundmore.gif" />
+    <Resource Include="Resources\MainWindow\fr.gif" />
+    <Resource Include="Resources\MainWindow\gcedit.gif" />
+    <Resource Include="Resources\MainWindow\gcvote.png" />
+    <Resource Include="Resources\MainWindow\Geocaching_LIVE_poweredby_64.png" />
+    <Resource Include="Resources\MainWindow\Globalcaching.ico" />
+    <Resource Include="Resources\MainWindow\google.png" />
+    <Resource Include="Resources\MainWindow\google2.png" />
+    <Resource Include="Resources\MainWindow\googleearth.png" />
+    <Resource Include="Resources\MainWindow\holes.png" />
+    <Resource Include="Resources\MainWindow\Icon_Split.gif" />
+    <Resource Include="Resources\MainWindow\image.png" />
+    <Resource Include="Resources\MainWindow\Importgc.png" />
+    <Resource Include="Resources\MainWindow\list.png" />
+    <Resource Include="Resources\MainWindow\magnifier--pencil.png" />
+    <Resource Include="Resources\MainWindow\magnifier--plus.png" />
+    <Resource Include="Resources\MainWindow\maps.png" />
+    <Resource Include="Resources\MainWindow\mathematics.png" />
+    <Resource Include="Resources\MainWindow\nl.gif" />
+    <Resource Include="Resources\MainWindow\openlayers.png" />
+    <Resource Include="Resources\MainWindow\osm.png" />
+    <Resource Include="Resources\MainWindow\selectarea.png" />
+    <Resource Include="Resources\MainWindow\select_all.png" />
+    <Resource Include="Resources\MainWindow\sequence.png" />
+    <Resource Include="Resources\MainWindow\server.png" />
+    <Resource Include="Resources\MainWindow\solver.gif" />
+    <Resource Include="Resources\MainWindow\statistics.gif" />
+    <Resource Include="Resources\MainWindow\travelbug.gif" />
+    <Resource Include="Resources\MainWindow\view.png" />
+    <Resource Include="Resources\MainWindow\wpedit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UIControls\GeocacheViewerGeocacheTemplate.html" />
+    <Resource Include="UIControls\GeocacheViewerLogTemplateEven.html" />
+    <Resource Include="UIControls\GeocacheViewerLogTemplateOdd.html" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)GlobalcachingApplication\bin\$(ConfigurationName)\"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

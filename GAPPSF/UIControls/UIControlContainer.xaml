@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="GAPPSF.UIControls.UIControlContainer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Menu  Grid.Row="0">
+            <MenuItem Header="Feature">
+                <MenuItem Header="Clear" Click="MenuItem_Click" />
+                <MenuItem Header="Cache list" Click="MenuItem_Click_1" />
+                <MenuItem Header="Geocache viewer" Click="MenuItem_Click_2" />
+                <MenuItem Header="Application info" Click="MenuItem_Click_3" />
+            </MenuItem>
+        </Menu>
+        <Grid x:Name="containerGrid" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        </Grid>
+    </Grid>
+</UserControl>
