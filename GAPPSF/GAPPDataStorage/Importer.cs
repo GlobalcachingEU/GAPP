@@ -54,7 +54,7 @@ namespace GAPPSF.GAPPDataStorage
 
                 DateTime nextUpdateTime = DateTime.Now.AddSeconds(1);
 
-                using (Utils.ProgressBlock prog = new ProgressBlock("Importing database", "Importing...", 1, 0))
+                using (Utils.ProgressBlock prog = new ProgressBlock("Importing database", "Importing...", 6, 0))
                 {
                     List<RecordInfo> records = new List<RecordInfo>();
                     Hashtable f_records = new Hashtable();
@@ -160,6 +160,8 @@ namespace GAPPSF.GAPPDataStorage
                             }
                         }
                     }
+                    prog.Update("Importing...", 6, 1);
+
                     records.Clear();
                     f_records.Clear();
 
@@ -233,6 +235,212 @@ namespace GAPPSF.GAPPDataStorage
                             }
                         }
                     }
+                    prog.Update("Importing...", 6, 2);
+
+                    records.Clear();
+                    f_records.Clear();
+
+                    using (Utils.ProgressBlock subProg = new ProgressBlock("Importing waypoints...", logCount, 0))
+                    {
+                        index = 0;
+                        //Waypoints
+                        using (FileStream fs = File.Open(Path.Combine(Path.GetDirectoryName(filename), string.Format("{0}.wpt", Path.GetFileNameWithoutExtension(filename))), FileMode.OpenOrCreate, FileAccess.Read))
+                        using (BinaryReader br = new BinaryReader(fs))
+                        {
+                            fs.Position = 0;
+                            long eof = fs.Length;
+                            RecordInfo ri = new RecordInfo();
+                            while (fs.Position < eof)
+                            {
+                                ri.Offset = fs.Position;
+                                ri.Length = br.ReadInt64();
+                                byte slotType = br.ReadByte();
+                                if (slotType == 0)
+                                {
+                                    //free
+                                }
+                                else
+                                {
+                                    //read
+                                    Core.Data.WaypointData wp = new Core.Data.WaypointData();
+
+                                    wp.Code = br.ReadString();
+                                    wp.Comment = br.ReadString();
+                                    wp.DataFromDate = DateTime.Parse(br.ReadString());
+                                    wp.Description = br.ReadString();
+                                    wp.GeocacheCode = br.ReadString();
+                                    wp.ID = br.ReadString();
+                                    if (br.ReadBoolean())
+                                    {
+                                        wp.Lat = br.ReadDouble();
+                                        wp.Lon = br.ReadDouble();
+                                    }
+                                    wp.Name = br.ReadString();
+                                    wp.Time = DateTime.Parse(br.ReadString());
+                                    wp.Url = br.ReadString();
+                                    wp.UrlName = br.ReadString();
+                                    wp.WPType = Utils.DataAccess.GetWaypointType(br.ReadInt32());
+
+                                    DataAccess.AddWaypoint(database, wp);
+                                    index++;
+                                    if (DateTime.Now >= nextUpdateTime)
+                                    {
+                                        subProg.Update("Importing waypoints...", gcCount, index);
+                                        nextUpdateTime = DateTime.Now.AddSeconds(1);
+                                    }
+
+                                }
+                                fs.Position = ri.Offset + ri.Length;
+                            }
+                        }
+                    }
+                    prog.Update("Importing...", 6, 3);
+
+                    records.Clear();
+                    f_records.Clear();
+
+                    using (Utils.ProgressBlock subProg = new ProgressBlock("Importing log images...", logimgCount, 0))
+                    {
+                        index = 0;
+                        using (FileStream fs = File.Open(Path.Combine(Path.GetDirectoryName(filename), string.Format("{0}.lmg", Path.GetFileNameWithoutExtension(filename))), FileMode.OpenOrCreate, FileAccess.Read))
+                        using (BinaryReader br = new BinaryReader(fs))
+                        {
+                            fs.Position = 0;
+                            long eof = fs.Length;
+                            RecordInfo ri = new RecordInfo();
+                            while (fs.Position < eof)
+                            {
+                                ri.Offset = fs.Position;
+                                ri.Length = br.ReadInt64();
+                                byte slotType = br.ReadByte();
+                                if (slotType == 0)
+                                {
+                                    //free
+                                }
+                                else
+                                {
+                                    //read
+                                    Core.Data.LogImageData li = new Core.Data.LogImageData();
+
+                                    li.ID = br.ReadString();
+                                    li.DataFromDate = DateTime.Parse(br.ReadString());
+                                    li.LogId = br.ReadString();
+                                    li.Name = br.ReadString();
+                                    li.Url = br.ReadString();
+
+                                    DataAccess.AddLogImage(database, li);
+                                    index++;
+                                    if (DateTime.Now >= nextUpdateTime)
+                                    {
+                                        subProg.Update("Importing log images...", logimgCount, index);
+                                        nextUpdateTime = DateTime.Now.AddSeconds(1);
+                                    }
+                                }
+                                fs.Position = ri.Offset + ri.Length;
+
+                            }
+                        }
+                    }
+                    prog.Update("Importing...", 6, 4);
+
+                    records.Clear();
+                    f_records.Clear();
+
+                    using (Utils.ProgressBlock subProg = new ProgressBlock("Importing geocache images...", geocacheimgCount, 0))
+                    {
+                        index = 0;
+                        using (FileStream fs = File.Open(Path.Combine(Path.GetDirectoryName(filename), string.Format("{0}.gmg", Path.GetFileNameWithoutExtension(filename))), FileMode.OpenOrCreate, FileAccess.Read))
+                        using (BinaryReader br = new BinaryReader(fs))
+                        {
+                            fs.Position = 0;
+                            long eof = fs.Length;
+                            RecordInfo ri = new RecordInfo();
+                            while (fs.Position < eof)
+                            {
+                                ri.Offset = fs.Position;
+                                ri.Length = br.ReadInt64();
+                                byte slotType = br.ReadByte();
+                                if (slotType == 0)
+                                {
+                                    //free
+                                }
+                                else
+                                {
+                                    //read
+                                    Core.Data.GeocacheImageData li = new Core.Data.GeocacheImageData();
+
+                                    li.ID = br.ReadString();
+                                    li.DataFromDate = DateTime.Parse(br.ReadString());
+                                    li.GeocacheCode = br.ReadString();
+                                    li.Description = br.ReadString();
+                                    li.Name = br.ReadString();
+                                    li.Url = br.ReadString();
+                                    li.MobileUrl = br.ReadString();
+                                    li.ThumbUrl = br.ReadString();
+
+                                    DataAccess.AddGeocacheImage(database, li);
+                                    index++;
+                                    if (DateTime.Now >= nextUpdateTime)
+                                    {
+                                        subProg.Update("Importing geocache images...", geocacheimgCount, index);
+                                        nextUpdateTime = DateTime.Now.AddSeconds(1);
+                                    }
+
+                                }
+                                fs.Position = ri.Offset + ri.Length;
+                            }
+                        }
+                    }
+                    prog.Update("Importing...", 6, 5);
+
+                    records.Clear();
+                    f_records.Clear();
+
+                    using (Utils.ProgressBlock subProg = new ProgressBlock("Importing user waypoints...", usrwptCount, 0))
+                    {
+                        index = 0;
+                        using (FileStream fs = File.Open(Path.Combine(Path.GetDirectoryName(filename), string.Format("{0}.uwp", Path.GetFileNameWithoutExtension(filename))), FileMode.OpenOrCreate, FileAccess.Read))
+                        using (BinaryReader br = new BinaryReader(fs))
+                        {
+                            fs.Position = 0;
+                            long eof = fs.Length;
+                            RecordInfo ri = new RecordInfo();
+                            while (fs.Position < eof)
+                            {
+                                ri.Offset = fs.Position;
+                                ri.Length = br.ReadInt64();
+                                byte slotType = br.ReadByte();
+                                if (slotType == 0)
+                                {
+                                    //free
+                                }
+                                else
+                                {
+                                    //read
+                                    Core.Data.UserWaypointData wp = new Core.Data.UserWaypointData();
+
+                                    wp.ID = br.ReadString();
+                                    wp.Description = br.ReadString();
+                                    wp.GeocacheCode = br.ReadString();
+                                    wp.Lat = br.ReadDouble();
+                                    wp.Lon = br.ReadDouble();
+                                    wp.Date = DateTime.Parse(br.ReadString());
+
+                                    DataAccess.AddUserWaypoint(database, wp);
+                                    index++;
+                                    if (DateTime.Now >= nextUpdateTime)
+                                    {
+                                        subProg.Update("Importing user waypoints...", usrwptCount, index);
+                                        nextUpdateTime = DateTime.Now.AddSeconds(1);
+                                    }
+
+                                }
+                                fs.Position = ri.Offset + ri.Length;
+                            }
+                        }
+                    }
+                    prog.Update("Importing...", 6, 6);
+
                     result = true;
                 }
             }

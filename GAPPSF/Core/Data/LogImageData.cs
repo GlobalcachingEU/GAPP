@@ -14,7 +14,7 @@ namespace GAPPSF.Core.Data
         public string Url { get; set; }
         public string Name { get; set; }
 
-        public static void Copy(LogImageData src, LogImageData dest)
+        public static void Copy(ILogImageData src, ILogImageData dest)
         {
             dest.ID = src.ID;
             dest.DataFromDate = src.DataFromDate;

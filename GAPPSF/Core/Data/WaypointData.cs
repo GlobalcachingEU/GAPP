@@ -22,7 +22,7 @@ namespace GAPPSF.Core.Data
         public double? Lon { get; set; }
         public DateTime Time { get; set; }
 
-        public static void Copy(WaypointData src, WaypointData dest)
+        public static void Copy(IWaypointData src, IWaypointData dest)
         {
             dest.ID = src.ID;
             dest.Name = src.Name;

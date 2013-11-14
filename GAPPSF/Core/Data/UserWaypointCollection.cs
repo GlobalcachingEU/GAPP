@@ -31,7 +31,7 @@ namespace GAPPSF.Core.Data
             _db = db;
         }
 
-        public UserWaypoint GetWaypoint(string id)
+        public UserWaypoint GetUserWaypoint(string id)
         {
             return _qaItems[id] as UserWaypoint;
         }
@@ -86,7 +86,7 @@ namespace GAPPSF.Core.Data
 
             if (_updateCounter <= 0)
             {
-                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add));
+                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
             }
             else
             {
@@ -117,7 +117,7 @@ namespace GAPPSF.Core.Data
 
             if (_updateCounter <= 0)
             {
-                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove));
+                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
             }
             else
             {

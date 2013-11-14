@@ -15,7 +15,7 @@ namespace GAPPSF.Core.Data
         public double Lon { get; set; }
         public DateTime Date { get; set; }
 
-        public static void Copy(UserWaypointData src, UserWaypointData dest)
+        public static void Copy(IUserWaypointData src, IUserWaypointData dest)
         {
             dest.ID = src.ID;
             dest.Description = src.Description;

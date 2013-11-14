@@ -160,7 +160,7 @@ namespace GAPPSF.Core.Data
 
             if (_updateCounter <= 0)
             {
-                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add));
+                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
             }
             else
             {
@@ -186,7 +186,7 @@ namespace GAPPSF.Core.Data
 
             if (_updateCounter <= 0)
             {
-                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove));
+                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
             }
             else
             {

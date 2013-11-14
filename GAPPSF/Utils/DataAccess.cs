@@ -52,6 +52,83 @@ namespace GAPPSF.Utils
             return result;
         }
 
+        public static bool AddWaypoint(Database db, WaypointData gd)
+        {
+            bool result = true;
+            Waypoint gc = db.WaypointCollection.GetWaypoint(gd.ID);
+            if (gc == null)
+            {
+                gc = new Waypoint(db, gd);
+            }
+            else
+            {
+                if (gc.DataFromDate < gd.DataFromDate)
+                {
+                    gc.BeginUpdate();
+                    WaypointData.Copy(gd, gc);
+                    gc.EndUpdate();
+                }
+            }
+            return result;
+        }
+
+        public static bool AddLogImage(Database db,LogImageData gd)
+        {
+            bool result = true;
+            LogImage gc = db.LogImageCollection.GetLogImage(gd.ID);
+            if (gc == null)
+            {
+                gc = new LogImage(db, gd);
+            }
+            else
+            {
+                if (gc.DataFromDate < gd.DataFromDate)
+                {
+                    gc.BeginUpdate();
+                    LogImageData.Copy(gd, gc);
+                    gc.EndUpdate();
+                }
+            }
+            return result;
+        }
+
+        public static bool AddGeocacheImage(Database db, GeocacheImageData gd)
+        {
+            bool result = true;
+            GeocacheImage gc = db.GeocacheImageCollection.GetGeocacheImage(gd.ID);
+            if (gc == null)
+            {
+                gc = new GeocacheImage(db, gd);
+            }
+            else
+            {
+                if (gc.DataFromDate < gd.DataFromDate)
+                {
+                    gc.BeginUpdate();
+                    GeocacheImageData.Copy(gd, gc);
+                    gc.EndUpdate();
+                }
+            }
+            return result;
+        }
+
+        public static bool AddUserWaypoint(Database db, UserWaypointData gd)
+        {
+            bool result = true;
+            UserWaypoint gc = db.UserWaypointCollection.GetUserWaypoint(gd.ID);
+            if (gc == null)
+            {
+                gc = new UserWaypoint(db, gd);
+            }
+            else
+            {
+                gc.BeginUpdate();
+                UserWaypointData.Copy(gd, gc);
+                gc.EndUpdate();
+            }
+            return result;
+        }
+
         public static GAPPSF.Core.Data.WaypointType GetWaypointType(int typeId)
         {
             GAPPSF.Core.Data.WaypointType result = null;

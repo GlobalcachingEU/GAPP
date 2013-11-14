@@ -1,39 +1,56 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GAPPSF.Core.Storage
+namespace GAPPSF.Core.Data
 {
-    public class DatabaseCollection: List<Database>, INotifyCollectionChanged
+    public class AccountInfoCollection : List<AccountInfo>, INotifyCollectionChanged
     {
+        private Hashtable _gcPrefix;
+
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
-        public new void Add(Database db)
+        public AccountInfoCollection()
         {
-            base.Add(db);
+            _gcPrefix = new Hashtable();
+        }
+
+        private void rebuildHashtable()
+        {
+            _gcPrefix.Clear();
+            foreach(AccountInfo ai in this)
+            {
+                _gcPrefix.Add(ai.GeocacheCodePrefix, ai);
+            }
+        }
+
+        public new void Add(AccountInfo ai)
+        {
+            base.Add(ai);
+            rebuildHashtable();
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
-        public new void Remove(Database db)
+        public new void Remove(AccountInfo ai)
         {
-            db.Dispose();
-            base.Remove(db);
+            base.Remove(ai);
+            rebuildHashtable();
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
         public new void RemoveAt(int index)
         {
-            base.Remove(this[index]);
+            base.RemoveAt(index);
+            rebuildHashtable();
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
         public new void Clear()
         {
-            foreach(Database db in this)
-            {
-                db.Dispose();
-            }
             base.Clear();
+            rebuildHashtable();
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
 

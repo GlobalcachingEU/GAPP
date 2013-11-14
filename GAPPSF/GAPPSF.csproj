@@ -101,6 +101,8 @@
     <Compile Include="Commands\AsyncDelegateCommand.cs" />
     <Compile Include="Commands\ForAllGeocachesCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Core\Data\AccountInfo.cs" />
+    <Compile Include="Core\Data\AccountInfoCollection.cs" />
     <Compile Include="Core\Data\CompassDirection.cs" />
     <Compile Include="Core\Data\GeocacheContainerCollection.cs" />
     <Compile Include="Core\Data\GeocacheImage.cs" />

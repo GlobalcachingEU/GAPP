@@ -17,7 +17,7 @@ namespace GAPPSF.Core.Data
         public string ThumbUrl { get; set; }
         public string Description { get; set; }
 
-        public static void Copy(GeocacheImageData src, GeocacheImageData dest)
+        public static void Copy(IGeocacheImageData src, IGeocacheImageData dest)
         {
             dest.ID = src.ID;
             dest.DataFromDate = src.DataFromDate;

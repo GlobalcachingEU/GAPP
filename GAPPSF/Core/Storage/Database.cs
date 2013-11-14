@@ -35,19 +35,18 @@ namespace GAPPSF.Core.Storage
         public GeocacheImageCollection GeocacheImageCollection { get; private set; }
         public GeocacheCollection GeocacheCollection { get; private set; }
 
-        private Hashtable _records = new Hashtable();
         private List<RecordInfo> _emptyRecords = new List<RecordInfo>();
         private bool _emptyRecordListSorted = false;
 
         public Database(string fn)
         {
             FileName = fn;
-            this.GeocacheCollection = new GeocacheCollection(this);
             this.LogCollection = new LogCollection(this);
             this.LogImageCollection = new LogImageCollection(this);
             this.WaypointCollection = new WaypointCollection(this);
             this.UserWaypointCollection = new UserWaypointCollection(this);
             this.GeocacheImageCollection = new GeocacheImageCollection(this);
+            this.GeocacheCollection = new GeocacheCollection(this);
         }
 
         public override string ToString()
@@ -123,37 +122,31 @@ namespace GAPPSF.Core.Storage
                                 case RECORD_GEOCACHE:
                                     ms.Position = RECORD_POS_ID;
                                     ri.ID = br.ReadString();
-                                    _records.Add(ri.ID, ri);
                                     this.GeocacheCollection.Add(new Data.Geocache(ri));
                                     break;
                                 case RECORD_LOG:
                                     ms.Position = RECORD_POS_ID;
                                     ri.ID = br.ReadString();
-                                    _records.Add(ri.ID, ri);
                                     this.LogCollection.Add(new Data.Log(ri));
                                     break;
                                 case RECORD_WAYPOINT:
                                     ms.Position = RECORD_POS_ID;
                                     ri.ID = br.ReadString();
-                                    _records.Add(ri.ID, ri);
                                     this.WaypointCollection.Add(new Data.Waypoint(ri));
                                     break;
                                 case RECORD_USERWAYPOINT:
                                     ms.Position = RECORD_POS_ID;
                                     ri.ID = br.ReadString();
-                                    _records.Add(ri.ID, ri);
                                     this.UserWaypointCollection.Add(new Data.UserWaypoint(ri));
                                     break;
                                 case RECORD_LOGIMAGE:
                                     ms.Position = RECORD_POS_ID;
                                     ri.ID = br.ReadString();
-                                    _records.Add(ri.ID, ri);
                                     this.LogImageCollection.Add(new Data.LogImage(ri));
                                     break;
                                 case RECORD_GEOCACHEIMAGE:
                                     ms.Position = RECORD_POS_ID;
                                     ri.ID = br.ReadString();
-                                    _records.Add(ri.ID, ri);
                                     this.GeocacheImageCollection.Add(new Data.GeocacheImage(ri));
                                     break;
                             }
@@ -206,52 +199,33 @@ namespace GAPPSF.Core.Storage
 
         private RecordInfo RequestRecord(string id, byte recordType, byte[] recordData, long minimumLength, long extraBuffer)
         {
-            RecordInfo result = _records[id] as RecordInfo;
+            RecordInfo result = null;
+            if (!_emptyRecordListSorted)
+            {
+                _emptyRecords.Sort(delegate(RecordInfo x, RecordInfo y)
+                {
+                    return x.Length.CompareTo(y.Length);
+                });
+                _emptyRecordListSorted = true;
+            }
+            result = (from a in _emptyRecords where a.Length >= minimumLength select a).FirstOrDefault();
+
+            if (result == null)
+            {
+                result = new RecordInfo();
+                result.Length = minimumLength + extraBuffer;
+                result.Offset = FileStream.Length;
+                result.ID = id;
+                result.Database = this;
+                FileStream.SetLength(result.Offset + result.Length);
+            }
+            else
+            {
+                //re-use of an empty record
+                result.ID = id;
+                _emptyRecords.Remove(result);
+            }
             if (result != null)
-            {
-                if (result.Length < minimumLength)
-                {
-                    //too small now, mark as empty
-                    FileStream.Position = result.Offset + RECORD_POS_FIELDTYPE;
-                    FileStream.WriteByte(RECORD_EMPTY);
-                    _records.Remove(id);
-                    _emptyRecords.Add(result);
-                    _emptyRecordListSorted = false;
-                    result = null;
-                }
-            }
-            if (result==null)
-            {
-                if (!_emptyRecordListSorted)
-                {
-                    _emptyRecords.Sort(delegate(RecordInfo x, RecordInfo y)
-                    {
-                        return x.Length.CompareTo(y.Length);
-                    });
-                    _emptyRecordListSorted = true;
-                }
-                result = (from a in _emptyRecords where a.Length >= minimumLength select a).FirstOrDefault();
-
-                if (result == null)
-                {
-                    result = new RecordInfo();
-                    result.Length = minimumLength + extraBuffer;
-                    result.Offset = FileStream.Length;
-                    result.ID = id;
-                    result.Database = this;
-                    FileStream.SetLength(result.Offset + result.Length);
-
-                    _records.Add(id, result);
-                }
-                else
-                {
-                    //re-use of an empty record
-                    result.ID = id;
-                    _emptyRecords.Remove(result);
-                    _records.Add(result.ID, result);
-                }
-            }
-            if (result!=null)
             {
                 //write record header data
                 FileStream.Position = result.Offset + RECORD_POS_LENGTH;

@@ -31,12 +31,12 @@ namespace GAPPSF.Core.Data
             _db = db;
         }
 
-        public LogImage GetLog(string id)
+        public LogImage GetLogImage(string id)
         {
             return _qaItems[id] as LogImage;
         }
 
-        public List<LogImage> GetLogs(string geocacheCode)
+        public List<LogImage> GetLogImages(string geocacheCode)
         {
             List<LogImage> result;
             Hashtable ht = _logGroups[geocacheCode] as Hashtable;
@@ -86,7 +86,7 @@ namespace GAPPSF.Core.Data
 
             if (_updateCounter <= 0)
             {
-                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add));
+                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
             }
             else
             {
@@ -117,7 +117,7 @@ namespace GAPPSF.Core.Data
 
             if (_updateCounter <= 0)
             {
-                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove));
+                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
             }
             else
             {
