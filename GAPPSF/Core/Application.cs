@@ -2,12 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Xml.Serialization;
 
 namespace GAPPSF.Core
 {
@@ -26,6 +28,7 @@ namespace GAPPSF.Core
         public WaypointTypeCollection WaypointTypes { get; private set; }
         public Data.Location HomeLocation { get; private set; }
         public Data.Location CenterLocation { get; private set; }
+        public AccountInfoCollection AccountInfos { get; private set; }
 
         private Storage.Database _activeDatabase = null;
         public Storage.Database ActiveDatabase
@@ -93,7 +96,21 @@ namespace GAPPSF.Core
                 System.Diagnostics.Debugger.Break();
             }
 #endif
-
+            string s = Settings.Default.AccountInfos;
+            //s = "";
+            if (string.IsNullOrEmpty(s))
+            {
+                AccountInfos = new AccountInfoCollection();
+            }
+            else
+            {
+                Type[] itemTypes = { typeof(AccountInfo) };
+                XmlSerializer serializer = new XmlSerializer(typeof(AccountInfoCollection), itemTypes);
+                using (StringReader r = new StringReader(s))
+                {
+                    AccountInfos = serializer.Deserialize(r) as AccountInfoCollection;
+                }            
+            }
             Databases = new Storage.DatabaseCollection();
             GeocacheTypes = new GeocacheTypeCollection();
             GeocacheContainers = new GeocacheContainerCollection();
@@ -104,6 +121,16 @@ namespace GAPPSF.Core
 
             HomeLocation.PropertyChanged += HomeLocation_PropertyChanged;
             CenterLocation.PropertyChanged += CenterLocation_PropertyChanged;
+            AccountInfos.CollectionChanged += AccountInfos_CollectionChanged;
+
+            string[] accountPrefixes = new string[] { "GC", "OX", "OB", "OC", "MZ", "OU", "OP"};
+            foreach (string acc in accountPrefixes)
+            {
+                if (AccountInfos.GetAccountInfo(acc) == null)
+                {
+                    AccountInfos.Add(new AccountInfo(acc, ""));
+                }
+            }
 
             addCacheType(0, "Not present");
             addCacheType(2, "Traditional Cache");
@@ -215,6 +242,17 @@ namespace GAPPSF.Core
             addWaypointType(219, "Stages of a Multicache");
             addWaypointType(221, "Trailhead");
 
+        }
+
+        void AccountInfos_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            Type[] itemTypes = { typeof(AccountInfo) };
+            XmlSerializer serializer = new XmlSerializer(typeof(AccountInfoCollection), itemTypes);
+            using (StringWriter w = new StringWriter())
+            {
+                serializer.Serialize(w, AccountInfos);
+                Settings.Default.AccountInfos = w.ToString();
+            }            
         }
 
         void CenterLocation_PropertyChanged(object sender, PropertyChangedEventArgs e)

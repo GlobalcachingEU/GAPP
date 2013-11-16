@@ -18,13 +18,23 @@
         <properties:ApplicationData x:Key="ApplicationData" />
     </UserControl.Resources>
     <Grid x:Name="topGrid">
+        <StackPanel HorizontalAlignment="Stretch">
+        <Expander 
+            Header="Settings"
+            HorizontalAlignment="Stretch">
+            <Expander.Content>
+                <Grid HorizontalAlignment="Stretch">
+                    <CheckBox Content="Show selected only" IsChecked="{Binding CacheListShowSelectedOnly, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                </Grid>
+            </Expander.Content>
+        </Expander>
         <DataGrid VirtualizingStackPanel.VirtualizationMode="Recycling"  
                   AutoGenerateColumns="False" 
                   Height="{Binding ElementName=topGrid, Path=ActualHeight}" 
                   Name="cacheList" Width="{Binding ElementName=topGrid, Path=ActualWidth}" 
                   HorizontalScrollBarVisibility="Auto" 
                   CanUserAddRows="False" 
-                  CanUserDeleteRows="False" 
+                  CanUserDeleteRows="False"
                   ItemsSource="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveDatabase.GeocacheCollection}"
                   SelectedItem="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveGeocache, Mode=TwoWay}"
                   LoadingRow="cacheList_LoadingRow"
@@ -117,5 +127,6 @@
                 <DataGridTextColumn Binding="{Binding Path=., Converter={StaticResource GeocacheCoordConverter}}" Header="Coordinates" IsReadOnly="True" Visibility="Hidden"/>
             </DataGrid.Columns>
         </DataGrid>
+        </StackPanel>
     </Grid>
 </UserControl>

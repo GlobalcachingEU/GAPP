@@ -186,6 +186,31 @@ namespace GAPPSF.Core.Data
             _cachedFoundDateValid = false;
         }
 
+        public string AccountName
+        {
+            get
+            {
+                string result = "";
+                if (this.Code.Length>1)
+                {
+                    AccountInfo ai = ApplicationData.Instance.AccountInfos.GetAccountInfo(this.Code.Substring(0, 2));
+                    if (ai!=null)
+                    {
+                        result = ai.AccountName ?? "";
+                    }
+                }
+                return result;
+            }
+        }
+
+        public bool IsOwn
+        {
+            get
+            {
+                return (string.Compare(AccountName, this.Owner, true)==0);
+            }
+        }
+
         private bool _cachedFoundDateValid = false;
         private object _cachedFoundDate = null;
         public object FoundDate
@@ -196,19 +221,17 @@ namespace GAPPSF.Core.Data
                 {
                     if (Found)
                     {
-                        /*
-                        string usrName = _core.GeocachingAccountNames.GetAccountName(this.Code);
-                        List<Framework.Data.Log> lgs = _core.Logs.GetLogs(this.Code);
+                        string usrName = AccountName;
+                        List<Data.Log> lgs = RecordInfo.Database.LogCollection.GetLogs(this.Code);
                         if (lgs != null)
                         {
-                            Framework.Data.Log l = (from Framework.Data.Log lg in lgs where lg.GeocacheCode == Code && lg.LogType.AsFound && lg.Finder == usrName select lg).FirstOrDefault();
+                            Data.Log l = (from Data.Log lg in lgs where lg.GeocacheCode == Code && lg.LogType.AsFound && lg.Finder == usrName select lg).FirstOrDefault();
                             if (l != null)
                             {
                                 //result = l.Date.ToString("yyyy-MM-dd");
                                 _cachedFoundDate = l.Date;
                             }
                         }
-                         * */
                     }
                     _cachedFoundDateValid = true;
                 }
@@ -273,11 +296,6 @@ namespace GAPPSF.Core.Data
         public bool ContainsCustomLatLon
         {
             get { return (CustomLat != null && CustomLon != null); }
-        }
-
-        public bool IsOwn
-        {
-            get { return false; } //TODO
         }
 
         public string Name

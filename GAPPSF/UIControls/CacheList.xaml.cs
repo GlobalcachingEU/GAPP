@@ -22,13 +22,30 @@ namespace GAPPSF.UIControls
     /// </summary>
     public partial class CacheList : UserControl, IDisposable, IUIControl
     {
+        private bool _selectedOnly;
+        private int _rowIndex = 0;
+
         public CacheList()
         {
             InitializeComponent();
+
+            _selectedOnly = Core.Settings.Default.CacheListShowSelectedOnly;
+
+            Core.Settings.Default.PropertyChanged += Default_PropertyChanged;
+        }
+
+        void Default_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "CacheListShowSelectedOnly")
+            {
+                _selectedOnly = Core.Settings.Default.CacheListShowSelectedOnly;
+                cacheList.Items.Refresh();
+            }
         }
 
         public void Dispose()
         {
+            Core.Settings.Default.PropertyChanged -= Default_PropertyChanged;
         }
 
         void cacheList_LoadingRow(object sender, System.Windows.Controls.DataGridRowEventArgs e)
@@ -37,11 +54,24 @@ namespace GAPPSF.UIControls
             GAPPSF.Core.Data.Geocache item = e.Row.Item as GAPPSF.Core.Data.Geocache;
             if (item != null)
             {
-                e.Row.Header = (e.Row.GetIndex() + 1).ToString();
+                if (e.Row.GetIndex() < _rowIndex)
+                {
+                    _rowIndex = 0;
+                }
+                bool vis = !_selectedOnly || item.Selected;
+                if (vis)
+                {
+                    _rowIndex++;
+                    e.Row.Header = (_rowIndex).ToString();
+                }
+                else
+                {
+                    e.Row.Visibility = System.Windows.Visibility.Collapsed;
+                }
             }
             else
             {
-                e.Row.Visibility = System.Windows.Visibility.Hidden;
+                e.Row.Visibility = System.Windows.Visibility.Collapsed;
             }
         }
 

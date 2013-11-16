@@ -55,6 +55,11 @@ namespace GAPPSF.Core
             set { SetProperty(value.ToString()); }
         }
 
+        public bool CacheListShowSelectedOnly
+        {
+            get { return bool.Parse(GetProperty("False")); }
+            set { SetProperty(value.ToString()); }
+        }
 
         public DataGridLength ColumnNameWidth
         {

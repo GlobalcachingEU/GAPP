@@ -13,6 +13,22 @@
                       ItemsSource="{Binding Source={x:Static p:ApplicationData.Instance}, Path=Databases}" 
                       SelectedItem="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveDatabase, Mode=TwoWay}"
                       />
+            <Expander Header="Accounts" HorizontalAlignment="Stretch">
+                <Expander.Content>
+                    <Grid HorizontalAlignment="Stretch">
+                        <DataGrid HorizontalAlignment="Stretch" 
+                                  ItemsSource="{Binding Source={x:Static p:ApplicationData.Instance}, Path=AccountInfos}"
+                                  AutoGenerateColumns="False"
+                                  CanUserAddRows="False"
+                                  CanUserDeleteRows="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding GeocacheCodePrefix}" Header="Prefix" />
+                                <DataGridTextColumn Binding="{Binding AccountName}" Header="AccountName" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </Expander.Content>
+            </Expander>
         </StackPanel>
     </Grid>
 </UserControl>

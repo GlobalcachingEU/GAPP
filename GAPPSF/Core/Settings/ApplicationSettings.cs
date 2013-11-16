@@ -21,6 +21,12 @@ namespace GAPPSF.Core
             set { SetProperty(value); }
         }
 
+        public string AccountInfos
+        {
+            get { return GetProperty(null); }
+            set { SetProperty(value); }
+        }
+
         public double HomeLocationLat
         {
             get { return double.Parse(GetProperty("0.0"), CultureInfo.InvariantCulture); }

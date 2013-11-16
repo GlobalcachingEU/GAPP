@@ -243,7 +243,7 @@ namespace GAPPSF.Core.Data
             }
         }
 
-        protected virtual void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
+        public virtual void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
         {
             if (CollectionChanged != null)
             {
