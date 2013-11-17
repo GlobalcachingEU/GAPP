@@ -66,5 +66,12 @@ namespace GAPPSF.Core
             get { return new DataGridLength(double.Parse(GetProperty("200"), CultureInfo.InvariantCulture)); }
             set { SetProperty(value.Value.ToString(CultureInfo.InvariantCulture)); }
         }
+
+        public string CacheListColumnInfo
+        {
+            get { return GetProperty(null); }
+            set { SetProperty(value); }
+        }
+
     }
 }

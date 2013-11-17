@@ -114,6 +114,14 @@ namespace GlobalcachingApplication.Plugins.APIFindsOfUser
             DateFrom = dateTimePicker1.Value;
             DateTo = dateTimePicker2.Value;
             SelectedUsers = new List<string>();
+            SelectedLogTypes = new List<long>();
+            Properties.Settings.Default.LogTypes.Clear();
+            foreach (ListViewItem lvt in listView1.CheckedItems)
+            {
+                Properties.Settings.Default.LogTypes.Add((lvt.Tag as Framework.Data.LogType).ID.ToString());
+                SelectedLogTypes.Add((lvt.Tag as Framework.Data.LogType).ID);
+            }
+            Properties.Settings.Default.Save();
             if (listBox1.SelectedItem != null)
             {
                 SelectedUsers.Add((string)listBox1.SelectedItem);

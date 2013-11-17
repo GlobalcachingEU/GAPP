@@ -24,14 +24,26 @@ namespace GAPPSF.UIControls
     {
         private bool _selectedOnly;
         private int _rowIndex = 0;
+        private static CacheListColumnInfoCollection _cacheListColumnInfoCollection = null;
 
         public CacheList()
         {
+            if (_cacheListColumnInfoCollection == null)
+            {
+                _cacheListColumnInfoCollection = new CacheListColumnInfoCollection();
+            }
+
             InitializeComponent();
 
+            _cacheListColumnInfoCollection.AssignDataGrid(cacheList);
             _selectedOnly = Core.Settings.Default.CacheListShowSelectedOnly;
 
             Core.Settings.Default.PropertyChanged += Default_PropertyChanged;
+        }
+
+        private CacheListColumnInfoCollection ColumnInfoCollection
+        {
+            get { return _cacheListColumnInfoCollection; }
         }
 
         void Default_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

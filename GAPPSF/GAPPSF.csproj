@@ -165,13 +165,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="UIControls\ApplicationDataInfo.xaml.cs">
+    <Compile Include="UIControls\ApplicationDataInfo\ApplicationDataInfo.xaml.cs">
       <DependentUpon>ApplicationDataInfo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UIControls\CacheList.xaml.cs">
+    <Compile Include="UIControls\CacheList\CacheList.xaml.cs">
       <DependentUpon>CacheList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UIControls\GeocacheViewer.xaml.cs">
+    <Compile Include="UIControls\CacheList\CacheListColumnInfo.cs" />
+    <Compile Include="UIControls\CacheList\CacheListColumnInfoCollection.cs" />
+    <Compile Include="UIControls\GeocacheViewer\GeocacheViewer.xaml.cs">
       <DependentUpon>GeocacheViewer.xaml</DependentUpon>
     </Compile>
     <Compile Include="UIControls\IUIControl.cs" />
@@ -328,15 +330,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UIControls\ApplicationDataInfo.xaml">
+    <Page Include="UIControls\ApplicationDataInfo\ApplicationDataInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UIControls\CacheList.xaml">
+    <Page Include="UIControls\CacheList\CacheList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UIControls\GeocacheViewer.xaml">
+    <Page Include="UIControls\GeocacheViewer\GeocacheViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -497,9 +499,9 @@
     <Resource Include="Resources\MainWindow\wpedit.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="UIControls\GeocacheViewerGeocacheTemplate.html" />
-    <Resource Include="UIControls\GeocacheViewerLogTemplateEven.html" />
-    <Resource Include="UIControls\GeocacheViewerLogTemplateOdd.html" />
+    <Resource Include="UIControls\GeocacheViewer\GeocacheViewerGeocacheTemplate.html" />
+    <Resource Include="UIControls\GeocacheViewer\GeocacheViewerLogTemplateEven.html" />
+    <Resource Include="UIControls\GeocacheViewer\GeocacheViewerLogTemplateOdd.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

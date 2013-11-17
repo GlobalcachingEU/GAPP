@@ -4,41 +4,6 @@
         <name>CSScriptLibrary</name>
     </assembly>
     <members>
-        <member name="M:csscript.Utils.AddCompilerOptions(System.CodeDom.Compiler.CompilerParameters,System.String)">
-            <summary>
-            Adds compiler options to the CompilerParameters in a manner that it does separate every option by the space character
-            </summary>
-        </member>
-        <member name="M:csscript.CSSUtils.ParseAppArgs(System.String[],csscript.IScriptExecutor)">
-            <summary>
-            Parses application (script engine) arguments.
-            </summary>
-            <param name="args">Arguments</param>
-            <param name="executor">Script executor instance</param>
-            <returns>Index of the first script argument.</returns>
-        </member>
-        <member name="T:csscript.MetaDataItems">
-             <summary>
-             The MetaDataItems class contains information about script dependencies (referenced local
-             assemblies and imported scripts) and compiler options. This information is required when
-             scripts are executed in a 'cached' mode (/c switch). On the base of this information the script
-             engine will compile new version of .compiled assembly if any of it's dependencies is changed. This
-             is required even for referenced local assemblies as it is possible that they are a strongly
-             named assemblies (recompiling is required for any compiled client of the strongly named assembly
-             in case this assembly is changed).
-            
-             The perfect place to store the dependencies info (custom meta data) is the assembly
-             resources. However if we do so such assemblies would have to be loaded in order to read their
-             resources. It is not acceptable as after loading assembly cannot be unloaded. Also assembly loading
-             can significantly compromise performance.
-            
-             That is why custom meta data is just physically appended to the file. This is a valid
-             approach because such assembly is not to be distributed anywhere but to stay always
-             on the PC and play the role of the temporary data for the script engine.
-            
-             Note: A .dll assembly is always compiled and linked in a normal way without any custom meta data attached.
-             </summary>
-        </member>
         <member name="T:CSScriptLibraryExtensionMethods">
             <summary>
             Method extensions for
@@ -502,6 +467,93 @@
             </summary>
             <returns>FastInvokeDelegate instance.</returns>
         </member>
+        <member name="T:csscript.AssemblyExecutor">
+            <summary>
+            Executes "public static void Main(..)" of assembly in a separate domain.
+            </summary>
+        </member>
+        <member name="T:csscript.RemoteExecutor">
+            <summary>
+            Invokes static method 'Main' from the assembly.
+            </summary>
+        </member>
+        <member name="M:csscript.RemoteExecutor.ResolveEventHandler(System.Object,System.ResolveEventArgs)">
+            <summary>
+            AppDomain event handler. This handler will be called if CLR cannot resolve
+            referenced local assemblies
+            </summary>
+        </member>
+        <member name="T:CSScriptLibrary.AssemblyResolver">
+            <summary>
+            Class for resolving assembly name to assembly file
+            </summary>
+        </member>
+        <member name="F:CSScriptLibrary.AssemblyResolver.ignoreFileName">
+            <summary>
+            File to be excluded from assembly search
+            </summary>
+        </member>
+        <member name="M:CSScriptLibrary.AssemblyResolver.ResolveAssembly(System.String,System.String)">
+            <summary>
+            Resolves assembly name to assembly file. Loads assembly file to the current AppDomain.
+            </summary>
+            <param name="assemblyName">The name of assembly</param>
+            <param name="dir">The name of directory where local assemblies are expected to be</param>
+            <returns>loaded assembly</returns>
+        </member>
+        <member name="M:CSScriptLibrary.AssemblyResolver.IsLegalPathToken(System.String)">
+            <summary>
+            Determines whether the string is a legal path token.
+            </summary>
+            <param name="name">The name.</param>
+            <returns>
+            	<c>true</c> if the string is a legal path token; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:CSScriptLibrary.AssemblyResolver.FindAssembly(System.String,System.String[])">
+            <summary>
+            Resolves namespace/assembly(file) name into array of assembly locations (local and GAC ones).
+            </summary>
+            <param name="name">'namespace'/assembly(file) name</param>
+            <param name="searchDirs">Assembly search directories</param>
+            <returns>collection of assembly file names where namespace is implemented</returns>
+        </member>
+        <member name="M:CSScriptLibrary.AssemblyResolver.FindLocalAssembly(System.String,System.String)">
+            <summary>
+            Resolves namespace into array of local assembly locations.
+            (Currently it returns only one assembly location but in future
+            it can be extended to collect all assemblies with the same namespace)
+            </summary>
+            <param name="name">namespace/assembly name</param>
+            <param name="dir">directory</param>
+            <returns>collection of assembly file names where namespace is implemented</returns>
+        </member>
+        <member name="M:CSScriptLibrary.AssemblyResolver.FindGlobalAssembly(System.String)">
+            <summary>
+            Resolves namespace into array of global assembly (GAC) locations.
+            </summary>
+            <param name="namespaceStr">'namespace' name</param>
+            <returns>collection of assembly file names where namespace is implemented</returns>
+        </member>
+        <member name="M:CSScriptLibrary.AssemblyResolver.IsNamespaceDefinedInAssembly(System.String,System.String)">
+            <summary>
+            Search for namespace into local assembly file.
+            </summary>
+        </member>
+        <member name="P:CSScriptLibrary.AssemblyResolver.CacheProbingResults">
+            <summary>
+            Gets or sets a value indicating whether the assembly probing results should be cached. Default value is <c>false</c>;
+            <para>
+            Caching means that during the probing if the assembly is not found in one of the probing directories this directory will not
+            be checked again if the same assembly is to be resolved in the future.
+            </para>
+            <para>
+            This setting is to be used with the caution. While it can bring some performance benefits when the list of probing directories
+            is large it also may be wrong to assume that if the assembly in not found in a particular directory it still will not be there if the probing is repeated.
+            </para>
+            </summary>
+            <value><c>true</c> if probing results should be cached; otherwise, <c>false</c>.</value>
+        </member>
         <member name="T:csscript.CSharpParser">
             <summary>
             Very light parser for C# code. The main purpose of it is to be very fast and reliable.
@@ -694,110 +746,6 @@
         <member name="F:csscript.CSharpParser.ImportInfo.preserveMain">
             <summary>
             If set to 'true' "static...Main" in the imported script is not renamed.
-            </summary>
-        </member>
-        <member name="T:CSScriptLibrary.AssemblyResolver">
-            <summary>
-            Class for resolving assembly name to assembly file
-            </summary>
-        </member>
-        <member name="F:CSScriptLibrary.AssemblyResolver.ignoreFileName">
-            <summary>
-            File to be excluded from assembly search
-            </summary>
-        </member>
-        <member name="M:CSScriptLibrary.AssemblyResolver.ResolveAssembly(System.String,System.String)">
-            <summary>
-            Resolves assembly name to assembly file. Loads assembly file to the current AppDomain.
-            </summary>
-            <param name="assemblyName">The name of assembly</param>
-            <param name="dir">The name of directory where local assemblies are expected to be</param>
-            <returns>loaded assembly</returns>
-        </member>
-        <member name="M:CSScriptLibrary.AssemblyResolver.IsLegalPathToken(System.String)">
-            <summary>
-            Determines whether the string is a legal path token.
-            </summary>
-            <param name="name">The name.</param>
-            <returns>
-            	<c>true</c> if the string is a legal path token; otherwise, <c>false</c>.
-            </returns>
-        </member>
-        <member name="M:CSScriptLibrary.AssemblyResolver.FindAssembly(System.String,System.String[])">
-            <summary>
-            Resolves namespace/assembly(file) name into array of assembly locations (local and GAC ones).
-            </summary>
-            <param name="name">'namespace'/assembly(file) name</param>
-            <param name="searchDirs">Assembly search directories</param>
-            <returns>collection of assembly file names where namespace is implemented</returns>
-        </member>
-        <member name="M:CSScriptLibrary.AssemblyResolver.FindLocalAssembly(System.String,System.String)">
-            <summary>
-            Resolves namespace into array of local assembly locations.
-            (Currently it returns only one assembly location but in future
-            it can be extended to collect all assemblies with the same namespace)
-            </summary>
-            <param name="name">namespace/assembly name</param>
-            <param name="dir">directory</param>
-            <returns>collection of assembly file names where namespace is implemented</returns>
-        </member>
-        <member name="M:CSScriptLibrary.AssemblyResolver.FindGlobalAssembly(System.String)">
-            <summary>
-            Resolves namespace into array of global assembly (GAC) locations.
-            </summary>
-            <param name="namespaceStr">'namespace' name</param>
-            <returns>collection of assembly file names where namespace is implemented</returns>
-        </member>
-        <member name="M:CSScriptLibrary.AssemblyResolver.IsNamespaceDefinedInAssembly(System.String,System.String)">
-            <summary>
-            Search for namespace into local assembly file.
-            </summary>
-        </member>
-        <member name="P:CSScriptLibrary.AssemblyResolver.CacheProbingResults">
-            <summary>
-            Gets or sets a value indicating whether the assembly probing results should be cached. Default value is <c>false</c>;
-            <para>
-            Caching means that during the probing if the assembly is not found in one of the probing directories this directory will not
-            be checked again if the same assembly is to be resolved in the future.
-            </para>
-            <para>
-            This setting is to be used with the caution. While it can bring some performance benefits when the list of probing directories
-            is large it also may be wrong to assume that if the assembly in not found in a particular directory it still will not be there if the probing is repeated.
-            </para>
-            </summary>
-            <value><c>true</c> if probing results should be cached; otherwise, <c>false</c>.</value>
-        </member>
-        <member name="T:csscript.PrecompilationContext">
-            <summary>
-            This class is a container for information related to the script precompilation.
-            <para>It is used to pass an input information from the script engine to the <c>precompiler</c> instance as well as to pass back
-            to the script engine some output information (e.g. added referenced assemblies)</para> .
-            </summary>
-        </member>
-        <member name="F:csscript.PrecompilationContext.NewReferences">
-            <summary>
-            Collection of the referenced assemblies to be added to the process script referenced assemblies.
-            <para>You may want to add new items to the referenced assemblies because of the precompilation logic (e.g. some code using assemblies not referenced by the primary script 
-            is injected in the script).</para>
-            </summary>
-        </member>
-        <member name="F:csscript.PrecompilationContext.NewDependencies">
-            <summary>
-            Collection of the new dependency items (files). 
-            <para>Dependency files are checked before the script execution in order to understand if the script should be recompiled or it can be loaded from 
-            the cache. If any of the dependency files is changed since the last script execution the script engine will recompile the script. In the simple execution 
-            scenarios the script file is a dependency file.</para>
-            </summary>
-        </member>
-        <member name="F:csscript.PrecompilationContext.NewSearchDirs">
-            <summary>
-            Collection of the assembly and script probing directories to be added to the process search directories.
-            <para>You may want to add new items to the process search directories because of the precompilation logic.</para>
-            </summary>
-        </member>
-        <member name="F:csscript.PrecompilationContext.SearchDirs">
-            <summary>
-            Collection of the process assembly and script probing directories.
             </summary>
         </member>
         <member name="T:csscript.CSExecutor">
@@ -1582,6 +1530,42 @@
             Repository for application specific data
             </summary>
         </member>
+        <member name="T:csscript.CompilerException">
+            <summary>
+            The exception that is thrown when a the script compiler error occurs.
+            </summary>
+        </member>
+        <member name="M:csscript.CompilerException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:csscript.CompilerException"/> class.
+            </summary>
+        </member>
+        <member name="M:csscript.CompilerException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:csscript.CompilerException"/> class.
+            </summary>
+            <param name="info">The object that holds the serialized object data.</param>
+            <param name="context">The contextual information about the source or destination.</param>
+        </member>
+        <member name="M:csscript.CompilerException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:csscript.CompilerException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:csscript.CompilerException.Create(System.CodeDom.Compiler.CompilerErrorCollection,System.Boolean)">
+            <summary>
+            Creates the CompilerException instance from the specified compiler errors errors.
+            </summary>
+            <param name="Errors">The compiler errors.</param>
+            <param name="hideCompilerWarnings">if set to <c>true</c> hide compiler warnings.</param>
+            <returns></returns>
+        </member>
+        <member name="T:csscript.ExecuteOptions">
+            <summary>
+            Application specific runtime settings
+            </summary>
+        </member>
         <member name="T:CSScriptLibrary.ParsingParams">
             <summary>
             ParsingParams is an class that holds parsing parameters (parameters that controls how file is to be parsed).
@@ -1727,37 +1711,6 @@
             Collection of referenced asesemblies. All assemblies are referenced either from command-line, code or resolved from referenced namespaces.
             </summary>
         </member>
-        <member name="T:csscript.CompilerException">
-            <summary>
-            The exception that is thrown when a the script compiler error occurs.
-            </summary>
-        </member>
-        <member name="M:csscript.CompilerException.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:csscript.CompilerException"/> class.
-            </summary>
-        </member>
-        <member name="M:csscript.CompilerException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>
-            Initializes a new instance of the <see cref="T:csscript.CompilerException"/> class.
-            </summary>
-            <param name="info">The object that holds the serialized object data.</param>
-            <param name="context">The contextual information about the source or destination.</param>
-        </member>
-        <member name="M:csscript.CompilerException.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:csscript.CompilerException"/> class.
-            </summary>
-            <param name="message">The message.</param>
-        </member>
-        <member name="M:csscript.CompilerException.Create(System.CodeDom.Compiler.CompilerErrorCollection,System.Boolean)">
-            <summary>
-            Creates the CompilerException instance from the specified compiler errors errors.
-            </summary>
-            <param name="Errors">The compiler errors.</param>
-            <param name="hideCompilerWarnings">if set to <c>true</c> hide compiler warnings.</param>
-            <returns></returns>
-        </member>
         <member name="T:csscript.COM">
             <summary>
             COM HR checker: just to make code more compact;
@@ -1826,11 +1779,6 @@
         <member name="T:csscript.AssemblyEnum">
             <summary>
             Helper calss for IAssemblyEnum
-            </summary>
-        </member>
-        <member name="T:csscript.ExecuteOptions">
-            <summary>
-            Application specific runtime settings
             </summary>
         </member>
         <member name="T:CSScriptLibrary.ThirdpartyLibraries.Rubenhak.Utils.ObjectCaster`1">
@@ -1927,20 +1875,37 @@
             <param name="interfaceType">Type of the interface.</param>
             <param name="sourceType">Type of the source.</param>
         </member>
-        <member name="T:csscript.AssemblyExecutor">
+        <member name="T:csscript.PrecompilationContext">
             <summary>
-            Executes "public static void Main(..)" of assembly in a separate domain.
+            This class is a container for information related to the script precompilation.
+            <para>It is used to pass an input information from the script engine to the <c>precompiler</c> instance as well as to pass back
+            to the script engine some output information (e.g. added referenced assemblies)</para> .
             </summary>
         </member>
-        <member name="T:csscript.RemoteExecutor">
+        <member name="F:csscript.PrecompilationContext.NewReferences">
             <summary>
-            Invokes static method 'Main' from the assembly.
+            Collection of the referenced assemblies to be added to the process script referenced assemblies.
+            <para>You may want to add new items to the referenced assemblies because of the precompilation logic (e.g. some code using assemblies not referenced by the primary script 
+            is injected in the script).</para>
             </summary>
         </member>
-        <member name="M:csscript.RemoteExecutor.ResolveEventHandler(System.Object,System.ResolveEventArgs)">
+        <member name="F:csscript.PrecompilationContext.NewDependencies">
             <summary>
-            AppDomain event handler. This handler will be called if CLR cannot resolve
-            referenced local assemblies
+            Collection of the new dependency items (files). 
+            <para>Dependency files are checked before the script execution in order to understand if the script should be recompiled or it can be loaded from 
+            the cache. If any of the dependency files is changed since the last script execution the script engine will recompile the script. In the simple execution 
+            scenarios the script file is a dependency file.</para>
+            </summary>
+        </member>
+        <member name="F:csscript.PrecompilationContext.NewSearchDirs">
+            <summary>
+            Collection of the assembly and script probing directories to be added to the process search directories.
+            <para>You may want to add new items to the process search directories because of the precompilation logic.</para>
+            </summary>
+        </member>
+        <member name="F:csscript.PrecompilationContext.SearchDirs">
+            <summary>
+            Collection of the process assembly and script probing directories.
             </summary>
         </member>
         <member name="T:csscript.Settings">
@@ -2139,6 +2104,41 @@
             <summary>
             Hide all auto-generated files including the files generated by pre/post scripts.
             </summary>
+        </member>
+        <member name="M:csscript.Utils.AddCompilerOptions(System.CodeDom.Compiler.CompilerParameters,System.String)">
+            <summary>
+            Adds compiler options to the CompilerParameters in a manner that it does separate every option by the space character
+            </summary>
+        </member>
+        <member name="M:csscript.CSSUtils.ParseAppArgs(System.String[],csscript.IScriptExecutor)">
+            <summary>
+            Parses application (script engine) arguments.
+            </summary>
+            <param name="args">Arguments</param>
+            <param name="executor">Script executor instance</param>
+            <returns>Index of the first script argument.</returns>
+        </member>
+        <member name="T:csscript.MetaDataItems">
+             <summary>
+             The MetaDataItems class contains information about script dependencies (referenced local
+             assemblies and imported scripts) and compiler options. This information is required when
+             scripts are executed in a 'cached' mode (/c switch). On the base of this information the script
+             engine will compile new version of .compiled assembly if any of it's dependencies is changed. This
+             is required even for referenced local assemblies as it is possible that they are a strongly
+             named assemblies (recompiling is required for any compiled client of the strongly named assembly
+             in case this assembly is changed).
+            
+             The perfect place to store the dependencies info (custom meta data) is the assembly
+             resources. However if we do so such assemblies would have to be loaded in order to read their
+             resources. It is not acceptable as after loading assembly cannot be unloaded. Also assembly loading
+             can significantly compromise performance.
+            
+             That is why custom meta data is just physically appended to the file. This is a valid
+             approach because such assembly is not to be distributed anywhere but to stay always
+             on the PC and play the role of the temporary data for the script engine.
+            
+             Note: A .dll assembly is always compiled and linked in a normal way without any custom meta data attached.
+             </summary>
         </member>
     </members>
 </doc>

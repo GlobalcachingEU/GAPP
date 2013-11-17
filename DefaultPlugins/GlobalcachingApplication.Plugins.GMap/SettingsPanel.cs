@@ -29,7 +29,7 @@ namespace GlobalcachingApplication.Plugins.GMap
             this.label3.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_MAXZOOMLEVEL);
             this.label5.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_GRIDSIZE);
             this.checkBox1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_SHOWNAME);
-            this.checkBox1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_AUTOTOPPANEL);
+            this.checkBox2.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_AUTOTOPPANEL);
 
             SettingsChanged = false;
             numericUpDown1.Value = Properties.Settings.Default.ClusterMarkerThreshold;
