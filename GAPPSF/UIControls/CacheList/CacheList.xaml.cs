@@ -24,7 +24,7 @@ namespace GAPPSF.UIControls
     {
         private bool _selectedOnly;
         private int _rowIndex = 0;
-        private static CacheListColumnInfoCollection _cacheListColumnInfoCollection = null;
+        public static CacheListColumnInfoCollection _cacheListColumnInfoCollection = null;
 
         public CacheList()
         {
@@ -36,14 +36,10 @@ namespace GAPPSF.UIControls
             InitializeComponent();
 
             _cacheListColumnInfoCollection.AssignDataGrid(cacheList);
+            _cacheListColumnInfoCollection.UpdateDataGrid(cacheList);
             _selectedOnly = Core.Settings.Default.CacheListShowSelectedOnly;
 
             Core.Settings.Default.PropertyChanged += Default_PropertyChanged;
-        }
-
-        private CacheListColumnInfoCollection ColumnInfoCollection
-        {
-            get { return _cacheListColumnInfoCollection; }
         }
 
         void Default_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -52,6 +48,10 @@ namespace GAPPSF.UIControls
             {
                 _selectedOnly = Core.Settings.Default.CacheListShowSelectedOnly;
                 cacheList.Items.Refresh();
+            }
+            else if (e.PropertyName=="CacheListColumnInfo")
+            {
+                _cacheListColumnInfoCollection.UpdateDataGrid(cacheList);
             }
         }
 
@@ -138,6 +138,11 @@ namespace GAPPSF.UIControls
             {
                 Core.Settings.Default.CacheListWindowTop = value;
             }
+        }
+
+        private void cacheList_ColumnReordered(object sender, DataGridColumnEventArgs e)
+        {
+            _cacheListColumnInfoCollection.UpdateFromDataGrid(cacheList);
         }
     }
 

@@ -25,7 +25,7 @@ namespace GAPPSF.Core
             }
         }
 
-        private Settings()
+        public Settings()
         {
 #if DEBUG
             if (_uniqueInstance != null)

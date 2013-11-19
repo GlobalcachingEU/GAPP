@@ -7,7 +7,7 @@ Globalcaching Application, the geocache manager
 First Build
 ===========
 
-- Open the solution in Visual C# Express 2010 (or higher)
+- Open the solution in Visual Studio Express 2013
 - Select target x86
 - Build the GlobalcachingApplication project first (will fail)
 - Build the GlobalcachingApplication project again (will succeed)
@@ -21,5 +21,9 @@ Setup project
 =============
 
 The Setup project is a WiX project created in SharpDevelop 4.3 (or higher)
-First build release of GAPP in Visual C# Express 2010 (or higher) for desired platform (x86 or x64)
+First build release of GAPP in Visual Studio Express 2013 for desired platform (x86 or x64)
 Then build the setup in SharpDevelop 4.3 (or higher) for the same platform (x86 or x64)
+
+Note
+=============
+GAPPSF project is a project that is in development and not functional yet.

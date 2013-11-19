@@ -24,7 +24,27 @@
             HorizontalAlignment="Stretch">
             <Expander.Content>
                 <Grid HorizontalAlignment="Stretch">
-                    <CheckBox Content="Show selected only" IsChecked="{Binding CacheListShowSelectedOnly, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <CheckBox Content="Show selected only" IsChecked="{Binding CacheListShowSelectedOnly, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                    </Grid>
+                        <Grid Grid.Column="1">
+                            <ListView ItemsSource="{Binding Source={x:Static src:CacheList._cacheListColumnInfoCollection}}">
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid Rows="3" />
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsChecked="{Binding Visible}" Content="{Binding Path=Name}" />
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListView>
+                        </Grid>
                 </Grid>
             </Expander.Content>
         </Expander>
@@ -37,7 +57,7 @@
                   CanUserDeleteRows="False"
                   ItemsSource="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveDatabase.GeocacheCollection}"
                   SelectedItem="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveGeocache, Mode=TwoWay}"
-                  LoadingRow="cacheList_LoadingRow"
+                  LoadingRow="cacheList_LoadingRow" ColumnReordered="cacheList_ColumnReordered"
                   >
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">

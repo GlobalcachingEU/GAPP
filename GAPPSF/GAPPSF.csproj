@@ -173,6 +173,7 @@
     </Compile>
     <Compile Include="UIControls\CacheList\CacheListColumnInfo.cs" />
     <Compile Include="UIControls\CacheList\CacheListColumnInfoCollection.cs" />
+    <Compile Include="UIControls\CheckedListItem.cs" />
     <Compile Include="UIControls\GeocacheViewer\GeocacheViewer.xaml.cs">
       <DependentUpon>GeocacheViewer.xaml</DependentUpon>
     </Compile>

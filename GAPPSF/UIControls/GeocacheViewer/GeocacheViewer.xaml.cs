@@ -33,15 +33,15 @@ namespace GAPPSF.UIControls
 
             if (_defaultGeocacheTemplateHtml==null)
             {
-                _defaultGeocacheTemplateHtml = Utils.ResourceHelper.GetEmbeddedTextFile("/UIControls/GeocacheViewerGeocacheTemplate.html");
+                _defaultGeocacheTemplateHtml = Utils.ResourceHelper.GetEmbeddedTextFile("/UIControls/GeocacheViewer/GeocacheViewerGeocacheTemplate.html");
             }
             if (_defaultLogEvenTemplateHtml == null)
             {
-                _defaultLogEvenTemplateHtml = Utils.ResourceHelper.GetEmbeddedTextFile("/UIControls/GeocacheViewerLogTemplateEven.html");
+                _defaultLogEvenTemplateHtml = Utils.ResourceHelper.GetEmbeddedTextFile("/UIControls/GeocacheViewer/GeocacheViewerLogTemplateEven.html");
             }
             if (_defaultLogOddTemplateHtml == null)
             {
-                _defaultLogOddTemplateHtml = Utils.ResourceHelper.GetEmbeddedTextFile("/UIControls/GeocacheViewerLogTemplateOdd.html");
+                _defaultLogOddTemplateHtml = Utils.ResourceHelper.GetEmbeddedTextFile("/UIControls/GeocacheViewer/GeocacheViewerLogTemplateOdd.html");
             }
 
             Core.ApplicationData.Instance.PropertyChanged += Instance_PropertyChanged;

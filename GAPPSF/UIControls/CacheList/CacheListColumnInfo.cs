@@ -16,11 +16,17 @@ namespace GAPPSF.UIControls
         {
         }
 
-        public CacheListColumnInfo(int colIndex, int visIndex, bool vis)
+        public override string ToString()
+        {
+            return _name ?? "";
+        }
+
+        public CacheListColumnInfo(int colIndex, int visIndex, bool vis, string name)
         {
             _columnIndex = colIndex;
             _visualIndex = visIndex;
             _visible = vis;
+            _name = name;
         }
 
         private int _columnIndex = 0;
@@ -42,6 +48,13 @@ namespace GAPPSF.UIControls
         {
             get { return _visible; }
             set { SetProperty(ref _visible, value); }
+        }
+
+        private string _name = "";
+        public string Name
+        {
+            get { return _name; }
+            set { SetProperty(ref _name, value); }
         }
 
         protected void SetProperty<T>(ref T field, T value, [CallerMemberName] string name = "")

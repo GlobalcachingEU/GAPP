@@ -83,7 +83,7 @@ namespace GAPPSF.Core
             }
         }
         
-        private ApplicationData()
+        public ApplicationData()
         {
 #if DEBUG
             if (_uniqueInstance != null)
