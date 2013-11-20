@@ -12,12 +12,22 @@ namespace GAPPSF.Core.Data
     public class Geocache : DataObject, IGeocacheData, INotifyPropertyChanged, IComparable
     {
         private static byte[] _buffer = new byte[10000000];
+        private static long[][] _bufferPropertyLevels = new long[][]
+        {
+            //4 levels
+            new long[] {},
+            new long[] {1100},
+            new long[] {1100},
+            new long[] {1100}
+        };
 
         //already stored
         public Geocache(Storage.RecordInfo recordInfo)
             : base(recordInfo)
         {
             _code = recordInfo.ID;
+
+            CachePropertyPositions = _bufferPropertyLevels[Core.Settings.Default.DataBufferLevel];
         }
 
         //new record to be stored
@@ -115,6 +125,15 @@ namespace GAPPSF.Core.Data
         public int CompareTo(object obj)
         {
             return string.Compare(this.Code, ((Geocache)obj).Code);
+        }
+
+        public void BufferLevelChanged(int oldLevel)
+        {
+            CachePropertyPositions = _bufferPropertyLevels[Core.Settings.Default.DataBufferLevel];
+            if (oldLevel>Core.Settings.Default.DataBufferLevel)
+            {
+                CachedPropertyValues.Clear();
+            }
         }
 
         protected override void StoreProperty(long pos, string name, object value)

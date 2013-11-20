@@ -1,6 +1,7 @@
 ﻿using GAPPSF.Core.Data;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -22,7 +23,6 @@ namespace GAPPSF.UIControls
     /// </summary>
     public partial class CacheList : UserControl, IDisposable, IUIControl
     {
-        private bool _selectedOnly;
         private int _rowIndex = 0;
         public static CacheListColumnInfoCollection _cacheListColumnInfoCollection = null;
 
@@ -37,19 +37,22 @@ namespace GAPPSF.UIControls
 
             _cacheListColumnInfoCollection.AssignDataGrid(cacheList);
             _cacheListColumnInfoCollection.UpdateDataGrid(cacheList);
-            _selectedOnly = Core.Settings.Default.CacheListShowSelectedOnly;
 
             Core.Settings.Default.PropertyChanged += Default_PropertyChanged;
         }
 
         void Default_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "CacheListShowSelectedOnly")
+            if (e.PropertyName == "CacheListShowSelectedOnly" ||
+                e.PropertyName == "CacheListShowFlaggedOnly" ||
+                e.PropertyName == "CacheListFilterText")
             {
-                _selectedOnly = Core.Settings.Default.CacheListShowSelectedOnly;
-                cacheList.Items.Refresh();
+                if ((cacheList.ItemsSource as ListCollectionView) != null)
+                {
+                    (cacheList.ItemsSource as ListCollectionView).Refresh();
+                }
             }
-            else if (e.PropertyName=="CacheListColumnInfo")
+            else if (e.PropertyName == "CacheListColumnInfo")
             {
                 _cacheListColumnInfoCollection.UpdateDataGrid(cacheList);
             }
@@ -70,16 +73,8 @@ namespace GAPPSF.UIControls
                 {
                     _rowIndex = 0;
                 }
-                bool vis = !_selectedOnly || item.Selected;
-                if (vis)
-                {
-                    _rowIndex++;
-                    e.Row.Header = (_rowIndex).ToString();
-                }
-                else
-                {
-                    e.Row.Visibility = System.Windows.Visibility.Collapsed;
-                }
+                _rowIndex++;
+                e.Row.Header = (_rowIndex).ToString();
             }
             else
             {

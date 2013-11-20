@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -17,9 +18,13 @@ namespace GAPPSF.Core.Data
         private bool IsDataChanged = false;
         protected Storage.RecordInfo RecordInfo = null;
 
+        public long[] CachePropertyPositions { get; set; }
+        public Hashtable CachedPropertyValues { get; private set; }
+
         public DataObject(Storage.RecordInfo recordInfo)
         {
             RecordInfo = recordInfo;
+            CachedPropertyValues = new Hashtable();
         }
 
         public void BeginUpdate()
@@ -71,39 +76,122 @@ namespace GAPPSF.Core.Data
 
         protected string readString(long pos)
         {
-            this.RecordInfo.Database.FileStream.Position = this.RecordInfo.Offset + pos;
-            return this.RecordInfo.Database.BinaryReader.ReadString();
+            object o = CachedPropertyValues == null ? null : CachedPropertyValues[pos];
+            if (o == null)
+            {
+                this.RecordInfo.Database.FileStream.Position = this.RecordInfo.Offset + pos;
+                string s = this.RecordInfo.Database.BinaryReader.ReadString();
+                if (CachePropertyPositions != null && CachePropertyPositions.Contains(pos))
+                {
+                    CachedPropertyValues[pos] = s;
+                }
+                return s;
+            }
+            else
+            {
+                return o as string;
+            }
         }
         protected long readLong(long pos)
         {
-            this.RecordInfo.Database.FileStream.Position = this.RecordInfo.Offset + pos;
-            return this.RecordInfo.Database.BinaryReader.ReadInt64();
+            object o = CachedPropertyValues == null ? null : CachedPropertyValues[pos];
+            if (o == null)
+            {
+                this.RecordInfo.Database.FileStream.Position = this.RecordInfo.Offset + pos;
+                long s = this.RecordInfo.Database.BinaryReader.ReadInt64();
+                if (CachePropertyPositions != null && CachePropertyPositions.Contains(pos))
+                {
+                    CachedPropertyValues[pos] = s;
+                }
+                return s;
+            }
+            else
+            {
+                return (long)o;
+            }
         }
         protected double readDouble(long pos)
         {
-            this.RecordInfo.Database.FileStream.Position = this.RecordInfo.Offset + pos;
-            return this.RecordInfo.Database.BinaryReader.ReadDouble();
+            object o = CachedPropertyValues == null ? null : CachedPropertyValues[pos];
+            if (o == null)
+            {
+                this.RecordInfo.Database.FileStream.Position = this.RecordInfo.Offset + pos;
+                double s = this.RecordInfo.Database.BinaryReader.ReadDouble();
+                if (CachePropertyPositions != null && CachePropertyPositions.Contains(pos))
+                {
+                    CachedPropertyValues[pos] = s;
+                }
+                return s;
+            }
+            else
+            {
+                return (double)o;
+            }
         }
         protected int readInt(long pos)
         {
-            this.RecordInfo.Database.FileStream.Position = this.RecordInfo.Offset + pos;
-            return this.RecordInfo.Database.BinaryReader.ReadInt32();
+            object o = CachedPropertyValues == null ? null : CachedPropertyValues[pos];
+            if (o == null)
+            {
+                this.RecordInfo.Database.FileStream.Position = this.RecordInfo.Offset + pos;
+                int s = this.RecordInfo.Database.BinaryReader.ReadInt32();
+                if (CachePropertyPositions != null && CachePropertyPositions.Contains(pos))
+                {
+                    CachedPropertyValues[pos] = s;
+                }
+                return s;
+            }
+            else
+            {
+                return (int)o;
+            }
         }
         protected byte readByte(long pos)
         {
-            this.RecordInfo.Database.FileStream.Position = this.RecordInfo.Offset + pos;
-            return this.RecordInfo.Database.BinaryReader.ReadByte();
+            object o = CachedPropertyValues == null ? null : CachedPropertyValues[pos];
+            if (o == null)
+            {
+                this.RecordInfo.Database.FileStream.Position = this.RecordInfo.Offset + pos;
+                byte s = this.RecordInfo.Database.BinaryReader.ReadByte();
+                if (CachePropertyPositions != null && CachePropertyPositions.Contains(pos))
+                {
+                    CachedPropertyValues[pos] = s;
+                }
+                return s;
+            }
+            else
+            {
+                return (byte)o;
+            }
         }
         protected bool readBool(long pos)
         {
-            this.RecordInfo.Database.FileStream.Position = this.RecordInfo.Offset + pos;
-            return this.RecordInfo.Database.BinaryReader.ReadBoolean();
+            object o = CachedPropertyValues == null ? null : CachedPropertyValues[pos];
+            if (o == null)
+            {
+                this.RecordInfo.Database.FileStream.Position = this.RecordInfo.Offset + pos;
+                bool s = this.RecordInfo.Database.BinaryReader.ReadBoolean();
+                if (CachePropertyPositions != null && CachePropertyPositions.Contains(pos))
+                {
+                    CachedPropertyValues[pos] = s;
+                }
+                return s;
+            }
+            else
+            {
+                return (bool)o;
+            }
         }
 
         protected virtual void StoreProperty(long pos, string name, object value)
         {
             if (pos>=0 && value != null)
             {
+                if (CachePropertyPositions != null && CachePropertyPositions.Contains(pos))
+                {
+                    CachedPropertyValues[pos] = value;
+                }
+
                 if (value.GetType() == typeof(string))
                 {
                     this.RecordInfo.Database.FileStream.Position = this.RecordInfo.Offset + pos;

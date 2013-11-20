@@ -28,9 +28,18 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <CheckBox Content="Show selected only" IsChecked="{Binding CacheListShowSelectedOnly, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
-                    </Grid>
+                            <StackPanel Grid.Column="0">
+                                <CheckBox Content="Show selected only" IsChecked="{Binding CacheListShowSelectedOnly, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                            <CheckBox Content="Show flagged only" IsChecked="{Binding CacheListShowFlaggedOnly, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock  Grid.Column="0" Text="Filter" />
+                                <TextBox Text="{Binding CacheListFilterText, Source={x:Static p:Settings.Default}, Mode=TwoWay, Delay=500, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" />
+                            </Grid>
+                        </StackPanel>
                         <Grid Grid.Column="1">
                             <ListView ItemsSource="{Binding Source={x:Static src:CacheList._cacheListColumnInfoCollection}}">
                                 <ListView.ItemsPanel>
@@ -55,7 +64,7 @@
                   HorizontalScrollBarVisibility="Auto" 
                   CanUserAddRows="False" 
                   CanUserDeleteRows="False"
-                  ItemsSource="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveDatabase.GeocacheCollection}"
+                  ItemsSource="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveDatabase.GeocacheCollectionView}"
                   SelectedItem="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveGeocache, Mode=TwoWay}"
                   LoadingRow="cacheList_LoadingRow" ColumnReordered="cacheList_ColumnReordered"
                   >

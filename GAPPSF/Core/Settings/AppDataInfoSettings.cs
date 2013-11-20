@@ -28,5 +28,10 @@ namespace GAPPSF.Core
             get { return int.Parse(GetProperty("100")); }
             set { SetProperty(value.ToString()); }
         }
+        public int DataBufferLevel //0=none, 1=mimimal, 2=heavy, 3=all
+        {
+            get { return int.Parse(GetProperty("1")); }
+            set { SetProperty(value.ToString()); }
+        }
     }
 }

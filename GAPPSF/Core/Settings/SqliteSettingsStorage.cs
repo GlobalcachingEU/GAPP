@@ -73,9 +73,9 @@ namespace GAPPSF.Core
             }
         }
 
-        public Dictionary<string, string> LoadSettings()
+        public Hashtable LoadSettings()
         {
-            Dictionary<string, string> result = new Dictionary<string, string>();
+            Hashtable result = new Hashtable();
             foreach (DictionaryEntry kp in _availableKeys)
             {
                 result.Add(kp.Key as string, kp.Value as string);

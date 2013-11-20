@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -13,13 +14,20 @@ namespace GAPPSF.Core
     public partial class Settings : INotifyPropertyChanged
     {
         private static Settings _uniqueInstance = null;
+        private static object _lockObject = new object();
         public static Settings Default
         {
             get
             {
                 if (_uniqueInstance == null)
                 {
-                    _uniqueInstance = new Settings();
+                    lock (_lockObject)
+                    {
+                        if (_uniqueInstance == null)
+                        {
+                            _uniqueInstance = new Settings();
+                        }
+                    }
                 }
                 return _uniqueInstance;
             }
@@ -44,14 +52,14 @@ namespace GAPPSF.Core
         public event PropertyChangedEventHandler PropertyChanged;
 
         private ISettingsStorage _settingsStorage = null;
-        private Dictionary<string, string> _settings;
+        private Hashtable _settings;
 
         protected void SetProperty(string value, [CallerMemberName] string name = "")
         {
             string field = GetProperty(name);
             if (!EqualityComparer<string>.Default.Equals(field, value))
             {
-                lock (this)
+                lock (_lockObject)
                 {
                     _settings[name] = value;
                     _settingsStorage.StoreSetting(name, value);
@@ -67,11 +75,11 @@ namespace GAPPSF.Core
         protected string GetProperty(string defaultValue, [CallerMemberName] string name = "")
         {
             string result;
-            lock (this)
+            lock (_lockObject)
             {
                 if (_settings.ContainsKey(name))
                 {
-                    result = _settings[name];
+                    result = _settings[name] as string;
                 }
                 else
                 {

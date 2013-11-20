@@ -61,6 +61,18 @@ namespace GAPPSF.Core
             set { SetProperty(value.ToString()); }
         }
 
+        public bool CacheListShowFlaggedOnly
+        {
+            get { return bool.Parse(GetProperty("False")); }
+            set { SetProperty(value.ToString()); }
+        }
+
+        public string CacheListFilterText
+        {
+            get { return GetProperty(null); }
+            set { SetProperty(value); }
+        }
+
         public DataGridLength ColumnNameWidth
         {
             get { return new DataGridLength(double.Parse(GetProperty("200"), CultureInfo.InvariantCulture)); }
