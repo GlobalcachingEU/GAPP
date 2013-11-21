@@ -38,6 +38,16 @@ namespace GAPPSF.Core
             get { return GetProperty(null); }
             set { SetProperty(value); }
         }
+        public string MainWindowExpandedPanelFeature
+        {
+            get { return GetProperty(null); }
+            set { SetProperty(value); }
+        }
+        public string MainWindowMiximizedPanelName
+        {
+            get { return GetProperty(null); }
+            set { SetProperty(value); }
+        }
 
         public int MainWindowHeight
         {

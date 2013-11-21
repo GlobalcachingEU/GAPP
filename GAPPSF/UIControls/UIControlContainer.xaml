@@ -18,6 +18,9 @@
                 <MenuItem Header="Application info" Click="MenuItem_Click_3" />
             </MenuItem>
         </Menu>
+        <Button Width="20" Height="20" HorizontalAlignment="Right" Click="Button_Click">
+            <Image Grid.Row="0" Source="/Resources/General/maximize.png" Width="16" Height="16" />
+        </Button>
         <Grid x:Name="containerGrid" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         </Grid>
     </Grid>

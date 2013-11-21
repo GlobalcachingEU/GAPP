@@ -1,4 +1,5 @@
-﻿using GAPPSF.Core.Data;
+﻿using GAPPSF.Commands;
+using GAPPSF.Core.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,6 +25,7 @@ namespace GAPPSF.UIControls
     public partial class CacheList : UserControl, IDisposable, IUIControl
     {
         private int _rowIndex = 0;
+        private ICollectionView _geocacheCollectionView = null;
         public static CacheListColumnInfoCollection _cacheListColumnInfoCollection = null;
 
         public CacheList()
@@ -34,11 +36,51 @@ namespace GAPPSF.UIControls
             }
 
             InitializeComponent();
+            DataContext = this;
+
+            setGeocacheCollectionView();
 
             _cacheListColumnInfoCollection.AssignDataGrid(cacheList);
             _cacheListColumnInfoCollection.UpdateDataGrid(cacheList);
 
             Core.Settings.Default.PropertyChanged += Default_PropertyChanged;
+            Core.ApplicationData.Instance.PropertyChanged += Instance_PropertyChanged;
+        }
+
+        private bool GeocacheViewFilter(object o)
+        {
+            Core.Data.Geocache gc = o as Core.Data.Geocache;
+            bool result = !Core.Settings.Default.CacheListShowSelectedOnly || gc.Selected;
+            result &= !Core.Settings.Default.CacheListShowFlaggedOnly || gc.Flagged;
+            string ft = Core.Settings.Default.CacheListFilterText;
+            if (!string.IsNullOrEmpty(ft))
+            {
+                string s = gc.Name;
+                result &= s != null && s.IndexOf(ft, StringComparison.CurrentCultureIgnoreCase) >= 0;
+            }
+            return result;
+        }
+
+        private void setGeocacheCollectionView()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                this._geocacheCollectionView = CollectionViewSource.GetDefaultView(Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection);
+                this._geocacheCollectionView.Filter = this.GeocacheViewFilter;
+                cacheList.ItemsSource = this._geocacheCollectionView;
+            }
+            else
+            {
+                cacheList.ItemsSource = null;
+            }
+        }
+
+        void Instance_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "ActiveDatabase")
+            {
+                setGeocacheCollectionView();
+            }
         }
 
         void Default_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -60,8 +102,31 @@ namespace GAPPSF.UIControls
 
         public void Dispose()
         {
+            Core.ApplicationData.Instance.PropertyChanged -= Instance_PropertyChanged;
             Core.Settings.Default.PropertyChanged -= Default_PropertyChanged;
         }
+
+        RelayCommand _invertSelectionCommand;
+        public ICommand InvertSelectionCommand
+        {
+            get
+            {
+                if (_invertSelectionCommand == null)
+                {
+                    _invertSelectionCommand = new RelayCommand(param => this.invertSelection(),
+                        param => cacheList.SelectedItems.Count>0);
+                }
+                return _invertSelectionCommand;
+            }
+        }
+        public void invertSelection()
+        {
+            foreach(Core.Data.Geocache gc in cacheList.SelectedItems)
+            {
+                gc.Selected = !gc.Selected;
+            }
+        }
+
 
         void cacheList_LoadingRow(object sender, System.Windows.Controls.DataGridRowEventArgs e)
         {

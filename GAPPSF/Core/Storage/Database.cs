@@ -37,8 +37,6 @@ namespace GAPPSF.Core.Storage
         public GeocacheImageCollection GeocacheImageCollection { get; private set; }
         public GeocacheCollection GeocacheCollection { get; private set; }
 
-        public ICollectionView GeocacheCollectionView { get; private set; }
-
         private List<RecordInfo> _emptyRecords = new List<RecordInfo>();
         private bool _emptyRecordListSorted = false;
 
@@ -51,23 +49,6 @@ namespace GAPPSF.Core.Storage
             this.UserWaypointCollection = new UserWaypointCollection(this);
             this.GeocacheImageCollection = new GeocacheImageCollection(this);
             this.GeocacheCollection = new GeocacheCollection(this);
-
-            this.GeocacheCollectionView = CollectionViewSource.GetDefaultView(this.GeocacheCollection);
-            this.GeocacheCollectionView.Filter = this.GeocacheViewFilter;
-        }
-
-        private bool GeocacheViewFilter(object o)
-        {
-            Data.Geocache gc = o as Data.Geocache;
-            bool result = !Core.Settings.Default.CacheListShowSelectedOnly || gc.Selected;
-            result &= !Core.Settings.Default.CacheListShowFlaggedOnly || gc.Flagged;
-            string ft = Core.Settings.Default.CacheListFilterText;
-            if (!string.IsNullOrEmpty(ft))
-            {
-                string s = gc.Name;
-                result &= s != null && s.IndexOf(ft, StringComparison.CurrentCultureIgnoreCase) >= 0;
-            }
-            return result;
         }
 
         public override string ToString()

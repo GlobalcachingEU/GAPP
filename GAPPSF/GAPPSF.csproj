@@ -504,6 +504,12 @@
     <Resource Include="UIControls\GeocacheViewer\GeocacheViewerLogTemplateEven.html" />
     <Resource Include="UIControls\GeocacheViewer\GeocacheViewerLogTemplateOdd.html" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\invert_selection.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\maximize.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)GlobalcachingApplication\bin\$(ConfigurationName)\"</PostBuildEvent>

@@ -23,6 +23,7 @@ namespace GAPPSF.UIControls
     public partial class UIControlContainer : UserControl, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        public event EventHandler WindowStateButtonClick;
 
         public UIControlContainer()
         {
@@ -186,6 +187,14 @@ namespace GAPPSF.UIControls
         private void MenuItem_Click_3(object sender, RoutedEventArgs e)
         {
             FeatureControl = new ApplicationDataInfo();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (WindowStateButtonClick!=null)
+            {
+                WindowStateButtonClick(this, EventArgs.Empty);
+            }
         }
 
     }

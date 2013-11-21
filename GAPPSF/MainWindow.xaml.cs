@@ -38,12 +38,60 @@ namespace GAPPSF
             SetFeatureControl(bottomLeftPanelContent, Core.Settings.Default.MainWindowBottomLeftPanelFeature, "GAPPSF.UIControls.GeocacheViewer");
             SetFeatureControl(bottomRightPanelContent, Core.Settings.Default.MainWindowBottomRightPanelFeature, "");
             SetFeatureControl(rightPanelContent, Core.Settings.Default.MainWindowRightPanelFeature, "");
+            SetFeatureControl(expandedPanelContent, Core.Settings.Default.MainWindowExpandedPanelFeature, "");
 
             leftPanelContent.PropertyChanged += leftPanelContent_PropertyChanged;
             topPanelContent.PropertyChanged += topPanelContent_PropertyChanged;
             bottomLeftPanelContent.PropertyChanged += bottomLeftPanelContent_PropertyChanged;
             bottomRightPanelContent.PropertyChanged += bottomRightPanelContent_PropertyChanged;
             rightPanelContent.PropertyChanged += rightPanelContent_PropertyChanged;
+            expandedPanelContent.PropertyChanged += expandedPanelContent_PropertyChanged;
+
+            leftPanelContent.WindowStateButtonClick += panelContent_WindowStateButtonClick;
+            topPanelContent.WindowStateButtonClick += panelContent_WindowStateButtonClick;
+            bottomLeftPanelContent.WindowStateButtonClick += panelContent_WindowStateButtonClick;
+            bottomRightPanelContent.WindowStateButtonClick += panelContent_WindowStateButtonClick;
+            rightPanelContent.WindowStateButtonClick += panelContent_WindowStateButtonClick;
+            expandedPanelContent.WindowStateButtonClick += panelContent_WindowStateButtonClick;
+
+            if (expandedPanelContent.FeatureControl!=null)
+            {
+                normalView.Visibility = System.Windows.Visibility.Collapsed;
+                expandedView.Visibility = System.Windows.Visibility.Visible;
+            }
+        }
+
+        void panelContent_WindowStateButtonClick(object sender, EventArgs e)
+        {
+            UIControls.UIControlContainer ucc = sender as UIControls.UIControlContainer;
+            if (ucc != null)
+            {
+                if (ucc == expandedPanelContent)
+                {
+                    //minimize
+                    UserControl uc = ucc.FeatureControl;
+                    ucc.FeatureControl = null;
+                    UIControls.UIControlContainer targetUc = normalView.FindName(Core.Settings.Default.MainWindowMiximizedPanelName) as UIControls.UIControlContainer;
+                    if (targetUc != null)
+                    {
+                        targetUc.FeatureControl = uc;
+                    }
+                    expandedView.Visibility = System.Windows.Visibility.Collapsed;
+                    normalView.Visibility = System.Windows.Visibility.Visible;
+
+                    Core.Settings.Default.MainWindowMiximizedPanelName = "";
+                }
+                else
+                {
+                    //maximize
+                    Core.Settings.Default.MainWindowMiximizedPanelName = ucc.Name;
+                    UserControl uc = ucc.FeatureControl;
+                    ucc.FeatureControl = null;
+                    expandedPanelContent.FeatureControl = uc;
+                    normalView.Visibility = System.Windows.Visibility.Collapsed;
+                    expandedView.Visibility = System.Windows.Visibility.Visible;
+                }
+            }
         }
 
         private bool _shown;
@@ -82,6 +130,15 @@ namespace GAPPSF
                 Core.Settings.Default.MainWindowRightPanelFeature = rightPanelContent.FeatureControl == null ? "" : rightPanelContent.FeatureControl.GetType().ToString();
             }
         }
+
+        void expandedPanelContent_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "FeatureControl")
+            {
+                Core.Settings.Default.MainWindowExpandedPanelFeature = expandedPanelContent.FeatureControl == null ? "" : expandedPanelContent.FeatureControl.GetType().ToString();
+            }
+        }
+
 
         void bottomRightPanelContent_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
@@ -321,5 +378,49 @@ namespace GAPPSF
             Core.Settings.Default.MainWindowWindowFeature = sb.ToString();
         }
 
+
+        public static T FindChild<T>(DependencyObject parent, string childName)
+           where T : DependencyObject
+        {
+            // Confirm parent and childName are valid. 
+            if (parent == null) return null;
+
+            T foundChild = null;
+
+            int childrenCount = VisualTreeHelper.GetChildrenCount(parent);
+            for (int i = 0; i < childrenCount; i++)
+            {
+                var child = VisualTreeHelper.GetChild(parent, i);
+                // If the child is not of the request child type child
+                T childType = child as T;
+                if (childType == null)
+                {
+                    // recursively drill down the tree
+                    foundChild = FindChild<T>(child, childName);
+
+                    // If the child is found, break so we do not overwrite the found child. 
+                    if (foundChild != null) break;
+                }
+                else if (!string.IsNullOrEmpty(childName))
+                {
+                    var frameworkElement = child as FrameworkElement;
+                    // If the child's name is set for search
+                    if (frameworkElement != null && frameworkElement.Name == childName)
+                    {
+                        // if the child's name is of the request name
+                        foundChild = (T)child;
+                        break;
+                    }
+                }
+                else
+                {
+                    // child element found.
+                    foundChild = (T)child;
+                    break;
+                }
+            }
+
+            return foundChild;
+        }
     }
 }
