@@ -29,6 +29,7 @@ namespace GAPPSF.Core
         public Data.Location HomeLocation { get; private set; }
         public Data.Location CenterLocation { get; private set; }
         public AccountInfoCollection AccountInfos { get; private set; }
+        public GeocacheAttributeCollection GeocacheAttributes { get; private set; }
 
         private Storage.Database _activeDatabase = null;
         public Storage.Database ActiveDatabase
@@ -111,6 +112,7 @@ namespace GAPPSF.Core
                     AccountInfos = serializer.Deserialize(r) as AccountInfoCollection;
                 }            
             }
+            GeocacheAttributes = new GeocacheAttributeCollection();
             Databases = new Storage.DatabaseCollection();
             GeocacheTypes = new GeocacheTypeCollection();
             GeocacheContainers = new GeocacheContainerCollection();
@@ -235,12 +237,105 @@ namespace GAPPSF.Core
             addLogType(74, "Announcement", false);
             addLogType(75, "Visited", false);
 
+            addWaypointType(0, "Unknown");
             addWaypointType(217, "Parking Area");
             addWaypointType(220, "Final Location");
             addWaypointType(218, "Question to Answer");
             addWaypointType(452, "Reference Point");
             addWaypointType(219, "Stages of a Multicache");
             addWaypointType(221, "Trailhead");
+
+
+            addCacheAttribute(0, "Unknown");
+            addCacheAttribute(1, "Dogs");
+            addCacheAttribute(2, "Access or parking fee");
+            addCacheAttribute(3, "Climbing gear");
+            addCacheAttribute(4, "Boat");
+            addCacheAttribute(5, "Scuba gear");
+            addCacheAttribute(6, "Recommended for kids");
+            addCacheAttribute(7, "Takes less than an hour");
+            addCacheAttribute(8, "Scenic view");
+            addCacheAttribute(9, "Significant Hike");
+            addCacheAttribute(10, "Difficult climbing");
+            addCacheAttribute(11, "May require wading");
+            addCacheAttribute(12, "May require swimming");
+            addCacheAttribute(13, "Available at all times");
+            addCacheAttribute(14, "Recommended at night");
+            addCacheAttribute(15, "Available during winter");
+            addCacheAttribute(16, "Cactus");
+            addCacheAttribute(17, "Poison plants");
+            addCacheAttribute(18, "Dangerous Animals");
+            addCacheAttribute(19, "Ticks");
+            addCacheAttribute(20, "Abandoned mines");
+            addCacheAttribute(21, "Cliff / falling rocks");
+            addCacheAttribute(22, "Hunting");
+            addCacheAttribute(23, "Dangerous area");
+            addCacheAttribute(24, "Wheelchair accessible");
+            addCacheAttribute(25, "Parking available");
+            addCacheAttribute(26, "Public transportation");
+            addCacheAttribute(27, "Drinking water nearby");
+            addCacheAttribute(28, "Public restrooms nearby");
+            addCacheAttribute(29, "Telephone nearby");
+            addCacheAttribute(30, "Picnic tables nearby");
+            addCacheAttribute(31, "Camping available");
+            addCacheAttribute(32, "Bicycles");
+            addCacheAttribute(33, "Motorcycles");
+            addCacheAttribute(34, "Quads");
+            addCacheAttribute(35, "Off-road vehicles");
+            addCacheAttribute(36, "Snowmobiles");
+            addCacheAttribute(37, "Horses");
+            addCacheAttribute(38, "Campfires");
+            addCacheAttribute(39, "Thorns");
+            addCacheAttribute(40, "Stealth required");
+            addCacheAttribute(41, "Stroller accessible");
+            addCacheAttribute(42, "Needs maintenance");
+            addCacheAttribute(43, "Watch for livestock");
+            addCacheAttribute(44, "Flashlight required");
+            addCacheAttribute(45, "Lost And Found Tour");
+            addCacheAttribute(46, "Truck Driver/RV");
+            addCacheAttribute(47, "Field Puzzle");
+            addCacheAttribute(48, "UV Light Required");
+            addCacheAttribute(49, "Snowshoes");
+            addCacheAttribute(50, "Cross Country Skis");
+            addCacheAttribute(51, "Special Tool Required");
+            addCacheAttribute(52, "Night Cache");
+            addCacheAttribute(53, "Park and Grab");
+            addCacheAttribute(54, "Abandoned Structure");
+            addCacheAttribute(55, "Short hike (less than 1km)");
+            addCacheAttribute(56, "Medium hike (1km-10km)");
+            addCacheAttribute(57, "Long Hike (+10km)");
+            addCacheAttribute(58, "Fuel Nearby");
+            addCacheAttribute(59, "Food Nearby");
+            addCacheAttribute(60, "Wireless Beacon");
+            addCacheAttribute(61, "Partnership Cache");
+            addCacheAttribute(62, "Seasonal Access");
+            addCacheAttribute(63, "Tourist Friendly");
+            addCacheAttribute(64, "Tree Climbing");
+            addCacheAttribute(65, "Front Yard (Private Residence)");
+            addCacheAttribute(66, "Teamwork Required");
+            addCacheAttribute(106, "Only loggable at Opencaching");
+            addCacheAttribute(108, "Letterbox (needs stamp)");
+            addCacheAttribute(123, "First aid available");
+            addCacheAttribute(125, "Long walk");
+            addCacheAttribute(127, "Hilly area");
+            addCacheAttribute(130, "Point of interest");
+            addCacheAttribute(132, "Webcam");
+            addCacheAttribute(133, "Within enclosed rooms (caves, buildings etc.");
+            addCacheAttribute(134, "In the water");
+            addCacheAttribute(135, "Without GPS (letterboxes, cistes, compass juggling ...)");
+            addCacheAttribute(137, "Overnight stay necessary");
+            addCacheAttribute(139, "Only available at specified times");
+            addCacheAttribute(140, "By day only");
+            addCacheAttribute(141, "Tide");
+            addCacheAttribute(142, "All seasons");
+            addCacheAttribute(143, "Breeding season / protected nature");
+            addCacheAttribute(147, "Compass");
+            addCacheAttribute(150, "Cave equipment");
+            addCacheAttribute(153, "Aircraft");
+            addCacheAttribute(154, "Investigation");
+            addCacheAttribute(156, "Arithmetical problem");
+            addCacheAttribute(157, "Other cache type");
+            addCacheAttribute(158, "Ask owner for start conditions");
 
         }
 
@@ -350,6 +445,14 @@ namespace GAPPSF.Core
             attr.ID = id;
             attr.Name = name;
             WaypointTypes.Add(attr);
+        }
+
+        protected void addCacheAttribute(int id, string name)
+        {
+            Data.GeocacheAttribute attr = new Data.GeocacheAttribute();
+            attr.ID = id;
+            attr.Name = name;
+            GeocacheAttributes.Add(attr);
         }
 
     }

@@ -252,6 +252,27 @@ namespace GAPPSF.Utils
             return result;
         }
 
+        public static List<GAPPSF.Core.Data.GeocacheImage> GetGeocacheImages(Database db, string GeocacheCode)
+        {
+            //grouping
+            return db.GeocacheImageCollection.GetGeocacheImages(GeocacheCode);
+        }
+
+
+        public static List<GAPPSF.Core.Data.UserWaypoint> GetUserWaypointsFromGeocache(Database db, string geocacheCode)
+        {
+            return db.UserWaypointCollection.GetWaypoints(geocacheCode);
+        }
+
+        public static List<Core.Data.Waypoint> GetWaypointsFromGeocache(Database db, string geocacheCode)
+        {
+            return db.WaypointCollection.GetWaypoints(geocacheCode);
+        }
+
+        public static List<Core.Data.Log> GetLogs(Database db, string geocacheCode)
+        {
+            return db.LogCollection.GetLogs(geocacheCode);
+        }
 
     }
 }

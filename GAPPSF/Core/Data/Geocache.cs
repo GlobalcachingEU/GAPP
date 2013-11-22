@@ -122,6 +122,14 @@ namespace GAPPSF.Core.Data
             db.GeocacheCollection.Add(this);
         }
 
+        public Storage.Database Database
+        {
+            get
+            {
+                return RecordInfo == null ? null : RecordInfo.Database;
+            }
+        }
+
         public int CompareTo(object obj)
         {
             return string.Compare(this.Code, ((Geocache)obj).Code);
@@ -705,11 +713,29 @@ namespace GAPPSF.Core.Data
         {
             get
             {
-                return null;
+                List<int> result = new List<int>();
+                int cnt = readByte(234);
+                int pos = 235;
+                for (int i = 0; i < cnt; i++ )
+                {
+                    result.Add(readInt(pos));
+                    pos += 4;
+                }
+                return result;
             }
             set
             {
-                ;
+                byte cnt = (byte)(value == null ? 0 : value.Count);
+                StoreProperty(234, "AttributeIds", cnt);
+                if (cnt > 0)
+                {
+                    int pos = 235;
+                    foreach (int i in value)
+                    {
+                        StoreProperty(pos, "AttributeId", cnt);
+                        pos += 4;
+                    }
+                }
             }
         }
 

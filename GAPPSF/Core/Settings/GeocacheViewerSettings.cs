@@ -28,5 +28,19 @@ namespace GAPPSF.Core
             get { return int.Parse(GetProperty("100")); }
             set { SetProperty(value.ToString()); }
         }
+
+        public int GCViewerShowLogs
+        {
+            get { return int.Parse(GetProperty("5")); }
+            set { SetProperty(value.ToString()); }
+        }
+        
+
+        public bool GCViewerShowAdditionalWaypoints
+        {
+            get { return bool.Parse(GetProperty("True")); }
+            set { SetProperty(value.ToString()); }
+        }
+        
     }
 }
