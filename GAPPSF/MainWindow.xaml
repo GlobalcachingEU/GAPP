@@ -63,6 +63,9 @@
                     <MenuItem Header="Cache list" Click="MenuItem_Click" />
                     <MenuItem Header="Geocache viewer" Click="MenuItem_Click_1" />
                     <MenuItem Header="Application info" Click="MenuItem_Click_10" />
+                    <MenuItem Header="{l:Translate Maps}">
+                        <MenuItem Header="Google Maps" Click="MenuItem_Click_7" />
+                    </MenuItem>
                 </MenuItem>
             </Menu>
             <ToolBarTray>

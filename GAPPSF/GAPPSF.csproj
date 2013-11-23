@@ -139,6 +139,7 @@
     <Compile Include="Core\Settings\ApplicationSettings.cs" />
     <Compile Include="Core\Settings\CacheListSettings.cs" />
     <Compile Include="Core\Settings\GeocacheViewerSettings.cs" />
+    <Compile Include="Core\Settings\GoogleMapSettings.cs" />
     <Compile Include="Core\Settings\LiveAPISettings.cs" />
     <Compile Include="Core\Settings\MainWindowSettings.cs" />
     <Compile Include="Core\Settings\Settings.cs" />
@@ -187,6 +188,9 @@
     <Compile Include="UIControls\EnumBooleanConverter.cs" />
     <Compile Include="UIControls\GeocacheViewer\GeocacheViewer.xaml.cs">
       <DependentUpon>GeocacheViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UIControls\GMap\GoogleMap.xaml.cs">
+      <DependentUpon>GoogleMap.xaml</DependentUpon>
     </Compile>
     <Compile Include="UIControls\IUIControl.cs" />
     <Compile Include="UIControls\NumericUpDown.xaml.cs">
@@ -361,6 +365,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIControls\GeocacheViewer\GeocacheViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\GMap\GoogleMap.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -763,7 +771,92 @@
     <Resource Include="Resources\General\arrow-up.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="UIControls\GoogleMap\" />
+    <Resource Include="UIControls\GMap\MultipleGeocache.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UIControls\GMap\MultipleGeocache.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UIControls\GMap\SingleGeocache.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UIControls\GMap\SingleGeocache.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\CacheTypes\Map\11.png" />
+    <Resource Include="Resources\CacheTypes\Map\12.png" />
+    <Resource Include="Resources\CacheTypes\Map\137.png" />
+    <Resource Include="Resources\CacheTypes\Map\2.png" />
+    <Resource Include="Resources\CacheTypes\Map\3.png" />
+    <Resource Include="Resources\CacheTypes\Map\5.png" />
+    <Resource Include="Resources\CacheTypes\Map\6.png" />
+    <Resource Include="Resources\CacheTypes\Map\63542.png" />
+    <Resource Include="Resources\CacheTypes\Map\8.png" />
+    <Resource Include="Resources\CacheTypes\Map\95342.png" />
+    <Resource Include="Resources\CacheTypes\Map\95343.png" />
+    <Resource Include="Resources\CacheTypes\Map\95344.png" />
+    <Resource Include="Resources\CacheTypes\Map\95345.png" />
+    <Resource Include="Resources\CacheTypes\Map\95346.png" />
+    <Resource Include="Resources\CacheTypes\Map\95347.png" />
+    <Resource Include="Resources\CacheTypes\Map\95348.png" />
+    <Resource Include="Resources\CacheTypes\Map\96001.png" />
+    <Resource Include="Resources\CacheTypes\Map\96002.png" />
+    <Resource Include="Resources\CacheTypes\Map\96003.png" />
+    <Resource Include="Resources\CacheTypes\Map\96004.png" />
+    <Resource Include="Resources\CacheTypes\Map\96005.png" />
+    <Resource Include="Resources\CacheTypes\Map\96006.png" />
+    <Resource Include="Resources\CacheTypes\Map\96007.png" />
+    <Resource Include="Resources\CacheTypes\Map\96008.png" />
+    <Resource Include="Resources\CacheTypes\Map\96009.png" />
+    <Resource Include="Resources\CacheTypes\Map\c11.png" />
+    <Resource Include="Resources\CacheTypes\Map\c12.png" />
+    <Resource Include="Resources\CacheTypes\Map\c137.png" />
+    <Resource Include="Resources\CacheTypes\Map\c2.png" />
+    <Resource Include="Resources\CacheTypes\Map\c3.png" />
+    <Resource Include="Resources\CacheTypes\Map\c5.png" />
+    <Resource Include="Resources\CacheTypes\Map\c6.png" />
+    <Resource Include="Resources\CacheTypes\Map\c63542.png" />
+    <Resource Include="Resources\CacheTypes\Map\c8.png" />
+    <Resource Include="Resources\CacheTypes\Map\c95342.png" />
+    <Resource Include="Resources\CacheTypes\Map\c95343.png" />
+    <Resource Include="Resources\CacheTypes\Map\c95344.png" />
+    <Resource Include="Resources\CacheTypes\Map\c95345.png" />
+    <Resource Include="Resources\CacheTypes\Map\c95346.png" />
+    <Resource Include="Resources\CacheTypes\Map\c95347.png" />
+    <Resource Include="Resources\CacheTypes\Map\c95348.png" />
+    <Resource Include="Resources\CacheTypes\Map\c96001.png" />
+    <Resource Include="Resources\CacheTypes\Map\c96002.png" />
+    <Resource Include="Resources\CacheTypes\Map\c96003.png" />
+    <Resource Include="Resources\CacheTypes\Map\c96004.png" />
+    <Resource Include="Resources\CacheTypes\Map\c96005.png" />
+    <Resource Include="Resources\CacheTypes\Map\c96006.png" />
+    <Resource Include="Resources\CacheTypes\Map\c96007.png" />
+    <Resource Include="Resources\CacheTypes\Map\c96008.png" />
+    <Resource Include="Resources\CacheTypes\Map\c96009.png" />
+    <Resource Include="Resources\CacheTypes\Map\curpos.png" />
+    <Resource Include="Resources\CacheTypes\Map\gevonden.png" />
+    <Resource Include="Resources\CacheTypes\Map\mrk_flag.png" />
+    <Resource Include="Resources\CacheTypes\Map\mrk_hitchh.png" />
+    <Resource Include="Resources\CacheTypes\Map\mrk_myown.png" />
+    <Resource Include="Resources\CacheTypes\Map\mrk_other.png" />
+    <Resource Include="Resources\CacheTypes\Map\mrk_pkg.png" />
+    <Resource Include="Resources\CacheTypes\Map\mrk_puzzle.png" />
+    <Resource Include="Resources\CacheTypes\Map\mrk_stage.png" />
+    <Resource Include="Resources\CacheTypes\Map\mrk_trailhead.png" />
+    <Resource Include="Resources\CacheTypes\Map\mrk_virtual.png" />
+    <Resource Include="Resources\CacheTypes\Map\mrk_waypoint.png" />
+    <Resource Include="Resources\CacheTypes\Map\munzee_map_pin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\CacheTypes\Map\0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\WPTypes\217.gif" />
+    <Resource Include="Resources\WPTypes\218.gif" />
+    <Resource Include="Resources\WPTypes\219.gif" />
+    <Resource Include="Resources\WPTypes\220.gif" />
+    <Resource Include="Resources\WPTypes\221.gif" />
+    <Resource Include="Resources\WPTypes\452.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

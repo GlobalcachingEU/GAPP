@@ -16,6 +16,9 @@
                 <MenuItem Header="Cache list" Click="MenuItem_Click_1" />
                 <MenuItem Header="Geocache viewer" Click="MenuItem_Click_2" />
                 <MenuItem Header="Application info" Click="MenuItem_Click_3" />
+                <MenuItem Header="Maps">
+                    <MenuItem Header="Google map" Click="MenuItem_Click_4" />
+                </MenuItem>
             </MenuItem>
         </Menu>
         <Button Width="20" Height="20" HorizontalAlignment="Right" Click="Button_Click">

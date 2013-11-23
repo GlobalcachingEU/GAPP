@@ -66,6 +66,7 @@ namespace GAPPSF
             UIControls.UIControlContainer ucc = sender as UIControls.UIControlContainer;
             if (ucc != null)
             {
+                ucc.DisposeOnClear = false;
                 if (ucc == expandedPanelContent)
                 {
                     //minimize
@@ -74,7 +75,9 @@ namespace GAPPSF
                     UIControls.UIControlContainer targetUc = normalView.FindName(Core.Settings.Default.MainWindowMiximizedPanelName) as UIControls.UIControlContainer;
                     if (targetUc != null)
                     {
+                        targetUc.DisposeOnClear = true;
                         targetUc.FeatureControl = uc;
+                        targetUc.DisposeOnClear = false;
                     }
                     expandedView.Visibility = System.Windows.Visibility.Collapsed;
                     normalView.Visibility = System.Windows.Visibility.Visible;
@@ -87,10 +90,13 @@ namespace GAPPSF
                     Core.Settings.Default.MainWindowMiximizedPanelName = ucc.Name;
                     UserControl uc = ucc.FeatureControl;
                     ucc.FeatureControl = null;
+                    expandedPanelContent.DisposeOnClear = false;
                     expandedPanelContent.FeatureControl = uc;
+                    expandedPanelContent.DisposeOnClear = true;
                     normalView.Visibility = System.Windows.Visibility.Collapsed;
                     expandedView.Visibility = System.Windows.Visibility.Visible;
                 }
+                ucc.DisposeOnClear = true;
             }
         }
 
@@ -439,6 +445,13 @@ namespace GAPPSF
             }
 
             return foundChild;
+        }
+
+        private void MenuItem_Click_7(object sender, RoutedEventArgs e)
+        {
+            Window w = new FeatureWindow(new UIControls.GMap.GoogleMap());
+            w.Owner = this;
+            w.Show();
         }
     }
 }

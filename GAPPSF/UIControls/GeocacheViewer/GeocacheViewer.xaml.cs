@@ -29,7 +29,6 @@ namespace GAPPSF.UIControls
         public GeocacheViewer()
         {
             InitializeComponent();
-            UpdateView();
 
             if (_defaultGeocacheTemplateHtml==null)
             {
@@ -46,6 +45,8 @@ namespace GAPPSF.UIControls
 
             Core.ApplicationData.Instance.PropertyChanged += Instance_PropertyChanged;
             Core.Settings.Default.PropertyChanged += Default_PropertyChanged;
+
+            UpdateView();
         }
 
         void Default_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

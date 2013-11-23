@@ -25,8 +25,11 @@ namespace GAPPSF.UIControls
         public event PropertyChangedEventHandler PropertyChanged;
         public event EventHandler WindowStateButtonClick;
 
+        public bool DisposeOnClear { get; set; }
+
         public UIControlContainer()
         {
+            DisposeOnClear = true;
             InitializeComponent();
         }
 
@@ -154,7 +157,7 @@ namespace GAPPSF.UIControls
         {
             while (containerGrid.Children.Count>0)
             {
-                if (containerGrid.Children[0] is IDisposable)
+                if (DisposeOnClear && containerGrid.Children[0] is IDisposable)
                 {
                     IDisposable a = containerGrid.Children[0] as IDisposable;
                     containerGrid.Children.RemoveAt(0);
@@ -195,6 +198,11 @@ namespace GAPPSF.UIControls
             {
                 WindowStateButtonClick(this, EventArgs.Empty);
             }
+        }
+
+        private void MenuItem_Click_4(object sender, RoutedEventArgs e)
+        {
+            FeatureControl = new GMap.GoogleMap();
         }
 
     }
