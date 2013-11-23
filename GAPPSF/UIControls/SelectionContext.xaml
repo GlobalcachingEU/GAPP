@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="GAPPSF.UIControls.SelectionContext"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:l="clr-namespace:GAPPSF.UIControls" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.Resources>
+            <l:EnumBooleanConverter x:Key="enumBooleanConverter" />
+        </Grid.Resources>
+        <StackPanel >
+            <RadioButton IsChecked="{Binding Path=SelectedContext, Converter={StaticResource enumBooleanConverter}, ConverterParameter=NewSelection}">New selection</RadioButton>
+            <RadioButton IsChecked="{Binding Path=SelectedContext, Converter={StaticResource enumBooleanConverter}, ConverterParameter=WithinSelection}">Within selection</RadioButton>
+            <RadioButton IsChecked="{Binding Path=SelectedContext, Converter={StaticResource enumBooleanConverter}, ConverterParameter=AddToSelection}">Add to current selection</RadioButton>
+        </StackPanel>
+    </Grid>
+</UserControl>

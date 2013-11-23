@@ -184,12 +184,16 @@
     <Compile Include="UIControls\CacheList\CacheListColumnInfo.cs" />
     <Compile Include="UIControls\CacheList\CacheListColumnInfoCollection.cs" />
     <Compile Include="UIControls\CheckedListItem.cs" />
+    <Compile Include="UIControls\EnumBooleanConverter.cs" />
     <Compile Include="UIControls\GeocacheViewer\GeocacheViewer.xaml.cs">
       <DependentUpon>GeocacheViewer.xaml</DependentUpon>
     </Compile>
     <Compile Include="UIControls\IUIControl.cs" />
     <Compile Include="UIControls\NumericUpDown.xaml.cs">
       <DependentUpon>NumericUpDown.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UIControls\SelectionContext.xaml.cs">
+      <DependentUpon>SelectionContext.xaml</DependentUpon>
     </Compile>
     <Compile Include="UIControls\UIControlContainer.xaml.cs">
       <DependentUpon>UIControlContainer.xaml</DependentUpon>
@@ -363,6 +367,10 @@
     <Page Include="UIControls\NumericUpDown.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UIControls\SelectionContext.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIControls\UIControlContainer.xaml">
       <SubType>Designer</SubType>
@@ -754,7 +762,9 @@
     <Resource Include="Resources\General\arrow-down.png" />
     <Resource Include="Resources\General\arrow-up.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="UIControls\GoogleMap\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)GlobalcachingApplication\bin\$(ConfigurationName)\"</PostBuildEvent>

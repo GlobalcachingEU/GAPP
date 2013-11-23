@@ -46,7 +46,7 @@ namespace GAPPSF.Commands
 
         public bool CanExecute(object parameter)
         {
-            return _canExecute == null ? true : _canExecute(parameter);
+            return _canExecute == null ? Core.ApplicationData.Instance.UIIsIdle : Core.ApplicationData.Instance.UIIsIdle && _canExecute(parameter);
         }
 
         public event EventHandler CanExecuteChanged

@@ -17,9 +17,13 @@
         <properties:Settings x:Key="Settings" />
         <properties:ApplicationData x:Key="ApplicationData" />
     </UserControl.Resources>
-    <Grid x:Name="topGrid">
-        <StackPanel HorizontalAlignment="Stretch">
-            <Expander 
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+            <Expander
+                Grid.Row="0"
             Header="Settings"
             HorizontalAlignment="Stretch">
                 <Expander.Content>
@@ -60,11 +64,12 @@
                     </Grid>
                 </Expander.Content>
             </Expander>
-            <DataGrid VirtualizingStackPanel.VirtualizationMode="Recycling"  
+            <DataGrid Grid.Row="1"
+                VirtualizingStackPanel.VirtualizationMode="Recycling"  
                   AutoGenerateColumns="False" 
-                  Height="{Binding ElementName=topGrid, Path=ActualHeight}" 
+                  VerticalAlignment="Stretch" 
                   Name="cacheList" HorizontalAlignment="Stretch" 
-                  HorizontalScrollBarVisibility="Auto" 
+                  HorizontalScrollBarVisibility="Visible" 
                   CanUserAddRows="False" 
                   CanUserDeleteRows="False"
                   ItemsSource="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveDatabase.GeocacheCollectionView}"
@@ -163,6 +168,5 @@
                     <DataGridTextColumn Binding="{Binding Path=., Converter={StaticResource GeocacheCoordConverter}}" Header="Coordinates" IsReadOnly="True" Visibility="Hidden"/>
                 </DataGrid.Columns>
             </DataGrid>
-        </StackPanel>
     </Grid>
 </UserControl>

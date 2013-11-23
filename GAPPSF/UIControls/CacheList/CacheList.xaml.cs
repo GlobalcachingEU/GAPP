@@ -24,7 +24,6 @@ namespace GAPPSF.UIControls
     /// </summary>
     public partial class CacheList : UserControl, IDisposable, IUIControl
     {
-        private int _rowIndex = 0;
         private ICollectionView _geocacheCollectionView = null;
         private static CacheListColumnInfoCollection _cacheListColumnInfoCollection = null;
 
@@ -139,12 +138,7 @@ namespace GAPPSF.UIControls
             GAPPSF.Core.Data.Geocache item = e.Row.Item as GAPPSF.Core.Data.Geocache;
             if (item != null)
             {
-                if (e.Row.GetIndex() < _rowIndex)
-                {
-                    _rowIndex = 0;
-                }
-                _rowIndex++;
-                e.Row.Header = (_rowIndex).ToString();
+                e.Row.Header = (e.Row.GetIndex()).ToString();
             }
             else
             {

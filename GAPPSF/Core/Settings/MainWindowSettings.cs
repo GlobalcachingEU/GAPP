@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace GAPPSF.Core
 {
@@ -70,6 +73,36 @@ namespace GAPPSF.Core
         public int MainWindowLeft
         {
             get { return int.Parse(GetProperty("10")); }
+            set { SetProperty(value.ToString()); }
+        }
+
+        public GridLength MainWindowLeftPanelWidth
+        {
+            get { return new GridLength(double.Parse(GetProperty("300"), CultureInfo.InvariantCulture)); }
+            set { SetProperty(value.Value.ToString(CultureInfo.InvariantCulture)); }
+        }
+
+        public bool MainWindowLeftPanelIsExpanded
+        {
+            get { return bool.Parse(GetProperty("False")); }
+            set { SetProperty(value.ToString()); }
+        }
+
+        public GridLength MainWindowRightPanelWidth
+        {
+            get { return new GridLength(double.Parse("300", CultureInfo.InvariantCulture)); }//return new GridLength(double.Parse(GetProperty("300"), CultureInfo.InvariantCulture)); }
+            set { SetProperty(value.Value.ToString(CultureInfo.InvariantCulture)); }
+        }
+
+        public bool MainWindowRightPanelIsExpanded
+        {
+            get { return bool.Parse(GetProperty("False")); }
+            set { SetProperty(value.ToString()); }
+        }
+
+        public bool MainWindowBottomPanelIsExpanded
+        {
+            get { return bool.Parse(GetProperty("False")); }
             set { SetProperty(value.ToString()); }
         }
 
