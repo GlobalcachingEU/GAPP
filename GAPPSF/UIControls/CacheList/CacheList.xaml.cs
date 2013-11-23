@@ -26,7 +26,7 @@ namespace GAPPSF.UIControls
     {
         private int _rowIndex = 0;
         private ICollectionView _geocacheCollectionView = null;
-        public static CacheListColumnInfoCollection _cacheListColumnInfoCollection = null;
+        private static CacheListColumnInfoCollection _cacheListColumnInfoCollection = null;
 
         public CacheList()
         {
@@ -45,6 +45,11 @@ namespace GAPPSF.UIControls
 
             Core.Settings.Default.PropertyChanged += Default_PropertyChanged;
             Core.ApplicationData.Instance.PropertyChanged += Instance_PropertyChanged;
+        }
+
+        public static CacheListColumnInfoCollection ColumnInfoCollection
+        {
+            get { return _cacheListColumnInfoCollection; }
         }
 
         private bool GeocacheViewFilter(object o)

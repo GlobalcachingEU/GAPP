@@ -45,10 +45,20 @@ namespace GAPPSF.UIControls
             }
 
             Core.ApplicationData.Instance.PropertyChanged += Instance_PropertyChanged;
+            Core.Settings.Default.PropertyChanged += Default_PropertyChanged;
+        }
+
+        void Default_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName.StartsWith("GCViewer"))
+            {
+                UpdateView();
+            }
         }
 
         public void Dispose()
         {
+            Core.Settings.Default.PropertyChanged -= Default_PropertyChanged;
             Core.ApplicationData.Instance.PropertyChanged -= Instance_PropertyChanged;
         }
 

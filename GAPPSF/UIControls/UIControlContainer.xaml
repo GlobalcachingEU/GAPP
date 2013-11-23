@@ -10,7 +10,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Menu  Grid.Row="0">
+        <Menu  Grid.Row="0" MouseDoubleClick="Button_Click">
             <MenuItem Header="Feature">
                 <MenuItem Header="Clear" Click="MenuItem_Click" />
                 <MenuItem Header="Cache list" Click="MenuItem_Click_1" />

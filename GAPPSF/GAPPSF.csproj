@@ -180,6 +180,9 @@
       <DependentUpon>GeocacheViewer.xaml</DependentUpon>
     </Compile>
     <Compile Include="UIControls\IUIControl.cs" />
+    <Compile Include="UIControls\NumericUpDown.xaml.cs">
+      <DependentUpon>NumericUpDown.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIControls\UIControlContainer.xaml.cs">
       <DependentUpon>UIControlContainer.xaml</DependentUpon>
     </Compile>
@@ -344,6 +347,10 @@
     <Page Include="UIControls\GeocacheViewer\GeocacheViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\NumericUpDown.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UIControls\UIControlContainer.xaml">
       <SubType>Designer</SubType>
@@ -730,6 +737,10 @@
     <Resource Include="Resources\LogTypes\74.gif" />
     <Resource Include="Resources\LogTypes\75.gif" />
     <Resource Include="Resources\LogTypes\9.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\arrow-down.png" />
+    <Resource Include="Resources\General\arrow-up.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

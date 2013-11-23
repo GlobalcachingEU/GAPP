@@ -44,7 +44,7 @@
                             </Button>
                         </StackPanel>
                         <Grid Grid.Column="1">
-                            <ListView>
+                            <ListView ItemsSource="{Binding ColumnInfoCollection}">
                                 <ListView.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <UniformGrid Rows="3" />
