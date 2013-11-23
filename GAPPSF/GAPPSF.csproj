@@ -80,6 +80,8 @@
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -137,6 +139,7 @@
     <Compile Include="Core\Settings\ApplicationSettings.cs" />
     <Compile Include="Core\Settings\CacheListSettings.cs" />
     <Compile Include="Core\Settings\GeocacheViewerSettings.cs" />
+    <Compile Include="Core\Settings\LiveAPISettings.cs" />
     <Compile Include="Core\Settings\MainWindowSettings.cs" />
     <Compile Include="Core\Settings\Settings.cs" />
     <Compile Include="Core\Settings\ISettingsStorage.cs" />
@@ -156,6 +159,11 @@
     <Compile Include="Gavaghan.Geodesy\GeodeticMeasurement.cs" />
     <Compile Include="Gavaghan.Geodesy\GlobalCoordinates.cs" />
     <Compile Include="Gavaghan.Geodesy\GlobalPosition.cs" />
+    <Compile Include="LiveAPI\AuthorizationWindow.xaml.cs">
+      <DependentUpon>AuthorizationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LiveAPI\GeocachingLive.cs" />
+    <Compile Include="LiveAPI\Live.cs" />
     <Compile Include="Localization\ITranslationProvider.cs" />
     <Compile Include="Localization\LanguageChangedEventManager.cs" />
     <Compile Include="Localization\ResxTranslationProvider.cs" />
@@ -199,6 +207,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="FeatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LiveAPI\AuthorizationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -742,6 +754,7 @@
     <Resource Include="Resources\General\arrow-down.png" />
     <Resource Include="Resources\General\arrow-up.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)GlobalcachingApplication\bin\$(ConfigurationName)\"</PostBuildEvent>

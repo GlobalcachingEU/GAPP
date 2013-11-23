@@ -304,6 +304,24 @@ namespace GAPPSF
             }
         }
 
+        RelayCommand _liveApiAuthorizeCommand;
+        public ICommand LiveApiAuthorizeCommand
+        {
+            get
+            {
+                if (_liveApiAuthorizeCommand == null)
+                {
+                    _liveApiAuthorizeCommand = new RelayCommand(param => this.LiveAPIAuthorize());
+                }
+                return _liveApiAuthorizeCommand;
+            }
+        }
+        public void LiveAPIAuthorize()
+        {
+            LiveAPI.GeocachingLiveV6.Authorize(true);
+        }
+
+
         AsyncDelegateCommand _openCommand;
         public ICommand OpenCommand
         {

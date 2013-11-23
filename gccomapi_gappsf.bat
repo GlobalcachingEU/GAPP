@@ -1,0 +1,1 @@
+"c:\Program Files (x86)\Microsoft SDKs\Windows\v8.1A\bin\NETFX 4.5.1 Tools\svcutil.exe" https://api.groundspeak.com/LiveV6/geocaching.svc?wsdl /namespace:*,GAPPSF.LiveAPI.LiveV6

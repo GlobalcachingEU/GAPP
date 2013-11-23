@@ -33,6 +33,9 @@
                 </MenuItem>
                 <MenuItem Header="{l:Translate Action}">
                 </MenuItem>
+                <MenuItem Header="{l:Translate LiveAPI}">
+                    <MenuItem Header="{l:Translate Authorize}" Command="{Binding LiveApiAuthorizeCommand}" />
+                </MenuItem>
                 <MenuItem Header="{l:Translate Language}">
                     <MenuItem Header="{l:Translate OriginalText}" Click="MenuItem_Click_2"  />
                     <MenuItem Header="{l:Translate English}" Click="MenuItem_Click_3">
