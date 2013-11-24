@@ -16,9 +16,9 @@ namespace GAPPSF.Core.Data
         {
             //4 levels
             new long[] {},
-            new long[] {1100},
-            new long[] {1100},
-            new long[] {1100}
+            new long[] {1100, 194, 198, 206},
+            new long[] {1100, 194, 198, 206},
+            new long[] {1100, 194, 198, 206}
         };
 
         //already stored

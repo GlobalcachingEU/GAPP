@@ -175,7 +175,8 @@ function addClickListener(marker) {
 	var gccode = marker.getTitle();
 	google.maps.event.addListener(marker, 'click', function () {
 		ignoreCenter = true;
-		selectedMarker = gccode;
+		//selectedMarker = gccode;
+		window.external.geocacheClick(gccode);
 	});
 }
 

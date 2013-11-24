@@ -858,6 +858,12 @@
     <Resource Include="Resources\WPTypes\221.gif" />
     <Resource Include="Resources\WPTypes\452.gif" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\CacheTypes\0.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\WPTypes\0.gif" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)GlobalcachingApplication\bin\$(ConfigurationName)\"</PostBuildEvent>

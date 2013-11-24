@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              xmlns:p="clr-namespace:GAPPSF.Core"
+             xmlns:ui="clr-namespace:GAPPSF.UIControls" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <p:Settings x:Key="Settings" />
@@ -20,6 +21,17 @@
             HorizontalAlignment="Stretch">
             <Expander.Content>
                 <Grid>
+                    <Grid>
+                        <Grid.Resources>
+                            <ui:EnumBooleanConverter x:Key="enumBooleanConverter" />
+                        </Grid.Resources>
+                        <StackPanel >
+                            <RadioButton GroupName="selection" IsChecked="{Binding Path=TargetGeocaches, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Active}">Active</RadioButton>
+                            <RadioButton GroupName="selection" IsChecked="{Binding Path=TargetGeocaches, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Selected}">Selected</RadioButton>
+                            <RadioButton GroupName="selection" IsChecked="{Binding Path=TargetGeocaches, Converter={StaticResource enumBooleanConverter}, ConverterParameter=All}">All</RadioButton>
+                        </StackPanel>
+
+                    </Grid>
                 </Grid>
             </Expander.Content>
         </Expander>
