@@ -11,7 +11,7 @@ todo:
 V1.9.9.0
 
 - fix: Google maps, setting text for show geocache name
-- fix: Geo logs of others users now works also if you select a specific user instead of all users.
+- fix: Get logs of others users now works also if you select a specific user instead of all users.
 
 V1.9.8.0
 
