@@ -105,6 +105,8 @@
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Core\Data\AccountInfo.cs" />
     <Compile Include="Core\Data\AccountInfoCollection.cs" />
+    <Compile Include="Core\Data\AreaInfo.cs" />
+    <Compile Include="Core\Data\AreaType.cs" />
     <Compile Include="Core\Data\CompassDirection.cs" />
     <Compile Include="Core\Data\GeocacheAttribute.cs" />
     <Compile Include="Core\Data\GeocacheAttributeCollection.cs" />
@@ -127,6 +129,7 @@
     <Compile Include="Core\Data\LogImageData.cs" />
     <Compile Include="Core\Data\LogType.cs" />
     <Compile Include="Core\Data\LogTypeCollection.cs" />
+    <Compile Include="Core\Data\Polygon.cs" />
     <Compile Include="Core\Data\UserWaypoint.cs" />
     <Compile Include="Core\Data\UserWaypointCollection.cs" />
     <Compile Include="Core\Data\UserWaypointData.cs" />
@@ -144,11 +147,22 @@
     <Compile Include="Core\Settings\MainWindowSettings.cs" />
     <Compile Include="Core\Settings\Settings.cs" />
     <Compile Include="Core\Settings\ISettingsStorage.cs" />
+    <Compile Include="Core\Settings\ShapefilesSettings.cs" />
     <Compile Include="Core\Settings\SqliteSettingsStorage.cs" />
     <Compile Include="Core\Storage\DatabaseCollection.cs" />
     <Compile Include="Dialogs\ProgessWindow.xaml.cs">
       <DependentUpon>ProgessWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DotNetDBF\DBFBase.cs" />
+    <Compile Include="DotNetDBF\DBFException.cs" />
+    <Compile Include="DotNetDBF\DBFField.cs" />
+    <Compile Include="DotNetDBF\DBFFieldType.cs" />
+    <Compile Include="DotNetDBF\DBFHeader.cs" />
+    <Compile Include="DotNetDBF\DBFReader.cs" />
+    <Compile Include="DotNetDBF\DBFWriter.cs" />
+    <Compile Include="DotNetDBF\DBTHeader.cs" />
+    <Compile Include="DotNetDBF\MemoValue.cs" />
+    <Compile Include="DotNetDBF\Utils.cs" />
     <Compile Include="FeatureWindow.xaml.cs">
       <DependentUpon>FeatureWindow.xaml</DependentUpon>
     </Compile>
@@ -176,6 +190,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Shapefiles\SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Shapefiles\ShapeFile.cs" />
+    <Compile Include="Shapefiles\ShapeFileInfo.cs" />
+    <Compile Include="Shapefiles\ShapeFilesManager.cs" />
     <Compile Include="UIControls\ApplicationDataInfo\ApplicationDataInfo.xaml.cs">
       <DependentUpon>ApplicationDataInfo.xaml</DependentUpon>
     </Compile>
@@ -356,6 +376,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Shapefiles\SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UIControls\ApplicationDataInfo\ApplicationDataInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -864,6 +888,7 @@
   <ItemGroup>
     <Resource Include="Resources\WPTypes\0.gif" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)GlobalcachingApplication\bin\$(ConfigurationName)\"</PostBuildEvent>
