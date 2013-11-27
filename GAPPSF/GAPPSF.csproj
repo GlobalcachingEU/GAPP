@@ -145,6 +145,7 @@
     <Compile Include="Core\Settings\GoogleMapSettings.cs" />
     <Compile Include="Core\Settings\LiveAPISettings.cs" />
     <Compile Include="Core\Settings\MainWindowSettings.cs" />
+    <Compile Include="Core\Settings\OfflineImageSettings.cs" />
     <Compile Include="Core\Settings\Settings.cs" />
     <Compile Include="Core\Settings\ISettingsStorage.cs" />
     <Compile Include="Core\Settings\ShapefilesSettings.cs" />
@@ -216,6 +217,7 @@
     <Compile Include="UIControls\NumericUpDown.xaml.cs">
       <DependentUpon>NumericUpDown.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UIControls\OfflineImages\OfflineImagesManager.cs" />
     <Compile Include="UIControls\SelectionContext.xaml.cs">
       <DependentUpon>SelectionContext.xaml</DependentUpon>
     </Compile>
