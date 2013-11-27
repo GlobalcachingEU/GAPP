@@ -453,5 +453,11 @@ namespace GAPPSF
             w.Owner = this;
             w.Show();
         }
+
+        private void MenuItem_Click_8(object sender, RoutedEventArgs e)
+        {
+            Shapefiles.SettingsWindow dlg = new Shapefiles.SettingsWindow();
+            dlg.ShowDialog();
+        }
     }
 }

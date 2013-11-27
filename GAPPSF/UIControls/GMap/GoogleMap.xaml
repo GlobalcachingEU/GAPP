@@ -21,7 +21,11 @@
             HorizontalAlignment="Stretch">
             <Expander.Content>
                 <Grid>
-                    <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
                         <Grid.Resources>
                             <ui:EnumBooleanConverter x:Key="enumBooleanConverter" />
                         </Grid.Resources>
@@ -31,6 +35,22 @@
                             <RadioButton GroupName="selection" IsChecked="{Binding Path=TargetGeocaches, Converter={StaticResource enumBooleanConverter}, ConverterParameter=All}">All</RadioButton>
                         </StackPanel>
 
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="150" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Level" />
+                        <ComboBox x:Name="areaLevel" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Arealevels}" SelectionChanged="areaLevel_SelectionChanged" />
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Name" />
+                        <ComboBox x:Name="areaName" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Areanames}" />
+                        <Button Grid.Row="2" Grid.ColumnSpan="2" Content="Add" Click="Button_Click" />
                     </Grid>
                 </Grid>
             </Expander.Content>

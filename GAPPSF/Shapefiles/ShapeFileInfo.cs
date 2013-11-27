@@ -12,10 +12,10 @@ namespace GAPPSF.Shapefiles
         public string Filename { get; set; }
         public string TableName { get; set; }
         public List<string> TableNames { get; set; }
-        public ShapeFile.CoordType TCoord { get; set; }
-        public ShapeFile.CoordType TCoords { get; set; }
-        public Core.Data.AreaType TArea { get; set; }
-        public Core.Data.AreaType TAreas { get; set; }
+        public string TCoord { get; set; }
+        public List<string> TCoords { get; set; }
+        public string TArea { get; set; }
+        public List<string> TAreas { get; set; }
         public string Prefix { get; set; }
     }
 }

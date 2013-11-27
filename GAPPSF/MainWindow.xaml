@@ -59,6 +59,9 @@
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
+                <MenuItem Header="{l:Translate Settings}">
+                    <MenuItem Header="Shapefiles" Click="MenuItem_Click_8" />
+                </MenuItem>
                 <MenuItem Header="{l:Translate Window}">
                     <MenuItem Header="Cache list" Click="MenuItem_Click" />
                     <MenuItem Header="Geocache viewer" Click="MenuItem_Click_1" />

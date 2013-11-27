@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -38,6 +39,8 @@ namespace GAPPSF.UIControls.GMap
             All
         };
 
+        public ObservableCollection<Core.Data.AreaType> Arealevels { get; set; }
+        public ObservableCollection<Core.Data.AreaInfo> Areanames { get; set; }
         private Core.Storage.Database _currentConnectedDatabase = null;
         private bool _webBrowserReady = false;
         private GeocachesOnMap _targetGeocaches = GeocachesOnMap.None;
@@ -57,6 +60,13 @@ namespace GAPPSF.UIControls.GMap
 
         public GoogleMap()
         {
+            Arealevels = new ObservableCollection<Core.Data.AreaType>();
+            Areanames = new ObservableCollection<Core.Data.AreaInfo>();
+            foreach (Core.Data.AreaType s in Enum.GetValues(typeof(Core.Data.AreaType)))
+            {
+                Arealevels.Add(s);
+            }
+
             DataContext = this;
 
             InitializeComponent();
@@ -82,8 +92,25 @@ namespace GAPPSF.UIControls.GMap
 
             webBrowser1.LoadCompleted += webBrowser1_LoadCompleted;
             Core.ApplicationData.Instance.PropertyChanged += Instance_PropertyChanged;
+            Shapefiles.ShapeFilesManager.Instance.PropertyChanged += Shapefiles_PropertyChanged;
 
             TargetGeocaches = GeocachesOnMap.Active;
+
+            updateAvailableAreaNames();
+        }
+
+        private void updateAvailableAreaNames()
+        {
+            Areanames.Clear();
+            if (areaLevel.SelectedItem != null)
+            {
+                Core.Data.AreaType al = (Core.Data.AreaType)areaLevel.SelectedItem;
+                List<Core.Data.AreaInfo> ai = Shapefiles.ShapeFilesManager.Instance.GetAreasByLevel(al).OrderBy(x => x.Name).ToList();
+                foreach (var a in ai)
+                {
+                    Areanames.Add(a);
+                }
+            }
         }
 
         public override string ToString()
@@ -186,6 +213,11 @@ namespace GAPPSF.UIControls.GMap
             UpdateView(false);
         }
 
+        void Shapefiles_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            updateAvailableAreaNames();
+        }
+
         void Instance_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "ActiveGeocache")
@@ -201,6 +233,7 @@ namespace GAPPSF.UIControls.GMap
         public void Dispose()
         {
             CurrentConnectedDatabase = null;
+            Shapefiles.ShapeFilesManager.Instance.PropertyChanged -= Shapefiles_PropertyChanged;
             Core.ApplicationData.Instance.PropertyChanged -= Instance_PropertyChanged;
         }
 
@@ -434,6 +467,78 @@ namespace GAPPSF.UIControls.GMap
                     handler(this, new PropertyChangedEventArgs(name));
                 }
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Cursor = Cursors.Wait;
+            try
+            {
+                Core.Data.AreaInfo ai = areaName.SelectedItem as Core.Data.AreaInfo;
+                if (ai != null)
+                {
+                    Shapefiles.ShapeFilesManager.Instance.GetPolygonOfArea(ai);
+                    if (ai.Polygons != null)
+                    {
+                        int count = 0;
+                        while (count < ai.Polygons.Count)
+                        {
+                            addPolygons(ai, ai.Polygons.Skip(count).Take(20).ToList());
+                            count += 100;
+                        }
+                        executeScript("zoomToBounds", new object[] { ai.MinLat, ai.MinLon, ai.MaxLat, ai.MaxLon });
+                        ai.Polygons = null;
+                    }
+                }
+            }
+            catch
+            {
+            }
+            this.Cursor = Cursors.Hand;
+        }
+
+        private void addPolygons(Core.Data.AreaInfo ai, List<Core.Data.Polygon> polys)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("[");
+            bool firstPoly = true;
+            bool firstPoint;
+            foreach (Core.Data.Polygon ps in polys)
+            {
+                //[{points:[{lat, lon},{lat, lon}]},{points:[{lat, lon},{lat, lon}]}]
+                if (!firstPoly)
+                {
+                    sb.Append(",");
+                }
+                else
+                {
+                    firstPoly = false;
+                }
+                sb.Append("{points:[");
+                firstPoint = true;
+                //List < Framework.Data.Location> reduced = Utils.DouglasPeucker.DouglasPeuckerReduction(ps, 0.00001);
+                //foreach (Framework.Data.Location l in reduced)
+                foreach (Core.Data.Location l in ps)
+                {
+                    if (!firstPoint)
+                    {
+                        sb.Append(",");
+                    }
+                    else
+                    {
+                        firstPoint = false;
+                    }
+                    sb.AppendFormat("{{lat: {0}, lon: {1}}}", l.Lat.ToString().Replace(',', '.'), l.Lon.ToString().Replace(',', '.'));
+                }
+                sb.Append("]}");
+            }
+            sb.Append("]");
+            executeScript("addPolygons", new object[] { sb.ToString() });
+        }
+
+        private void areaLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            updateAvailableAreaNames();
         }
 
     }
