@@ -4,13 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
+             Background="#FFFFFFFF"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Menu  Grid.Row="0" MouseDoubleClick="Button_Click">
+        <Menu  Grid.Row="0" MouseDoubleClick="Button_Click" Background="#FFD6DBE9">
             <MenuItem Header="Feature">
                 <MenuItem Header="Clear" Click="MenuItem_Click" />
                 <MenuItem Header="Cache list" Click="MenuItem_Click_1" />

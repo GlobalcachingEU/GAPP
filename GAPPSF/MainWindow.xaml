@@ -10,7 +10,7 @@
         Height="{Binding MainWindowHeight, Mode=TwoWay, Source={x:Static p:Settings.Default}}" 
         Width="{Binding MainWindowWidth, Mode=TwoWay, Source={x:Static p:Settings.Default}}"
         Left="{Binding MainWindowLeft, Mode=TwoWay, Source={x:Static p:Settings.Default}}"
-        Top="{Binding MainWindowTop, Mode=TwoWay, Source={x:Static p:Settings.Default}}" Closing="Window_Closing">
+        Top="{Binding MainWindowTop, Mode=TwoWay, Source={x:Static p:Settings.Default}}" Closing="Window_Closing" Background="#FF293955">
     <Grid x:Name="layoutRoot">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -18,7 +18,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0">
-            <Menu>
+            <Menu Background="#FFD6DBE9">
                 <MenuItem Header="{l:Translate File}">
                     <MenuItem Header="{l:Translate New}" Command="{Binding NewCommand}" />
                     <MenuItem Header="{l:Translate Open}" Command="{Binding OpenCommand}"/>
@@ -71,8 +71,8 @@
                     </MenuItem>
                 </MenuItem>
             </Menu>
-            <ToolBarTray>
-                <ToolBar>
+            <ToolBarTray Background="#FFD6DBE9">
+                <ToolBar Background="#FFCFD6E5">
                     <Button Command="{Binding NewCommand}">
                         <Image Source="/Resources/MainWindow/database_add.png"/>
                     </Button>
@@ -92,9 +92,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
-                <Expander ExpandDirection="Right" HorizontalAlignment="Left" IsExpanded="{Binding MainWindowLeftPanelIsExpanded, Mode=TwoWay, Source={x:Static p:Settings.Default}}">
+                <Expander  ExpandDirection="Right" HorizontalAlignment="Left" IsExpanded="{Binding MainWindowLeftPanelIsExpanded, Mode=TwoWay, Source={x:Static p:Settings.Default}}" Background="#FF293955" Foreground="White">
                     <Expander.Header>
-                        <TextBlock Text="{Binding ElementName=leftPanelContent, Path=Text}">
+                        <TextBlock Text="{Binding ElementName=leftPanelContent, Path=Text}" VerticalAlignment="Stretch">
                             <TextBlock.LayoutTransform>
                                 <RotateTransform Angle="90"/>
                             </TextBlock.LayoutTransform>
@@ -109,7 +109,7 @@
                             <Grid Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <UIControls:UIControlContainer x:Name="leftPanelContent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                             </Grid>
-                            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Right" ResizeBehavior="PreviousAndCurrent" ResizeDirection="Columns"/>
+                            <GridSplitter Background="#FF293955" Grid.Column="1" Width="5" HorizontalAlignment="Right" ResizeBehavior="PreviousAndCurrent" ResizeDirection="Columns"/>
                         </Grid>
                     </Expander.Content>
                 </Expander>
@@ -123,7 +123,7 @@
                     <UIControls:UIControlContainer x:Name="topPanelContent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                 </Grid>
                 <Grid Grid.Row="1">
-                    <Expander ExpandDirection="Up" VerticalAlignment="Top" IsExpanded="{Binding MainWindowBottomPanelIsExpanded, Mode=TwoWay, Source={x:Static p:Settings.Default}}">
+                    <Expander Background="#FF293955" Foreground="White" ExpandDirection="Up" VerticalAlignment="Top" IsExpanded="{Binding MainWindowBottomPanelIsExpanded, Mode=TwoWay, Source={x:Static p:Settings.Default}}">
                         <Expander.Header>
                             <TextBlock>
                                 <TextBlock.Text>
@@ -137,21 +137,21 @@
                         <Expander.Content>
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" MinHeight="10" />
+                                    <RowDefinition Height="*" MinHeight="5" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <GridSplitter Grid.Row="0" Height="10" ResizeDirection="Rows" ResizeBehavior="CurrentAndNext" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+                                <GridSplitter Background="#FF293955" Grid.Row="0" Height="5" ResizeDirection="Rows" ResizeBehavior="CurrentAndNext" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
                                 <Grid Grid.Row="1">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="10" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="5" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
                                     <Grid Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                         <UIControls:UIControlContainer x:Name="bottomLeftPanelContent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                                     </Grid>
-                                    <GridSplitter Grid.Column="1" Width="10" ResizeBehavior="PreviousAndNext" ResizeDirection="Columns"/>
-                                    <Grid Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    <GridSplitter Grid.Column="1" Background="#FF293955" Width="5" ResizeBehavior="PreviousAndNext" ResizeDirection="Columns"/>
+                                    <Grid Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Margin="0,0,0.4,-0.2">
                                         <UIControls:UIControlContainer x:Name="bottomRightPanelContent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                                     </Grid>
                                 </Grid>
@@ -161,7 +161,7 @@
                 </Grid>
             </Grid>
             <Grid Grid.Column="2">
-                <Expander ExpandDirection="Left" HorizontalAlignment="Right" IsExpanded="{Binding MainWindowRightPanelIsExpanded, Mode=TwoWay, Source={x:Static p:Settings.Default}}">
+                <Expander Background="#FF293955" Foreground="White" ExpandDirection="Left" HorizontalAlignment="Right" IsExpanded="{Binding MainWindowRightPanelIsExpanded, Mode=TwoWay, Source={x:Static p:Settings.Default}}">
                     <Expander.Header>
                         <TextBlock Text="{Binding ElementName=rightPanelContent, Path=Text}">
                             <TextBlock.LayoutTransform>
@@ -175,7 +175,7 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <GridSplitter Grid.Column="0" Width="5" ResizeDirection="Columns" ResizeBehavior="CurrentAndNext" HorizontalAlignment="Left" />
+                            <GridSplitter Background="#FF293955" Grid.Column="0" Width="5" ResizeDirection="Columns" ResizeBehavior="CurrentAndNext" HorizontalAlignment="Left" />
                             <Grid Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <UIControls:UIControlContainer x:Name="rightPanelContent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                             </Grid>
@@ -185,7 +185,11 @@
             </Grid>
         </Grid>
         <Grid Grid.Row="2">
-            <TextBlock Text="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveDatabase.Text}" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="373*"/>
+                <ColumnDefinition Width="764*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveDatabase.Text}" Grid.ColumnSpan="2" Margin="0,0,-0.2,0" Background="#FF007ACC" Foreground="White" />
         </Grid>
     </Grid>
 </Window>
