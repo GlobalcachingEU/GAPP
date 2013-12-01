@@ -217,7 +217,10 @@
     <Compile Include="UIControls\NumericUpDown.xaml.cs">
       <DependentUpon>NumericUpDown.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UIControls\OfflineImages\OfflineImagesManager.cs" />
+    <Compile Include="ImageGrabber\OfflineImagesManager.cs" />
+    <Compile Include="UIControls\OfflineImages\Control.xaml.cs">
+      <DependentUpon>Control.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIControls\SelectionContext.xaml.cs">
       <DependentUpon>SelectionContext.xaml</DependentUpon>
     </Compile>
@@ -401,6 +404,10 @@
     <Page Include="UIControls\NumericUpDown.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UIControls\OfflineImages\Control.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIControls\SelectionContext.xaml">
       <SubType>Designer</SubType>

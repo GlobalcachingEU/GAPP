@@ -23,6 +23,7 @@ namespace GAPPSF
                 GAPPSF.Properties.Settings.Default.UpgradeNeeded = false;
                 GAPPSF.Properties.Settings.Default.Save();
             }
+            Core.Settings.Default.SettingsFolder = GAPPSF.Properties.Settings.Default.SettingsFolder;
             string sc = Core.Settings.Default.SelectedCulture;
             if (sc==null)
             {
