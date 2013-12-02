@@ -242,6 +242,41 @@ namespace GAPPSF
             Localization.TranslationManager.Instance.CurrentLanguage = new CultureInfo("nl-NL");
         }
 
+        AsyncDelegateCommand _importGpxCommand;
+        public ICommand ImportGPXCommand
+        {
+            get
+            {
+                if (_importGpxCommand == null)
+                {
+                    _importGpxCommand = new AsyncDelegateCommand(param => this.ImportGPXFile(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null);
+                }
+                return _importGpxCommand;
+            }
+        }
+
+        async private Task ImportGPXFile()
+        {
+
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.FileName = ""; // Default file name
+            dlg.DefaultExt = ".gpx"; // Default file extension
+            dlg.Filter = "GPX files (.gpx)|*.gpx|Pocket Query files (.zip)|*.zip|Garmin GGZ files (.ggz)|*.ggz"; // Filter files by extension 
+
+            // Show open file dialog box
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Process open file dialog box results 
+            if (result == true)
+            {
+                // Open document 
+                GPX.Import imp = new GPX.Import();
+                await imp.ImportFilesAsync(dlg.FileNames);
+            }
+        }
+
+
         AsyncDelegateCommand _importGappCommand;
         public ICommand ImportGAPPCommand
         {

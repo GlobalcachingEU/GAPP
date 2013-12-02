@@ -23,6 +23,7 @@
                     <MenuItem Header="{l:Translate New}" Command="{Binding NewCommand}" />
                     <MenuItem Header="{l:Translate Open}" Command="{Binding OpenCommand}"/>
                     <MenuItem Header="{l:Translate Import}">
+                        <MenuItem Header="GPX" Command="{Binding ImportGPXCommand}" />
                         <MenuItem Header="GAPP Data Storage" Command="{Binding ImportGAPPCommand}" />
                     </MenuItem>
                 </MenuItem>

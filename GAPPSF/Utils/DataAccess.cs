@@ -180,6 +180,24 @@ namespace GAPPSF.Utils
             return result;
         }
 
+
+        public static Core.Data.LogType GetLogType(string keyWord)
+        {
+            Core.Data.LogType result = null;
+
+            keyWord = keyWord.ToLower();
+            result = (from gt in ApplicationData.Instance.LogTypes
+                      where gt.Name.ToLower().Contains(keyWord)
+                      select gt).FirstOrDefault();
+            if (result == null)
+            {
+                //take special ID
+                result = GetLogType(0);
+            }
+            return result;
+        }
+
+
         public static GAPPSF.Core.Data.GeocacheType GetGeocacheType(int typeId)
         {
             GAPPSF.Core.Data.GeocacheType result = null;
@@ -197,7 +215,7 @@ namespace GAPPSF.Utils
             return result;
         }
 
-        public static GAPPSF.Core.Data.GeocacheType GetGeocacheType(GAPPSF.Core.Data.GeocacheTypeCollection gtCollection, string keyWord)
+        public static GAPPSF.Core.Data.GeocacheType GetGeocacheType(string keyWord)
         {
             return GetGeocacheType(keyWord, 0);
         }
@@ -272,6 +290,11 @@ namespace GAPPSF.Utils
         public static List<Core.Data.Log> GetLogs(Database db, string geocacheCode)
         {
             return db.LogCollection.GetLogs(geocacheCode);
+        }
+
+        public static List<Core.Data.LogImage> GetLogImages(Database db, string logId)
+        {
+            return db.LogImageCollection.GetLogImages(logId);
         }
 
     }

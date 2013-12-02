@@ -175,6 +175,7 @@
     <Compile Include="Gavaghan.Geodesy\GeodeticMeasurement.cs" />
     <Compile Include="Gavaghan.Geodesy\GlobalCoordinates.cs" />
     <Compile Include="Gavaghan.Geodesy\GlobalPosition.cs" />
+    <Compile Include="GPX\Import.cs" />
     <Compile Include="LiveAPI\AuthorizationWindow.xaml.cs">
       <DependentUpon>AuthorizationWindow.xaml</DependentUpon>
     </Compile>
@@ -197,6 +198,45 @@
     <Compile Include="Shapefiles\ShapeFile.cs" />
     <Compile Include="Shapefiles\ShapeFileInfo.cs" />
     <Compile Include="Shapefiles\ShapeFilesManager.cs" />
+    <Compile Include="SharpZipLib\Checksums\Adler32.cs" />
+    <Compile Include="SharpZipLib\Checksums\CRC32.cs" />
+    <Compile Include="SharpZipLib\Checksums\IChecksum.cs" />
+    <Compile Include="SharpZipLib\Checksums\StrangeCRC.cs" />
+    <Compile Include="SharpZipLib\Compression\Deflater.cs" />
+    <Compile Include="SharpZipLib\Compression\DeflaterConstants.cs" />
+    <Compile Include="SharpZipLib\Compression\DeflaterEngine.cs" />
+    <Compile Include="SharpZipLib\Compression\DeflaterHuffman.cs" />
+    <Compile Include="SharpZipLib\Compression\DeflaterPending.cs" />
+    <Compile Include="SharpZipLib\Compression\Inflater.cs" />
+    <Compile Include="SharpZipLib\Compression\InflaterDynHeader.cs" />
+    <Compile Include="SharpZipLib\Compression\InflaterHuffmanTree.cs" />
+    <Compile Include="SharpZipLib\Compression\PendingBuffer.cs" />
+    <Compile Include="SharpZipLib\Compression\Streams\DeflaterOutputStream.cs" />
+    <Compile Include="SharpZipLib\Compression\Streams\InflaterInputStream.cs" />
+    <Compile Include="SharpZipLib\Compression\Streams\OutputWindow.cs" />
+    <Compile Include="SharpZipLib\Compression\Streams\StreamManipulator.cs" />
+    <Compile Include="SharpZipLib\Core\FileSystemScanner.cs" />
+    <Compile Include="SharpZipLib\Core\INameTransform.cs" />
+    <Compile Include="SharpZipLib\Core\IScanFilter.cs" />
+    <Compile Include="SharpZipLib\Core\NameFilter.cs" />
+    <Compile Include="SharpZipLib\Core\PathFilter.cs" />
+    <Compile Include="SharpZipLib\Core\StreamUtils.cs" />
+    <Compile Include="SharpZipLib\Core\WindowsPathUtils.cs" />
+    <Compile Include="SharpZipLib\Encryption\PkzipClassic.cs" />
+    <Compile Include="SharpZipLib\FastZip.cs" />
+    <Compile Include="SharpZipLib\IEntryFactory.cs" />
+    <Compile Include="SharpZipLib\SharpZipBaseException.cs" />
+    <Compile Include="SharpZipLib\WindowsNameTransform.cs" />
+    <Compile Include="SharpZipLib\ZipConstants.cs" />
+    <Compile Include="SharpZipLib\ZipEntry.cs" />
+    <Compile Include="SharpZipLib\ZipEntryFactory.cs" />
+    <Compile Include="SharpZipLib\ZipException.cs" />
+    <Compile Include="SharpZipLib\ZipExtraData.cs" />
+    <Compile Include="SharpZipLib\ZipFile.cs" />
+    <Compile Include="SharpZipLib\ZipHelperStream.cs" />
+    <Compile Include="SharpZipLib\ZipInputStream.cs" />
+    <Compile Include="SharpZipLib\ZipNameTransform.cs" />
+    <Compile Include="SharpZipLib\ZipOutputStream.cs" />
     <Compile Include="UIControls\ApplicationDataInfo\ApplicationDataInfo.xaml.cs">
       <DependentUpon>ApplicationDataInfo.xaml</DependentUpon>
     </Compile>

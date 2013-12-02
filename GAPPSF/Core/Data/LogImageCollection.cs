@@ -36,10 +36,10 @@ namespace GAPPSF.Core.Data
             return _qaItems[id] as LogImage;
         }
 
-        public List<LogImage> GetLogImages(string geocacheCode)
+        public List<LogImage> GetLogImages(string logId)
         {
             List<LogImage> result;
-            Hashtable ht = _logGroups[geocacheCode] as Hashtable;
+            Hashtable ht = _logGroups[logId] as Hashtable;
             if (ht != null)
             {
                 result = (from LogImage l in ht.Values select l).OrderBy(x => x.ID).ToList();
