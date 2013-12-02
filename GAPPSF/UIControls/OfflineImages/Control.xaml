@@ -5,7 +5,22 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-            
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" HorizontalAlignment="Stretch">
+            <Button Content="Download images for active geocache" HorizontalAlignment="Stretch" Command="{Binding ImportCurrentCommand}" />
+            <Button Content="Download images for selection" HorizontalAlignment="Stretch" Command="{Binding ImportSelectedCommand}" />
+        </StackPanel>
+        <ListView Grid.Row="1" VerticalAlignment="Stretch" ItemsSource="{Binding ImageInfoCollection}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="URL" DisplayMemberBinding="{Binding Url}"  />
+                    <GridViewColumn Header="File" DisplayMemberBinding="{Binding FileName}"  />
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </UserControl>

@@ -69,6 +69,7 @@
                     <MenuItem Header="{l:Translate Maps}">
                         <MenuItem Header="Google Maps" Click="MenuItem_Click_7" />
                     </MenuItem>
+                    <MenuItem Header="Offline images" Click="MenuItem_Click_9" />
                 </MenuItem>
             </Menu>
             <ToolBarTray Background="#FFD6DBE9">

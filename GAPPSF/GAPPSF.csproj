@@ -221,6 +221,7 @@
     <Compile Include="UIControls\OfflineImages\Control.xaml.cs">
       <DependentUpon>Control.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UIControls\OfflineImages\ImageInfo.cs" />
     <Compile Include="UIControls\SelectionContext.xaml.cs">
       <DependentUpon>SelectionContext.xaml</DependentUpon>
     </Compile>
@@ -235,6 +236,7 @@
     <Compile Include="Utils\DBConComSqlite.cs" />
     <Compile Include="Utils\ProgressBlock.cs" />
     <Compile Include="Utils\ResourceHelper.cs" />
+    <Compile Include="Utils\TemporaryFile.cs" />
     <Page Include="Dialogs\ProgessWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

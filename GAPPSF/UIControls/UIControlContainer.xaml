@@ -20,6 +20,7 @@
                 <MenuItem Header="Maps">
                     <MenuItem Header="Google map" Click="MenuItem_Click_4" />
                 </MenuItem>
+                <MenuItem Header="Offline images" Click="MenuItem_Click_5" />
             </MenuItem>
         </Menu>
         <Button Width="20" Height="20" HorizontalAlignment="Right" Click="Button_Click">

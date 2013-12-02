@@ -459,5 +459,12 @@ namespace GAPPSF
             Shapefiles.SettingsWindow dlg = new Shapefiles.SettingsWindow();
             dlg.ShowDialog();
         }
+
+        private void MenuItem_Click_9(object sender, RoutedEventArgs e)
+        {
+            Window w = new FeatureWindow(new UIControls.OfflineImages.Control());
+            w.Owner = this;
+            w.Show();
+        }
     }
 }

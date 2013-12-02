@@ -205,5 +205,10 @@ namespace GAPPSF.UIControls
             FeatureControl = new GMap.GoogleMap();
         }
 
+        private void MenuItem_Click_5(object sender, RoutedEventArgs e)
+        {
+            FeatureControl = new OfflineImages.Control();
+        }
+
     }
 }
