@@ -11,10 +11,32 @@
             <Expander Header="Databases" HorizontalAlignment="Stretch">
                 <Expander.Content>
                     <StackPanel  HorizontalAlignment="Stretch">
-                    <ListView HorizontalAlignment="Stretch" 
+                        <DataGrid HorizontalAlignment="Stretch" 
                       ItemsSource="{Binding Source={x:Static p:ApplicationData.Instance}, Path=Databases}" 
                       SelectedItem="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveDatabase, Mode=TwoWay}"
-                      />
+                                  AutoGenerateColumns="False"
+                                  CanUserAddRows="False"
+                                  CanUserDeleteRows="False"
+                      >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding Text}" Header="Name" IsReadOnly="True">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                    <DataGridTemplateColumn Header="">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                            <Button Command="{Binding DataContext.RemoveDatabaseCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}">
+                                                <Image Source="\Resources\General\delete.png" />
+                                            </Button>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
                         <Grid  HorizontalAlignment="Stretch">
                             <Grid.Resources>
                                 <Style TargetType="{x:Type TextBlock}">

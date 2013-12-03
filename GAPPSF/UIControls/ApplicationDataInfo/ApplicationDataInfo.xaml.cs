@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GAPPSF.Commands;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,12 +23,39 @@ namespace GAPPSF.UIControls
     {
         public ApplicationDataInfo()
         {
+            DataContext = this;
+
             InitializeComponent();
         }
 
         public override string ToString()
         {
             return "Application info";
+        }
+
+        private RelayCommand _removeDatabaseCommand = null;
+        public RelayCommand RemoveDatabaseCommand
+        {
+            get
+            {
+                if (_removeDatabaseCommand==null)
+                {
+                    _removeDatabaseCommand = new RelayCommand(param => RemoveDatabase(param));
+                }
+                return _removeDatabaseCommand;
+            }
+        }
+        public void RemoveDatabase(object database)
+        {
+            Core.Storage.Database db = database as Core.Storage.Database;
+            if (db!=null)
+            {
+                if (Core.ApplicationData.Instance.ActiveDatabase==db)
+                {
+                    Core.ApplicationData.Instance.ActiveDatabase = null;
+                }
+                Core.ApplicationData.Instance.Databases.Remove(db);
+            }
         }
 
         public int WindowWidth
