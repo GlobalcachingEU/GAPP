@@ -20,6 +20,11 @@ namespace GAPPSF.Core.Data
         {
         }
 
+        public override string ToString()
+        {
+            return Utils.Conversion.GetCoordinatesPresentation(this);
+        }
+
         public Location(double lat, double lon)
         {
             _lat = lat;

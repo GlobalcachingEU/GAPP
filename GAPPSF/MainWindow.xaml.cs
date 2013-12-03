@@ -19,6 +19,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace GAPPSF
 {
@@ -76,6 +77,42 @@ namespace GAPPSF
             if (e.PropertyName == "ActiveDatabase")
             {
                 CurrentConnectedDatabase = Core.ApplicationData.Instance.ActiveDatabase;
+            }
+        }
+
+        private async Task initializeApplicationAsync()
+        {
+            bool autoLoad = Core.Settings.Default.AutoLoadDatabases;
+            string dbs = Core.Settings.Default.OpenedDatabases;
+            string actDb = Core.Settings.Default.ActiveDatabase;
+            string actGc = Core.Settings.Default.ActiveGeocache;
+            Core.Settings.Default.OpenedDatabases = "";
+            if (autoLoad && !string.IsNullOrEmpty(dbs))
+            {
+                string[] lines = dbs.Split(new char[] {'\n','\r' }, StringSplitOptions.RemoveEmptyEntries);
+                int index = 0;
+                using (Utils.ProgressBlock prog = new Utils.ProgressBlock("Loading databases...", "Loading databases...", lines.Length, 0))
+                {
+                    foreach (string s in lines)
+                    {
+                        prog.Update(s,lines.Length, index);
+
+                        Core.Storage.Database db = new Core.Storage.Database(s);
+                        await db.InitializeAsync();
+                        Core.ApplicationData.Instance.Databases.Add(db);
+
+                        index++;
+                        prog.Update(s, lines.Length, index);
+                    }
+                }
+                if (!string.IsNullOrEmpty(actDb))
+                {
+                    Core.ApplicationData.Instance.ActiveDatabase = (from a in Core.ApplicationData.Instance.Databases where a.FileName == actDb select a).FirstOrDefault();
+                }
+                if (Core.ApplicationData.Instance.ActiveDatabase!=null && !string.IsNullOrEmpty(actGc))
+                {
+                    Core.ApplicationData.Instance.ActiveGeocache = (from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection where a.Code == actGc select a).FirstOrDefault();
+                }
             }
         }
 
@@ -605,6 +642,11 @@ namespace GAPPSF
             Window w = new FeatureWindow(new UIControls.OfflineImages.Control());
             w.Owner = this;
             w.Show();
+        }
+
+        private void Window_ContentRendered(object sender, EventArgs e)
+        {
+            Dispatcher.BeginInvoke(new Action(async () => await initializeApplicationAsync()), DispatcherPriority.ContextIdle, null);
         }
 
     }

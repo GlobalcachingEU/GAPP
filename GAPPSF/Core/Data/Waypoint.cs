@@ -37,7 +37,7 @@ namespace GAPPSF.Core.Data
                 bw.Write((bool)(data.Lon != null)); //167
                 bw.Write(data.Lon == null ? (double)0.0 : (double)data.Lon); //168
                 bw.Write(data.Time.ToFileTime()); //176
-                bw.Write(data.WPType.ID); //188
+                bw.Write(data.WPType.ID); //184
                 //spare
                 ms.Position = 200;
                 bw.Write(data.GeocacheCode);
@@ -149,12 +149,12 @@ namespace GAPPSF.Core.Data
         {
             get
             {
-                return Utils.DataAccess.GetWaypointType(readInt(188));
+                return Utils.DataAccess.GetWaypointType(readInt(184));
             }
             set
             {
-                int i = readInt(188);
-                SetProperty(188, ref i, value.ID);
+                int i = readInt(184);
+                SetProperty(184, ref i, value.ID);
             }
         }
 

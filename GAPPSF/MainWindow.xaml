@@ -10,7 +10,8 @@
         Height="{Binding MainWindowHeight, Mode=TwoWay, Source={x:Static p:Settings.Default}}" 
         Width="{Binding MainWindowWidth, Mode=TwoWay, Source={x:Static p:Settings.Default}}"
         Left="{Binding MainWindowLeft, Mode=TwoWay, Source={x:Static p:Settings.Default}}"
-        Top="{Binding MainWindowTop, Mode=TwoWay, Source={x:Static p:Settings.Default}}" Closing="Window_Closing" Background="#FF293955" Icon="Resources/MainWindow/Globalcaching.ico">
+        Top="{Binding MainWindowTop, Mode=TwoWay, Source={x:Static p:Settings.Default}}" Closing="Window_Closing" Background="#FF293955" Icon="Resources/MainWindow/Globalcaching.ico"
+    ContentRendered="Window_ContentRendered">
     <Grid x:Name="layoutRoot">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

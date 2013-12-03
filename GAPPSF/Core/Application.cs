@@ -39,6 +39,7 @@ namespace GAPPSF.Core
             {
                 if (_activeDatabase != value)
                 {
+                    Core.Settings.Default.ActiveDatabase = value == null ? null : value.FileName;
                     ActiveGeocache = null;
                     SetProperty(ref _activeDatabase, value);
                 }
@@ -49,7 +50,11 @@ namespace GAPPSF.Core
         public Data.Geocache ActiveGeocache
         {
             get { return _activeGeocache; }
-            set { SetProperty(ref _activeGeocache, value); }
+            set 
+            {
+                Core.Settings.Default.ActiveGeocache = value == null ? null : value.Code;
+                SetProperty(ref _activeGeocache, value); 
+            }
         }
 
         private int _activityCounter = 0;

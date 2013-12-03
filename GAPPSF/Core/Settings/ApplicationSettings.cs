@@ -21,6 +21,36 @@ namespace GAPPSF.Core
             set { SetProperty(value); }
         }
 
+        public string OpenedDatabases
+        {
+            get { return GetProperty(null); }
+            set { SetProperty(value); }
+        }
+
+        public string ActiveDatabase
+        {
+            get { return GetProperty(null); }
+            set { SetProperty(value); }
+        }
+
+        public string ActiveGeocache
+        {
+            get { return GetProperty(null); }
+            set { SetProperty(value); }
+        }
+
+        public bool AutoLoadDatabases
+        {
+            get { return bool.Parse(GetProperty("True")); }
+            set { SetProperty(value.ToString()); }
+        }
+
+        public bool AutoSelectNewGeocaches
+        {
+            get { return bool.Parse(GetProperty("False")); }
+            set { SetProperty(value.ToString()); }
+        }
+
         public string AccountInfos
         {
             get { return GetProperty(null); }

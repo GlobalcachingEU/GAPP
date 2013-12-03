@@ -951,6 +951,9 @@
   <ItemGroup>
     <Resource Include="Resources\General\delete.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\edit.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)GlobalcachingApplication\bin\$(ConfigurationName)\"</PostBuildEvent>

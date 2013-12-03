@@ -153,7 +153,6 @@ namespace GAPPSF.Core.Storage
                                     break;
                             }
                             fs.Position = ri.Offset + ri.Length;
-
                             if (DateTime.Now>=nextUpdate)
                             {
                                 prog.Update("Loading...", 100, (int)(100.0 * (double)fs.Position / (double)max));

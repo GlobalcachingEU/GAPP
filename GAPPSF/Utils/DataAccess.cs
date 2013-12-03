@@ -19,6 +19,7 @@ namespace GAPPSF.Utils
             if (gc == null)
             {
                 gc = new Geocache(db, gd);
+                gc.Selected = Core.Settings.Default.AutoSelectNewGeocaches;
             }
             else
             {

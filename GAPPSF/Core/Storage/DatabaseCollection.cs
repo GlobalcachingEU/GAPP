@@ -11,6 +11,16 @@ namespace GAPPSF.Core.Storage
     {
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
+        private void listUpdated()
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach(Database db in this)
+            {
+                sb.AppendLine(db.FileName);
+            }
+            Core.Settings.Default.OpenedDatabases = sb.ToString();
+        }
+
         public new void Add(Database db)
         {
             base.Add(db);
@@ -39,6 +49,7 @@ namespace GAPPSF.Core.Storage
 
         protected virtual void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
         {
+            listUpdated();
             if (CollectionChanged != null)
             {
                 CollectionChanged(this, e);
