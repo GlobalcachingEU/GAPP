@@ -95,6 +95,7 @@ namespace GAPPSF.UIControls.GMap
             Shapefiles.ShapeFilesManager.Instance.PropertyChanged += Shapefiles_PropertyChanged;
 
             TargetGeocaches = GeocachesOnMap.Active;
+            CurrentConnectedDatabase = Core.ApplicationData.Instance.ActiveDatabase;
 
             updateAvailableAreaNames();
         }

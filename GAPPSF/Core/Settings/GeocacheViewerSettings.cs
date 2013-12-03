@@ -41,6 +41,12 @@ namespace GAPPSF.Core
             get { return bool.Parse(GetProperty("True")); }
             set { SetProperty(value.ToString()); }
         }
-        
+
+        public bool GCViewerUseOfflineImages
+        {
+            get { return bool.Parse(GetProperty("True")); }
+            set { SetProperty(value.ToString()); }
+        }
+
     }
 }

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace GAPPSF.Utils
@@ -297,5 +298,54 @@ namespace GAPPSF.Utils
             return db.LogImageCollection.GetLogImages(logId);
         }
 
+
+        public static List<string> GetImagesOfGeocache(Database db, string geocacheCode)
+        {
+            List<string> result = new List<string>();
+
+            Core.Data.Geocache gc = db.GeocacheCollection.GetGeocache(geocacheCode);
+
+            if (gc != null)
+            {
+                StringBuilder sb = new StringBuilder();
+                if (gc.ShortDescriptionInHtml && gc.ShortDescription != null)
+                {
+                    sb.Append(gc.ShortDescription);
+                }
+                if (gc.LongDescriptionInHtml && gc.LongDescription != null)
+                {
+                    sb.Append(gc.LongDescription);
+                }
+                if (sb.Length > 0)
+                {
+
+                    Regex r = new Regex(@"</?\w+\s+[^>]*>", RegexOptions.Multiline);
+                    MatchCollection mc = r.Matches(sb.ToString());
+                    foreach (Match m in mc)
+                    {
+                        string s = m.Value.Substring(1).Replace('\r', ' ').Replace('\n', ' ').Trim();
+                        if (s.StartsWith("img ", StringComparison.OrdinalIgnoreCase))
+                        {
+                            int pos = s.IndexOf(" src", StringComparison.OrdinalIgnoreCase);
+                            pos = s.IndexOfAny(new char[] { '\'', '"' }, pos);
+                            int pos2 = s.IndexOfAny(new char[] { '\'', '"' }, pos + 1);
+                            result.Add(s.Substring(pos + 1, pos2 - pos - 1));
+                        }
+                    }
+                }
+                List<Core.Data.GeocacheImage> imgList = DataAccess.GetGeocacheImages(db, geocacheCode);
+                if (imgList != null)
+                {
+                    foreach (Core.Data.GeocacheImage img in imgList)
+                    {
+                        if (!result.Contains(img.Url))
+                        {
+                            result.Add(img.Url);
+                        }
+                    }
+                }
+            }
+            return result;
+        }
     }
 }

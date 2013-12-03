@@ -248,6 +248,14 @@ namespace GAPPSF.UIControls
                 }
                 s = s.Replace("<!--logs-->", sb.ToString());
 
+                if (Core.Settings.Default.GCViewerUseOfflineImages)
+                {
+                    Dictionary<string, string> offimgl = GAPPSF.ImageGrabber.OfflineImagesManager.Instance.GetImages(Core.ApplicationData.Instance.ActiveGeocache);
+                    foreach(var kp in offimgl)
+                    {
+                        s = s.Replace(kp.Key, GAPPSF.ImageGrabber.OfflineImagesManager.Instance.GetImageUri(Core.ApplicationData.Instance.ActiveGeocache, kp.Key));
+                    }
+                }
 
                 DisplayHtml(s);
             }

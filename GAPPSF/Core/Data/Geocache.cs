@@ -238,6 +238,14 @@ namespace GAPPSF.Core.Data
             }
         }
 
+        public bool ContainsNote
+        {
+            get
+            {
+                return (!string.IsNullOrEmpty(this.PersonalNote) && !string.IsNullOrEmpty(this.Notes));
+            }
+        }
+
         private bool _cachedFoundDateValid = false;
         private object _cachedFoundDate = null;
         public object FoundDate

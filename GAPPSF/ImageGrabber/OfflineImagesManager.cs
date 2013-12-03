@@ -31,6 +31,7 @@ namespace GAPPSF.ImageGrabber
                 {
                     System.IO.Directory.CreateDirectory(_imageFolder);
                 }
+                InitDatabase();
             }
             catch
             {
@@ -80,8 +81,8 @@ namespace GAPPSF.ImageGrabber
                 if (o == null || o.GetType() == typeof(DBNull))
                 {
                     _dbcon.ExecuteNonQuery("create table 'images' (org_url text, gccode text, local_file text)");
-                    _dbcon.ExecuteNonQuery("create index idx_images on images (org_url_idx)");
-                    _dbcon.ExecuteNonQuery("create index idx_gccodes on images (gcode_idx)");
+                    _dbcon.ExecuteNonQuery("create index idx_images on images (org_url)");
+                    _dbcon.ExecuteNonQuery("create index idx_gccodes on images (gcode)");
                 }
                 result = true;
             }
@@ -129,6 +130,51 @@ namespace GAPPSF.ImageGrabber
                 catch
                 {
                 }
+            }
+            return result;
+        }
+
+        public string GetImageUri(string orgUri)
+        {
+            string result;
+            string filename = GetImagePath(orgUri);
+            if (!string.IsNullOrEmpty(filename))
+            {
+                result = GetEmbeddedImage(filename);
+            }
+            else
+            {
+                result = orgUri;
+            }
+            return result;
+        }
+
+        public string GetImageUri(Core.Data.Geocache gc, string orgUri)
+        {
+            string result;
+            string filename = GetImagePath(gc, orgUri);
+            if (!string.IsNullOrEmpty(filename))
+            {
+                result = GetEmbeddedImage(filename);
+            }
+            else
+            {
+                result = orgUri;
+            }
+            return result;
+        }
+
+        private string GetEmbeddedImage(string filename)
+        {
+            string result;
+            try
+            {
+                byte[] buffer = File.ReadAllBytes(filename);
+                result = string.Concat("data:image/", filename.Substring(filename.LastIndexOf('.') + 1), ";base64,", Convert.ToBase64String(buffer));
+            }
+            catch
+            {
+                result = filename;
             }
             return result;
         }
@@ -190,92 +236,55 @@ namespace GAPPSF.ImageGrabber
                             bool grabOnlyNew = !updateExisting;
                             try
                             {
-                                StringBuilder sb = new StringBuilder();
+                                List<string> linkList;
                                 lock (_lockObject)
                                 {
-                                    if (gc.ShortDescriptionInHtml && gc.ShortDescription != null)
-                                    {
-                                        sb.Append(gc.ShortDescription);
-                                    }
-                                    if (gc.LongDescriptionInHtml && gc.LongDescription != null)
-                                    {
-                                        sb.Append(gc.LongDescription);
-                                    }
+                                    linkList = DataAccess.GetImagesOfGeocache(gc.Database, gc.Code);
                                 }
-                                if (sb.Length > 0)
+
+                                foreach (string link in linkList)
                                 {
-                                    List<string> linkList = new List<string>();
-
-                                    Regex r = new Regex(@"</?\w+\s+[^>]*>", RegexOptions.Multiline);
-                                    MatchCollection mc = r.Matches(sb.ToString());
-                                    foreach (Match m in mc)
+                                    string fn = string.Format("{0}.jpg", Guid.NewGuid().ToString("N"));
+                                    bool skipInsert = false;
+                                    //if it fails, just ignore this image
+                                    try
                                     {
-                                        string s = m.Value.Substring(1).Replace('\r', ' ').Replace('\n', ' ').Trim();
-                                        if (s.StartsWith("img ", StringComparison.OrdinalIgnoreCase))
+                                        //check if link already is in database
+                                        //if so, use this filename
+                                        lock (_lockObject)
                                         {
-                                            int pos = s.IndexOf(" src", StringComparison.OrdinalIgnoreCase);
-                                            pos = s.IndexOfAny(new char[] { '\'', '"' }, pos);
-                                            int pos2 = s.IndexOfAny(new char[] { '\'', '"' }, pos + 1);
-                                            linkList.Add(s.Substring(pos + 1, pos2 - pos - 1));
-                                        }
-                                    }
-
-                                    List<Core.Data.GeocacheImage> imgList = DataAccess.GetGeocacheImages(gc.Database, gc.Code);
-                                    if (imgList != null)
-                                    {
-                                        foreach (Core.Data.GeocacheImage img in imgList)
-                                        {
-                                            if (!linkList.Contains(img.Url))
+                                            object o = _dbcon.ExecuteScalar(string.Format("select local_file from images where gccode='{0}' and org_url='{1}'", gc.Code.Replace("'", "''"), link.Replace("'", "''")));
+                                            if (o != null && o.GetType() != typeof(DBNull))
                                             {
-                                                linkList.Add(img.Url);
+                                                fn = (string)o;
+                                                skipInsert = true;
                                             }
                                         }
-                                    }
-
-                                    foreach (string link in linkList)
-                                    {
-                                        string fn = string.Format("{0}.jpg", Guid.NewGuid().ToString("N"));
-                                        bool skipInsert = false;
-                                        //if it fails, just ignore this image
-                                        try
+                                        if (grabOnlyNew && skipInsert)
                                         {
-                                            //check if link already is in database
-                                            //if so, use this filename
-                                            lock (_lockObject)
+                                            if (System.IO.File.Exists(System.IO.Path.Combine(fnp, fn)))
                                             {
-                                                object o = _dbcon.ExecuteScalar(string.Format("select local_file from images where gccode='{0}' and org_url='{1}'", gc.Code.Replace("'", "''"), link.Replace("'", "''")));
-                                                if (o != null && o.GetType() != typeof(DBNull))
-                                                {
-                                                    fn = (string)o;
-                                                    skipInsert = true;
-                                                }
+                                                continue;
                                             }
-                                            if (grabOnlyNew && skipInsert)
+                                        }
+                                        using (System.IO.TemporaryFile tmp = new System.IO.TemporaryFile(true))
+                                        {
+                                            wc.DownloadFile(link, tmp.Path);
+                                            using (System.Drawing.Image img = System.Drawing.Image.FromFile(tmp.Path))
                                             {
-                                                if (System.IO.File.Exists(System.IO.Path.Combine(fnp, fn)))
+                                                img.Save(System.IO.Path.Combine(fnp, fn), System.Drawing.Imaging.ImageFormat.Jpeg);
+                                                if (!skipInsert)
                                                 {
-                                                    continue;
-                                                }
-                                            }
-                                            using (System.IO.TemporaryFile tmp = new System.IO.TemporaryFile(true))
-                                            {
-                                                wc.DownloadFile(link, tmp.Path);
-                                                using (System.Drawing.Image img = System.Drawing.Image.FromFile(tmp.Path))
-                                                {
-                                                    img.Save(System.IO.Path.Combine(fnp, fn), System.Drawing.Imaging.ImageFormat.Jpeg);
-                                                    if (!skipInsert)
+                                                    lock (_lockObject)
                                                     {
-                                                        lock (_lockObject)
-                                                        {
-                                                            _dbcon.ExecuteNonQuery(string.Format("insert into images (gccode, org_url, local_file) values ('{0}', '{1}', '{2}')", gc.Code.Replace("'", "''"), link.Replace("'", "''"), fn));
-                                                        }
+                                                        _dbcon.ExecuteNonQuery(string.Format("insert into images (gccode, org_url, local_file) values ('{0}', '{1}', '{2}')", gc.Code.Replace("'", "''"), link.Replace("'", "''"), fn));
                                                     }
                                                 }
                                             }
                                         }
-                                        catch
-                                        {
-                                        }
+                                    }
+                                    catch
+                                    {
                                     }
                                 }
 

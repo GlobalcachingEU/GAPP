@@ -19,6 +19,9 @@
             Header="Settings"
             Grid.Row="0"
             HorizontalAlignment="Stretch">
+            <Expander.Background>
+                <SolidColorBrush Color="{DynamicResource SettingsBkColor}"/>
+            </Expander.Background>
             <Expander.Content>
                 <Grid>
                     <Grid.ColumnDefinitions>

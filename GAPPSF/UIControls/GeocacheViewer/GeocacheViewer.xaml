@@ -18,7 +18,10 @@
             Header="Settings"
             Grid.Row="0"
             HorizontalAlignment="Stretch">
-                <Expander.Content>
+            <Expander.Background>
+                <SolidColorBrush Color="{DynamicResource SettingsBkColor}"/>
+            </Expander.Background>
+            <Expander.Content>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -27,11 +30,14 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="Maximum number of logs" />
                         <UIControls:NumericUpDown Width="80" MaxValue="999999" MinValue="0" Value="{Binding GCViewerShowLogs, Source={x:Static p:Settings.Default}, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" />
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="Show additional waypoints" />
                     <CheckBox  Grid.Row="1" Grid.Column="1" IsChecked="{Binding GCViewerShowAdditionalWaypoints, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Use offline images" />
+                    <CheckBox  Grid.Row="2" Grid.Column="1" IsChecked="{Binding GCViewerUseOfflineImages, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
                 </Grid>
                 </Expander.Content>
             </Expander>

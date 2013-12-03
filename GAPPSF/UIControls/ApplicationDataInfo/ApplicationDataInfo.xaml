@@ -8,11 +8,44 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <TextBlock Text="Databases" Foreground="Black" />
-            <ListView HorizontalAlignment="Stretch" 
+            <Expander Header="Databases" HorizontalAlignment="Stretch">
+                <Expander.Content>
+                    <StackPanel  HorizontalAlignment="Stretch">
+                    <ListView HorizontalAlignment="Stretch" 
                       ItemsSource="{Binding Source={x:Static p:ApplicationData.Instance}, Path=Databases}" 
                       SelectedItem="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveDatabase, Mode=TwoWay}"
                       />
+                        <Grid  HorizontalAlignment="Stretch">
+                            <Grid.Resources>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Margin" Value="4,4,4,4" />
+                                </Style>
+                            </Grid.Resources>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Geocaches" />
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveDatabase.GeocacheCollection.Count}" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Logs" />
+                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveDatabase.LogCollection.Count}" />
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Waypoints" />
+                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveDatabase.WaypointCollection.Count}" />
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Log images" />
+                            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveDatabase.LogImageCollection.Count}" />
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Geocache images" />
+                            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveDatabase.GeocacheImageCollection.Count}" />
+                        </Grid>
+                    </StackPanel>
+                </Expander.Content>
+            </Expander>
             <Expander Header="Accounts" HorizontalAlignment="Stretch">
                 <Expander.Content>
                     <Grid HorizontalAlignment="Stretch">

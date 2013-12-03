@@ -9,7 +9,7 @@
         Width="{Binding ElementName=featureContainer, Path=WindowWidth, Mode=TwoWay}"
         Left="{Binding ElementName=featureContainer, Path=WindowLeft, Mode=TwoWay}"
         Top="{Binding ElementName=featureContainer, Path=WindowTop, Mode=TwoWay}"
-        Closing="Window_Closing">
+        Closing="Window_Closing" Icon="Resources/MainWindow/Globalcaching.ico">
     <Grid>
         <UIControls:UIControlContainer x:Name="featureContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
     </Grid>

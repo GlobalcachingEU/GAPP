@@ -217,6 +217,7 @@ namespace GAPPSF.Dialogs
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             //e.Cancel = true;
+            Canceled = true;
             base.OnClosing(e);
         }
 

@@ -53,17 +53,36 @@ namespace GAPPSF.UIControls.OfflineImages
             Core.ApplicationData.Instance.PropertyChanged -= Instance_PropertyChanged;
         }
 
+        public override string ToString()
+        {
+            return "Offline images";
+        }
+
         private void updateView()
         {
             ImageInfoCollection.Clear();
             if (Core.ApplicationData.Instance.ActiveGeocache!=null)
             {
+                List<string> lim = Utils.DataAccess.GetImagesOfGeocache(Core.ApplicationData.Instance.ActiveGeocache.Database, Core.ApplicationData.Instance.ActiveGeocache.Code);
+
                 Dictionary<string, string> imgs = GAPPSF.ImageGrabber.OfflineImagesManager.Instance.GetImages(Core.ApplicationData.Instance.ActiveGeocache);
                 foreach (var kp in imgs)
                 {
                     ImageInfo ii = new ImageInfo();
                     ii.Url = kp.Key;
                     ii.FileName = kp.Value;
+                    ImageInfoCollection.Add(ii);
+
+                    if (lim.Contains(ii.Url))
+                    {
+                        lim.Remove(ii.Url);
+                    }
+                }
+                foreach(string s in lim)
+                {
+                    ImageInfo ii = new ImageInfo();
+                    ii.Url = s;
+                    ii.FileName = "";
                     ImageInfoCollection.Add(ii);
                 }
             }

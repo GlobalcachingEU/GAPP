@@ -1,11 +1,13 @@
 ﻿using GAPPSF.Commands;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,10 +25,16 @@ namespace GAPPSF
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        private Core.Storage.Database _currentConnectedDatabase = null;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public MainWindow()
         {
+            CurrentConnectedDatabase = Core.ApplicationData.Instance.ActiveDatabase;
+
             this.DataContext = this;
 
             Core.ApplicationData.Instance.MainWindow = this;
@@ -58,6 +66,103 @@ namespace GAPPSF
             {
                 normalView.Visibility = System.Windows.Visibility.Collapsed;
                 expandedView.Visibility = System.Windows.Visibility.Visible;
+            }
+
+            Core.ApplicationData.Instance.PropertyChanged += Instance_PropertyChanged;
+        }
+
+        void Instance_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "ActiveDatabase")
+            {
+                CurrentConnectedDatabase = Core.ApplicationData.Instance.ActiveDatabase;
+            }
+        }
+
+        private Core.Storage.Database CurrentConnectedDatabase
+        {
+            get { return _currentConnectedDatabase; }
+            set
+            {
+                if (_currentConnectedDatabase != value)
+                {
+                    if (_currentConnectedDatabase != null)
+                    {
+                        _currentConnectedDatabase.GeocacheCollection.CollectionChanged -= GeocacheCollection_CollectionChanged;
+                        _currentConnectedDatabase.GeocacheCollection.GeocacheDataChanged -= GeocacheCollection_GeocacheDataChanged;
+                        _currentConnectedDatabase.GeocacheCollection.GeocachePropertyChanged -= GeocacheCollection_GeocachePropertyChanged;
+                    }
+                    _currentConnectedDatabase = value;
+                    if (_currentConnectedDatabase != null)
+                    {
+                        _currentConnectedDatabase.GeocacheCollection.CollectionChanged += GeocacheCollection_CollectionChanged;
+                        _currentConnectedDatabase.GeocacheCollection.GeocacheDataChanged += GeocacheCollection_GeocacheDataChanged;
+                        _currentConnectedDatabase.GeocacheCollection.GeocachePropertyChanged += GeocacheCollection_GeocachePropertyChanged;
+                    }
+                    UpdateView();
+                }
+            }
+        }
+        void GeocacheCollection_GeocachePropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            Core.Data.Geocache gc = sender as Core.Data.Geocache;
+            if (gc != null)
+            {
+                if (gc == Core.ApplicationData.Instance.ActiveGeocache || e.PropertyName == "Selected")
+                {
+                    if (e.PropertyName == "Name" ||
+                        e.PropertyName == "Selected")
+                    {
+                        UpdateView();
+                    }
+                }
+            }
+        }
+        void GeocacheCollection_GeocacheDataChanged(object sender, EventArgs e)
+        {
+            Core.Data.Geocache gc = sender as Core.Data.Geocache;
+            if (gc != null)
+            {
+                if (gc == Core.ApplicationData.Instance.ActiveGeocache)
+                {
+                    UpdateView();
+                }
+            }
+        }
+        void GeocacheCollection_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            UpdateView();
+        }
+
+        public void UpdateView()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase==null)
+            {
+                GeocacheSelectionCount = 0;
+            }
+            else
+            {
+                GeocacheSelectionCount = (from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection where a.Selected select a).Count();
+            }
+        }
+
+        private int _geocacheSelectionCount = 0;
+        public int GeocacheSelectionCount
+        {
+            get { return _geocacheSelectionCount; }
+            set { SetProperty(ref _geocacheSelectionCount, value); }
+        }
+
+        protected void SetProperty<T>(ref T field, T value, [CallerMemberName] string name = "")
+        {
+            if (!EqualityComparer<T>.Default.Equals(field, value))
+            {
+                field = value;
+                var handler = PropertyChanged;
+                if (handler != null)
+                {
+                    handler(this, new PropertyChangedEventArgs(name));
+                }
             }
         }
 
@@ -501,5 +606,6 @@ namespace GAPPSF
             w.Owner = this;
             w.Show();
         }
+
     }
 }
