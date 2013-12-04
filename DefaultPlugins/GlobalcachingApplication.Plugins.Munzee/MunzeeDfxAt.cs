@@ -268,7 +268,7 @@ namespace GlobalcachingApplication.Plugins.Munzee
                                         Framework.Data.Log l = new Framework.Data.Log();
                                         l.DataFromDate = DateTime.Now;
                                         l.Date = new DateTime(1970, 1, 1);
-                                        l.Date = l.Date.AddSeconds(long.Parse(md.captured_at));
+                                        l.Date = l.Date.AddSeconds(long.Parse(md.captured_at.Split(new char[]{','}, StringSplitOptions.RemoveEmptyEntries)[0]));
                                         l.Encoded = false;
                                         l.Finder = Core.GeocachingAccountNames.GetAccountName(gc.Code);
                                         l.FinderId = "0";
