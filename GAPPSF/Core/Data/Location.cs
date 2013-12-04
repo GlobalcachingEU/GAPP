@@ -25,6 +25,18 @@ namespace GAPPSF.Core.Data
             return Utils.Conversion.GetCoordinatesPresentation(this);
         }
 
+        public string Text
+        {
+            get { return ToString(); }
+            set 
+            {
+                if (PropertyChanged!=null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("Text"));
+                }
+            }
+        }
+
         public Location(double lat, double lon)
         {
             _lat = lat;
@@ -65,6 +77,7 @@ namespace GAPPSF.Core.Data
                 {
                     handler(this, new PropertyChangedEventArgs(name));
                 }
+                Text = null;
             }
         }
     }

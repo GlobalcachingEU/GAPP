@@ -39,6 +39,12 @@ namespace GAPPSF.Core
             set { SetProperty(value); }
         }
 
+        public bool FirstStart
+        {
+            get { return bool.Parse(GetProperty("True")); }
+            set { SetProperty(value.ToString()); }
+        }
+
         public bool AutoLoadDatabases
         {
             get { return bool.Parse(GetProperty("True")); }

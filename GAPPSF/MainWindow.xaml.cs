@@ -82,36 +82,45 @@ namespace GAPPSF
 
         private async Task initializeApplicationAsync()
         {
-            bool autoLoad = Core.Settings.Default.AutoLoadDatabases;
-            string dbs = Core.Settings.Default.OpenedDatabases;
-            string actDb = Core.Settings.Default.ActiveDatabase;
-            string actGc = Core.Settings.Default.ActiveGeocache;
-            Core.Settings.Default.OpenedDatabases = "";
-            if (autoLoad && !string.IsNullOrEmpty(dbs))
+            if (Core.Settings.Default.FirstStart)
             {
-                string[] lines = dbs.Split(new char[] {'\n','\r' }, StringSplitOptions.RemoveEmptyEntries);
-                int index = 0;
-                using (Utils.ProgressBlock prog = new Utils.ProgressBlock("Loading databases...", "Loading databases...", lines.Length, 0))
+                Core.Settings.Default.FirstStart = false;
+                SetupWizard.SetupWizardWindow dlg = new SetupWizard.SetupWizardWindow();
+                dlg.ShowDialog();
+            }
+            else
+            {
+                bool autoLoad = Core.Settings.Default.AutoLoadDatabases;
+                string dbs = Core.Settings.Default.OpenedDatabases;
+                string actDb = Core.Settings.Default.ActiveDatabase;
+                string actGc = Core.Settings.Default.ActiveGeocache;
+                Core.Settings.Default.OpenedDatabases = "";
+                if (autoLoad && !string.IsNullOrEmpty(dbs))
                 {
-                    foreach (string s in lines)
+                    string[] lines = dbs.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+                    int index = 0;
+                    using (Utils.ProgressBlock prog = new Utils.ProgressBlock("Loading databases...", "Loading databases...", lines.Length, 0))
                     {
-                        prog.Update(s,lines.Length, index);
+                        foreach (string s in lines)
+                        {
+                            prog.Update(s, lines.Length, index);
 
-                        Core.Storage.Database db = new Core.Storage.Database(s);
-                        await db.InitializeAsync();
-                        Core.ApplicationData.Instance.Databases.Add(db);
+                            Core.Storage.Database db = new Core.Storage.Database(s);
+                            await db.InitializeAsync();
+                            Core.ApplicationData.Instance.Databases.Add(db);
 
-                        index++;
-                        prog.Update(s, lines.Length, index);
+                            index++;
+                            prog.Update(s, lines.Length, index);
+                        }
                     }
-                }
-                if (!string.IsNullOrEmpty(actDb))
-                {
-                    Core.ApplicationData.Instance.ActiveDatabase = (from a in Core.ApplicationData.Instance.Databases where a.FileName == actDb select a).FirstOrDefault();
-                }
-                if (Core.ApplicationData.Instance.ActiveDatabase!=null && !string.IsNullOrEmpty(actGc))
-                {
-                    Core.ApplicationData.Instance.ActiveGeocache = (from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection where a.Code == actGc select a).FirstOrDefault();
+                    if (!string.IsNullOrEmpty(actDb))
+                    {
+                        Core.ApplicationData.Instance.ActiveDatabase = (from a in Core.ApplicationData.Instance.Databases where a.FileName == actDb select a).FirstOrDefault();
+                    }
+                    if (Core.ApplicationData.Instance.ActiveDatabase != null && !string.IsNullOrEmpty(actGc))
+                    {
+                        Core.ApplicationData.Instance.ActiveGeocache = (from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection where a.Code == actGc select a).FirstOrDefault();
+                    }
                 }
             }
         }

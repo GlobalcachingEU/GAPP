@@ -61,6 +61,42 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account name.
+        /// </summary>
+        internal static string AccountName {
+            get {
+                return ResourceManager.GetString("AccountName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Authorize.
+        /// </summary>
+        internal static string Authorize {
+            get {
+                return ResourceManager.GetString("Authorize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Authorized.
+        /// </summary>
+        internal static string Authorized {
+            get {
+                return ResourceManager.GetString("Authorized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Center coordinates.
+        /// </summary>
+        internal static string CenterCoordinates {
+            get {
+                return ResourceManager.GetString("CenterCoordinates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nederlands.
         /// </summary>
         internal static string Dutch {
@@ -97,11 +133,52 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Globalcaching Application is Geocaching Live Enabled.
+        ///
+        ///With the Geocaching Live API from Groundspeak it becomes easy to obtain data from geocaching.com and e.g. log a geocache without the need to go to the website of geocaching.com.
+        ///Pocket Queries can be downloaded right from the application itself and geocaches can be updated instantly.
+        ///
+        ///In order to use these features, you have to authorize this application to access your account on geocaching.com..
+        /// </summary>
+        internal static string GeocacheLiveText {
+            get {
+                return ResourceManager.GetString("GeocacheLiveText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geocaching Live.
+        /// </summary>
+        internal static string GeocachingLive {
+            get {
+                return ResourceManager.GetString("GeocachingLive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deutsch.
         /// </summary>
         internal static string German {
             get {
                 return ResourceManager.GetString("German", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home coordinates.
+        /// </summary>
+        internal static string HomeCoordinates {
+            get {
+                return ResourceManager.GetString("HomeCoordinates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home location.
+        /// </summary>
+        internal static string HomeLocation {
+            get {
+                return ResourceManager.GetString("HomeLocation", resourceCulture);
             }
         }
         
@@ -115,6 +192,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        internal static string Language {
+            get {
+                return ResourceManager.GetString("Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Globalcaching Application.
         /// </summary>
         internal static string MainWindowTitle {
@@ -124,11 +210,58 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Membership.
+        /// </summary>
+        internal static string Membership {
+            get {
+                return ResourceManager.GetString("Membership", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         internal static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome.
+        /// </summary>
+        internal static string Welcome {
+            get {
+                return ResourceManager.GetString("Welcome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to the Globalcaching Application (short GAPP).
+        ///
+        ///This wizard will guide you through the initial setup. Before you start, you might want to change the language:.
+        /// </summary>
+        internal static string WelcomeText {
+            get {
+                return ResourceManager.GetString("WelcomeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

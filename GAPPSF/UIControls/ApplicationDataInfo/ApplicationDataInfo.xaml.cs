@@ -105,5 +105,24 @@ namespace GAPPSF.UIControls
                 Core.Settings.Default.AppDataInfoWindowTop = value;
             }
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Dialogs.GetLocationWindow dlg = new Dialogs.GetLocationWindow(Core.ApplicationData.Instance.HomeLocation);
+            if (dlg.ShowDialog()==true)
+            {
+                Core.ApplicationData.Instance.HomeLocation.Lat = dlg.Location.Lat;
+                Core.ApplicationData.Instance.HomeLocation.Lon = dlg.Location.Lon;
+            }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Dialogs.GetLocationWindow dlg = new Dialogs.GetLocationWindow(Core.ApplicationData.Instance.CenterLocation);
+            if (dlg.ShowDialog() == true)
+            {
+                Utils.DataAccess.SetCenterLocation(dlg.Location.Lat, dlg.Location.Lon);
+            }
+        }
     }
 }

@@ -1,0 +1,117 @@
+﻿<Window x:Class="GAPPSF.SetupWizard.SetupWizardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:l="clr-namespace:GAPPSF.Localization"
+        xmlns:p="clr-namespace:GAPPSF.Core"
+        Title="SetupWizardWindow" Height="420" Width="618" ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterScreen" Closed="Window_Closed">
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TabControl x:Name="tabControl" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <TabItem Header="{l:Translate Welcome}">
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Image Margin="26,27,412,157" Source="/Resources/SetupWizard/Globalcaching.png"/>
+                    <TextBlock Text="{l:Translate WelcomeText}" Margin="193,27,24,174" TextWrapping="WrapWithOverflow"/>
+                    <TextBlock Text="{l:Translate Language}" Margin="193,185,340,122" />
+                    <ComboBox x:Name="languageSelectCombo" Margin="292,185,187,122" SelectionChanged="ComboBox_SelectionChanged">
+                        <ComboBoxItem>
+                            <StackPanel  Orientation="Horizontal">
+                                <Image Source="/Resources/MainWindow/en.gif" />
+                                <TextBlock Text="{l:Translate English}" />
+                            </StackPanel>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <StackPanel  Orientation="Horizontal">
+                                <Image Source="/Resources/MainWindow/de.gif" />
+                                <TextBlock Text="{l:Translate German}" />
+                            </StackPanel>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <StackPanel  Orientation="Horizontal">
+                                <Image Source="/Resources/MainWindow/nl.gif" />
+                                <TextBlock Text="{l:Translate Dutch}" />
+                            </StackPanel>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <StackPanel  Orientation="Horizontal">
+                                <Image Source="/Resources/MainWindow/fr.gif" />
+                                <TextBlock Text="{l:Translate French}" />
+                            </StackPanel>
+                        </ComboBoxItem>
+                    </ComboBox>
+                    <TextBlock Text=":" Margin="282,185,313,132" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="{l:Translate GeocachingLive}">
+                <Grid>
+                    <Image Margin="26,27,412,157" Source="/Resources/SetupWizard/Geocaching_LIVE_poweredby_128.png"/>
+                    <TextBlock Text="{l:Translate GeocacheLiveText}" Margin="193,27,24,174" TextWrapping="WrapWithOverflow"/>
+                    <Grid Margin="193,169,0,0">
+                        <Grid.Resources>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Margin" Value="4" />
+                            </Style>
+                        </Grid.Resources>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Button Grid.Row="0" Grid.Column="1" Content="{l:Translate Authorize}" Command="{Binding MainWindow.LiveApiAuthorizeCommand, Source={x:Static p:ApplicationData.Instance}}" />
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{l:Translate AccountName}" HorizontalAlignment="Left" />
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text=":" HorizontalAlignment="Right" />
+                        <TextBox Grid.Row="1" Grid.Column="1" Width="200" Text="{Binding GeocachingAcccountName, Mode=TwoWay}"/>
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="{l:Translate Authorized}" HorizontalAlignment="Left" />
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text=":" HorizontalAlignment="Right" />
+                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Authorized}" />
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="{l:Translate Membership}" HorizontalAlignment="Left" />
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text=":" HorizontalAlignment="Right" />
+                        <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding LiveAPIMemberType, Source={x:Static p:Settings.Default}}" />
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="{l:Translate HomeLocation}">
+                <Grid>
+                    <Image Margin="26,27,412,157" Source="/Resources/SetupWizard/home.png" />
+                    <Grid Margin="219,65,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0"  Text="{l:Translate HomeCoordinates}" />
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                            <TextBox Text="{Binding Source={x:Static p:ApplicationData.Instance}, Path=HomeLocation.Text}" Width="170" IsReadOnly="True"/>
+                        <Button Height="20" Width="20" Click="Button_Click_3">
+                            <Image Source="/Resources/General/edit.png"/>
+                        </Button>
+                    </StackPanel>
+                        <TextBlock  Grid.Row="3"  Text="{l:Translate CenterCoordinates}" />
+                        <StackPanel Grid.Row="4" Orientation="Horizontal">
+                            <TextBox Text="{Binding Source={x:Static p:ApplicationData.Instance}, Path=CenterLocation.Text}" Width="170" IsReadOnly="True"/>
+                            <Button Height="20" Width="20" Click="Button_Click_4">
+                                <Image Source="/Resources/General/edit.png"/>
+                            </Button>
+                            <Button Height="20" Width="20" Click="Button_Click">
+                                <Image Source="/Resources/SetupWizard/home.png" Height="16" Width="16" />
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Grid Grid.Row="1" HorizontalAlignment="Stretch">
+            <Button Content="&lt;" Width="50" HorizontalAlignment="Left" Click="Button_Click_2"/>
+            <Button Content="&gt;" Width="50" HorizontalAlignment="Right" Click="Button_Click_1"/>
+        </Grid>
+    </Grid>
+</Window>

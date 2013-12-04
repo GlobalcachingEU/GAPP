@@ -105,12 +105,12 @@
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="Home" />
                         <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Source={x:Static p:ApplicationData.Instance}, Path=HomeLocation}" />
-                        <Button  Grid.Row="0" Grid.Column="2">
+                        <Button  Grid.Row="0" Grid.Column="2" Click="Button_Click">
                             <Image Source="/Resources/General/edit.png" />
                         </Button>
                         <TextBlock Grid.Row="1" Grid.Column="0" Text="Center" />
                         <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Source={x:Static p:ApplicationData.Instance}, Path=CenterLocation}" />
-                        <Button  Grid.Row="1" Grid.Column="2">
+                        <Button  Grid.Row="1" Grid.Column="2" Click="Button_Click_1">
                             <Image Source="/Resources/General/edit.png" />
                         </Button>
                     </Grid>

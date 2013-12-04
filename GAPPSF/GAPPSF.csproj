@@ -154,6 +154,9 @@
     <Compile Include="Core\Settings\ShapefilesSettings.cs" />
     <Compile Include="Core\Settings\SqliteSettingsStorage.cs" />
     <Compile Include="Core\Storage\DatabaseCollection.cs" />
+    <Compile Include="Dialogs\GetLocationWindow.xaml.cs">
+      <DependentUpon>GetLocationWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\ProgessWindow.xaml.cs">
       <DependentUpon>ProgessWindow.xaml</DependentUpon>
     </Compile>
@@ -194,6 +197,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SetupWizard\SetupWizardWindow.xaml.cs">
+      <DependentUpon>SetupWizardWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shapefiles\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
@@ -280,6 +286,10 @@
     <Compile Include="Utils\ProgressBlock.cs" />
     <Compile Include="Utils\ResourceHelper.cs" />
     <Compile Include="Utils\TemporaryFile.cs" />
+    <Page Include="Dialogs\GetLocationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\ProgessWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -426,6 +436,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SetupWizard\SetupWizardWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Shapefiles\SettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -953,6 +967,14 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\General\edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SetupWizard\Geocaching_LIVE_poweredby_128.png" />
+    <Resource Include="Resources\SetupWizard\globalcaching.png" />
+    <Resource Include="Resources\SetupWizard\home.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Dialogs\GetLocationWindow.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

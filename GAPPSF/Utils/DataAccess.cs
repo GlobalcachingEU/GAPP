@@ -348,5 +348,23 @@ namespace GAPPSF.Utils
             }
             return result;
         }
+
+        public static void SetCenterLocation(double lat, double lon)
+        {
+            Core.ApplicationData.Instance.CenterLocation.Lat = lat;
+            Core.ApplicationData.Instance.CenterLocation.Lon = lon;
+            UpdateDistanceAndAngle();
+        }
+
+        public static void UpdateDistanceAndAngle()
+        {
+            foreach (Core.Storage.Database db in Core.ApplicationData.Instance.Databases)
+            {
+                using (DataUpdater upd = new DataUpdater(db))
+                {
+                    Calculus.SetDistanceAndAngleGeocacheFromLocation(db.GeocacheCollection, Core.ApplicationData.Instance.CenterLocation);
+                }
+            }
+        }
     }
 }

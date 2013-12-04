@@ -368,6 +368,10 @@ namespace GAPPSF.Core
                 {
                     Settings.Default.CenterLocationLon = ll.Lon;
                 }
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("CenterLocation"));
+                }
             }
         }
 
@@ -383,6 +387,10 @@ namespace GAPPSF.Core
                 else if (e.PropertyName == "Lon")
                 {
                     Settings.Default.HomeLocationLon = ll.Lon;
+                }
+                if (PropertyChanged!=null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("HomeLocation"));
                 }
             }
         }
