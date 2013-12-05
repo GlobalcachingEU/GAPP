@@ -366,5 +366,46 @@ namespace GAPPSF.Utils
                 }
             }
         }
+
+        public static void DeleteGeocache(Core.Data.Geocache gc)
+        {
+            List<Core.Data.Waypoint> wpl = GetWaypointsFromGeocache(gc.Database, gc.Code);
+            foreach(var wp in wpl)
+            {
+                wp.DeleteRecord();
+                gc.Database.WaypointCollection.Remove(wp);
+            }
+            List<Core.Data.UserWaypoint> uwpl = GetUserWaypointsFromGeocache(gc.Database, gc.Code);
+            foreach (var wp in uwpl)
+            {
+                wp.DeleteRecord();
+                gc.Database.UserWaypointCollection.Remove(wp);
+            }
+            List<Core.Data.GeocacheImage> gcil = GetGeocacheImages(gc.Database, gc.Code);
+            foreach (var wp in gcil)
+            {
+                wp.DeleteRecord();
+                gc.Database.GeocacheImageCollection.Remove(wp);
+            }
+            List<Core.Data.Log> lgs = GetLogs(gc.Database, gc.Code);
+            foreach (var wp in lgs)
+            {
+                DeleteLog(gc.Database, wp);
+            }
+            gc.DeleteRecord();
+            gc.Database.GeocacheCollection.Remove(gc);
+        }
+
+        public static void DeleteLog(Database db, Core.Data.Log lg)
+        {
+            List<Core.Data.LogImage> gcil = GetLogImages(db, lg.ID);
+            foreach (var wp in gcil)
+            {
+                wp.DeleteRecord();
+                db.LogImageCollection.Remove(wp);
+            }
+            lg.DeleteRecord();
+            db.LogCollection.Remove(lg);
+        }
     }
 }

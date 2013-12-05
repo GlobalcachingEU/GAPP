@@ -27,6 +27,14 @@ namespace GAPPSF.Core.Data
             CachedPropertyValues = new Hashtable();
         }
 
+        public void DeleteRecord()
+        {
+            if (RecordInfo != null && RecordInfo.Database != null)
+            {
+                RecordInfo.Database.DeleteRecord(RecordInfo);
+            }
+        }
+
         public void BeginUpdate()
         {
             _updateCounter++;

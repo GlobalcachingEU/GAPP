@@ -31,13 +31,13 @@
                 </MenuItem>
                 <MenuItem Header="{l:Translate Edit}">
                     <MenuItem Header="{l:Translate Copy}" Command="{Binding CopyCommand, Source={x:Static c:ClipboardHandler.Instance}}" />
-                    <MenuItem Header="{l:Translate Delete}" Command="{Binding NewCommand}" />
+                    <MenuItem Header="{l:Translate Delete}" Command="{Binding DeleteActiveCommand}" />
                     <MenuItem Header="{l:Translate CopySelection}" Command="{Binding CopySelectedCommand, Source={x:Static c:ClipboardHandler.Instance}}" />
-                    <MenuItem Header="{l:Translate DeleteSelection}" Command="{Binding NewCommand}" />
+                    <MenuItem Header="{l:Translate DeleteSelection}" Command="{Binding DeleteSelectionCommand}" />
                     <MenuItem Header="{l:Translate Paste}" Command="{Binding PasteCommand, Source={x:Static c:ClipboardHandler.Instance}}" />
                     <Separator />
-                    <MenuItem Header="{l:Translate SelectAll}" Command="{Binding NewCommand}" />
-                    <MenuItem Header="{l:Translate ClearSelection}" Command="{Binding NewCommand}" />
+                    <MenuItem Header="{l:Translate SelectAll}" Command="{Binding SelectAllCommand}" />
+                    <MenuItem Header="{l:Translate ClearSelection}" Command="{Binding SelectNoneCommand}" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate Search}">
                     <MenuItem Header="{l:Translate QuickSearch}">

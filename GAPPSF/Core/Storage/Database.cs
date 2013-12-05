@@ -198,6 +198,14 @@ namespace GAPPSF.Core.Storage
             return RequestRecord(id, RECORD_GEOCACHEIMAGE, recordData, minimumLength, extraBuffer);
         }
 
+        public void DeleteRecord(RecordInfo ri)
+        {
+            FileStream.Position = ri.Offset + RECORD_POS_FIELDTYPE;
+            BinaryWriter.Write(RECORD_EMPTY);
+            _emptyRecords.Add(ri);
+            _emptyRecordListSorted = false;
+        }
+
         private RecordInfo RequestRecord(string id, byte recordType, byte[] recordData, long minimumLength, long extraBuffer)
         {
             RecordInfo result = null;

@@ -393,6 +393,82 @@ namespace GAPPSF
             Localization.TranslationManager.Instance.CurrentLanguage = new CultureInfo("nl-NL");
         }
 
+        AsyncDelegateCommand _deleteActiveCommand;
+        public ICommand DeleteActiveCommand
+        {
+            get
+            {
+                if (_deleteActiveCommand == null)
+                {
+                    _deleteActiveCommand = new AsyncDelegateCommand(param => this.DeleteActiveGeocache(),
+                        param => Core.ApplicationData.Instance.ActiveGeocache != null);
+                }
+                return _deleteActiveCommand;
+            }
+        }
+
+        async public Task DeleteActiveGeocache()
+        {
+            if (Core.ApplicationData.Instance.ActiveGeocache != null)
+            {
+                using (Utils.DataUpdater upd = new Utils.DataUpdater(Core.ApplicationData.Instance.ActiveGeocache.Database))
+                {
+                    await Task.Run(() =>
+                    {
+                        Utils.DataAccess.DeleteGeocache(Core.ApplicationData.Instance.ActiveGeocache);
+                    });
+                }
+            }
+        }
+
+        AsyncDelegateCommand _deleteSelectionCommand;
+        public ICommand DeleteSelectionCommand
+        {
+            get
+            {
+                if (_deleteSelectionCommand == null)
+                {
+                    _deleteSelectionCommand = new AsyncDelegateCommand(param => this.DeleteSelectionGeocache(),
+                        param => GeocacheSelectionCount>0);
+                }
+                return _deleteSelectionCommand;
+            }
+        }
+
+        async public Task DeleteSelectionGeocache()
+        {
+            if (Core.ApplicationData.Instance.ActiveGeocache != null)
+            {
+                using (Utils.DataUpdater upd = new Utils.DataUpdater(Core.ApplicationData.Instance.ActiveGeocache.Database))
+                {
+                    await Task.Run(() =>
+                    {
+                        int index = 0;
+                        DateTime nextUpdate = DateTime.Now.AddSeconds(1);
+                        List<Core.Data.Geocache> gcList = (from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection where a.Selected select a).ToList();
+                        using (Utils.ProgressBlock prog = new Utils.ProgressBlock("Deleting geocaches...", "Deleting geocaches...", gcList.Count, 0, true))
+                        {
+                            foreach (var gc in gcList)
+                            {
+                                Utils.DataAccess.DeleteGeocache(gc);
+                                index++;
+
+                                if (DateTime.Now >= nextUpdate)
+                                {
+                                    if (!prog.Update("Deleting geocaches...", gcList.Count, index))
+                                    {
+                                        break;
+                                    }
+                                    nextUpdate = DateTime.Now.AddSeconds(1);
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+        }
+
+
         AsyncDelegateCommand _importGpxCommand;
         public ICommand ImportGPXCommand
         {
@@ -572,6 +648,40 @@ namespace GAPPSF
         private void selectIfArchived(Core.Data.Geocache gc)
         {
             gc.Selected = gc.Archived;
+        }
+
+        ForAllGeocachesCommand _selectAllCommand;
+        public ICommand SelectAllCommand
+        {
+            get
+            {
+                if (_selectAllCommand == null)
+                {
+                    _selectAllCommand = new ForAllGeocachesCommand(param => this.selectAll(param));
+                }
+                return _selectAllCommand;
+            }
+        }
+        private void selectAll(Core.Data.Geocache gc)
+        {
+            gc.Selected = true;
+        }
+
+        ForAllGeocachesCommand _selectNoneCommand;
+        public ICommand SelectNoneCommand
+        {
+            get
+            {
+                if (_selectNoneCommand == null)
+                {
+                    _selectNoneCommand = new ForAllGeocachesCommand(param => this.selectNone(param));
+                }
+                return _selectNoneCommand;
+            }
+        }
+        private void selectNone(Core.Data.Geocache gc)
+        {
+            gc.Selected = false;
         }
 
 
