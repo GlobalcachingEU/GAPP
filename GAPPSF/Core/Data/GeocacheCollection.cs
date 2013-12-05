@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GAPPSF.Core.Data
 {
-    public class GeocacheCollection: List<Geocache>, INotifyCollectionChanged
+    public class GeocacheCollection: List<Geocache>, INotifyCollectionChanged, INotifyPropertyChanged
     {
         private Database _db = null;
         private int _updateCounter = 0;
@@ -22,6 +22,7 @@ namespace GAPPSF.Core.Data
         public event NotifyCollectionChangedEventHandler CollectionChanged;
         public event EventHandler GeocacheDataChanged; //data of a geocache has changed after Geocache.EndUpdate()
         public event PropertyChangedEventHandler GeocachePropertyChanged; //property of a geocache has changed
+        public event PropertyChangedEventHandler PropertyChanged;
 
 
         public GeocacheCollection(Database db)
@@ -249,8 +250,13 @@ namespace GAPPSF.Core.Data
             {
                 CollectionChanged(this, e);
             }
+            if (PropertyChanged!=null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs("Count"));
+            }
             _dataHasChanged = false;
         }
+
 
     }
 }

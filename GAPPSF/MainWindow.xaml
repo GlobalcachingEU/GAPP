@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:p="clr-namespace:GAPPSF.Core"
         xmlns:l="clr-namespace:GAPPSF.Localization"
+        xmlns:c="clr-namespace:GAPPSF.Clipboard"
         xmlns:UIControls="clr-namespace:GAPPSF.UIControls" 
         x:Class="GAPPSF.MainWindow"
         IsEnabled="{Binding UIIsIdle, Source={x:Static p:ApplicationData.Instance}}"
@@ -27,6 +28,16 @@
                         <MenuItem Header="GPX" Command="{Binding ImportGPXCommand}" />
                         <MenuItem Header="GAPP Data Storage" Command="{Binding ImportGAPPCommand}" />
                     </MenuItem>
+                </MenuItem>
+                <MenuItem Header="{l:Translate Edit}">
+                    <MenuItem Header="{l:Translate Copy}" Command="{Binding CopyCommand, Source={x:Static c:ClipboardHandler.Instance}}" />
+                    <MenuItem Header="{l:Translate Delete}" Command="{Binding NewCommand}" />
+                    <MenuItem Header="{l:Translate CopySelection}" Command="{Binding CopySelectedCommand, Source={x:Static c:ClipboardHandler.Instance}}" />
+                    <MenuItem Header="{l:Translate DeleteSelection}" Command="{Binding NewCommand}" />
+                    <MenuItem Header="{l:Translate Paste}" Command="{Binding PasteCommand, Source={x:Static c:ClipboardHandler.Instance}}" />
+                    <Separator />
+                    <MenuItem Header="{l:Translate SelectAll}" Command="{Binding NewCommand}" />
+                    <MenuItem Header="{l:Translate ClearSelection}" Command="{Binding NewCommand}" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate Search}">
                     <MenuItem Header="{l:Translate QuickSearch}">

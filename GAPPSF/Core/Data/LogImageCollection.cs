@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GAPPSF.Core.Data
 {
-    public class LogImageCollection : List<LogImage>, INotifyCollectionChanged
+    public class LogImageCollection : List<LogImage>, INotifyCollectionChanged, INotifyPropertyChanged
     {
         private Database _db = null;
         private int _updateCounter = 0;
@@ -25,6 +25,7 @@ namespace GAPPSF.Core.Data
         public event NotifyCollectionChangedEventHandler CollectionChanged;
         public event EventHandler LogImageDataChanged; //data of a log has changed after log image .EndUpdate()
         public event PropertyChangedEventHandler LogImagePropertyChanged; //property of a log has changed
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public LogImageCollection(Database db)
         {
@@ -186,6 +187,10 @@ namespace GAPPSF.Core.Data
             if (CollectionChanged != null)
             {
                 CollectionChanged(this, e);
+            }
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs("Count"));
             }
             _dataHasChanged = false;
         }

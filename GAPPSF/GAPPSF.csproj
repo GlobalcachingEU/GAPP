@@ -103,6 +103,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Clipboard\ClipboardHandler.cs" />
     <Compile Include="Commands\AsyncDelegateCommand.cs" />
     <Compile Include="Commands\ForAllGeocachesCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />

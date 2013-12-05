@@ -32,6 +32,7 @@ namespace GAPPSF.Core
                 Properties.Settings.Default.Save();
 
                 sf = Path.Combine(sf, "settings.db3");
+
                 _dbcon = new Utils.DBConComSqlite(sf);
 
                 if (!_dbcon.TableExists("settings"))

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GAPPSF.Core.Data
 {
-    public class UserWaypointCollection : List<UserWaypoint>, INotifyCollectionChanged
+    public class UserWaypointCollection : List<UserWaypoint>, INotifyCollectionChanged, INotifyPropertyChanged
     {
         private Database _db = null;
         private int _updateCounter = 0;
@@ -25,6 +25,7 @@ namespace GAPPSF.Core.Data
         public event NotifyCollectionChangedEventHandler CollectionChanged;
         public event EventHandler WaypointDataChanged; //data of a wp has changed after Geocache.EndUpdate()
         public event PropertyChangedEventHandler WaypointPropertyChanged; //property of a wp has changed
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public UserWaypointCollection(Database db)
         {
@@ -186,6 +187,10 @@ namespace GAPPSF.Core.Data
             if (CollectionChanged != null)
             {
                 CollectionChanged(this, e);
+            }
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs("Count"));
             }
             _dataHasChanged = false;
         }
