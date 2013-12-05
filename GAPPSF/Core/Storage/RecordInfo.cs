@@ -19,6 +19,15 @@ namespace GAPPSF.Core.Storage
         public long Length { get; set; }
         public string ID { get; set; }
 
+        public long OffsetIdx { get; set; } //offset in index file. size is fixed
+        public byte FieldType { get; set; }
+        //pos:
+        //0: OffsetIdx (long)
+        //8: Offset (long)
+        //16: Length (long)
+        //24: field type (byte)
+        //25: ID (100 bytes max) 
+
         public override int GetHashCode()
         {
             return ID.GetHashCode();

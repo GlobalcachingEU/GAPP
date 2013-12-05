@@ -138,7 +138,7 @@ namespace GAPPSF.Dialogs
             Canceled = false;
             if (!CheckAccess())
             {
-                Dispatcher.BeginInvoke(new Action<string, string, int, int>(Start), new object[] { title, mainAction, max, pos });
+                Dispatcher.BeginInvoke(new Action<string, string, int, int>(Start), new object[] { title, mainAction, max, pos, canCancel });
                 return;
             }
             _progressData.Title = title;
@@ -147,6 +147,10 @@ namespace GAPPSF.Dialogs
             _progressData.MainValue = pos;
             _progressData.SubVisible = System.Windows.Visibility.Hidden;
             if (canCancel)
+            {
+                _progressData.CancelButton = System.Windows.Visibility.Visible;
+            }
+            else
             {
                 _progressData.CancelButton = System.Windows.Visibility.Hidden;
             }
