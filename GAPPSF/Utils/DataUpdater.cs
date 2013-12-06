@@ -36,12 +36,22 @@ namespace GAPPSF.Utils
         {
             db.GeocacheCollection.BeginUpdate();
             db.LogCollection.BeginUpdate();
+            db.WaypointCollection.BeginUpdate();
+            db.UserWaypointCollection.BeginUpdate();
+            db.LogImageCollection.BeginUpdate();
+            db.GeocacheImageCollection.BeginUpdate();
         }
 
         private void unblockUpdates(Database db)
         {
+            db.GeocacheImageCollection.EndUpdate();
+            db.LogImageCollection.EndUpdate();
+            db.UserWaypointCollection.EndUpdate();
+            db.WaypointCollection.EndUpdate();
             db.LogCollection.EndUpdate();
             db.GeocacheCollection.EndUpdate();
+
+            db.Flush();
         }
 
         public void Dispose()

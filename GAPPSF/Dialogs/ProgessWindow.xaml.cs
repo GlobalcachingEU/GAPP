@@ -138,7 +138,7 @@ namespace GAPPSF.Dialogs
             Canceled = false;
             if (!CheckAccess())
             {
-                Dispatcher.BeginInvoke(new Action<string, string, int, int>(Start), new object[] { title, mainAction, max, pos, canCancel });
+                Dispatcher.BeginInvoke(new Action<string, string, int, int, bool>(Start), new object[] { title, mainAction, max, pos, canCancel });
                 return;
             }
             _progressData.Title = title;
