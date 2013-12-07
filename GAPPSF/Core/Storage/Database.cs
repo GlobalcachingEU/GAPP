@@ -80,9 +80,17 @@ namespace GAPPSF.Core.Storage
                 this.FileStream = File.Open(FileName, FileMode.OpenOrCreate, FileAccess.ReadWrite);
                 BinaryReader = new System.IO.BinaryReader(this.FileStream);
                 BinaryWriter = new System.IO.BinaryWriter(this.FileStream);
-                if (!LoadIndexFile())
+                bool cancelled = false;
+                if (!LoadIndexFile(ref cancelled))
                 {
-                    result = LoadDatabaseFile();
+                    if (!cancelled)
+                    {
+                        result = LoadDatabaseFile();
+                    }
+                }
+                else
+                {
+                    result = true;
                 }
             }
             catch
@@ -104,7 +112,7 @@ namespace GAPPSF.Core.Storage
             }
         }
 
-        private bool LoadIndexFile()
+        private bool LoadIndexFile(ref bool cancelled)
         {
             bool result = false;
             string fn = string.Concat(FileName, ".gsx");
@@ -118,9 +126,9 @@ namespace GAPPSF.Core.Storage
 
                     long max = _fileStreamIdx.Length;
                     DateTime nextUpdate = DateTime.Now.AddSeconds(1);
-                    using (Utils.ProgressBlock prog = new ProgressBlock("Loading database", "Loading...", 100, 0))
+                    using (Utils.ProgressBlock prog = new ProgressBlock("Loading database", "Loading...", 100, 0, true))
                     {
-                        int maxChunks = 100;
+                        int maxChunks = 1000;
                         int chunkSize = 117;
                         byte[] buffer = new byte[maxChunks * chunkSize];
                         using (MemoryStream ms = new MemoryStream(buffer))
@@ -173,15 +181,21 @@ namespace GAPPSF.Core.Storage
 
                                     if (DateTime.Now >= nextUpdate)
                                     {
-                                        prog.Update("Loading...", 100, (int)(100.0 * (double)_fileStreamIdx.Position / (double)max));
+                                        if (!prog.Update("Loading...", 100, (int)(100.0 * (double)_fileStreamIdx.Position / (double)max)))
+                                        {
+                                            cancelled = true;
+                                            break;
+                                        }
                                         nextUpdate = DateTime.Now.AddSeconds(1);
                                     }
                                 }
                             }
-                            //if not cancled
-                            result = true;
+                            if (!cancelled)
+                            {
+                                Utils.Calculus.SetDistanceAndAngleGeocacheFromLocation(GeocacheCollection, Core.ApplicationData.Instance.CenterLocation);
+                                result = true;
+                            }
                         }
-                        Utils.Calculus.SetDistanceAndAngleGeocacheFromLocation(GeocacheCollection, Core.ApplicationData.Instance.CenterLocation);
                     }
                 }
             }
@@ -210,6 +224,7 @@ namespace GAPPSF.Core.Storage
             //this is an exception. (should be anyway)
             //first create it in a temporary file and copy to target if finished
             bool result = false;
+            bool cancelled = false;
             try
             {
                 string fn = string.Concat(FileName, ".gsx");
@@ -225,7 +240,7 @@ namespace GAPPSF.Core.Storage
                 {
                     long max = this.FileStream.Length;
                     DateTime nextUpdate = DateTime.Now.AddSeconds(1);
-                    using (Utils.ProgressBlock prog = new ProgressBlock("Loading database", "Loading...", 100, 0))
+                    using (Utils.ProgressBlock prog = new ProgressBlock("Loading database", "Loading...", 100, 0, true))
                     {
                         this.FileStream.Position = 0;
                         long eof = this.FileStream.Length;
@@ -280,26 +295,35 @@ namespace GAPPSF.Core.Storage
                             if (ri.FieldType != RECORD_EMPTY)
                             {
                                 bw.Write(ri.ID);
+                                bw.Write(ri.SubID);
                             }
                             else
                             {
+                                bw.Write("");
                                 bw.Write("");
                             }
                             fsIdx.Write(buffer, 0, 117);
 
                             if (DateTime.Now >= nextUpdate)
                             {
-                                prog.Update("Loading...", 100, (int)(100.0 * (double)this.FileStream.Position / (double)max));
+                                if (!prog.Update("Loading...", 100, (int)(100.0 * (double)this.FileStream.Position / (double)max)))
+                                {
+                                    cancelled = true;
+                                    break;
+                                }
                                 nextUpdate = DateTime.Now.AddSeconds(1);
                             }
                         }
                         //if all OK and not canceled
                         fsIdx.Close();
-                        File.Copy(tf.Path, fn);
-                        _fileStreamIdx = File.Open(fn, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+                        if (!cancelled)
+                        {
+                            File.Copy(tf.Path, fn);
+                            _fileStreamIdx = File.Open(fn, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+                            Utils.Calculus.SetDistanceAndAngleGeocacheFromLocation(this.GeocacheCollection, ApplicationData.Instance.CenterLocation);
+                            result = true;
+                        }
                     }
-                    Utils.Calculus.SetDistanceAndAngleGeocacheFromLocation(this.GeocacheCollection, ApplicationData.Instance.CenterLocation);
-                    result = true;
                 }
             }
             catch
@@ -345,7 +369,7 @@ namespace GAPPSF.Core.Storage
 
             if (_fileStreamIdx!=null)
             {
-                _fileStreamIdx.Position = ri.OffsetIdx + RECORD_POS_FIELDTYPE;
+                _fileStreamIdx.Position = ri.OffsetIdx + 16;
                 _fileStreamIdx.WriteByte(RECORD_EMPTY);
             }
         }

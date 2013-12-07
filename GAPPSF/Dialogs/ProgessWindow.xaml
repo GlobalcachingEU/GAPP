@@ -9,7 +9,7 @@
         <ProgressBar x:Name="progressBarSub" Value="{Binding SubValue}"  Maximum="{Binding SubMax}" HorizontalAlignment="Left" Visibility="{Binding SubVisible}" Height="22" Margin="45,89,0,0" VerticalAlignment="Top" Width="370"/>
         <Label Content="{Binding Maximum, ElementName=progressBarSub}" Visibility="{Binding SubVisible}" HorizontalAlignment="Right" Margin="0,89,0,0" VerticalAlignment="Top"  Width="73"/>
         <Label Content="{Binding SubAction}" Visibility="{Binding SubVisible}" HorizontalAlignment="Left" Margin="45,58,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.313,0.398" Width="370" Height="26"/>
-        <Button Content="Button" Visibility="{Binding CancelButton}" HorizontalAlignment="Left" Margin="147,125,0,0" VerticalAlignment="Top" Width="159" Click="Button_Click"/>
+        <Button Content="Cancel" Visibility="{Binding CancelButton}" HorizontalAlignment="Left" Margin="147,125,0,0" VerticalAlignment="Top" Width="159" Click="Button_Click"/>
 
     </Grid>
 </Window>

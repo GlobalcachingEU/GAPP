@@ -99,18 +99,28 @@ namespace GAPPSF
                 {
                     string[] lines = dbs.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
                     int index = 0;
-                    using (Utils.ProgressBlock prog = new Utils.ProgressBlock("Loading databases...", "Loading databases...", lines.Length, 0))
+                    using (Utils.ProgressBlock prog = new Utils.ProgressBlock("Loading databases...", "Loading databases...", lines.Length, 0, true))
                     {
                         foreach (string s in lines)
                         {
                             prog.Update(s, lines.Length, index);
 
                             Core.Storage.Database db = new Core.Storage.Database(s);
-                            await db.InitializeAsync();
-                            Core.ApplicationData.Instance.Databases.Add(db);
+                            bool success = await db.InitializeAsync();
+                            if (success)
+                            {
+                                Core.ApplicationData.Instance.Databases.Add(db);
+                            }
+                            else
+                            {
+                                db.Dispose();
+                            }
 
                             index++;
-                            prog.Update(s, lines.Length, index);
+                            if (!prog.Update(s, lines.Length, index))
+                            {
+                                break;
+                            }
                         }
                     }
                     if (!string.IsNullOrEmpty(actDb))
@@ -437,9 +447,9 @@ namespace GAPPSF
 
         async public Task DeleteSelectionGeocache()
         {
-            if (Core.ApplicationData.Instance.ActiveGeocache != null)
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
             {
-                using (Utils.DataUpdater upd = new Utils.DataUpdater(Core.ApplicationData.Instance.ActiveGeocache.Database))
+                using (Utils.DataUpdater upd = new Utils.DataUpdater(Core.ApplicationData.Instance.ActiveDatabase))
                 {
                     await Task.Run(() =>
                     {
@@ -568,9 +578,16 @@ namespace GAPPSF
                 // Open document 
                 string filename = dlg.FileName;
                 Core.Storage.Database db = new Core.Storage.Database(filename);
-                await db.InitializeAsync();
-                Core.ApplicationData.Instance.Databases.Add(db);
-                Core.ApplicationData.Instance.ActiveDatabase = db;
+                bool success = await db.InitializeAsync();
+                if (success)
+                {
+                    Core.ApplicationData.Instance.Databases.Add(db);
+                    Core.ApplicationData.Instance.ActiveDatabase = db;
+                }
+                else
+                {
+                    db.Dispose();
+                }
             }
         }
 
@@ -621,9 +638,16 @@ namespace GAPPSF
                 // Open document 
                 string filename = dlg.FileName;
                 Core.Storage.Database db = new Core.Storage.Database(filename);
-                await db.InitializeAsync();
-                Core.ApplicationData.Instance.Databases.Add(db);
-                Core.ApplicationData.Instance.ActiveDatabase = db;
+                bool success = await db.InitializeAsync();
+                if (success)
+                {
+                    Core.ApplicationData.Instance.Databases.Add(db);
+                    Core.ApplicationData.Instance.ActiveDatabase = db;
+                }
+                else
+                {
+                    db.Dispose();
+                }
             }
         }
 

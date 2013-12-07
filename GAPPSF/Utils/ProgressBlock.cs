@@ -41,7 +41,7 @@ namespace GAPPSF.Utils
             {
                 Dialogs.ProgessWindow.Instance.ChangeProgress(action, value, max);
             }
-            return Dialogs.ProgessWindow.Instance.Canceled;
+            return !Dialogs.ProgessWindow.Instance.Canceled;
         }
 
         public void Dispose()
