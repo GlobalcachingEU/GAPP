@@ -17,6 +17,7 @@ namespace GAPPSF.Core.Data
             : base(recordInfo)
         {
             _id = recordInfo.ID;
+            _geocacheCode = recordInfo.SubID;
         }
 
         //new record to be stored
@@ -24,6 +25,7 @@ namespace GAPPSF.Core.Data
             : base(null)
         {
             _id = data.ID;
+            _geocacheCode = data.GeocacheCode;
             using (MemoryStream ms = new MemoryStream(_buffer))
             using (BinaryWriter bw = new BinaryWriter(ms))
             {
@@ -31,12 +33,12 @@ namespace GAPPSF.Core.Data
                 //todo: add string length checks!!!
 
                 ms.Position = 150;
-                bw.Write(data.DataFromDate.ToFileTime()); //150
+                bw.Write(Utils.Conversion.DateTimeToLong(data.DataFromDate)); //150
                 bw.Write((bool)(data.Lat!=null)); //158
                 bw.Write(data.Lat==null ? (double)0.0: (double)data.Lat); //159
                 bw.Write((bool)(data.Lon != null)); //167
                 bw.Write(data.Lon == null ? (double)0.0 : (double)data.Lon); //168
-                bw.Write(data.Time.ToFileTime()); //176
+                bw.Write(Utils.Conversion.DateTimeToLong(data.Time)); //176
                 bw.Write(data.WPType.ID); //184
                 //spare
                 ms.Position = 200;
@@ -54,7 +56,7 @@ namespace GAPPSF.Core.Data
                 ms.Position = 800;
                 bw.Write(data.Comment);
 
-                RecordInfo = db.RequestWaypointRecord(data.ID, _buffer, ms.Position, 100);
+                RecordInfo = db.RequestWaypointRecord(data.ID, _geocacheCode, _buffer, ms.Position, 100);
             }
             db.WaypointCollection.Add(this);
         }
@@ -171,16 +173,19 @@ namespace GAPPSF.Core.Data
             }
         }
 
+        //buffered READONLY
+        private string _geocacheCode = "";
         public string GeocacheCode
         {
             get
             {
-                return readString(200);
+                return _geocacheCode;
+                //return readString(200);
             }
             set
             {
-                string s = GeocacheCode;
-                SetProperty(200, ref s, value);
+                //string s = GeocacheCode;
+                //SetProperty(200, ref s, value);
             }
         }
 

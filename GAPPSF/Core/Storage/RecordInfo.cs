@@ -18,6 +18,7 @@ namespace GAPPSF.Core.Storage
         public long Offset { get; set; }
         public long Length { get; set; }
         public string ID { get; set; }
+        public string SubID { get; set; }
 
         public long OffsetIdx { get; set; } //offset in index file. size is fixed
         public byte FieldType { get; set; }

@@ -18,6 +18,7 @@ namespace GAPPSF.Core.Data
             : base(recordInfo)
         {
             _id = recordInfo.ID;
+            _geocacheCode = recordInfo.SubID;
         }
 
         //new record to be stored
@@ -25,6 +26,7 @@ namespace GAPPSF.Core.Data
             : base(null)
         {
             _id = data.ID;
+            _geocacheCode = data.GeocacheCode;
             using (MemoryStream ms = new MemoryStream(_buffer))
             using (BinaryWriter bw = new BinaryWriter(ms))
             {
@@ -33,8 +35,8 @@ namespace GAPPSF.Core.Data
 
                 ms.Position = 150;
                 bw.Write(data.LogType.ID); //150
-                bw.Write(data.Date.ToFileTime()); //154
-                bw.Write(data.DataFromDate.ToFileTime()); //162
+                bw.Write(Utils.Conversion.DateTimeToLong(data.Date)); //154
+                bw.Write(Utils.Conversion.DateTimeToLong(data.DataFromDate)); //162
                 bw.Write(data.Encoded); //170
                 ms.Position = 180;
                 bw.Write(data.GeocacheCode??"");
@@ -47,7 +49,7 @@ namespace GAPPSF.Core.Data
                 ms.Position = 380;
                 bw.Write(data.Text??"");
 
-                RecordInfo = db.RequestLogRecord(data.ID, _buffer, ms.Position, 100);
+                RecordInfo = db.RequestLogRecord(data.ID, data.GeocacheCode ?? "", _buffer, ms.Position, 100);
             }
             db.LogCollection.Add(this);
         }
@@ -86,16 +88,19 @@ namespace GAPPSF.Core.Data
             }
         }
 
+        //buffered, readonly
+        private string _geocacheCode = "";
         public string GeocacheCode
         {
             get
             {
-                return readString(180);
+                return _geocacheCode;
+                //return readString(180);
             }
             set
             {
-                string s = GeocacheCode;
-                SetProperty(180, ref s, value);
+                //string s = GeocacheCode;
+                //SetProperty(180, ref s, value);
             }
         }
 

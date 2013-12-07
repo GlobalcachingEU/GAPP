@@ -54,6 +54,7 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="Geocaches" />
                             <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveDatabase.GeocacheCollection.Count}" />
@@ -61,10 +62,12 @@
                             <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveDatabase.LogCollection.Count}" />
                             <TextBlock Grid.Row="2" Grid.Column="0" Text="Waypoints" />
                             <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveDatabase.WaypointCollection.Count}" />
-                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Log images" />
-                            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveDatabase.LogImageCollection.Count}" />
-                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Geocache images" />
-                            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveDatabase.GeocacheImageCollection.Count}" />
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="User Waypoints" />
+                            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveDatabase.UserWaypointCollection.Count}" />
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Log images" />
+                            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveDatabase.LogImageCollection.Count}" />
+                            <TextBlock Grid.Row="5" Grid.Column="0" Text="Geocache images" />
+                            <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveDatabase.GeocacheImageCollection.Count}" />
                         </Grid>
                         <CheckBox IsChecked="{Binding Source={x:Static p:Settings.Default}, Path=AutoSelectNewGeocaches}" Content="Automatic select new geocaches" />
                     </StackPanel>

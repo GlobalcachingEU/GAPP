@@ -45,8 +45,8 @@ namespace GAPPSF.Core.Data
                 bw.Write(data.Archived); //150
                 bw.Write(data.Available); //151
                 bw.Write(data.Container == null ? 0 : data.Container.ID); //152
-                bw.Write(data.DataFromDate.ToFileTime()); //156
-                bw.Write(data.PublishedTime.ToFileTime()); //164
+                bw.Write(Utils.Conversion.DateTimeToLong(data.DataFromDate)); //156
+                bw.Write(Utils.Conversion.DateTimeToLong(data.PublishedTime)); //164
                 bw.Write(data.Difficulty); //172
                 bw.Write(data.Terrain); //180
                 bw.Write(data.Favorites); //188
@@ -117,7 +117,7 @@ namespace GAPPSF.Core.Data
                 bw.Write(data.ShortDescription); //3002
                 bw.Write(data.LongDescription);
 
-                RecordInfo = db.RequestGeocacheRecord(data.Code, _buffer, ms.Position, 500);
+                RecordInfo = db.RequestGeocacheRecord(data.Code, "", _buffer, ms.Position, 500);
             }
             db.GeocacheCollection.Add(this);
         }

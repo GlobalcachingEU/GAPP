@@ -17,6 +17,7 @@ namespace GAPPSF.Core.Data
             : base(recordInfo)
         {
             _id = recordInfo.ID;
+            _logId = recordInfo.SubID;
         }
 
         //new record to be stored
@@ -24,6 +25,7 @@ namespace GAPPSF.Core.Data
             : base(null)
         {
             _id = data.ID;
+            _logId = data.LogId ?? "";
             using (MemoryStream ms = new MemoryStream(_buffer))
             using (BinaryWriter bw = new BinaryWriter(ms))
             {
@@ -31,7 +33,7 @@ namespace GAPPSF.Core.Data
                 //todo: add string length checks!!!
 
                 ms.Position = 150;
-                bw.Write(data.DataFromDate.ToFileTime()); //150
+                bw.Write(Utils.Conversion.DateTimeToLong(data.DataFromDate)); //150
                 ms.Position = 180;
                 bw.Write(data.LogId??"");
                 ms.Position = 220;
@@ -39,7 +41,7 @@ namespace GAPPSF.Core.Data
                 ms.Position = 420;
                 bw.Write(data.Name??"");
 
-                RecordInfo = db.RequestLogRecord(data.ID, _buffer, ms.Position, 10);
+                RecordInfo = db.RequestLogRecord(data.ID, _logId, _buffer, ms.Position, 10);
             }
             db.LogImageCollection.Add(this);
         }
@@ -78,16 +80,19 @@ namespace GAPPSF.Core.Data
             }
         }
 
+        //buffered READONLY
+        private string _logId = "";
         public string LogId
         {
             get
             {
-                return readString(180);
+                return _logId;
+                //return readString(180);
             }
             set
             {
-                string s = LogId;
-                SetProperty(180, ref s, value);
+                //string s = LogId;
+                //SetProperty(180, ref s, value);
             }
         }
 

@@ -21,6 +21,30 @@ namespace GAPPSF.Utils
             }
         }
 
+        public static long DateTimeToLong(DateTime dt)
+        {
+            if (dt==DateTime.MinValue)
+            {
+                return 0;
+            }
+            else
+            {
+                return dt.ToFileTime();
+            }
+        }
+
+        public static DateTime DateTimeFromLong(long l)
+        {
+            if (l==0)
+            {
+                return DateTime.MinValue;
+            }
+            else
+            {
+                return DateTime.FromFileTime(l);
+            }
+        }
+
         public static string GetCoordinatesPresentation(GAPPSF.Core.Data.Location loc)
         {
             return GetCoordinatesPresentation(loc.Lat, loc.Lon);

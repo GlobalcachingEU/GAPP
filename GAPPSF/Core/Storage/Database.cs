@@ -120,60 +120,68 @@ namespace GAPPSF.Core.Storage
                     DateTime nextUpdate = DateTime.Now.AddSeconds(1);
                     using (Utils.ProgressBlock prog = new ProgressBlock("Loading database", "Loading...", 100, 0))
                     {
-                        byte[] buffer = new byte[117];
+                        int maxChunks = 100;
+                        int chunkSize = 117;
+                        byte[] buffer = new byte[maxChunks * chunkSize];
                         using (MemoryStream ms = new MemoryStream(buffer))
                         using (BinaryReader br = new BinaryReader(ms))
                         {
                             while (_fileStreamIdx.Position < max)
                             {
-                                RecordInfo ri = new RecordInfo();
-                                ri.Database = this;
-                                ri.OffsetIdx = _fileStreamIdx.Position;
-                                _fileStreamIdx.Read(buffer, 0, 117);
-                                ms.Position = 0;
-                                ri.Offset = br.ReadInt64();
-                                ri.Length = br.ReadInt64();
-                                ri.FieldType = br.ReadByte();
-                                if (ri.FieldType != RECORD_EMPTY)
+                                long startPos = _fileStreamIdx.Position;
+                                int chunksRead = _fileStreamIdx.Read(buffer, 0, maxChunks * chunkSize) / chunkSize;
+                                for (int i = 0; i < chunksRead; i++)
                                 {
-                                    ri.ID = br.ReadString();
-                                }
-                                switch (ri.FieldType)
-                                {
-                                    case RECORD_EMPTY:
-                                        //empty
-                                        _emptyRecords.Add(ri);
-                                        _emptyRecordListSorted = false;
-                                        break;
-                                    case RECORD_GEOCACHE:
-                                        this.GeocacheCollection.Add(new Data.Geocache(ri));
-                                        break;
-                                    case RECORD_LOG:
-                                        this.LogCollection.Add(new Data.Log(ri));
-                                        break;
-                                    case RECORD_WAYPOINT:
-                                        this.WaypointCollection.Add(new Data.Waypoint(ri));
-                                        break;
-                                    case RECORD_USERWAYPOINT:
-                                        this.UserWaypointCollection.Add(new Data.UserWaypoint(ri));
-                                        break;
-                                    case RECORD_LOGIMAGE:
-                                        this.LogImageCollection.Add(new Data.LogImage(ri));
-                                        break;
-                                    case RECORD_GEOCACHEIMAGE:
-                                        this.GeocacheImageCollection.Add(new Data.GeocacheImage(ri));
-                                        break;
-                                }
+                                    RecordInfo ri = new RecordInfo();
+                                    ri.Database = this;
+                                    ri.OffsetIdx = startPos + i * chunkSize;
+                                    ms.Position = i * chunkSize;
+                                    ri.Offset = br.ReadInt64();
+                                    ri.Length = br.ReadInt64();
+                                    ri.FieldType = br.ReadByte();
+                                    if (ri.FieldType != RECORD_EMPTY)
+                                    {
+                                        ri.ID = br.ReadString();
+                                        ri.SubID = br.ReadString();
+                                    }
+                                    switch (ri.FieldType)
+                                    {
+                                        case RECORD_EMPTY:
+                                            //empty
+                                            _emptyRecords.Add(ri);
+                                            _emptyRecordListSorted = false;
+                                            break;
+                                        case RECORD_GEOCACHE:
+                                            this.GeocacheCollection.Add(new Data.Geocache(ri));
+                                            break;
+                                        case RECORD_LOG:
+                                            this.LogCollection.Add(new Data.Log(ri));
+                                            break;
+                                        case RECORD_WAYPOINT:
+                                            this.WaypointCollection.Add(new Data.Waypoint(ri));
+                                            break;
+                                        case RECORD_USERWAYPOINT:
+                                            this.UserWaypointCollection.Add(new Data.UserWaypoint(ri));
+                                            break;
+                                        case RECORD_LOGIMAGE:
+                                            this.LogImageCollection.Add(new Data.LogImage(ri));
+                                            break;
+                                        case RECORD_GEOCACHEIMAGE:
+                                            this.GeocacheImageCollection.Add(new Data.GeocacheImage(ri));
+                                            break;
+                                    }
 
-                                if (DateTime.Now >= nextUpdate)
-                                {
-                                    prog.Update("Loading...", 100, (int)(100.0 * (double)_fileStreamIdx.Position / (double)max));
-                                    nextUpdate = DateTime.Now.AddSeconds(1);
+                                    if (DateTime.Now >= nextUpdate)
+                                    {
+                                        prog.Update("Loading...", 100, (int)(100.0 * (double)_fileStreamIdx.Position / (double)max));
+                                        nextUpdate = DateTime.Now.AddSeconds(1);
+                                    }
                                 }
                             }
                             //if not cancled
                             result = true;
                         }
+                        Utils.Calculus.SetDistanceAndAngleGeocacheFromLocation(GeocacheCollection, Core.ApplicationData.Instance.CenterLocation);
                     }
                 }
             }
@@ -230,43 +238,37 @@ namespace GAPPSF.Core.Storage
                             ri.Length = BinaryReader.ReadInt64();
                             this.FileStream.Position = ri.Offset + RECORD_POS_FIELDTYPE;
                             ri.FieldType = BinaryReader.ReadByte();
-                            switch (ri.FieldType)
+                            if (ri.FieldType == RECORD_EMPTY)
                             {
-                                case RECORD_EMPTY:
-                                    //empty
-                                    _emptyRecords.Add(ri);
-                                    _emptyRecordListSorted = false;
-                                    break;
-                                case RECORD_GEOCACHE:
-                                    this.FileStream.Position = ri.Offset + RECORD_POS_ID;
-                                    ri.ID = BinaryReader.ReadString();
-                                    this.GeocacheCollection.Add(new Data.Geocache(ri));
-                                    break;
-                                case RECORD_LOG:
-                                    this.FileStream.Position = ri.Offset + RECORD_POS_ID;
-                                    ri.ID = BinaryReader.ReadString();
-                                    this.LogCollection.Add(new Data.Log(ri));
-                                    break;
-                                case RECORD_WAYPOINT:
-                                    this.FileStream.Position = ri.Offset + RECORD_POS_ID;
-                                    ri.ID = BinaryReader.ReadString();
-                                    this.WaypointCollection.Add(new Data.Waypoint(ri));
-                                    break;
-                                case RECORD_USERWAYPOINT:
-                                    this.FileStream.Position = ri.Offset + RECORD_POS_ID;
-                                    ri.ID = BinaryReader.ReadString();
-                                    this.UserWaypointCollection.Add(new Data.UserWaypoint(ri));
-                                    break;
-                                case RECORD_LOGIMAGE:
-                                    this.FileStream.Position = ri.Offset + RECORD_POS_ID;
-                                    ri.ID = BinaryReader.ReadString();
-                                    this.LogImageCollection.Add(new Data.LogImage(ri));
-                                    break;
-                                case RECORD_GEOCACHEIMAGE:
-                                    this.FileStream.Position = ri.Offset + RECORD_POS_ID;
-                                    ri.ID = BinaryReader.ReadString();
-                                    this.GeocacheImageCollection.Add(new Data.GeocacheImage(ri));
-                                    break;
+                                _emptyRecords.Add(ri);
+                                _emptyRecordListSorted = false;
+                            }
+                            else
+                            {
+                                this.FileStream.Position = ri.Offset + RECORD_POS_ID;
+                                ri.ID = BinaryReader.ReadString();
+                                ri.SubID = BinaryReader.ReadString();
+                                switch (ri.FieldType)
+                                {
+                                    case RECORD_GEOCACHE:
+                                        this.GeocacheCollection.Add(new Data.Geocache(ri));
+                                        break;
+                                    case RECORD_LOG:
+                                        this.LogCollection.Add(new Data.Log(ri));
+                                        break;
+                                    case RECORD_WAYPOINT:
+                                        this.WaypointCollection.Add(new Data.Waypoint(ri));
+                                        break;
+                                    case RECORD_USERWAYPOINT:
+                                        this.UserWaypointCollection.Add(new Data.UserWaypoint(ri));
+                                        break;
+                                    case RECORD_LOGIMAGE:
+                                        this.LogImageCollection.Add(new Data.LogImage(ri));
+                                        break;
+                                    case RECORD_GEOCACHEIMAGE:
+                                        this.GeocacheImageCollection.Add(new Data.GeocacheImage(ri));
+                                        break;
+                                }
                             }
                             this.FileStream.Position = ri.Offset + ri.Length;
 
@@ -306,32 +308,32 @@ namespace GAPPSF.Core.Storage
             return result;
         }
 
-        public RecordInfo RequestGeocacheRecord(string id, byte[] recordData, long minimumLength, long extraBuffer)
+        public RecordInfo RequestGeocacheRecord(string id, string subId, byte[] recordData, long minimumLength, long extraBuffer)
         {
-            return RequestRecord(id, RECORD_GEOCACHE, recordData, minimumLength, extraBuffer);
+            return RequestRecord(id, subId ?? "", RECORD_GEOCACHE, recordData, minimumLength, extraBuffer);
         }
 
-        public RecordInfo RequestLogRecord(string id, byte[] recordData, long minimumLength, long extraBuffer)
+        public RecordInfo RequestLogRecord(string id, string subId, byte[] recordData, long minimumLength, long extraBuffer)
         {
-            return RequestRecord(id, RECORD_LOG, recordData, minimumLength, extraBuffer);
+            return RequestRecord(id, subId ?? "", RECORD_LOG, recordData, minimumLength, extraBuffer);
         }
 
-        public RecordInfo RequestWaypointRecord(string id, byte[] recordData, long minimumLength, long extraBuffer)
+        public RecordInfo RequestWaypointRecord(string id, string subId, byte[] recordData, long minimumLength, long extraBuffer)
         {
-            return RequestRecord(id, RECORD_WAYPOINT, recordData, minimumLength, extraBuffer);
+            return RequestRecord(id, subId ?? "", RECORD_WAYPOINT, recordData, minimumLength, extraBuffer);
         }
 
-        public RecordInfo RequestUserWaypointRecord(string id, byte[] recordData, long minimumLength, long extraBuffer)
+        public RecordInfo RequestUserWaypointRecord(string id, string subId, byte[] recordData, long minimumLength, long extraBuffer)
         {
-            return RequestRecord(id, RECORD_USERWAYPOINT, recordData, minimumLength, extraBuffer);
+            return RequestRecord(id, subId ?? "", RECORD_USERWAYPOINT, recordData, minimumLength, extraBuffer);
         }
-        public RecordInfo RequestLogImageRecord(string id, byte[] recordData, long minimumLength, long extraBuffer)
+        public RecordInfo RequestLogImageRecord(string id, string subId, byte[] recordData, long minimumLength, long extraBuffer)
         {
-            return RequestRecord(id, RECORD_LOGIMAGE, recordData, minimumLength, extraBuffer);
+            return RequestRecord(id, subId ?? "", RECORD_LOGIMAGE, recordData, minimumLength, extraBuffer);
         }
-        public RecordInfo RequestGeocacheImageRecord(string id, byte[] recordData, long minimumLength, long extraBuffer)
+        public RecordInfo RequestGeocacheImageRecord(string id, string subId, byte[] recordData, long minimumLength, long extraBuffer)
         {
-            return RequestRecord(id, RECORD_GEOCACHEIMAGE, recordData, minimumLength, extraBuffer);
+            return RequestRecord(id, subId??"", RECORD_GEOCACHEIMAGE, recordData, minimumLength, extraBuffer);
         }
 
         public void DeleteRecord(RecordInfo ri)
@@ -348,7 +350,7 @@ namespace GAPPSF.Core.Storage
             }
         }
 
-        private RecordInfo RequestRecord(string id, byte recordType, byte[] recordData, long minimumLength, long extraBuffer)
+        private RecordInfo RequestRecord(string id, string subId, byte recordType, byte[] recordData, long minimumLength, long extraBuffer)
         {
             RecordInfo result = null;
             if (!_emptyRecordListSorted)
@@ -367,6 +369,7 @@ namespace GAPPSF.Core.Storage
                 result.Length = minimumLength + extraBuffer;
                 result.Offset = FileStream.Length;
                 result.ID = id;
+                result.SubID = subId;
                 result.FieldType = recordType;
                 result.Database = this;
                 FileStream.SetLength(result.Offset + result.Length);
@@ -385,6 +388,7 @@ namespace GAPPSF.Core.Storage
                         bw.Write(result.Length);
                         bw.Write(result.FieldType);
                         bw.Write(result.ID);
+                        bw.Write(result.SubID);
                         _fileStreamIdx.Write(buffer, 0, 117);
                     }
                 }
@@ -393,11 +397,12 @@ namespace GAPPSF.Core.Storage
             {
                 //re-use of an empty record
                 result.ID = id;
+                result.SubID = subId;
                 _emptyRecords.Remove(result);
                 result.FieldType = recordType;
 
                 //change index
-                _fileStreamIdx.Position = _fileStreamIdx.Length;
+                _fileStreamIdx.Position = result.OffsetIdx;
                 byte[] buffer = new byte[117];
                 using (MemoryStream ms = new MemoryStream(buffer))
                 using (BinaryWriter bw = new BinaryWriter(ms))
@@ -408,6 +413,7 @@ namespace GAPPSF.Core.Storage
                     bw.Write(result.Length);
                     bw.Write(result.FieldType);
                     bw.Write(result.ID);
+                    bw.Write(result.SubID);
                     _fileStreamIdx.Write(buffer, 0, 117);
                 }
 
@@ -419,12 +425,13 @@ namespace GAPPSF.Core.Storage
             FileStream.WriteByte(recordType);
             FileStream.Position = result.Offset + RECORD_POS_ID;
             BinaryWriter.Write(result.ID);
+            BinaryWriter.Write(result.SubID);
 
             //write data
             FileStream.Position = result.Offset + 150;
             FileStream.Write(recordData, 150, (int)minimumLength - 150);
 
-            Flush();
+            //Flush();
 
             return result;
         }

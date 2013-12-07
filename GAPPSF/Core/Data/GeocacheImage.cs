@@ -17,6 +17,7 @@ namespace GAPPSF.Core.Data
             : base(recordInfo)
         {
             _id = recordInfo.ID;
+            _geocacheCode = recordInfo.SubID;
         }
 
         //new record to be stored
@@ -24,6 +25,7 @@ namespace GAPPSF.Core.Data
             : base(null)
         {
             _id = data.ID;
+            _geocacheCode = data.GeocacheCode ?? "";
             using (MemoryStream ms = new MemoryStream(_buffer))
             using (BinaryWriter bw = new BinaryWriter(ms))
             {
@@ -31,7 +33,7 @@ namespace GAPPSF.Core.Data
                 //todo: add string length checks!!!
 
                 ms.Position = 150;
-                bw.Write(data.DataFromDate.ToFileTime()); //150
+                bw.Write(Utils.Conversion.DateTimeToLong(data.DataFromDate)); //150
                 ms.Position = 180;
                 bw.Write(data.GeocacheCode??"");
                 ms.Position = 220;
@@ -45,7 +47,7 @@ namespace GAPPSF.Core.Data
                 ms.Position = 800;
                 bw.Write(data.Description??"");
 
-                RecordInfo = db.RequestGeocacheImageRecord(data.ID, _buffer, ms.Position, 10);
+                RecordInfo = db.RequestGeocacheImageRecord(data.ID, _geocacheCode, _buffer, ms.Position, 10);
             }
             db.GeocacheImageCollection.Add(this);
         }
@@ -84,16 +86,19 @@ namespace GAPPSF.Core.Data
             }
         }
 
+        //buffered READONLY
+        private string _geocacheCode = "";
         public string GeocacheCode
         {
             get
             {
-                return readString(180);
+                return _geocacheCode;
+                //return readString(180);
             }
             set
             {
-                string s = GeocacheCode;
-                SetProperty(180, ref s, value);
+                //string s = GeocacheCode;
+                //SetProperty(180, ref s, value);
             }
         }
 

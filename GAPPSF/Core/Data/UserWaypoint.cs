@@ -17,6 +17,7 @@ namespace GAPPSF.Core.Data
             : base(recordInfo)
         {
             _id = recordInfo.ID;
+            _geocacheCode = recordInfo.SubID;
         }
 
         //new record to be stored
@@ -24,6 +25,7 @@ namespace GAPPSF.Core.Data
             : base(null)
         {
             _id = data.ID;
+            _geocacheCode = data.GeocacheCode;
             using (MemoryStream ms = new MemoryStream(_buffer))
             using (BinaryWriter bw = new BinaryWriter(ms))
             {
@@ -31,7 +33,7 @@ namespace GAPPSF.Core.Data
                 //todo: add string length checks!!!
 
                 ms.Position = 150;
-                bw.Write(data.Date.ToFileTime()); //150
+                bw.Write(Utils.Conversion.DateTimeToLong(data.Date)); //150
                 bw.Write(data.Lat); //158
                 bw.Write(data.Lon); //166
                 ms.Position = 200;
@@ -39,7 +41,7 @@ namespace GAPPSF.Core.Data
                 ms.Position = 220;
                 bw.Write(data.Description);
 
-                RecordInfo = db.RequestUserWaypointRecord(data.ID, _buffer, ms.Position, 50);
+                RecordInfo = db.RequestUserWaypointRecord(data.ID, _geocacheCode, _buffer, ms.Position, 50);
             }
             db.UserWaypointCollection.Add(this);
         }
@@ -67,17 +69,19 @@ namespace GAPPSF.Core.Data
 
 
 
-
+        //byffered READONLY
+        private string _geocacheCode = "";
         public string GeocacheCode
         {
             get
             {
-                return readString(200);
+                return _geocacheCode;
+                //return readString(200);
             }
             set
             {
-                string s = GeocacheCode;
-                SetProperty(200, ref s, value);
+                //string s = GeocacheCode;
+                //SetProperty(200, ref s, value);
             }
         }
 

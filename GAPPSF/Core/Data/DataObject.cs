@@ -208,7 +208,7 @@ namespace GAPPSF.Core.Data
                 else if (value.GetType() == typeof(DateTime))
                 {
                     this.RecordInfo.Database.FileStream.Position = this.RecordInfo.Offset + pos;
-                    this.RecordInfo.Database.BinaryWriter.Write(((DateTime)value).ToFileTime());
+                    this.RecordInfo.Database.BinaryWriter.Write(Utils.Conversion.DateTimeToLong((DateTime)value));
                 }
                 else if (value.GetType() == typeof(bool))
                 {

@@ -229,7 +229,7 @@ namespace GAPPSF.GAPPDataStorage
                                 index++;
                                 if (DateTime.Now >= nextUpdateTime)
                                 {
-                                    subProg.Update("Importing geocaches...", gcCount, index);
+                                    subProg.Update("Importing logs...", logCount, index);
                                     nextUpdateTime = DateTime.Now.AddSeconds(1);
                                 }
                             }
@@ -240,7 +240,7 @@ namespace GAPPSF.GAPPDataStorage
                     records.Clear();
                     f_records.Clear();
 
-                    using (Utils.ProgressBlock subProg = new ProgressBlock("Importing waypoints...", logCount, 0))
+                    using (Utils.ProgressBlock subProg = new ProgressBlock("Importing waypoints...", wptCount, 0))
                     {
                         index = 0;
                         //Waypoints
@@ -285,7 +285,7 @@ namespace GAPPSF.GAPPDataStorage
                                     index++;
                                     if (DateTime.Now >= nextUpdateTime)
                                     {
-                                        subProg.Update("Importing waypoints...", gcCount, index);
+                                        subProg.Update("Importing waypoints...", wptCount, index);
                                         nextUpdateTime = DateTime.Now.AddSeconds(1);
                                     }
 

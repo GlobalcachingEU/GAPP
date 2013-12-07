@@ -520,20 +520,22 @@ namespace GAPPSF
 
         async private Task ImportGAPPDatabase()
         {
-
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-            dlg.FileName = ""; // Default file name
-            dlg.DefaultExt = ".gpp"; // Default file extension
-            dlg.Filter = "GAPP Data Storage (.gpp)|*.gpp"; // Filter files by extension 
-
-            // Show open file dialog box
-            Nullable<bool> result = dlg.ShowDialog();
-
-            // Process open file dialog box results 
-            if (result == true)
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
             {
-                // Open document 
-                await GAPPDataStorage.Importer.PerformAction(Core.ApplicationData.Instance.Databases[0], dlg.FileName);
+                Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+                dlg.FileName = ""; // Default file name
+                dlg.DefaultExt = ".gpp"; // Default file extension
+                dlg.Filter = "GAPP Data Storage (.gpp)|*.gpp"; // Filter files by extension 
+
+                // Show open file dialog box
+                Nullable<bool> result = dlg.ShowDialog();
+
+                // Process open file dialog box results 
+                if (result == true)
+                {
+                    // Open document 
+                    await GAPPDataStorage.Importer.PerformAction(Core.ApplicationData.Instance.ActiveDatabase, dlg.FileName);
+                }
             }
         }
 
