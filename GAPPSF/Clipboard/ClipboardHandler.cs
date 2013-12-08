@@ -95,7 +95,7 @@ namespace GAPPSF.Clipboard
             }
         }
 
-        async private Task CopyActiveGeocache()
+        async public Task CopyActiveGeocache()
         {
             if (Core.ApplicationData.Instance.ActiveGeocache!=null)
             {
@@ -105,7 +105,7 @@ namespace GAPPSF.Clipboard
             }
         }
 
-        async private Task CopyGeocachesAsync(Core.Storage.Database db, List<string> gcList)
+        async public Task CopyGeocachesAsync(Core.Storage.Database db, List<string> gcList)
         {
             await Task.Run(() =>
                 {
@@ -128,7 +128,7 @@ namespace GAPPSF.Clipboard
             }
         }
 
-        async private Task CopySelectedGeocache()
+        async public Task CopySelectedGeocache()
         {
             if (Core.ApplicationData.Instance.ActiveDatabase != null)
             {

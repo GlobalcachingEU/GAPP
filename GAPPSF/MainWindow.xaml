@@ -25,8 +25,8 @@
                     <MenuItem Header="{l:Translate New}" Command="{Binding NewCommand}" />
                     <MenuItem Header="{l:Translate Open}" Command="{Binding OpenCommand}"/>
                     <MenuItem Header="{l:Translate Import}">
-                        <MenuItem Header="GPX" Command="{Binding ImportGPXCommand}" />
-                        <MenuItem Header="GAPP Data Storage" Command="{Binding ImportGAPPCommand}" />
+                        <MenuItem Header="{l:Translate GPX}" Command="{Binding ImportGPXCommand}" />
+                        <MenuItem Header="{l:Translate GAPPDataStorage}" Command="{Binding ImportGAPPCommand}" />
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{l:Translate Edit}">
@@ -73,16 +73,16 @@
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{l:Translate Settings}">
-                    <MenuItem Header="Shapefiles" Click="MenuItem_Click_8" />
+                    <MenuItem Header="{l:Translate Shapefiles}" Click="MenuItem_Click_8" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate Window}">
-                    <MenuItem Header="Cache list" Click="MenuItem_Click" />
-                    <MenuItem Header="Geocache viewer" Click="MenuItem_Click_1" />
-                    <MenuItem Header="Application info" Click="MenuItem_Click_10" />
+                    <MenuItem Header="{l:Translate CacheList}" Click="MenuItem_Click" />
+                    <MenuItem Header="{l:Translate GeocacheViewer}" Click="MenuItem_Click_1" />
+                    <MenuItem Header="{l:Translate ApplicationInfo}" Click="MenuItem_Click_10" />
                     <MenuItem Header="{l:Translate Maps}">
-                        <MenuItem Header="Google Maps" Click="MenuItem_Click_7" />
+                        <MenuItem Header="{l:Translate GoogleMap}" Click="MenuItem_Click_7" />
                     </MenuItem>
-                    <MenuItem Header="Offline images" Click="MenuItem_Click_9" />
+                    <MenuItem Header="{l:Translate OfflineImages}" Click="MenuItem_Click_9" />
                 </MenuItem>
             </Menu>
             <ToolBarTray Background="#FFD6DBE9">

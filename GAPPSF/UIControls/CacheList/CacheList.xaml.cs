@@ -44,6 +44,89 @@ namespace GAPPSF.UIControls
 
             Core.Settings.Default.PropertyChanged += Default_PropertyChanged;
             Core.ApplicationData.Instance.PropertyChanged += Instance_PropertyChanged;
+            Localization.TranslationManager.Instance.LanguageChanged += Instance_LanguageChanged;
+        }
+
+        void Instance_LanguageChanged(object sender, EventArgs e)
+        {
+            foreach(var item in ColumnInfoCollection)
+            {
+                item.Name = cacheList.Columns[item.ColumnIndex].Header as string;
+            }
+        }
+
+        AsyncDelegateCommand _copyCommand;
+        public ICommand CopyCommand
+        {
+            get
+            {
+                if (_copyCommand == null)
+                {
+                    _copyCommand = new AsyncDelegateCommand(param => this.CopyGeocache(), param => cacheList.SelectedItems.Count > 0);
+                }
+                return _copyCommand;
+            }
+        }
+        async private Task CopyGeocache()
+        {
+            if (cacheList.SelectedItems.Count>0)
+            {
+                List<string> gcList = new List<string>();
+                foreach (Core.Data.Geocache gc in cacheList.SelectedItems)
+                {
+                    gcList.Add(gc.Code);
+                }
+                await Clipboard.ClipboardHandler.Instance.CopyGeocachesAsync(Core.ApplicationData.Instance.ActiveDatabase, gcList);
+            }
+        }
+
+        AsyncDelegateCommand _deleteCommand;
+        public ICommand DeleteCommand
+        {
+            get
+            {
+                if (_deleteCommand == null)
+                {
+                    _deleteCommand = new AsyncDelegateCommand(param => this.DeleteGeocache(), param => cacheList.SelectedItems.Count > 0);
+                }
+                return _deleteCommand;
+            }
+        }
+        async private Task DeleteGeocache()
+        {
+            if (cacheList.SelectedItems.Count > 0)
+            {
+                List<Core.Data.Geocache> gcList = new List<Core.Data.Geocache>();
+                foreach (Core.Data.Geocache gc in cacheList.SelectedItems)
+                {
+                    gcList.Add(gc);
+                }
+                using (Utils.DataUpdater upd = new Utils.DataUpdater(Core.ApplicationData.Instance.ActiveDatabase))
+                {
+                    await Task.Run(() =>
+                        {
+                            int index = 0;
+                            DateTime nextUpdate = DateTime.Now.AddSeconds(1);
+                            using (Utils.ProgressBlock prog = new Utils.ProgressBlock("Deleting geocaches...", "Deleting geocaches...", gcList.Count, 0, true))
+                            {
+                                foreach (var gc in gcList)
+                                {
+                                    Utils.DataAccess.DeleteGeocache(gc);
+                                    index++;
+
+                                    if (DateTime.Now >= nextUpdate)
+                                    {
+                                        if (!prog.Update("Deleting geocaches...", gcList.Count, index))
+                                        {
+                                            break;
+                                        }
+                                        nextUpdate = DateTime.Now.AddSeconds(1);
+                                    }
+                                }
+                            }
+                        });
+                }
+            }
         }
 
         public static CacheListColumnInfoCollection ColumnInfoCollection
@@ -85,6 +168,13 @@ namespace GAPPSF.UIControls
             {
                 setGeocacheCollectionView();
             }
+            else if (e.PropertyName == "AccountInfos")
+            {
+                if ((cacheList.ItemsSource as ListCollectionView) != null)
+                {
+                    (cacheList.ItemsSource as ListCollectionView).Refresh();
+                }
+            }
         }
 
         void Default_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -106,6 +196,7 @@ namespace GAPPSF.UIControls
 
         public void Dispose()
         {
+            Localization.TranslationManager.Instance.LanguageChanged -= Instance_LanguageChanged;
             Core.ApplicationData.Instance.PropertyChanged -= Instance_PropertyChanged;
             Core.Settings.Default.PropertyChanged -= Default_PropertyChanged;
         }
@@ -125,9 +216,12 @@ namespace GAPPSF.UIControls
         }
         public void invertSelection()
         {
-            foreach(Core.Data.Geocache gc in cacheList.SelectedItems)
+            using (Utils.DataUpdater upd = new Utils.DataUpdater(Core.ApplicationData.Instance.ActiveDatabase))
             {
-                gc.Selected = !gc.Selected;
+                foreach (Core.Data.Geocache gc in cacheList.SelectedItems)
+                {
+                    gc.Selected = !gc.Selected;
+                }
             }
         }
 

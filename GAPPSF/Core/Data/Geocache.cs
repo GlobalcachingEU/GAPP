@@ -11,7 +11,6 @@ namespace GAPPSF.Core.Data
 {
     public class Geocache : DataObject, IGeocacheData, INotifyPropertyChanged, IComparable
     {
-        private static byte[] _buffer = new byte[10000000];
         private static long[][] _bufferPropertyLevels = new long[][]
         {
             //4 levels
@@ -25,17 +24,14 @@ namespace GAPPSF.Core.Data
         public Geocache(Storage.RecordInfo recordInfo)
             : base(recordInfo)
         {
-            _code = recordInfo.ID;
-
             CachePropertyPositions = _bufferPropertyLevels[Core.Settings.Default.DataBufferLevel];
         }
 
         //new record to be stored
         public Geocache(Storage.Database db, IGeocacheData data)
-            : base(null)
+            : this(null)
         {
-            _code = data.Code;
-            using (MemoryStream ms = new MemoryStream(_buffer))
+            using (MemoryStream ms = new MemoryStream(DataBuffer))
             using (BinaryWriter bw = new BinaryWriter(ms))
             {
                 ms.Position = 0;
@@ -117,7 +113,7 @@ namespace GAPPSF.Core.Data
                 bw.Write(data.ShortDescription); //3002
                 bw.Write(data.LongDescription);
 
-                RecordInfo = db.RequestGeocacheRecord(data.Code, "", _buffer, ms.Position, 500);
+                RecordInfo = db.RequestGeocacheRecord(data.Code, "", DataBuffer, ms.Position, 500);
             }
             db.GeocacheCollection.Add(this);
         }
@@ -140,7 +136,10 @@ namespace GAPPSF.Core.Data
             CachePropertyPositions = _bufferPropertyLevels[Core.Settings.Default.DataBufferLevel];
             if (oldLevel>Core.Settings.Default.DataBufferLevel)
             {
-                CachedPropertyValues.Clear();
+                if (CachedPropertyValues != null)
+                {
+                    CachedPropertyValues.Clear();
+                }
             }
         }
 
@@ -285,13 +284,11 @@ namespace GAPPSF.Core.Data
             }
         }
 
-        //buffered READONLY
-        private string _code = "";
         public string Code
         {
             get
             {
-                return _code;
+                return RecordInfo.ID;
             }
             set
             {

@@ -10,23 +10,17 @@ namespace GAPPSF.Core.Data
 {
     public class UserWaypoint : DataObject, IUserWaypointData, INotifyPropertyChanged, IComparable
     {
-        private static byte[] _buffer = new byte[10000];
-
         //already stored
         public UserWaypoint(Storage.RecordInfo recordInfo)
             : base(recordInfo)
         {
-            _id = recordInfo.ID;
-            _geocacheCode = recordInfo.SubID;
         }
 
         //new record to be stored
         public UserWaypoint(Storage.Database db, IUserWaypointData data)
-            : base(null)
+            : this(null)
         {
-            _id = data.ID;
-            _geocacheCode = data.GeocacheCode;
-            using (MemoryStream ms = new MemoryStream(_buffer))
+            using (MemoryStream ms = new MemoryStream(DataBuffer))
             using (BinaryWriter bw = new BinaryWriter(ms))
             {
                 ms.Position = 0;
@@ -41,7 +35,7 @@ namespace GAPPSF.Core.Data
                 ms.Position = 220;
                 bw.Write(data.Description);
 
-                RecordInfo = db.RequestUserWaypointRecord(data.ID, _geocacheCode, _buffer, ms.Position, 50);
+                RecordInfo = db.RequestUserWaypointRecord(data.ID, data.GeocacheCode ?? "", DataBuffer, ms.Position, 50);
             }
             db.UserWaypointCollection.Add(this);
         }
@@ -52,13 +46,11 @@ namespace GAPPSF.Core.Data
         }
 
 
-        //buffered READONLY
-        private string _id = "";
         public string ID
         {
             get
             {
-                return _id;
+                return RecordInfo.ID;
             }
             set
             {
@@ -69,13 +61,11 @@ namespace GAPPSF.Core.Data
 
 
 
-        //byffered READONLY
-        private string _geocacheCode = "";
         public string GeocacheCode
         {
             get
             {
-                return _geocacheCode;
+                return RecordInfo.SubID;
                 //return readString(200);
             }
             set

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:l="clr-namespace:GAPPSF.Localization"
              mc:Ignorable="d" 
              xmlns:p="clr-namespace:GAPPSF.Core"             
              d:DesignHeight="300" d:DesignWidth="300">
@@ -19,7 +20,7 @@
                                   CanUserDeleteRows="False"
                       >
                             <DataGrid.Columns>
-                                <DataGridTextColumn Binding="{Binding Text}" Header="Name" IsReadOnly="True">
+                                <DataGridTextColumn Binding="{Binding Text}" Header="{l:Translate Name}" IsReadOnly="True">
                                     <DataGridTextColumn.ElementStyle>
                                         <Style TargetType="{x:Type TextBlock}">
                                             <Setter Property="VerticalAlignment" Value="Center" />
@@ -37,7 +38,7 @@
                                     </DataGridTemplateColumn>
                             </DataGrid.Columns>
                         </DataGrid>
-                        <CheckBox IsChecked="{Binding Source={x:Static p:Settings.Default}, Path=AutoLoadDatabases}" Content="Load as startup" />
+                        <CheckBox IsChecked="{Binding Source={x:Static p:Settings.Default}, Path=AutoLoadDatabases}" Content="{l:Translate LoadAtStartup}" />
                         <Grid  HorizontalAlignment="Stretch">
                             <Grid.Resources>
                                 <Style TargetType="{x:Type TextBlock}">
@@ -55,25 +56,28 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Geocaches" />
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{l:Translate Geocaches}" />
                             <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveDatabase.GeocacheCollection.Count}" />
-                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Logs" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{l:Translate Logs}" />
                             <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveDatabase.LogCollection.Count}" />
-                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Waypoints" />
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="{l:Translate Waypoints}" />
                             <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveDatabase.WaypointCollection.Count}" />
-                            <TextBlock Grid.Row="3" Grid.Column="0" Text="User Waypoints" />
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="{l:Translate UserWaypoints}" />
                             <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveDatabase.UserWaypointCollection.Count}" />
-                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Log images" />
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="{l:Translate LogImages}" />
                             <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveDatabase.LogImageCollection.Count}" />
-                            <TextBlock Grid.Row="5" Grid.Column="0" Text="Geocache images" />
-                            <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveDatabase.GeocacheImageCollection.Count}" />
+                            <TextBlock Grid.Row="5" Grid.Column="0" Text="{l:Translate GeocacheImages}" />
+                            <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveDatabase.GeocacheImageCollection.Count}" />
+                            <TextBlock Grid.Row="6" Grid.Column="0" Text="{l:Translate BufferLevel}" />
+                            <Slider Grid.Row="6" Grid.Column="1" Minimum="0" Maximum="3" Value="{Binding Source={x:Static p:Settings.Default}, Path=DataBufferLevel, Mode=TwoWay, Delay=500}" Width="100" SmallChange="1" TickPlacement="BottomRight"/>
                         </Grid>
-                        <CheckBox IsChecked="{Binding Source={x:Static p:Settings.Default}, Path=AutoSelectNewGeocaches}" Content="Automatic select new geocaches" />
+                        <CheckBox IsChecked="{Binding Source={x:Static p:Settings.Default}, Path=AutoSelectNewGeocaches}" Content="{l:Translate AutomaticSelectNewGeocaches}" />
                     </StackPanel>
                 </Expander.Content>
             </Expander>
-            <Expander Header="Accounts" HorizontalAlignment="Stretch">
+            <Expander Header="{l:Translate Accounts}" HorizontalAlignment="Stretch">
                 <Expander.Content>
                     <Grid HorizontalAlignment="Stretch">
                         <DataGrid HorizontalAlignment="Stretch" 
@@ -82,14 +86,14 @@
                                   CanUserAddRows="False"
                                   CanUserDeleteRows="False">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Binding="{Binding GeocacheCodePrefix}" Header="Prefix" />
-                                <DataGridTextColumn Binding="{Binding AccountName}" Header="AccountName" />
+                                <DataGridTextColumn Binding="{Binding GeocacheCodePrefix}" Header="{l:Translate Prefix}" />
+                                <DataGridTextColumn Binding="{Binding AccountName}" Header="{l:Translate AccountName}" />
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>
                 </Expander.Content>
             </Expander>
-            <Expander Header="Locations" HorizontalAlignment="Stretch">
+            <Expander Header="{l:Translate Locations}" HorizontalAlignment="Stretch">
                 <Expander.Content>
                     <Grid HorizontalAlignment="Stretch">
                         <Grid.Resources>
@@ -106,12 +110,12 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Home" />
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{l:Translate Home}" />
                         <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Source={x:Static p:ApplicationData.Instance}, Path=HomeLocation}" />
                         <Button  Grid.Row="0" Grid.Column="2" Click="Button_Click">
                             <Image Source="/Resources/General/edit.png" />
                         </Button>
-                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Center" />
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{l:Translate Center}" />
                         <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Source={x:Static p:ApplicationData.Instance}, Path=CenterLocation}" />
                         <Button  Grid.Row="1" Grid.Column="2" Click="Button_Click_1">
                             <Image Source="/Resources/General/edit.png" />

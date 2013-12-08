@@ -7,9 +7,46 @@ using System.Threading.Tasks;
 
 namespace GAPPSF.Core.Storage
 {
-    public class DatabaseCollection: List<Database>, INotifyCollectionChanged
+    public class DatabaseCollection: List<Database>, INotifyCollectionChanged, IDisposable
     {
         public event NotifyCollectionChangedEventHandler CollectionChanged;
+
+        private int _currentBufferLevel;
+
+        public DatabaseCollection()
+        {
+            _currentBufferLevel = Core.Settings.Default.DataBufferLevel;
+            Core.Settings.Default.PropertyChanged += Default_PropertyChanged;
+        }
+
+        void Default_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "DataBufferLevel")
+            {
+                foreach(Database db in this)
+                {
+                    foreach (var gc in db.GeocacheCollection)
+                    {
+                        gc.BufferLevelChanged(_currentBufferLevel);
+                    }
+                    foreach (var lg in db.LogCollection)
+                    {
+                        lg.BufferLevelChanged(_currentBufferLevel);
+                    }
+                }
+                _currentBufferLevel = Core.Settings.Default.DataBufferLevel;
+                GC.Collect();
+            }
+        }
+
+        public void Dispose()
+        {
+            if (_currentBufferLevel >= 0)
+            {
+                GAPPSF.Core.Settings.Default.PropertyChanged -= Default_PropertyChanged;
+                _currentBufferLevel = -1;
+            }
+        }
 
         private void listUpdated()
         {

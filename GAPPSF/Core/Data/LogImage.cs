@@ -10,23 +10,17 @@ namespace GAPPSF.Core.Data
 {
     public class LogImage : DataObject, ILogImageData, INotifyPropertyChanged, IComparable
     {
-        private static byte[] _buffer = new byte[2000];
-
         //already stored
         public LogImage(Storage.RecordInfo recordInfo)
             : base(recordInfo)
         {
-            _id = recordInfo.ID;
-            _logId = recordInfo.SubID;
         }
 
         //new record to be stored
         public LogImage(Storage.Database db, ILogImageData data)
-            : base(null)
+            : this(null)
         {
-            _id = data.ID;
-            _logId = data.LogId ?? "";
-            using (MemoryStream ms = new MemoryStream(_buffer))
+            using (MemoryStream ms = new MemoryStream(DataBuffer))
             using (BinaryWriter bw = new BinaryWriter(ms))
             {
                 ms.Position = 0;
@@ -41,23 +35,21 @@ namespace GAPPSF.Core.Data
                 ms.Position = 420;
                 bw.Write(data.Name??"");
 
-                RecordInfo = db.RequestLogRecord(data.ID, _logId, _buffer, ms.Position, 10);
+                RecordInfo = db.RequestLogRecord(data.ID, data.LogId ?? "", DataBuffer, ms.Position, 10);
             }
             db.LogImageCollection.Add(this);
         }
 
         public int CompareTo(object obj)
         {
-            return string.Compare(this.ID, ((Log)obj).ID);
+            return string.Compare(this.ID, ((LogImage)obj).ID);
         }
 
-        //buffered READONLY
-        private string _id = "";
         public string ID
         {
             get
             {
-                return _id;
+                return RecordInfo.ID;
             }
             set
             {
@@ -80,13 +72,11 @@ namespace GAPPSF.Core.Data
             }
         }
 
-        //buffered READONLY
-        private string _logId = "";
         public string LogId
         {
             get
             {
-                return _logId;
+                return RecordInfo.SubID;
                 //return readString(180);
             }
             set

@@ -10,23 +10,17 @@ namespace GAPPSF.Core.Data
 {
     public class Waypoint : DataObject, IWaypointData, INotifyPropertyChanged, IComparable
     {
-        private static byte[] _buffer = new byte[10000];
-
         //already stored
         public Waypoint(Storage.RecordInfo recordInfo)
             : base(recordInfo)
         {
-            _id = recordInfo.ID;
-            _geocacheCode = recordInfo.SubID;
         }
 
         //new record to be stored
         public Waypoint(Storage.Database db, IWaypointData data)
-            : base(null)
+            : this(null)
         {
-            _id = data.ID;
-            _geocacheCode = data.GeocacheCode;
-            using (MemoryStream ms = new MemoryStream(_buffer))
+            using (MemoryStream ms = new MemoryStream(DataBuffer))
             using (BinaryWriter bw = new BinaryWriter(ms))
             {
                 ms.Position = 0;
@@ -56,7 +50,7 @@ namespace GAPPSF.Core.Data
                 ms.Position = 800;
                 bw.Write(data.Comment);
 
-                RecordInfo = db.RequestWaypointRecord(data.ID, _geocacheCode, _buffer, ms.Position, 100);
+                RecordInfo = db.RequestWaypointRecord(data.ID, data.GeocacheCode, DataBuffer, ms.Position, 100);
             }
             db.WaypointCollection.Add(this);
         }
@@ -66,13 +60,11 @@ namespace GAPPSF.Core.Data
             return string.Compare(this.ID, ((Waypoint)obj).ID);
         }
 
-        //buffered READONLY
-        private string _id = "";
         public string ID
         {
             get
             {
-                return _id;
+                return RecordInfo.ID;
             }
             set
             {
@@ -173,13 +165,11 @@ namespace GAPPSF.Core.Data
             }
         }
 
-        //buffered READONLY
-        private string _geocacheCode = "";
         public string GeocacheCode
         {
             get
             {
-                return _geocacheCode;
+                return RecordInfo.SubID;
                 //return readString(200);
             }
             set

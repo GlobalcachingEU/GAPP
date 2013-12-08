@@ -56,7 +56,7 @@ namespace GAPPSF.Core
 
         protected void SetProperty(string value, [CallerMemberName] string name = "")
         {
-            string field = GetProperty(name);
+            string field = getPropertyValue(name);
             if (!EqualityComparer<string>.Default.Equals(field, value))
             {
                 lock (_lockObject)
@@ -70,6 +70,16 @@ namespace GAPPSF.Core
                     }
                 }
             }
+        }
+
+        private string getPropertyValue(string name)
+        {
+            string result;
+            lock (_lockObject)
+            {
+                result = _settings[name] as string;
+            }
+            return result;
         }
 
         protected string GetProperty(string defaultValue, [CallerMemberName] string name = "")

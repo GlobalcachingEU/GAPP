@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:l="clr-namespace:GAPPSF.Localization"
              mc:Ignorable="d" 
              Background="#FFFFFFFF"
              d:DesignHeight="300" d:DesignWidth="300">
@@ -12,15 +13,15 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Menu  Grid.Row="0" MouseDoubleClick="Button_Click" Background="#FFD6DBE9">
-            <MenuItem Header="Feature">
-                <MenuItem Header="Clear" Click="MenuItem_Click" />
-                <MenuItem Header="Cache list" Click="MenuItem_Click_1" />
-                <MenuItem Header="Geocache viewer" Click="MenuItem_Click_2" />
-                <MenuItem Header="Application info" Click="MenuItem_Click_3" />
-                <MenuItem Header="Maps">
-                    <MenuItem Header="Google map" Click="MenuItem_Click_4" />
+            <MenuItem Header="{l:Translate Feature}">
+                <MenuItem Header="{l:Translate Clear}" Click="MenuItem_Click" />
+                <MenuItem Header="{l:Translate CacheList}" Click="MenuItem_Click_1" />
+                <MenuItem Header="{l:Translate GeocacheViewer}" Click="MenuItem_Click_2" />
+                <MenuItem Header="{l:Translate ApplicationInfo}" Click="MenuItem_Click_3" />
+                <MenuItem Header="{l:Translate Maps}">
+                    <MenuItem Header="{l:Translate GoogleMap}" Click="MenuItem_Click_4" />
                 </MenuItem>
-                <MenuItem Header="Offline images" Click="MenuItem_Click_5" />
+                <MenuItem Header="{l:Translate OfflineImages}" Click="MenuItem_Click_5" />
             </MenuItem>
         </Menu>
         <Button Width="20" Height="20" HorizontalAlignment="Right" Click="Button_Click">

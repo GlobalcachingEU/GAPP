@@ -14,17 +14,42 @@ namespace GAPPSF.Core.Data
         public event PropertyChangedEventHandler PropertyChanged;
         public event EventHandler<EventArgs> DataChanged;
 
+        private static byte[] _buffer = new byte[10000000];
         private int _updateCounter = 0;
         private bool IsDataChanged = false;
-        protected Storage.RecordInfo RecordInfo = null;
 
-        public long[] CachePropertyPositions { get; set; }
+        protected Storage.RecordInfo RecordInfo = null;
+        protected byte[] DataBuffer { get { return _buffer; } }
+
+        public long[] _cachePropertyPositions = null;
+        public long[] CachePropertyPositions 
+        {
+            get { return _cachePropertyPositions; } 
+            set
+            {
+                if (value!=_cachePropertyPositions)
+                {
+                    _cachePropertyPositions = value;
+                    if (_cachePropertyPositions!=null && _cachePropertyPositions.Length>0)
+                    {
+                        if (CachedPropertyValues==null)
+                        {
+                            CachedPropertyValues = new Hashtable();
+                        }
+                    }
+                    else
+                    {
+                        CachedPropertyValues = null;
+                    }
+                }
+            }
+        }
         public Hashtable CachedPropertyValues { get; private set; }
 
         public DataObject(Storage.RecordInfo recordInfo)
         {
             RecordInfo = recordInfo;
-            CachedPropertyValues = new Hashtable();
+            CachedPropertyValues = null;
         }
 
         public void DeleteRecord()

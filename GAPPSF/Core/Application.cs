@@ -352,7 +352,11 @@ namespace GAPPSF.Core
             {
                 serializer.Serialize(w, AccountInfos);
                 Settings.Default.AccountInfos = w.ToString();
-            }            
+            }
+            if (PropertyChanged!=null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs("AccountInfos"));
+            }
         }
 
         void CenterLocation_PropertyChanged(object sender, PropertyChangedEventArgs e)

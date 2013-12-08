@@ -10,23 +10,17 @@ namespace GAPPSF.Core.Data
 {
     public class GeocacheImage : DataObject, IGeocacheImageData, INotifyPropertyChanged, IComparable
     {
-        private static byte[] _buffer = new byte[2000];
-
         //already stored
         public GeocacheImage(Storage.RecordInfo recordInfo)
             : base(recordInfo)
         {
-            _id = recordInfo.ID;
-            _geocacheCode = recordInfo.SubID;
         }
 
         //new record to be stored
         public GeocacheImage(Storage.Database db, IGeocacheImageData data)
-            : base(null)
+            : this(null)
         {
-            _id = data.ID;
-            _geocacheCode = data.GeocacheCode ?? "";
-            using (MemoryStream ms = new MemoryStream(_buffer))
+            using (MemoryStream ms = new MemoryStream(DataBuffer))
             using (BinaryWriter bw = new BinaryWriter(ms))
             {
                 ms.Position = 0;
@@ -47,23 +41,21 @@ namespace GAPPSF.Core.Data
                 ms.Position = 800;
                 bw.Write(data.Description??"");
 
-                RecordInfo = db.RequestGeocacheImageRecord(data.ID, _geocacheCode, _buffer, ms.Position, 10);
+                RecordInfo = db.RequestGeocacheImageRecord(data.ID, data.GeocacheCode ?? "", DataBuffer, ms.Position, 10);
             }
             db.GeocacheImageCollection.Add(this);
         }
 
         public int CompareTo(object obj)
         {
-            return string.Compare(this.ID, ((Log)obj).ID);
+            return string.Compare(this.ID, ((GeocacheImage)obj).ID);
         }
 
-        //buffered READONLY
-        private string _id = "";
         public string ID
         {
             get
             {
-                return _id;
+                return RecordInfo.ID;
             }
             set
             {
@@ -86,13 +78,11 @@ namespace GAPPSF.Core.Data
             }
         }
 
-        //buffered READONLY
-        private string _geocacheCode = "";
         public string GeocacheCode
         {
             get
             {
-                return _geocacheCode;
+                return RecordInfo.SubID;
                 //return readString(180);
             }
             set

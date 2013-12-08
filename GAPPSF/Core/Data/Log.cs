@@ -11,23 +11,27 @@ namespace GAPPSF.Core.Data
 {
     public class Log : DataObject, ILogData, INotifyPropertyChanged, IComparable
     {
-        private static byte[] _buffer = new byte[50000];
+        private static long[][] _bufferPropertyLevels = new long[][]
+        {
+            //4 levels
+            new long[] {},
+            new long[] {},
+            new long[] {150, 154, 162, 170, 180,220,320,350},
+            new long[] {150, 154, 162, 170, 180,220,320,350, 380}
+        };
 
         //already stored
         public Log(Storage.RecordInfo recordInfo)
             : base(recordInfo)
         {
-            _id = recordInfo.ID;
-            _geocacheCode = recordInfo.SubID;
+            CachePropertyPositions = _bufferPropertyLevels[Core.Settings.Default.DataBufferLevel];
         }
 
         //new record to be stored
         public Log(Storage.Database db, ILogData data)
-            : base(null)
+            : this(null)
         {
-            _id = data.ID;
-            _geocacheCode = data.GeocacheCode;
-            using (MemoryStream ms = new MemoryStream(_buffer))
+            using (MemoryStream ms = new MemoryStream(DataBuffer))
             using (BinaryWriter bw = new BinaryWriter(ms))
             {
                 ms.Position = 0;
@@ -49,7 +53,7 @@ namespace GAPPSF.Core.Data
                 ms.Position = 380;
                 bw.Write(data.Text??"");
 
-                RecordInfo = db.RequestLogRecord(data.ID, data.GeocacheCode ?? "", _buffer, ms.Position, 100);
+                RecordInfo = db.RequestLogRecord(data.ID, data.GeocacheCode ?? "", DataBuffer, ms.Position, 100);
             }
             db.LogCollection.Add(this);
         }
@@ -59,13 +63,23 @@ namespace GAPPSF.Core.Data
             return string.Compare(this.ID, ((Log)obj).ID);
         }
 
-        //buffered READONLY
-        private string _id = "";
+        public void BufferLevelChanged(int oldLevel)
+        {
+            CachePropertyPositions = _bufferPropertyLevels[Core.Settings.Default.DataBufferLevel];
+            if (oldLevel > Core.Settings.Default.DataBufferLevel)
+            {
+                if (CachedPropertyValues != null)
+                {
+                    CachedPropertyValues.Clear();
+                }
+            }
+        }
+
         public string ID
         {
             get
             {
-                return _id;
+                return RecordInfo.ID;
             }
             set
             {
@@ -88,13 +102,11 @@ namespace GAPPSF.Core.Data
             }
         }
 
-        //buffered, readonly
-        private string _geocacheCode = "";
         public string GeocacheCode
         {
             get
             {
-                return _geocacheCode;
+                return RecordInfo.SubID;
                 //return readString(180);
             }
             set

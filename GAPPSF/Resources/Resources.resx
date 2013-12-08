@@ -120,26 +120,62 @@
   <data name="AccountName" xml:space="preserve">
     <value>Account name</value>
   </data>
+  <data name="Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="ApplicationInfo" xml:space="preserve">
+    <value>Application info</value>
+  </data>
+  <data name="Archived" xml:space="preserve">
+    <value>Archived</value>
+  </data>
   <data name="Authorize" xml:space="preserve">
     <value>Authorize</value>
   </data>
   <data name="Authorized" xml:space="preserve">
     <value>Authorized</value>
   </data>
+  <data name="CacheList" xml:space="preserve">
+    <value>Cache list</value>
+  </data>
   <data name="CenterCoordinates" xml:space="preserve">
     <value>Center coordinates</value>
+  </data>
+  <data name="ClearSelection" xml:space="preserve">
+    <value>Clear selection</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="CopySelection" xml:space="preserve">
+    <value>Copy selection</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DeleteSelection" xml:space="preserve">
+    <value>Delete selection</value>
   </data>
   <data name="Dutch" xml:space="preserve">
     <value>Nederlands</value>
   </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
   <data name="English" xml:space="preserve">
     <value>English</value>
+  </data>
+  <data name="Feature" xml:space="preserve">
+    <value>Feature</value>
   </data>
   <data name="File" xml:space="preserve">
     <value>File</value>
   </data>
   <data name="French" xml:space="preserve">
     <value>Français</value>
+  </data>
+  <data name="GAPPDataStorage" xml:space="preserve">
+    <value>GAPP Data Storage</value>
   </data>
   <data name="GeocacheLiveText" xml:space="preserve">
     <value>Globalcaching Application is Geocaching Live Enabled.
@@ -149,11 +185,20 @@ Pocket Queries can be downloaded right from the application itself and geocaches
 
 In order to use these features, you have to authorize this application to access your account on geocaching.com.</value>
   </data>
+  <data name="GeocacheViewer" xml:space="preserve">
+    <value>Geocache viewer</value>
+  </data>
   <data name="GeocachingLive" xml:space="preserve">
     <value>Geocaching Live</value>
   </data>
   <data name="German" xml:space="preserve">
     <value>Deutsch</value>
+  </data>
+  <data name="GoogleMap" xml:space="preserve">
+    <value>Google map</value>
+  </data>
+  <data name="GPX" xml:space="preserve">
+    <value>GPX</value>
   </data>
   <data name="HomeCoordinates" xml:space="preserve">
     <value>Home coordinates</value>
@@ -167,8 +212,14 @@ In order to use these features, you have to authorize this application to access
   <data name="Language" xml:space="preserve">
     <value>Language</value>
   </data>
+  <data name="LiveAPI" xml:space="preserve">
+    <value>LiveAPI</value>
+  </data>
   <data name="MainWindowTitle" xml:space="preserve">
     <value>Globalcaching Application</value>
+  </data>
+  <data name="Maps" xml:space="preserve">
+    <value>Maps</value>
   </data>
   <data name="Membership" xml:space="preserve">
     <value>Membership</value>
@@ -176,8 +227,38 @@ In order to use these features, you have to authorize this application to access
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="New" xml:space="preserve">
+    <value>New</value>
+  </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
+  </data>
+  <data name="OfflineImages" xml:space="preserve">
+    <value>Offline images</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="Paste" xml:space="preserve">
+    <value>Paste</value>
+  </data>
+  <data name="PasteSelection" xml:space="preserve">
+    <value>Paste selection</value>
+  </data>
+  <data name="QuickSearch" xml:space="preserve">
+    <value>Quick search</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Select all</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Shapefiles" xml:space="preserve">
+    <value>Shapefiles</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Welcome</value>
@@ -187,7 +268,151 @@ In order to use these features, you have to authorize this application to access
 
 This wizard will guide you through the initial setup. Before you start, you might want to change the language:</value>
   </data>
+  <data name="Window" xml:space="preserve">
+    <value>Window</value>
+  </data>
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="Accounts" xml:space="preserve">
+    <value>Accounts</value>
+  </data>
+  <data name="AddCoords" xml:space="preserve">
+    <value>Add.Coords</value>
+  </data>
+  <data name="AutomaticSelectNewGeocaches" xml:space="preserve">
+    <value>Automatic select new geocaches</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Available</value>
+  </data>
+  <data name="BufferLevel" xml:space="preserve">
+    <value>Buffer level</value>
+  </data>
+  <data name="Center" xml:space="preserve">
+    <value>Center</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="Code" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="Container" xml:space="preserve">
+    <value>Container</value>
+  </data>
+  <data name="Coordinates" xml:space="preserve">
+    <value>Coordinates</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="D" xml:space="preserve">
+    <value>D</value>
+  </data>
+  <data name="DateOfData" xml:space="preserve">
+    <value>Date of data</value>
+  </data>
+  <data name="Diff" xml:space="preserve">
+    <value>Diff</value>
+  </data>
+  <data name="F" xml:space="preserve">
+    <value>F</value>
+  </data>
+  <data name="Fav" xml:space="preserve">
+    <value>Fav.</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="Found" xml:space="preserve">
+    <value>Found</value>
+  </data>
+  <data name="GeocacheImages" xml:space="preserve">
+    <value>Geocache images</value>
+  </data>
+  <data name="Geocaches" xml:space="preserve">
+    <value>Geocaches</value>
+  </data>
+  <data name="Hints" xml:space="preserve">
+    <value>Hints</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Km" xml:space="preserve">
+    <value>Km</value>
+  </data>
+  <data name="LoadAtStartup" xml:space="preserve">
+    <value>Load at startup</value>
+  </data>
+  <data name="Locations" xml:space="preserve">
+    <value>Locations</value>
+  </data>
+  <data name="Locked" xml:space="preserve">
+    <value>Locked</value>
+  </data>
+  <data name="LogImages" xml:space="preserve">
+    <value>Log images</value>
+  </data>
+  <data name="Logs" xml:space="preserve">
+    <value>Logs</value>
+  </data>
+  <data name="Miles" xml:space="preserve">
+    <value>Mijlen</value>
+  </data>
+  <data name="Municipality" xml:space="preserve">
+    <value>Municipality</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Owner</value>
+  </data>
+  <data name="PersonalNotes" xml:space="preserve">
+    <value>Personal notes</value>
+  </data>
+  <data name="PMO" xml:space="preserve">
+    <value>PMO</value>
+  </data>
+  <data name="Prefix" xml:space="preserve">
+    <value>Prefix</value>
+  </data>
+  <data name="Published" xml:space="preserve">
+    <value>Published</value>
+  </data>
+  <data name="S" xml:space="preserve">
+    <value>S</value>
+  </data>
+  <data name="ShowFlaggedOnly" xml:space="preserve">
+    <value>Show flagged only</value>
+  </data>
+  <data name="ShowSelectedOnly" xml:space="preserve">
+    <value>Show selected only</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="T" xml:space="preserve">
+    <value>T</value>
+  </data>
+  <data name="Terr" xml:space="preserve">
+    <value>Terr</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="UserWaypoints" xml:space="preserve">
+    <value>User Waypoints</value>
+  </data>
+  <data name="Waypoints" xml:space="preserve">
+    <value>Waypoints</value>
+  </data>
+  <data name="InvertSelection" xml:space="preserve">
+    <value>Invert selection</value>
   </data>
 </root>

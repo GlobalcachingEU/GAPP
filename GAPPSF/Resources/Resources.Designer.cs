@@ -70,6 +70,51 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Accounts.
+        /// </summary>
+        internal static string Accounts {
+            get {
+                return ResourceManager.GetString("Accounts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Action.
+        /// </summary>
+        internal static string Action {
+            get {
+                return ResourceManager.GetString("Action", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add.Coords.
+        /// </summary>
+        internal static string AddCoords {
+            get {
+                return ResourceManager.GetString("AddCoords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application info.
+        /// </summary>
+        internal static string ApplicationInfo {
+            get {
+                return ResourceManager.GetString("ApplicationInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Archived.
+        /// </summary>
+        internal static string Archived {
+            get {
+                return ResourceManager.GetString("Archived", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Authorize.
         /// </summary>
         internal static string Authorize {
@@ -88,11 +133,182 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Automatic select new geocaches.
+        /// </summary>
+        internal static string AutomaticSelectNewGeocaches {
+            get {
+                return ResourceManager.GetString("AutomaticSelectNewGeocaches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Available.
+        /// </summary>
+        internal static string Available {
+            get {
+                return ResourceManager.GetString("Available", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Buffer level.
+        /// </summary>
+        internal static string BufferLevel {
+            get {
+                return ResourceManager.GetString("BufferLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cache list.
+        /// </summary>
+        internal static string CacheList {
+            get {
+                return ResourceManager.GetString("CacheList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Center.
+        /// </summary>
+        internal static string Center {
+            get {
+                return ResourceManager.GetString("Center", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Center coordinates.
         /// </summary>
         internal static string CenterCoordinates {
             get {
                 return ResourceManager.GetString("CenterCoordinates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to City.
+        /// </summary>
+        internal static string City {
+            get {
+                return ResourceManager.GetString("City", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        internal static string Clear {
+            get {
+                return ResourceManager.GetString("Clear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear selection.
+        /// </summary>
+        internal static string ClearSelection {
+            get {
+                return ResourceManager.GetString("ClearSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Code.
+        /// </summary>
+        internal static string Code {
+            get {
+                return ResourceManager.GetString("Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Container.
+        /// </summary>
+        internal static string Container {
+            get {
+                return ResourceManager.GetString("Container", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coordinates.
+        /// </summary>
+        internal static string Coordinates {
+            get {
+                return ResourceManager.GetString("Coordinates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy.
+        /// </summary>
+        internal static string Copy {
+            get {
+                return ResourceManager.GetString("Copy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy selection.
+        /// </summary>
+        internal static string CopySelection {
+            get {
+                return ResourceManager.GetString("CopySelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Country.
+        /// </summary>
+        internal static string Country {
+            get {
+                return ResourceManager.GetString("Country", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to D.
+        /// </summary>
+        internal static string D {
+            get {
+                return ResourceManager.GetString("D", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date of data.
+        /// </summary>
+        internal static string DateOfData {
+            get {
+                return ResourceManager.GetString("DateOfData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        internal static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete selection.
+        /// </summary>
+        internal static string DeleteSelection {
+            get {
+                return ResourceManager.GetString("DeleteSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Diff.
+        /// </summary>
+        internal static string Diff {
+            get {
+                return ResourceManager.GetString("Diff", resourceCulture);
             }
         }
         
@@ -106,11 +322,47 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        internal static string Edit {
+            get {
+                return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to English.
         /// </summary>
         internal static string English {
             get {
                 return ResourceManager.GetString("English", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to F.
+        /// </summary>
+        internal static string F {
+            get {
+                return ResourceManager.GetString("F", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fav..
+        /// </summary>
+        internal static string Fav {
+            get {
+                return ResourceManager.GetString("Fav", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Feature.
+        /// </summary>
+        internal static string Feature {
+            get {
+                return ResourceManager.GetString("Feature", resourceCulture);
             }
         }
         
@@ -124,11 +376,47 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Filter.
+        /// </summary>
+        internal static string Filter {
+            get {
+                return ResourceManager.GetString("Filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Found.
+        /// </summary>
+        internal static string Found {
+            get {
+                return ResourceManager.GetString("Found", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Français.
         /// </summary>
         internal static string French {
             get {
                 return ResourceManager.GetString("French", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GAPP Data Storage.
+        /// </summary>
+        internal static string GAPPDataStorage {
+            get {
+                return ResourceManager.GetString("GAPPDataStorage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geocache images.
+        /// </summary>
+        internal static string GeocacheImages {
+            get {
+                return ResourceManager.GetString("GeocacheImages", resourceCulture);
             }
         }
         
@@ -147,6 +435,24 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geocaches.
+        /// </summary>
+        internal static string Geocaches {
+            get {
+                return ResourceManager.GetString("Geocaches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geocache viewer.
+        /// </summary>
+        internal static string GeocacheViewer {
+            get {
+                return ResourceManager.GetString("GeocacheViewer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Geocaching Live.
         /// </summary>
         internal static string GeocachingLive {
@@ -161,6 +467,42 @@ namespace GAPPSF.Resources {
         internal static string German {
             get {
                 return ResourceManager.GetString("German", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Google map.
+        /// </summary>
+        internal static string GoogleMap {
+            get {
+                return ResourceManager.GetString("GoogleMap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GPX.
+        /// </summary>
+        internal static string GPX {
+            get {
+                return ResourceManager.GetString("GPX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hints.
+        /// </summary>
+        internal static string Hints {
+            get {
+                return ResourceManager.GetString("Hints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home.
+        /// </summary>
+        internal static string Home {
+            get {
+                return ResourceManager.GetString("Home", resourceCulture);
             }
         }
         
@@ -192,11 +534,83 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invert selection.
+        /// </summary>
+        internal static string InvertSelection {
+            get {
+                return ResourceManager.GetString("InvertSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Km.
+        /// </summary>
+        internal static string Km {
+            get {
+                return ResourceManager.GetString("Km", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         internal static string Language {
             get {
                 return ResourceManager.GetString("Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LiveAPI.
+        /// </summary>
+        internal static string LiveAPI {
+            get {
+                return ResourceManager.GetString("LiveAPI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load at startup.
+        /// </summary>
+        internal static string LoadAtStartup {
+            get {
+                return ResourceManager.GetString("LoadAtStartup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Locations.
+        /// </summary>
+        internal static string Locations {
+            get {
+                return ResourceManager.GetString("Locations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Locked.
+        /// </summary>
+        internal static string Locked {
+            get {
+                return ResourceManager.GetString("Locked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log images.
+        /// </summary>
+        internal static string LogImages {
+            get {
+                return ResourceManager.GetString("LogImages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logs.
+        /// </summary>
+        internal static string Logs {
+            get {
+                return ResourceManager.GetString("Logs", resourceCulture);
             }
         }
         
@@ -210,11 +624,38 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Maps.
+        /// </summary>
+        internal static string Maps {
+            get {
+                return ResourceManager.GetString("Maps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Membership.
         /// </summary>
         internal static string Membership {
             get {
                 return ResourceManager.GetString("Membership", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mijlen.
+        /// </summary>
+        internal static string Miles {
+            get {
+                return ResourceManager.GetString("Miles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Municipality.
+        /// </summary>
+        internal static string Municipality {
+            get {
+                return ResourceManager.GetString("Municipality", resourceCulture);
             }
         }
         
@@ -228,11 +669,236 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New.
+        /// </summary>
+        internal static string New {
+            get {
+                return ResourceManager.GetString("New", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         internal static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Note.
+        /// </summary>
+        internal static string Note {
+            get {
+                return ResourceManager.GetString("Note", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Offline images.
+        /// </summary>
+        internal static string OfflineImages {
+            get {
+                return ResourceManager.GetString("OfflineImages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open.
+        /// </summary>
+        internal static string Open {
+            get {
+                return ResourceManager.GetString("Open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Owner.
+        /// </summary>
+        internal static string Owner {
+            get {
+                return ResourceManager.GetString("Owner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paste.
+        /// </summary>
+        internal static string Paste {
+            get {
+                return ResourceManager.GetString("Paste", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paste selection.
+        /// </summary>
+        internal static string PasteSelection {
+            get {
+                return ResourceManager.GetString("PasteSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Personal notes.
+        /// </summary>
+        internal static string PersonalNotes {
+            get {
+                return ResourceManager.GetString("PersonalNotes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PMO.
+        /// </summary>
+        internal static string PMO {
+            get {
+                return ResourceManager.GetString("PMO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prefix.
+        /// </summary>
+        internal static string Prefix {
+            get {
+                return ResourceManager.GetString("Prefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Published.
+        /// </summary>
+        internal static string Published {
+            get {
+                return ResourceManager.GetString("Published", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quick search.
+        /// </summary>
+        internal static string QuickSearch {
+            get {
+                return ResourceManager.GetString("QuickSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S.
+        /// </summary>
+        internal static string S {
+            get {
+                return ResourceManager.GetString("S", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        internal static string Search {
+            get {
+                return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select all.
+        /// </summary>
+        internal static string SelectAll {
+            get {
+                return ResourceManager.GetString("SelectAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shapefiles.
+        /// </summary>
+        internal static string Shapefiles {
+            get {
+                return ResourceManager.GetString("Shapefiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show flagged only.
+        /// </summary>
+        internal static string ShowFlaggedOnly {
+            get {
+                return ResourceManager.GetString("ShowFlaggedOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show selected only.
+        /// </summary>
+        internal static string ShowSelectedOnly {
+            get {
+                return ResourceManager.GetString("ShowSelectedOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to State.
+        /// </summary>
+        internal static string State {
+            get {
+                return ResourceManager.GetString("State", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to T.
+        /// </summary>
+        internal static string T {
+            get {
+                return ResourceManager.GetString("T", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Terr.
+        /// </summary>
+        internal static string Terr {
+            get {
+                return ResourceManager.GetString("Terr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        internal static string Type {
+            get {
+                return ResourceManager.GetString("Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Waypoints.
+        /// </summary>
+        internal static string UserWaypoints {
+            get {
+                return ResourceManager.GetString("UserWaypoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waypoints.
+        /// </summary>
+        internal static string Waypoints {
+            get {
+                return ResourceManager.GetString("Waypoints", resourceCulture);
             }
         }
         
@@ -253,6 +919,15 @@ namespace GAPPSF.Resources {
         internal static string WelcomeText {
             get {
                 return ResourceManager.GetString("WelcomeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Window.
+        /// </summary>
+        internal static string Window {
+            get {
+                return ResourceManager.GetString("Window", resourceCulture);
             }
         }
         

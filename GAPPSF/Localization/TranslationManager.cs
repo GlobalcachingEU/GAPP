@@ -113,6 +113,16 @@ namespace GAPPSF.Localization
             }
         }
 
+        public string TranslateText(string txt)
+        {
+            string result = _overrideTranslation[txt.ToLower()] as string;
+            if (string.IsNullOrEmpty(result))
+            {
+                result = txt;
+            }
+            return result;
+        }
+
         public object Translate(string key)
         {
             if( TranslationProvider!= null)
