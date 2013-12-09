@@ -13,6 +13,7 @@ V1.9.9.0
 - fix: Google maps, setting text for show geocache name
 - fix: Get logs of others users now works also if you select a specific user instead of all users.
 - fix: Import Munzee now handles munzee captured multiple times by user correctly
+- change: Shapefile setting now has option to overwrite dbf encoding (default utf-8)
 
 V1.9.8.0
 

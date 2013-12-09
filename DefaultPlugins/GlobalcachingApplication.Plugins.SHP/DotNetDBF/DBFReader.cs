@@ -61,10 +61,15 @@ namespace DotNetDBF
                 : _header.FieldArray;
         }
 
-        public DBFReader(string anIn)
+        public DBFReader(string anIn, string charEncoding)
         {
             try
             {
+                if (!string.IsNullOrEmpty(charEncoding))
+                {
+                    CharEncoding = Encoding.GetEncoding(charEncoding);
+                }
+
                 _dataInputStream = new BinaryReader(
                     File.Open(anIn,
                               FileMode.Open,
@@ -260,8 +265,8 @@ namespace DotNetDBF
                             //    sb.Append((char)b_array[c]);
                             //}
                             //recordObjects[i] = sb.ToString().TrimEnd();
-                            //recordObjects[i] = CharEncoding.GetString(b_array).TrimEnd();
-                            recordObjects[i] = Encoding.GetEncoding("ISO-8859-1").GetString(b_array).TrimEnd();
+                            recordObjects[i] = CharEncoding.GetString(b_array).TrimEnd();
+                            //recordObjects[i] = Encoding.GetEncoding("ISO-8859-1").GetString(b_array).TrimEnd();
                             break;
 
                         case NativeDbType.Date:

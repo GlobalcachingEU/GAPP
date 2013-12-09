@@ -101,6 +101,7 @@ namespace GlobalcachingApplication.Plugins.SHP
                 core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_TYPE));
                 core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_WGS84));
                 core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_DOWNLOADMORE));
+                core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_ENCODING));
 
                 core.LanguageItems.Add(new Framework.Data.LanguageItem(DownloadShapefileForm.STR_DOWNLOAD));
                 core.LanguageItems.Add(new Framework.Data.LanguageItem(DownloadShapefileForm.STR_DOWNLOADINGLIST));

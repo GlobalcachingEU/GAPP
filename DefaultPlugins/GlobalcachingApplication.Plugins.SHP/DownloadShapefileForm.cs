@@ -33,6 +33,7 @@ namespace GlobalcachingApplication.Plugins.SHP
         public string ShapeFileType { get; private set; }
         public string ShapeFileFormat { get; private set; }
         public string ShapeFilePrefix { get; private set; }
+        public string ShapeFileDbfEncoding { get; private set; }
 
         public DownloadShapefileForm()
         {
@@ -116,6 +117,14 @@ namespace GlobalcachingApplication.Plugins.SHP
                             ShapeFileFormat = f.Attributes["format"].Value;
                             ShapeFileType = f.Attributes["level"].Value;
                             ShapeFilePrefix = f.Attributes["prefix"].Value;
+                            if (f.Attributes["dbfencoding"] != null)
+                            {
+                                ShapeFileDbfEncoding = f.Attributes["dbfencoding"].Value; 
+                            }
+                            else
+                            {
+                                ShapeFileDbfEncoding = "";
+                            }
                             ShapeFilePath = Path.Combine(Properties.Settings.Default.DefaultShapeFilesFolder, string.Concat(Path.GetFileNameWithoutExtension(_downloadUrl), ".shp"));
                             DialogResult = System.Windows.Forms.DialogResult.OK;
                             Close();

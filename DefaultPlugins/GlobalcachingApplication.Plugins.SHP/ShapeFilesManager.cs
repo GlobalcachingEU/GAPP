@@ -25,15 +25,21 @@ namespace GlobalcachingApplication.Plugins.SHP
                 //Coord type
                 //Area type
                 //name prefix
-                string[] parts = shpFile.Split(new char[] { '|' }, 6);
-                if (parts.Length == 6)
+                //dbfEncoding
+                string[] parts = shpFile.Split(new char[] { '|' }, 7);
+                if (parts.Length >= 6)
                 {
                     try
                     {
                         if (bool.Parse(parts[0]))
                         {
+                            string dbfEncoding = "";
+                            if (parts.Length==7)
+                            {
+                                dbfEncoding = parts[6];
+                            }
                             ShapeFile sf = new ShapeFile(parts[1]);
-                            if (sf.Initialize(parts[2], (ShapeFile.CoordType)Enum.Parse(typeof(ShapeFile.CoordType), parts[3]), (Framework.Data.AreaType)Enum.Parse(typeof(Framework.Data.AreaType), parts[4]), parts[5]))
+                            if (sf.Initialize(parts[2], (ShapeFile.CoordType)Enum.Parse(typeof(ShapeFile.CoordType), parts[3]), (Framework.Data.AreaType)Enum.Parse(typeof(Framework.Data.AreaType), parts[4]), parts[5], dbfEncoding))
                             {
                                 _shapeFiles.Add(sf);
                             }

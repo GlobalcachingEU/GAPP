@@ -29,6 +29,7 @@ namespace GlobalcachingApplication.Plugins.SHP
         public const string STR_TYPE = "Type";
         public const string STR_ADD = "Add / Update";
         public const string STR_DOWNLOADMORE = "Download more...";
+        public const string STR_ENCODING = "Encoding";
 
         private Utils.BasePlugin.Plugin _plugin = null;
 
@@ -54,17 +55,23 @@ namespace GlobalcachingApplication.Plugins.SHP
             label9.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_TYPE);
             button2.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_ADD);
             button4.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_DOWNLOADMORE);
+            label13.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_ENCODING);
 
             listView1.Columns[0].Text = Utils.LanguageSupport.Instance.GetTranslation(STR_SHAPEFILE);
             listView1.Columns[1].Text = Utils.LanguageSupport.Instance.GetTranslation(STR_NAMEFIELD);
             listView1.Columns[2].Text = Utils.LanguageSupport.Instance.GetTranslation(STR_FORMAT);
             listView1.Columns[3].Text = Utils.LanguageSupport.Instance.GetTranslation(STR_TYPE);
             listView1.Columns[4].Text = Utils.LanguageSupport.Instance.GetTranslation(STR_NAMEPREFIX);
+            listView1.Columns[5].Text = Utils.LanguageSupport.Instance.GetTranslation(STR_ENCODING);
 
             foreach (string s in Properties.Settings.Default.ShapeFiles)
             {
-                string[] parts = s.Split(new char[] { '|' }, 6).ToArray();
+                string[] parts = s.Split(new char[] { '|' }, 7).ToArray();
                 ListViewItem lvi = new ListViewItem(parts.Skip(1).ToArray());
+                if (lvi.SubItems.Count < 6)
+                {
+                    lvi.SubItems.Add("");
+                }
                 lvi.Checked = bool.Parse(parts[0]);
                 listView1.Items.Add(lvi);
             }
@@ -94,6 +101,11 @@ namespace GlobalcachingApplication.Plugins.SHP
                     s = string.Concat(s, "|", p.Text);
                 }
                 if (lvi.SubItems.Count < 5)
+                {
+                    s = string.Concat(s, "|");
+                    s = string.Concat(s, "|");
+                }
+                else if (lvi.SubItems.Count < 6)
                 {
                     s = string.Concat(s, "|");
                 }
@@ -210,22 +222,32 @@ namespace GlobalcachingApplication.Plugins.SHP
                     if (lvi.SubItems.Count < 5)
                     {
                         lvi.SubItems.Add(textBox2.Text);
+                        lvi.SubItems.Add(textBox3.Text);
                     }
                     else
                     {
                         lvi.SubItems[4].Text = textBox2.Text;
+                        if (lvi.SubItems.Count < 6)
+                        {
+                            lvi.SubItems.Add(textBox3.Text);
+                        }
+                        else
+                        {
+                            lvi.SubItems[5].Text = textBox3.Text;
+                        }
                     }
                     break;
                 }
             }
             if (lvi == null)
             {
-                lvi = new ListViewItem(new string[5]);
+                lvi = new ListViewItem(new string[6]);
                 lvi.SubItems[0].Text = textBox1.Text;
                 lvi.SubItems[1].Text = comboBox1.Text;
                 lvi.SubItems[2].Text = c;
                 lvi.SubItems[3].Text = t;
                 lvi.SubItems[4].Text = textBox2.Text;
+                lvi.SubItems[5].Text = textBox3.Text;
                 lvi.Checked = true;
                 listView1.Items.Add(lvi);
                 lvi.Selected = true;
@@ -279,12 +301,14 @@ namespace GlobalcachingApplication.Plugins.SHP
                         break;
                 }
                 textBox2.Text = lvi.SubItems.Count > 4 ? lvi.SubItems[4].Text : "";
+                textBox3.Text = lvi.SubItems.Count > 5 ? lvi.SubItems[5].Text : "";
             }
             else
             {
                 button3.Enabled = false;
                 textBox1.Text = "";
                 textBox2.Text = "";
+                textBox3.Text = "";
             }
         }
 
@@ -300,6 +324,7 @@ namespace GlobalcachingApplication.Plugins.SHP
                     lvi.SubItems[2].Text = dlg.ShapeFileFormat;
                     lvi.SubItems[3].Text = dlg.ShapeFileType;
                     lvi.SubItems[4].Text = dlg.ShapeFilePrefix;
+                    lvi.SubItems[5].Text = dlg.ShapeFileDbfEncoding;
                     lvi.Checked = true;
                     listView1.Items.Add(lvi);
                     lvi.Selected = true;

@@ -57,6 +57,7 @@ namespace GlobalcachingApplication.Plugins.SHP
         private byte[] _buffer = new byte[8];
         private CoordType _coordType;
         private Framework.Data.AreaType _areaType;
+        private string _dbfEncoding;
 
         //shp header
         private int _shpFileSize = -1;   //The value for file length is the total length of the file in 16-bit words (including the fifty
@@ -86,7 +87,7 @@ namespace GlobalcachingApplication.Plugins.SHP
             string[] result = null;
             try
             {
-                using (DotNetDBF.DBFReader dbf = new DotNetDBF.DBFReader(string.Format("{0}dbf", _shpFilename.Substring(0, _shpFilename.Length - 3))))
+                using (DotNetDBF.DBFReader dbf = new DotNetDBF.DBFReader(string.Format("{0}dbf", _shpFilename.Substring(0, _shpFilename.Length - 3)), _dbfEncoding))
                 {
                     var fields = dbf.Fields;
                     result = (from s in fields select s.Name).ToArray();
@@ -98,7 +99,7 @@ namespace GlobalcachingApplication.Plugins.SHP
             return result;
         }
 
-        public bool Initialize(string dbfNameFieldName, CoordType coordType, Framework.Data.AreaType areaType, string namePrefix)
+        public bool Initialize(string dbfNameFieldName, CoordType coordType, Framework.Data.AreaType areaType, string namePrefix, string dbfEncoding)
         {
             bool result = false;
             try
@@ -106,6 +107,7 @@ namespace GlobalcachingApplication.Plugins.SHP
                 _coordType = coordType;
                 _shpFileStream = File.OpenRead(_shpFilename);
                 _areaType = areaType;
+                _dbfEncoding = dbfEncoding;
                 int FileCode = GetInt32(_shpFileStream, false);
                 if (FileCode==9994)
                 {
@@ -160,7 +162,7 @@ namespace GlobalcachingApplication.Plugins.SHP
                                         break;
                                 }
                             }
-                            using (DotNetDBF.DBFReader dbf = new DotNetDBF.DBFReader(string.Format("{0}dbf", _shpFilename.Substring(0, _shpFilename.Length - 3))))
+                            using (DotNetDBF.DBFReader dbf = new DotNetDBF.DBFReader(string.Format("{0}dbf", _shpFilename.Substring(0, _shpFilename.Length - 3)), _dbfEncoding))
                             {
                                 var fields = dbf.Fields;
                                 dbf.SetSelectFields(new string[]{dbfNameFieldName});
@@ -171,14 +173,6 @@ namespace GlobalcachingApplication.Plugins.SHP
                                     if (!_indexRecords[index].Ignore)
                                     {
                                         _indexRecords[index].Name = string.Format("{0}{1}",namePrefix,rec[0]);
-                                        if (_indexRecords[index].Name == "Fryslân" || _indexRecords[index].Name == "Frysl�n")
-                                        {
-                                            _indexRecords[index].Name = "Friesland";
-                                        }
-                                        else
-                                        {
-                                            _indexRecords[index].Name = _indexRecords[index].Name.Replace("�", "â");
-                                        }
                                     }
                                     else
                                     {
