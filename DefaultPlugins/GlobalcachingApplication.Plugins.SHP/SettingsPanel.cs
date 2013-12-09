@@ -318,7 +318,7 @@ namespace GlobalcachingApplication.Plugins.SHP
             {
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    ListViewItem lvi = new ListViewItem(new string[5]);
+                    ListViewItem lvi = new ListViewItem(new string[6]);
                     lvi.SubItems[0].Text = dlg.ShapeFilePath;
                     lvi.SubItems[1].Text = dlg.ShapeFileFieldName;
                     lvi.SubItems[2].Text = dlg.ShapeFileFormat;
