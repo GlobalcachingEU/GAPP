@@ -794,5 +794,13 @@ namespace GAPPSF
             Dispatcher.BeginInvoke(new Action(async () => await initializeApplicationAsync()), DispatcherPriority.ContextIdle, null);
         }
 
+        private void TextBlock_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (Core.ApplicationData.Instance.ActiveGeocache!=null && !string.IsNullOrEmpty(Core.ApplicationData.Instance.ActiveGeocache.Url))
+            {
+                System.Diagnostics.Process.Start(Core.ApplicationData.Instance.ActiveGeocache.Url);
+            }
+        }
+
     }
 }

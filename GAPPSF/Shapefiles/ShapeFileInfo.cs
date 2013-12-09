@@ -17,5 +17,6 @@ namespace GAPPSF.Shapefiles
         public string TArea { get; set; }
         public List<string> TAreas { get; set; }
         public string Prefix { get; set; }
+        public string Encoding { get; set; }
     }
 }

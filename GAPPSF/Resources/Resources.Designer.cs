@@ -223,6 +223,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Colors.
+        /// </summary>
+        internal static string Colors {
+            get {
+                return ResourceManager.GetString("Colors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Container.
         /// </summary>
         internal static string Container {
@@ -309,6 +318,15 @@ namespace GAPPSF.Resources {
         internal static string Diff {
             get {
                 return ResourceManager.GetString("Diff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disabled.
+        /// </summary>
+        internal static string Disabled {
+            get {
+                return ResourceManager.GetString("Disabled", resourceCulture);
             }
         }
         
@@ -710,6 +728,15 @@ namespace GAPPSF.Resources {
         internal static string Open {
             get {
                 return ResourceManager.GetString("Open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Own.
+        /// </summary>
+        internal static string Own {
+            get {
+                return ResourceManager.GetString("Own", resourceCulture);
             }
         }
         

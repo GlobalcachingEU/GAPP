@@ -58,15 +58,20 @@ namespace GAPPSF.Shapefiles
                     //Coord type
                     //Area type
                     //name prefix
-                    string[] parts = shpFile.Split(new char[] { '|' }, 6);
-                    if (parts.Length == 6)
+                    string[] parts = shpFile.Split(new char[] { '|' }, 7);
+                    if (parts.Length >= 6)
                     {
                         try
                         {
                             if (bool.Parse(parts[0]))
                             {
+                                string encoding = "";
+                                if (parts.Length >= 7)
+                                {
+                                    encoding = parts[6];
+                                }
                                 ShapeFile sf = new ShapeFile(parts[1]);
-                                if (sf.Initialize(parts[2], (ShapeFile.CoordType)Enum.Parse(typeof(ShapeFile.CoordType), parts[3]), (Core.Data.AreaType)Enum.Parse(typeof(Core.Data.AreaType), parts[4]), parts[5]))
+                                if (sf.Initialize(parts[2], (ShapeFile.CoordType)Enum.Parse(typeof(ShapeFile.CoordType), parts[3]), (Core.Data.AreaType)Enum.Parse(typeof(Core.Data.AreaType), parts[4]), parts[5], encoding))
                                 {
                                     _shapeFiles.Add(sf);
                                 }

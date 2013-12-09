@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="OpenSourceControls.SmallColorPicker"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:OpenSourceControls"
+    x:Name="ThisColorPicker">
+    <UserControl.Resources>
+        <local:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
+    </UserControl.Resources>
+    <ComboBox x:Name="Picker" 
+              SelectedValue="{Binding ElementName=ThisColorPicker, Path=SelectedColor}" 
+              SnapsToDevicePixels="True">
+        <ComboBox.ItemTemplate>
+            <DataTemplate>
+                <Rectangle Width="16" Height="16" Stroke="Black" HorizontalAlignment="Center"
+                    Fill="{Binding Converter={StaticResource ColorToBrushConverter}}" Margin="0 1 0 1"/>
+            </DataTemplate>
+        </ComboBox.ItemTemplate>
+        <ComboBox.ItemsPanel>
+            <ItemsPanelTemplate>
+                <WrapPanel Width="111" Margin="0 2 0 2"/>
+            </ItemsPanelTemplate>
+        </ComboBox.ItemsPanel>
+    </ComboBox>
+</UserControl>

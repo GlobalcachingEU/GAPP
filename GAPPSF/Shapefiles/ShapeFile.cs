@@ -57,6 +57,7 @@ namespace GAPPSF.Shapefiles
         private byte[] _buffer = new byte[8];
         private CoordType _coordType;
         private Core.Data.AreaType _areaType;
+        private string _dbfEncoding;
 
         //shp header
         private int _shpFileSize = -1;   //The value for file length is the total length of the file in 16-bit words (including the fifty
@@ -91,7 +92,7 @@ namespace GAPPSF.Shapefiles
             string[] result = null;
             try
             {
-                using (DotNetDBF.DBFReader dbf = new DotNetDBF.DBFReader(string.Format("{0}dbf", _shpFilename.Substring(0, _shpFilename.Length - 3))))
+                using (DotNetDBF.DBFReader dbf = new DotNetDBF.DBFReader(string.Format("{0}dbf", _shpFilename.Substring(0, _shpFilename.Length - 3)), _dbfEncoding))
                 {
                     var fields = dbf.Fields;
                     result = (from s in fields select s.Name).ToArray();
@@ -103,7 +104,7 @@ namespace GAPPSF.Shapefiles
             return result;
         }
 
-        public bool Initialize(string dbfNameFieldName, CoordType coordType, Core.Data.AreaType areaType, string namePrefix)
+        public bool Initialize(string dbfNameFieldName, CoordType coordType, Core.Data.AreaType areaType, string namePrefix, string dbfEncoding)
         {
             bool result = false;
             try
@@ -111,6 +112,7 @@ namespace GAPPSF.Shapefiles
                 _coordType = coordType;
                 _shpFileStream = File.OpenRead(_shpFilename);
                 _areaType = areaType;
+                _dbfEncoding = dbfEncoding;
                 int FileCode = GetInt32(_shpFileStream, false);
                 if (FileCode==9994)
                 {
@@ -165,7 +167,7 @@ namespace GAPPSF.Shapefiles
                                         break;
                                 }
                             }
-                            using (DotNetDBF.DBFReader dbf = new DotNetDBF.DBFReader(string.Format("{0}dbf", _shpFilename.Substring(0, _shpFilename.Length - 3))))
+                            using (DotNetDBF.DBFReader dbf = new DotNetDBF.DBFReader(string.Format("{0}dbf", _shpFilename.Substring(0, _shpFilename.Length - 3)), _dbfEncoding))
                             {
                                 var fields = dbf.Fields;
                                 dbf.SetSelectFields(new string[]{dbfNameFieldName});

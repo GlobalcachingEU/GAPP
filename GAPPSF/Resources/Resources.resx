@@ -415,4 +415,13 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="InvertSelection" xml:space="preserve">
     <value>Invert selection</value>
   </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
+  <data name="Own" xml:space="preserve">
+    <value>Own</value>
+  </data>
+  <data name="Colors" xml:space="preserve">
+    <value>Colors</value>
+  </data>
 </root>

@@ -26,7 +26,7 @@ namespace DotNetDBF
         private DBFHeader _header;
         private string _dataMemoLoc;
 
-        private int[] _selectFields = new int[]{};
+        private int[] _selectFields = new int[] { };
         private int[] _orderedSelectFields = new int[] { };
         /* Class specific variables */
         private bool isClosed = true;
@@ -61,10 +61,15 @@ namespace DotNetDBF
                 : _header.FieldArray;
         }
 
-        public DBFReader(string anIn)
+        public DBFReader(string anIn, string charEncoding)
         {
             try
             {
+                if (!string.IsNullOrEmpty(charEncoding))
+                {
+                    CharEncoding = Encoding.GetEncoding(charEncoding);
+                }
+
                 _dataInputStream = new BinaryReader(
                     File.Open(anIn,
                               FileMode.Open,
@@ -160,7 +165,8 @@ namespace DotNetDBF
             get
             {
                 return _dataMemoLoc;
-            }set
+            }
+            set
             {
                 _dataMemoLoc = value;
             }
@@ -245,7 +251,7 @@ namespace DotNetDBF
                         k = tOrderdSelectIndexes[j];
                     j++;
 
-                  
+
                     switch (_header.FieldArray[i].DataType)
                     {
                         case NativeDbType.Char:
@@ -260,8 +266,8 @@ namespace DotNetDBF
                             //    sb.Append((char)b_array[c]);
                             //}
                             //recordObjects[i] = sb.ToString().TrimEnd();
-                            //recordObjects[i] = CharEncoding.GetString(b_array).TrimEnd();
-                            recordObjects[i] = Encoding.GetEncoding("ISO-8859-1").GetString(b_array).TrimEnd();
+                            recordObjects[i] = CharEncoding.GetString(b_array).TrimEnd();
+                            //recordObjects[i] = Encoding.GetEncoding("ISO-8859-1").GetString(b_array).TrimEnd();
                             break;
 
                         case NativeDbType.Date:
@@ -386,26 +392,27 @@ namespace DotNetDBF
                             else if (t_logical == DBFFieldType.UnknownByte)
                             {
                                 recordObjects[i] = DBNull.Value;
-                            }else
+                            }
+                            else
                             {
                                 recordObjects[i] = false;
                             }
                             break;
 
                         case NativeDbType.Memo:
-                            if(string.IsNullOrEmpty(_dataMemoLoc))
+                            if (string.IsNullOrEmpty(_dataMemoLoc))
                                 throw new Exception("Memo Location Not Set");
 
 
                             var tRawMemoPointer = _dataInputStream.ReadBytes(_header.FieldArray[i].FieldLength);
                             var tMemoPoiner = CharEncoding.GetString(tRawMemoPointer);
-                            if(string.IsNullOrEmpty(tMemoPoiner))
+                            if (string.IsNullOrEmpty(tMemoPoiner))
                             {
                                 recordObjects[i] = DBNull.Value;
                                 break;
                             }
                             long tBlock;
-                            if(!long.TryParse(tMemoPoiner, out tBlock))
+                            if (!long.TryParse(tMemoPoiner, out tBlock))
                             {  //Because Memo files can vary and are often the least importat data, 
                                 //we will return null when it doesn't match our format.
                                 recordObjects[i] = DBNull.Value;
@@ -421,7 +428,7 @@ namespace DotNetDBF
                             break;
                     }
 
-                 
+
                 }
             }
             catch (EndOfStreamException)

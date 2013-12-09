@@ -203,13 +203,28 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="1" Foreground="White">
+            <TextBlock Grid.Column="0" Foreground="White" Margin="4">
                 <TextBlock.Text>
                     <MultiBinding StringFormat="{}{0} ({1})">
                         <Binding Source="{x:Static p:ApplicationData.Instance}" Path="ActiveDatabase.Text" />
                         <Binding Path="GeocacheSelectionCount" />
                     </MultiBinding>
                 </TextBlock.Text>
+            </TextBlock>
+            <TextBlock Grid.Column="1"  Margin="4" Text="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveGeocache.Name}" TextDecorations="Underline" MouseUp="TextBlock_MouseUp">
+                <TextBlock.Style>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="Yellow" />
+                                <Setter Property="Cursor" Value="Hand" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="False">
+                                <Setter Property="Foreground" Value="White" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
             </TextBlock>
         </Grid>
     </Grid>

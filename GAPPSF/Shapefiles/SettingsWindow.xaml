@@ -52,6 +52,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Binding="{Binding Prefix}" Header="Prefix" Width="100" />
+                <DataGridTextColumn Binding="{Binding Encoding}" Header="Encoding" Width="100" />
             </DataGrid.Columns>
         </DataGrid>
         <Button Grid.Row="1" Width="200" Content="Add shapefile..." Click="Button_Click" />

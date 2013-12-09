@@ -39,7 +39,7 @@ namespace GAPPSF.Shapefiles
                     //Coord type
                     //Area type
                     //name prefix
-                    string[] parts = shpFile.Split(new char[] { '|' }, 6);
+                    string[] parts = shpFile.Split(new char[] { '|' }, 7);
                     if (parts.Length == 6)
                     {
                         try
@@ -51,6 +51,14 @@ namespace GAPPSF.Shapefiles
                             sf.TCoord = parts[3];
                             sf.TArea = parts[4];
                             sf.Prefix = parts[5];
+                            if (parts.Length>6)
+                            {
+                                sf.Encoding = parts[6];
+                            }
+                            else
+                            {
+                                sf.Encoding = "";
+                            }
 
                             using (ShapeFile s = new ShapeFile(sf.Filename))
                             {
@@ -111,6 +119,7 @@ namespace GAPPSF.Shapefiles
                 sf.TCoord = ShapeFile.CoordType.WGS84.ToString();
                 sf.TArea = Core.Data.AreaType.Other.ToString();
                 sf.Prefix = "";
+                sf.Encoding = "";
 
                 using (ShapeFile s = new ShapeFile(sf.Filename))
                 {
@@ -131,7 +140,7 @@ namespace GAPPSF.Shapefiles
             {
                 if (sf.TableName.Length>0)
                 {
-                    sb.AppendLine(string.Format("{0}|{1}|{2}|{3}|{4}|{5}",sf.Enabled.ToString(), sf.Filename, sf.TableName, sf.TCoord,sf.TArea, sf.Prefix??""));
+                    sb.AppendLine(string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}",sf.Enabled.ToString(), sf.Filename, sf.TableName, sf.TCoord,sf.TArea, sf.Prefix??"", sf.Encoding??""));
                 }
             }
             Core.Settings.Default.ShapeFiles = sb.ToString();

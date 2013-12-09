@@ -37,6 +37,11 @@ namespace GAPPSF.UIControls
             InitializeComponent();
             DataContext = this;
 
+            ColorPickerArchived.SelectedColor = (Color)ColorConverter.ConvertFromString(Core.Settings.Default.ArchivedRowColor);
+            ColorPickerDisabled.SelectedColor = (Color)ColorConverter.ConvertFromString(Core.Settings.Default.DisabledRowColor);
+            ColorPickerOwn.SelectedColor = (Color)ColorConverter.ConvertFromString(Core.Settings.Default.IsOwnRowColor);
+            ColorPickerFound.SelectedColor = (Color)ColorConverter.ConvertFromString(Core.Settings.Default.FoundRowColor);
+
             setGeocacheCollectionView();
 
             _cacheListColumnInfoCollection.AssignDataGrid(cacheList);
@@ -296,6 +301,26 @@ namespace GAPPSF.UIControls
         private void cacheList_ColumnReordered(object sender, DataGridColumnEventArgs e)
         {
             _cacheListColumnInfoCollection.UpdateFromDataGrid(cacheList);
+        }
+
+        private void ColorPickerArchived_ColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
+        {
+            Core.Settings.Default.ArchivedRowColor = ColorPickerArchived.SelectedColor.ToString();
+        }
+
+        private void ColorPickerDisabled_ColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
+        {
+            Core.Settings.Default.DisabledRowColor = ColorPickerDisabled.SelectedColor.ToString();
+        }
+
+        private void ColorPickerOwn_ColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
+        {
+            Core.Settings.Default.IsOwnRowColor = ColorPickerOwn.SelectedColor.ToString();
+        }
+
+        private void ColorPickerFound_ColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
+        {
+            Core.Settings.Default.FoundRowColor = ColorPickerFound.SelectedColor.ToString();
         }
     }
 

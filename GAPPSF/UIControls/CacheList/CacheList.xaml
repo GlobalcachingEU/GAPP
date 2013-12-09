@@ -8,6 +8,7 @@
              xmlns:p="clr-namespace:GAPPSF.Core"
              xmlns:c="clr-namespace:GAPPSF.Clipboard"
              xmlns:l="clr-namespace:GAPPSF.Localization"
+             xmlns:osc="clr-namespace:OpenSourceControls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
@@ -37,7 +38,11 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Grid.Column="0">
                         <CheckBox  Margin="4" Content="{l:Translate ShowSelectedOnly}" IsChecked="{Binding CacheListShowSelectedOnly, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
                         <CheckBox  Margin="4" Content="{l:Translate ShowFlaggedOnly}" IsChecked="{Binding CacheListShowFlaggedOnly, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
                         <Grid>
@@ -52,7 +57,7 @@
                             <Image Source="/Resources/General/invert_selection.png" />
                         </Button>
                     </StackPanel>
-                    <Grid Grid.Column="1">
+                    <Grid Grid.Row="0" Grid.Column="1">
                         <ListView ItemsSource="{Binding ColumnInfoCollection}">
                             <ListView.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -66,6 +71,30 @@
                             </ListBox.ItemTemplate>
                         </ListView>
                     </Grid>
+                    <Expander Grid.Row="1" Grid.ColumnSpan="2" Header="{l:Translate Colors}">
+                        <Expander.Content>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="{l:Translate Archived}" Margin="4"/>
+                                <osc:ComboColorPicker Grid.Row="0" Grid.Column="1" Width="120" x:Name="ColorPickerArchived" ColorChanged="ColorPickerArchived_ColorChanged" Margin="4" HorizontalAlignment="Left"/>
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="{l:Translate Disabled}" Margin="4"/>
+                                <osc:ComboColorPicker Grid.Row="1" Grid.Column="1" Width="120" x:Name="ColorPickerDisabled" ColorChanged="ColorPickerDisabled_ColorChanged" Margin="4" HorizontalAlignment="Left"/>
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="{l:Translate Own}" Margin="4"/>
+                                <osc:ComboColorPicker Grid.Row="2" Grid.Column="1" Width="120" x:Name="ColorPickerOwn" ColorChanged="ColorPickerOwn_ColorChanged" Margin="4" HorizontalAlignment="Left"/>
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="{l:Translate Found}" Margin="4"/>
+                                <osc:ComboColorPicker Grid.Row="3" Grid.Column="1" Width="120" x:Name="ColorPickerFound" ColorChanged="ColorPickerFound_ColorChanged" Margin="4" HorizontalAlignment="Left"/>
+                            </Grid>
+                        </Expander.Content>
+                    </Expander>
                 </Grid>
             </Expander.Content>
         </Expander>
