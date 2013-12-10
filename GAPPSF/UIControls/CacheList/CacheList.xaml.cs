@@ -112,7 +112,7 @@ namespace GAPPSF.UIControls
                         {
                             int index = 0;
                             DateTime nextUpdate = DateTime.Now.AddSeconds(1);
-                            using (Utils.ProgressBlock prog = new Utils.ProgressBlock("Deleting geocaches...", "Deleting geocaches...", gcList.Count, 0, true))
+                            using (Utils.ProgressBlock prog = new Utils.ProgressBlock("DeletingGeocaches", "DeletingGeocaches", gcList.Count, 0, true))
                             {
                                 foreach (var gc in gcList)
                                 {
@@ -121,7 +121,7 @@ namespace GAPPSF.UIControls
 
                                     if (DateTime.Now >= nextUpdate)
                                     {
-                                        if (!prog.Update("Deleting geocaches...", gcList.Count, index))
+                                        if (!prog.Update("DeletingGeocaches", gcList.Count, index))
                                         {
                                             break;
                                         }
@@ -247,7 +247,7 @@ namespace GAPPSF.UIControls
 
         public override string ToString()
         {
-            return "Cache list";
+            return Localization.TranslationManager.Instance.Translate("CacheList") as string;
         }
 
         public int WindowWidth

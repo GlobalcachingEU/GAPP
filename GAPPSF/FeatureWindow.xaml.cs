@@ -33,6 +33,7 @@ namespace GAPPSF
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             featureContainer.FeatureControl = null;
+            featureContainer.Dispose();
         }
     }
 }

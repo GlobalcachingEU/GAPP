@@ -133,7 +133,7 @@ namespace GAPPSF.UIControls.GMap
 
         public override string ToString()
         {
-            return "Google map";
+            return Localization.TranslationManager.Instance.Translate("GoogleMap") as string;
         }
 
         public void geocacheClick(string code)
@@ -423,9 +423,9 @@ namespace GAPPSF.UIControls.GMap
         private void DisplayHtml(string html)
         {
             _webBrowserReady = false;
-            html = html.Replace("SLoadingS", Localization.TranslationManager.Instance.TranslateText("Show geocaches"));
-            html = html.Replace("SLocationS", Localization.TranslationManager.Instance.TranslateText("Location"));
-            html = html.Replace("SGoS", Localization.TranslationManager.Instance.TranslateText("Go"));
+            html = html.Replace("SLoadingS", Localization.TranslationManager.Instance.Translate("ShowGeocaches") as string);
+            html = html.Replace("SLocationS", Localization.TranslationManager.Instance.Translate("Location") as string);
+            html = html.Replace("SGoS", Localization.TranslationManager.Instance.Translate("Go") as string);
             html = html.Replace("//enableClusterMarkerAboveCount", string.Format("enableClusterMarkerAboveCount = {0};", Core.Settings.Default.GoogleMapClusterMinimumCountGeocaches));
             webBrowser1.NavigateToString(html);
         }

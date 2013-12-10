@@ -30,7 +30,7 @@ namespace GAPPSF.UIControls
 
         public override string ToString()
         {
-            return "Application info";
+            return Localization.TranslationManager.Instance.Translate("ApplicationInfo") as string;
         }
 
         private RelayCommand _removeDatabaseCommand = null;

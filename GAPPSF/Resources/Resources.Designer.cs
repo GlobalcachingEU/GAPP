@@ -196,6 +196,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to By.
+        /// </summary>
+        internal static string By {
+            get {
+                return ResourceManager.GetString("By", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cache list.
         /// </summary>
         internal static string CacheList {
@@ -304,6 +313,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copying geocaches.
+        /// </summary>
+        internal static string CopyingGeocaches {
+            get {
+                return ResourceManager.GetString("CopyingGeocaches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy selection.
         /// </summary>
         internal static string CopySelection {
@@ -358,6 +376,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deleting geocaches.
+        /// </summary>
+        internal static string DeletingGeocaches {
+            get {
+                return ResourceManager.GetString("DeletingGeocaches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Diff.
         /// </summary>
         internal static string Diff {
@@ -372,6 +399,33 @@ namespace GAPPSF.Resources {
         internal static string Disabled {
             get {
                 return ResourceManager.GetString("Disabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download images for active geocache.
+        /// </summary>
+        internal static string DownloadImagesForActiveGeocache {
+            get {
+                return ResourceManager.GetString("DownloadImagesForActiveGeocache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download images for selection.
+        /// </summary>
+        internal static string DownloadImagesForSelection {
+            get {
+                return ResourceManager.GetString("DownloadImagesForSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downloading images.
+        /// </summary>
+        internal static string DownloadingImages {
+            get {
+                return ResourceManager.GetString("DownloadingImages", resourceCulture);
             }
         }
         
@@ -543,6 +597,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Go.
+        /// </summary>
+        internal static string Go {
+            get {
+                return ResourceManager.GetString("Go", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Google map.
         /// </summary>
         internal static string GoogleMap {
@@ -615,6 +678,69 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Import GSAK database.
+        /// </summary>
+        internal static string ImportGSAKDatabase {
+            get {
+                return ResourceManager.GetString("ImportGSAKDatabase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Importing.
+        /// </summary>
+        internal static string Importing {
+            get {
+                return ResourceManager.GetString("Importing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Importing geocache images.
+        /// </summary>
+        internal static string ImportingGeocacheImages {
+            get {
+                return ResourceManager.GetString("ImportingGeocacheImages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Importing log images.
+        /// </summary>
+        internal static string ImportingLogImages {
+            get {
+                return ResourceManager.GetString("ImportingLogImages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Importing logs.
+        /// </summary>
+        internal static string ImportingLogs {
+            get {
+                return ResourceManager.GetString("ImportingLogs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Importing user waypoints.
+        /// </summary>
+        internal static string ImportingUserWaypoints {
+            get {
+                return ResourceManager.GetString("ImportingUserWaypoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Importing waypoints.
+        /// </summary>
+        internal static string ImportingWaypoints {
+            get {
+                return ResourceManager.GetString("ImportingWaypoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invert selection.
         /// </summary>
         internal static string InvertSelection {
@@ -665,6 +791,42 @@ namespace GAPPSF.Resources {
         internal static string LoadAtStartup {
             get {
                 return ResourceManager.GetString("LoadAtStartup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading.
+        /// </summary>
+        internal static string Loading {
+            get {
+                return ResourceManager.GetString("Loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading database.
+        /// </summary>
+        internal static string LoadingDatabase {
+            get {
+                return ResourceManager.GetString("LoadingDatabase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading databases.
+        /// </summary>
+        internal static string LoadingDatabases {
+            get {
+                return ResourceManager.GetString("LoadingDatabases", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Location.
+        /// </summary>
+        internal static string Location {
+            get {
+                return ResourceManager.GetString("Location", resourceCulture);
             }
         }
         
@@ -791,6 +953,15 @@ namespace GAPPSF.Resources {
         internal static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No geocache selected.
+        /// </summary>
+        internal static string NoGeocacheSelected {
+            get {
+                return ResourceManager.GetString("NoGeocacheSelected", resourceCulture);
             }
         }
         
@@ -980,6 +1151,15 @@ namespace GAPPSF.Resources {
         internal static string ShowFlaggedOnly {
             get {
                 return ResourceManager.GetString("ShowFlaggedOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show geocaches.
+        /// </summary>
+        internal static string ShowGeocaches {
+            get {
+                return ResourceManager.GetString("ShowGeocaches", resourceCulture);
             }
         }
         

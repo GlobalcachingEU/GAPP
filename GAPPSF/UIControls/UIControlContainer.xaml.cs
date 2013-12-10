@@ -20,7 +20,7 @@ namespace GAPPSF.UIControls
     /// <summary>
     /// Interaction logic for UIControlContainer.xaml
     /// </summary>
-    public partial class UIControlContainer : UserControl, INotifyPropertyChanged
+    public partial class UIControlContainer : UserControl, INotifyPropertyChanged, IDisposable
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public event EventHandler WindowStateButtonClick;
@@ -31,6 +31,21 @@ namespace GAPPSF.UIControls
         {
             DisposeOnClear = true;
             InitializeComponent();
+
+            Localization.TranslationManager.Instance.LanguageChanged += Instance_LanguageChanged;
+        }
+
+        void Instance_LanguageChanged(object sender, EventArgs e)
+        {
+            if(FeatureControl!=null)
+            {
+                Text = FeatureControl.ToString();
+            }
+        }
+
+        public void Dispose()
+        {
+            Localization.TranslationManager.Instance.LanguageChanged -= Instance_LanguageChanged;
         }
 
         protected void SetProperty<T>(ref T field, T value, [CallerMemberName] string name = "")
@@ -209,6 +224,7 @@ namespace GAPPSF.UIControls
         {
             FeatureControl = new OfflineImages.Control();
         }
+
 
     }
 }

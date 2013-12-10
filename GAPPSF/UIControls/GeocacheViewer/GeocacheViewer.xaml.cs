@@ -73,14 +73,14 @@ namespace GAPPSF.UIControls
 
         public override string ToString()
         {
-            return "Geocache viewer";
+            return Localization.TranslationManager.Instance.Translate("GeocacheViewer") as string;
         }
 
         public void UpdateView()
         {
             if (Core.ApplicationData.Instance.ActiveGeocache == null)
             {
-                DisplayHtml(string.Format("<html><head></head><body>{0}</body></html>", Localization.TranslationManager.Instance.TranslateText("No geocache selected")));
+                DisplayHtml(string.Format("<html><head></head><body>{0}</body></html>", Localization.TranslationManager.Instance.Translate("NoGeocacheSelected")));
             }
             else
             {
@@ -263,7 +263,7 @@ namespace GAPPSF.UIControls
 
         private void DisplayHtml(string html)
         {
-            html = html.Replace("SbyS", Localization.TranslationManager.Instance.TranslateText("by"));
+            html = html.Replace("SbyS", Localization.TranslationManager.Instance.Translate("by") as string);
             webBrowser1.NavigateToString(html);
         }
 

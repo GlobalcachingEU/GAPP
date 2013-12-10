@@ -466,4 +466,64 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="ClusterMarker" xml:space="preserve">
     <value>Cluster Marker</value>
   </data>
+  <data name="By" xml:space="preserve">
+    <value>By</value>
+  </data>
+  <data name="CopyingGeocaches" xml:space="preserve">
+    <value>Copying geocaches</value>
+  </data>
+  <data name="DeletingGeocaches" xml:space="preserve">
+    <value>Deleting geocaches</value>
+  </data>
+  <data name="DownloadingImages" xml:space="preserve">
+    <value>Downloading images</value>
+  </data>
+  <data name="Go" xml:space="preserve">
+    <value>Go</value>
+  </data>
+  <data name="ImportGSAKDatabase" xml:space="preserve">
+    <value>Import GSAK database</value>
+  </data>
+  <data name="Importing" xml:space="preserve">
+    <value>Importing</value>
+  </data>
+  <data name="ImportingGeocacheImages" xml:space="preserve">
+    <value>Importing geocache images</value>
+  </data>
+  <data name="ImportingLogImages" xml:space="preserve">
+    <value>Importing log images</value>
+  </data>
+  <data name="ImportingLogs" xml:space="preserve">
+    <value>Importing logs</value>
+  </data>
+  <data name="ImportingUserWaypoints" xml:space="preserve">
+    <value>Importing user waypoints</value>
+  </data>
+  <data name="ImportingWaypoints" xml:space="preserve">
+    <value>Importing waypoints</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Loading</value>
+  </data>
+  <data name="LoadingDatabase" xml:space="preserve">
+    <value>Loading database</value>
+  </data>
+  <data name="LoadingDatabases" xml:space="preserve">
+    <value>Loading databases</value>
+  </data>
+  <data name="NoGeocacheSelected" xml:space="preserve">
+    <value>No geocache selected</value>
+  </data>
+  <data name="ShowGeocaches" xml:space="preserve">
+    <value>Show geocaches</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="DownloadImagesForActiveGeocache" xml:space="preserve">
+    <value>Download images for active geocache</value>
+  </data>
+  <data name="DownloadImagesForSelection" xml:space="preserve">
+    <value>Download images for selection</value>
+  </data>
 </root>

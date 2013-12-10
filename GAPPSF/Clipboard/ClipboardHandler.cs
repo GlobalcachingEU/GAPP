@@ -172,7 +172,7 @@ namespace GAPPSF.Clipboard
                         await Task.Run(() =>
                         {
                             DateTime nextUpdate = DateTime.Now.AddSeconds(1);
-                            using (Utils.ProgressBlock prog = new Utils.ProgressBlock("Copying geocaches...", "Copying geocaches...", _gcCodes.Count, 0, true))
+                            using (Utils.ProgressBlock prog = new Utils.ProgressBlock("CopyingGeocaches", "CopyingGeocaches", _gcCodes.Count, 0, true))
                             {
                                 int index = 0;
                                 Core.Data.GeocacheData gcData = new Core.Data.GeocacheData();
@@ -223,7 +223,7 @@ namespace GAPPSF.Clipboard
                                         index++;
                                         if (DateTime.Now>=nextUpdate)
                                         {
-                                            if (!prog.Update("Copying geocaches...", _gcCodes.Count, index))
+                                            if (!prog.Update("CopyingGeocaches", _gcCodes.Count, index))
                                             {
                                                 break;
                                             }

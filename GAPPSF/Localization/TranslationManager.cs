@@ -28,12 +28,16 @@ namespace GAPPSF.Localization
             string xmlFileContents = null;
             try
             {
-                StreamResourceInfo sri = Application.GetResourceStream(new Uri(string.Format("pack://application:,,,/Resources/Language.{0}.xml", CurrentLanguage.TwoLetterISOLanguageName.ToLower())));
-                if (sri != null)
+                if (CurrentLanguage.TwoLetterISOLanguageName.ToLower().Length == 2 &&
+                    CurrentLanguage.TwoLetterISOLanguageName.ToLower()!="iv")
                 {
-                    using (StreamReader textStreamReader = new StreamReader(sri.Stream))
+                    StreamResourceInfo sri = Application.GetResourceStream(new Uri(string.Format("pack://application:,,,/Resources/Language.{0}.xml", CurrentLanguage.TwoLetterISOLanguageName.ToLower())));
+                    if (sri != null)
                     {
-                        xmlFileContents = textStreamReader.ReadToEnd();
+                        using (StreamReader textStreamReader = new StreamReader(sri.Stream))
+                        {
+                            xmlFileContents = textStreamReader.ReadToEnd();
+                        }
                     }
                 }
             }
@@ -111,16 +115,6 @@ namespace GAPPSF.Localization
             {
                 LanguageChanged(this, EventArgs.Empty);
             }
-        }
-
-        public string TranslateText(string txt)
-        {
-            string result = _overrideTranslation[txt.ToLower()] as string;
-            if (string.IsNullOrEmpty(result))
-            {
-                result = txt;
-            }
-            return result;
         }
 
         public object Translate(string key)

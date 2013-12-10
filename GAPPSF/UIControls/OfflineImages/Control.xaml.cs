@@ -55,7 +55,7 @@ namespace GAPPSF.UIControls.OfflineImages
 
         public override string ToString()
         {
-            return "Offline images";
+            return Localization.TranslationManager.Instance.Translate("OfflineImages") as string;
         }
 
         private void updateView()

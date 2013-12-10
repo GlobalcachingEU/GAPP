@@ -16,13 +16,13 @@ namespace GAPPSF.Utils
             if (level == 1)
             {
                 Dialogs.ProgessWindow.Instance.Start(
-                    Localization.TranslationManager.Instance.TranslateText(title), 
-                    Localization.TranslationManager.Instance.TranslateText(action), 
+                    Localization.TranslationManager.Instance.Translate(title) as string, 
+                    Localization.TranslationManager.Instance.Translate(action) as string, 
                     max, value, canCancel);
             }
             else
             {
-                Dialogs.ProgessWindow.Instance.StartSub(Localization.TranslationManager.Instance.TranslateText(action), max, value);
+                Dialogs.ProgessWindow.Instance.StartSub(Localization.TranslationManager.Instance.Translate(action) as string, max, value);
             }
         }
         public ProgressBlock(string title, string action, int max, int value)
@@ -38,11 +38,11 @@ namespace GAPPSF.Utils
         {
             if (level == 2)
             {
-                Dialogs.ProgessWindow.Instance.ChangeProgressSub(Localization.TranslationManager.Instance.TranslateText(action), value, max);
+                Dialogs.ProgessWindow.Instance.ChangeProgressSub(Localization.TranslationManager.Instance.Translate(action) as string, value, max);
             }
             else
             {
-                Dialogs.ProgessWindow.Instance.ChangeProgress(Localization.TranslationManager.Instance.TranslateText(action), value, max);
+                Dialogs.ProgessWindow.Instance.ChangeProgress(Localization.TranslationManager.Instance.Translate(action) as string, value, max);
             }
             return !Dialogs.ProgessWindow.Instance.Canceled;
         }

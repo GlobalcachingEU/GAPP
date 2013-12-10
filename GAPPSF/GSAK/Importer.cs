@@ -70,7 +70,7 @@ namespace GAPPSF.GSAK
                 if (gcCount > 0)
                 {
                     DateTime progShow = DateTime.Now.AddSeconds(1);
-                    using (Utils.ProgressBlock prog = new ProgressBlock("Import GSAK database", "Importing...", 1, 0))
+                    using (Utils.ProgressBlock prog = new ProgressBlock("ImportGSAKDatabase", "Importing", 1, 0))
                     {
                         bool isPremiumAvailable = false;
                         bool isFavPointAvailable = false;

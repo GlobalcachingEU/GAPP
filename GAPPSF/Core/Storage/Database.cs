@@ -126,7 +126,7 @@ namespace GAPPSF.Core.Storage
 
                     long max = _fileStreamIdx.Length;
                     DateTime nextUpdate = DateTime.Now.AddSeconds(1);
-                    using (Utils.ProgressBlock prog = new ProgressBlock("Loading database", "Loading...", 100, 0, true))
+                    using (Utils.ProgressBlock prog = new ProgressBlock("LoadingDatabase", "Loading", 100, 0, true))
                     {
                         int maxChunks = 1000;
                         int chunkSize = 117;

@@ -7,16 +7,13 @@
              mc:Ignorable="d"
              xmlns:p="clr-namespace:GAPPSF.Core"
              d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.Resources>
-        <p:Settings x:Key="Settings" />
-    </UserControl.Resources>
         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
         <Expander 
-            Header="Settings"
+            Header="{l:Translate Settings}"
             Grid.Row="0"
             HorizontalAlignment="Stretch">
             <Expander.Background>

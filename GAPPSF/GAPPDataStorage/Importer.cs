@@ -165,7 +165,7 @@ namespace GAPPSF.GAPPDataStorage
                     records.Clear();
                     f_records.Clear();
 
-                    using (Utils.ProgressBlock subProg = new ProgressBlock("Importing logs...", logCount, 0))
+                    using (Utils.ProgressBlock subProg = new ProgressBlock("ImportingLogs", logCount, 0))
                     {
                         index = 0;
                         //LOGS
@@ -229,18 +229,18 @@ namespace GAPPSF.GAPPDataStorage
                                 index++;
                                 if (DateTime.Now >= nextUpdateTime)
                                 {
-                                    subProg.Update("Importing logs...", logCount, index);
+                                    subProg.Update("ImportingLogs", logCount, index);
                                     nextUpdateTime = DateTime.Now.AddSeconds(1);
                                 }
                             }
                         }
                     }
-                    prog.Update("Importing...", 6, 2);
+                    prog.Update("Importing", 6, 2);
 
                     records.Clear();
                     f_records.Clear();
 
-                    using (Utils.ProgressBlock subProg = new ProgressBlock("Importing waypoints...", wptCount, 0))
+                    using (Utils.ProgressBlock subProg = new ProgressBlock("ImportingWaypoints", wptCount, 0))
                     {
                         index = 0;
                         //Waypoints
@@ -285,7 +285,7 @@ namespace GAPPSF.GAPPDataStorage
                                     index++;
                                     if (DateTime.Now >= nextUpdateTime)
                                     {
-                                        subProg.Update("Importing waypoints...", wptCount, index);
+                                        subProg.Update("ImportingWaypoints", wptCount, index);
                                         nextUpdateTime = DateTime.Now.AddSeconds(1);
                                     }
 
@@ -294,12 +294,12 @@ namespace GAPPSF.GAPPDataStorage
                             }
                         }
                     }
-                    prog.Update("Importing...", 6, 3);
+                    prog.Update("Importing", 6, 3);
 
                     records.Clear();
                     f_records.Clear();
 
-                    using (Utils.ProgressBlock subProg = new ProgressBlock("Importing log images...", logimgCount, 0))
+                    using (Utils.ProgressBlock subProg = new ProgressBlock("ImportingLogImages", logimgCount, 0))
                     {
                         index = 0;
                         using (FileStream fs = File.Open(Path.Combine(Path.GetDirectoryName(filename), string.Format("{0}.lmg", Path.GetFileNameWithoutExtension(filename))), FileMode.OpenOrCreate, FileAccess.Read))
@@ -332,7 +332,7 @@ namespace GAPPSF.GAPPDataStorage
                                     index++;
                                     if (DateTime.Now >= nextUpdateTime)
                                     {
-                                        subProg.Update("Importing log images...", logimgCount, index);
+                                        subProg.Update("ImportingLogImages", logimgCount, index);
                                         nextUpdateTime = DateTime.Now.AddSeconds(1);
                                     }
                                 }
@@ -346,7 +346,7 @@ namespace GAPPSF.GAPPDataStorage
                     records.Clear();
                     f_records.Clear();
 
-                    using (Utils.ProgressBlock subProg = new ProgressBlock("Importing geocache images...", geocacheimgCount, 0))
+                    using (Utils.ProgressBlock subProg = new ProgressBlock("ImportingGeocacheImages", geocacheimgCount, 0))
                     {
                         index = 0;
                         using (FileStream fs = File.Open(Path.Combine(Path.GetDirectoryName(filename), string.Format("{0}.gmg", Path.GetFileNameWithoutExtension(filename))), FileMode.OpenOrCreate, FileAccess.Read))
@@ -382,7 +382,7 @@ namespace GAPPSF.GAPPDataStorage
                                     index++;
                                     if (DateTime.Now >= nextUpdateTime)
                                     {
-                                        subProg.Update("Importing geocache images...", geocacheimgCount, index);
+                                        subProg.Update("ImportingGeocacheImages", geocacheimgCount, index);
                                         nextUpdateTime = DateTime.Now.AddSeconds(1);
                                     }
 
@@ -391,12 +391,12 @@ namespace GAPPSF.GAPPDataStorage
                             }
                         }
                     }
-                    prog.Update("Importing...", 6, 5);
+                    prog.Update("Importing", 6, 5);
 
                     records.Clear();
                     f_records.Clear();
 
-                    using (Utils.ProgressBlock subProg = new ProgressBlock("Importing user waypoints...", usrwptCount, 0))
+                    using (Utils.ProgressBlock subProg = new ProgressBlock("ImportingUserWaypoints", usrwptCount, 0))
                     {
                         index = 0;
                         using (FileStream fs = File.Open(Path.Combine(Path.GetDirectoryName(filename), string.Format("{0}.uwp", Path.GetFileNameWithoutExtension(filename))), FileMode.OpenOrCreate, FileAccess.Read))
@@ -430,7 +430,7 @@ namespace GAPPSF.GAPPDataStorage
                                     index++;
                                     if (DateTime.Now >= nextUpdateTime)
                                     {
-                                        subProg.Update("Importing user waypoints...", usrwptCount, index);
+                                        subProg.Update("ImportingUserWaypoints", usrwptCount, index);
                                         nextUpdateTime = DateTime.Now.AddSeconds(1);
                                     }
 
@@ -439,7 +439,7 @@ namespace GAPPSF.GAPPDataStorage
                             }
                         }
                     }
-                    prog.Update("Importing...", 6, 6);
+                    prog.Update("Importing", 6, 6);
 
                     result = true;
                 }

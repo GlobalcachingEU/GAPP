@@ -99,7 +99,7 @@ namespace GAPPSF
                 {
                     string[] lines = dbs.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
                     int index = 0;
-                    using (Utils.ProgressBlock prog = new Utils.ProgressBlock("Loading databases...", "Loading databases...", lines.Length, 0, true))
+                    using (Utils.ProgressBlock prog = new Utils.ProgressBlock("LoadingDatabases", "LoadingDatabases", lines.Length, 0, true))
                     {
                         foreach (string s in lines)
                         {
@@ -456,7 +456,7 @@ namespace GAPPSF
                         int index = 0;
                         DateTime nextUpdate = DateTime.Now.AddSeconds(1);
                         List<Core.Data.Geocache> gcList = (from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection where a.Selected select a).ToList();
-                        using (Utils.ProgressBlock prog = new Utils.ProgressBlock("Deleting geocaches...", "Deleting geocaches...", gcList.Count, 0, true))
+                        using (Utils.ProgressBlock prog = new Utils.ProgressBlock("DeletingGeocaches", "DeletingGeocaches", gcList.Count, 0, true))
                         {
                             foreach (var gc in gcList)
                             {

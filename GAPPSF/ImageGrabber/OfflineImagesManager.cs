@@ -205,7 +205,7 @@ namespace GAPPSF.ImageGrabber
                 cq.Enqueue(gc);
             }
 
-            using (Utils.ProgressBlock prog = new ProgressBlock("Downloading images...", "Downloading images...", gcList.Count, 0, true))
+            using (Utils.ProgressBlock prog = new ProgressBlock("DownloadingImages", "DownloadingImages", gcList.Count, 0, true))
             {
                 Action actionUpdateProgress = () =>
                 {
