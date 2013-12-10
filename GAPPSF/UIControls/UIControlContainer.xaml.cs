@@ -225,6 +225,11 @@ namespace GAPPSF.UIControls
             FeatureControl = new OfflineImages.Control();
         }
 
+        private void MenuItem_Click_6(object sender, RoutedEventArgs e)
+        {
+            FeatureControl = new GeocacheFilter.Control();
+        }
+
 
     }
 }

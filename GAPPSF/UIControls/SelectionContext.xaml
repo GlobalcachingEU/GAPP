@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:l="clr-namespace:GAPPSF.Localization"
              mc:Ignorable="d" 
              xmlns:ui="clr-namespace:GAPPSF.UIControls" 
              d:DesignHeight="300" d:DesignWidth="300">
@@ -11,9 +12,9 @@
             <ui:EnumBooleanConverter x:Key="enumBooleanConverter" />
         </Grid.Resources>
         <StackPanel >
-            <RadioButton GroupName="SelectionTarget" IsChecked="{Binding Path=SelectedContext, Converter={StaticResource enumBooleanConverter}, ConverterParameter=NewSelection}">New selection</RadioButton>
-            <RadioButton GroupName="SelectionTarget" IsChecked="{Binding Path=SelectedContext, Converter={StaticResource enumBooleanConverter}, ConverterParameter=WithinSelection}">Within selection</RadioButton>
-            <RadioButton GroupName="SelectionTarget" IsChecked="{Binding Path=SelectedContext, Converter={StaticResource enumBooleanConverter}, ConverterParameter=AddToSelection}">Add to current selection</RadioButton>
+            <RadioButton GroupName="SelectionTarget" IsChecked="{Binding Path=SelectedContext, Converter={StaticResource enumBooleanConverter}, ConverterParameter=NewSelection, Mode=TwoWay}" Content="{l:Translate NewSelection}" />
+            <RadioButton GroupName="SelectionTarget" IsChecked="{Binding Path=SelectedContext, Converter={StaticResource enumBooleanConverter}, ConverterParameter=WithinSelection, Mode=TwoWay}" Content="{l:Translate WithinSelection}" />
+            <RadioButton GroupName="SelectionTarget" IsChecked="{Binding Path=SelectedContext, Converter={StaticResource enumBooleanConverter}, ConverterParameter=AddToSelection, Mode=TwoWay}" Content="{l:Translate AddToSelection}" />
         </StackPanel>
     </Grid>
 </UserControl>

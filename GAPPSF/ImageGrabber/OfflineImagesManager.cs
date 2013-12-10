@@ -215,7 +215,7 @@ namespace GAPPSF.ImageGrabber
                     {
                         if (DateTime.Now>=updateAt)
                         {
-                            if (!prog.Update("Downloading images...", gcList.Count, gcList.Count - cnt))
+                            if (!prog.Update("DownloadingImages", gcList.Count, gcList.Count - cnt))
                             {
                                 cancel = true;
                                 break;

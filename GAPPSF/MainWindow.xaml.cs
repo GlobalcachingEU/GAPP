@@ -802,5 +802,12 @@ namespace GAPPSF
             }
         }
 
+        private void MenuItem_Click_11(object sender, RoutedEventArgs e)
+        {
+            Window w = new FeatureWindow(new UIControls.GeocacheFilter.Control());
+            w.Owner = this;
+            w.Show();
+        }
+
     }
 }

@@ -526,4 +526,16 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="DownloadImagesForSelection" xml:space="preserve">
     <value>Download images for selection</value>
   </data>
+  <data name="GeocacheFilter" xml:space="preserve">
+    <value>Geocache filter</value>
+  </data>
+  <data name="AddToSelection" xml:space="preserve">
+    <value>Add to current selection</value>
+  </data>
+  <data name="NewSelection" xml:space="preserve">
+    <value>New search</value>
+  </data>
+  <data name="WithinSelection" xml:space="preserve">
+    <value>Search within selection</value>
+  </data>
 </root>

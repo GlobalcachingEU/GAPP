@@ -115,6 +115,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add to current selection.
+        /// </summary>
+        internal static string AddToSelection {
+            get {
+                return ResourceManager.GetString("AddToSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All.
         /// </summary>
         internal static string All {
@@ -538,6 +547,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geocache filter.
+        /// </summary>
+        internal static string GeocacheFilter {
+            get {
+                return ResourceManager.GetString("GeocacheFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Geocache images.
         /// </summary>
         internal static string GeocacheImages {
@@ -948,6 +966,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New search.
+        /// </summary>
+        internal static string NewSelection {
+            get {
+                return ResourceManager.GetString("NewSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         internal static string No {
@@ -1261,6 +1288,15 @@ namespace GAPPSF.Resources {
         internal static string Window {
             get {
                 return ResourceManager.GetString("Window", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search within selection.
+        /// </summary>
+        internal static string WithinSelection {
+            get {
+                return ResourceManager.GetString("WithinSelection", resourceCulture);
             }
         }
         
