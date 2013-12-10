@@ -181,7 +181,7 @@ namespace GAPPSF.Core.Storage
 
                                     if (DateTime.Now >= nextUpdate)
                                     {
-                                        if (!prog.Update("Loading...", 100, (int)(100.0 * (double)_fileStreamIdx.Position / (double)max)))
+                                        if (!prog.Update("Loading", 100, (int)(100.0 * (double)_fileStreamIdx.Position / (double)max)))
                                         {
                                             cancelled = true;
                                             break;
@@ -240,7 +240,7 @@ namespace GAPPSF.Core.Storage
                 {
                     long max = this.FileStream.Length;
                     DateTime nextUpdate = DateTime.Now.AddSeconds(1);
-                    using (Utils.ProgressBlock prog = new ProgressBlock("Loading database", "Loading...", 100, 0, true))
+                    using (Utils.ProgressBlock prog = new ProgressBlock("LoadingDatabase", "Loading", 100, 0, true))
                     {
                         this.FileStream.Position = 0;
                         long eof = this.FileStream.Length;
@@ -306,7 +306,7 @@ namespace GAPPSF.Core.Storage
 
                             if (DateTime.Now >= nextUpdate)
                             {
-                                if (!prog.Update("Loading...", 100, (int)(100.0 * (double)this.FileStream.Position / (double)max)))
+                                if (!prog.Update("Loading", 100, (int)(100.0 * (double)this.FileStream.Position / (double)max)))
                                 {
                                     cancelled = true;
                                     break;

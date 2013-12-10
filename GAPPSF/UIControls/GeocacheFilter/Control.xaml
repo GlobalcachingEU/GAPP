@@ -8,6 +8,14 @@
              xmlns:ui="clr-namespace:GAPPSF.UIControls"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="300">
+    <Control.Resources>
+        <Style TargetType="{x:Type StackPanel}">
+            <Setter Property="Background" Value="White" />
+        </Style>
+        <Style TargetType="{x:Type Expander}">
+            <Setter Property="Background" Value="#FFCCCEDB" />
+        </Style>
+    </Control.Resources>
     <Grid>
         <Grid.Resources>
             <ui:EnumBooleanConverter x:Key="enumBooleanConverter" />
@@ -16,10 +24,10 @@
             <ui:SelectionContext x:Name="selectionContext" />
             <Expander Header="{l:Translate Status}" IsExpanded="{Binding GeocacheFilterStatusExpanded, Source={x:Static p:Settings.Default}}">
                 <Expander.Content>
-                    <StackPanel>
-                        <RadioButton GroupName="rstatus" Content="{l:Translate Enabled}" IsChecked="{Binding Path=SelectedContext, Converter={StaticResource enumBooleanConverter}, ConverterParameter=NewSelection, Mode=TwoWay}" />
-                        <RadioButton GroupName="rstatus" Content="{l:Translate Disabled}" IsChecked="{Binding GeocacheFilterStatusDisabled, Source={x:Static p:Settings.Default}}" />
-                        <RadioButton GroupName="rstatus" Content="{l:Translate Archived}" IsChecked="{Binding GeocacheFilterStatusArchived, Source={x:Static p:Settings.Default}}" />
+                    <StackPanel Background="White">
+                        <RadioButton GroupName="rstatus" Content="{l:Translate Enabled}" IsChecked="{Binding GeocacheFilterGeocacheStatus, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Enabled, Mode=TwoWay}" />
+                        <RadioButton GroupName="rstatus" Content="{l:Translate Disabled}" IsChecked="{Binding GeocacheFilterGeocacheStatus, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Disabled, Mode=TwoWay}" />
+                        <RadioButton GroupName="rstatus" Content="{l:Translate Archived}" IsChecked="{Binding GeocacheFilterGeocacheStatus, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Archived, Mode=TwoWay}" />
                     </StackPanel>
                 </Expander.Content>
             </Expander>

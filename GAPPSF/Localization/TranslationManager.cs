@@ -136,7 +136,11 @@ namespace GAPPSF.Localization
                     return translatedValue;
                 }
             }
+#if DEBUG
             return string.Format("!{0}!", key);
+#else
+            return string.Format(key);
+#endif
         }
     }
 }

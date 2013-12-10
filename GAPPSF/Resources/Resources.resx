@@ -538,4 +538,7 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="WithinSelection" xml:space="preserve">
     <value>Search within selection</value>
   </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
 </root>
