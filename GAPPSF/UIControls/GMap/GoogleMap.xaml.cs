@@ -91,13 +91,30 @@ namespace GAPPSF.UIControls.GMap
             }
 
             webBrowser1.LoadCompleted += webBrowser1_LoadCompleted;
+            webBrowser1.Navigated += webBrowser1_Navigated;
             Core.ApplicationData.Instance.PropertyChanged += Instance_PropertyChanged;
             Shapefiles.ShapeFilesManager.Instance.PropertyChanged += Shapefiles_PropertyChanged;
+            Core.Settings.Default.PropertyChanged += Default_PropertyChanged;
 
             TargetGeocaches = GeocachesOnMap.Active;
             CurrentConnectedDatabase = Core.ApplicationData.Instance.ActiveDatabase;
 
             updateAvailableAreaNames();
+        }
+
+        void webBrowser1_Navigated(object sender, NavigationEventArgs e)
+        {
+            Utils.ResourceHelper.HideScriptErrors(webBrowser1, true);
+        }
+
+        void Default_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName.StartsWith("GoogleMap") &&
+                !e.PropertyName.StartsWith("GoogleMapWindow"))
+            {
+                LoadHtml();
+                UpdateView(false);
+            }
         }
 
         private void updateAvailableAreaNames()
@@ -234,6 +251,7 @@ namespace GAPPSF.UIControls.GMap
         public void Dispose()
         {
             CurrentConnectedDatabase = null;
+            Core.Settings.Default.PropertyChanged -= Default_PropertyChanged;
             Shapefiles.ShapeFilesManager.Instance.PropertyChanged -= Shapefiles_PropertyChanged;
             Core.ApplicationData.Instance.PropertyChanged -= Instance_PropertyChanged;
         }
@@ -405,6 +423,10 @@ namespace GAPPSF.UIControls.GMap
         private void DisplayHtml(string html)
         {
             _webBrowserReady = false;
+            html = html.Replace("SLoadingS", Localization.TranslationManager.Instance.TranslateText("Show geocaches"));
+            html = html.Replace("SLocationS", Localization.TranslationManager.Instance.TranslateText("Location"));
+            html = html.Replace("SGoS", Localization.TranslationManager.Instance.TranslateText("Go"));
+            html = html.Replace("//enableClusterMarkerAboveCount", string.Format("enableClusterMarkerAboveCount = {0};", Core.Settings.Default.GoogleMapClusterMinimumCountGeocaches));
             webBrowser1.NavigateToString(html);
         }
 

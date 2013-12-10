@@ -88,11 +88,38 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Active.
+        /// </summary>
+        internal static string Active {
+            get {
+                return ResourceManager.GetString("Active", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        internal static string Add {
+            get {
+                return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add.Coords.
         /// </summary>
         internal static string AddCoords {
             get {
                 return ResourceManager.GetString("AddCoords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        internal static string All {
+            get {
+                return ResourceManager.GetString("All", resourceCulture);
             }
         }
         
@@ -111,6 +138,15 @@ namespace GAPPSF.Resources {
         internal static string Archived {
             get {
                 return ResourceManager.GetString("Archived", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Area.
+        /// </summary>
+        internal static string Area {
+            get {
+                return ResourceManager.GetString("Area", resourceCulture);
             }
         }
         
@@ -210,6 +246,15 @@ namespace GAPPSF.Resources {
         internal static string ClearSelection {
             get {
                 return ResourceManager.GetString("ClearSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cluster Marker.
+        /// </summary>
+        internal static string ClusterMarker {
+            get {
+                return ResourceManager.GetString("ClusterMarker", resourceCulture);
             }
         }
         
@@ -345,6 +390,15 @@ namespace GAPPSF.Resources {
         internal static string Edit {
             get {
                 return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable above # geocaches.
+        /// </summary>
+        internal static string EnableAboveCountGeocaches {
+            get {
+                return ResourceManager.GetString("EnableAboveCountGeocaches", resourceCulture);
             }
         }
         
@@ -507,6 +561,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Grid size.
+        /// </summary>
+        internal static string GridSize {
+            get {
+                return ResourceManager.GetString("GridSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hints.
         /// </summary>
         internal static string Hints {
@@ -575,6 +638,15 @@ namespace GAPPSF.Resources {
         internal static string Language {
             get {
                 return ResourceManager.GetString("Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Level.
+        /// </summary>
+        internal static string Level {
+            get {
+                return ResourceManager.GetString("Level", resourceCulture);
             }
         }
         
@@ -651,6 +723,24 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Maximum number of logs.
+        /// </summary>
+        internal static string MaximumNumberOfLogs {
+            get {
+                return ResourceManager.GetString("MaximumNumberOfLogs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximum zoom level.
+        /// </summary>
+        internal static string MaximumZoomLevel {
+            get {
+                return ResourceManager.GetString("MaximumZoomLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Membership.
         /// </summary>
         internal static string Membership {
@@ -660,7 +750,7 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mijlen.
+        ///   Looks up a localized string similar to Miles.
         /// </summary>
         internal static string Miles {
             get {
@@ -840,6 +930,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Selected.
+        /// </summary>
+        internal static string Selected {
+            get {
+                return ResourceManager.GetString("Selected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Settings.
         /// </summary>
         internal static string Settings {
@@ -854,6 +953,24 @@ namespace GAPPSF.Resources {
         internal static string Shapefiles {
             get {
                 return ResourceManager.GetString("Shapefiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show.
+        /// </summary>
+        internal static string Show {
+            get {
+                return ResourceManager.GetString("Show", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show additional waypoints.
+        /// </summary>
+        internal static string ShowAdditionalWaypoints {
+            get {
+                return ResourceManager.GetString("ShowAdditionalWaypoints", resourceCulture);
             }
         }
         
@@ -908,6 +1025,15 @@ namespace GAPPSF.Resources {
         internal static string Type {
             get {
                 return ResourceManager.GetString("Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use offline images.
+        /// </summary>
+        internal static string UseOfflineImages {
+            get {
+                return ResourceManager.GetString("UseOfflineImages", resourceCulture);
             }
         }
         

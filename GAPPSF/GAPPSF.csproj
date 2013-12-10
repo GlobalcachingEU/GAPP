@@ -78,6 +78,7 @@
     <ApplicationIcon>Globalcaching.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationFramework.Classic" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -267,9 +268,6 @@
       <DependentUpon>GoogleMap.xaml</DependentUpon>
     </Compile>
     <Compile Include="UIControls\IUIControl.cs" />
-    <Compile Include="UIControls\NumericUpDown.xaml.cs">
-      <DependentUpon>NumericUpDown.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ImageGrabber\OfflineImagesManager.cs" />
     <Compile Include="UIControls\OfflineImages\Control.xaml.cs">
       <DependentUpon>Control.xaml</DependentUpon>
@@ -284,6 +282,18 @@
     <Compile Include="UIControls\UIControlContainer.xaml.cs">
       <DependentUpon>UIControlContainer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UIControls\UpDownCtrls\ArrowRepeatButton.cs" />
+    <Compile Include="UIControls\UpDownCtrls\Helpers.cs" />
+    <Compile Include="UIControls\UpDownCtrls\NumericUpDown.xaml.cs">
+      <DependentUpon>NumericUpDown.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UIControls\UpDownCtrls\TimeCtrl.xaml.cs">
+      <DependentUpon>TimeCtrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UIControls\UpDownCtrls\UpDownButtons.xaml.cs">
+      <DependentUpon>UpDownButtons.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UIControls\UpDownCtrls\ValidTimeItem.cs" />
     <Compile Include="Utils\Calculus.cs" />
     <Compile Include="Utils\Conversion.cs" />
     <Compile Include="Utils\DataAccess.cs" />
@@ -451,6 +461,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\Colors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\UpDownCtrls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UIControls\ApplicationDataInfo\ApplicationDataInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -471,10 +489,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UIControls\NumericUpDown.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="UIControls\OfflineImages\Control.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -490,6 +504,18 @@
     <Page Include="UIControls\UIControlContainer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\UpDownCtrls\NumericUpDown.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UIControls\UpDownCtrls\TimeCtrl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UIControls\UpDownCtrls\UpDownButtons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -991,6 +1017,7 @@
   <ItemGroup>
     <Resource Include="Dialogs\GetLocationWindow.html" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)GlobalcachingApplication\bin\$(ConfigurationName)\"</PostBuildEvent>

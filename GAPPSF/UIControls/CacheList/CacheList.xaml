@@ -16,9 +16,10 @@
         <src:CompassPathConverter x:Key="ConvertToCompassPath"></src:CompassPathConverter>
         <src:ContainerConverter x:Key="ContainerConverter"></src:ContainerConverter>
         <src:GeocacheCoordConverter x:Key="GeocacheCoordConverter"></src:GeocacheCoordConverter>
-        <properties:Settings x:Key="Settings" />
-        <properties:ApplicationData x:Key="ApplicationData" />
     </UserControl.Resources>
+    <UserControl.InputBindings>
+        <KeyBinding Modifiers="Control" Key="Delete" Command="{Binding DeleteCommand}" />
+    </UserControl.InputBindings>
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -139,7 +140,7 @@
                     <MenuItem Header="{l:Translate Copy}" Command="{Binding CopyCommand}" />
                     <MenuItem Header="{l:Translate Paste}" Command="{Binding PasteCommand, Source={x:Static c:ClipboardHandler.Instance}}" />
                     <Separator />
-                    <MenuItem Header="{l:Translate Delete}" Command="{Binding DeleteCommand}" />
+                    <MenuItem Header="{l:Translate Delete}" Command="{Binding DeleteCommand}" InputGestureText="Ctrl+Del" />
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.RowHeaderTemplate>

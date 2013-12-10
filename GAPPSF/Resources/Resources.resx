@@ -362,7 +362,7 @@ This wizard will guide you through the initial setup. Before you start, you migh
     <value>Logs</value>
   </data>
   <data name="Miles" xml:space="preserve">
-    <value>Mijlen</value>
+    <value>Miles</value>
   </data>
   <data name="Municipality" xml:space="preserve">
     <value>Municipality</value>
@@ -423,5 +423,47 @@ This wizard will guide you through the initial setup. Before you start, you migh
   </data>
   <data name="Colors" xml:space="preserve">
     <value>Colors</value>
+  </data>
+  <data name="MaximumNumberOfLogs" xml:space="preserve">
+    <value>Maximum number of logs</value>
+  </data>
+  <data name="ShowAdditionalWaypoints" xml:space="preserve">
+    <value>Show additional waypoints</value>
+  </data>
+  <data name="UseOfflineImages" xml:space="preserve">
+    <value>Use offline images</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="Area" xml:space="preserve">
+    <value>Area</value>
+  </data>
+  <data name="EnableAboveCountGeocaches" xml:space="preserve">
+    <value>Enable above # geocaches</value>
+  </data>
+  <data name="Level" xml:space="preserve">
+    <value>Level</value>
+  </data>
+  <data name="Selected" xml:space="preserve">
+    <value>Selected</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Show</value>
+  </data>
+  <data name="GridSize" xml:space="preserve">
+    <value>Grid size</value>
+  </data>
+  <data name="MaximumZoomLevel" xml:space="preserve">
+    <value>Maximum zoom level</value>
+  </data>
+  <data name="ClusterMarker" xml:space="preserve">
+    <value>Cluster Marker</value>
   </data>
 </root>

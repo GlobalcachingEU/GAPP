@@ -28,5 +28,23 @@ namespace GAPPSF.Core
             get { return int.Parse(GetProperty("100")); }
             set { SetProperty(value.ToString()); }
         }
+
+        public int GoogleMapClusterMinimumCountGeocaches
+        {
+            get { return int.Parse(GetProperty("1000")); }
+            set { SetProperty(value.ToString()); }
+        }
+        public int GoogleMapClusterMaximumZoomLevel
+        {
+            get { return int.Parse(GetProperty("13")); }
+            set { SetProperty(value.ToString()); }
+        }
+
+        public int GoogleMapClusterGridSize
+        {
+            get { return int.Parse(GetProperty("40")); }
+            set { SetProperty(value.ToString()); }
+        }
+
     }
 }

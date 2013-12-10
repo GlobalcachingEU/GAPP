@@ -3,10 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:l="clr-namespace:GAPPSF.Localization"
              mc:Ignorable="d" 
              xmlns:p="clr-namespace:GAPPSF.Core"
              xmlns:ui="clr-namespace:GAPPSF.UIControls" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="600">
     <UserControl.Resources>
         <p:Settings x:Key="Settings" />
     </UserControl.Resources>
@@ -16,7 +17,7 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
         <Expander 
-            Header="Settings"
+            Header="{l:Translate Settings}"
             Grid.Row="0"
             HorizontalAlignment="Stretch">
             <Expander.Background>
@@ -27,37 +28,61 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <Grid.Resources>
-                            <ui:EnumBooleanConverter x:Key="enumBooleanConverter" />
-                        </Grid.Resources>
-                        <StackPanel >
-                            <RadioButton GroupName="selection" IsChecked="{Binding Path=TargetGeocaches, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Active}">Active</RadioButton>
-                            <RadioButton GroupName="selection" IsChecked="{Binding Path=TargetGeocaches, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Selected}">Selected</RadioButton>
-                            <RadioButton GroupName="selection" IsChecked="{Binding Path=TargetGeocaches, Converter={StaticResource enumBooleanConverter}, ConverterParameter=All}">All</RadioButton>
-                        </StackPanel>
+                    <GroupBox Grid.Column="0" Header="{l:Translate Show}">
+                        <Grid>
+                            <Grid.Resources>
+                                <ui:EnumBooleanConverter x:Key="enumBooleanConverter" />
+                            </Grid.Resources>
+                            <StackPanel >
+                                <RadioButton Margin="4" GroupName="selection" IsChecked="{Binding Path=TargetGeocaches, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Active}" Content="{l:Translate Active}" />
+                                <RadioButton Margin="4" GroupName="selection" IsChecked="{Binding Path=TargetGeocaches, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Selected}" Content="{l:Translate Selected}" />
+                                <RadioButton Margin="4" GroupName="selection" IsChecked="{Binding Path=TargetGeocaches, Converter={StaticResource enumBooleanConverter}, ConverterParameter=All}" Content="{l:Translate All}" />
+                            </StackPanel>
 
-                    </Grid>
-                    <Grid Grid.Column="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="150" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Level" />
-                        <ComboBox x:Name="areaLevel" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Arealevels}" SelectionChanged="areaLevel_SelectionChanged" />
-                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Name" />
-                        <ComboBox x:Name="areaName" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Areanames}" />
-                        <Button Grid.Row="2" Grid.ColumnSpan="2" Content="Add" Click="Button_Click" />
-                    </Grid>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Grid.Column="1" Header="{l:Translate Area}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="150" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{l:Translate Level}" Margin="4"  />
+                            <ComboBox x:Name="areaLevel" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Arealevels}" SelectionChanged="areaLevel_SelectionChanged" Margin="4"  />
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{l:Translate Name}" Margin="4"  />
+                            <ComboBox x:Name="areaName" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Areanames}" Margin="4" />
+                            <Button Grid.Row="2" Grid.ColumnSpan="2" Content="{l:Translate Add}" Click="Button_Click" Margin="4" />
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Grid.Column="2" Header="{l:Translate ClusterMarker}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="150" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{l:Translate EnableAboveCountGeocaches}" Margin="4"  />
+                            <ui:NumericUpDown Grid.Row="0" Grid.Column="1" Minimum="100" Maximum="10000000" Width="100" Value="{Binding GoogleMapClusterMinimumCountGeocaches, Source={x:Static p:Settings.Default}, Mode=TwoWay, Delay=500}" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{l:Translate MaximumZoomLevel}" Margin="4"  />
+                            <ui:NumericUpDown Grid.Row="1" Grid.Column="1" Minimum="1" Maximum="20" Width="100" Value="{Binding GoogleMapClusterMaximumZoomLevel, Source={x:Static p:Settings.Default}, Mode=TwoWay, Delay=500}" />
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="{l:Translate GridSize}" Margin="4"  />
+                            <ui:NumericUpDown Grid.Row="2" Grid.Column="1" Minimum="10" Maximum="110" Width="100" Value="{Binding GoogleMapClusterGridSize, Source={x:Static p:Settings.Default}, Mode=TwoWay, Delay=500}" />
+                        </Grid>
+                    </GroupBox>
                 </Grid>
             </Expander.Content>
         </Expander>
-        <WebBrowser Grid.Row="1" x:Name="webBrowser1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+        <WebBrowser Grid.Row="1" x:Name="webBrowser1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  />
     </Grid>
 </UserControl>

@@ -80,7 +80,7 @@ namespace GAPPSF.UIControls
         {
             if (Core.ApplicationData.Instance.ActiveGeocache == null)
             {
-                DisplayHtml(string.Format("<html><head></head><body>{0}</body></html>", "No geocache selected"));
+                DisplayHtml(string.Format("<html><head></head><body>{0}</body></html>", Localization.TranslationManager.Instance.TranslateText("No geocache selected")));
             }
             else
             {
@@ -263,7 +263,7 @@ namespace GAPPSF.UIControls
 
         private void DisplayHtml(string html)
         {
-            html = html.Replace("SbyS", "by");
+            html = html.Replace("SbyS", Localization.TranslationManager.Instance.TranslateText("by"));
             webBrowser1.NavigateToString(html);
         }
 

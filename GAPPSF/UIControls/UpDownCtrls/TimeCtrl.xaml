@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="GAPPSF.UIControls.TimeCtrl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:local="clr-namespace:GAPPSF.UIControls"
+             x:Name="Root"
+             d:DesignHeight="23" d:DesignWidth="120"
+             Loaded="Root_Loaded"
+             MouseLeftButtonDown="Root_MouseLeftButtonDown"
+             MouseRightButtonDown="Root_MouseRightButtonDown"
+             IsEnabledChanged="Root_IsEnabledChanged"
+             FocusManager.IsFocusScope="True">
+<!-- Unfortunately, having the line above "FocusManager.IsFocusScope="True"" causes a problem: the selection in light blue sometimes becomes 
+    invisible when right click and menu appears. This looks to me like a Microsoft bug, and I feel light blue selection should always remain
+    visible. 
+If desperate for selection to always display, remove this line and modify GetTextBoxToFocusOn function, so it no longer uses FocusManager. 
+    A simple solution would be to simply traverse all items in TimeCtrls grid until find a item which has focus. The drawback of this solution
+    is control will no longer keep in memory last item which had focus. To overcome that, you might have a member variable ‘int LastItemFocused’,
+    which keeps track of index of last focused item and use that variable when appropriate (that is no items in TimeCtrls currently have focus). -->
+    <UserControl.Resources>
+        <ContextMenu x:Key="HiddenContextMenu" Visibility="Hidden"/>
+    </UserControl.Resources>
+    <Grid>
+        <TextBox Name="TextBoxCtrl" VerticalAlignment="Stretch" Padding="2,2,18,2" 
+                IsEnabled="{Binding IsEnabled, ElementName=Root}"               
+                Foreground="{Binding Foreground, ElementName=Root}" 
+                Background="{Binding Background, ElementName=Root}" 
+                Height="{Binding ActualHeight, ElementName=Root}"
+                Width="{Binding ActualWidth, ElementName=Root}"
+                VerticalContentAlignment="{Binding VerticalContentAlignment, ElementName=Root}"
+                HorizontalContentAlignment="{Binding  HorizontalContentAlignment, ElementName=Root}" Focusable="False"
+                ContextMenu="{StaticResource HiddenContextMenu}"
+                PreviewDragEnter="tb_PreviewDrag"
+                PreviewDragOver="tb_PreviewDrag">
+            <TextBox.CommandBindings>
+                <CommandBinding Command="Cut" CanExecute="CommandBinding_CanExecute"/>
+                <CommandBinding Command="Paste" CanExecute="CommandBinding_CanExecute"/>
+            </TextBox.CommandBindings>
+        </TextBox>
+        <Grid Name="TimeCtrls" Style="{DynamicResource ResourceKey=TimeCtrlsGridStyle}"/>
+        <local:UpDownButtons x:Name="UpDown" HorizontalAlignment="Right" 
+                Style="{DynamicResource ResourceKey=UpDownButtonsStyle}" 
+                VerticalAlignment="Stretch" IsEnabled="{Binding IsEnabled, ElementName=Root}"
+                UpClick="UpDown_UpClick" DownClick="UpDown_DownClick"/>
+        <Popup Name="ValidTimesPopup" IsOpen="False" StaysOpen="False" PlacementTarget="{Binding ElementName=TextBoxCtrl}" Placement="Bottom">
+            <Border BorderBrush="#FF7F9DB9" BorderThickness="1" Background="{Binding Background, ElementName=Root}">
+                <Grid Name="ValidTimesGrid" Background="{Binding Background, ElementName=Root}"/>
+            </Border>
+        </Popup>
+    </Grid>
+</UserControl>

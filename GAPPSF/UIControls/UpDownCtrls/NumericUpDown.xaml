@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="GAPPSF.UIControls.NumericUpDown"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:local="clr-namespace:GAPPSF.UIControls"
+             x:Name="Root"
+             d:DesignHeight="23" d:DesignWidth="120"
+             MinWidth="23"       
+             Loaded="Root_Loaded"
+             IsEnabledChanged="Root_IsEnabledChanged">
+    <Grid>
+        <TextBox Name="TextBoxCtrl" VerticalAlignment="Stretch" Padding="2,2,18,3" 
+                IsEnabled="{Binding IsEnabled, ElementName=Root}"               
+                Foreground="{Binding Foreground, ElementName=Root}" 
+                Height="{Binding ActualHeight, ElementName=Root}"
+                Width="{Binding ActualWidth, ElementName=Root}"
+                VerticalContentAlignment="{Binding VerticalContentAlignment, ElementName=Root}"
+                HorizontalContentAlignment="{Binding  HorizontalContentAlignment, ElementName=Root}"              
+                TextAlignment="{Binding TextAlignment, ElementName=Root}"              
+                PreviewKeyDown="TextBoxCtrl_PreviewKeyDown"
+                PreviewTextInput="TextBoxCtrl_PreviewTextInput"
+                PreviewDragOver="TextBoxCtrl_PreviewDragOver"
+                PreviewDrop="TextBoxCtrl_PreviewDrop"
+                PreviewQueryContinueDrag="TextBoxCtrl_PreviewQueryContinueDrag"
+                PreviewMouseWheel="TextBoxCtrl_PreviewMouseWheel"
+                LostKeyboardFocus="TextBoxCtrl_LostKeyboardFocus">
+            <TextBox.CommandBindings>
+                <CommandBinding Command="Cut" CanExecute="Command_Cut_CanExecute" Executed="CommandBinding_CutExecuted"/>
+                <CommandBinding Command="Paste" CanExecute="Command_Paste_CanExecute" Executed="CommandBinding_PasteExecuted"/>
+            </TextBox.CommandBindings>
+        </TextBox>
+        <local:UpDownButtons x:Name="UpDown" HorizontalAlignment="Right" 
+                Style="{DynamicResource ResourceKey=UpDownButtonsStyle}" 
+                VerticalAlignment="Stretch" IsEnabled="{Binding IsEnabled, ElementName=Root}" 
+                UpClick="UpDown_UpClick" DownClick="UpDown_DownClick"/>
+    </Grid>
+</UserControl>
