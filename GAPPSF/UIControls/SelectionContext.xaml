@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:l="clr-namespace:GAPPSF.Localization"
+             xmlns:p="clr-namespace:GAPPSF.Core"
              mc:Ignorable="d" 
              xmlns:ui="clr-namespace:GAPPSF.UIControls" 
              d:DesignHeight="300" d:DesignWidth="300">
@@ -12,9 +13,9 @@
             <ui:EnumBooleanConverter x:Key="enumBooleanConverter" />
         </Grid.Resources>
         <StackPanel >
-            <RadioButton GroupName="SelectionTarget" IsChecked="{Binding Path=SelectedContext, Converter={StaticResource enumBooleanConverter}, ConverterParameter=NewSelection, Mode=TwoWay}" Content="{l:Translate NewSelection}" />
-            <RadioButton GroupName="SelectionTarget" IsChecked="{Binding Path=SelectedContext, Converter={StaticResource enumBooleanConverter}, ConverterParameter=WithinSelection, Mode=TwoWay}" Content="{l:Translate WithinSelection}" />
-            <RadioButton GroupName="SelectionTarget" IsChecked="{Binding Path=SelectedContext, Converter={StaticResource enumBooleanConverter}, ConverterParameter=AddToSelection, Mode=TwoWay}" Content="{l:Translate AddToSelection}" />
+            <RadioButton GroupName="SelectionTarget" IsChecked="{Binding Path=GeocacheSelectionContext, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=NewSelection, Mode=TwoWay}" Content="{l:Translate NewSelection}" />
+            <RadioButton GroupName="SelectionTarget" IsChecked="{Binding Path=GeocacheSelectionContext, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=WithinSelection, Mode=TwoWay}" Content="{l:Translate WithinSelection}" />
+            <RadioButton GroupName="SelectionTarget" IsChecked="{Binding Path=GeocacheSelectionContext, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=AddToSelection, Mode=TwoWay}" Content="{l:Translate AddToSelection}" />
         </StackPanel>
     </Grid>
 </UserControl>

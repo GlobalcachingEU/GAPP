@@ -7,7 +7,7 @@
              xmlns:p="clr-namespace:GAPPSF.Core"
              xmlns:ui="clr-namespace:GAPPSF.UIControls"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="350">
     <Control.Resources>
         <Style TargetType="{x:Type StackPanel}">
             <Setter Property="Background" Value="White" />
@@ -19,18 +19,84 @@
     <Grid>
         <Grid.Resources>
             <ui:EnumBooleanConverter x:Key="enumBooleanConverter" />
+            <ui:InverseBooleanConverter x:Key="inverseBooleanConverter" />
         </Grid.Resources>
-        <StackPanel HorizontalAlignment="Stretch">
-            <ui:SelectionContext x:Name="selectionContext" />
-            <Expander Header="{l:Translate Status}" IsExpanded="{Binding GeocacheFilterStatusExpanded, Source={x:Static p:Settings.Default}}">
-                <Expander.Content>
-                    <StackPanel Background="White">
-                        <RadioButton GroupName="rstatus" Content="{l:Translate Enabled}" IsChecked="{Binding GeocacheFilterGeocacheStatus, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Enabled, Mode=TwoWay}" />
-                        <RadioButton GroupName="rstatus" Content="{l:Translate Disabled}" IsChecked="{Binding GeocacheFilterGeocacheStatus, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Disabled, Mode=TwoWay}" />
-                        <RadioButton GroupName="rstatus" Content="{l:Translate Archived}" IsChecked="{Binding GeocacheFilterGeocacheStatus, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Archived, Mode=TwoWay}" />
-                    </StackPanel>
-                </Expander.Content>
-            </Expander>
-        </StackPanel>    
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <StackPanel HorizontalAlignment="Stretch">
+                <ui:SelectionContext x:Name="selectionContext" />
+                <Expander Header="{l:Translate Status}" IsExpanded="{Binding GeocacheFilterStatusExpanded, Source={x:Static p:Settings.Default}}">
+                    <Expander.Content>
+                        <StackPanel>
+                            <RadioButton GroupName="rstatus" Content="{l:Translate Enabled}" IsChecked="{Binding GeocacheFilterGeocacheStatus, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Enabled, Mode=TwoWay}" />
+                            <RadioButton GroupName="rstatus" Content="{l:Translate Disabled}" IsChecked="{Binding GeocacheFilterGeocacheStatus, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Disabled, Mode=TwoWay}" />
+                            <RadioButton GroupName="rstatus" Content="{l:Translate Archived}" IsChecked="{Binding GeocacheFilterGeocacheStatus, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Archived, Mode=TwoWay}" />
+                        </StackPanel>
+                    </Expander.Content>
+                </Expander>
+                <Expander Header="{l:Translate Own}" IsExpanded="{Binding GeocacheFilterOwnExpanded, Source={x:Static p:Settings.Default}}">
+                    <Expander.Content>
+                        <StackPanel>
+                            <RadioButton GroupName="rown" Content="{l:Translate IOwn}" IsChecked="{Binding GeocacheFilterOwn, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=True, Mode=TwoWay}" />
+                            <RadioButton GroupName="rown" Content="{l:Translate IDontOwn}" IsChecked="{Binding GeocacheFilterOwn, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=False, Mode=TwoWay}" />
+                        </StackPanel>
+                    </Expander.Content>
+                </Expander>
+                <Expander Header="{l:Translate Found}" IsExpanded="{Binding GeocacheFilterFoundExpanded, Source={x:Static p:Settings.Default}}">
+                    <Expander.Content>
+                        <StackPanel>
+                            <RadioButton GroupName="rfound" Content="{l:Translate IFound}" IsChecked="{Binding GeocacheFilterFound, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=True, Mode=TwoWay}" />
+                            <RadioButton GroupName="rfound" Content="{l:Translate IHaveNotFound}" IsChecked="{Binding GeocacheFilterFound, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=False, Mode=TwoWay}" />
+                        </StackPanel>
+                    </Expander.Content>
+                </Expander>
+                <Expander Header="{l:Translate FoundBy}" IsExpanded="{Binding GeocacheFilterFoundByExpanded, Source={x:Static p:Settings.Default}}">
+                    <Expander.Content>
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.3*" />
+                                    <ColumnDefinition Width="0.3*" />
+                                    <ColumnDefinition Width="0.3*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <RadioButton Margin="2" Grid.Row="0" Grid.Column="1" GroupName="rfoundby" Content="{l:Translate AtLeastOneUser}" IsChecked="{Binding GeocacheFilterFoundByAll, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=False, Mode=TwoWay}" />
+                                <RadioButton Margin="2" Grid.Row="0" Grid.Column="2" GroupName="rfoundby" Content="{l:Translate FoundByAll}" IsChecked="{Binding GeocacheFilterFoundByAll, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=True, Mode=TwoWay}" />
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="{l:Translate UserNames}" />
+                                <TextBox Margin="2,2,2,0" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding GeocacheFilterFoundBy, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                                <TextBlock Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="{l:Translate CommaSeparated}" />
+                            </Grid>
+                        </StackPanel>
+                    </Expander.Content>
+                </Expander>
+                <Expander Header="{l:Translate NotFoundBy}" IsExpanded="{Binding GeocacheFilterNotFoundByExpanded, Source={x:Static p:Settings.Default}}">
+                    <Expander.Content>
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.3*" />
+                                    <ColumnDefinition Width="0.3*" />
+                                    <ColumnDefinition Width="0.3*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <RadioButton Margin="2" Grid.Row="0" Grid.Column="2" GroupName="rnfoundby" Content="{l:Translate NotFoundByAny}" IsChecked="{Binding GeocacheFilterNotFoundByAny, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=True, Mode=TwoWay}" />
+                                <RadioButton Margin="2" Grid.Row="0" Grid.Column="1" GroupName="rnfoundby" Content="{l:Translate AtLeastOneUser}" IsChecked="{Binding GeocacheFilterNotFoundByAny, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=False, Mode=TwoWay}" />
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="{l:Translate UserNames}" />
+                                <TextBox Margin="2,2,2,0" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding GeocacheFilterNotFoundBy, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                                <TextBlock Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="{l:Translate CommaSeparated}" />
+                            </Grid>
+                        </StackPanel>
+                    </Expander.Content>
+                </Expander>
+                <Button Content="{l:Translate Select}" Command="{Binding SelectCommand}"/>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>

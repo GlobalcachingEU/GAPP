@@ -90,6 +90,8 @@ namespace GAPPSF
             }
             else
             {
+                Core.ApplicationData.Instance.BeginActiviy();
+
                 bool autoLoad = Core.Settings.Default.AutoLoadDatabases;
                 string dbs = Core.Settings.Default.OpenedDatabases;
                 string actDb = Core.Settings.Default.ActiveDatabase;
@@ -132,6 +134,8 @@ namespace GAPPSF
                         Core.ApplicationData.Instance.ActiveGeocache = (from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection where a.Code == actGc select a).FirstOrDefault();
                     }
                 }
+
+                Core.ApplicationData.Instance.EndActiviy();
             }
         }
 

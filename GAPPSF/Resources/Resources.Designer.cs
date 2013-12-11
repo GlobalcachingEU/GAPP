@@ -160,6 +160,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to At least one user.
+        /// </summary>
+        internal static string AtLeastOneUser {
+            get {
+                return ResourceManager.GetString("AtLeastOneUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Authorize.
         /// </summary>
         internal static string Authorize {
@@ -291,6 +300,15 @@ namespace GAPPSF.Resources {
         internal static string Colors {
             get {
                 return ResourceManager.GetString("Colors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comma separated.
+        /// </summary>
+        internal static string CommaSeparated {
+            get {
+                return ResourceManager.GetString("CommaSeparated", resourceCulture);
             }
         }
         
@@ -538,6 +556,24 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Found by.
+        /// </summary>
+        internal static string FoundBy {
+            get {
+                return ResourceManager.GetString("FoundBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Found by all.
+        /// </summary>
+        internal static string FoundByAll {
+            get {
+                return ResourceManager.GetString("FoundByAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Français.
         /// </summary>
         internal static string French {
@@ -696,6 +732,33 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to I do not own.
+        /// </summary>
+        internal static string IDontOwn {
+            get {
+                return ResourceManager.GetString("IDontOwn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I found.
+        /// </summary>
+        internal static string IFound {
+            get {
+                return ResourceManager.GetString("IFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I have not found.
+        /// </summary>
+        internal static string IHaveNotFound {
+            get {
+                return ResourceManager.GetString("IHaveNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Import.
         /// </summary>
         internal static string Import {
@@ -773,6 +836,15 @@ namespace GAPPSF.Resources {
         internal static string InvertSelection {
             get {
                 return ResourceManager.GetString("InvertSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I own.
+        /// </summary>
+        internal static string IOwn {
+            get {
+                return ResourceManager.GetString("IOwn", resourceCulture);
             }
         }
         
@@ -1011,6 +1083,24 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not found by.
+        /// </summary>
+        internal static string NotFoundBy {
+            get {
+                return ResourceManager.GetString("NotFoundBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not found by any.
+        /// </summary>
+        internal static string NotFoundByAny {
+            get {
+                return ResourceManager.GetString("NotFoundByAny", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Offline images.
         /// </summary>
         internal static string OfflineImages {
@@ -1128,6 +1218,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select.
+        /// </summary>
+        internal static string Select {
+            get {
+                return ResourceManager.GetString("Select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select all.
         /// </summary>
         internal static string SelectAll {
@@ -1218,6 +1317,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        internal static string Status {
+            get {
+                return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to T.
         /// </summary>
         internal static string T {
@@ -1250,6 +1358,24 @@ namespace GAPPSF.Resources {
         internal static string UseOfflineImages {
             get {
                 return ResourceManager.GetString("UseOfflineImages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User name.
+        /// </summary>
+        internal static string UserName {
+            get {
+                return ResourceManager.GetString("UserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User names.
+        /// </summary>
+        internal static string UserNames {
+            get {
+                return ResourceManager.GetString("UserNames", resourceCulture);
             }
         }
         

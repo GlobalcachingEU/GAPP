@@ -12,4 +12,10 @@ namespace GAPPSF.UIControls.GeocacheFilter
         Disabled,
         Archived
     }
+
+    public enum BooleanEnum
+    {
+        True,
+        False
+    }
 }

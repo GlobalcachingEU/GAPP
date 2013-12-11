@@ -272,6 +272,7 @@
     <Compile Include="UIControls\GMap\GoogleMap.xaml.cs">
       <DependentUpon>GoogleMap.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UIControls\InverseBooleanConverter.cs" />
     <Compile Include="UIControls\IUIControl.cs" />
     <Compile Include="ImageGrabber\OfflineImagesManager.cs" />
     <Compile Include="UIControls\OfflineImages\Control.xaml.cs">

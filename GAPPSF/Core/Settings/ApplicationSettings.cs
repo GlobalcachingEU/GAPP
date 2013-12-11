@@ -85,5 +85,11 @@ namespace GAPPSF.Core
             set { SetProperty(value.ToString(CultureInfo.InvariantCulture)); }
         }
 
+        public UIControls.SelectionContext.Context GeocacheSelectionContext
+        {
+            get { return (UIControls.SelectionContext.Context)Enum.Parse(typeof(UIControls.SelectionContext.Context), GetProperty("NewSelection")); }
+            set { SetProperty(value.ToString()); }
+        }
+
     }
 }

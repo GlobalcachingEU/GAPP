@@ -541,4 +541,46 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="Enabled" xml:space="preserve">
     <value>Enabled</value>
   </data>
+  <data name="IDontOwn" xml:space="preserve">
+    <value>I do not own</value>
+  </data>
+  <data name="IOwn" xml:space="preserve">
+    <value>I own</value>
+  </data>
+  <data name="AtLeastOneUser" xml:space="preserve">
+    <value>At least one user</value>
+  </data>
+  <data name="CommaSeparated" xml:space="preserve">
+    <value>Comma separated</value>
+  </data>
+  <data name="FoundBy" xml:space="preserve">
+    <value>Found by</value>
+  </data>
+  <data name="FoundByAll" xml:space="preserve">
+    <value>Found by all</value>
+  </data>
+  <data name="IFound" xml:space="preserve">
+    <value>I found</value>
+  </data>
+  <data name="IHaveNotFound" xml:space="preserve">
+    <value>I have not found</value>
+  </data>
+  <data name="NotFoundBy" xml:space="preserve">
+    <value>Not found by</value>
+  </data>
+  <data name="NotFoundByAny" xml:space="preserve">
+    <value>Not found by any</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>User name</value>
+  </data>
+  <data name="UserNames" xml:space="preserve">
+    <value>User names</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
 </root>
