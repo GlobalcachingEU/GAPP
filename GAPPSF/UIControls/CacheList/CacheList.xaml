@@ -109,7 +109,7 @@
                   CanUserDeleteRows="False"
                   ItemsSource="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveDatabase.GeocacheCollectionView}"
                   SelectedItem="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveGeocache, Mode=TwoWay}"
-                  LoadingRow="cacheList_LoadingRow" ColumnReordered="cacheList_ColumnReordered" 
+                  LoadingRow="cacheList_LoadingRow" ColumnReordered="cacheList_ColumnReordered"
                   >
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="{x:Static SystemColors.HighlightColor}"/>

@@ -51,9 +51,17 @@ namespace GAPPSF.UIControls.GeocacheFilter
         {
             bool result = false;
             List<Core.Data.Log> lgs = (from a in Utils.DataAccess.GetLogs(gc.Database, gc.Code) where a.LogType.AsFound select a).ToList();
-            foreach (string usr in users)
+            //foreach (string usr in users)
+            //{
+            //    if ( (from a in lgs where string.Compare(a.Finder, usr, true)==0 select a).FirstOrDefault() != null)
+            //    {
+            //        result = true;
+            //        break;
+            //    }
+            //}
+            foreach(var l in lgs)
             {
-                if ( (from a in lgs where string.Compare(a.Finder, usr, true)==0 select a).FirstOrDefault() != null)
+                if ((from a in users where string.Compare(a, l.Finder, true)==0 select a).FirstOrDefault()!=null)
                 {
                     result = true;
                     break;
@@ -65,9 +73,17 @@ namespace GAPPSF.UIControls.GeocacheFilter
         {
             bool result = true;
             List<Core.Data.Log> lgs = (from a in Utils.DataAccess.GetLogs(gc.Database, gc.Code) where a.LogType.AsFound select a).ToList();
-            foreach (string usr in users)
+            //foreach (string usr in users)
+            //{
+            //    if ((from a in lgs where string.Compare(a.Finder, usr, true) == 0 select a).FirstOrDefault() != null)
+            //    {
+            //        result = false;
+            //        break;
+            //    }
+            //}
+            foreach (var l in lgs)
             {
-                if ((from a in lgs where string.Compare(a.Finder, usr, true) == 0 select a).FirstOrDefault() != null)
+                if ((from a in users where string.Compare(a, l.Finder, true) == 0 select a).FirstOrDefault() != null)
                 {
                     result = false;
                     break;
@@ -79,9 +95,17 @@ namespace GAPPSF.UIControls.GeocacheFilter
         {
             bool result = true;
             List<Core.Data.Log> lgs = (from a in Utils.DataAccess.GetLogs(gc.Database, gc.Code) where a.LogType.AsFound select a).ToList();
-            foreach (string usr in users)
+            //foreach (string usr in users)
+            //{
+            //    if ((from a in lgs where string.Compare(a.Finder, usr, true) == 0 select a).FirstOrDefault() == null)
+            //    {
+            //        result = false;
+            //        break;
+            //    }
+            //}
+            foreach (var l in lgs)
             {
-                if ((from a in lgs where string.Compare(a.Finder, usr, true) == 0 select a).FirstOrDefault() == null)
+                if ((from a in users where string.Compare(a, l.Finder, true) == 0 select a).FirstOrDefault() != null)
                 {
                     result = false;
                     break;
@@ -112,33 +136,47 @@ namespace GAPPSF.UIControls.GeocacheFilter
                             gcList = (from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection where !a.Selected select a).ToList();
                         }
 
-                        string[] foundByUsers = Core.Settings.Default.GeocacheFilterFoundBy == null ? new string[] { } : Core.Settings.Default.GeocacheFilterFoundBy.Split(',');
-                        for (int i = 0; i < foundByUsers.Length; i++)
+                        DateTime nextUpdate = DateTime.Now.AddSeconds(1);
+                        using (Utils.ProgressBlock prog = new Utils.ProgressBlock("Searching", "Searching", gcList.Count, 0, true))
                         {
-                            foundByUsers[i] = foundByUsers[i].Trim();
-                        }
-                        string[] notFoundByUsers = Core.Settings.Default.GeocacheFilterNotFoundBy == null ? new string[] { } : Core.Settings.Default.GeocacheFilterNotFoundBy.Split(',');
-                        for (int i = 0; i < notFoundByUsers.Length; i++)
-                        {
-                            notFoundByUsers[i] = notFoundByUsers[i].Trim();
-                        }
+                            string[] foundByUsers = Core.Settings.Default.GeocacheFilterFoundBy == null ? new string[] { } : Core.Settings.Default.GeocacheFilterFoundBy.Split(',');
+                            for (int i = 0; i < foundByUsers.Length; i++)
+                            {
+                                foundByUsers[i] = foundByUsers[i].Trim();
+                            }
+                            string[] notFoundByUsers = Core.Settings.Default.GeocacheFilterNotFoundBy == null ? new string[] { } : Core.Settings.Default.GeocacheFilterNotFoundBy.Split(',');
+                            for (int i = 0; i < notFoundByUsers.Length; i++)
+                            {
+                                notFoundByUsers[i] = notFoundByUsers[i].Trim();
+                            }
 
-                        //set selected within gcList
-                        foreach (var gc in gcList)
-                        {
-                            gc.Selected = (
-                                (!Core.Settings.Default.GeocacheFilterStatusExpanded || ((Core.Settings.Default.GeocacheFilterGeocacheStatus == GeocacheStatus.Enabled && gc.Available) ||
-                                                                                         (Core.Settings.Default.GeocacheFilterGeocacheStatus == GeocacheStatus.Disabled && !gc.Available && !gc.Archived) ||
-                                                                                         (Core.Settings.Default.GeocacheFilterGeocacheStatus == GeocacheStatus.Archived && gc.Archived))) &&
-                                (!Core.Settings.Default.GeocacheFilterOwnExpanded || ((Core.Settings.Default.GeocacheFilterOwn == BooleanEnum.True) == gc.IsOwn)) &&
-                                (!Core.Settings.Default.GeocacheFilterFoundExpanded || ((Core.Settings.Default.GeocacheFilterFound == BooleanEnum.True) == gc.Found)) &&
-                                (!Core.Settings.Default.GeocacheFilterFoundByExpanded || ((Core.Settings.Default.GeocacheFilterFoundByAll == BooleanEnum.True) && foundByAll(gc, foundByUsers)) ||
-                                                                                         ((Core.Settings.Default.GeocacheFilterFoundByAll == BooleanEnum.False) && foundByAny(gc, foundByUsers))) &&
-                                (!Core.Settings.Default.GeocacheFilterNotFoundByExpanded || ((Core.Settings.Default.GeocacheFilterNotFoundByAny == BooleanEnum.True) && !foundByAny(gc, foundByUsers)) ||
-                                                                                         ((Core.Settings.Default.GeocacheFilterNotFoundByAny == BooleanEnum.False) && !foundByAll(gc, foundByUsers)))
-                                );
-                        }
+                            //set selected within gcList
+                            int index = 0;
+                            foreach (var gc in gcList)
+                            {
+                                gc.Selected = (
+                                    (!Core.Settings.Default.GeocacheFilterStatusExpanded || ((Core.Settings.Default.GeocacheFilterGeocacheStatus == GeocacheStatus.Enabled && gc.Available) ||
+                                                                                             (Core.Settings.Default.GeocacheFilterGeocacheStatus == GeocacheStatus.Disabled && !gc.Available && !gc.Archived) ||
+                                                                                             (Core.Settings.Default.GeocacheFilterGeocacheStatus == GeocacheStatus.Archived && gc.Archived))) &&
+                                    (!Core.Settings.Default.GeocacheFilterOwnExpanded || ((Core.Settings.Default.GeocacheFilterOwn == BooleanEnum.True) == gc.IsOwn)) &&
+                                    (!Core.Settings.Default.GeocacheFilterFoundExpanded || ((Core.Settings.Default.GeocacheFilterFound == BooleanEnum.True) == gc.Found)) &&
+                                    (!Core.Settings.Default.GeocacheFilterFoundByExpanded || ((Core.Settings.Default.GeocacheFilterFoundByAll == BooleanEnum.True) && foundByAll(gc, foundByUsers)) ||
+                                                                                             ((Core.Settings.Default.GeocacheFilterFoundByAll == BooleanEnum.False) && foundByAny(gc, foundByUsers))) &&
+                                    (!Core.Settings.Default.GeocacheFilterNotFoundByExpanded || ((Core.Settings.Default.GeocacheFilterNotFoundByAny == BooleanEnum.True) && !foundByAny(gc, foundByUsers)) ||
+                                                                                             ((Core.Settings.Default.GeocacheFilterNotFoundByAny == BooleanEnum.False) && !foundByAll(gc, foundByUsers)))
+                                    );
 
+                                index++;
+                                if (DateTime.Now>=nextUpdate)
+                                {
+                                    if(!prog.Update("Searching",gcList.Count,index))
+                                    {
+                                        break;
+                                    }
+                                    nextUpdate = DateTime.Now.AddSeconds(1);
+                                }
+                            }
+                        }
                     });
                 }
             }

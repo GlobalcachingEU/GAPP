@@ -38,6 +38,10 @@ namespace GAPPSF
 
             this.DataContext = this;
 
+            GridLength rpgl = Core.Settings.Default.MainWindowRightPanelWidth;
+            GridLength blgl = Core.Settings.Default.MainWindowBottomLeftPanelWidth;
+            GridLength bpgl = Core.Settings.Default.MainWindowBottomPanelHeight;
+
             Core.ApplicationData.Instance.MainWindow = this;
             Dialogs.ProgessWindow prog = Dialogs.ProgessWindow.Instance;
             InitializeComponent();
@@ -70,6 +74,17 @@ namespace GAPPSF
             }
 
             Core.ApplicationData.Instance.PropertyChanged += Instance_PropertyChanged;
+
+            rightPanelColumn.Width = rpgl;
+            bottomLeftPanelColumn.Width = blgl;
+            bottomPanelsRow.Height = bpgl;
+        }
+
+        private string _statusBarBackgroundColor = "#FF007ACC";
+        public string StatusBarBackgroundColor
+        {
+            get { return _statusBarBackgroundColor; }
+            set { SetProperty(ref _statusBarBackgroundColor, value); }
         }
 
         void Instance_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -77,6 +92,10 @@ namespace GAPPSF
             if (e.PropertyName == "ActiveDatabase")
             {
                 CurrentConnectedDatabase = Core.ApplicationData.Instance.ActiveDatabase;
+            }
+            else if (e.PropertyName == "UIIsIdle")
+            {
+                StatusBarBackgroundColor = Core.ApplicationData.Instance.UIIsIdle ? "#FF007ACC" : "#FFE9760E";
             }
         }
 
@@ -364,6 +383,9 @@ namespace GAPPSF
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
+            Core.Settings.Default.MainWindowRightPanelWidth = rightPanelColumn.Width;
+            Core.Settings.Default.MainWindowBottomLeftPanelWidth = bottomLeftPanelColumn.Width;
+            Core.Settings.Default.MainWindowBottomPanelHeight = bottomPanelsRow.Height;
             Dialogs.ProgessWindow.Instance.Close();
             base.OnClosing(e);
         }

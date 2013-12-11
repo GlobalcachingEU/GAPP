@@ -5,9 +5,11 @@
         Title="{Binding Title}" Height="185" Width="499" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" ShowInTaskbar="False">
     <Grid Margin="0,0,0,0">
         <ProgressBar x:Name="progressBar" Value="{Binding MainValue}" Maximum="{Binding MainMax}" HorizontalAlignment="Left" Height="22" Margin="45,31,0,0" VerticalAlignment="Top" Width="370"/>
+        <TextBlock x:Name="progressValue" Text="{Binding MainValue}" Height="22" Margin="45,31,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="370" TextAlignment="Center"/>
         <Label Content="{Binding ElementName=progressBar, Path=Maximum}" HorizontalAlignment="Right" Margin="0,35,0,0" VerticalAlignment="Top"  Width="73"/>
         <Label Content="{Binding MainAction}" HorizontalAlignment="Left" Visibility="{Binding SubVisible}" VerticalAlignment="Top" RenderTransformOrigin="1.313,0.398" Width="370" Height="26" Margin="45,0,0,0"/>
         <ProgressBar x:Name="progressBarSub" Value="{Binding SubValue}"  Maximum="{Binding SubMax}" HorizontalAlignment="Left" Visibility="{Binding SubVisible}" Height="22" Margin="45,89,0,0" VerticalAlignment="Top" Width="370"/>
+        <TextBlock Visibility="{Binding SubVisible}" x:Name="progressValueSub" Text="{Binding SubValue}" Height="22" Margin="45,89,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="370" TextAlignment="Center"/>
         <Label Content="{Binding Maximum, ElementName=progressBarSub}" Visibility="{Binding SubVisible}" HorizontalAlignment="Right" Margin="0,89,0,0" VerticalAlignment="Top"  Width="73"/>
         <Label Content="{Binding SubAction}" Visibility="{Binding SubVisible}" HorizontalAlignment="Left" Margin="45,58,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.313,0.398" Width="370" Height="26"/>
         <Button Content="{l:Translate Cancel}" Visibility="{Binding CancelButton}" HorizontalAlignment="Left" Margin="147,125,0,0" VerticalAlignment="Top" Width="159" Click="Button_Click"/>

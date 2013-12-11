@@ -43,13 +43,17 @@ namespace GAPPSF.UIControls
             ColorPickerFound.SelectedColor = (Color)ColorConverter.ConvertFromString(Core.Settings.Default.FoundRowColor);
 
             setGeocacheCollectionView();
-
             _cacheListColumnInfoCollection.AssignDataGrid(cacheList);
             _cacheListColumnInfoCollection.UpdateDataGrid(cacheList);
 
             Core.Settings.Default.PropertyChanged += Default_PropertyChanged;
             Core.ApplicationData.Instance.PropertyChanged += Instance_PropertyChanged;
             Localization.TranslationManager.Instance.LanguageChanged += Instance_LanguageChanged;
+
+            if (Core.ApplicationData.Instance.ActiveGeocache != null)
+            {
+                cacheList.ScrollIntoView(Core.ApplicationData.Instance.ActiveGeocache);
+            }
         }
 
         void Instance_LanguageChanged(object sender, EventArgs e)
@@ -178,6 +182,13 @@ namespace GAPPSF.UIControls
                 if ((cacheList.ItemsSource as ListCollectionView) != null)
                 {
                     (cacheList.ItemsSource as ListCollectionView).Refresh();
+                }
+            }
+            else if (e.PropertyName=="ActiveGeocache")
+            {
+                if (Core.ApplicationData.Instance.ActiveGeocache!=null)
+                {
+                    cacheList.ScrollIntoView(Core.ApplicationData.Instance.ActiveGeocache);
                 }
             }
         }

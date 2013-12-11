@@ -90,7 +90,19 @@ namespace GAPPSF.Core
 
         public GridLength MainWindowRightPanelWidth
         {
-            get { return new GridLength(double.Parse("300", CultureInfo.InvariantCulture)); }//return new GridLength(double.Parse(GetProperty("300"), CultureInfo.InvariantCulture)); }
+            get { return new GridLength(double.Parse(GetProperty("300"), CultureInfo.InvariantCulture)); }
+            set { SetProperty(value.Value.ToString(CultureInfo.InvariantCulture)); }
+        }
+
+        public GridLength MainWindowBottomLeftPanelWidth
+        {
+            get { return new GridLength(double.Parse(GetProperty("300"), CultureInfo.InvariantCulture)); }
+            set { SetProperty(value.Value.ToString(CultureInfo.InvariantCulture)); }
+        }
+
+        public GridLength MainWindowBottomPanelHeight
+        {
+            get { return new GridLength(double.Parse(GetProperty("300"), CultureInfo.InvariantCulture)); }
             set { SetProperty(value.Value.ToString(CultureInfo.InvariantCulture)); }
         }
 

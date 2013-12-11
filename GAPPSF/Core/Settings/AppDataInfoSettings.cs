@@ -33,5 +33,24 @@ namespace GAPPSF.Core
             get { return int.Parse(GetProperty("0")); }
             set { SetProperty(value.ToString()); }
         }
+
+        public bool AppDataInfoDatabaseExpanded
+        {
+            get { return bool.Parse(GetProperty("True")); }
+            set { SetProperty(value.ToString()); }
+        }
+
+        public bool AppDataInfoAccountsExpanded
+        {
+            get { return bool.Parse(GetProperty("False")); }
+            set { SetProperty(value.ToString()); }
+        }
+
+        public bool AppDataInfoLocationsExpanded
+        {
+            get { return bool.Parse(GetProperty("False")); }
+            set { SetProperty(value.ToString()); }
+        }
+
     }
 }

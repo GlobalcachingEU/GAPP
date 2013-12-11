@@ -153,20 +153,20 @@
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*" MinHeight="5" />
-                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition x:Name="bottomPanelsRow" Height="Auto" />
                                 </Grid.RowDefinitions>
                                 <GridSplitter Background="#FF293955" Grid.Row="0" Height="5" ResizeDirection="Rows" ResizeBehavior="CurrentAndNext" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
                                 <Grid Grid.Row="1">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition x:Name="bottomLeftPanelColumn" Width="*" />
                                         <ColumnDefinition Width="5" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <Grid Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    <Grid Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  >
                                         <UIControls:UIControlContainer x:Name="bottomLeftPanelContent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                                     </Grid>
-                                    <GridSplitter Grid.Column="1" Background="#FF293955" Width="5" ResizeBehavior="PreviousAndNext" ResizeDirection="Columns"/>
-                                    <Grid Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Margin="0,0,0.4,-0.2">
+                                    <GridSplitter Grid.Column="1" Background="#FF293955" Width="5" ResizeBehavior="PreviousAndNext" ResizeDirection="Columns" />
+                                    <Grid Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
                                         <UIControls:UIControlContainer x:Name="bottomRightPanelContent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                                     </Grid>
                                 </Grid>
@@ -188,7 +188,7 @@
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition x:Name="rightPanelColumn" Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <GridSplitter Background="#FF293955" Grid.Column="0" Width="5" ResizeDirection="Columns" ResizeBehavior="CurrentAndNext" HorizontalAlignment="Left" />
                             <Grid Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -199,7 +199,7 @@
                 </Expander>
             </Grid>
         </Grid>
-        <Grid Grid.Row="2" Background="#FF007ACC">
+        <Grid Grid.Row="2" Background="{Binding StatusBarBackgroundColor}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>

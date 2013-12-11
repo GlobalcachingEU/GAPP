@@ -220,9 +220,15 @@ namespace GAPPSF.Dialogs
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
-            //e.Cancel = true;
-            Canceled = true;
-            base.OnClosing(e);
+            if (Core.ApplicationData.Instance.UIIsIdle)
+            {
+                Canceled = true;
+                base.OnClosing(e);
+            }
+            else
+            {
+                e.Cancel = true;
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

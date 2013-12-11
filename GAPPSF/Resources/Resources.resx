@@ -583,4 +583,10 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="Select" xml:space="preserve">
     <value>Select</value>
   </data>
+  <data name="Searching" xml:space="preserve">
+    <value>Searching</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
 </root>

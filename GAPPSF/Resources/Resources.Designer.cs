@@ -232,6 +232,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Center.
         /// </summary>
         internal static string Center {
@@ -1214,6 +1223,15 @@ namespace GAPPSF.Resources {
         internal static string Search {
             get {
                 return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Searching.
+        /// </summary>
+        internal static string Searching {
+            get {
+                return ResourceManager.GetString("Searching", resourceCulture);
             }
         }
         
