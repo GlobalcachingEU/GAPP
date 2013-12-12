@@ -20,70 +20,71 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0">
-            <Menu Background="#FFD6DBE9">
+            <Menu x:Name="mainMenu" Background="#FFD6DBE9">
                 <MenuItem Header="{l:Translate File}">
-                    <MenuItem Header="{l:Translate New}" Command="{Binding NewCommand}" />
-                    <MenuItem Header="{l:Translate Open}" Command="{Binding OpenCommand}"/>
+                    <MenuItem x:Name="menu1" Header="{l:Translate New}" Command="{Binding NewCommand}" />
+                    <MenuItem x:Name="menu2" Header="{l:Translate Open}" Command="{Binding OpenCommand}"/>
                     <MenuItem Header="{l:Translate Import}">
-                        <MenuItem Header="{l:Translate GPX}" Command="{Binding ImportGPXCommand}" />
-                        <MenuItem Header="{l:Translate GAPPDataStorage}" Command="{Binding ImportGAPPCommand}" />
+                        <MenuItem x:Name="menu3" Header="{l:Translate GPX}" Command="{Binding ImportGPXCommand}" />
+                        <MenuItem x:Name="menu4" Header="{l:Translate GAPPDataStorage}" Command="{Binding ImportGAPPCommand}" />
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{l:Translate Edit}">
-                    <MenuItem Header="{l:Translate Copy}" Command="{Binding CopyCommand, Source={x:Static c:ClipboardHandler.Instance}}" />
-                    <MenuItem Header="{l:Translate Delete}" Command="{Binding DeleteActiveCommand}" />
-                    <MenuItem Header="{l:Translate CopySelection}" Command="{Binding CopySelectedCommand, Source={x:Static c:ClipboardHandler.Instance}}" />
-                    <MenuItem Header="{l:Translate DeleteSelection}" Command="{Binding DeleteSelectionCommand}" />
-                    <MenuItem Header="{l:Translate Paste}" Command="{Binding PasteCommand, Source={x:Static c:ClipboardHandler.Instance}}" />
+                    <MenuItem x:Name="menu5" Header="{l:Translate Copy}" Command="{Binding CopyCommand, Source={x:Static c:ClipboardHandler.Instance}}" />
+                    <MenuItem x:Name="menu6" Header="{l:Translate Delete}" Command="{Binding DeleteActiveCommand}" />
+                    <MenuItem x:Name="menu7" Header="{l:Translate CopySelection}" Command="{Binding CopySelectedCommand, Source={x:Static c:ClipboardHandler.Instance}}" />
+                    <MenuItem x:Name="menu8" Header="{l:Translate DeleteSelection}" Command="{Binding DeleteSelectionCommand}" />
+                    <MenuItem x:Name="menu9" Header="{l:Translate Paste}" Command="{Binding PasteCommand, Source={x:Static c:ClipboardHandler.Instance}}" />
                     <Separator />
-                    <MenuItem Header="{l:Translate SelectAll}" Command="{Binding SelectAllCommand}" />
-                    <MenuItem Header="{l:Translate ClearSelection}" Command="{Binding SelectNoneCommand}" />
+                    <MenuItem x:Name="menu10" Header="{l:Translate SelectAll}" Command="{Binding SelectAllCommand}" />
+                    <MenuItem x:Name="menu11" Header="{l:Translate ClearSelection}" Command="{Binding SelectNoneCommand}" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate Search}">
                     <MenuItem Header="{l:Translate QuickSearch}">
-                        <MenuItem Header="{l:Translate Archived}" Command="{Binding SelectArchivedCommand}" />
+                        <MenuItem x:Name="menu12" Header="{l:Translate Archived}" Command="{Binding SelectArchivedCommand}" />
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{l:Translate Action}">
                 </MenuItem>
                 <MenuItem Header="{l:Translate LiveAPI}">
-                    <MenuItem Header="{l:Translate Authorize}" Command="{Binding LiveApiAuthorizeCommand}" />
+                    <MenuItem x:Name="menu13" Header="{l:Translate Authorize}" Command="{Binding LiveApiAuthorizeCommand}" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate Language}">
-                    <MenuItem Header="{l:Translate OriginalText}" Click="MenuItem_Click_2"  />
-                    <MenuItem Header="{l:Translate English}" Click="MenuItem_Click_3">
+                    <MenuItem x:Name="menu14" Header="{l:Translate OriginalText}" Click="MenuItem_Click_2"  />
+                    <MenuItem x:Name="menu15" Header="{l:Translate English}" Click="MenuItem_Click_3">
                         <MenuItem.Icon>
                             <Image Source="/Resources/MainWindow/en.gif" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="{l:Translate German}" Click="MenuItem_Click_4">
+                    <MenuItem x:Name="menu16" Header="{l:Translate German}" Click="MenuItem_Click_4">
                         <MenuItem.Icon>
                             <Image Source="/Resources/MainWindow/de.gif" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="{l:Translate French}" Click="MenuItem_Click_5">
+                    <MenuItem x:Name="menu17" Header="{l:Translate French}" Click="MenuItem_Click_5">
                         <MenuItem.Icon>
                             <Image Source="/Resources/MainWindow/fr.gif" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="{l:Translate Dutch}" Click="MenuItem_Click_6">
+                    <MenuItem x:Name="menu18" Header="{l:Translate Dutch}" Click="MenuItem_Click_6">
                         <MenuItem.Icon>
                             <Image Source="/Resources/MainWindow/nl.gif" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{l:Translate Settings}">
-                    <MenuItem Header="{l:Translate Shapefiles}" Click="MenuItem_Click_8" />
+                    <MenuItem x:Name="menu19" Header="{l:Translate Shapefiles}" Click="MenuItem_Click_8" />
+                    <MenuItem x:Name="menu20" Header="{l:Translate ShortcutAssignment}" Click="MenuItem_Click_12" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate Window}">
-                    <MenuItem Header="{l:Translate CacheList}" Click="MenuItem_Click" />
-                    <MenuItem Header="{l:Translate GeocacheViewer}" Click="MenuItem_Click_1" />
-                    <MenuItem Header="{l:Translate ApplicationInfo}" Click="MenuItem_Click_10" />
-                    <MenuItem Header="{l:Translate GeocacheFilter}" Click="MenuItem_Click_11" />
+                    <MenuItem x:Name="menu21" Header="{l:Translate CacheList}" Click="MenuItem_Click" />
+                    <MenuItem x:Name="menu22" Header="{l:Translate GeocacheViewer}" Click="MenuItem_Click_1" />
+                    <MenuItem x:Name="menu23" Header="{l:Translate ApplicationInfo}" Click="MenuItem_Click_10" />
+                    <MenuItem x:Name="menu24" Header="{l:Translate GeocacheFilter}" Click="MenuItem_Click_11" />
                     <MenuItem Header="{l:Translate Maps}">
-                        <MenuItem Header="{l:Translate GoogleMap}" Click="MenuItem_Click_7" />
+                        <MenuItem x:Name="menu25" Header="{l:Translate GoogleMap}" Click="MenuItem_Click_7" />
                     </MenuItem>
-                    <MenuItem Header="{l:Translate OfflineImages}" Click="MenuItem_Click_9" />
+                    <MenuItem x:Name="menu26" Header="{l:Translate OfflineImages}" Click="MenuItem_Click_9" />
                 </MenuItem>
             </Menu>
             <ToolBarTray Background="#FFD6DBE9">

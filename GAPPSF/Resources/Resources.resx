@@ -589,4 +589,7 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="ShortcutAssignment" xml:space="preserve">
+    <value>Shortcut assignment</value>
+  </data>
 </root>

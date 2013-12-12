@@ -11,6 +11,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Automation.Peers;
+using System.Windows.Automation.Provider;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -78,6 +80,97 @@ namespace GAPPSF
             rightPanelColumn.Width = rpgl;
             bottomLeftPanelColumn.Width = blgl;
             bottomPanelsRow.Height = bpgl;
+
+            updateShortCutKeyAssignment();
+        }
+
+        private void updateShortCutKeyAssignment()
+        {
+            this.InputBindings.Clear();
+            //Shift|Control|Alt|Windows|MenuName|Key
+
+            if (!string.IsNullOrEmpty(Core.Settings.Default.MainWindowShortCutKeyAssignment))
+            {
+                string[] lines = Core.Settings.Default.MainWindowShortCutKeyAssignment.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (string l in lines)
+                {
+                    string[] parts = l.Split(new char[] { '|' }, 6);
+                    if (parts.Length == 6)
+                    {
+                        MenuItem mi = FindName(parts[4]) as MenuItem;
+                        if (mi != null)
+                        {
+                            string decoration = "";
+                            ModifierKeys mk = ModifierKeys.None;
+                            if (bool.Parse(parts[0]))
+                            {
+                                mk |= ModifierKeys.Shift;
+                                decoration = string.Concat(decoration, "Shift");
+                            }
+                            if (bool.Parse(parts[1]))
+                            {
+                                mk |= ModifierKeys.Control;
+                                if (decoration.Length > 0)
+                                {
+                                    decoration = string.Concat(decoration, "+");
+                                }
+                                decoration = string.Concat(decoration, "Ctrl");
+                            }
+                            if (bool.Parse(parts[2]))
+                            {
+                                mk |= ModifierKeys.Alt;
+                                if (decoration.Length > 0)
+                                {
+                                    decoration = string.Concat(decoration, "+");
+                                }
+                                decoration = string.Concat(decoration, "Alt");
+                            }
+                            if (bool.Parse(parts[3]))
+                            {
+                                mk |= ModifierKeys.Windows;
+                                if (decoration.Length > 0)
+                                {
+                                    decoration = string.Concat(decoration, "+");
+                                }
+                                decoration = string.Concat(decoration, "Win");
+                            }
+                            if (decoration.Length > 0)
+                            {
+                                decoration = string.Concat(decoration, "+");
+                            }
+                            decoration = string.Concat(decoration, parts[5]);
+                            Key k = (Key)Enum.Parse(typeof(Key), parts[5]);
+                            this.InputBindings.Add(new KeyBinding(ShortCutKeyCommand, new KeyGesture(k, mk)) { CommandParameter = mi });
+                            mi.InputGestureText = decoration;
+                        }
+                    }
+                }
+            }
+            //test:
+            //this.InputBindings.Add(new KeyBinding(ShortCutKeyCommand, new KeyGesture(Key.S, ModifierKeys.Control)) { CommandParameter = menu1 });
+        }
+
+        private RelayCommand _shortCutKeyCommand = null;
+        public RelayCommand ShortCutKeyCommand
+        {
+            get
+            {
+                if (_shortCutKeyCommand==null)
+                {
+                    _shortCutKeyCommand = new RelayCommand(param => handleShortCutKey(param));
+                }
+                return _shortCutKeyCommand;
+            }
+        }
+        private void handleShortCutKey(object e)
+        {
+            MenuItem mni = e as MenuItem;
+            if (mni != null)
+            {
+                MenuItemAutomationPeer p = new MenuItemAutomationPeer(mni);
+                IInvokeProvider ip = p.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
+                ip.Invoke();
+            }
         }
 
         private string _statusBarBackgroundColor = "#FF007ACC";
@@ -96,6 +189,10 @@ namespace GAPPSF
             else if (e.PropertyName == "UIIsIdle")
             {
                 StatusBarBackgroundColor = Core.ApplicationData.Instance.UIIsIdle ? "#FF007ACC" : "#FFE9760E";
+            }
+            else if (e.PropertyName == "MainWindowShortCutKeyAssignment")
+            {
+                updateShortCutKeyAssignment();
             }
         }
 
@@ -447,11 +544,13 @@ namespace GAPPSF
         {
             if (Core.ApplicationData.Instance.ActiveGeocache != null)
             {
-                using (Utils.DataUpdater upd = new Utils.DataUpdater(Core.ApplicationData.Instance.ActiveGeocache.Database))
+                Core.Data.Geocache gc = Core.ApplicationData.Instance.ActiveGeocache;
+                Core.ApplicationData.Instance.ActiveGeocache = null;
+                using (Utils.DataUpdater upd = new Utils.DataUpdater(gc.Database))
                 {
                     await Task.Run(() =>
                     {
-                        Utils.DataAccess.DeleteGeocache(Core.ApplicationData.Instance.ActiveGeocache);
+                        Utils.DataAccess.DeleteGeocache(gc);
                     });
                 }
             }
@@ -475,6 +574,10 @@ namespace GAPPSF
         {
             if (Core.ApplicationData.Instance.ActiveDatabase != null)
             {
+                if (Core.ApplicationData.Instance.ActiveGeocache != null && Core.ApplicationData.Instance.ActiveGeocache.Selected)
+                {
+                    Core.ApplicationData.Instance.ActiveGeocache = null;
+                }
                 using (Utils.DataUpdater upd = new Utils.DataUpdater(Core.ApplicationData.Instance.ActiveDatabase))
                 {
                     await Task.Run(() =>
@@ -833,6 +936,12 @@ namespace GAPPSF
             Window w = new FeatureWindow(new UIControls.GeocacheFilter.Control());
             w.Owner = this;
             w.Show();
+        }
+
+        private void MenuItem_Click_12(object sender, RoutedEventArgs e)
+        {
+            Dialogs.ShortCutAssignmentWindow dlg = new Dialogs.ShortCutAssignmentWindow();
+            dlg.ShowDialog();
         }
 
     }

@@ -110,6 +110,7 @@ namespace GAPPSF.UIControls
                 {
                     gcList.Add(gc);
                 }
+                Core.ApplicationData.Instance.ActiveGeocache = null;
                 using (Utils.DataUpdater upd = new Utils.DataUpdater(Core.ApplicationData.Instance.ActiveDatabase))
                 {
                     await Task.Run(() =>

@@ -95,6 +95,7 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -162,6 +163,9 @@
     </Compile>
     <Compile Include="Dialogs\ProgessWindow.xaml.cs">
       <DependentUpon>ProgessWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ShortCutAssignmentWindow.xaml.cs">
+      <DependentUpon>ShortCutAssignmentWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="DotNetDBF\DBFBase.cs" />
     <Compile Include="DotNetDBF\DBFException.cs" />
@@ -262,6 +266,7 @@
       <DependentUpon>ComboColorPicker.xaml</DependentUpon>
     </Compile>
     <Compile Include="UIControls\EnumBooleanConverter.cs" />
+    <Compile Include="UIControls\EnumValuesExtension.cs" />
     <Compile Include="UIControls\GeocacheFilter\Control.xaml.cs">
       <DependentUpon>Control.xaml</DependentUpon>
     </Compile>
@@ -314,6 +319,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\ProgessWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\ShortCutAssignmentWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

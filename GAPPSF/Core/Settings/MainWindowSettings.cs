@@ -118,5 +118,11 @@ namespace GAPPSF.Core
             set { SetProperty(value.ToString()); }
         }
 
+        public string MainWindowShortCutKeyAssignment
+        {
+            get { return GetProperty(null); }
+            set { SetProperty(value); }
+        }
+
     }
 }

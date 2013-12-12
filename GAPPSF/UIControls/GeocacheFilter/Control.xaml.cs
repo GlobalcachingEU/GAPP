@@ -61,7 +61,8 @@ namespace GAPPSF.UIControls.GeocacheFilter
             //}
             foreach(var l in lgs)
             {
-                if ((from a in users where string.Compare(a, l.Finder, true)==0 select a).FirstOrDefault()!=null)
+                string f = l.Finder;
+                if ((from a in users where string.Compare(a, f, true)==0 select a).FirstOrDefault()!=null)
                 {
                     result = true;
                     break;
@@ -83,7 +84,8 @@ namespace GAPPSF.UIControls.GeocacheFilter
             //}
             foreach (var l in lgs)
             {
-                if ((from a in users where string.Compare(a, l.Finder, true) == 0 select a).FirstOrDefault() != null)
+                string f = l.Finder;
+                if ((from a in users where string.Compare(a, f, true) == 0 select a).FirstOrDefault() != null)
                 {
                     result = false;
                     break;
@@ -105,7 +107,8 @@ namespace GAPPSF.UIControls.GeocacheFilter
             //}
             foreach (var l in lgs)
             {
-                if ((from a in users where string.Compare(a, l.Finder, true) == 0 select a).FirstOrDefault() != null)
+                string f = l.Finder;
+                if ((from a in users where string.Compare(a, f, true) == 0 select a).FirstOrDefault() != null)
                 {
                     result = false;
                     break;

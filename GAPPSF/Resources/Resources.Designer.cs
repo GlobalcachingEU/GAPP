@@ -1281,6 +1281,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Shortcut assignment.
+        /// </summary>
+        internal static string ShortcutAssignment {
+            get {
+                return ResourceManager.GetString("ShortcutAssignment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show.
         /// </summary>
         internal static string Show {

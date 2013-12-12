@@ -31,6 +31,7 @@ namespace GAPPSF.Core
         public AccountInfoCollection AccountInfos { get; private set; }
         public GeocacheAttributeCollection GeocacheAttributes { get; private set; }
 
+        private bool _switchingDatabase = false;
         private Storage.Database _activeDatabase = null;
         public Storage.Database ActiveDatabase
         {
@@ -39,9 +40,19 @@ namespace GAPPSF.Core
             {
                 if (_activeDatabase != value)
                 {
+                    _switchingDatabase = true;
                     Core.Settings.Default.ActiveDatabase = value == null ? null : value.FileName;
                     ActiveGeocache = null;
                     SetProperty(ref _activeDatabase, value);
+                    if (_activeDatabase!=null)
+                    {
+                        string gcCode = _activeDatabase.LastActiveGeocacheCode;
+                        if (!string.IsNullOrEmpty(gcCode))
+                        {
+                            ActiveGeocache = _activeDatabase.GeocacheCollection.GetGeocache(gcCode);
+                        }
+                    }
+                    _switchingDatabase = false;
                 }
             }
         }
@@ -53,6 +64,10 @@ namespace GAPPSF.Core
             set 
             {
                 Core.Settings.Default.ActiveGeocache = value == null ? null : value.Code;
+                if (!_switchingDatabase && ActiveDatabase != null)
+                {
+                    ActiveDatabase.LastActiveGeocacheCode = value == null ? "" : value.Code;
+                }
                 SetProperty(ref _activeGeocache, value); 
             }
         }

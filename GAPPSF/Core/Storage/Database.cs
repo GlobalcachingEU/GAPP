@@ -14,6 +14,10 @@ namespace GAPPSF.Core.Storage
 {
     public class Database: IDisposable
     {
+        public const long DATABASE_CONTENT_OFFSET = 1024;
+        public const long DATABASE_META_VERSION_POS = 0;
+        public const long DATABASE_META_ACTIVEGEOCACHE_POS = 8;
+
         public const byte RECORD_EMPTY = 0;
         public const byte RECORD_GEOCACHE = 1;
         public const byte RECORD_LOG = 2;
@@ -30,6 +34,9 @@ namespace GAPPSF.Core.Storage
         public BinaryReader BinaryReader { get; private set; }
         public BinaryWriter BinaryWriter { get; private set; }
         private FileStream _fileStreamIdx = null;
+
+        public long Version { get; private set; }
+
 
         public LogCollection LogCollection { get; private set; }
         public LogImageCollection LogImageCollection { get; private set; }
@@ -62,6 +69,21 @@ namespace GAPPSF.Core.Storage
             get { return ToString(); }
         }
 
+        private string _lastActiveGeocacheCode = "";
+        public string LastActiveGeocacheCode
+        {
+            get { return _lastActiveGeocacheCode; }
+            set
+            {
+                if (_lastActiveGeocacheCode!=value)
+                {
+                    _lastActiveGeocacheCode = value;
+                    this.FileStream.Position = DATABASE_META_ACTIVEGEOCACHE_POS;
+                    BinaryWriter.Write(_lastActiveGeocacheCode ?? "");
+                }
+            }
+        }
+
         async public Task<bool> InitializeAsync()
         {
             bool result = false;
@@ -81,16 +103,19 @@ namespace GAPPSF.Core.Storage
                 BinaryReader = new System.IO.BinaryReader(this.FileStream);
                 BinaryWriter = new System.IO.BinaryWriter(this.FileStream);
                 bool cancelled = false;
-                if (!LoadIndexFile(ref cancelled))
+                if (LoadDatabaseMetaData())
                 {
-                    if (!cancelled)
+                    if (!LoadIndexFile(ref cancelled))
                     {
-                        result = LoadDatabaseFile();
+                        if (!cancelled)
+                        {
+                            result = LoadDatabaseFile();
+                        }
                     }
-                }
-                else
-                {
-                    result = true;
+                    else
+                    {
+                        result = true;
+                    }
                 }
             }
             catch
@@ -110,6 +135,35 @@ namespace GAPPSF.Core.Storage
             {
                 _fileStreamIdx.Flush();
             }
+        }
+
+        private bool LoadDatabaseMetaData()
+        {
+            bool result = true;
+            if (this.FileStream.Length==0)
+            {
+                //create meta data
+                this.FileStream.SetLength(DATABASE_CONTENT_OFFSET);
+                this.FileStream.Position = DATABASE_META_VERSION_POS;
+                this.Version = 1;
+                BinaryWriter.Write(this.Version);
+                _lastActiveGeocacheCode = "";
+                this.FileStream.Position = DATABASE_META_ACTIVEGEOCACHE_POS;
+                BinaryWriter.Write(_lastActiveGeocacheCode);
+            }
+            else if (this.FileStream.Length >= DATABASE_CONTENT_OFFSET)
+            {
+                //read meta data
+                this.FileStream.Position = DATABASE_META_VERSION_POS;
+                this.Version = BinaryReader.ReadInt64();
+                this.FileStream.Position = DATABASE_META_ACTIVEGEOCACHE_POS;
+                _lastActiveGeocacheCode = BinaryReader.ReadString();
+            }
+            else
+            {
+                result = false;
+            }
+            return result;
         }
 
         private bool LoadIndexFile(ref bool cancelled)
@@ -242,7 +296,7 @@ namespace GAPPSF.Core.Storage
                     DateTime nextUpdate = DateTime.Now.AddSeconds(1);
                     using (Utils.ProgressBlock prog = new ProgressBlock("LoadingDatabase", "Loading", 100, 0, true))
                     {
-                        this.FileStream.Position = 0;
+                        this.FileStream.Position = DATABASE_CONTENT_OFFSET;
                         long eof = this.FileStream.Length;
                         while (this.FileStream.Position < eof)
                         {
