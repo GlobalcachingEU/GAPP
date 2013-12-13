@@ -85,26 +85,26 @@ namespace GlobalcachingApplication.Plugins.NLCacheDist
                             }
                         }
 
+                        List<Framework.Data.Geocache> gcList;
+                        if (dlg.radioButtonNewSearch.Checked)
+                        {
+                            gcList = (from Framework.Data.Geocache a in Core.Geocaches select a).ToList();
+                        }
+                        else if (dlg.radioButtonWithinSelection.Checked)
+                        {
+                            gcList = (from Framework.Data.Geocache a in Core.Geocaches where a.Selected select a).ToList();
+                        }
+                        else
+                        {
+                            gcList = (from Framework.Data.Geocache a in Core.Geocaches where !a.Selected select a).ToList();
+                        }
+
                         _minValue = (double)dlg.numericUpDownMin.Value;
                         _maxValue = (double)dlg.numericUpDownMax.Value;
-                        var gcList = from Framework.Data.Geocache wp in Core.Geocaches
-                                     where inRange(wp.GetCustomAttribute(GeocacheDistance.CUSTOM_ATTRIBUTE) as string)
-                                     select wp;
-
-                        if (dlg.radioButtonWithinSelection.Checked)
+                        foreach(var gc in gcList)
                         {
-                            //reset current
-                            foreach (Framework.Data.Geocache gc in Core.Geocaches)
-                            {
-                                gc.Selected = false;
-                            }
+                            gc.Selected = inRange(gc.GetCustomAttribute(GeocacheDistance.CUSTOM_ATTRIBUTE) as string);
                         }
-
-                        foreach (Framework.Data.Geocache gc in gcList)
-                        {
-                            gc.Selected = true;
-                        }
-
 
                         Core.Geocaches.EndUpdate();
                     }
