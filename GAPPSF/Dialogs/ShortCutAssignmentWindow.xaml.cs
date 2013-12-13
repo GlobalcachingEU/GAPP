@@ -108,12 +108,13 @@ namespace GAPPSF.Dialogs
                     string[] parts = l.Split(new char[] { '|' }, 6);
                     if (parts.Length == 6)
                     {
-                        ShortCutInfo sci = new ShortCutInfo(parts[5]);
+                        ShortCutInfo sci = new ShortCutInfo(parts[4]);
                         sci.Shift = bool.Parse(parts[0]);
                         sci.Control = bool.Parse(parts[1]);
                         sci.Alt = bool.Parse(parts[2]);
                         sci.Windows = bool.Parse(parts[3]);
-                        sci.ShortKey = parts[4];
+                        sci.ShortKey = parts[5];
+                        _allMenuItems.Add(sci);
                     }
                 }
             }
@@ -121,14 +122,16 @@ namespace GAPPSF.Dialogs
             Menu mainMenu = Core.ApplicationData.Instance.MainWindow.mainMenu;
             foreach (var c in mainMenu.Items)
             {
-                TreeViewItem tvi = new TreeViewItem();
                 MenuItem m = c as MenuItem;
                 if (m != null)
                 {
-                    ShortCutInfo sci = (from a in _allMenuItems where a.MenuName == (m.Header as string) select a).FirstOrDefault();
+                    TreeViewItem tvi = new TreeViewItem();
+
+                    ShortCutInfo sci = (from a in _allMenuItems where a.MenuName == m.Name select a).FirstOrDefault();
                     if (sci == null)
                     {
-                        sci = new ShortCutInfo(m.Header as string);
+                        sci = new ShortCutInfo(m.Name);
+                        _allMenuItems.Add(sci);
                     }
                     tvi.Tag = sci;
                     tvi.Header = m.Header;
@@ -136,24 +139,29 @@ namespace GAPPSF.Dialogs
 
                     if (m.Items.Count > 0)
                     {
+                        tvi.IsExpanded = true;
                         AddBranche(tvi, m);
                     }
                 }
             }
+
+            keyAssignment.Visibility = System.Windows.Visibility.Hidden;
         }
 
         private void AddBranche(TreeViewItem tvi, MenuItem mnu)
         {
             foreach (var c in mnu.Items)
             {
-                TreeViewItem stvi = new TreeViewItem();
                 MenuItem m = c as MenuItem;
                 if (m != null)
                 {
-                    ShortCutInfo sci = (from a in _allMenuItems where a.MenuName == (m.Header as string) select a).FirstOrDefault();
+                    TreeViewItem stvi = new TreeViewItem();
+
+                    ShortCutInfo sci = (from a in _allMenuItems where a.MenuName == m.Name select a).FirstOrDefault();
                     if (sci == null)
                     {
-                        sci = new ShortCutInfo(m.Header as string);
+                        sci = new ShortCutInfo(m.Name);
+                        _allMenuItems.Add(sci);
                     }
                     stvi.Tag = sci;
                     stvi.Header = m.Header;
@@ -161,6 +169,7 @@ namespace GAPPSF.Dialogs
 
                     if (m.Items.Count > 0)
                     {
+                        stvi.IsExpanded = true;
                         AddBranche(stvi, m);
                     }
                 }
@@ -194,6 +203,8 @@ namespace GAPPSF.Dialogs
                     sci = tvi.Tag as ShortCutInfo;
                 }
             }
+            keyAssignment.Visibility = (sci != null && !string.IsNullOrEmpty(sci.MenuName)) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
+
             DataContext = sci;
         }
     }

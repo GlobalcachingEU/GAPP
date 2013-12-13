@@ -2,18 +2,21 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:l="clr-namespace:GAPPSF.Localization"
-        Title="ShortCutAssignmentWindow" Height="300" Width="300">
-    <Grid>
+        Title="{l:Translate ShortcutAssignment}" Height="600" Width="400">
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TreeView Grid.Row="0" Grid.Column="0" x:Name="treeView" SelectedItemChanged="treeView_SelectedItemChanged" />
-        <Grid Grid.Row="0" Grid.Column="1">
+        <TreeView Grid.Row="0" Grid.Column="0"  x:Name="treeView" SelectedItemChanged="treeView_SelectedItemChanged" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        <GridSplitter Grid.Row="0" Grid.Column="1" Width="5" ResizeBehavior="PreviousAndNext" />
+        <GroupBox Grid.Row="0" Grid.Column="2" x:Name="keyAssignment" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
@@ -24,15 +27,16 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="{l:Translate Shift}" />
-            <CheckBox Grid.Row="0" Grid.Column="1" IsChecked="{Binding Shift}" />
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="{l:Translate Control}" />
-            <CheckBox Grid.Row="1" Grid.Column="1" IsChecked="{Binding Control}" />
-            <TextBlock Grid.Row="2" Grid.Column="0" Text="{l:Translate Alt}" />
-            <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{Binding Alt}" />
-            <TextBlock Grid.Row="3" Grid.Column="0" Text="{l:Translate Key}" />
-            <ComboBox  Grid.Row="3" Grid.Column="1" ItemsSource="{Binding ShortKeyOption}" />
+            <TextBlock Margin="4" Grid.Row="0" Grid.Column="0" Text="{l:Translate Shift}" />
+            <CheckBox Margin="4" Grid.Row="0" Grid.Column="1" IsChecked="{Binding Shift, Mode=TwoWay}" />
+            <TextBlock Margin="4" Grid.Row="1" Grid.Column="0" Text="{l:Translate Control}" />
+            <CheckBox Margin="4" Grid.Row="1" Grid.Column="1" IsChecked="{Binding Control, Mode=TwoWay}" />
+            <TextBlock Margin="4" Grid.Row="2" Grid.Column="0" Text="{l:Translate Alt}" />
+            <CheckBox Margin="4" Grid.Row="2" Grid.Column="1" IsChecked="{Binding Alt, Mode=TwoWay}" />
+            <TextBlock Margin="4" Grid.Row="3" Grid.Column="0" Text="{l:Translate Key}" />
+            <ComboBox Margin="4"  Grid.Row="3" Grid.Column="1" ItemsSource="{Binding ShortKeyOption}" SelectedItem="{Binding ShortKey, Mode=TwoWay}" Width="60"/>
         </Grid>
-        <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Content="{l:Translate OK}" Click="Button_Click" />
+        </GroupBox>
+        <Button Margin="4" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Content="{l:Translate OK}" Click="Button_Click" />
     </Grid>
 </Window>

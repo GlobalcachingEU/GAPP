@@ -106,15 +106,58 @@ namespace GAPPSF.Core
             get { return GetProperty(""); }
             set { SetProperty(value); }
         }
-        public bool GeocacheFilterLocationKm
+        public UIControls.GeocacheFilter.BooleanEnum GeocacheFilterLocationKm
         {
-            get { return bool.Parse(GetProperty("True")); }
+            get { return (UIControls.GeocacheFilter.BooleanEnum)Enum.Parse(typeof(UIControls.GeocacheFilter.BooleanEnum), GetProperty("True")); }
             set { SetProperty(value.ToString()); }
         }
         public double GeocacheFilterLocationRadius
         {
             get { return double.Parse(GetProperty("30.0"), CultureInfo.InvariantCulture); }
             set { SetProperty(((double)value).ToString(CultureInfo.InvariantCulture)); }
+        }
+
+        public bool GeocacheFilterCountryStateExpanded
+        {
+            get { return bool.Parse(GetProperty("False")); }
+            set { SetProperty(value.ToString()); }
+        }
+        public string GeocacheFilterCountry
+        {
+            get { return GetProperty(""); }
+            set { SetProperty(value); }
+        }
+        public string GeocacheFilterState
+        {
+            get { return GetProperty(""); }
+            set { SetProperty(value); }
+        }
+
+        public bool GeocacheFilterMunicipalityCityExpanded
+        {
+            get { return bool.Parse(GetProperty("False")); }
+            set { SetProperty(value.ToString()); }
+        }
+        public string GeocacheFilterMunicipality
+        {
+            get { return GetProperty(""); }
+            set { SetProperty(value); }
+        }
+        public string GeocacheFilterCity
+        {
+            get { return GetProperty(""); }
+            set { SetProperty(value); }
+        }
+
+        public bool GeocacheFilterGeocacheTypesExpanded
+        {
+            get { return bool.Parse(GetProperty("False")); }
+            set { SetProperty(value.ToString()); }
+        }
+        public string GeocacheFilterGeocacheTypes
+        {
+            get { return GetProperty(""); }
+            set { SetProperty(value); }
         }
 
     }

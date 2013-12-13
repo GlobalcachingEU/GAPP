@@ -592,4 +592,40 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="ShortcutAssignment" xml:space="preserve">
     <value>Shortcut assignment</value>
   </data>
+  <data name="Alt" xml:space="preserve">
+    <value>Alt</value>
+  </data>
+  <data name="Control" xml:space="preserve">
+    <value>Control</value>
+  </data>
+  <data name="Key" xml:space="preserve">
+    <value>Key</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Shift" xml:space="preserve">
+    <value>Shift</value>
+  </data>
+  <data name="Windows" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="OriginalText" xml:space="preserve">
+    <value>Original text</value>
+  </data>
+  <data name="CityCoordinate" xml:space="preserve">
+    <value>City / coordinates</value>
+  </data>
+  <data name="Radius" xml:space="preserve">
+    <value>Radius</value>
+  </data>
+  <data name="CountryState" xml:space="preserve">
+    <value>Country / State</value>
+  </data>
+  <data name="MunicipalityCity" xml:space="preserve">
+    <value>Municipality / City</value>
+  </data>
+  <data name="GeocacheType" xml:space="preserve">
+    <value>Geocache type</value>
+  </data>
 </root>

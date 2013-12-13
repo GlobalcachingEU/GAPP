@@ -271,6 +271,9 @@
       <DependentUpon>Control.xaml</DependentUpon>
     </Compile>
     <Compile Include="UIControls\GeocacheFilter\Enums.cs" />
+    <Compile Include="UIControls\GeocacheTypeSelection.xaml.cs">
+      <DependentUpon>GeocacheTypeSelection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIControls\GeocacheViewer\GeocacheViewer.xaml.cs">
       <DependentUpon>GeocacheViewer.xaml</DependentUpon>
     </Compile>
@@ -311,6 +314,7 @@
     <Compile Include="Utils\DataUpdater.cs" />
     <Compile Include="Utils\DBCon.cs" />
     <Compile Include="Utils\DBConComSqlite.cs" />
+    <Compile Include="Utils\Geocoder.cs" />
     <Compile Include="Utils\ProgressBlock.cs" />
     <Compile Include="Utils\ResourceHelper.cs" />
     <Compile Include="Utils\TemporaryFile.cs" />
@@ -497,6 +501,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIControls\GeocacheFilter\Control.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\GeocacheTypeSelection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1036,7 +1044,9 @@
   <ItemGroup>
     <Resource Include="Dialogs\GetLocationWindow.html" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\General\check.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)GlobalcachingApplication\bin\$(ConfigurationName)\"</PostBuildEvent>

@@ -16,15 +16,15 @@
             <Setter Property="Background" Value="#FFCCCEDB" />
         </Style>
     </Control.Resources>
-    <Grid>
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.Resources>
             <ui:EnumBooleanConverter x:Key="enumBooleanConverter" />
             <ui:InverseBooleanConverter x:Key="inverseBooleanConverter" />
         </Grid.Resources>
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <StackPanel HorizontalAlignment="Stretch">
                 <ui:SelectionContext x:Name="selectionContext" />
-                <Expander Header="{l:Translate Status}" IsExpanded="{Binding GeocacheFilterStatusExpanded, Source={x:Static p:Settings.Default}}">
+                <Expander HorizontalAlignment="Stretch" Header="{l:Translate Status}" IsExpanded="{Binding GeocacheFilterStatusExpanded, Source={x:Static p:Settings.Default}}">
                     <Expander.Content>
                         <StackPanel>
                             <RadioButton GroupName="rstatus" Content="{l:Translate Enabled}" IsChecked="{Binding GeocacheFilterGeocacheStatus, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Enabled, Mode=TwoWay}" />
@@ -33,7 +33,7 @@
                         </StackPanel>
                     </Expander.Content>
                 </Expander>
-                <Expander Header="{l:Translate Own}" IsExpanded="{Binding GeocacheFilterOwnExpanded, Source={x:Static p:Settings.Default}}">
+                <Expander HorizontalAlignment="Stretch" Header="{l:Translate Own}" IsExpanded="{Binding GeocacheFilterOwnExpanded, Source={x:Static p:Settings.Default}}">
                     <Expander.Content>
                         <StackPanel>
                             <RadioButton GroupName="rown" Content="{l:Translate IOwn}" IsChecked="{Binding GeocacheFilterOwn, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=True, Mode=TwoWay}" />
@@ -41,7 +41,7 @@
                         </StackPanel>
                     </Expander.Content>
                 </Expander>
-                <Expander Header="{l:Translate Found}" IsExpanded="{Binding GeocacheFilterFoundExpanded, Source={x:Static p:Settings.Default}}">
+                <Expander HorizontalAlignment="Stretch" Header="{l:Translate Found}" IsExpanded="{Binding GeocacheFilterFoundExpanded, Source={x:Static p:Settings.Default}}">
                     <Expander.Content>
                         <StackPanel>
                             <RadioButton GroupName="rfound" Content="{l:Translate IFound}" IsChecked="{Binding GeocacheFilterFound, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=True, Mode=TwoWay}" />
@@ -49,7 +49,7 @@
                         </StackPanel>
                     </Expander.Content>
                 </Expander>
-                <Expander Header="{l:Translate FoundBy}" IsExpanded="{Binding GeocacheFilterFoundByExpanded, Source={x:Static p:Settings.Default}}">
+                <Expander HorizontalAlignment="Stretch" Header="{l:Translate FoundBy}" IsExpanded="{Binding GeocacheFilterFoundByExpanded, Source={x:Static p:Settings.Default}}">
                     <Expander.Content>
                         <StackPanel>
                             <Grid>
@@ -72,7 +72,7 @@
                         </StackPanel>
                     </Expander.Content>
                 </Expander>
-                <Expander Header="{l:Translate NotFoundBy}" IsExpanded="{Binding GeocacheFilterNotFoundByExpanded, Source={x:Static p:Settings.Default}}">
+                <Expander HorizontalAlignment="Stretch"  Header="{l:Translate NotFoundBy}" IsExpanded="{Binding GeocacheFilterNotFoundByExpanded, Source={x:Static p:Settings.Default}}">
                     <Expander.Content>
                         <StackPanel>
                             <Grid>
@@ -93,6 +93,92 @@
                                 <TextBlock Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="{l:Translate CommaSeparated}" />
                             </Grid>
                         </StackPanel>
+                    </Expander.Content>
+                </Expander>
+                <Expander HorizontalAlignment="Stretch" Header="{l:Translate NotFoundBy}" IsExpanded="{Binding GeocacheFilterLocationExpanded, Source={x:Static p:Settings.Default}}">
+                    <Expander.Content>
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.3*" />
+                                    <ColumnDefinition Width="0.3*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="{l:Translate CityCoordinate}" />
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="{l:Translate Radius}" />
+                                <Grid  Grid.Row="0" Grid.RowSpan="2" Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.3*" />
+                                        <ColumnDefinition Width="0.3*" />
+                                        <ColumnDefinition Width="0.3*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <TextBox Margin="2" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding GeocacheFilterLocation, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                                    <ui:NumericUpDown Grid.Row="1" Grid.Column="0" Maximum="50" Width="50" DecimalPlaces="1" Minimum="0.1" Value="{Binding GeocacheFilterLocationRadius, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                                    <RadioButton Margin="2,4,4,2" Grid.Row="1" Grid.Column="1" GroupName="rradiuskm" Content="{l:Translate Km}" IsChecked="{Binding GeocacheFilterLocationKm, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=True, Mode=TwoWay}" />
+                                    <RadioButton Margin="2,4,4,2" Grid.Row="1" Grid.Column="2" GroupName="rradiuskm" Content="{l:Translate Miles}" IsChecked="{Binding GeocacheFilterLocationKm, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=False, Mode=TwoWay}" />
+                                </Grid>
+                                <Button Margin="2" Grid.Row="0" Grid.Column="2" Click="Button_Click_1" >
+                                    <Image Height="16" Width="16" Source="/Resources/General/check.png" />
+                                </Button>
+                                <Button Margin="2" Grid.Row="0" Grid.Column="3" Click="Button_Click" >
+                                    <Image Height="16" Width="16" Source="/Resources/General/edit.png" />
+                                </Button>
+                            </Grid>
+                        </StackPanel>
+                    </Expander.Content>
+                </Expander>
+                <Expander HorizontalAlignment="Stretch" Header="{l:Translate CountryState}" IsExpanded="{Binding GeocacheFilterCountryStateExpanded, Source={x:Static p:Settings.Default}}">
+                    <Expander.Content>
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Margin="2" Grid.Row="0" Grid.Column="0" Text="{l:Translate Country}" />
+                                <TextBlock Margin="2" Grid.Row="1" Grid.Column="0" Text="{l:Translate State}" />
+                                <TextBox Margin="2" Grid.Row="0" Grid.Column="1" Text="{Binding GeocacheFilterCountry, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                                <TextBox Margin="2" Grid.Row="1" Grid.Column="1" Text="{Binding GeocacheFilterState, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                            </Grid>
+                        </StackPanel>
+                    </Expander.Content>
+                </Expander>
+                <Expander HorizontalAlignment="Stretch" Header="{l:Translate MunicipalityCity}" IsExpanded="{Binding GeocacheFilterMunicipalityCityExpanded, Source={x:Static p:Settings.Default}}">
+                    <Expander.Content>
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Margin="2" Grid.Row="0" Grid.Column="0" Text="{l:Translate Municipality}" />
+                                <TextBlock Margin="2" Grid.Row="1" Grid.Column="0" Text="{l:Translate City}" />
+                                <TextBox Margin="2" Grid.Row="0" Grid.Column="1" Text="{Binding GeocacheFilterMunicipality, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                                <TextBox Margin="2" Grid.Row="1" Grid.Column="1" Text="{Binding GeocacheFilterCity, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                            </Grid>
+                        </StackPanel>
+                    </Expander.Content>
+                </Expander>
+                <Expander HorizontalAlignment="Stretch" Header="{l:Translate GeocacheType}" IsExpanded="{Binding GeocacheFilterGeocacheTypesExpanded, Source={x:Static p:Settings.Default}}">
+                    <Expander.Content>
+                        <ui:GeocacheTypeSelection x:Name="geocacheTypes" HorizontalAlignment="Left" Height="300" Width="450" />
                     </Expander.Content>
                 </Expander>
                 <Button Content="{l:Translate Select}" Command="{Binding SelectCommand}"/>

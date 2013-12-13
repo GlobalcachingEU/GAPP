@@ -133,6 +133,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alt.
+        /// </summary>
+        internal static string Alt {
+            get {
+                return ResourceManager.GetString("Alt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Application info.
         /// </summary>
         internal static string ApplicationInfo {
@@ -268,6 +277,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to City / coordinates.
+        /// </summary>
+        internal static string CityCoordinate {
+            get {
+                return ResourceManager.GetString("CityCoordinate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clear.
         /// </summary>
         internal static string Clear {
@@ -331,6 +349,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Control.
+        /// </summary>
+        internal static string Control {
+            get {
+                return ResourceManager.GetString("Control", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Coordinates.
         /// </summary>
         internal static string Coordinates {
@@ -372,6 +399,15 @@ namespace GAPPSF.Resources {
         internal static string Country {
             get {
                 return ResourceManager.GetString("Country", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Country / State.
+        /// </summary>
+        internal static string CountryState {
+            get {
+                return ResourceManager.GetString("CountryState", resourceCulture);
             }
         }
         
@@ -642,6 +678,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geocache type.
+        /// </summary>
+        internal static string GeocacheType {
+            get {
+                return ResourceManager.GetString("GeocacheType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Geocache viewer.
         /// </summary>
         internal static string GeocacheViewer {
@@ -858,6 +903,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Key.
+        /// </summary>
+        internal static string Key {
+            get {
+                return ResourceManager.GetString("Key", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Km.
         /// </summary>
         internal static string Km {
@@ -1038,6 +1092,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Municipality / City.
+        /// </summary>
+        internal static string MunicipalityCity {
+            get {
+                return ResourceManager.GetString("MunicipalityCity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         internal static string Name {
@@ -1119,11 +1182,29 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        internal static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open.
         /// </summary>
         internal static string Open {
             get {
                 return ResourceManager.GetString("Open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Original text.
+        /// </summary>
+        internal static string OriginalText {
+            get {
+                return ResourceManager.GetString("OriginalText", resourceCulture);
             }
         }
         
@@ -1209,6 +1290,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Radius.
+        /// </summary>
+        internal static string Radius {
+            get {
+                return ResourceManager.GetString("Radius", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to S.
         /// </summary>
         internal static string S {
@@ -1277,6 +1367,15 @@ namespace GAPPSF.Resources {
         internal static string Shapefiles {
             get {
                 return ResourceManager.GetString("Shapefiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shift.
+        /// </summary>
+        internal static string Shift {
+            get {
+                return ResourceManager.GetString("Shift", resourceCulture);
             }
         }
         
@@ -1450,6 +1549,15 @@ namespace GAPPSF.Resources {
         internal static string Window {
             get {
                 return ResourceManager.GetString("Window", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windows.
+        /// </summary>
+        internal static string Windows {
+            get {
+                return ResourceManager.GetString("Windows", resourceCulture);
             }
         }
         

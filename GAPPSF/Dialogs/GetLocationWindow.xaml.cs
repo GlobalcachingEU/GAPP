@@ -34,11 +34,11 @@ namespace GAPPSF.Dialogs
             
         }
 
-        public GetLocationWindow(Core.Data.Location _location)
+        public GetLocationWindow(Core.Data.Location location)
         {
             _scriptObj = new ObjectForScriptingCallback(this);
 
-            Location = _location;
+            Location = location;
             if (Location==null)
             {
                 CoordText = "";

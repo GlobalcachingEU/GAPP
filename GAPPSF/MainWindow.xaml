@@ -176,7 +176,7 @@
                     </Expander>
                 </Grid>
             </Grid>
-            <Grid Grid.Column="2">
+            <Grid Grid.Column="2" >
                 <Expander Background="#FF293955" Foreground="White" ExpandDirection="Left" HorizontalAlignment="Right" IsExpanded="{Binding MainWindowRightPanelIsExpanded, Mode=TwoWay, Source={x:Static p:Settings.Default}}">
                     <Expander.Header>
                         <TextBlock Text="{Binding ElementName=rightPanelContent, Path=Text}">

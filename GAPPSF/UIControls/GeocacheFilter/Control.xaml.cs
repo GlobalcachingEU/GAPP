@@ -25,7 +25,36 @@ namespace GAPPSF.UIControls.GeocacheFilter
         {
             InitializeComponent();
 
+            if (!string.IsNullOrEmpty(Core.Settings.Default.GeocacheFilterGeocacheTypes))
+            {
+                string[] parts = Core.Settings.Default.GeocacheFilterGeocacheTypes.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (string s in parts)
+                {
+                    int id = int.Parse(s);
+
+                    var c = (from a in geocacheTypes.AvailableTypes where a.Item.ID == id select a).FirstOrDefault();
+                    if (c!=null)
+                    {
+                        c.IsChecked = true;
+                    }
+                }
+            }
+            foreach (var c in geocacheTypes.AvailableTypes)
+            {
+                c.PropertyChanged += c_PropertyChanged;
+            }
             DataContext = this;
+        }
+
+        void c_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            StringBuilder sb = new StringBuilder();
+            var sl = from a in geocacheTypes.AvailableTypes where a.IsChecked select a;
+            foreach(var c in sl)
+            {
+                sb.AppendFormat("|{0}", c.Item.ID);
+            }
+            Core.Settings.Default.GeocacheFilterGeocacheTypes = sb.ToString();
         }
 
         public override string ToString()
@@ -153,30 +182,63 @@ namespace GAPPSF.UIControls.GeocacheFilter
                                 notFoundByUsers[i] = notFoundByUsers[i].Trim();
                             }
 
-                            //set selected within gcList
-                            int index = 0;
-                            foreach (var gc in gcList)
+                            Core.Data.Location loc = null;
+                            double dist = 0;
+                            if (Core.Settings.Default.GeocacheFilterLocationExpanded)
                             {
-                                gc.Selected = (
-                                    (!Core.Settings.Default.GeocacheFilterStatusExpanded || ((Core.Settings.Default.GeocacheFilterGeocacheStatus == GeocacheStatus.Enabled && gc.Available) ||
-                                                                                             (Core.Settings.Default.GeocacheFilterGeocacheStatus == GeocacheStatus.Disabled && !gc.Available && !gc.Archived) ||
-                                                                                             (Core.Settings.Default.GeocacheFilterGeocacheStatus == GeocacheStatus.Archived && gc.Archived))) &&
-                                    (!Core.Settings.Default.GeocacheFilterOwnExpanded || ((Core.Settings.Default.GeocacheFilterOwn == BooleanEnum.True) == gc.IsOwn)) &&
-                                    (!Core.Settings.Default.GeocacheFilterFoundExpanded || ((Core.Settings.Default.GeocacheFilterFound == BooleanEnum.True) == gc.Found)) &&
-                                    (!Core.Settings.Default.GeocacheFilterFoundByExpanded || ((Core.Settings.Default.GeocacheFilterFoundByAll == BooleanEnum.True) && foundByAll(gc, foundByUsers)) ||
-                                                                                             ((Core.Settings.Default.GeocacheFilterFoundByAll == BooleanEnum.False) && foundByAny(gc, foundByUsers))) &&
-                                    (!Core.Settings.Default.GeocacheFilterNotFoundByExpanded || ((Core.Settings.Default.GeocacheFilterNotFoundByAny == BooleanEnum.True) && !foundByAny(gc, foundByUsers)) ||
-                                                                                             ((Core.Settings.Default.GeocacheFilterNotFoundByAny == BooleanEnum.False) && !foundByAll(gc, foundByUsers)))
-                                    );
-
-                                index++;
-                                if (DateTime.Now>=nextUpdate)
+                                loc = getLocation();
+                                dist = Core.Settings.Default.GeocacheFilterLocationRadius * 1000;
+                                if (Core.Settings.Default.GeocacheFilterLocationKm== BooleanEnum.False)
                                 {
-                                    if(!prog.Update("Searching",gcList.Count,index))
+                                    dist /= 0.621371192237;
+                                }
+                            }
+                            List<int> cacheTypes = new List<int>();
+                            if (Core.Settings.Default.GeocacheFilterGeocacheTypesExpanded)
+                            {
+                                if (!string.IsNullOrEmpty(Core.Settings.Default.GeocacheFilterGeocacheTypes))
+                                {
+                                    string[] parts = Core.Settings.Default.GeocacheFilterGeocacheTypes.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+                                    foreach(string s in parts)
                                     {
-                                        break;
+                                        cacheTypes.Add(int.Parse(s));
                                     }
-                                    nextUpdate = DateTime.Now.AddSeconds(1);
+                                }
+                            }
+
+                            if (loc != null || !Core.Settings.Default.GeocacheFilterLocationExpanded)
+                            {
+                                //set selected within gcList
+                                int index = 0;
+                                foreach (var gc in gcList)
+                                {
+                                    gc.Selected = (
+                                        (!Core.Settings.Default.GeocacheFilterStatusExpanded || ((Core.Settings.Default.GeocacheFilterGeocacheStatus == GeocacheStatus.Enabled && gc.Available) ||
+                                                                                                 (Core.Settings.Default.GeocacheFilterGeocacheStatus == GeocacheStatus.Disabled && !gc.Available && !gc.Archived) ||
+                                                                                                 (Core.Settings.Default.GeocacheFilterGeocacheStatus == GeocacheStatus.Archived && gc.Archived))) &&
+                                        (!Core.Settings.Default.GeocacheFilterOwnExpanded || ((Core.Settings.Default.GeocacheFilterOwn == BooleanEnum.True) == gc.IsOwn)) &&
+                                        (!Core.Settings.Default.GeocacheFilterFoundExpanded || ((Core.Settings.Default.GeocacheFilterFound == BooleanEnum.True) == gc.Found)) &&
+                                        (!Core.Settings.Default.GeocacheFilterFoundByExpanded || ((Core.Settings.Default.GeocacheFilterFoundByAll == BooleanEnum.True) && foundByAll(gc, foundByUsers)) ||
+                                                                                                 ((Core.Settings.Default.GeocacheFilterFoundByAll == BooleanEnum.False) && foundByAny(gc, foundByUsers))) &&
+                                        (!Core.Settings.Default.GeocacheFilterNotFoundByExpanded || ((Core.Settings.Default.GeocacheFilterNotFoundByAny == BooleanEnum.True) && !foundByAny(gc, foundByUsers)) ||
+                                                                                                 ((Core.Settings.Default.GeocacheFilterNotFoundByAny == BooleanEnum.False) && !foundByAll(gc, foundByUsers))) &&
+                                        (!Core.Settings.Default.GeocacheFilterLocationExpanded || (Utils.Calculus.CalculateDistance(gc, loc).EllipsoidalDistance<=dist)) &&
+                                        (!Core.Settings.Default.GeocacheFilterCountryStateExpanded || (string.IsNullOrEmpty(Core.Settings.Default.GeocacheFilterCountry) || (!string.IsNullOrEmpty(Core.Settings.Default.GeocacheFilterCountry) && string.Compare(gc.Country,Core.Settings.Default.GeocacheFilterCountry, true)==0)) &&
+                                                                                                      (string.IsNullOrEmpty(Core.Settings.Default.GeocacheFilterState) || (!string.IsNullOrEmpty(Core.Settings.Default.GeocacheFilterState) && string.Compare(gc.State, Core.Settings.Default.GeocacheFilterState, true) == 0))) &&
+                                        (!Core.Settings.Default.GeocacheFilterMunicipalityCityExpanded || (string.IsNullOrEmpty(Core.Settings.Default.GeocacheFilterMunicipality) || (!string.IsNullOrEmpty(Core.Settings.Default.GeocacheFilterMunicipality) && string.Compare(gc.Municipality, Core.Settings.Default.GeocacheFilterMunicipality, true) == 0)) &&
+                                                                                                      (string.IsNullOrEmpty(Core.Settings.Default.GeocacheFilterCity) || (!string.IsNullOrEmpty(Core.Settings.Default.GeocacheFilterCity) && string.Compare(gc.City, Core.Settings.Default.GeocacheFilterCity, true) == 0))) &&
+                                        (!Core.Settings.Default.GeocacheFilterGeocacheTypesExpanded || (cacheTypes.Contains(gc.GeocacheType.ID)))
+                                        );
+
+                                    index++;
+                                    if (DateTime.Now >= nextUpdate)
+                                    {
+                                        if (!prog.Update("Searching", gcList.Count, index))
+                                        {
+                                            break;
+                                        }
+                                        nextUpdate = DateTime.Now.AddSeconds(1);
+                                    }
                                 }
                             }
                         }
@@ -231,6 +293,44 @@ namespace GAPPSF.UIControls.GeocacheFilter
             set
             {
                 Core.Settings.Default.GeocacheFilterWindowTop = value;
+            }
+        }
+
+        private  Core.Data.Location getLocation()
+        {
+            Core.Data.Location result = Utils.Conversion.StringToLocation(Core.Settings.Default.GeocacheFilterLocation);
+            if (result==null)
+            {
+                //address?
+                result = Utils.Geocoder.GetLocationOfAddress(Core.Settings.Default.GeocacheFilterLocation);
+            }
+            return result;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Core.Data.Location l = getLocation();
+            if (l==null)
+            {
+                l = Core.ApplicationData.Instance.CenterLocation;
+            }
+            Dialogs.GetLocationWindow dlg = new Dialogs.GetLocationWindow(l);
+            if (dlg.ShowDialog()==true)
+            {
+                Core.Settings.Default.GeocacheFilterLocation = dlg.Location.ToString();
+            }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Core.Data.Location l = getLocation();
+            if (l == null)
+            {
+                Core.Settings.Default.GeocacheFilterLocation = "";
+            }
+            else
+            {
+                Core.Settings.Default.GeocacheFilterLocation = l.ToString();
             }
         }
 

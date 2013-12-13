@@ -76,6 +76,7 @@ namespace GAPPSF
             }
 
             Core.ApplicationData.Instance.PropertyChanged += Instance_PropertyChanged;
+            Core.Settings.Default.PropertyChanged += Default_PropertyChanged;
 
             rightPanelColumn.Width = rpgl;
             bottomLeftPanelColumn.Width = blgl;
@@ -84,10 +85,31 @@ namespace GAPPSF
             updateShortCutKeyAssignment();
         }
 
+        void Default_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "MainWindowShortCutKeyAssignment")
+            {
+                updateShortCutKeyAssignment();
+            }
+        }
+
+        private void clearShortCutKey(MenuItem mi)
+        {
+            mi.InputGestureText = "";
+            foreach (var m in mi.Items)
+            {
+                if (m is MenuItem) clearShortCutKey(m as MenuItem);
+            }
+        }
         private void updateShortCutKeyAssignment()
         {
             this.InputBindings.Clear();
             //Shift|Control|Alt|Windows|MenuName|Key
+
+            foreach(var m in mainMenu.Items)
+            {
+                if (m is MenuItem) clearShortCutKey(m as MenuItem);
+            }
 
             if (!string.IsNullOrEmpty(Core.Settings.Default.MainWindowShortCutKeyAssignment))
             {
@@ -189,10 +211,6 @@ namespace GAPPSF
             else if (e.PropertyName == "UIIsIdle")
             {
                 StatusBarBackgroundColor = Core.ApplicationData.Instance.UIIsIdle ? "#FF007ACC" : "#FFE9760E";
-            }
-            else if (e.PropertyName == "MainWindowShortCutKeyAssignment")
-            {
-                updateShortCutKeyAssignment();
             }
         }
 
