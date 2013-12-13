@@ -43,7 +43,39 @@ namespace GAPPSF.UIControls.GeocacheFilter
             {
                 c.PropertyChanged += c_PropertyChanged;
             }
+
+            if (!string.IsNullOrEmpty(Core.Settings.Default.GeocacheFilterGeocacheContainers))
+            {
+                string[] parts = Core.Settings.Default.GeocacheFilterGeocacheContainers.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (string s in parts)
+                {
+                    int id = int.Parse(s);
+
+                    var c = (from a in geocacheContainers.AvailableTypes where a.Item.ID == id select a).FirstOrDefault();
+                    if (c != null)
+                    {
+                        c.IsChecked = true;
+                    }
+                }
+            }
+            foreach (var c in geocacheContainers.AvailableTypes)
+            {
+                c.PropertyChanged += con_PropertyChanged;
+            }
+
+
             DataContext = this;
+        }
+
+        void con_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            StringBuilder sb = new StringBuilder();
+            var sl = from a in geocacheContainers.AvailableTypes where a.IsChecked select a;
+            foreach (var c in sl)
+            {
+                sb.AppendFormat("|{0}", c.Item.ID);
+            }
+            Core.Settings.Default.GeocacheFilterGeocacheContainers = sb.ToString();
         }
 
         void c_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -205,6 +237,18 @@ namespace GAPPSF.UIControls.GeocacheFilter
                                     }
                                 }
                             }
+                            List<int> cacheContainers = new List<int>();
+                            if (Core.Settings.Default.GeocacheFilterGeocacheContainersExpanded)
+                            {
+                                if (!string.IsNullOrEmpty(Core.Settings.Default.GeocacheFilterGeocacheContainers))
+                                {
+                                    string[] parts = Core.Settings.Default.GeocacheFilterGeocacheContainers.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+                                    foreach (string s in parts)
+                                    {
+                                        cacheContainers.Add(int.Parse(s));
+                                    }
+                                }
+                            }
 
                             if (loc != null || !Core.Settings.Default.GeocacheFilterLocationExpanded)
                             {
@@ -227,7 +271,8 @@ namespace GAPPSF.UIControls.GeocacheFilter
                                                                                                       (string.IsNullOrEmpty(Core.Settings.Default.GeocacheFilterState) || (!string.IsNullOrEmpty(Core.Settings.Default.GeocacheFilterState) && string.Compare(gc.State, Core.Settings.Default.GeocacheFilterState, true) == 0))) &&
                                         (!Core.Settings.Default.GeocacheFilterMunicipalityCityExpanded || (string.IsNullOrEmpty(Core.Settings.Default.GeocacheFilterMunicipality) || (!string.IsNullOrEmpty(Core.Settings.Default.GeocacheFilterMunicipality) && string.Compare(gc.Municipality, Core.Settings.Default.GeocacheFilterMunicipality, true) == 0)) &&
                                                                                                       (string.IsNullOrEmpty(Core.Settings.Default.GeocacheFilterCity) || (!string.IsNullOrEmpty(Core.Settings.Default.GeocacheFilterCity) && string.Compare(gc.City, Core.Settings.Default.GeocacheFilterCity, true) == 0))) &&
-                                        (!Core.Settings.Default.GeocacheFilterGeocacheTypesExpanded || (cacheTypes.Contains(gc.GeocacheType.ID)))
+                                        (!Core.Settings.Default.GeocacheFilterGeocacheTypesExpanded || (cacheTypes.Contains(gc.GeocacheType.ID))) &&
+                                        (!Core.Settings.Default.GeocacheFilterGeocacheContainersExpanded || (cacheContainers.Contains(gc.Container.ID)))
                                         );
 
                                     index++;

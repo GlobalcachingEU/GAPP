@@ -54,12 +54,12 @@ namespace GAPPSF.GAPPDataStorage
 
                 DateTime nextUpdateTime = DateTime.Now.AddSeconds(1);
 
-                using (Utils.ProgressBlock prog = new ProgressBlock("Importing database", "Importing...", 6, 0))
+                using (Utils.ProgressBlock prog = new ProgressBlock("ImportingDatabase", "Importing", 6, 0))
                 {
                     List<RecordInfo> records = new List<RecordInfo>();
                     Hashtable f_records = new Hashtable();
 
-                    using (Utils.ProgressBlock subProg = new ProgressBlock("Importing geocaches...", gcCount, 0))
+                    using (Utils.ProgressBlock subProg = new ProgressBlock("ImportingGeocaches", gcCount, 0))
                     {
 
                         //GEOCACHES
@@ -154,7 +154,7 @@ namespace GAPPSF.GAPPDataStorage
                                 index++;
                                 if (DateTime.Now >= nextUpdateTime)
                                 {
-                                    subProg.Update("Importing geocaches...", gcCount, index);
+                                    subProg.Update("ImportingGeocaches", gcCount, index);
                                     nextUpdateTime = DateTime.Now.AddSeconds(1);
                                 }
                             }

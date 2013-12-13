@@ -55,6 +55,12 @@ namespace GAPPSF.Core
             set { SetProperty(value.ToString()); }
         }
 
+        public int CacheListFrozenColumnCount
+        {
+            get { return int.Parse(GetProperty("1")); }
+            set { SetProperty(value.ToString()); }
+        }
+
         public bool CacheListShowSelectedOnly
         {
             get { return bool.Parse(GetProperty("False")); }

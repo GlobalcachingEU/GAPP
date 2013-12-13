@@ -95,7 +95,7 @@
                         </StackPanel>
                     </Expander.Content>
                 </Expander>
-                <Expander HorizontalAlignment="Stretch" Header="{l:Translate NotFoundBy}" IsExpanded="{Binding GeocacheFilterLocationExpanded, Source={x:Static p:Settings.Default}}">
+                <Expander HorizontalAlignment="Stretch" Header="{l:Translate Location}" IsExpanded="{Binding GeocacheFilterLocationExpanded, Source={x:Static p:Settings.Default}}">
                     <Expander.Content>
                         <StackPanel>
                             <Grid>
@@ -179,6 +179,11 @@
                 <Expander HorizontalAlignment="Stretch" Header="{l:Translate GeocacheType}" IsExpanded="{Binding GeocacheFilterGeocacheTypesExpanded, Source={x:Static p:Settings.Default}}">
                     <Expander.Content>
                         <ui:GeocacheTypeSelection x:Name="geocacheTypes" HorizontalAlignment="Left" Height="300" Width="450" />
+                    </Expander.Content>
+                </Expander>
+                <Expander HorizontalAlignment="Stretch" Header="{l:Translate GeocacheContainer}" IsExpanded="{Binding GeocacheFilterGeocacheContainersExpanded, Source={x:Static p:Settings.Default}}">
+                    <Expander.Content>
+                        <ui:GeocacheContainerSelection x:Name="geocacheContainers" HorizontalAlignment="Left" Height="300" Width="450" />
                     </Expander.Content>
                 </Expander>
                 <Button Content="{l:Translate Select}" Command="{Binding SelectCommand}"/>

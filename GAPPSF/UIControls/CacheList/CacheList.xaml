@@ -57,12 +57,20 @@
                         <Button Command="{Binding InvertSelectionCommand}"  Margin="4">
                             <Image Source="/Resources/General/invert_selection.png" />
                         </Button>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock  Grid.Column="0" Text="{l:Translate FreezeColumns}" Margin="4" />
+                            <src:NumericUpDown Grid.Column="1" Width="50" Minimum="0" Maximum="5" Value="{Binding CacheListFrozenColumnCount, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                        </Grid>
                     </StackPanel>
                     <Grid Grid.Row="0" Grid.Column="1">
                         <ListView ItemsSource="{Binding ColumnInfoCollection}">
                             <ListView.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <UniformGrid Rows="3" />
+                                    <UniformGrid Rows="4" />
                                 </ItemsPanelTemplate>
                             </ListView.ItemsPanel>
                             <ListBox.ItemTemplate>
@@ -107,6 +115,7 @@
                   HorizontalScrollBarVisibility="Visible" 
                   CanUserAddRows="False" 
                   CanUserDeleteRows="False"
+                  FrozenColumnCount="{Binding CacheListFrozenColumnCount, Source={x:Static p:Settings.Default}}"
                   ItemsSource="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveDatabase.GeocacheCollectionView}"
                   SelectedItem="{Binding Source={x:Static p:ApplicationData.Instance}, Path=ActiveGeocache, Mode=TwoWay}"
                   LoadingRow="cacheList_LoadingRow" ColumnReordered="cacheList_ColumnReordered"

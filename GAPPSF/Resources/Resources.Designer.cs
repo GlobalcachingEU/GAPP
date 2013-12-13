@@ -619,6 +619,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Freeze columns.
+        /// </summary>
+        internal static string FreezeColumns {
+            get {
+                return ResourceManager.GetString("FreezeColumns", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Français.
         /// </summary>
         internal static string French {
@@ -633,6 +642,15 @@ namespace GAPPSF.Resources {
         internal static string GAPPDataStorage {
             get {
                 return ResourceManager.GetString("GAPPDataStorage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geocache container.
+        /// </summary>
+        internal static string GeocacheContainer {
+            get {
+                return ResourceManager.GetString("GeocacheContainer", resourceCulture);
             }
         }
         
