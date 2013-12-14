@@ -357,6 +357,11 @@ namespace GAPPSF.Core
             addCacheAttribute(157, "Other cache type");
             addCacheAttribute(158, "Ask owner for start conditions");
 
+            List<Core.Data.GeocacheAttribute> attrs = (from a in this.GeocacheAttributes select a).ToList();
+            foreach (Core.Data.GeocacheAttribute a in attrs)
+            {
+                addCacheAttribute(-a.ID, a.Name);
+            }
         }
 
         void AccountInfos_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)

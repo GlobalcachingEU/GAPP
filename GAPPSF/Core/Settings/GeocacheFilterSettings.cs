@@ -171,5 +171,85 @@ namespace GAPPSF.Core
             set { SetProperty(value); }
         }
 
+        public bool GeocacheFilterFavExpanded
+        {
+            get { return bool.Parse(GetProperty("False")); }
+            set { SetProperty(value.ToString()); }
+        }
+        public double GeocacheFilterMinFav
+        {
+            get { return double.Parse(GetProperty("0.0"), CultureInfo.InvariantCulture); }
+            set { SetProperty(((double)value).ToString(CultureInfo.InvariantCulture)); }
+        }
+        public double GeocacheFilterMaxFav
+        {
+            get { return double.Parse(GetProperty("99999"), CultureInfo.InvariantCulture); }
+            set { SetProperty(((double)value).ToString(CultureInfo.InvariantCulture)); }
+        }
+
+        public bool GeocacheFilterTerrainExpanded
+        {
+            get { return bool.Parse(GetProperty("False")); }
+            set { SetProperty(value.ToString()); }
+        }
+        public double GeocacheFilterMinTerrain
+        {
+            get { return double.Parse(GetProperty("0.0"), CultureInfo.InvariantCulture); }
+            set { SetProperty(((double)value).ToString(CultureInfo.InvariantCulture)); }
+        }
+        public double GeocacheFilterMaxTerrain
+        {
+            get { return double.Parse(GetProperty("5"), CultureInfo.InvariantCulture); }
+            set { SetProperty(((double)value).ToString(CultureInfo.InvariantCulture)); }
+        }
+
+        public bool GeocacheFilterDifficultyExpanded
+        {
+            get { return bool.Parse(GetProperty("False")); }
+            set { SetProperty(value.ToString()); }
+        }
+        public double GeocacheFilterMinDifficulty
+        {
+            get { return double.Parse(GetProperty("0.0"), CultureInfo.InvariantCulture); }
+            set { SetProperty(((double)value).ToString(CultureInfo.InvariantCulture)); }
+        }
+        public double GeocacheFilterMaxDifficulty
+        {
+            get { return double.Parse(GetProperty("5"), CultureInfo.InvariantCulture); }
+            set { SetProperty(((double)value).ToString(CultureInfo.InvariantCulture)); }
+        }
+
+        public bool GeocacheFilterHiddenDateExpanded
+        {
+            get { return bool.Parse(GetProperty("False")); }
+            set { SetProperty(value.ToString()); }
+        }
+        public DateTime GeocacheFilterMinHiddenDate
+        {
+            get { return DateTime.Parse(GetProperty(DateTime.Now.Date.ToString("s"))); }
+            set { SetProperty(value.ToString("s")); }
+        }
+        public DateTime GeocacheFilterMaxHiddenDate
+        {
+            get { return DateTime.Parse(GetProperty(DateTime.Now.Date.ToString("s"))); }
+            set { SetProperty(value.ToString("s")); }
+        }
+
+        public bool GeocacheFilterGeocacheAttributesExpanded
+        {
+            get { return bool.Parse(GetProperty("False")); }
+            set { SetProperty(value.ToString()); }
+        }
+        public UIControls.GeocacheFilter.AttributeFilter GeocacheFilterAttributeFilter
+        {
+            get { return (UIControls.GeocacheFilter.AttributeFilter)Enum.Parse(typeof(UIControls.GeocacheFilter.AttributeFilter), GetProperty("ContainsAll")); }
+            set { SetProperty(value.ToString()); }
+        }
+        public string GeocacheFilterGeocacheAttributes
+        {
+            get { return GetProperty(""); }
+            set { SetProperty(value); }
+        }
+
     }
 }

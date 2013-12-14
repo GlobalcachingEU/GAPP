@@ -860,15 +860,22 @@ namespace GAPPSF
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            StringBuilder sb = new StringBuilder();
-            foreach(var w in this.OwnedWindows)
+            if (Core.ApplicationData.Instance.UIIsIdle)
             {
-                if (w is FeatureWindow)
+                StringBuilder sb = new StringBuilder();
+                foreach (var w in this.OwnedWindows)
                 {
-                    sb.AppendLine((w as FeatureWindow).featureContainer.FeatureControl.GetType().ToString());
+                    if (w is FeatureWindow)
+                    {
+                        sb.AppendLine((w as FeatureWindow).featureContainer.FeatureControl.GetType().ToString());
+                    }
                 }
+                Core.Settings.Default.MainWindowWindowFeature = sb.ToString();
             }
-            Core.Settings.Default.MainWindowWindowFeature = sb.ToString();
+            else
+            {
+                e.Cancel = true;
+            }
         }
 
 

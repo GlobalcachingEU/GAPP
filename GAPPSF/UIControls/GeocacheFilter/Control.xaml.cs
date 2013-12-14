@@ -63,8 +63,38 @@ namespace GAPPSF.UIControls.GeocacheFilter
                 c.PropertyChanged += con_PropertyChanged;
             }
 
+            if (!string.IsNullOrEmpty(Core.Settings.Default.GeocacheFilterGeocacheAttributes))
+            {
+                string[] parts = Core.Settings.Default.GeocacheFilterGeocacheAttributes.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (string s in parts)
+                {
+                    int id = int.Parse(s);
+
+                    var c = (from a in geocacheAttributes.AvailableTypes where a.Item.ID == id select a).FirstOrDefault();
+                    if (c != null)
+                    {
+                        c.IsChecked = true;
+                    }
+                }
+            }
+            foreach (var c in geocacheAttributes.AvailableTypes)
+            {
+                c.PropertyChanged += attr_PropertyChanged;
+            }
+
 
             DataContext = this;
+        }
+
+        private void attr_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            StringBuilder sb = new StringBuilder();
+            var sl = from a in geocacheAttributes.AvailableTypes where a.IsChecked select a;
+            foreach (var c in sl)
+            {
+                sb.AppendFormat("|{0}", c.Item.ID);
+            }
+            Core.Settings.Default.GeocacheFilterGeocacheAttributes = sb.ToString();
         }
 
         void con_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -178,6 +208,29 @@ namespace GAPPSF.UIControls.GeocacheFilter
             return result;
         }
 
+        private bool attrFilterPass(List<int> attrFilter, Core.Data.Geocache gc)
+        {
+            bool result = false;
+            List<int> gcAttr = gc.AttributeIds;
+            switch(Core.Settings.Default.GeocacheFilterAttributeFilter)
+            {
+                case AttributeFilter.ContainsAll:
+                    result = (from a in gcAttr join b in attrFilter on a equals b select a).Count() == attrFilter.Count;
+                    break;
+                case AttributeFilter.ContainsAtLeastOne:
+                    result = (from a in gcAttr join b in attrFilter on a equals b select a).Count() > 0;
+                    break;
+                case AttributeFilter.ContainsNone:
+                    result = (from a in gcAttr join b in attrFilter on a equals b select a).Count() == 0;
+                    break;
+                default:
+                    result = false;
+                    break;
+            }
+
+            return result;
+        }
+
         async public Task SelectGeocaches()
         {
             if (Core.ApplicationData.Instance.ActiveDatabase != null)
@@ -249,6 +302,18 @@ namespace GAPPSF.UIControls.GeocacheFilter
                                     }
                                 }
                             }
+                            List<int> cacheAttributes = new List<int>();
+                            if (Core.Settings.Default.GeocacheFilterGeocacheAttributesExpanded)
+                            {
+                                if (!string.IsNullOrEmpty(Core.Settings.Default.GeocacheFilterGeocacheAttributes))
+                                {
+                                    string[] parts = Core.Settings.Default.GeocacheFilterGeocacheAttributes.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+                                    foreach (string s in parts)
+                                    {
+                                        cacheAttributes.Add(int.Parse(s));
+                                    }
+                                }
+                            }
 
                             if (loc != null || !Core.Settings.Default.GeocacheFilterLocationExpanded)
                             {
@@ -272,7 +337,12 @@ namespace GAPPSF.UIControls.GeocacheFilter
                                         (!Core.Settings.Default.GeocacheFilterMunicipalityCityExpanded || (string.IsNullOrEmpty(Core.Settings.Default.GeocacheFilterMunicipality) || (!string.IsNullOrEmpty(Core.Settings.Default.GeocacheFilterMunicipality) && string.Compare(gc.Municipality, Core.Settings.Default.GeocacheFilterMunicipality, true) == 0)) &&
                                                                                                       (string.IsNullOrEmpty(Core.Settings.Default.GeocacheFilterCity) || (!string.IsNullOrEmpty(Core.Settings.Default.GeocacheFilterCity) && string.Compare(gc.City, Core.Settings.Default.GeocacheFilterCity, true) == 0))) &&
                                         (!Core.Settings.Default.GeocacheFilterGeocacheTypesExpanded || (cacheTypes.Contains(gc.GeocacheType.ID))) &&
-                                        (!Core.Settings.Default.GeocacheFilterGeocacheContainersExpanded || (cacheContainers.Contains(gc.Container.ID)))
+                                        (!Core.Settings.Default.GeocacheFilterGeocacheContainersExpanded || (cacheContainers.Contains(gc.Container.ID))) &&
+                                        (!Core.Settings.Default.GeocacheFilterFavExpanded || (gc.Favorites >= Core.Settings.Default.GeocacheFilterMinFav && gc.Favorites <= Core.Settings.Default.GeocacheFilterMaxFav)) &&
+                                        (!Core.Settings.Default.GeocacheFilterTerrainExpanded || ((gc.Terrain >= Core.Settings.Default.GeocacheFilterMinTerrain) && (gc.Terrain <= Core.Settings.Default.GeocacheFilterMaxTerrain))) &&
+                                        (!Core.Settings.Default.GeocacheFilterDifficultyExpanded || ((gc.Difficulty >= Core.Settings.Default.GeocacheFilterMinDifficulty) && (gc.Difficulty <= Core.Settings.Default.GeocacheFilterMaxDifficulty))) &&
+                                        (!Core.Settings.Default.GeocacheFilterHiddenDateExpanded || (gc.PublishedTime.Date >= Core.Settings.Default.GeocacheFilterMinHiddenDate.Date && gc.PublishedTime.Date <= Core.Settings.Default.GeocacheFilterMaxHiddenDate.Date)) &&
+                                        (!Core.Settings.Default.GeocacheFilterGeocacheAttributesExpanded || attrFilterPass(cacheAttributes, gc))
                                         );
 
                                     index++;

@@ -183,7 +183,98 @@
                 </Expander>
                 <Expander HorizontalAlignment="Stretch" Header="{l:Translate GeocacheContainer}" IsExpanded="{Binding GeocacheFilterGeocacheContainersExpanded, Source={x:Static p:Settings.Default}}">
                     <Expander.Content>
-                        <ui:GeocacheContainerSelection x:Name="geocacheContainers" HorizontalAlignment="Left" Height="300" Width="450" />
+                        <ui:GeocacheContainerSelection x:Name="geocacheContainers" HorizontalAlignment="Left" Height="200" Width="450" />
+                    </Expander.Content>
+                </Expander>
+                <Expander HorizontalAlignment="Stretch" Header="{l:Translate Favorites}" IsExpanded="{Binding GeocacheFilterFavExpanded, Source={x:Static p:Settings.Default}}">
+                    <Expander.Content>
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Margin="4" Grid.Column="0" Text="{l:Translate From}" />
+                                <ui:NumericUpDown Grid.Column="1" Width="80" Minimum="0" Maximum="99999" DecimalPlaces="1" Value="{Binding GeocacheFilterMinFav, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                                <TextBlock Margin="4" Grid.Column="2" Text="{l:Translate To}" />
+                                <ui:NumericUpDown Grid.Column="3" Width="80" Minimum="0" Maximum="99999" DecimalPlaces="1" Value="{Binding GeocacheFilterMaxFav, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                            </Grid>
+                        </StackPanel>
+                    </Expander.Content>
+                </Expander>
+                <Expander HorizontalAlignment="Stretch" Header="{l:Translate Terrain}" IsExpanded="{Binding GeocacheFilterTerrainExpanded, Source={x:Static p:Settings.Default}}">
+                    <Expander.Content>
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Margin="4" Grid.Column="0" Text="{l:Translate From}" />
+                                <ui:NumericUpDown Grid.Column="1" Width="80" Minimum="0" Maximum="5" DecimalPlaces="1" Value="{Binding GeocacheFilterMinTerrain, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                                <TextBlock Margin="4" Grid.Column="2" Text="{l:Translate To}" />
+                                <ui:NumericUpDown Grid.Column="3" Width="80" Minimum="0" Maximum="5" DecimalPlaces="1" Value="{Binding GeocacheFilterMaxTerrain, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                            </Grid>
+                        </StackPanel>
+                    </Expander.Content>
+                </Expander>
+                <Expander HorizontalAlignment="Stretch" Header="{l:Translate Difficulty}" IsExpanded="{Binding GeocacheFilterDifficultyExpanded, Source={x:Static p:Settings.Default}}">
+                    <Expander.Content>
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Margin="4" Grid.Column="0" Text="{l:Translate From}" />
+                                <ui:NumericUpDown Grid.Column="1" Width="80" Minimum="0" Maximum="5" DecimalPlaces="1" Value="{Binding GeocacheFilterMinDifficulty, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                                <TextBlock Margin="4" Grid.Column="2" Text="{l:Translate To}" />
+                                <ui:NumericUpDown Grid.Column="3" Width="80" Minimum="0" Maximum="5" DecimalPlaces="1" Value="{Binding GeocacheFilterMaxDifficulty, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                            </Grid>
+                        </StackPanel>
+                    </Expander.Content>
+                </Expander>
+                <Expander HorizontalAlignment="Stretch" Header="{l:Translate PublicationDate}" IsExpanded="{Binding GeocacheFilterHiddenDateExpanded, Source={x:Static p:Settings.Default}}">
+                    <Expander.Content>
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Margin="4" Grid.Column="0" Text="{l:Translate From}" />
+                                <DatePicker Grid.Column="1" SelectedDate="{Binding GeocacheFilterMinHiddenDate, Source={x:Static p:Settings.Default}, Mode=TwoWay}"/>
+                                <TextBlock Margin="4" Grid.Column="2" Text="{l:Translate To}" />
+                                <DatePicker Grid.Column="3" SelectedDate="{Binding GeocacheFilterMaxHiddenDate, Source={x:Static p:Settings.Default}, Mode=TwoWay}"/>
+                            </Grid>
+                        </StackPanel>
+                    </Expander.Content>
+                </Expander>
+                <Expander HorizontalAlignment="Stretch" Header="{l:Translate Attributes}" IsExpanded="{Binding GeocacheFilterGeocacheAttributesExpanded, Source={x:Static p:Settings.Default}}">
+                    <Expander.Content>
+                        <Grid Background="White">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <RadioButton Grid.Row="0" Grid.Column="0" GroupName="rattr" Content="{l:Translate ContainsAllSelected}" IsChecked="{Binding GeocacheFilterAttributeFilter, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=ContainsAll, Mode=TwoWay}" />
+                            <RadioButton Grid.Row="0" Grid.Column="1" GroupName="rattr" Content="{l:Translate ContainsOneOfSelected}" IsChecked="{Binding GeocacheFilterAttributeFilter, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=ContainsAtLeastOne, Mode=TwoWay}" />
+                            <RadioButton Grid.Row="0" Grid.Column="2" GroupName="rattr" Content="{l:Translate NoneOfSelected}" IsChecked="{Binding GeocacheFilterAttributeFilter, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=ContainsNone, Mode=TwoWay}" />
+                            <ui:GeocacheAttributeSelection x:Name="geocacheAttributes" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="400" Width="450" />
+                        </Grid>
                     </Expander.Content>
                 </Expander>
                 <Button Content="{l:Translate Select}" Command="{Binding SelectCommand}"/>

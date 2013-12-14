@@ -634,4 +634,34 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="FreezeColumns" xml:space="preserve">
     <value>Freeze columns</value>
   </data>
+  <data name="Difficulty" xml:space="preserve">
+    <value>Difficulty</value>
+  </data>
+  <data name="Favorites" xml:space="preserve">
+    <value>Favorites</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="PublicationDate" xml:space="preserve">
+    <value>Publication date</value>
+  </data>
+  <data name="Terrain" xml:space="preserve">
+    <value>Terrain</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="Attributes" xml:space="preserve">
+    <value>Attributes</value>
+  </data>
+  <data name="ContainsAllSelected" xml:space="preserve">
+    <value>Contains all selected</value>
+  </data>
+  <data name="ContainsOneOfSelected" xml:space="preserve">
+    <value>Contains one of selected</value>
+  </data>
+  <data name="NoneOfSelected" xml:space="preserve">
+    <value>None of selected</value>
+  </data>
 </root>

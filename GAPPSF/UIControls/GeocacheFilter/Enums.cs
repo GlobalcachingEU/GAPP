@@ -18,4 +18,11 @@ namespace GAPPSF.UIControls.GeocacheFilter
         True,
         False
     }
+
+    public enum AttributeFilter
+    {
+        ContainsAll,
+        ContainsAtLeastOne,
+        ContainsNone
+    }
 }

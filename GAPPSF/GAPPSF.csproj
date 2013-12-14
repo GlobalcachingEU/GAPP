@@ -267,6 +267,9 @@
     </Compile>
     <Compile Include="UIControls\EnumBooleanConverter.cs" />
     <Compile Include="UIControls\EnumValuesExtension.cs" />
+    <Compile Include="UIControls\GeocacheAttributeSelection.xaml.cs">
+      <DependentUpon>GeocacheAttributeSelection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIControls\GeocacheContainerSelection.xaml.cs">
       <DependentUpon>GeocacheContainerSelection.xaml</DependentUpon>
     </Compile>
@@ -274,6 +277,7 @@
       <DependentUpon>Control.xaml</DependentUpon>
     </Compile>
     <Compile Include="UIControls\GeocacheFilter\Enums.cs" />
+    <Compile Include="UIControls\GeocacheItemConverters.cs" />
     <Compile Include="UIControls\GeocacheTypeSelection.xaml.cs">
       <DependentUpon>GeocacheTypeSelection.xaml</DependentUpon>
     </Compile>
@@ -500,6 +504,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIControls\ComboColorPicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\GeocacheAttributeSelection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
