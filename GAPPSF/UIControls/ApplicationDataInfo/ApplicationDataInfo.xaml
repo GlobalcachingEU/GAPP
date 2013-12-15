@@ -24,6 +24,10 @@
                                   CanUserAddRows="False"
                                   CanUserDeleteRows="False"
                       >
+                                <DataGrid.Resources>
+                                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="{x:Static SystemColors.HighlightColor}"/>
+                                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="{x:Static SystemColors.HighlightTextColor}"/>
+                                </DataGrid.Resources>
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Binding="{Binding Text}" Header="{l:Translate Name}" IsReadOnly="True">
                                         <DataGridTextColumn.ElementStyle>

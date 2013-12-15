@@ -47,12 +47,18 @@ namespace GAPPSF.Core
 #endif
             _settingsStorage = new SqliteSettingsStorage();
             _settings = _settingsStorage.LoadSettings();
+            _ignoredGeocacheCodes = _settingsStorage.LoadIgnoredGeocacheCodes();
+            _ignoredGeocacheNames = _settingsStorage.LoadIgnoredGeocacheNames();
+            _ignoredGeocacheOwners = _settingsStorage.LoadIgnoredGeocacheOwners();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         private ISettingsStorage _settingsStorage = null;
         private Hashtable _settings;
+        private Hashtable _ignoredGeocacheCodes;
+        private Hashtable _ignoredGeocacheNames;
+        private Hashtable _ignoredGeocacheOwners;
 
         protected void SetProperty(string value, [CallerMemberName] string name = "")
         {

@@ -15,22 +15,25 @@ namespace GAPPSF.Utils
         public static bool AddGeocache(Database db, GeocacheData gd)
         {
             bool result = true;
-            Geocache gc = db.GeocacheCollection.GetGeocache(gd.Code);
-            if (gc == null)
+            if (!Core.Settings.Default.GeocacheIgnored(gd))
             {
-                gc = new Geocache(db, gd);
-                gc.Selected = Core.Settings.Default.AutoSelectNewGeocaches;
-            }
-            else
-            {
-                if (gc.DataFromDate<gd.DataFromDate)
+                Geocache gc = db.GeocacheCollection.GetGeocache(gd.Code);
+                if (gc == null)
                 {
-                    gc.BeginUpdate();
-                    GeocacheData.Copy(gd, gc);
-                    gc.EndUpdate();
+                    gc = new Geocache(db, gd);
+                    gc.Selected = Core.Settings.Default.AutoSelectNewGeocaches;
                 }
+                else
+                {
+                    if (gc.DataFromDate < gd.DataFromDate)
+                    {
+                        gc.BeginUpdate();
+                        GeocacheData.Copy(gd, gc);
+                        gc.EndUpdate();
+                    }
+                }
+                Utils.Calculus.SetDistanceAndAngleGeocacheFromLocation(gc, ApplicationData.Instance.CenterLocation);
             }
-            Utils.Calculus.SetDistanceAndAngleGeocacheFromLocation(gc, ApplicationData.Instance.CenterLocation);
             return result;
         }
 

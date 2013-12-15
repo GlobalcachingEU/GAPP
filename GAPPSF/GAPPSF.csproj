@@ -150,6 +150,7 @@
     <Compile Include="Core\Settings\GeocacheFilterSettings.cs" />
     <Compile Include="Core\Settings\GeocacheViewerSettings.cs" />
     <Compile Include="Core\Settings\GoogleMapSettings.cs" />
+    <Compile Include="Core\Settings\IgnoreGeocachesSettings.cs" />
     <Compile Include="Core\Settings\LiveAPISettings.cs" />
     <Compile Include="Core\Settings\MainWindowSettings.cs" />
     <Compile Include="Core\Settings\OfflineImageSettings.cs" />
@@ -286,6 +287,9 @@
     </Compile>
     <Compile Include="UIControls\GMap\GoogleMap.xaml.cs">
       <DependentUpon>GoogleMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UIControls\IgnoreGeocaches\Control.xaml.cs">
+      <DependentUpon>Control.xaml</DependentUpon>
     </Compile>
     <Compile Include="UIControls\InverseBooleanConverter.cs" />
     <Compile Include="UIControls\IUIControl.cs" />
@@ -528,6 +532,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIControls\GMap\GoogleMap.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\IgnoreGeocaches\Control.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
