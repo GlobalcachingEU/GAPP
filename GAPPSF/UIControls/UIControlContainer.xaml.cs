@@ -230,6 +230,11 @@ namespace GAPPSF.UIControls
             FeatureControl = new GeocacheFilter.Control();
         }
 
+        private void MenuItem_Click_7(object sender, RoutedEventArgs e)
+        {
+            FeatureControl = new IgnoreGeocaches.Control();
+        }
+
 
     }
 }

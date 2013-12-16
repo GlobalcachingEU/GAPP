@@ -85,6 +85,7 @@
                         <MenuItem x:Name="menu25" Header="{l:Translate GoogleMap}" Click="MenuItem_Click_7" />
                     </MenuItem>
                     <MenuItem x:Name="menu26" Header="{l:Translate OfflineImages}" Click="MenuItem_Click_9" />
+                    <MenuItem x:Name="menu27" Header="{l:Translate IgnoreGeocaches}" Click="menu27_Click" />
                 </MenuItem>
             </Menu>
             <ToolBarTray Background="#FFD6DBE9">

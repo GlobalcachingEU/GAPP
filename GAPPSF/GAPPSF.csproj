@@ -291,6 +291,7 @@
     <Compile Include="UIControls\IgnoreGeocaches\Control.xaml.cs">
       <DependentUpon>Control.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UIControls\IgnoreGeocaches\IgnoreCategory.cs" />
     <Compile Include="UIControls\InverseBooleanConverter.cs" />
     <Compile Include="UIControls\IUIControl.cs" />
     <Compile Include="ImageGrabber\OfflineImagesManager.cs" />

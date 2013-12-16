@@ -969,5 +969,12 @@ namespace GAPPSF
             dlg.ShowDialog();
         }
 
+        private void menu27_Click(object sender, RoutedEventArgs e)
+        {
+            Window w = new FeatureWindow(new UIControls.IgnoreGeocaches.Control());
+            w.Owner = this;
+            w.Show();
+        }
+
     }
 }

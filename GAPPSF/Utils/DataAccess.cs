@@ -40,18 +40,21 @@ namespace GAPPSF.Utils
         public static bool AddLog(Database db, LogData gd)
         {
             bool result = true;
-            Log gc = db.LogCollection.GetLog(gd.ID);
-            if (gc == null)
+            if (!Core.Settings.Default.GeocacheCodeIgnored(gd.GeocacheCode))
             {
-                gc = new Log(db, gd);
-            }
-            else
-            {
-                if (gc.DataFromDate < gd.DataFromDate)
+                Log gc = db.LogCollection.GetLog(gd.ID);
+                if (gc == null)
                 {
-                    gc.BeginUpdate();
-                    LogData.Copy(gd, gc);
-                    gc.EndUpdate();
+                    gc = new Log(db, gd);
+                }
+                else
+                {
+                    if (gc.DataFromDate < gd.DataFromDate)
+                    {
+                        gc.BeginUpdate();
+                        LogData.Copy(gd, gc);
+                        gc.EndUpdate();
+                    }
                 }
             }
             return result;
@@ -60,18 +63,21 @@ namespace GAPPSF.Utils
         public static bool AddWaypoint(Database db, WaypointData gd)
         {
             bool result = true;
-            Waypoint gc = db.WaypointCollection.GetWaypoint(gd.ID);
-            if (gc == null)
+            if (!Core.Settings.Default.GeocacheCodeIgnored(gd.GeocacheCode))
             {
-                gc = new Waypoint(db, gd);
-            }
-            else
-            {
-                if (gc.DataFromDate < gd.DataFromDate)
+                Waypoint gc = db.WaypointCollection.GetWaypoint(gd.ID);
+                if (gc == null)
                 {
-                    gc.BeginUpdate();
-                    WaypointData.Copy(gd, gc);
-                    gc.EndUpdate();
+                    gc = new Waypoint(db, gd);
+                }
+                else
+                {
+                    if (gc.DataFromDate < gd.DataFromDate)
+                    {
+                        gc.BeginUpdate();
+                        WaypointData.Copy(gd, gc);
+                        gc.EndUpdate();
+                    }
                 }
             }
             return result;

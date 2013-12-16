@@ -1,0 +1,55 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace GAPPSF.UIControls.IgnoreGeocaches
+{
+    public class IgnoreCategory
+    {
+        public string Category { get; private set; }
+        protected string _rcText { get; private set; }
+        public IgnoreCategory(string category, string rcText)
+        {
+            Category = category;
+            _rcText = rcText;
+            Text = Localization.TranslationManager.Instance.Translate(_rcText) as string;
+        }
+        public string Text { get; set; }
+        public ObservableCollection<string> Items { get; set; }
+        public override string ToString()
+        {
+            return Text;
+        }
+        public virtual void UpdateItems() { ;}
+        public virtual void UpdateText() 
+        {
+            Text = Localization.TranslationManager.Instance.Translate(_rcText) as string;
+        }
+        public virtual void AddItem(string item) { ;}
+    }
+
+    public class IgnoredGeocacheCodes : IgnoreCategory
+    {
+        public IgnoredGeocacheCodes()
+            : base("code","Codes")
+        {
+            Items = new ObservableCollection<string>(Core.Settings.Default.IgnoredGeocacheCodes);
+        }
+        public override void UpdateItems()
+        {
+            Items.Clear();
+            List<string> items = Core.Settings.Default.IgnoredGeocacheCodes;
+            foreach(string s in items)
+            {
+                Items.Add(s);
+            }
+        }
+        public override void AddItem(string item)
+        {
+            Core.Settings.Default.AddIgnoreGeocacheCodes(new string[] { item.ToUpper() }.ToList());
+        }
+    }
+}

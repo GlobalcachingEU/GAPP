@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GAPPSF.Commands;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,11 +21,25 @@ namespace GAPPSF.UIControls.IgnoreGeocaches
     /// </summary>
     public partial class Control : UserControl, IUIControl, IDisposable
     {
+        public List<IgnoreCategory> IgnoreCategories { get; private set; }
         public Control()
         {
             InitializeComponent();
 
+            IgnoreCategories = new List<IgnoreCategory>();
+            IgnoreCategories.Add(new IgnoredGeocacheCodes());
+            DataContext = this;
+
             Core.Settings.Default.PropertyChanged += Default_PropertyChanged;
+            Localization.TranslationManager.Instance.LanguageChanged += Instance_LanguageChanged;
+        }
+
+        void Instance_LanguageChanged(object sender, EventArgs e)
+        {
+            foreach (var c in IgnoreCategories)
+            {
+                c.UpdateText();
+            }
         }
 
         public override string ToString()
@@ -36,13 +51,55 @@ namespace GAPPSF.UIControls.IgnoreGeocaches
         {
             if (e.PropertyName=="IgnoreGeocachesUpdateCounter")
             {
-                //todo: update content
+                foreach(var c in IgnoreCategories)
+                {
+                    c.UpdateItems();
+                }
             }
         }
 
         public void Dispose()
         {
+            Localization.TranslationManager.Instance.LanguageChanged -= Instance_LanguageChanged;
             Core.Settings.Default.PropertyChanged -= Default_PropertyChanged;
+        }
+
+        private RelayCommand _addItemCommand = null;
+        public RelayCommand AddItemCommand
+        {
+            get
+            {
+                if (_addItemCommand==null)
+                {
+                    _addItemCommand = new RelayCommand(param => AddItem(), param => itemEdit.Text.Trim().Length > 0);
+                }
+                return _addItemCommand;
+            }
+        }
+        public void AddItem()
+        {
+            IgnoreCategory cat = catCombo.SelectedItem as IgnoreCategory;
+            if (cat!=null && itemEdit.Text.Trim().Length > 0)
+            {
+                cat.AddItem(itemEdit.Text.Trim());
+            }
+        }
+
+        private RelayCommand _removeItemCommand = null;
+        public RelayCommand RemoveItemCommand
+        {
+            get
+            {
+                if (_removeItemCommand == null)
+                {
+                    _removeItemCommand = new RelayCommand(param => RemoveItem(), param => itemList.SelectedItems.Count > 0);
+                }
+                return _removeItemCommand;
+            }
+        }
+        public void RemoveItem()
+        {
+
         }
 
         public int WindowWidth
@@ -91,6 +148,11 @@ namespace GAPPSF.UIControls.IgnoreGeocaches
             {
                 Core.Settings.Default.IgnoreGeocachesWindowTop = value;
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Core.Settings.Default.ClearGeocacheIgnoreFilters();
         }
 
 

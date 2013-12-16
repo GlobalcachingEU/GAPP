@@ -20,13 +20,13 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <TextBlock Margin="4" Grid.Row="0" Grid.Column="0" Text="{l:Translate Property}" />
-        <ComboBox Margin="4" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" />
+        <ComboBox x:Name="catCombo" Margin="4" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" ItemsSource="{Binding IgnoreCategories}" />
         <TextBlock Margin="4" Grid.Row="1" Grid.Column="0" Text="{l:Translate Values}" />
-        <ListBox Margin="4" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-        <Button Margin="4" Grid.Row="2" Grid.Column="0" Content="{l:Translate Remove}" />
-        <Button Margin="4" Grid.Row="3" Grid.Column="0" Content="{l:Translate Add}" />
-        <TextBox Margin="4" Grid.Row="3" Grid.Column="1" />
+        <ListBox x:Name="itemList" DataContext="{Binding SelectedItem, ElementName=catCombo}" ItemsSource="{Binding Items}" Margin="4" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        <Button Margin="4" Grid.Row="2" Grid.Column="0" Content="{l:Translate Remove}" Command="{Binding RemoveItemCommand}" />
+        <Button Margin="4" Grid.Row="3" Grid.Column="0" Content="{l:Translate Add}" Command="{Binding AddItemCommand}" />
+        <TextBox x:Name="itemEdit" Margin="4" Grid.Row="3" Grid.Column="1" />
         <TextBlock Margin="4" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Text="{l:Translate FilterApplyNote}" />
-        <Button Margin="4,14,4,4" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Content="{l:Translate ClearAllFilters}" />
+        <Button Margin="4,14,4,4" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Content="{l:Translate ClearAllFilters}" Click="Button_Click" />
     </Grid>
 </UserControl>
