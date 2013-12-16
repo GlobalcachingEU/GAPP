@@ -14,14 +14,14 @@ namespace GAPPSF.Core
 
         //geocache ignore filter
         Hashtable LoadIgnoredGeocacheCodes();
-        Hashtable LoadIgnoredGeocacheNames();
-        Hashtable LoadIgnoredGeocacheOwners();
+        List<string> LoadIgnoredGeocacheNames();
+        List<string> LoadIgnoredGeocacheOwners();
         void ClearGeocacheIgnoreFilters();
-        void AddIgnoreGeocacheCodes(List<string> codes);
-        void AddIgnoreGeocacheNames(List<string> names);
-        void AddIgnoreGeocacheOwners(List<string> owners);
-        void DeleteIgnoreGeocacheCodes(List<string> codes);
-        void DeleteIgnoreGeocacheNames(List<string> names);
-        void DeleteIgnoreGeocacheOwners(List<string> owners);
+        void AddIgnoreGeocacheCode(string code);
+        void AddIgnoreGeocacheName(string name);
+        void AddIgnoreGeocacheOwner(string owner);
+        void DeleteIgnoreGeocacheCode(string code);
+        void DeleteIgnoreGeocacheName(string name);
+        void DeleteIgnoreGeocacheOwner(string owner);
     }
 }

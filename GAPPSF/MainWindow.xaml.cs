@@ -168,8 +168,6 @@ namespace GAPPSF
                     }
                 }
             }
-            //test:
-            //this.InputBindings.Add(new KeyBinding(ShortCutKeyCommand, new KeyGesture(Key.S, ModifierKeys.Control)) { CommandParameter = menu1 });
         }
 
         private RelayCommand _shortCutKeyCommand = null;
@@ -661,6 +659,74 @@ namespace GAPPSF
         }
 
 
+
+        AsyncDelegateCommand _exportKMLActiveCommand;
+        public ICommand ExportKMLActiveCommand
+        {
+            get
+            {
+                if (_exportKMLActiveCommand == null)
+                {
+                    _exportKMLActiveCommand = new AsyncDelegateCommand(param => this.ExportKMLActive(),
+                        param => Core.ApplicationData.Instance.ActiveGeocache != null);
+                }
+                return _exportKMLActiveCommand;
+            }
+        }
+        async private Task ExportKMLActive()
+        {
+            if (Core.ApplicationData.Instance.ActiveGeocache != null)
+            {
+                await ExportKML(new Core.Data.Geocache[] { Core.ApplicationData.Instance.ActiveGeocache }.ToList());
+            }
+        }
+        AsyncDelegateCommand _exportKMLSelectedCommand;
+        public ICommand ExportKMLSelectedCommand
+        {
+            get
+            {
+                if (_exportKMLSelectedCommand == null)
+                {
+                    _exportKMLSelectedCommand = new AsyncDelegateCommand(param => this.ExportKMLSelected(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null && this.GeocacheSelectionCount>0);
+                }
+                return _exportKMLSelectedCommand;
+            }
+        }
+        async private Task ExportKMLSelected()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                await ExportKML((from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection where a.Selected select a).ToList());
+            }
+        }
+        AsyncDelegateCommand _exportKMLAllCommand;
+        public ICommand ExportKMLAllCommand
+        {
+            get
+            {
+                if (_exportKMLAllCommand == null)
+                {
+                    _exportKMLAllCommand = new AsyncDelegateCommand(param => this.ExportKMLAll(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null);
+                }
+                return _exportKMLAllCommand;
+            }
+        }
+        async private Task ExportKMLAll()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                await ExportKML(Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection);
+            }
+        }
+        async private Task ExportKML(List<Core.Data.Geocache> gcList)
+        {
+            KML.Export p = new KML.Export();
+            await p.PerformExportAsync(gcList);
+        }
+
+
         AsyncDelegateCommand _importGappCommand;
         public ICommand ImportGAPPCommand
         {
@@ -806,6 +872,197 @@ namespace GAPPSF
             w.Show();
         }
 
+
+
+        ForAllGeocachesCommand _selectWithUserWPCommand;
+        public ICommand SelectWithUserWPCommand
+        {
+            get
+            {
+                if (_selectWithUserWPCommand == null)
+                {
+                    _selectWithUserWPCommand = new ForAllGeocachesCommand(param => this.selectWithUserWP(param));
+                }
+                return _selectWithUserWPCommand;
+            }
+        }
+        private void selectWithUserWP(Core.Data.Geocache gc)
+        {
+           gc.Selected = Utils.DataAccess.GetUserWaypointsFromGeocache(gc.Database,gc.Code).Count() > 0;
+        }
+
+
+        ForAllGeocachesCommand _selectMultipleFoundsCommand;
+        public ICommand SelectMultipleFoundsCommand
+        {
+            get
+            {
+                if (_selectMultipleFoundsCommand == null)
+                {
+                    _selectMultipleFoundsCommand = new ForAllGeocachesCommand(param => this.selectMultipleFounds(param));
+                }
+                return _selectMultipleFoundsCommand;
+            }
+        }
+        private void selectMultipleFounds(Core.Data.Geocache gc)
+        {
+            if (gc.Found)
+            {
+                Core.Data.AccountInfo ai = Core.ApplicationData.Instance.AccountInfos.GetAccountInfo(gc.Code.Substring(0, 2));
+                if (ai != null)
+                {
+                    string me = ai.AccountName;
+                    gc.Selected = (from a in Utils.DataAccess.GetLogs(gc.Database, gc.Code) where a.LogType.AsFound && a.Finder == me select a).Count() > 1;
+                }
+            }
+            else
+            {
+                gc.Selected = false;
+            }
+        }
+
+
+        ForAllGeocachesCommand _selectOwnCommand;
+        public ICommand SelectOwnCommand
+        {
+            get
+            {
+                if (_selectOwnCommand == null)
+                {
+                    _selectOwnCommand = new ForAllGeocachesCommand(param => this.selectOwn(param));
+                }
+                return _selectOwnCommand;
+            }
+        }
+        private void selectOwn(Core.Data.Geocache gc)
+        {
+            gc.Selected = gc.IsOwn;
+        }
+
+
+        ForAllGeocachesCommand _selectCorrectCoordsCommand;
+        public ICommand SelectCorrectCoordsCommand
+        {
+            get
+            {
+                if (_selectCorrectCoordsCommand == null)
+                {
+                    _selectCorrectCoordsCommand = new ForAllGeocachesCommand(param => this.selectCorrectCoords(param));
+                }
+                return _selectCorrectCoordsCommand;
+            }
+        }
+        private void selectCorrectCoords(Core.Data.Geocache gc)
+        {
+            gc.Selected = gc.ContainsCustomLatLon;
+        }
+
+
+
+        ForAllGeocachesCommand _selectNotesCommand;
+        public ICommand SelectNotesCommand
+        {
+            get
+            {
+                if (_selectNotesCommand == null)
+                {
+                    _selectNotesCommand = new ForAllGeocachesCommand(param => this.selectNotes(param));
+                }
+                return _selectNotesCommand;
+            }
+        }
+        private void selectNotes(Core.Data.Geocache gc)
+        {
+            gc.Selected = gc.ContainsNote;
+        }
+
+
+        ForAllGeocachesCommand _selectFlaggedCommand;
+        public ICommand SelectFlaggedCommand
+        {
+            get
+            {
+                if (_selectFlaggedCommand == null)
+                {
+                    _selectFlaggedCommand = new ForAllGeocachesCommand(param => this.selectFlagged(param));
+                }
+                return _selectFlaggedCommand;
+            }
+        }
+        private void selectFlagged(Core.Data.Geocache gc)
+        {
+            gc.Selected = gc.Flagged;
+        }
+
+        ForAllGeocachesCommand _selectAvailableCommand;
+        public ICommand SelectAvailableCommand
+        {
+            get
+            {
+                if (_selectAvailableCommand == null)
+                {
+                    _selectAvailableCommand = new ForAllGeocachesCommand(param => this.selectAvailable(param));
+                }
+                return _selectAvailableCommand;
+            }
+        }
+        private void selectAvailable(Core.Data.Geocache gc)
+        {
+            gc.Selected = gc.Available;
+        }
+
+        ForAllGeocachesCommand _selectFoundCommand;
+        public ICommand SelectFoundCommand
+        {
+            get
+            {
+                if (_selectFoundCommand == null)
+                {
+                    _selectFoundCommand = new ForAllGeocachesCommand(param => this.selectFound(param));
+                }
+                return _selectFoundCommand;
+            }
+        }
+        private void selectFound(Core.Data.Geocache gc)
+        {
+            gc.Selected = gc.Found;
+        }
+
+        ForAllGeocachesCommand _selectNotFoundCommand;
+        public ICommand SelectNotFoundCommand
+        {
+            get
+            {
+                if (_selectNotFoundCommand == null)
+                {
+                    _selectNotFoundCommand = new ForAllGeocachesCommand(param => this.selectNotFound(param));
+                }
+                return _selectNotFoundCommand;
+            }
+        }
+        private void selectNotFound(Core.Data.Geocache gc)
+        {
+            gc.Selected = !gc.Found;
+        }
+
+
+        ForAllGeocachesCommand _selectInvertCommand;
+        public ICommand SelectInvertCommand
+        {
+            get
+            {
+                if (_selectInvertCommand == null)
+                {
+                    _selectInvertCommand = new ForAllGeocachesCommand(param => this.selectInvert(param));
+                }
+                return _selectInvertCommand;
+            }
+        }
+        private void selectInvert(Core.Data.Geocache gc)
+        {
+            gc.Selected = !gc.Selected;
+        }
+
         ForAllGeocachesCommand _selectArchivedCommand;
         public ICommand SelectArchivedCommand
         {
@@ -878,50 +1135,6 @@ namespace GAPPSF
             }
         }
 
-
-        public static T FindChild<T>(DependencyObject parent, string childName)
-           where T : DependencyObject
-        {
-            // Confirm parent and childName are valid. 
-            if (parent == null) return null;
-
-            T foundChild = null;
-
-            int childrenCount = VisualTreeHelper.GetChildrenCount(parent);
-            for (int i = 0; i < childrenCount; i++)
-            {
-                var child = VisualTreeHelper.GetChild(parent, i);
-                // If the child is not of the request child type child
-                T childType = child as T;
-                if (childType == null)
-                {
-                    // recursively drill down the tree
-                    foundChild = FindChild<T>(child, childName);
-
-                    // If the child is found, break so we do not overwrite the found child. 
-                    if (foundChild != null) break;
-                }
-                else if (!string.IsNullOrEmpty(childName))
-                {
-                    var frameworkElement = child as FrameworkElement;
-                    // If the child's name is set for search
-                    if (frameworkElement != null && frameworkElement.Name == childName)
-                    {
-                        // if the child's name is of the request name
-                        foundChild = (T)child;
-                        break;
-                    }
-                }
-                else
-                {
-                    // child element found.
-                    foundChild = (T)child;
-                    break;
-                }
-            }
-
-            return foundChild;
-        }
 
         private void MenuItem_Click_7(object sender, RoutedEventArgs e)
         {

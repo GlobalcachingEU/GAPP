@@ -304,6 +304,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear all filters.
+        /// </summary>
+        internal static string ClearAllFilters {
+            get {
+                return ResourceManager.GetString("ClearAllFilters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clear selection.
         /// </summary>
         internal static string ClearSelection {
@@ -435,6 +444,15 @@ namespace GAPPSF.Resources {
         internal static string CountryState {
             get {
                 return ResourceManager.GetString("CountryState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating file.
+        /// </summary>
+        internal static string CreatingFile {
+            get {
+                return ResourceManager.GetString("CreatingFile", resourceCulture);
             }
         }
         
@@ -583,6 +601,33 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export.
+        /// </summary>
+        internal static string Export {
+            get {
+                return ResourceManager.GetString("Export", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting KML.
+        /// </summary>
+        internal static string ExportingKML {
+            get {
+                return ResourceManager.GetString("ExportingKML", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export KML.
+        /// </summary>
+        internal static string ExportKML {
+            get {
+                return ResourceManager.GetString("ExportKML", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to F.
         /// </summary>
         internal static string F {
@@ -633,6 +678,15 @@ namespace GAPPSF.Resources {
         internal static string Filter {
             get {
                 return ResourceManager.GetString("Filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New filters only apply for new imports.
+        /// </summary>
+        internal static string FilterApplyNote {
+            get {
+                return ResourceManager.GetString("FilterApplyNote", resourceCulture);
             }
         }
         
@@ -822,6 +876,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Help.
+        /// </summary>
+        internal static string Help {
+            get {
+                return ResourceManager.GetString("Help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hints.
         /// </summary>
         internal static string Hints {
@@ -872,6 +935,15 @@ namespace GAPPSF.Resources {
         internal static string IFound {
             get {
                 return ResourceManager.GetString("IFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ignore geocaches.
+        /// </summary>
+        internal static string IgnoreGeocaches {
+            get {
+                return ResourceManager.GetString("IgnoreGeocaches", resourceCulture);
             }
         }
         
@@ -1272,6 +1344,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OKAPI.
+        /// </summary>
+        internal static string OKAPI {
+            get {
+                return ResourceManager.GetString("OKAPI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open.
         /// </summary>
         internal static string Open {
@@ -1353,6 +1434,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Property.
+        /// </summary>
+        internal static string Property {
+            get {
+                return ResourceManager.GetString("Property", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Publication date.
         /// </summary>
         internal static string PublicationDate {
@@ -1371,11 +1461,11 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Quick search.
+        ///   Looks up a localized string similar to Quick select.
         /// </summary>
-        internal static string QuickSearch {
+        internal static string QuickSelect {
             get {
-                return ResourceManager.GetString("QuickSearch", resourceCulture);
+                return ResourceManager.GetString("QuickSelect", resourceCulture);
             }
         }
         
@@ -1385,6 +1475,15 @@ namespace GAPPSF.Resources {
         internal static string Radius {
             get {
                 return ResourceManager.GetString("Radius", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        internal static string Remove {
+            get {
+                return ResourceManager.GetString("Remove", resourceCulture);
             }
         }
         
@@ -1434,11 +1533,101 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select archived.
+        /// </summary>
+        internal static string SelectArchived {
+            get {
+                return ResourceManager.GetString("SelectArchived", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select available.
+        /// </summary>
+        internal static string SelectAvailable {
+            get {
+                return ResourceManager.GetString("SelectAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select with corrected coords.
+        /// </summary>
+        internal static string SelectCorrectCoords {
+            get {
+                return ResourceManager.GetString("SelectCorrectCoords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Selected.
         /// </summary>
         internal static string Selected {
             get {
                 return ResourceManager.GetString("Selected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select flagged.
+        /// </summary>
+        internal static string SelectFlagged {
+            get {
+                return ResourceManager.GetString("SelectFlagged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select found.
+        /// </summary>
+        internal static string SelectFound {
+            get {
+                return ResourceManager.GetString("SelectFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Caches with multiple founds.
+        /// </summary>
+        internal static string SelectMultipleFounds {
+            get {
+                return ResourceManager.GetString("SelectMultipleFounds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select notes.
+        /// </summary>
+        internal static string SelectNotes {
+            get {
+                return ResourceManager.GetString("SelectNotes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select not found.
+        /// </summary>
+        internal static string SelectNotFound {
+            get {
+                return ResourceManager.GetString("SelectNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select you own.
+        /// </summary>
+        internal static string SelectOwn {
+            get {
+                return ResourceManager.GetString("SelectOwn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select with User waypoints.
+        /// </summary>
+        internal static string SelectWithUserWP {
+            get {
+                return ResourceManager.GetString("SelectWithUserWP", resourceCulture);
             }
         }
         
@@ -1684,6 +1873,15 @@ namespace GAPPSF.Resources {
         internal static string Yes {
             get {
                 return ResourceManager.GetString("Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yours.
+        /// </summary>
+        internal static string Yours {
+            get {
+                return ResourceManager.GetString("Yours", resourceCulture);
             }
         }
     }

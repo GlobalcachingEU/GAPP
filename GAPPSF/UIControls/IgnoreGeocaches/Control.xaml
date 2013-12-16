@@ -22,7 +22,7 @@
         <TextBlock Margin="4" Grid.Row="0" Grid.Column="0" Text="{l:Translate Property}" />
         <ComboBox x:Name="catCombo" Margin="4" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" ItemsSource="{Binding IgnoreCategories}" />
         <TextBlock Margin="4" Grid.Row="1" Grid.Column="0" Text="{l:Translate Values}" />
-        <ListBox x:Name="itemList" DataContext="{Binding SelectedItem, ElementName=catCombo}" ItemsSource="{Binding Items}" Margin="4" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        <ListBox x:Name="itemList" DataContext="{Binding SelectedItem, ElementName=catCombo}" ItemsSource="{Binding Items}" Margin="4" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionMode="Multiple" />
         <Button Margin="4" Grid.Row="2" Grid.Column="0" Content="{l:Translate Remove}" Command="{Binding RemoveItemCommand}" />
         <Button Margin="4" Grid.Row="3" Grid.Column="0" Content="{l:Translate Add}" Command="{Binding AddItemCommand}" />
         <TextBox x:Name="itemEdit" Margin="4" Grid.Row="3" Grid.Column="1" />

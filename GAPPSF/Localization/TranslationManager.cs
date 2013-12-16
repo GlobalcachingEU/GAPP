@@ -135,6 +135,14 @@ namespace GAPPSF.Localization
                     }
                     return translatedValue;
                 }
+                else //not in resource file, but maybe in override xml file
+                {
+                    string patchedValue = _overrideTranslation[(key as string).ToLower()] as string;
+                    if (!string.IsNullOrEmpty(patchedValue))
+                    {
+                        return patchedValue;
+                    }
+                }
             }
 #if DEBUG
             return string.Format("!{0}!", key);

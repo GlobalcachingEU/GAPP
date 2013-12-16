@@ -245,9 +245,6 @@ In order to use these features, you have to authorize this application to access
   <data name="PasteSelection" xml:space="preserve">
     <value>Paste selection</value>
   </data>
-  <data name="QuickSearch" xml:space="preserve">
-    <value>Quick search</value>
-  </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
   </data>
@@ -663,5 +660,74 @@ This wizard will guide you through the initial setup. Before you start, you migh
   </data>
   <data name="NoneOfSelected" xml:space="preserve">
     <value>None of selected</value>
+  </data>
+  <data name="ClearAllFilters" xml:space="preserve">
+    <value>Clear all filters</value>
+  </data>
+  <data name="FilterApplyNote" xml:space="preserve">
+    <value>New filters only apply for new imports</value>
+  </data>
+  <data name="IgnoreGeocaches" xml:space="preserve">
+    <value>Ignore geocaches</value>
+  </data>
+  <data name="Property" xml:space="preserve">
+    <value>Property</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="QuickSelect" xml:space="preserve">
+    <value>Quick select</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="OKAPI" xml:space="preserve">
+    <value>OKAPI</value>
+  </data>
+  <data name="SelectArchived" xml:space="preserve">
+    <value>Select archived</value>
+  </data>
+  <data name="SelectAvailable" xml:space="preserve">
+    <value>Select available</value>
+  </data>
+  <data name="SelectCorrectCoords" xml:space="preserve">
+    <value>Select with corrected coords</value>
+  </data>
+  <data name="SelectFlagged" xml:space="preserve">
+    <value>Select flagged</value>
+  </data>
+  <data name="SelectFound" xml:space="preserve">
+    <value>Select found</value>
+  </data>
+  <data name="SelectMultipleFounds" xml:space="preserve">
+    <value>Caches with multiple founds</value>
+  </data>
+  <data name="SelectNotes" xml:space="preserve">
+    <value>Select notes</value>
+  </data>
+  <data name="SelectNotFound" xml:space="preserve">
+    <value>Select not found</value>
+  </data>
+  <data name="SelectOwn" xml:space="preserve">
+    <value>Select you own</value>
+  </data>
+  <data name="SelectWithUserWP" xml:space="preserve">
+    <value>Select with User waypoints</value>
+  </data>
+  <data name="ExportKML" xml:space="preserve">
+    <value>Export KML</value>
+  </data>
+  <data name="CreatingFile" xml:space="preserve">
+    <value>Creating file</value>
+  </data>
+  <data name="ExportingKML" xml:space="preserve">
+    <value>Exporting KML</value>
+  </data>
+  <data name="Yours" xml:space="preserve">
+    <value>Yours</value>
   </data>
 </root>

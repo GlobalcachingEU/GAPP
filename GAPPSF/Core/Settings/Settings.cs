@@ -57,8 +57,8 @@ namespace GAPPSF.Core
         private ISettingsStorage _settingsStorage = null;
         private Hashtable _settings;
         private Hashtable _ignoredGeocacheCodes;
-        private Hashtable _ignoredGeocacheNames;
-        private Hashtable _ignoredGeocacheOwners;
+        private List<string> _ignoredGeocacheNames;
+        private List<string> _ignoredGeocacheOwners;
 
         protected void SetProperty(string value, [CallerMemberName] string name = "")
         {

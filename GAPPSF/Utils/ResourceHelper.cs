@@ -42,6 +42,28 @@ namespace GAPPSF.Utils
             return result;
         }
 
+        [DebuggerNonUserCode]
+        public static void SaveToFile(string pathToResource, string filename, bool overwrite)
+        {
+            try
+            {
+                if (overwrite || !File.Exists(filename))
+                {
+                    Uri u = GetResourceUri(pathToResource);
+                    if (u != null)
+                    {
+                        StreamResourceInfo info = Application.GetResourceStream(u);
+                        byte[] buffer = new byte[info.Stream.Length];
+                        info.Stream.Read(buffer, 0, buffer.Length);
+                        File.WriteAllBytes(filename, buffer);
+                    }
+                }
+            }
+            catch
+            {
+            }
+        }
+
         public static string GetEmbeddedTextFile(string pathToResource)
         {
             string result = "";

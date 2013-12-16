@@ -57,7 +57,7 @@ namespace GAPPSF.Core
         }
         public bool GeocacheIgnored(Core.Data.IGeocacheData gcData)
         {
-            bool result = (_ignoredGeocacheCodes[gcData.Code] != null || _ignoredGeocacheOwners[gcData.Owner ?? ""] != null || _ignoredGeocacheNames[gcData.Name ?? ""] != null);
+            bool result = (_ignoredGeocacheCodes[gcData.Code] != null || geocacheOwnerIgnored(gcData.Owner ?? "") || geocacheNameIgnored(gcData.Name ?? ""));
             if (result)
             {
                 if (_ignoredGeocacheCodes[gcData.Code] == null)
@@ -67,6 +67,15 @@ namespace GAPPSF.Core
             }
             return result;
         }
+        private bool geocacheOwnerIgnored(string owner)
+        {
+            return _ignoredGeocacheOwners.Contains(owner.ToLower());
+        }
+        private bool geocacheNameIgnored(string name)
+        {
+            string n = name.ToLower();
+            return (from a in _ignoredGeocacheNames where a.IndexOf(n)>=0 select a).FirstOrDefault()!=null;
+        }
 
         public List<string> IgnoredGeocacheCodes
         {
@@ -74,11 +83,11 @@ namespace GAPPSF.Core
         }
         public List<string> IgnoredGeocacheNames
         {
-            get { return (from string a in _ignoredGeocacheNames.Keys select a).ToList(); }
+            get { return (from string a in _ignoredGeocacheNames select a).ToList(); }
         }
         public List<string> IgnoredGeocacheOwners
         {
-            get { return (from string a in _ignoredGeocacheOwners.Keys select a).ToList(); }
+            get { return (from string a in _ignoredGeocacheOwners select a).ToList(); }
         }
 
         public void ClearGeocacheIgnoreFilters()
@@ -91,52 +100,63 @@ namespace GAPPSF.Core
         }
         public void AddIgnoreGeocacheCodes(List<string> codes)
         {
-            _settingsStorage.AddIgnoreGeocacheCodes(codes);
             foreach(string s in codes)
             {
-                _ignoredGeocacheCodes[s] = true;
+                string u = s.ToUpper();
+                _settingsStorage.AddIgnoreGeocacheCode(u);
+                _ignoredGeocacheCodes[u] = true;
             }
             IgnoreGeocachesUpdateCounter++;
         }
         public void AddIgnoreGeocacheNames(List<string> names)
         {
-            _settingsStorage.AddIgnoreGeocacheNames(names);
             foreach (string s in names)
             {
-                _ignoredGeocacheNames[s] = true;
+                string u = s.ToLower();
+                if (!_ignoredGeocacheNames.Contains(u))
+                {
+                    _settingsStorage.AddIgnoreGeocacheName(u);
+                    _ignoredGeocacheNames.Add(u);
+                }
             }
             IgnoreGeocachesUpdateCounter++;
         }
 
         public void AddIgnoreGeocacheOwners(List<string> owners)
         {
-            _settingsStorage.AddIgnoreGeocacheOwners(owners);
             foreach (string s in owners)
             {
-                _ignoredGeocacheOwners[s] = true;
+                string u = s.ToLower();
+                if (!_ignoredGeocacheOwners.Contains(u))
+                {
+                    _settingsStorage.AddIgnoreGeocacheOwner(u);
+                    _ignoredGeocacheOwners.Add(u);
+                }
             }
             IgnoreGeocachesUpdateCounter++;
         }
         public void DeleteIgnoreGeocacheCodes(List<string> codes)
         {
-            _settingsStorage.DeleteIgnoreGeocacheCodes(codes);
             foreach (string s in codes)
             {
-                if (_ignoredGeocacheCodes[s] !=null)
+                string u = s.ToUpper();
+                if (_ignoredGeocacheCodes[u] != null)
                 {
-                    _ignoredGeocacheCodes.Remove(s);
+                    _settingsStorage.DeleteIgnoreGeocacheCode(u);
+                    _ignoredGeocacheCodes.Remove(u);
                 }
             }
             IgnoreGeocachesUpdateCounter++;
         }
         public void DeleteIgnoreGeocacheNames(List<string> names)
         {
-            _settingsStorage.DeleteIgnoreGeocacheNames(names);
             foreach (string s in names)
             {
-                if (_ignoredGeocacheNames[s] != null)
+                string u = s.ToLower();
+                if (_ignoredGeocacheNames.Contains(u))
                 {
-                    _ignoredGeocacheNames.Remove(s);
+                    _settingsStorage.DeleteIgnoreGeocacheName(u);
+                    _ignoredGeocacheNames.Remove(u);
                 }
             }
             IgnoreGeocachesUpdateCounter++;
@@ -144,12 +164,13 @@ namespace GAPPSF.Core
 
         public void DeleteIgnoreGeocacheOwners(List<string> owners)
         {
-            _settingsStorage.DeleteIgnoreGeocacheOwners(owners);
             foreach (string s in owners)
             {
-                if (_ignoredGeocacheOwners[s] != null)
+                string u = s.ToLower();
+                if (_ignoredGeocacheOwners.Contains(u))
                 {
-                    _ignoredGeocacheOwners.Remove(s);
+                    _settingsStorage.DeleteIgnoreGeocacheOwner(u);
+                    _ignoredGeocacheOwners.Remove(u);
                 }
             }
             IgnoreGeocachesUpdateCounter++;

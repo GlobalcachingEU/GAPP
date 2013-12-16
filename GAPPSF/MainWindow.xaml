@@ -24,9 +24,16 @@
                 <MenuItem Header="{l:Translate File}">
                     <MenuItem x:Name="menu1" Header="{l:Translate New}" Command="{Binding NewCommand}" />
                     <MenuItem x:Name="menu2" Header="{l:Translate Open}" Command="{Binding OpenCommand}"/>
-                    <MenuItem Header="{l:Translate Import}">
-                        <MenuItem x:Name="menu3" Header="{l:Translate GPX}" Command="{Binding ImportGPXCommand}" />
-                        <MenuItem x:Name="menu4" Header="{l:Translate GAPPDataStorage}" Command="{Binding ImportGAPPCommand}" />
+                </MenuItem>
+                <MenuItem Header="{l:Translate Import}">
+                    <MenuItem x:Name="menu3" Header="{l:Translate GPX}" Command="{Binding ImportGPXCommand}" />
+                    <MenuItem x:Name="menu4" Header="{l:Translate GAPPDataStorage}" Command="{Binding ImportGAPPCommand}" />
+                </MenuItem>
+                <MenuItem Header="{l:Translate Export}">
+                    <MenuItem Header="{l:Translate ExportKML}">
+                        <MenuItem x:Name="menu40" Header="{l:Translate Active}" Command="{Binding ExportKMLActiveCommand}" />
+                        <MenuItem x:Name="menu41" Header="{l:Translate Selected}" Command="{Binding ExportKMLSelectedCommand}" />
+                        <MenuItem x:Name="menu42" Header="{l:Translate All}" Command="{Binding ExportKMLAllCommand}" />
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{l:Translate Edit}">
@@ -40,14 +47,29 @@
                     <MenuItem x:Name="menu11" Header="{l:Translate ClearSelection}" Command="{Binding SelectNoneCommand}" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate Search}">
-                    <MenuItem Header="{l:Translate QuickSearch}">
-                        <MenuItem x:Name="menu12" Header="{l:Translate Archived}" Command="{Binding SelectArchivedCommand}" />
-                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="{l:Translate QuickSelect}">
+                    <MenuItem x:Name="menua10" Header="{l:Translate SelectAll}" Command="{Binding SelectAllCommand}" />
+                    <MenuItem x:Name="menua11" Header="{l:Translate ClearSelection}" Command="{Binding SelectNoneCommand}" />
+                    <MenuItem x:Name="menua12" Header="{l:Translate InvertSelection}" Command="{Binding SelectInvertCommand}" />
+                    <Separator />
+                    <MenuItem x:Name="menu12" Header="{l:Translate SelectArchived}" Command="{Binding SelectArchivedCommand}" />
+                    <MenuItem x:Name="menu32" Header="{l:Translate SelectAvailable}" Command="{Binding SelectAvailableCommand}" />
+                    <MenuItem x:Name="menu30" Header="{l:Translate SelectFound}" Command="{Binding SelectFoundCommand}" />
+                    <MenuItem x:Name="menu31" Header="{l:Translate SelectNotFound}" Command="{Binding SelectNotFoundCommand}" />
+                    <MenuItem x:Name="menu33" Header="{l:Translate SelectFlagged}" Command="{Binding SelectFlaggedCommand}" />
+                    <MenuItem x:Name="menu34" Header="{l:Translate SelectNotes}" Command="{Binding SelectNotesCommand}" />
+                    <MenuItem x:Name="menu35" Header="{l:Translate SelectCorrectCoords}" Command="{Binding SelectCorrectedCoordsCommand}" />
+                    <MenuItem x:Name="menu36" Header="{l:Translate SelectMultipleFounds}" Command="{Binding SelectMultipleFoundsCommand}" />
+                    <MenuItem x:Name="menu37" Header="{l:Translate SelectOwn}" Command="{Binding SelectOwnCommand}" />
+                    <MenuItem x:Name="menu38" Header="{l:Translate SelectWithUserWP}" Command="{Binding SelectWithUserWPCommand}" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate Action}">
                 </MenuItem>
                 <MenuItem Header="{l:Translate LiveAPI}">
                     <MenuItem x:Name="menu13" Header="{l:Translate Authorize}" Command="{Binding LiveApiAuthorizeCommand}" />
+                </MenuItem>
+                <MenuItem Header="{l:Translate OKAPI}">
                 </MenuItem>
                 <MenuItem Header="{l:Translate Language}">
                     <MenuItem x:Name="menu14" Header="{l:Translate OriginalText}" Click="MenuItem_Click_2"  />
@@ -86,6 +108,8 @@
                     </MenuItem>
                     <MenuItem x:Name="menu26" Header="{l:Translate OfflineImages}" Click="MenuItem_Click_9" />
                     <MenuItem x:Name="menu27" Header="{l:Translate IgnoreGeocaches}" Click="menu27_Click" />
+                </MenuItem>
+                <MenuItem Header="{l:Translate Help}">
                 </MenuItem>
             </Menu>
             <ToolBarTray Background="#FFD6DBE9">

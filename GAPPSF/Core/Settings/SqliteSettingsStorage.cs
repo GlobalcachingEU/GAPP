@@ -134,24 +134,14 @@ namespace GAPPSF.Core
             return result;
         }
 
-        public Hashtable LoadIgnoredGeocacheNames()
+        public List<string> LoadIgnoredGeocacheNames()
         {
-            Hashtable result = new Hashtable();
-            foreach (DictionaryEntry kp in _ignoredGeocacheNames)
-            {
-                result.Add(kp.Key as string, kp.Value as string);
-            }
-            return result;
+            return (from string a in _ignoredGeocacheNames.Keys select a).ToList();
         }
 
-        public Hashtable LoadIgnoredGeocacheOwners()
+        public List<string> LoadIgnoredGeocacheOwners()
         {
-            Hashtable result = new Hashtable();
-            foreach (DictionaryEntry kp in _ignoredGeocacheOwners)
-            {
-                result.Add(kp.Key as string, kp.Value as string);
-            }
-            return result;
+            return (from string a in _ignoredGeocacheOwners.Keys select a).ToList();
         }
 
         public void ClearGeocacheIgnoreFilters()
@@ -165,92 +155,74 @@ namespace GAPPSF.Core
             }
         }
 
-        public void AddIgnoreGeocacheCodes(List<string> codes)
+        public void AddIgnoreGeocacheCode(string code)
         {
             if (_dbcon != null)
             {
-                foreach(string s in codes)
+                if (_ignoredGeocacheCodes[code] == null)
                 {
-                    if (_ignoredGeocacheCodes[s]==null)
-                    {
-                        _dbcon.ExecuteNonQuery(string.Format("insert into ignoregc (item_name, item_value) values ('code', '{0}')", s));
-                        _ignoredGeocacheCodes[s] = true;
-                    }
+                    _dbcon.ExecuteNonQuery(string.Format("insert into ignoregc (item_name, item_value) values ('code', '{0}')", code));
+                    _ignoredGeocacheCodes[code] = true;
                 }
             }
         }
 
-        public void AddIgnoreGeocacheNames(List<string> names)
+        public void AddIgnoreGeocacheName(string name)
         {
             if (_dbcon != null)
             {
-                foreach (string s in names)
+                if (_ignoredGeocacheNames[name] == null)
                 {
-                    if (_ignoredGeocacheNames[s] == null)
-                    {
-                        _dbcon.ExecuteNonQuery(string.Format("insert into ignoregc (item_name, item_value) values ('name', '{0}')", s.Replace("'","''")));
-                        _ignoredGeocacheNames[s] = true;
-                    }
+                    _dbcon.ExecuteNonQuery(string.Format("insert into ignoregc (item_name, item_value) values ('name', '{0}')", name.Replace("'", "''")));
+                    _ignoredGeocacheNames[name] = true;
                 }
             }
         }
 
-        public void AddIgnoreGeocacheOwners(List<string> owners)
+        public void AddIgnoreGeocacheOwner(string owner)
         {
             if (_dbcon != null)
             {
-                foreach (string s in owners)
+                if (_ignoredGeocacheOwners[owner] == null)
                 {
-                    if (_ignoredGeocacheOwners[s] == null)
-                    {
-                        _dbcon.ExecuteNonQuery(string.Format("insert into ignoregc (item_name, item_value) values ('owner', '{0}')", s.Replace("'", "''")));
-                        _ignoredGeocacheOwners[s] = true;
-                    }
+                    _dbcon.ExecuteNonQuery(string.Format("insert into ignoregc (item_name, item_value) values ('owner', '{0}')", owner.Replace("'", "''")));
+                    _ignoredGeocacheOwners[owner] = true;
                 }
             }
         }
 
-        public void DeleteIgnoreGeocacheCodes(List<string> codes)
+        public void DeleteIgnoreGeocacheCode(string code)
         {
             if (_dbcon != null)
             {
-                foreach (string s in codes)
+                if (_ignoredGeocacheCodes[code] != null)
                 {
-                    if (_ignoredGeocacheCodes[s] != null)
-                    {
-                        _dbcon.ExecuteNonQuery(string.Format("delete from ignoregc where item_name='code' and item_value='{0}'", s));
-                        _ignoredGeocacheCodes.Remove(s);
-                    }
+                    _dbcon.ExecuteNonQuery(string.Format("delete from ignoregc where item_name='code' and item_value='{0}'", code));
+                    _ignoredGeocacheCodes.Remove(code);
                 }
             }
         }
 
-        public void DeleteIgnoreGeocacheNames(List<string> names)
+        public void DeleteIgnoreGeocacheName(string name)
         {
             if (_dbcon != null)
             {
-                foreach (string s in names)
+                if (_ignoredGeocacheNames[name] != null)
                 {
-                    if (_ignoredGeocacheNames[s] != null)
-                    {
-                        _dbcon.ExecuteNonQuery(string.Format("delete from ignoregc where item_name='name' and item_value='{0}'", s.Replace("'", "''")));
-                        _ignoredGeocacheNames.Remove(s);
-                    }
+                    _dbcon.ExecuteNonQuery(string.Format("delete from ignoregc where item_name='name' and item_value='{0}'", name.Replace("'", "''")));
+                    _ignoredGeocacheNames.Remove(name);
                 }
             }
         }
 
-        public void DeleteIgnoreGeocacheOwners(List<string> owners)
+        public void DeleteIgnoreGeocacheOwner(string owner)
         {
             if (_dbcon != null)
             {
-                foreach (string s in owners)
+                if (_ignoredGeocacheOwners[owner] != null)
                 {
-                    if (_ignoredGeocacheOwners[s] != null)
-                    {
-                        _dbcon.ExecuteNonQuery(string.Format("delete from ignoregc where item_name='owner' and item_value='{0}'", s.Replace("'", "''")));
-                        _ignoredGeocacheOwners.Remove(s);
-                    }
+                    _dbcon.ExecuteNonQuery(string.Format("delete from ignoregc where item_name='owner' and item_value='{0}'", owner.Replace("'", "''")));
+                    _ignoredGeocacheOwners.Remove(owner);
                 }
             }
         }

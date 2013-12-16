@@ -190,6 +190,7 @@
     <Compile Include="Gavaghan.Geodesy\GlobalCoordinates.cs" />
     <Compile Include="Gavaghan.Geodesy\GlobalPosition.cs" />
     <Compile Include="GPX\Import.cs" />
+    <Compile Include="KML\Export.cs" />
     <Compile Include="LiveAPI\AuthorizationWindow.xaml.cs">
       <DependentUpon>AuthorizationWindow.xaml</DependentUpon>
     </Compile>

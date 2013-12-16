@@ -28,6 +28,8 @@ namespace GAPPSF.UIControls.IgnoreGeocaches
 
             IgnoreCategories = new List<IgnoreCategory>();
             IgnoreCategories.Add(new IgnoredGeocacheCodes());
+            IgnoreCategories.Add(new IgnoredGeocacheOwners());
+            IgnoreCategories.Add(new IgnoredGeocacheNames());
             DataContext = this;
 
             Core.Settings.Default.PropertyChanged += Default_PropertyChanged;
@@ -99,7 +101,11 @@ namespace GAPPSF.UIControls.IgnoreGeocaches
         }
         public void RemoveItem()
         {
-
+            IgnoreCategory cat = catCombo.SelectedItem as IgnoreCategory;
+            if (cat != null && itemList.SelectedItems.Count > 0)
+            {
+                cat.RemoveItems((from string a in itemList.SelectedItems select a).ToList());
+            }
         }
 
         public int WindowWidth
