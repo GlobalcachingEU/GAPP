@@ -150,6 +150,7 @@
     <Compile Include="Core\Settings\GeocacheFilterSettings.cs" />
     <Compile Include="Core\Settings\GeocacheViewerSettings.cs" />
     <Compile Include="Core\Settings\GoogleMapSettings.cs" />
+    <Compile Include="Core\Settings\GPXSettings.cs" />
     <Compile Include="Core\Settings\IgnoreGeocachesSettings.cs" />
     <Compile Include="Core\Settings\LiveAPISettings.cs" />
     <Compile Include="Core\Settings\MainWindowSettings.cs" />
@@ -159,6 +160,17 @@
     <Compile Include="Core\Settings\ShapefilesSettings.cs" />
     <Compile Include="Core\Settings\SqliteSettingsStorage.cs" />
     <Compile Include="Core\Storage\DatabaseCollection.cs" />
+    <Compile Include="Devices\GarminMassStorage.cs" />
+    <Compile Include="Dialogs\BrowseFolder\FolderPickerControl.xaml.cs">
+      <DependentUpon>FolderPickerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\BrowseFolder\FolderPickerDialog.xaml.cs">
+      <DependentUpon>FolderPickerDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\BrowseFolder\InputDialog.xaml.cs">
+      <DependentUpon>InputDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\BrowseFolder\TreeModel.cs" />
     <Compile Include="Dialogs\GetLocationWindow.xaml.cs">
       <DependentUpon>GetLocationWindow.xaml</DependentUpon>
     </Compile>
@@ -189,6 +201,11 @@
     <Compile Include="Gavaghan.Geodesy\GeodeticMeasurement.cs" />
     <Compile Include="Gavaghan.Geodesy\GlobalCoordinates.cs" />
     <Compile Include="Gavaghan.Geodesy\GlobalPosition.cs" />
+    <Compile Include="GPX\Enums.cs" />
+    <Compile Include="GPX\Export.cs" />
+    <Compile Include="GPX\ExportWindow.xaml.cs">
+      <DependentUpon>ExportWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GPX\Import.cs" />
     <Compile Include="KML\Export.cs" />
     <Compile Include="LiveAPI\AuthorizationWindow.xaml.cs">
@@ -331,6 +348,18 @@
     <Compile Include="Utils\ProgressBlock.cs" />
     <Compile Include="Utils\ResourceHelper.cs" />
     <Compile Include="Utils\TemporaryFile.cs" />
+    <Page Include="Dialogs\BrowseFolder\FolderPickerControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\BrowseFolder\FolderPickerDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\BrowseFolder\InputDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Dialogs\GetLocationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -344,6 +373,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="FeatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GPX\ExportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1071,6 +1104,14 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\General\check.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Shell\shell32_10.ico" />
+    <Resource Include="Resources\Shell\shell32_12.ico" />
+    <Resource Include="Resources\Shell\shell32_264.ico" />
+    <Resource Include="Resources\Shell\shell32_303.ico" />
+    <Resource Include="Resources\Shell\shell32_8.ico" />
+    <Resource Include="Resources\Shell\shell32_9.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

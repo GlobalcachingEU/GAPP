@@ -730,4 +730,19 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="Yours" xml:space="preserve">
     <value>Yours</value>
   </data>
+  <data name="FromCenterLocation" xml:space="preserve">
+    <value>From center location</value>
+  </data>
+  <data name="FromHomeLocation" xml:space="preserve">
+    <value>From home location</value>
+  </data>
+  <data name="GetLocation" xml:space="preserve">
+    <value>Get location</value>
+  </data>
+  <data name="Map" xml:space="preserve">
+    <value>Map</value>
+  </data>
+  <data name="ExportGPX" xml:space="preserve">
+    <value>Export GPX</value>
+  </data>
 </root>

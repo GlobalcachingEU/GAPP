@@ -610,6 +610,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export GPX.
+        /// </summary>
+        internal static string ExportGPX {
+            get {
+                return ResourceManager.GetString("ExportGPX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exporting KML.
         /// </summary>
         internal static string ExportingKML {
@@ -745,6 +754,24 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to From center location.
+        /// </summary>
+        internal static string FromCenterLocation {
+            get {
+                return ResourceManager.GetString("FromCenterLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From home location.
+        /// </summary>
+        internal static string FromHomeLocation {
+            get {
+                return ResourceManager.GetString("FromHomeLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GAPP Data Storage.
         /// </summary>
         internal static string GAPPDataStorage {
@@ -836,6 +863,15 @@ namespace GAPPSF.Resources {
         internal static string German {
             get {
                 return ResourceManager.GetString("German", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get location.
+        /// </summary>
+        internal static string GetLocation {
+            get {
+                return ResourceManager.GetString("GetLocation", resourceCulture);
             }
         }
         
@@ -1178,6 +1214,15 @@ namespace GAPPSF.Resources {
         internal static string MainWindowTitle {
             get {
                 return ResourceManager.GetString("MainWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Map.
+        /// </summary>
+        internal static string Map {
+            get {
+                return ResourceManager.GetString("Map", resourceCulture);
             }
         }
         

@@ -281,6 +281,24 @@ namespace GAPPSF.Utils
             return result;
         }
 
+        public static GAPPSF.Core.Data.GeocacheAttribute GetGeocacheAttribute(int typeId)
+        {
+            GAPPSF.Core.Data.GeocacheAttribute result = null;
+
+            result = (from gt in ApplicationData.Instance.GeocacheAttributes
+                      where gt.ID == (int)Math.Abs(typeId)
+                      select gt).FirstOrDefault();
+            if (result == null)
+            {
+                //take special ID
+                result = (from gt in ApplicationData.Instance.GeocacheAttributes
+                          where gt.ID == 0
+                          select gt).FirstOrDefault();
+            }
+            return result;
+        }
+
+
         public static List<GAPPSF.Core.Data.GeocacheImage> GetGeocacheImages(Database db, string GeocacheCode)
         {
             //grouping

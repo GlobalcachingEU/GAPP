@@ -660,6 +660,76 @@ namespace GAPPSF
 
 
 
+
+
+
+        RelayCommand _exportGPXActiveCommand;
+        public ICommand ExportGPXActiveCommand
+        {
+            get
+            {
+                if (_exportGPXActiveCommand == null)
+                {
+                    _exportGPXActiveCommand = new RelayCommand(param => this.ExportGPXActive(),
+                        param => Core.ApplicationData.Instance.ActiveGeocache != null);
+                }
+                return _exportGPXActiveCommand;
+            }
+        }
+        private void ExportGPXActive()
+        {
+            if (Core.ApplicationData.Instance.ActiveGeocache != null)
+            {
+                ExportGPX(new Core.Data.Geocache[] { Core.ApplicationData.Instance.ActiveGeocache }.ToList());
+            }
+        }
+        RelayCommand _exportGPXSelectedCommand;
+        public ICommand ExportGPXSelectedCommand
+        {
+            get
+            {
+                if (_exportGPXSelectedCommand == null)
+                {
+                    _exportGPXSelectedCommand = new RelayCommand(param => this.ExportGPXSelected(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null && this.GeocacheSelectionCount > 0);
+                }
+                return _exportGPXSelectedCommand;
+            }
+        }
+        private void ExportGPXSelected()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                ExportGPX((from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection where a.Selected select a).ToList());
+            }
+        }
+        RelayCommand _exportGPXAllCommand;
+        public ICommand ExportGPXAllCommand
+        {
+            get
+            {
+                if (_exportGPXAllCommand == null)
+                {
+                    _exportGPXAllCommand = new RelayCommand(param => this.ExportGPXAll(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null);
+                }
+                return _exportGPXAllCommand;
+            }
+        }
+        private void ExportGPXAll()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                ExportGPX(Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection);
+            }
+        }
+        private void ExportGPX(List<Core.Data.Geocache> gcList)
+        {
+            GPX.ExportWindow dlg = new GPX.ExportWindow(gcList);
+            dlg.ShowDialog();
+        }
+
+
         AsyncDelegateCommand _exportKMLActiveCommand;
         public ICommand ExportKMLActiveCommand
         {

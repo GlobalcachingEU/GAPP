@@ -1,7 +1,8 @@
 ﻿<Window x:Class="GAPPSF.Dialogs.GetLocationWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Get location" Height="398" Width="574">
+        xmlns:l="clr-namespace:GAPPSF.Localization"
+        Title="{l:Translate GetLocation}" Height="398" Width="574">
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.3*" />
@@ -14,13 +15,13 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="Location" HorizontalAlignment="Left" />
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="{l:Translate Location}" HorizontalAlignment="Left" />
         <TextBlock Grid.Row="0" Grid.Column="0" Text=":" HorizontalAlignment="Right" />
         <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding CoordText, UpdateSourceTrigger=PropertyChanged}"/>
-        <Button  Grid.Row="0" Grid.Column="2" Content="OK" Width="100" Click="Button_Click" IsEnabled="{Binding CoordIsValid}" />
-        <Button  Grid.Row="1" Grid.Column="1" Content="From home location" HorizontalAlignment="Stretch" Click="Button_Click_1"  />
-        <Button  Grid.Row="2" Grid.Column="1" Content="From center location" HorizontalAlignment="Stretch" Click="Button_Click_2"  />
-        <Button  Grid.Row="2" Grid.Column="2" Content="Map" Width="100" Click="Button_Click_3" />
+        <Button  Grid.Row="0" Grid.Column="2" Content="{l:Translate OK}" Width="100" Click="Button_Click" IsEnabled="{Binding CoordIsValid}" />
+        <Button  Grid.Row="1" Grid.Column="1" Content="{l:Translate FromHomeLocation}" HorizontalAlignment="Stretch" Click="Button_Click_1"  />
+        <Button  Grid.Row="2" Grid.Column="1" Content="{l:Translate FromCenterLocation}" HorizontalAlignment="Stretch" Click="Button_Click_2"  />
+        <Button  Grid.Row="2" Grid.Column="2" Content="{l:Translate Map}" Width="100" Click="Button_Click_3" />
         <WebBrowser x:Name="webBrowser"  Grid.Row="3" Grid.ColumnSpan="3">
             
         </WebBrowser>

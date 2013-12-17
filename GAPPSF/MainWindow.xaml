@@ -30,6 +30,11 @@
                     <MenuItem x:Name="menu4" Header="{l:Translate GAPPDataStorage}" Command="{Binding ImportGAPPCommand}" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate Export}">
+                    <MenuItem Header="{l:Translate ExportGPX}">
+                        <MenuItem x:Name="menu50" Header="{l:Translate Active}" Command="{Binding ExportGPXActiveCommand}" />
+                        <MenuItem x:Name="menu51" Header="{l:Translate Selected}" Command="{Binding ExportGPXSelectedCommand}" />
+                        <MenuItem x:Name="menu52" Header="{l:Translate All}" Command="{Binding ExportGPXAllCommand}" />
+                    </MenuItem>
                     <MenuItem Header="{l:Translate ExportKML}">
                         <MenuItem x:Name="menu40" Header="{l:Translate Active}" Command="{Binding ExportKMLActiveCommand}" />
                         <MenuItem x:Name="menu41" Header="{l:Translate Selected}" Command="{Binding ExportKMLSelectedCommand}" />
