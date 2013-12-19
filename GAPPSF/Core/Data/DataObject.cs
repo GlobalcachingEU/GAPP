@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -105,6 +106,22 @@ namespace GAPPSF.Core.Data
                     IsDataChanged = false;
                 }
             }
+        }
+
+        protected bool checkStringFits(string s, long startPos)
+        {
+            return checkStringFits(s, startPos, RecordInfo.Length);
+        }
+        protected bool checkStringFits(string s, long startPos, long nextPos)
+        {
+            bool result;
+            using (MemoryStream ms = new MemoryStream(_buffer))
+            using (BinaryWriter bw = new BinaryWriter(ms))
+            {
+                bw.Write(s);
+                result = (ms.Position <= (nextPos - startPos));
+            }
+            return result;
         }
 
         protected string readString(long pos)

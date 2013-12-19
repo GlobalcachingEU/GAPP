@@ -20,6 +20,12 @@ namespace GAPPSF.Core.Data
         public UserWaypoint(Storage.Database db, IUserWaypointData data)
             : this(null)
         {
+            createRecord(db, data);
+            db.UserWaypointCollection.Add(this);
+        }
+
+        private void createRecord(Storage.Database db, IUserWaypointData data)
+        {
             using (MemoryStream ms = new MemoryStream(DataBuffer))
             using (BinaryWriter bw = new BinaryWriter(ms))
             {
@@ -31,13 +37,12 @@ namespace GAPPSF.Core.Data
                 bw.Write(data.Lat); //158
                 bw.Write(data.Lon); //166
                 ms.Position = 200;
-                bw.Write(data.GeocacheCode); 
+                bw.Write(data.GeocacheCode);
                 ms.Position = 220;
                 bw.Write(data.Description);
 
                 RecordInfo = db.RequestUserWaypointRecord(data.ID, data.GeocacheCode ?? "", DataBuffer, ms.Position, 50);
             }
-            db.UserWaypointCollection.Add(this);
         }
 
         public int CompareTo(object obj)
@@ -84,7 +89,27 @@ namespace GAPPSF.Core.Data
             set
             {
                 string s = Description;
-                SetProperty(220, ref s, value);
+                if (s != value)
+                {
+                    if (checkStringFits(value ?? "", 220))
+                    {
+                        SetProperty(220, ref s, value);
+                    }
+                    else
+                    {
+                        //oeps: ran out of space
+                        //mark this record for deletion
+                        Storage.Database db = RecordInfo.Database;
+                        this.DeleteRecord();
+                        UserWaypointData ld = new UserWaypointData();
+                        UserWaypointData.Copy(this, ld);
+                        ld.Description = value;
+                        createRecord(db, ld);
+
+                        //will write it again, but it will ensure update notifications
+                        SetProperty(220, ref s, value);
+                    }
+                }
             }
         }
 

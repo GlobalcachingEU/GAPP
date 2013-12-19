@@ -20,6 +20,12 @@ namespace GAPPSF.Core.Data
         public LogImage(Storage.Database db, ILogImageData data)
             : this(null)
         {
+            createRecord(db, data);
+            db.LogImageCollection.Add(this);
+        }
+
+        private void createRecord(Storage.Database db, ILogImageData data)
+        {
             using (MemoryStream ms = new MemoryStream(DataBuffer))
             using (BinaryWriter bw = new BinaryWriter(ms))
             {
@@ -29,15 +35,14 @@ namespace GAPPSF.Core.Data
                 ms.Position = 150;
                 bw.Write(Utils.Conversion.DateTimeToLong(data.DataFromDate)); //150
                 ms.Position = 180;
-                bw.Write(data.LogId??"");
+                bw.Write(data.LogId ?? "");
                 ms.Position = 220;
-                bw.Write(data.Url??"");
+                bw.Write(data.Url ?? "");
                 ms.Position = 420;
-                bw.Write(data.Name??"");
+                bw.Write(data.Name ?? "");
 
                 RecordInfo = db.RequestLogRecord(data.ID, data.LogId ?? "", DataBuffer, ms.Position, 10);
             }
-            db.LogImageCollection.Add(this);
         }
 
         public int CompareTo(object obj)
@@ -108,7 +113,27 @@ namespace GAPPSF.Core.Data
             set
             {
                 string s = Name;
-                SetProperty(420, ref s, value);
+                if (s != value)
+                {
+                    if (checkStringFits(value ?? "", 420))
+                    {
+                        SetProperty(420, ref s, value);
+                    }
+                    else
+                    {
+                        //oeps: ran out of space
+                        //mark this record for deletion
+                        Storage.Database db = RecordInfo.Database;
+                        this.DeleteRecord();
+                        LogImageData ld = new LogImageData();
+                        LogImageData.Copy(this, ld);
+                        ld.Name = value;
+                        createRecord(db, ld);
+
+                        //will write it again, but it will ensure update notifications
+                        SetProperty(420, ref s, value);
+                    }
+                }
             }
         }
     }

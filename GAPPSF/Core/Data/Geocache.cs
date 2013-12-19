@@ -31,6 +31,12 @@ namespace GAPPSF.Core.Data
         public Geocache(Storage.Database db, IGeocacheData data)
             : this(null)
         {
+            createRecord(db, data);
+            db.GeocacheCollection.Add(this);
+        }
+
+        private void createRecord(Storage.Database db, IGeocacheData data)
+        {
             using (MemoryStream ms = new MemoryStream(DataBuffer))
             using (BinaryWriter bw = new BinaryWriter(ms))
             {
@@ -115,7 +121,6 @@ namespace GAPPSF.Core.Data
 
                 RecordInfo = db.RequestGeocacheRecord(data.Code, "", DataBuffer, ms.Position, 500);
             }
-            db.GeocacheCollection.Add(this);
         }
 
         public Storage.Database Database
@@ -143,6 +148,24 @@ namespace GAPPSF.Core.Data
             }
         }
 
+
+        private void checkDescriptionsFit(string sd, string ld)
+        {
+            string s = string.Concat(sd, ld);
+            if (!checkStringFits(s, 3010)) //add bytes for extra string length of long description
+            {
+                //oeps: ran out of space
+                //mark this record for deletion
+                Storage.Database db = RecordInfo.Database;
+                this.DeleteRecord();
+                GeocacheData gd = new GeocacheData();
+                GeocacheData.Copy(this, gd);
+                gd.ShortDescription = sd ?? "";
+                gd.LongDescription = ld ?? "";
+                createRecord(db, gd);
+            }
+        }
+
         protected override void StoreProperty(long pos, string name, object value)
         {
             if (name == "ShortDescription")
@@ -150,6 +173,7 @@ namespace GAPPSF.Core.Data
                 this.RecordInfo.Database.FileStream.Position = this.RecordInfo.Offset + 3002;
                 string sd = this.RecordInfo.Database.BinaryReader.ReadString();
                 string ld = this.RecordInfo.Database.BinaryReader.ReadString();
+                checkDescriptionsFit(value as string, ld);
                 this.RecordInfo.Database.FileStream.Position = this.RecordInfo.Offset + 3002;
                 this.RecordInfo.Database.BinaryWriter.Write(value as string ?? "");
                 this.RecordInfo.Database.BinaryWriter.Write(ld);
@@ -158,7 +182,7 @@ namespace GAPPSF.Core.Data
             {
                 this.RecordInfo.Database.FileStream.Position = this.RecordInfo.Offset + 3002;
                 string sd = this.RecordInfo.Database.BinaryReader.ReadString();
-                string ld = this.RecordInfo.Database.BinaryReader.ReadString();
+                checkDescriptionsFit(sd, value as string);
                 this.RecordInfo.Database.FileStream.Position = this.RecordInfo.Offset + 3002;
                 this.RecordInfo.Database.BinaryWriter.Write(sd);
                 this.RecordInfo.Database.BinaryWriter.Write(value as string ?? "");

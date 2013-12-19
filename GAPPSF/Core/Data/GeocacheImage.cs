@@ -20,6 +20,12 @@ namespace GAPPSF.Core.Data
         public GeocacheImage(Storage.Database db, IGeocacheImageData data)
             : this(null)
         {
+            createRecord(db, data);
+            db.GeocacheImageCollection.Add(this);
+        }
+
+        private void createRecord(Storage.Database db, IGeocacheImageData data)
+        {
             using (MemoryStream ms = new MemoryStream(DataBuffer))
             using (BinaryWriter bw = new BinaryWriter(ms))
             {
@@ -29,21 +35,20 @@ namespace GAPPSF.Core.Data
                 ms.Position = 150;
                 bw.Write(Utils.Conversion.DateTimeToLong(data.DataFromDate)); //150
                 ms.Position = 180;
-                bw.Write(data.GeocacheCode??"");
+                bw.Write(data.GeocacheCode ?? "");
                 ms.Position = 220;
                 bw.Write(data.Url);
                 ms.Position = 420;
-                bw.Write(data.MobileUrl??"");
+                bw.Write(data.MobileUrl ?? "");
                 ms.Position = 520;
-                bw.Write(data.ThumbUrl??"");
+                bw.Write(data.ThumbUrl ?? "");
                 ms.Position = 620;
-                bw.Write(data.Name??"");
+                bw.Write(data.Name ?? "");
                 ms.Position = 800;
-                bw.Write(data.Description??"");
+                bw.Write(data.Description ?? "");
 
                 RecordInfo = db.RequestGeocacheImageRecord(data.ID, data.GeocacheCode ?? "", DataBuffer, ms.Position, 10);
             }
-            db.GeocacheImageCollection.Add(this);
         }
 
         public int CompareTo(object obj)
@@ -153,7 +158,27 @@ namespace GAPPSF.Core.Data
             set
             {
                 string s = Description;
-                SetProperty(800, ref s, value);
+                if (s != value)
+                {
+                    if (checkStringFits(value ?? "", 800))
+                    {
+                        SetProperty(800, ref s, value);
+                    }
+                    else
+                    {
+                        //oeps: ran out of space
+                        //mark this record for deletion
+                        Storage.Database db = RecordInfo.Database;
+                        this.DeleteRecord();
+                        GeocacheImageData ld = new GeocacheImageData();
+                        GeocacheImageData.Copy(this, ld);
+                        ld.Description = value;
+                        createRecord(db, ld);
+
+                        //will write it again, but it will ensure update notifications
+                        SetProperty(800, ref s, value);
+                    }
+                }
             }
         }
     }

@@ -20,6 +20,12 @@ namespace GAPPSF.Core.Data
         public Waypoint(Storage.Database db, IWaypointData data)
             : this(null)
         {
+            createRecord(db, data);
+            db.WaypointCollection.Add(this);
+        }
+
+        private void createRecord(Storage.Database db, IWaypointData data)
+        {
             using (MemoryStream ms = new MemoryStream(DataBuffer))
             using (BinaryWriter bw = new BinaryWriter(ms))
             {
@@ -28,8 +34,8 @@ namespace GAPPSF.Core.Data
 
                 ms.Position = 150;
                 bw.Write(Utils.Conversion.DateTimeToLong(data.DataFromDate)); //150
-                bw.Write((bool)(data.Lat!=null)); //158
-                bw.Write(data.Lat==null ? (double)0.0: (double)data.Lat); //159
+                bw.Write((bool)(data.Lat != null)); //158
+                bw.Write(data.Lat == null ? (double)0.0 : (double)data.Lat); //159
                 bw.Write((bool)(data.Lon != null)); //167
                 bw.Write(data.Lon == null ? (double)0.0 : (double)data.Lon); //168
                 bw.Write(Utils.Conversion.DateTimeToLong(data.Time)); //176
@@ -52,7 +58,6 @@ namespace GAPPSF.Core.Data
 
                 RecordInfo = db.RequestWaypointRecord(data.ID, data.GeocacheCode, DataBuffer, ms.Position, 100);
             }
-            db.WaypointCollection.Add(this);
         }
 
         public int CompareTo(object obj)
@@ -96,7 +101,27 @@ namespace GAPPSF.Core.Data
             set
             {
                 string s = Comment;
-                SetProperty(800, ref s, value);
+                if (s != value)
+                {
+                    if (checkStringFits(value ?? "", 800))
+                    {
+                        SetProperty(800, ref s, value);
+                    }
+                    else
+                    {
+                        //oeps: ran out of space
+                        //mark this record for deletion
+                        Storage.Database db = RecordInfo.Database;
+                        this.DeleteRecord();
+                        WaypointData ld = new WaypointData();
+                        WaypointData.Copy(this, ld);
+                        ld.Comment = value;
+                        createRecord(db, ld);
+
+                        //will write it again, but it will ensure update notifications
+                        SetProperty(800, ref s, value);
+                    }
+                }
             }
         }
 

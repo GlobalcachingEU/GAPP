@@ -31,6 +31,12 @@ namespace GAPPSF.Core.Data
         public Log(Storage.Database db, ILogData data)
             : this(null)
         {
+            createRecord(db, data);
+            db.LogCollection.Add(this);
+        }
+
+        private void createRecord(Storage.Database db, ILogData data)
+        {
             using (MemoryStream ms = new MemoryStream(DataBuffer))
             using (BinaryWriter bw = new BinaryWriter(ms))
             {
@@ -43,19 +49,19 @@ namespace GAPPSF.Core.Data
                 bw.Write(Utils.Conversion.DateTimeToLong(data.DataFromDate)); //162
                 bw.Write(data.Encoded); //170
                 ms.Position = 180;
-                bw.Write(data.GeocacheCode??"");
+                bw.Write(data.GeocacheCode ?? "");
                 ms.Position = 220;
-                bw.Write(data.Finder??"");
+                bw.Write(data.Finder ?? "");
                 ms.Position = 320;
-                bw.Write(data.FinderId??"");
+                bw.Write(data.FinderId ?? "");
                 ms.Position = 350;
-                bw.Write(data.TBCode??"");
+                bw.Write(data.TBCode ?? "");
                 ms.Position = 380;
-                bw.Write(data.Text??"");
+                bw.Write(data.Text ?? "");
 
                 RecordInfo = db.RequestLogRecord(data.ID, data.GeocacheCode ?? "", DataBuffer, ms.Position, 100);
             }
-            db.LogCollection.Add(this);
+
         }
 
         public int CompareTo(object obj)
@@ -190,7 +196,27 @@ namespace GAPPSF.Core.Data
             set
             {
                 string s = Text;
-                SetProperty(380, ref s, value);
+                if (s != value)
+                {
+                    if (checkStringFits(value ?? "", 380))
+                    {
+                        SetProperty(380, ref s, value);
+                    }
+                    else
+                    {
+                        //oeps: ran out of space
+                        //mark this record for deletion
+                        Storage.Database db = RecordInfo.Database;
+                        this.DeleteRecord();
+                        LogData ld = new LogData();
+                        LogData.Copy(this, ld);
+                        ld.Text = value;
+                        createRecord(db, ld);
+
+                        //will write it again, but it will ensure update notifications
+                        SetProperty(380, ref s, value);
+                    }
+                }
             }
         }
 
