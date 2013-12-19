@@ -4,7 +4,7 @@
         xmlns:l="clr-namespace:GAPPSF.Localization"
         xmlns:p="clr-namespace:GAPPSF.Core"
         xmlns:ui="clr-namespace:GAPPSF.UIControls"
-        Title="{l:Translate ExportGPX}" Height="300" Width="300" Closing="Window_Closing">
+        Title="{l:Translate ExportGPX}" Height="450" Width="500" Closing="Window_Closing">
     <Grid>
         <Grid.Resources>
             <ui:EnumBooleanConverter x:Key="enumBooleanConverter" />
@@ -18,10 +18,21 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="{l:Translate FileName}" />
-                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding GPXFileName, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="{l:Translate Folder}" />
+                <TextBlock Margin="4" Grid.Row="0" Grid.Column="0" Text="{l:Translate FileName}" />
+                <TextBox Margin="4" Grid.Row="0" Grid.Column="1" Text="{Binding GPXFileName, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                <TextBlock Margin="4" Grid.Row="1" Grid.Column="0" Text="{l:Translate Folder}" />
                 <Grid  Grid.Row="1" Grid.Column="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -32,16 +43,38 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <RadioButton GroupName="rtarget" Grid.Row="0" Grid.Column="0" Content="Disk" IsChecked="{Binding GPXTargetDevice, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Folder, Mode=TwoWay}" />
-                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding GPXTargetFolder, Source={x:Static p:Settings.Default}}" IsReadOnly="True" />
-                    <Button Grid.Row="0" Grid.Column="2" Click="Button_Click">
+                    <RadioButton Margin="4" GroupName="rtarget" Grid.Row="0" Grid.Column="0" Content="Disk" IsChecked="{Binding GPXTargetDevice, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Folder, Mode=TwoWay}" />
+                    <TextBox Margin="4" Grid.Row="0" Grid.Column="1" Text="{Binding GPXTargetFolder, Source={x:Static p:Settings.Default}}" IsReadOnly="True" />
+                    <Button Margin="4" Grid.Row="0" Grid.Column="2" Click="Button_Click">
                         <Image Height="16" Width="16" Source="/Resources/General/edit.png" />
                     </Button>
-                    <RadioButton GroupName="rtarget" Grid.Row="1" Grid.Column="0" Content="Garmin" IsChecked="{Binding GPXTargetDevice, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Garmin, Mode=TwoWay}" />
-                    <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding GarminDevices}" />
+                    <RadioButton Margin="4" GroupName="rtarget" Grid.Row="1" Grid.Column="0" Content="Garmin" IsChecked="{Binding GPXTargetDevice, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Garmin, Mode=TwoWay}" />
+                    <ComboBox Margin="4" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding GarminDevices}" SelectedIndex="{Binding SelectedGarminDevice, Mode=TwoWay}" SelectionChanged="ComboBox_SelectionChanged" />
                 </Grid>
+                <TextBlock Margin="4" Grid.Row="2" Grid.Column="0" Text="{l:Translate IncludeChildWaypoints}" />
+                <CheckBox  Margin="4" Grid.Row="2" Grid.Column="1" IsChecked="{Binding GPXAddChildWaypoints, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                <TextBlock Margin="4" Grid.Row="3" Grid.Column="0" Text="{l:Translate UseHintsForDescription}" />
+                <CheckBox  Margin="4" Grid.Row="3" Grid.Column="1" IsChecked="{Binding GPXUseHintsForDescription, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                <TextBlock Margin="4" Grid.Row="4" Grid.Column="0" Text="{l:Translate AddAdditionWaypointsToDescription}" />
+                <CheckBox  Margin="4" Grid.Row="4" Grid.Column="1" IsChecked="{Binding GPXAddAdditionWaypointsToDescription, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                <TextBlock Margin="4" Grid.Row="5" Grid.Column="0" Text="{l:Translate AddFieldnotesToDescription}" />
+                <CheckBox  Margin="4" Grid.Row="5" Grid.Column="1" IsChecked="{Binding GPXAddFieldnotesToDescription, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                <TextBlock Margin="4" Grid.Row="6" Grid.Column="0" Text="{l:Translate UseNameForGCCode}" />
+                <CheckBox  Margin="4" Grid.Row="6" Grid.Column="1" IsChecked="{Binding GPXUseNameForGCCode, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                <TextBlock Margin="4" Grid.Row="7" Grid.Column="0" Text="{l:Translate MaxLogCount}" />
+                <ui:NumericUpDown Grid.Row="7" Grid.Column="1" Minimum="0" Maximum="99999" Value="{Binding GPXMaxLogCount, Source={x:Static p:Settings.Default}, Mode=TwoWay}" Width="80" HorizontalAlignment="Left" />
+                <TextBlock Margin="4" Grid.Row="8" Grid.Column="0" Text="{l:Translate MaxNameLength}" />
+                <ui:NumericUpDown Grid.Row="8" Grid.Column="1" Minimum="1" Maximum="255" Value="{Binding GPXMaxNameLength, Source={x:Static p:Settings.Default}, Mode=TwoWay}" Width="80" HorizontalAlignment="Left" />
+                <TextBlock Margin="4" Grid.Row="9" Grid.Column="0" Text="{l:Translate MinStartOfname}" />
+                <ui:NumericUpDown Grid.Row="9" Grid.Column="1" Minimum="1" Maximum="255" Value="{Binding GPXMinStartOfname, Source={x:Static p:Settings.Default}, Mode=TwoWay}" Width="80" HorizontalAlignment="Left" />
+                <TextBlock Margin="4" Grid.Row="10" Grid.Column="0" Text="{l:Translate ExtraCoordPrefix}" />
+                <TextBox Margin="4" Grid.Row="10" Grid.Column="1" Text="{Binding GPXExtraCoordPrefix, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                <TextBlock Margin="4" Grid.Row="11" Grid.Column="0" Text="{l:Translate GPXVersion}" />
+                <ComboBox Margin="4" Grid.Row="11" Grid.Column="1" ItemsSource="{Binding GPXVersions}" SelectedItem="{Binding GPXVersion, Source={x:Static p:Settings.Default} ,Mode=TwoWay}" />
+                <TextBlock Margin="4" Grid.Row="12" Grid.Column="0" Text="{l:Translate CreateGGZFile}" />
+                <CheckBox  Margin="4" Grid.Row="12" Grid.Column="1" IsChecked="{Binding GPXExportGGZ, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
             </Grid>
-            <Button Content="{l:Translate ExportGPX}" Command="{Binding ExportCommand}" />
+            <Button Margin="4,14,4,4" Content="{l:Translate ExportGPX}" Command="{Binding ExportCommand}" />
         </StackPanel>
     </Grid>
 </Window>

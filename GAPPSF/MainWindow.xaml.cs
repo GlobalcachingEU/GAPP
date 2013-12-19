@@ -660,6 +660,71 @@ namespace GAPPSF
 
 
 
+        RelayCommand _exportOV2ActiveCommand;
+        public ICommand ExportOV2ActiveCommand
+        {
+            get
+            {
+                if (_exportOV2ActiveCommand == null)
+                {
+                    _exportOV2ActiveCommand = new RelayCommand(param => this.ExportOV2Active(),
+                        param => Core.ApplicationData.Instance.ActiveGeocache != null);
+                }
+                return _exportOV2ActiveCommand;
+            }
+        }
+        private void ExportOV2Active()
+        {
+            if (Core.ApplicationData.Instance.ActiveGeocache != null)
+            {
+                ExportOV2(new Core.Data.Geocache[] { Core.ApplicationData.Instance.ActiveGeocache }.ToList());
+            }
+        }
+        RelayCommand _exportOV2SelectedCommand;
+        public ICommand ExportOV2SelectedCommand
+        {
+            get
+            {
+                if (_exportOV2SelectedCommand == null)
+                {
+                    _exportOV2SelectedCommand = new RelayCommand(param => this.ExportOV2Selected(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null && this.GeocacheSelectionCount > 0);
+                }
+                return _exportOV2SelectedCommand;
+            }
+        }
+        private void ExportOV2Selected()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                ExportOV2((from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection where a.Selected select a).ToList());
+            }
+        }
+        RelayCommand _exportOV2AllCommand;
+        public ICommand ExportOV2AllCommand
+        {
+            get
+            {
+                if (_exportOV2AllCommand == null)
+                {
+                    _exportOV2AllCommand = new RelayCommand(param => this.ExportOV2All(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null);
+                }
+                return _exportOV2AllCommand;
+            }
+        }
+        private void ExportOV2All()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                ExportOV2(Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection);
+            }
+        }
+        private void ExportOV2(List<Core.Data.Geocache> gcList)
+        {
+            OV2.ExportWindow dlg = new OV2.ExportWindow(gcList);
+            dlg.ShowDialog();
+        }
 
 
 

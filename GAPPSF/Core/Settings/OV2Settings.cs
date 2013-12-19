@@ -8,89 +8,67 @@ namespace GAPPSF.Core
 {
     public partial class Settings
     {
-        public string GPXFileName
-        {
-            get { return GetProperty("geocaches"); }
-            set { SetProperty(value); }
-        }
-
-        public string GPXTargetFolder
+        public string OV2FileName
         {
             get { return GetProperty(""); }
             set { SetProperty(value); }
         }
 
-        public GPX.TargetDevice GPXTargetDevice
-        {
-            get { return (GPX.TargetDevice)Enum.Parse(typeof(GPX.TargetDevice), GetProperty("Folder")); }
-            set { SetProperty(value.ToString()); }
-        }
-
-        public bool GPXExportGGZ
-        {
-            get { return bool.Parse(GetProperty("False")); }
-            set { SetProperty(value.ToString()); }
-        }
-
-        public bool GPXAddChildWaypoints
+        public bool OV2FieldCoord
         {
             get { return bool.Parse(GetProperty("True")); }
             set { SetProperty(value.ToString()); }
         }
-
-        public bool GPXUseHintsForDescription
+        public bool OV2FieldCode
+        {
+            get { return bool.Parse(GetProperty("False")); }
+            set { SetProperty(value.ToString()); }
+        }
+        public bool OV2FieldCacheType
+        {
+            get { return bool.Parse(GetProperty("False")); }
+            set { SetProperty(value.ToString()); }
+        }
+        public bool OV2FieldName
+        {
+            get { return bool.Parse(GetProperty("True")); }
+            set { SetProperty(value.ToString()); }
+        }
+        public bool OV2FieldContainer
+        {
+            get { return bool.Parse(GetProperty("False")); }
+            set { SetProperty(value.ToString()); }
+        }
+        public bool OV2FieldHint
+        {
+            get { return bool.Parse(GetProperty("False")); }
+            set { SetProperty(value.ToString()); }
+        }
+        public bool OV2FieldFavorites
+        {
+            get { return bool.Parse(GetProperty("False")); }
+            set { SetProperty(value.ToString()); }
+        }
+        public bool OV2FieldOwner
+        {
+            get { return bool.Parse(GetProperty("False")); }
+            set { SetProperty(value.ToString()); }
+        }
+        public bool OV2FieldDifficulty
+        {
+            get { return bool.Parse(GetProperty("False")); }
+            set { SetProperty(value.ToString()); }
+        }
+        public bool OV2FieldTerrain
         {
             get { return bool.Parse(GetProperty("False")); }
             set { SetProperty(value.ToString()); }
         }
 
-        public bool GPXAddAdditionWaypointsToDescription
+        public bool OV2FieldNote
         {
             get { return bool.Parse(GetProperty("False")); }
             set { SetProperty(value.ToString()); }
         }
-
-        public bool GPXAddFieldnotesToDescription
-        {
-            get { return bool.Parse(GetProperty("False")); }
-            set { SetProperty(value.ToString()); }
-        }
-
-        public int GPXMaxLogCount
-        {
-            get { return int.Parse(GetProperty("5")); }
-            set { SetProperty(value.ToString()); }
-        }
-
-        public int GPXMaxNameLength
-        {
-            get { return int.Parse(GetProperty("255")); }
-            set { SetProperty(value.ToString()); }
-        }
-
-        public int GPXMinStartOfname
-        {
-            get { return int.Parse(GetProperty("255")); }
-            set { SetProperty(value.ToString()); }
-        }
-
-        public bool GPXUseNameForGCCode
-        {
-            get { return bool.Parse(GetProperty("False")); }
-            set { SetProperty(value.ToString()); }
-        }
-
-        public string GPXExtraCoordPrefix
-        {
-            get { return GetProperty(""); }
-            set { SetProperty(value); }
-        }
-
-        public string GPXVersion
-        {
-            get { return GetProperty("1.0.1"); }
-            set { SetProperty(value); }
-        }
-
     }
 }

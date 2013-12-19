@@ -155,6 +155,7 @@
     <Compile Include="Core\Settings\LiveAPISettings.cs" />
     <Compile Include="Core\Settings\MainWindowSettings.cs" />
     <Compile Include="Core\Settings\OfflineImageSettings.cs" />
+    <Compile Include="Core\Settings\OV2Settings.cs" />
     <Compile Include="Core\Settings\Settings.cs" />
     <Compile Include="Core\Settings\ISettingsStorage.cs" />
     <Compile Include="Core\Settings\ShapefilesSettings.cs" />
@@ -219,6 +220,10 @@
     <Compile Include="Localization\TranslateExtension.cs" />
     <Compile Include="Localization\TranslationData.cs" />
     <Compile Include="Localization\TranslationManager.cs" />
+    <Compile Include="OV2\Export.cs" />
+    <Compile Include="OV2\ExportWindow.xaml.cs">
+      <DependentUpon>ExportWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -518,6 +523,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="OV2\ExportWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SetupWizard\SetupWizardWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

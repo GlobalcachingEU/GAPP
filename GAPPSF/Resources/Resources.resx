@@ -745,4 +745,58 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="ExportGPX" xml:space="preserve">
     <value>Export GPX</value>
   </data>
+  <data name="FileName" xml:space="preserve">
+    <value>FileName</value>
+  </data>
+  <data name="ExportingGPX" xml:space="preserve">
+    <value>Exporting GPX</value>
+  </data>
+  <data name="CopyingFileToDevice" xml:space="preserve">
+    <value>Copying file to device</value>
+  </data>
+  <data name="AddAdditionWaypointsToDescription" xml:space="preserve">
+    <value>Add additional waypoints to description</value>
+  </data>
+  <data name="AddFieldnotesToDescription" xml:space="preserve">
+    <value>Include notes in description</value>
+  </data>
+  <data name="ExtraCoordPrefix" xml:space="preserve">
+    <value>Extra coord. name prefix</value>
+  </data>
+  <data name="GPXVersion" xml:space="preserve">
+    <value>GPX version</value>
+  </data>
+  <data name="IncludeChildWaypoints" xml:space="preserve">
+    <value>Add waypoints</value>
+  </data>
+  <data name="MaxLogCount" xml:space="preserve">
+    <value>maximum logs</value>
+  </data>
+  <data name="MaxNameLength" xml:space="preserve">
+    <value>Maximum geocache name length</value>
+  </data>
+  <data name="MinStartOfname" xml:space="preserve">
+    <value>Minimum start of name length</value>
+  </data>
+  <data name="UseHintsForDescription" xml:space="preserve">
+    <value>Use the hints for description</value>
+  </data>
+  <data name="UseNameForGCCode" xml:space="preserve">
+    <value>Use name and not geocache code</value>
+  </data>
+  <data name="CreateGGZFile" xml:space="preserve">
+    <value>Create GGZ file</value>
+  </data>
+  <data name="ExportingOV2" xml:space="preserve">
+    <value>Exporting OV2</value>
+  </data>
+  <data name="ExportOV2" xml:space="preserve">
+    <value>Export OV2</value>
+  </data>
+  <data name="CacheType" xml:space="preserve">
+    <value>Cache type</value>
+  </data>
+  <data name="Fields" xml:space="preserve">
+    <value>Fields</value>
+  </data>
 </root>

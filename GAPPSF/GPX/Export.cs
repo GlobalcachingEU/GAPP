@@ -30,7 +30,7 @@ namespace GAPPSF.GPX
         {
             _gcList = gcList;
             _index = 0;
-            _gpxVersion = Core.Settings.Default.GPXVersion;
+            _gpxVersion = Version.Parse(Core.Settings.Default.GPXVersion);
             _activeGcg = null;
         }
 

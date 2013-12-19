@@ -1,0 +1,59 @@
+﻿<Window x:Class="GAPPSF.OV2.ExportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:l="clr-namespace:GAPPSF.Localization"
+        xmlns:p="clr-namespace:GAPPSF.Core"
+        xmlns:ui="clr-namespace:GAPPSF.UIControls"
+        Title="{l:Translate ExportOV2}" Height="300" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <GroupBox Margin="4" Grid.Row="0" Header="{l:Translate Fields}"  HorizontalAlignment="Stretch">
+            <GroupBox.Content>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.33*" />
+                        <ColumnDefinition Width="0.33*" />
+                        <ColumnDefinition Width="0.33*" />
+                    </Grid.ColumnDefinitions>
+                    <CheckBox Margin="4" Grid.Row="0" Grid.Column="0" IsChecked="{Binding OV2FieldCode, Source={x:Static p:Settings.Default}, Mode=TwoWay}" Content="{l:Translate Code}" />
+                    <CheckBox Margin="4" Grid.Row="0" Grid.Column="1" IsChecked="{Binding OV2FieldCoord, Source={x:Static p:Settings.Default}, Mode=TwoWay}" Content="{l:Translate Coordinates}" />
+                    <CheckBox Margin="4" Grid.Row="0" Grid.Column="2" IsChecked="{Binding OV2FieldContainer, Source={x:Static p:Settings.Default}, Mode=TwoWay}" Content="{l:Translate Container}" />
+
+                    <CheckBox Margin="4" Grid.Row="1" Grid.Column="0" IsChecked="{Binding OV2FieldName, Source={x:Static p:Settings.Default}, Mode=TwoWay}" Content="{l:Translate Name}" />
+                    <CheckBox Margin="4" Grid.Row="1" Grid.Column="1" IsChecked="{Binding OV2FieldHint, Source={x:Static p:Settings.Default}, Mode=TwoWay}" Content="{l:Translate Hints}" />
+                    <CheckBox Margin="4" Grid.Row="1" Grid.Column="2" IsChecked="{Binding OV2FieldFavorites, Source={x:Static p:Settings.Default}, Mode=TwoWay}" Content="{l:Translate Favorites}" />
+
+                    <CheckBox Margin="4" Grid.Row="2" Grid.Column="0" IsChecked="{Binding OV2FieldCacheType, Source={x:Static p:Settings.Default}, Mode=TwoWay}" Content="{l:Translate CacheType}" />
+                    <CheckBox Margin="4" Grid.Row="2" Grid.Column="1" IsChecked="{Binding OV2FieldTerrain, Source={x:Static p:Settings.Default}, Mode=TwoWay}" Content="{l:Translate Terrain}" />
+
+                    <CheckBox Margin="4" Grid.Row="3" Grid.Column="0" IsChecked="{Binding OV2FieldOwner, Source={x:Static p:Settings.Default}, Mode=TwoWay}" Content="{l:Translate Owner}" />
+                    <CheckBox Margin="4" Grid.Row="3" Grid.Column="1" IsChecked="{Binding OV2FieldDifficulty, Source={x:Static p:Settings.Default}, Mode=TwoWay}" Content="{l:Translate Difficulty}" />
+                </Grid>
+            </GroupBox.Content>
+        </GroupBox>
+        <Grid Margin="4" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Margin="4" Grid.Column="0" Text="{l:Translate File}" />
+            <TextBox Margin="4" Grid.Column="1" Text="{Binding OV2FileName, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+            <Button Grid.Column="2" Height="24" Width="24" Click="Button_Click">
+                <Image Height="16" Width="16" Source="/Resources/General/edit.png" />
+            </Button>
+        </Grid>
+        <Button Margin="4,14,4,4" Grid.Row="2" Content="{l:Translate ExportOV2}" Command="{Binding ExportCommand}" />
+    </Grid>
+</Window>

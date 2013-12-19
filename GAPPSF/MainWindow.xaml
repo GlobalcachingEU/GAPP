@@ -35,6 +35,11 @@
                         <MenuItem x:Name="menu51" Header="{l:Translate Selected}" Command="{Binding ExportGPXSelectedCommand}" />
                         <MenuItem x:Name="menu52" Header="{l:Translate All}" Command="{Binding ExportGPXAllCommand}" />
                     </MenuItem>
+                    <MenuItem Header="{l:Translate ExportOV2}">
+                        <MenuItem x:Name="menu60" Header="{l:Translate Active}" Command="{Binding ExportOV2ActiveCommand}" />
+                        <MenuItem x:Name="menu61" Header="{l:Translate Selected}" Command="{Binding ExportOV2SelectedCommand}" />
+                        <MenuItem x:Name="menu62" Header="{l:Translate All}" Command="{Binding ExportOV2AllCommand}" />
+                    </MenuItem>
                     <MenuItem Header="{l:Translate ExportKML}">
                         <MenuItem x:Name="menu40" Header="{l:Translate Active}" Command="{Binding ExportKMLActiveCommand}" />
                         <MenuItem x:Name="menu41" Header="{l:Translate Selected}" Command="{Binding ExportKMLSelectedCommand}" />

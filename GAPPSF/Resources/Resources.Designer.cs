@@ -106,11 +106,29 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add additional waypoints to description.
+        /// </summary>
+        internal static string AddAdditionWaypointsToDescription {
+            get {
+                return ResourceManager.GetString("AddAdditionWaypointsToDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add.Coords.
         /// </summary>
         internal static string AddCoords {
             get {
                 return ResourceManager.GetString("AddCoords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include notes in description.
+        /// </summary>
+        internal static string AddFieldnotesToDescription {
+            get {
+                return ResourceManager.GetString("AddFieldnotesToDescription", resourceCulture);
             }
         }
         
@@ -246,6 +264,15 @@ namespace GAPPSF.Resources {
         internal static string CacheList {
             get {
                 return ResourceManager.GetString("CacheList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cache type.
+        /// </summary>
+        internal static string CacheType {
+            get {
+                return ResourceManager.GetString("CacheType", resourceCulture);
             }
         }
         
@@ -412,6 +439,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copying file to device.
+        /// </summary>
+        internal static string CopyingFileToDevice {
+            get {
+                return ResourceManager.GetString("CopyingFileToDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copying geocaches.
         /// </summary>
         internal static string CopyingGeocaches {
@@ -444,6 +480,15 @@ namespace GAPPSF.Resources {
         internal static string CountryState {
             get {
                 return ResourceManager.GetString("CountryState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create GGZ file.
+        /// </summary>
+        internal static string CreateGGZFile {
+            get {
+                return ResourceManager.GetString("CreateGGZFile", resourceCulture);
             }
         }
         
@@ -619,6 +664,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exporting GPX.
+        /// </summary>
+        internal static string ExportingGPX {
+            get {
+                return ResourceManager.GetString("ExportingGPX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exporting KML.
         /// </summary>
         internal static string ExportingKML {
@@ -628,11 +682,38 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exporting OV2.
+        /// </summary>
+        internal static string ExportingOV2 {
+            get {
+                return ResourceManager.GetString("ExportingOV2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Export KML.
         /// </summary>
         internal static string ExportKML {
             get {
                 return ResourceManager.GetString("ExportKML", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export OV2.
+        /// </summary>
+        internal static string ExportOV2 {
+            get {
+                return ResourceManager.GetString("ExportOV2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extra coord. name prefix.
+        /// </summary>
+        internal static string ExtraCoordPrefix {
+            get {
+                return ResourceManager.GetString("ExtraCoordPrefix", resourceCulture);
             }
         }
         
@@ -673,11 +754,29 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fields.
+        /// </summary>
+        internal static string Fields {
+            get {
+                return ResourceManager.GetString("Fields", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File.
         /// </summary>
         internal static string File {
             get {
                 return ResourceManager.GetString("File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FileName.
+        /// </summary>
+        internal static string FileName {
+            get {
+                return ResourceManager.GetString("FileName", resourceCulture);
             }
         }
         
@@ -903,6 +1002,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to GPX version.
+        /// </summary>
+        internal static string GPXVersion {
+            get {
+                return ResourceManager.GetString("GPXVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Grid size.
         /// </summary>
         internal static string GridSize {
@@ -1061,6 +1169,15 @@ namespace GAPPSF.Resources {
         internal static string ImportingWaypoints {
             get {
                 return ResourceManager.GetString("ImportingWaypoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add waypoints.
+        /// </summary>
+        internal static string IncludeChildWaypoints {
+            get {
+                return ResourceManager.GetString("IncludeChildWaypoints", resourceCulture);
             }
         }
         
@@ -1254,6 +1371,24 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to maximum logs.
+        /// </summary>
+        internal static string MaxLogCount {
+            get {
+                return ResourceManager.GetString("MaxLogCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximum geocache name length.
+        /// </summary>
+        internal static string MaxNameLength {
+            get {
+                return ResourceManager.GetString("MaxNameLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Membership.
         /// </summary>
         internal static string Membership {
@@ -1268,6 +1403,15 @@ namespace GAPPSF.Resources {
         internal static string Miles {
             get {
                 return ResourceManager.GetString("Miles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimum start of name length.
+        /// </summary>
+        internal static string MinStartOfname {
+            get {
+                return ResourceManager.GetString("MinStartOfname", resourceCulture);
             }
         }
         
@@ -1817,6 +1961,24 @@ namespace GAPPSF.Resources {
         internal static string Type {
             get {
                 return ResourceManager.GetString("Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use the hints for description.
+        /// </summary>
+        internal static string UseHintsForDescription {
+            get {
+                return ResourceManager.GetString("UseHintsForDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use name and not geocache code.
+        /// </summary>
+        internal static string UseNameForGCCode {
+            get {
+                return ResourceManager.GetString("UseNameForGCCode", resourceCulture);
             }
         }
         
