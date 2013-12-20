@@ -80,6 +80,7 @@
                 <MenuItem Header="{l:Translate Import}">
                     <MenuItem x:Name="menu3" Header="{l:Translate GPX}" Command="{Binding ImportGPXCommand}" />
                     <MenuItem x:Name="menu4" Header="{l:Translate GAPPDataStorage}" Command="{Binding ImportGAPPCommand}" />
+                    <MenuItem x:Name="menub5" Header="{l:Translate ImportGSAKDatabase}" Command="{Binding ImportGSAKCommand}" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate Export}">
                     <MenuItem Header="{l:Translate ExportGPX}">

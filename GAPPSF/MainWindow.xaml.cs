@@ -952,6 +952,42 @@ namespace GAPPSF
         }
 
 
+        AsyncDelegateCommand _importGSAKCommand;
+        public ICommand ImportGSAKCommand
+        {
+            get
+            {
+                if (_importGSAKCommand == null)
+                {
+                    _importGSAKCommand = new AsyncDelegateCommand(param => this.ImportGSAKDatabase(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null);
+                }
+                return _importGSAKCommand;
+            }
+        }
+
+        async private Task ImportGSAKDatabase()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+                dlg.FileName = ""; // Default file name
+                dlg.DefaultExt = ".db3"; // Default file extension
+                dlg.Filter = "GSAK database (sqlite.db3)|sqlite.db3"; // Filter files by extension 
+
+                // Show open file dialog box
+                Nullable<bool> result = dlg.ShowDialog();
+
+                // Process open file dialog box results 
+                if (result == true)
+                {
+                    // Open document 
+                    await GSAK.Importer.PerformAction(Core.ApplicationData.Instance.ActiveDatabase, dlg.FileName);
+                }
+            }
+        }
+
+
         AsyncDelegateCommand _importGappCommand;
         public ICommand ImportGAPPCommand
         {

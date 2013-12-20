@@ -1164,6 +1164,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Importing geocaches.
+        /// </summary>
+        internal static string ImportingGeocaches {
+            get {
+                return ResourceManager.GetString("ImportingGeocaches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Importing log images.
         /// </summary>
         internal static string ImportingLogImages {
