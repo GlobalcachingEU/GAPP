@@ -69,8 +69,9 @@ namespace GAPPSF.Shapefiles
 
                             _listData.Add(sf);
                         }
-                        catch
+                        catch(Exception e)
                         {
+                            Core.ApplicationData.Instance.Logger.AddLog(this, e);
                         }
                     }
                 }

@@ -698,8 +698,9 @@ namespace GAPPSF.GPX
                     pos = result.IndexOf("&#x");
                 }
             }
-            catch
+            catch(Exception e)
             {
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
             }
 
             return result;

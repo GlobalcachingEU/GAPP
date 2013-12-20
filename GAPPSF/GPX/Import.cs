@@ -76,8 +76,9 @@ namespace GAPPSF.GPX
                             {
                                 theEntry = s.GetNextEntry();
                             }
-                            catch
+                            catch//(Exception e)
                             {
+                                //Core.ApplicationData.Instance.Logger.AddLog(this, e);
                                 //opencaching.de zip files generates an exception
                                 theEntry = null;
                             }
@@ -89,9 +90,9 @@ namespace GAPPSF.GPX
                     ImportGPX(File.ReadAllText(fileName));
                 }
             }
-            catch
+            catch(Exception e)
             {
-
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
             }
         }
 
@@ -452,8 +453,9 @@ namespace GAPPSF.GPX
                     }
                 }
             }
-            catch
+            catch(Exception e)
             {
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
             }
         }
 

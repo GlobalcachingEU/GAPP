@@ -444,8 +444,9 @@ namespace GAPPSF.GAPPDataStorage
                     result = true;
                 }
             }
-            catch
+            catch(Exception e)
             {
+                Core.ApplicationData.Instance.Logger.AddLog(new Importer(), e);
             }
             return result;
         }

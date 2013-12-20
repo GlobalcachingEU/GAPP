@@ -799,4 +799,22 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="Fields" xml:space="preserve">
     <value>Fields</value>
   </data>
+  <data name="ExportiGeoKnife" xml:space="preserve">
+    <value>Export iGeoKnife</value>
+  </data>
+  <data name="ExportingiGeoKnife" xml:space="preserve">
+    <value>Exporting iGeoKnife</value>
+  </data>
+  <data name="Saving" xml:space="preserve">
+    <value>Saving</value>
+  </data>
+  <data name="SavingData" xml:space="preserve">
+    <value>Saving data</value>
+  </data>
+  <data name="SavingGeocaches" xml:space="preserve">
+    <value>Saving geocaches</value>
+  </data>
+  <data name="DebugLogView" xml:space="preserve">
+    <value>Log viewer</value>
+  </data>
 </root>

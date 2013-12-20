@@ -1,7 +1,6 @@
 ﻿using GAPPSF.Commands;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace GAPPSF.OV2
+namespace GAPPSF.iGeoKnife
 {
     /// <summary>
     /// Interaction logic for ExportWindow.xaml
@@ -38,18 +37,10 @@ namespace GAPPSF.OV2
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-            dlg.FileName = ""; // Default file name
-            dlg.DefaultExt = ".ov2"; // Default file extension
-            dlg.Filter = "TomTom (.ov2)|*.ov2"; // Filter files by extension 
-
-            // Show open file dialog box
-            Nullable<bool> result = dlg.ShowDialog();
-
-            // Process open file dialog box results 
-            if (result == true)
+            var dlg = new Dialogs.FolderPickerDialog();
+            if (dlg.ShowDialog()==true)
             {
-                Core.Settings.Default.OV2FileName = dlg.FileName;
+                Core.Settings.Default.IGeoKnifeFolderName = dlg.SelectedPath;
             }
         }
 
@@ -71,7 +62,7 @@ namespace GAPPSF.OV2
             {
                 try
                 {
-                    Export.ExportToFile(_gcList,Core.Settings.Default.OV2FileName);
+                    Export.ExportToFile(System.IO.Path.Combine(Core.Settings.Default.IGeoKnifeFolderName, "sqlite.db3"), _gcList);
                 }
                 catch(Exception e)
                 {
@@ -83,11 +74,12 @@ namespace GAPPSF.OV2
         private bool canExport()
         {
             bool result = false;
-            if (!string.IsNullOrEmpty(Core.Settings.Default.OV2FileName))
+            if (!string.IsNullOrEmpty(Core.Settings.Default.IGeoKnifeFolderName))
             {
                 return true;
             }
             return result;
         }
+
     }
 }

@@ -30,6 +30,7 @@ namespace GAPPSF.Core
         public Data.Location CenterLocation { get; private set; }
         public AccountInfoCollection AccountInfos { get; private set; }
         public GeocacheAttributeCollection GeocacheAttributes { get; private set; }
+        public Logger Logger { get; private set; }
 
         private bool _switchingDatabase = false;
         private Storage.Database _activeDatabase = null;
@@ -117,6 +118,8 @@ namespace GAPPSF.Core
                 System.Diagnostics.Debugger.Break();
             }
 #endif
+            this.Logger = new Core.Logger();
+
             string s = Settings.Default.AccountInfos;
             //s = "";
             if (string.IsNullOrEmpty(s))

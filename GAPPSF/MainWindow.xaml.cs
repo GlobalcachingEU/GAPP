@@ -32,6 +32,13 @@ namespace GAPPSF
     {
         private Core.Storage.Database _currentConnectedDatabase = null;
 
+        private string _popUpText = "";
+        public string PopUpText 
+        {
+            get { return _popUpText; }
+            set { SetProperty(ref _popUpText, value); } 
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public MainWindow()
@@ -77,12 +84,27 @@ namespace GAPPSF
 
             Core.ApplicationData.Instance.PropertyChanged += Instance_PropertyChanged;
             Core.Settings.Default.PropertyChanged += Default_PropertyChanged;
+            Core.ApplicationData.Instance.Logger.LogAdded += Logger_LogAdded;
 
             rightPanelColumn.Width = rpgl;
             bottomLeftPanelColumn.Width = blgl;
             bottomPanelsRow.Height = bpgl;
 
             updateShortCutKeyAssignment();
+
+            //popup.IsOpen = true;
+        }
+
+        void Logger_LogAdded(object sender, Core.Logger.LogEventArgs e)
+        {
+            Dispatcher.BeginInvoke((Action)(() =>
+            {
+                if (e.Level == Core.Logger.Level.Error)
+                {
+                    PopUpText = e.Message;
+                    popup.IsOpen = true;
+                }
+            }));
         }
 
         void Default_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -657,6 +679,74 @@ namespace GAPPSF
                 await imp.ImportFilesAsync(dlg.FileNames);
             }
         }
+
+
+        RelayCommand _exportIGKActiveCommand;
+        public ICommand ExportIGKActiveCommand
+        {
+            get
+            {
+                if (_exportIGKActiveCommand == null)
+                {
+                    _exportIGKActiveCommand = new RelayCommand(param => this.ExportIGKActive(),
+                        param => Core.ApplicationData.Instance.ActiveGeocache != null);
+                }
+                return _exportIGKActiveCommand;
+            }
+        }
+        private void ExportIGKActive()
+        {
+            if (Core.ApplicationData.Instance.ActiveGeocache != null)
+            {
+                ExportIGK(new Core.Data.Geocache[] { Core.ApplicationData.Instance.ActiveGeocache }.ToList());
+            }
+        }
+        RelayCommand _exportIGKSelectedCommand;
+        public ICommand ExportIGKSelectedCommand
+        {
+            get
+            {
+                if (_exportIGKSelectedCommand == null)
+                {
+                    _exportIGKSelectedCommand = new RelayCommand(param => this.ExportIGKSelected(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null && this.GeocacheSelectionCount > 0);
+                }
+                return _exportIGKSelectedCommand;
+            }
+        }
+        private void ExportIGKSelected()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                ExportIGK((from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection where a.Selected select a).ToList());
+            }
+        }
+        RelayCommand _exportIGKAllCommand;
+        public ICommand ExportIGKAllCommand
+        {
+            get
+            {
+                if (_exportIGKAllCommand == null)
+                {
+                    _exportIGKAllCommand = new RelayCommand(param => this.ExportIGKAll(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null);
+                }
+                return _exportIGKAllCommand;
+            }
+        }
+        private void ExportIGKAll()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                ExportIGK(Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection);
+            }
+        }
+        private void ExportIGK(List<Core.Data.Geocache> gcList)
+        {
+            iGeoKnife.ExportWindow dlg = new iGeoKnife.ExportWindow(gcList);
+            dlg.ShowDialog();
+        }
+
 
 
 
@@ -1322,6 +1412,18 @@ namespace GAPPSF
             Window w = new FeatureWindow(new UIControls.IgnoreGeocaches.Control());
             w.Owner = this;
             w.Show();
+        }
+
+        private void menua27_Click(object sender, RoutedEventArgs e)
+        {
+            Window w = new FeatureWindow(new UIControls.DebugLogView.Control());
+            w.Owner = this;
+            w.Show();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            popup.IsOpen = false;
         }
 
     }

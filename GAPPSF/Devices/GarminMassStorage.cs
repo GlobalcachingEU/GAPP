@@ -89,8 +89,9 @@ namespace GAPPSF.Devices
                 _managementEventWatcher.EventArrived += new EventArrivedEventHandler(_managementEventWatcher_EventArrived);
                 _managementEventWatcher.Start();
             }
-            catch
+            catch(Exception e)
             {
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
             }
         }
 
@@ -131,13 +132,15 @@ namespace GAPPSF.Devices
                             }
                         }
                     }
-                    catch
+                    catch(Exception e)
                     {
+                        Core.ApplicationData.Instance.Logger.AddLog(this, e);
                     }
                 }
             }
-            catch
+            catch(Exception e)
             {
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
             }
         }
 
@@ -212,8 +215,9 @@ namespace GAPPSF.Devices
                     }
                 }
             }
-            catch
+            catch(Exception ex)
             {
+                Core.ApplicationData.Instance.Logger.AddLog(this, ex);
             }
         }
 
@@ -240,15 +244,17 @@ namespace GAPPSF.Devices
 
                             di.DeviceName = xdoc.Element(ns + "Device").Element(ns + "Model").Element(ns + "Description").Value;
                         }
-                        catch
+                        catch(Exception e)
                         {
+                            Core.ApplicationData.Instance.Logger.AddLog(this, e);
                         }
                     }
                     result = true;
                 }
             }
-            catch
+            catch(Exception e)
             {
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
             }
             return result;
         }

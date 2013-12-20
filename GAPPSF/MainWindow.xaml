@@ -13,12 +13,64 @@
         Left="{Binding MainWindowLeft, Mode=TwoWay, Source={x:Static p:Settings.Default}}"
         Top="{Binding MainWindowTop, Mode=TwoWay, Source={x:Static p:Settings.Default}}" Closing="Window_Closing" Background="#FF293955" Icon="Resources/MainWindow/Globalcaching.ico"
     ContentRendered="Window_ContentRendered">
+    <Window.Resources>
+        <Style x:Key="PopupStyle" TargetType="{x:Type Popup}">
+            <Style.Triggers>
+                <Trigger Property="IsOpen" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation 
+                                     Storyboard.TargetProperty="Height"
+                                     Duration="0:0:0.5"
+                                     From="0.0"
+                                     To="200" />
+                                <DoubleAnimation 
+                                     Storyboard.TargetProperty="Width"
+                                     Duration="0:0:0.5"
+                                     From="0.0"
+                                     To="300" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid x:Name="layoutRoot">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        <Popup x:Name="popup"
+               Style="{StaticResource PopupStyle}"
+               Placement="Bottom" 
+               AllowsTransparency="True" 
+               VerticalOffset="-200" 
+               StaysOpen="True"
+               >
+            <Grid>
+                <Border Margin="10" BorderBrush="Black" BorderThickness="1" Background="White">
+                    <Border.Effect>
+                        <DropShadowEffect ShadowDepth="4"/>
+                    </Border.Effect>
+                </Border>
+                <Border Margin="10" BorderBrush="Black" BorderThickness="1">
+                    <Grid Background="#FFEA5656">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Background="AliceBlue">
+                            <TextBlock Margin="4" Text="{l:Translate Information}" HorizontalAlignment="Center" />
+                            <Button Margin="4" Content="X" Click="Button_Click" HorizontalAlignment="Right" Width="Auto" />
+                        </Grid>
+                        <TextBlock Grid.Row="1" Margin="4" Text="{Binding PopUpText}" HorizontalAlignment="Stretch" Height="150" TextWrapping="Wrap" />
+                    </Grid>
+                </Border>
+            </Grid>
+        </Popup>
         <StackPanel Grid.Row="0">
             <Menu x:Name="mainMenu" Background="#FFD6DBE9">
                 <MenuItem Header="{l:Translate File}">
@@ -44,6 +96,11 @@
                         <MenuItem x:Name="menu40" Header="{l:Translate Active}" Command="{Binding ExportKMLActiveCommand}" />
                         <MenuItem x:Name="menu41" Header="{l:Translate Selected}" Command="{Binding ExportKMLSelectedCommand}" />
                         <MenuItem x:Name="menu42" Header="{l:Translate All}" Command="{Binding ExportKMLAllCommand}" />
+                    </MenuItem>
+                    <MenuItem Header="{l:Translate ExportiGeoKnife}">
+                        <MenuItem x:Name="menu70" Header="{l:Translate Active}" Command="{Binding ExportIGKActiveCommand}" />
+                        <MenuItem x:Name="menu71" Header="{l:Translate Selected}" Command="{Binding ExportIGKSelectedCommand}" />
+                        <MenuItem x:Name="menu72" Header="{l:Translate All}" Command="{Binding ExportIGKAllCommand}" />
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{l:Translate Edit}">
@@ -118,6 +175,7 @@
                     </MenuItem>
                     <MenuItem x:Name="menu26" Header="{l:Translate OfflineImages}" Click="MenuItem_Click_9" />
                     <MenuItem x:Name="menu27" Header="{l:Translate IgnoreGeocaches}" Click="menu27_Click" />
+                    <MenuItem x:Name="menua27" Header="{l:Translate DebugLogView}" Click="menua27_Click" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate Help}">
                 </MenuItem>

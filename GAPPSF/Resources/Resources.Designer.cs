@@ -520,6 +520,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Log viewer.
+        /// </summary>
+        internal static string DebugLogView {
+            get {
+                return ResourceManager.GetString("DebugLogView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         internal static string Delete {
@@ -664,11 +673,29 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export iGeoKnife.
+        /// </summary>
+        internal static string ExportiGeoKnife {
+            get {
+                return ResourceManager.GetString("ExportiGeoKnife", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exporting GPX.
         /// </summary>
         internal static string ExportingGPX {
             get {
                 return ResourceManager.GetString("ExportingGPX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting iGeoKnife.
+        /// </summary>
+        internal static string ExportingiGeoKnife {
+            get {
+                return ResourceManager.GetString("ExportingiGeoKnife", resourceCulture);
             }
         }
         
@@ -1682,6 +1709,33 @@ namespace GAPPSF.Resources {
         internal static string S {
             get {
                 return ResourceManager.GetString("S", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saving.
+        /// </summary>
+        internal static string Saving {
+            get {
+                return ResourceManager.GetString("Saving", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saving data.
+        /// </summary>
+        internal static string SavingData {
+            get {
+                return ResourceManager.GetString("SavingData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saving geocaches.
+        /// </summary>
+        internal static string SavingGeocaches {
+            get {
+                return ResourceManager.GetString("SavingGeocaches", resourceCulture);
             }
         }
         

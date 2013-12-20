@@ -144,13 +144,16 @@
     <Compile Include="Core\Data\WaypointData.cs" />
     <Compile Include="Core\Data\WaypointType.cs" />
     <Compile Include="Core\Data\WaypointTypeCollection.cs" />
+    <Compile Include="Core\Logger.cs" />
     <Compile Include="Core\Settings\AppDataInfoSettings.cs" />
     <Compile Include="Core\Settings\ApplicationSettings.cs" />
     <Compile Include="Core\Settings\CacheListSettings.cs" />
+    <Compile Include="Core\Settings\DebugLogViewSettings.cs" />
     <Compile Include="Core\Settings\GeocacheFilterSettings.cs" />
     <Compile Include="Core\Settings\GeocacheViewerSettings.cs" />
     <Compile Include="Core\Settings\GoogleMapSettings.cs" />
     <Compile Include="Core\Settings\GPXSettings.cs" />
+    <Compile Include="Core\Settings\iGeoKnifeSettings.cs" />
     <Compile Include="Core\Settings\IgnoreGeocachesSettings.cs" />
     <Compile Include="Core\Settings\LiveAPISettings.cs" />
     <Compile Include="Core\Settings\MainWindowSettings.cs" />
@@ -208,6 +211,10 @@
       <DependentUpon>ExportWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="GPX\Import.cs" />
+    <Compile Include="iGeoKnife\Export.cs" />
+    <Compile Include="iGeoKnife\ExportWindow.xaml.cs">
+      <DependentUpon>ExportWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="KML\Export.cs" />
     <Compile Include="LiveAPI\AuthorizationWindow.xaml.cs">
       <DependentUpon>AuthorizationWindow.xaml</DependentUpon>
@@ -288,6 +295,9 @@
     <Compile Include="UIControls\CheckedListItem.cs" />
     <Compile Include="UIControls\ComboColorPicker.xaml.cs">
       <DependentUpon>ComboColorPicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UIControls\DebugLogView\Control.xaml.cs">
+      <DependentUpon>Control.xaml</DependentUpon>
     </Compile>
     <Compile Include="UIControls\EnumBooleanConverter.cs" />
     <Compile Include="UIControls\EnumValuesExtension.cs" />
@@ -382,6 +392,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GPX\ExportWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="iGeoKnife\ExportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -555,6 +569,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UIControls\DebugLogView\Control.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UIControls\GeocacheAttributeSelection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -625,6 +643,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="iGeoKnife\sqlite.db3" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

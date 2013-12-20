@@ -63,8 +63,9 @@ namespace GAPPSF.LiveAPI
             {
                 _client = new LiveV6.LiveClient(binding, endPoint);
             }
-            catch
+            catch(Exception e)
             {
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
             }
 
         }
@@ -155,8 +156,9 @@ namespace GAPPSF.LiveAPI
                     }
                 }
             }
-            catch
+            catch(Exception e)
             {
+                Core.ApplicationData.Instance.Logger.AddLog(null, e);
             }
             return result;
         }

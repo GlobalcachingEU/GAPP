@@ -182,8 +182,9 @@ namespace GAPPSF.KML
                     }
                 }
             }
-            catch
+            catch(Exception e)
             {
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
             }
         }
 

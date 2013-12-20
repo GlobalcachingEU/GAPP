@@ -47,8 +47,9 @@ namespace GAPPSF.LiveAPI
                 {
                     Token = webBrowser.InvokeScript("getToken") as string;
                 }
-                catch
+                catch(Exception ex)
                 {
+                    Core.ApplicationData.Instance.Logger.AddLog(this, ex);
                 }
                 DialogResult = true;
                 Close();

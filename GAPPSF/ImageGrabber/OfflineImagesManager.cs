@@ -33,8 +33,9 @@ namespace GAPPSF.ImageGrabber
                 }
                 InitDatabase();
             }
-            catch
+            catch(Exception e)
             {
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
             }
         }
 
@@ -86,8 +87,9 @@ namespace GAPPSF.ImageGrabber
                 }
                 result = true;
             }
-            catch
+            catch(Exception e)
             {
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
             }
             return result;
         }
@@ -104,8 +106,9 @@ namespace GAPPSF.ImageGrabber
                     result = System.IO.Path.Combine(new string[] { _imageFolder, IMG_SUBFOLDER, o as string });
                 }
             }
-            catch
+            catch(Exception e)
             {
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
             }
             return result;
         }
@@ -127,8 +130,9 @@ namespace GAPPSF.ImageGrabber
                         result = System.IO.Path.Combine(new string[] { _imageFolder, IMG_SUBFOLDER, o as string });
                     }
                 }
-                catch
+                catch(Exception e)
                 {
+                    Core.ApplicationData.Instance.Logger.AddLog(this, e);
                 }
             }
             return result;
@@ -172,8 +176,9 @@ namespace GAPPSF.ImageGrabber
                 byte[] buffer = File.ReadAllBytes(filename);
                 result = string.Concat("data:image/", filename.Substring(filename.LastIndexOf('.') + 1), ";base64,", Convert.ToBase64String(buffer));
             }
-            catch
+            catch(Exception e)
             {
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
                 result = filename;
             }
             return result;
@@ -190,8 +195,9 @@ namespace GAPPSF.ImageGrabber
                     result.Add(dr["org_url"] as string, System.IO.Path.Combine(new string[] { _imageFolder, IMG_SUBFOLDER, dr["local_file"] as string }));
                 }
             }
-            catch
+            catch(Exception e)
             {
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
             }
             return result;
         }
@@ -283,14 +289,16 @@ namespace GAPPSF.ImageGrabber
                                             }
                                         }
                                     }
-                                    catch
+                                    catch(Exception e)
                                     {
+                                        Core.ApplicationData.Instance.Logger.AddLog(this, e);
                                     }
                                 }
 
                             }
-                            catch
+                            catch(Exception e)
                             {
+                                Core.ApplicationData.Instance.Logger.AddLog(this, e);
                                 //skip and go to next one
                             }
                         }

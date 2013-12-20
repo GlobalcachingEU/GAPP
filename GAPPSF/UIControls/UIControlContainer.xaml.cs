@@ -235,6 +235,11 @@ namespace GAPPSF.UIControls
             FeatureControl = new IgnoreGeocaches.Control();
         }
 
+        private void MenuItem_Click_8(object sender, RoutedEventArgs e)
+        {
+            FeatureControl = new DebugLogView.Control();
+        }
+
 
     }
 }

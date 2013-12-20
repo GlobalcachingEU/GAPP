@@ -414,8 +414,9 @@ namespace GAPPSF.UIControls.GMap
                     return webBrowser1.InvokeScript(script, pars);
                 }
             }
-            catch
+            catch(Exception e)
             {
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
             }
             return null;
         }
@@ -514,8 +515,9 @@ namespace GAPPSF.UIControls.GMap
                     }
                 }
             }
-            catch
+            catch(Exception ex)
             {
+                Core.ApplicationData.Instance.Logger.AddLog(this, ex);
             }
             this.Cursor = Cursors.Hand;
         }

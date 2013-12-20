@@ -103,9 +103,9 @@ namespace GAPPSF.Dialogs
                 {
                     webBrowser.InvokeScript("setCenter", new object[] { Core.ApplicationData.Instance.HomeLocation.Lat, Core.ApplicationData.Instance.HomeLocation.Lon });
                 }
-                catch
+                catch(Exception ex)
                 {
-
+                    Core.ApplicationData.Instance.Logger.AddLog(this, ex);
                 }
             }
         }
@@ -119,9 +119,9 @@ namespace GAPPSF.Dialogs
                 {
                     webBrowser.InvokeScript("setCenter", new object[] { Core.ApplicationData.Instance.CenterLocation.Lat, Core.ApplicationData.Instance.CenterLocation.Lon });
                 }
-                catch
+                catch(Exception ex)
                 {
-
+                    Core.ApplicationData.Instance.Logger.AddLog(this, ex);
                 }
             }
         }

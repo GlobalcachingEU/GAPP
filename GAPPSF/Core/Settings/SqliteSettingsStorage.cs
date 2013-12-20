@@ -79,8 +79,9 @@ namespace GAPPSF.Core
                     }
                 }
             }
-            catch
+            catch(Exception e)
             {
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
                 _dbcon = null;
             }
         }

@@ -118,9 +118,9 @@ namespace GAPPSF.Core.Storage
                     }
                 }
             }
-            catch
+            catch(Exception e)
             {
-
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
             }
             return result;
         }
@@ -253,8 +253,9 @@ namespace GAPPSF.Core.Storage
                     }
                 }
             }
-            catch
+            catch(Exception e)
             {
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
                 try
                 {
                     if (_fileStreamIdx!=null)
@@ -380,8 +381,9 @@ namespace GAPPSF.Core.Storage
                     }
                 }
             }
-            catch
+            catch(Exception e)
             {
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
             }
             return result;
         }

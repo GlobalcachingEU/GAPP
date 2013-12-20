@@ -98,8 +98,9 @@ namespace GAPPSF.Shapefiles
                     result = (from s in fields select s.Name).ToArray();
                 }
             }
-            catch
+            catch(Exception e)
             {
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
             }
             return result;
         }
@@ -244,8 +245,9 @@ namespace GAPPSF.Shapefiles
                     }
                 }
             }
-            catch
+            catch(Exception e)
             {
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
             }
             return result;
         }
@@ -416,8 +418,9 @@ namespace GAPPSF.Shapefiles
                         GetPolygonOfArea(area.Polygons, rec);
                     }
                 }
-                catch
+                catch(Exception e)
                 {
+                    Core.ApplicationData.Instance.Logger.AddLog(this, e);
                 }
             }
         }
