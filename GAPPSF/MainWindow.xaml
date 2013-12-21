@@ -133,6 +133,10 @@
                     <MenuItem x:Name="menu38" Header="{l:Translate SelectWithUserWP}" Command="{Binding SelectWithUserWPCommand}" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate Action}">
+                    <MenuItem Header="{l:Translate ActionBuilder}">
+                        <MenuItem x:Name="menuc27" Header="{l:Translate Edit}" Click="menub27_Click" />
+                        <Separator />
+                    </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{l:Translate LiveAPI}">
                     <MenuItem x:Name="menu13" Header="{l:Translate Authorize}" Command="{Binding LiveApiAuthorizeCommand}" />
@@ -177,6 +181,7 @@
                     <MenuItem x:Name="menu26" Header="{l:Translate OfflineImages}" Click="MenuItem_Click_9" />
                     <MenuItem x:Name="menu27" Header="{l:Translate IgnoreGeocaches}" Click="menu27_Click" />
                     <MenuItem x:Name="menua27" Header="{l:Translate DebugLogView}" Click="menua27_Click" />
+                    <MenuItem x:Name="menub27" Header="{l:Translate ActionBuilder}" Click="menub27_Click" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate Help}">
                 </MenuItem>

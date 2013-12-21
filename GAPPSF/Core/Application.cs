@@ -363,7 +363,10 @@ namespace GAPPSF.Core
             List<Core.Data.GeocacheAttribute> attrs = (from a in this.GeocacheAttributes select a).ToList();
             foreach (Core.Data.GeocacheAttribute a in attrs)
             {
-                addCacheAttribute(-a.ID, a.Name);
+                if (a.ID > 0)
+                {
+                    addCacheAttribute(-a.ID, a.Name);
+                }
             }
         }
 

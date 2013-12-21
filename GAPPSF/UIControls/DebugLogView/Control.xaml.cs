@@ -44,10 +44,10 @@ namespace GAPPSF.UIControls.DebugLogView
             {
                 if (e.Level <= Core.Settings.Default.DebugLogViewLevel)
                 {
-                    logText.Text += string.Format("{0} [{1}] => {2}", DateTime.Now.ToString("HH:mm:ss:FFF"), e.ObjType, e.Message);
+                    logText.Text += string.Format("{0} [{1}] => {2}\r\n", DateTime.Now.ToString("HH:mm:ss:FFF"), e.ObjType, e.Message);
                     if (e.Exception != null && !string.IsNullOrEmpty(e.Exception.StackTrace))
                     {
-                        logText.Text += e.Exception.StackTrace;
+                        logText.Text += e.Exception.StackTrace + "\r\n";
                     }
                 }
             })); 

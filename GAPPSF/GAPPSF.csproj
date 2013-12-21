@@ -145,6 +145,7 @@
     <Compile Include="Core\Data\WaypointType.cs" />
     <Compile Include="Core\Data\WaypointTypeCollection.cs" />
     <Compile Include="Core\Logger.cs" />
+    <Compile Include="Core\Settings\ActionBuilderSettings.cs" />
     <Compile Include="Core\Settings\AppDataInfoSettings.cs" />
     <Compile Include="Core\Settings\ApplicationSettings.cs" />
     <Compile Include="Core\Settings\CacheListSettings.cs" />
@@ -284,6 +285,19 @@
     <Compile Include="SharpZipLib\ZipInputStream.cs" />
     <Compile Include="SharpZipLib\ZipNameTransform.cs" />
     <Compile Include="SharpZipLib\ZipOutputStream.cs" />
+    <Compile Include="UIControls\ActionBuilder\ActionBuilderEditor.xaml.cs">
+      <DependentUpon>ActionBuilderEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UIControls\ActionBuilder\ActionControl.xaml.cs">
+      <DependentUpon>ActionControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UIControls\ActionBuilder\ActionFlow.cs" />
+    <Compile Include="UIControls\ActionBuilder\ActionImplementation.cs" />
+    <Compile Include="UIControls\ActionBuilder\ActionImplementations.cs" />
+    <Compile Include="UIControls\ActionBuilder\Control.xaml.cs">
+      <DependentUpon>Control.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UIControls\ActionBuilder\Manager.cs" />
     <Compile Include="UIControls\ApplicationDataInfo\ApplicationDataInfo.xaml.cs">
       <DependentUpon>ApplicationDataInfo.xaml</DependentUpon>
     </Compile>
@@ -299,6 +313,7 @@
     <Compile Include="UIControls\DebugLogView\Control.xaml.cs">
       <DependentUpon>Control.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UIControls\DragCanvas.cs" />
     <Compile Include="UIControls\EnumBooleanConverter.cs" />
     <Compile Include="UIControls\EnumValuesExtension.cs" />
     <Compile Include="UIControls\GeocacheAttributeSelection.xaml.cs">
@@ -554,6 +569,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\UpDownCtrls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\ActionBuilder\ActionBuilderEditor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UIControls\ActionBuilder\ActionControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UIControls\ActionBuilder\Control.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1140,6 +1167,15 @@
     <Resource Include="Resources\Shell\shell32_303.ico" />
     <Resource Include="Resources\Shell\shell32_8.ico" />
     <Resource Include="Resources\Shell\shell32_9.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\New.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Attributes\0.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\execute.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

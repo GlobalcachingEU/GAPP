@@ -1462,5 +1462,12 @@ namespace GAPPSF
             popup.IsOpen = false;
         }
 
+        private void menub27_Click(object sender, RoutedEventArgs e)
+        {
+            Window w = new FeatureWindow(new UIControls.ActionBuilder.Control());
+            w.Owner = this;
+            w.Show();
+        }
+
     }
 }

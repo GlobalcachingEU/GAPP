@@ -88,6 +88,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Action Builder.
+        /// </summary>
+        internal static string ActionBuilder {
+            get {
+                return ResourceManager.GetString("ActionBuilder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Active.
         /// </summary>
         internal static string Active {

@@ -11,9 +11,15 @@ namespace GAPPSF.Utils
     public class DataUpdater: IDisposable
     {
         private List<Database> _dbList = null;
+        private bool _readOnly = false;
 
         public DataUpdater(Database db)
+            : this(db, false)
         {
+        }
+        public DataUpdater(Database db, bool readOnly)
+        {
+            _readOnly = readOnly;
             _dbList = new List<Database>();
             if (db != null)
             {
@@ -51,7 +57,10 @@ namespace GAPPSF.Utils
             db.LogCollection.EndUpdate();
             db.GeocacheCollection.EndUpdate();
 
-            db.Flush();
+            if (!_readOnly)
+            {
+                db.Flush();
+            }
         }
 
         public void Dispose()

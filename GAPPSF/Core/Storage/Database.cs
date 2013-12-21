@@ -87,7 +87,7 @@ namespace GAPPSF.Core.Storage
         async public Task<bool> InitializeAsync()
         {
             bool result = false;
-            using (DataUpdater upd = new DataUpdater(this))
+            using (DataUpdater upd = new DataUpdater(this, true))
             {
                 await Task.Run(() => { result = Initialize(); });
             }

@@ -240,6 +240,11 @@ namespace GAPPSF.UIControls
             FeatureControl = new DebugLogView.Control();
         }
 
+        private void MenuItem_Click_9(object sender, RoutedEventArgs e)
+        {
+            FeatureControl = new ActionBuilder.Control();
+        }
+
 
     }
 }
