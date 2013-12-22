@@ -92,6 +92,7 @@ namespace GAPPSF
 
             updateShortCutKeyAssignment();
 
+            UIControls.ActionBuilder.Manager mng = UIControls.ActionBuilder.Manager.Instance;
             //popup.IsOpen = true;
         }
 

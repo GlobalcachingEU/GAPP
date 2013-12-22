@@ -97,6 +97,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Actions.
+        /// </summary>
+        internal static string Actions {
+            get {
+                return ResourceManager.GetString("Actions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Active.
         /// </summary>
         internal static string Active {
@@ -192,6 +201,15 @@ namespace GAPPSF.Resources {
         internal static string Area {
             get {
                 return ResourceManager.GetString("Area", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ascending.
+        /// </summary>
+        internal static string Ascending {
+            get {
+                return ResourceManager.GetString("Ascending", resourceCulture);
             }
         }
         
@@ -394,6 +412,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Conditions.
+        /// </summary>
+        internal static string Conditions {
+            get {
+                return ResourceManager.GetString("Conditions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Container.
         /// </summary>
         internal static string Container {
@@ -475,6 +502,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Count geocache as waypoint.
+        /// </summary>
+        internal static string CountGeocacheAsWaypoint {
+            get {
+                return ResourceManager.GetString("CountGeocacheAsWaypoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Country.
         /// </summary>
         internal static string Country {
@@ -529,6 +565,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date of find.
+        /// </summary>
+        internal static string DateOfFind {
+            get {
+                return ResourceManager.GetString("DateOfFind", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Log viewer.
         /// </summary>
         internal static string DebugLogView {
@@ -565,6 +610,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Descending.
+        /// </summary>
+        internal static string Descending {
+            get {
+                return ResourceManager.GetString("Descending", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Diff.
         /// </summary>
         internal static string Diff {
@@ -588,6 +642,15 @@ namespace GAPPSF.Resources {
         internal static string Disabled {
             get {
                 return ResourceManager.GetString("Disabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Distance from center.
+        /// </summary>
+        internal static string DistanceFromCenter {
+            get {
+                return ResourceManager.GetString("DistanceFromCenter", resourceCulture);
             }
         }
         
@@ -660,6 +723,15 @@ namespace GAPPSF.Resources {
         internal static string English {
             get {
                 return ResourceManager.GetString("English", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Execute once.
+        /// </summary>
+        internal static string ExecuteOnce {
+            get {
+                return ResourceManager.GetString("ExecuteOnce", resourceCulture);
             }
         }
         
@@ -916,11 +988,29 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to gc.com Notes.
+        /// </summary>
+        internal static string gccomNotes {
+            get {
+                return ResourceManager.GetString("gccomNotes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Geocache container.
         /// </summary>
         internal static string GeocacheContainer {
             get {
                 return ResourceManager.GetString("GeocacheContainer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geocache counter.
+        /// </summary>
+        internal static string GeocacheCounter {
+            get {
+                return ResourceManager.GetString("GeocacheCounter", resourceCulture);
             }
         }
         
@@ -1061,6 +1151,15 @@ namespace GAPPSF.Resources {
         internal static string Help {
             get {
                 return ResourceManager.GetString("Help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hidden date.
+        /// </summary>
+        internal static string HiddenDate {
+            get {
+                return ResourceManager.GetString("HiddenDate", resourceCulture);
             }
         }
         
@@ -1488,6 +1587,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name contains.
+        /// </summary>
+        internal static string NameContains {
+            get {
+                return ResourceManager.GetString("NameContains", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New.
         /// </summary>
         internal static string New {
@@ -1542,6 +1650,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Notes contains.
+        /// </summary>
+        internal static string NotesContains {
+            get {
+                return ResourceManager.GetString("NotesContains", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not found by.
         /// </summary>
         internal static string NotFoundBy {
@@ -1556,6 +1673,42 @@ namespace GAPPSF.Resources {
         internal static string NotFoundByAny {
             get {
                 return ResourceManager.GetString("NotFoundByAny", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to # Log images.
+        /// </summary>
+        internal static string NumLogImages {
+            get {
+                return ResourceManager.GetString("NumLogImages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to # Logs.
+        /// </summary>
+        internal static string NumLogs {
+            get {
+                return ResourceManager.GetString("NumLogs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to # User Waypoints.
+        /// </summary>
+        internal static string NumUserWaypoints {
+            get {
+                return ResourceManager.GetString("NumUserWaypoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to # Waypoints.
+        /// </summary>
+        internal static string NumWaypoints {
+            get {
+                return ResourceManager.GetString("NumWaypoints", resourceCulture);
             }
         }
         
@@ -1583,6 +1736,15 @@ namespace GAPPSF.Resources {
         internal static string OKAPI {
             get {
                 return ResourceManager.GetString("OKAPI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only with coords.
+        /// </summary>
+        internal static string OnlyWithCoords {
+            get {
+                return ResourceManager.GetString("OnlyWithCoords", resourceCulture);
             }
         }
         
@@ -1718,6 +1880,15 @@ namespace GAPPSF.Resources {
         internal static string Remove {
             get {
                 return ResourceManager.GetString("Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rename.
+        /// </summary>
+        internal static string Rename {
+            get {
+                return ResourceManager.GetString("Rename", resourceCulture);
             }
         }
         
@@ -1974,6 +2145,15 @@ namespace GAPPSF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sort geocaches on:.
+        /// </summary>
+        internal static string SortGeocachesOn {
+            get {
+                return ResourceManager.GetString("SortGeocachesOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to State.
         /// </summary>
         internal static string State {
@@ -2087,6 +2267,15 @@ namespace GAPPSF.Resources {
         internal static string UserWaypoints {
             get {
                 return ResourceManager.GetString("UserWaypoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waypoint counter.
+        /// </summary>
+        internal static string WaypointCounter {
+            get {
+                return ResourceManager.GetString("WaypointCounter", resourceCulture);
             }
         }
         

@@ -1,0 +1,83 @@
+﻿<UserControl x:Class="GAPPSF.UIControls.ActionBuilder.Control"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:l="clr-namespace:GAPPSF.Localization"
+             xmlns:p="clr-namespace:GAPPSF.Core"
+             xmlns:ui="clr-namespace:GAPPSF.UIControls"
+             xmlns:b="clr-namespace:GAPPSF.UIControls.ActionBuilder"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="600" LostFocus="UserControl_LostFocus">
+    <Grid ClipToBounds="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Panel.ZIndex="100" Background="#FFF0F0F0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Margin="4" Grid.Column="0" Text="{l:Translate Name}" />
+            <ComboBox Margin="4" Grid.Column="1" 
+                      ItemsSource="{Binding ActionFlows, Source={x:Static b:Manager.Instance}}" 
+                      SelectedItem="{Binding ActiveActionFlow, Mode=TwoWay}"
+                      DisplayMemberPath="Name"
+                      SelectionChanged="ComboBox_SelectionChanged"
+                      MinWidth="150" />
+            <Button Grid.Column="4" Height="20" Width="20" ToolTip="{l:Translate New}" Click="Button_Click">
+                <Image Width="16" Height="16" Source="/Resources/General/new.png" />
+            </Button>
+            <Button Margin="4" Grid.Column="5" Height="20" Width="20" ToolTip="{l:Translate Delete}" Click="Button_Click_1" IsEnabled="{Binding IsFlowActive}">
+                <Image Width="16" Height="16" Source="/Resources/General/delete.png" />
+            </Button>
+            <Button Margin="4" Grid.Column="2" Height="20" Width="20" ToolTip="{l:Translate Execute}" Command="{Binding ExecuteCommand}">
+                <Image Width="16" Height="16" Source="/Resources/General/execute.gif" />
+            </Button>
+            <Button Margin="4" Grid.Column="3" Height="20" Width="20" ToolTip="{l:Translate Rename}" IsEnabled="{Binding IsFlowActive}" Click="Button_Click_2">
+                <Image Width="16" Height="16" Source="/Resources/General/edit.png" />
+            </Button>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="0" Panel.ZIndex="100"  Background="#FFF0F0F0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="{l:Translate Conditions}" HorizontalAlignment="Center" />
+            <ScrollViewer Grid.Row="1">
+                <StackPanel x:Name="conditionPanel" IsEnabled="{Binding IsFlowActive}">
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+        <b:ActionBuilderEditor Grid.Row="1" Grid.Column="1"  x:Name="actionBuilderEditor1" />
+        <Grid Grid.Row="1" Grid.Column="2" Panel.ZIndex="100"  Background="#FFF0F0F0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="{l:Translate Actions}"  HorizontalAlignment="Center" />
+            <ScrollViewer Grid.Row="1">
+                <StackPanel x:Name="actionPanel" IsEnabled="{Binding IsFlowActive}">
+                </StackPanel>
+            </ScrollViewer>
+            <TextBlock Grid.Row="2" Text="{l:Translate ExecuteOnce}"  HorizontalAlignment="Center" />
+            <ScrollViewer Grid.Row="3">
+                <StackPanel x:Name="oncePanel" IsEnabled="{Binding IsFlowActive}">
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+        <ui:InputDialog Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Grid.RowSpan="2"  x:Name="inputDialog" Panel.ZIndex="200" />
+    </Grid>
+</UserControl>

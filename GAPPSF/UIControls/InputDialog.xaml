@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="GAPPSF.UIControls.InputDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:l="clr-namespace:GAPPSF.Localization"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <!-- It's important that this is in the end of the XAML as it needs to be on top of everything else! -->
+    <Grid x:Name="InputBox" Visibility="{Binding DialogVisibility}">
+        <Grid Background="Black" Opacity="0.5"/>
+        <Border
+            MinWidth="250"
+            Background="Orange" 
+            BorderBrush="Black" 
+            BorderThickness="1" 
+            CornerRadius="0,10,0,10" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center">
+            <StackPanel>
+                <TextBlock Margin="5" Text="{Binding CaptionText}" HorizontalAlignment="Center" />
+                <TextBox MinWidth="150" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="InputTextBox" Text="{Binding InputText, Mode=TwoWay}" PreviewKeyDown="InputTextBox_PreviewKeyDown" />
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button x:Name="YesButton" Margin="5" Content="{l:Translate OK}" Background="{x:Null}" Click="YesButton_Click"/>
+                    <Button x:Name="NoButton" Margin="5" Content="{l:Translate Cancel}" Background="{x:Null}" Click="NoButton_Click" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

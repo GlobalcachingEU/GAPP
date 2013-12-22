@@ -823,4 +823,118 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="ActionBuilder" xml:space="preserve">
     <value>Action Builder</value>
   </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="Ascending" xml:space="preserve">
+    <value>Ascending</value>
+  </data>
+  <data name="Conditions" xml:space="preserve">
+    <value>Conditions</value>
+  </data>
+  <data name="CountGeocacheAsWaypoint" xml:space="preserve">
+    <value>Count geocache as waypoint</value>
+  </data>
+  <data name="CustomCoords" xml:space="preserve">
+    <value>Custom coords</value>
+  </data>
+  <data name="DateOfFind" xml:space="preserve">
+    <value>Date of find</value>
+  </data>
+  <data name="DeleteGeocache" xml:space="preserve">
+    <value>Delete geocache</value>
+  </data>
+  <data name="Descending" xml:space="preserve">
+    <value>Descending</value>
+  </data>
+  <data name="DistanceFromCenter" xml:space="preserve">
+    <value>Distance from center</value>
+  </data>
+  <data name="DistanceToCenterKm" xml:space="preserve">
+    <value>Distance to center (km)</value>
+  </data>
+  <data name="DistanceToLocationKm" xml:space="preserve">
+    <value>Distance to location (km)</value>
+  </data>
+  <data name="ExecuteOnce" xml:space="preserve">
+    <value>Execute once</value>
+  </data>
+  <data name="gccomNotes" xml:space="preserve">
+    <value>gc.com Notes</value>
+  </data>
+  <data name="GeocacheCounter" xml:space="preserve">
+    <value>Geocache counter</value>
+  </data>
+  <data name="HiddenDate" xml:space="preserve">
+    <value>Hidden date</value>
+  </data>
+  <data name="Latitude" xml:space="preserve">
+    <value>Latitude</value>
+  </data>
+  <data name="Longitude" xml:space="preserve">
+    <value>Longitude</value>
+  </data>
+  <data name="NameContains" xml:space="preserve">
+    <value>Name contains</value>
+  </data>
+  <data name="NotesContains" xml:space="preserve">
+    <value>Notes contains</value>
+  </data>
+  <data name="NumLogImages" xml:space="preserve">
+    <value># Log images</value>
+  </data>
+  <data name="NumLogs" xml:space="preserve">
+    <value># Logs</value>
+  </data>
+  <data name="NumUserWaypoints" xml:space="preserve">
+    <value># User Waypoints</value>
+  </data>
+  <data name="NumWaypoints" xml:space="preserve">
+    <value># Waypoints</value>
+  </data>
+  <data name="OnlyWithCoords" xml:space="preserve">
+    <value>Only with coords</value>
+  </data>
+  <data name="PlacedBy" xml:space="preserve">
+    <value>Placed by</value>
+  </data>
+  <data name="PublishedDaysAgo" xml:space="preserve">
+    <value>Published days ago</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>Rename</value>
+  </data>
+  <data name="SetArchived" xml:space="preserve">
+    <value>Set Archived</value>
+  </data>
+  <data name="SetAvailable" xml:space="preserve">
+    <value>Set Available</value>
+  </data>
+  <data name="SetFlagged" xml:space="preserve">
+    <value>Set Flagged</value>
+  </data>
+  <data name="SetSelected" xml:space="preserve">
+    <value>Set Selected</value>
+  </data>
+  <data name="SortGeocachesOn" xml:space="preserve">
+    <value>Sort geocaches on:</value>
+  </data>
+  <data name="UpdatedDaysAgo" xml:space="preserve">
+    <value>Updated days ago</value>
+  </data>
+  <data name="WaypointCounter" xml:space="preserve">
+    <value>Waypoint counter</value>
+  </data>
+  <data name="Execute" xml:space="preserve">
+    <value>Execute</value>
+  </data>
+  <data name="Flagged" xml:space="preserve">
+    <value>Flagged</value>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
 </root>

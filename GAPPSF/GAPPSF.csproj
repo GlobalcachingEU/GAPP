@@ -340,6 +340,9 @@
       <DependentUpon>Control.xaml</DependentUpon>
     </Compile>
     <Compile Include="UIControls\IgnoreGeocaches\IgnoreCategory.cs" />
+    <Compile Include="UIControls\InputDialog.xaml.cs">
+      <DependentUpon>InputDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIControls\InverseBooleanConverter.cs" />
     <Compile Include="UIControls\IUIControl.cs" />
     <Compile Include="ImageGrabber\OfflineImagesManager.cs" />
@@ -628,6 +631,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UIControls\InputDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UIControls\OfflineImages\Control.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -668,7 +675,7 @@
     </Compile>
     <EmbeddedResource Include="Resources\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <Resource Include="iGeoKnife\sqlite.db3" />
     <None Include="Properties\Settings.settings">
