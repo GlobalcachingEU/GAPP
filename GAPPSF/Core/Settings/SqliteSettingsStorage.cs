@@ -78,6 +78,16 @@ namespace GAPPSF.Core
                         }
                     }
                 }
+                if (!_dbcon.TableExists("gccombm"))
+                {
+                    _dbcon.ExecuteNonQuery("create table 'gccombm' (bm_id text, bm_name text, bmguid text)");
+                    _dbcon.ExecuteNonQuery("create index idx_bmid on gccombm (bm_id)");
+                }
+                if (!_dbcon.TableExists("gccombm"))
+                {
+                    _dbcon.ExecuteNonQuery("create table 'gccomgc' (bm_id text, gccode text)");
+                    _dbcon.ExecuteNonQuery("create index idx_bmgcid on gccomgc (bm_id)");
+                }
             }
             catch(Exception e)
             {
@@ -147,85 +157,187 @@ namespace GAPPSF.Core
 
         public void ClearGeocacheIgnoreFilters()
         {
-            if (_dbcon != null)
+            lock (this)
             {
-                _dbcon.ExecuteNonQuery("delete from ignoregc");
-                _ignoredGeocacheCodes.Clear();
-                _ignoredGeocacheNames.Clear();
-                _ignoredGeocacheOwners.Clear();
+                if (_dbcon != null)
+                {
+                    _dbcon.ExecuteNonQuery("delete from ignoregc");
+                    _ignoredGeocacheCodes.Clear();
+                    _ignoredGeocacheNames.Clear();
+                    _ignoredGeocacheOwners.Clear();
+                }
             }
         }
 
         public void AddIgnoreGeocacheCode(string code)
         {
-            if (_dbcon != null)
+            lock (this)
             {
-                if (_ignoredGeocacheCodes[code] == null)
+                if (_dbcon != null)
                 {
-                    _dbcon.ExecuteNonQuery(string.Format("insert into ignoregc (item_name, item_value) values ('code', '{0}')", code));
-                    _ignoredGeocacheCodes[code] = true;
+                    if (_ignoredGeocacheCodes[code] == null)
+                    {
+                        _dbcon.ExecuteNonQuery(string.Format("insert into ignoregc (item_name, item_value) values ('code', '{0}')", code));
+                        _ignoredGeocacheCodes[code] = true;
+                    }
                 }
             }
         }
 
         public void AddIgnoreGeocacheName(string name)
         {
-            if (_dbcon != null)
+            lock (this)
             {
-                if (_ignoredGeocacheNames[name] == null)
+                if (_dbcon != null)
                 {
-                    _dbcon.ExecuteNonQuery(string.Format("insert into ignoregc (item_name, item_value) values ('name', '{0}')", name.Replace("'", "''")));
-                    _ignoredGeocacheNames[name] = true;
+                    if (_ignoredGeocacheNames[name] == null)
+                    {
+                        _dbcon.ExecuteNonQuery(string.Format("insert into ignoregc (item_name, item_value) values ('name', '{0}')", name.Replace("'", "''")));
+                        _ignoredGeocacheNames[name] = true;
+                    }
                 }
             }
         }
 
         public void AddIgnoreGeocacheOwner(string owner)
         {
-            if (_dbcon != null)
+            lock (this)
             {
-                if (_ignoredGeocacheOwners[owner] == null)
+                if (_dbcon != null)
                 {
-                    _dbcon.ExecuteNonQuery(string.Format("insert into ignoregc (item_name, item_value) values ('owner', '{0}')", owner.Replace("'", "''")));
-                    _ignoredGeocacheOwners[owner] = true;
+                    if (_ignoredGeocacheOwners[owner] == null)
+                    {
+                        _dbcon.ExecuteNonQuery(string.Format("insert into ignoregc (item_name, item_value) values ('owner', '{0}')", owner.Replace("'", "''")));
+                        _ignoredGeocacheOwners[owner] = true;
+                    }
                 }
             }
         }
 
         public void DeleteIgnoreGeocacheCode(string code)
         {
-            if (_dbcon != null)
+            lock (this)
             {
-                if (_ignoredGeocacheCodes[code] != null)
+                if (_dbcon != null)
                 {
-                    _dbcon.ExecuteNonQuery(string.Format("delete from ignoregc where item_name='code' and item_value='{0}'", code));
-                    _ignoredGeocacheCodes.Remove(code);
+                    if (_ignoredGeocacheCodes[code] != null)
+                    {
+                        _dbcon.ExecuteNonQuery(string.Format("delete from ignoregc where item_name='code' and item_value='{0}'", code));
+                        _ignoredGeocacheCodes.Remove(code);
+                    }
                 }
             }
         }
 
         public void DeleteIgnoreGeocacheName(string name)
         {
-            if (_dbcon != null)
+            lock (this)
             {
-                if (_ignoredGeocacheNames[name] != null)
+                if (_dbcon != null)
                 {
-                    _dbcon.ExecuteNonQuery(string.Format("delete from ignoregc where item_name='name' and item_value='{0}'", name.Replace("'", "''")));
-                    _ignoredGeocacheNames.Remove(name);
+                    if (_ignoredGeocacheNames[name] != null)
+                    {
+                        _dbcon.ExecuteNonQuery(string.Format("delete from ignoregc where item_name='name' and item_value='{0}'", name.Replace("'", "''")));
+                        _ignoredGeocacheNames.Remove(name);
+                    }
                 }
             }
         }
 
         public void DeleteIgnoreGeocacheOwner(string owner)
         {
-            if (_dbcon != null)
+            lock (this)
             {
-                if (_ignoredGeocacheOwners[owner] != null)
+                if (_dbcon != null)
                 {
-                    _dbcon.ExecuteNonQuery(string.Format("delete from ignoregc where item_name='owner' and item_value='{0}'", owner.Replace("'", "''")));
-                    _ignoredGeocacheOwners.Remove(owner);
+                    if (_ignoredGeocacheOwners[owner] != null)
+                    {
+                        _dbcon.ExecuteNonQuery(string.Format("delete from ignoregc where item_name='owner' and item_value='{0}'", owner.Replace("'", "''")));
+                        _ignoredGeocacheOwners.Remove(owner);
+                    }
                 }
             }
         }
+
+        public List<GCComBookmarks.Bookmark> LoadGCComBookmarks()
+        {
+            List<GCComBookmarks.Bookmark> result = new List<GCComBookmarks.Bookmark>();
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    DbDataReader dr = _dbcon.ExecuteReader("select bm_id, bm_name, bmguid from gccombm");
+                    while (dr.Read())
+                    {
+                        GCComBookmarks.Bookmark bm = new GCComBookmarks.Bookmark();
+                        bm.Guid = dr["bmguid"] as string;
+                        bm.ID = dr["bm_id"] as string;
+                        bm.Name = dr["bm_name"] as string;
+                        result.Add(bm);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public void AddGCComBookmark(GCComBookmarks.Bookmark bm)
+        {
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    _dbcon.ExecuteNonQuery(string.Format("insert into gccombm (bm_id, bm_name, bmguid) values ('{0}','{1}','{2}')", bm.ID, bm.Name.Replace("'", "''"), bm.Guid));
+                }
+            }
+        }
+
+        public void DeleteGCComBookmark(GCComBookmarks.Bookmark bm)
+        {
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    _dbcon.ExecuteNonQuery(string.Format("delete from gccomgc where bm_id='{0}'", bm.ID));
+                    _dbcon.ExecuteNonQuery(string.Format("delete from gccombm where bm_id='{0}'", bm.ID));
+                }
+            }
+        }
+
+        public List<string> LoadGCComBookmarkGeocaches(GCComBookmarks.Bookmark bm)
+        {
+            List<string> result = new List<string>();
+            lock (this)
+            {
+                DbDataReader dr = _dbcon.ExecuteReader(string.Format("select gccode from gccomgc where bm_id='{0}'", bm.ID));
+                while (dr.Read())
+                {
+                    result.Add(dr[0] as string);
+                }
+            }
+            return result;
+        }
+
+        public void SaveGCComBookmarkGeocaches(GCComBookmarks.Bookmark bm, List<string> gcCodes)
+        {
+            lock (this)
+            {
+                List<string> gcav = LoadGCComBookmarkGeocaches(bm);
+                foreach (string gc in gcav)
+                {
+                    if (!gcCodes.Contains(gc))
+                    {
+                        _dbcon.ExecuteNonQuery(string.Format("delete from gccomgc where bm_id='{0}' and gccode='{1}'", bm.ID, gc));
+                    }
+                }
+                foreach (string gc in gcCodes)
+                {
+                    if (!gcav.Contains(gc))
+                    {
+                        _dbcon.ExecuteNonQuery(string.Format("insert into gccomgc (bm_id, gccode) values ('{0}', '{1}')", bm.ID, gc));
+                    }
+                }
+            }
+        }
+
     }
 }

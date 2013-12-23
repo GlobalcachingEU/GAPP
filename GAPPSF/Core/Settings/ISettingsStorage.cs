@@ -23,5 +23,12 @@ namespace GAPPSF.Core
         void DeleteIgnoreGeocacheCode(string code);
         void DeleteIgnoreGeocacheName(string name);
         void DeleteIgnoreGeocacheOwner(string owner);
+
+        //gccom bookmarks
+        List<GCComBookmarks.Bookmark> LoadGCComBookmarks();
+        void AddGCComBookmark(GCComBookmarks.Bookmark bm);
+        void DeleteGCComBookmark(GCComBookmarks.Bookmark bm);
+        List<string> LoadGCComBookmarkGeocaches(GCComBookmarks.Bookmark bm);
+        void SaveGCComBookmarkGeocaches(GCComBookmarks.Bookmark bm, List<string> gcCodes);
     }
 }

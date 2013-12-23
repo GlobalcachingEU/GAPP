@@ -952,4 +952,10 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="Sequence" xml:space="preserve">
     <value>Sequence</value>
   </data>
+  <data name="Bookmarks" xml:space="preserve">
+    <value>Bookmarks</value>
+  </data>
+  <data name="GeocachingComBookmarks" xml:space="preserve">
+    <value>Geocaching.com bookmarks</value>
+  </data>
 </root>

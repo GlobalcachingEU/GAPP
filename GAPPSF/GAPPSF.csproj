@@ -153,6 +153,7 @@
     <Compile Include="Core\Settings\ApplicationSettings.cs" />
     <Compile Include="Core\Settings\CacheListSettings.cs" />
     <Compile Include="Core\Settings\DebugLogViewSettings.cs" />
+    <Compile Include="Core\Settings\GCComBookmarkSettings.cs" />
     <Compile Include="Core\Settings\GeocacheFilterSettings.cs" />
     <Compile Include="Core\Settings\GeocacheViewerSettings.cs" />
     <Compile Include="Core\Settings\GoogleMapSettings.cs" />
@@ -182,6 +183,9 @@
       <DependentUpon>InputDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\BrowseFolder\TreeModel.cs" />
+    <Compile Include="Dialogs\GCComBookmarkWindow.xaml.cs">
+      <DependentUpon>GCComBookmarkWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\GetLocationWindow.xaml.cs">
       <DependentUpon>GetLocationWindow.xaml</DependentUpon>
     </Compile>
@@ -215,6 +219,8 @@
     <Compile Include="Gavaghan.Geodesy\GeodeticMeasurement.cs" />
     <Compile Include="Gavaghan.Geodesy\GlobalCoordinates.cs" />
     <Compile Include="Gavaghan.Geodesy\GlobalPosition.cs" />
+    <Compile Include="GCComBookmarks\Bookmark.cs" />
+    <Compile Include="GCComBookmarks\Manager.cs" />
     <Compile Include="GPX\Enums.cs" />
     <Compile Include="GPX\Export.cs" />
     <Compile Include="GPX\ExportWindow.xaml.cs">
@@ -405,6 +411,10 @@
     <Page Include="Dialogs\BrowseFolder\InputDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\GCComBookmarkWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\GetLocationWindow.xaml">
       <SubType>Designer</SubType>

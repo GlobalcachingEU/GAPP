@@ -115,6 +115,10 @@
                     <MenuItem x:Name="menu11" Header="{l:Translate ClearSelection}" Command="{Binding SelectNoneCommand}" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate Search}">
+                    <MenuItem x:Name="gccombmmnu" Header="{l:Translate Bookmarks}">
+                        <MenuItem x:Name="menud37" Header="{l:Translate Edit}"  />
+                        <Separator />
+                    </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{l:Translate QuickSelect}">
                     <MenuItem x:Name="menua10" Header="{l:Translate SelectAll}" Command="{Binding SelectAllCommand}" />
