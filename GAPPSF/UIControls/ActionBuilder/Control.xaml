@@ -8,8 +8,8 @@
              xmlns:ui="clr-namespace:GAPPSF.UIControls"
              xmlns:b="clr-namespace:GAPPSF.UIControls.ActionBuilder"
              mc:Ignorable="d" 
-             d:DesignHeight="400" d:DesignWidth="600" LostFocus="UserControl_LostFocus">
-    <Grid ClipToBounds="True">
+             d:DesignHeight="400" d:DesignWidth="600">
+    <Grid ClipToBounds="True" MouseLeave="Grid_MouseLeave">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />

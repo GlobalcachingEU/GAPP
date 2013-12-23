@@ -133,6 +133,10 @@
                     <MenuItem x:Name="menu38" Header="{l:Translate SelectWithUserWP}" Command="{Binding SelectWithUserWPCommand}" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate Action}">
+                    <MenuItem x:Name="actseqmnu" Header="{l:Translate ActionSequence}">
+                        <MenuItem x:Name="menud27" Header="{l:Translate Edit}" Click="menud27_Click" />
+                        <Separator />
+                    </MenuItem>
                     <MenuItem x:Name="actbuildermnu" Header="{l:Translate ActionBuilder}">
                         <MenuItem x:Name="menuc27" Header="{l:Translate Edit}" Click="menub27_Click" />
                         <Separator />

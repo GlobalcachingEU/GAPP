@@ -12,7 +12,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Menu  Grid.Row="0" MouseDoubleClick="Button_Click" Background="#FFD6DBE9" Panel.ZIndex="1000">
+        <Menu  Grid.Row="0" MouseDoubleClick="Button_Click" Background="#FFD6DBE9">
             <MenuItem Header="{l:Translate Feature}">
                 <MenuItem Header="{l:Translate Clear}" Click="MenuItem_Click" />
                 <MenuItem Header="{l:Translate CacheList}" Click="MenuItem_Click_1" />

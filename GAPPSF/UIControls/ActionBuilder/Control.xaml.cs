@@ -420,11 +420,6 @@ namespace GAPPSF.UIControls.ActionBuilder
             }
         }
 
-        private void UserControl_LostFocus(object sender, RoutedEventArgs e)
-        {
-            SaveData();
-        }
-
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             if (ActiveActionFlow != null)
@@ -459,6 +454,11 @@ namespace GAPPSF.UIControls.ActionBuilder
                     }
                 }
             }
+        }
+
+        private void Grid_MouseLeave(object sender, MouseEventArgs e)
+        {
+            SaveData();
         }
 
 

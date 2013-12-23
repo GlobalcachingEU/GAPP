@@ -105,6 +105,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ActionSequence\ActionSequence.cs" />
+    <Compile Include="ActionSequence\Manager.cs" />
     <Compile Include="Clipboard\ClipboardHandler.cs" />
     <Compile Include="Commands\AsyncDelegateCommand.cs" />
     <Compile Include="Commands\ForAllGeocachesCommand.cs" />
@@ -146,6 +148,7 @@
     <Compile Include="Core\Data\WaypointTypeCollection.cs" />
     <Compile Include="Core\Logger.cs" />
     <Compile Include="Core\Settings\ActionBuilderSettings.cs" />
+    <Compile Include="Core\Settings\ActionSequenceSettings.cs" />
     <Compile Include="Core\Settings\AppDataInfoSettings.cs" />
     <Compile Include="Core\Settings\ApplicationSettings.cs" />
     <Compile Include="Core\Settings\CacheListSettings.cs" />
@@ -166,6 +169,9 @@
     <Compile Include="Core\Settings\SqliteSettingsStorage.cs" />
     <Compile Include="Core\Storage\DatabaseCollection.cs" />
     <Compile Include="Devices\GarminMassStorage.cs" />
+    <Compile Include="Dialogs\ActionSequenceWindow.xaml.cs">
+      <DependentUpon>ActionSequenceWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\BrowseFolder\FolderPickerControl.xaml.cs">
       <DependentUpon>FolderPickerControl.xaml</DependentUpon>
     </Compile>
@@ -181,6 +187,9 @@
     </Compile>
     <Compile Include="Dialogs\ProgessWindow.xaml.cs">
       <DependentUpon>ProgessWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\SelectActionWindow.xaml.cs">
+      <DependentUpon>SelectActionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\ShortCutAssignmentWindow.xaml.cs">
       <DependentUpon>ShortCutAssignmentWindow.xaml</DependentUpon>
@@ -381,6 +390,10 @@
     <Compile Include="Utils\ProgressBlock.cs" />
     <Compile Include="Utils\ResourceHelper.cs" />
     <Compile Include="Utils\TemporaryFile.cs" />
+    <Page Include="Dialogs\ActionSequenceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\BrowseFolder\FolderPickerControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -398,6 +411,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\ProgessWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\SelectActionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

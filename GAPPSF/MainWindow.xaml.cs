@@ -93,6 +93,7 @@ namespace GAPPSF
             updateShortCutKeyAssignment();
 
             UIControls.ActionBuilder.Manager mng = UIControls.ActionBuilder.Manager.Instance;
+            ActionSequence.Manager mng2 = ActionSequence.Manager.Instance;
             //popup.IsOpen = true;
         }
 
@@ -1468,6 +1469,12 @@ namespace GAPPSF
             Window w = new FeatureWindow(new UIControls.ActionBuilder.Control());
             w.Owner = this;
             w.Show();
+        }
+
+        private void menud27_Click(object sender, RoutedEventArgs e)
+        {
+            Dialogs.ActionSequenceWindow dlg = new Dialogs.ActionSequenceWindow();
+            dlg.ShowDialog();
         }
 
     }

@@ -937,4 +937,19 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="Start" xml:space="preserve">
     <value>Start</value>
   </data>
+  <data name="ActionSequence" xml:space="preserve">
+    <value>Action sequence</value>
+  </data>
+  <data name="MoveDown" xml:space="preserve">
+    <value>Move down</value>
+  </data>
+  <data name="MoveUp" xml:space="preserve">
+    <value>Move up</value>
+  </data>
+  <data name="SelectAction" xml:space="preserve">
+    <value>Select action</value>
+  </data>
+  <data name="Sequence" xml:space="preserve">
+    <value>Sequence</value>
+  </data>
 </root>
