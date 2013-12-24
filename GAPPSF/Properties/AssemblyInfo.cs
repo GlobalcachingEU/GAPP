@@ -7,12 +7,12 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("GAPPSF")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("GAPP SF")]
+[assembly: AssemblyDescription("Globalcaching APPlication Small Footprint is a geocache mananger")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("GAPPSF")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2013")]
+[assembly: AssemblyCompany("Globalcaching")]
+[assembly: AssemblyProduct("GAPP SF")]
+[assembly: AssemblyCopyright("Copyright © Globalcaching 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

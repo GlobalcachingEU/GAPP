@@ -76,6 +76,8 @@
                 <MenuItem Header="{l:Translate File}">
                     <MenuItem x:Name="menu1" Header="{l:Translate New}" Command="{Binding NewCommand}" />
                     <MenuItem x:Name="menu2" Header="{l:Translate Open}" Command="{Binding OpenCommand}"/>
+                    <Separator />
+                    <MenuItem x:Name="menuexit" Header="{l:Translate Exit}" Click="menuexit_Click"/>
                 </MenuItem>
                 <MenuItem Header="{l:Translate Import}">
                     <MenuItem x:Name="menu3" Header="{l:Translate GPX}" Command="{Binding ImportGPXCommand}" />
@@ -149,6 +151,16 @@
                 <MenuItem Header="{l:Translate LiveAPI}">
                     <MenuItem x:Name="menu13" Header="{l:Translate Authorize}" Command="{Binding LiveApiAuthorizeCommand}" />
                     <MenuItem x:Name="menue37" Header="{l:Translate Bookmarks}" Click="menud37_Click" />
+                    <MenuItem Header="{l:Translate Refresh}">
+                        <MenuItem x:Name="menuc50" Header="{l:Translate Active}" Command="{Binding UpdateActiveCommand}" />
+                        <MenuItem x:Name="menuc51" Header="{l:Translate Selected}" Command="{Binding UpdateSelectedCommand}" />
+                        <MenuItem x:Name="menuc52" Header="{l:Translate All}" Command="{Binding UpdateAllCommand}" />
+                    </MenuItem>
+                    <MenuItem Header="{l:Translate Update}">
+                        <MenuItem x:Name="menud50" Header="{l:Translate Active}" Command="{Binding UpdateStatusActiveCommand}" />
+                        <MenuItem x:Name="menud51" Header="{l:Translate Selected}" Command="{Binding UpdateStatusSelectedCommand}" />
+                        <MenuItem x:Name="menud52" Header="{l:Translate All}" Command="{Binding UpdateStatusAllCommand}" />
+                    </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{l:Translate OKAPI}">
                 </MenuItem>
@@ -193,6 +205,7 @@
                     <MenuItem x:Name="menub27" Header="{l:Translate ActionBuilder}" Click="menub27_Click" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate Help}">
+                    <MenuItem x:Name="menux27" Header="{l:Translate About}" Click="menux27_Click" />
                 </MenuItem>
             </Menu>
             <ToolBarTray Background="#FFD6DBE9">

@@ -170,6 +170,11 @@
     <Compile Include="Core\Settings\SqliteSettingsStorage.cs" />
     <Compile Include="Core\Storage\DatabaseCollection.cs" />
     <Compile Include="Devices\GarminMassStorage.cs" />
+    <Compile Include="Dialogs\About\AboutAssemblyDataProvider.cs" />
+    <Compile Include="Dialogs\About\AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\About\IAboutDataProvider.cs" />
     <Compile Include="Dialogs\ActionSequenceWindow.xaml.cs">
       <DependentUpon>ActionSequenceWindow.xaml</DependentUpon>
     </Compile>
@@ -397,6 +402,10 @@
     <Compile Include="Utils\ProgressBlock.cs" />
     <Compile Include="Utils\ResourceHelper.cs" />
     <Compile Include="Utils\TemporaryFile.cs" />
+    <Page Include="Dialogs\About\AboutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\ActionSequenceWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1211,6 +1220,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\General\execute.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\globalcaching.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
