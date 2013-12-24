@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:l="clr-namespace:GAPPSF.Localization"
         xmlns:p="clr-namespace:GAPPSF.Core"
-        xmlns:b="clr-namespace:GAPPSF.ActionSequence"
-        xmlns:ui="clr-namespace:GAPPSF.GCComBookmarks"
-        Title="GeocachingComBookmarks" Height="300" Width="500">
+        xmlns:b="clr-namespace:GAPPSF.GCComBookmarks"
+        xmlns:ui="clr-namespace:GAPPSF.UIControls"
+        Title="GeocachingComBookmarks" Height="300" Width="650">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -26,10 +26,11 @@
                     </Grid.ColumnDefinitions>
                     <ListBox Margin="4" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
                              ItemsSource="{Binding Bookmarks, Source={x:Static b:Manager.Instance}}"
+                             SelectedItem="{Binding ActiveBookmark, Mode=TwoWay}"
                              DisplayMemberPath="Name" />
-                    <Button Margin="8" Grid.Row="1" Grid.Column="0" Content="{l:Translate Import}" />
-                    <Button Margin="8" Grid.Row="1" Grid.Column="1" Content="{l:Translate ImportMissing}" />
-                    <Button Margin="8" Grid.Row="1" Grid.Column="2" Content="{l:Translate Remove}" />
+                    <Button Margin="8" Grid.Row="1" Grid.Column="0" Content="{l:Translate Import}" Command="{Binding ExecuteImportBookmarkCommand}" />
+                    <Button Margin="8" Grid.Row="1" Grid.Column="1" Content="{l:Translate ImportMissing}" Command="{Binding ExecuteImportMissingBookmarkCommand}" />
+                    <Button Margin="8" Grid.Row="1" Grid.Column="2" Content="{l:Translate Remove}" Command="{Binding ExecuteRemoveBookmarkCommand}" />
                 </Grid>
             </GroupBox.Content>
         </GroupBox>
@@ -40,17 +41,26 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Margin="4" Grid.Row="0" Grid.Column="0" Text="{l:Translate Name}" />
-                    <TextBox Margin="4" Grid.Row="0" Grid.Column="1" />
+                    <TextBox Margin="4" Grid.Row="0" Grid.Column="1" Text="{Binding BMName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                     <TextBlock Margin="4" Grid.Row="1" Grid.Column="0" Text="{l:Translate Url}" />
-                    <TextBox Margin="4" Grid.Row="1" Grid.Column="1" />
+                    <TextBox Margin="4" Grid.Row="1" Grid.Column="1" Text="{Binding BMUrl, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                     <TextBlock Margin="5" Grid.Row="2" Grid.Column="0" Text="{l:Translate Eg}" />
-                    <TextBlock Margin="5" Grid.Row="2" Grid.Column="1" Text="{l:Translate BMEgUrl}" />
+                    <TextBlock Margin="5" Grid.Row="2" Grid.Column="1" Text="http://www.geocaching.com/bookmarks/view.aspx?guid=2e17683c-ebc1-44c9-82da-a9b53dd2de52" />
+                    <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.33*" />
+                            <ColumnDefinition Width="0.33*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Margin="8" Grid.Row="0" Grid.Column="0" Content="{l:Translate Import}" Command="{Binding ExecuteImportNewBookmarkCommand}" />
+                        <Button Margin="8" Grid.Row="0" Grid.Column="1" Content="{l:Translate ImportMissing}" Command="{Binding ExecuteImportMissingNewBookmarkCommand}" />
+                    </Grid>
                 </Grid>
             </GroupBox.Content>
         </GroupBox>

@@ -32,5 +32,23 @@ namespace GAPPSF.Core
             set { SetProperty(value.ToString()); }
         }
 
+        public bool LiveAPIDeselectAfterUpdate
+        {
+            get { return bool.Parse(GetProperty("True")); }
+            set { SetProperty(value.ToString()); }
+        }
+
+        public int LiveAPIDelaySearchForGeocaches
+        {
+            get { return int.Parse(GetProperty("2000")); }
+            set { SetProperty(value.ToString()); }
+        }
+
+        public int LiveAPIImportGeocachesBatchSize
+        {
+            get { return int.Parse(GetProperty("30")); }
+            set { SetProperty(value.ToString()); }
+        }
+
     }
 }

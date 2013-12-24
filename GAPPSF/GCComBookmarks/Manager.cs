@@ -138,5 +138,40 @@ namespace GAPPSF.GCComBookmarks
             }
         }
 
+
+        public List<string> UpdateBookmarkList(Bookmark bm)
+        {
+            List<string> result = null;
+
+            try
+            {
+                using (LiveAPI.GeocachingLiveV6 api = new LiveAPI.GeocachingLiveV6())
+                {
+                    Guid guid = Guid.Parse(bm.Guid);
+
+                    var req = new LiveAPI.LiveV6.GetBookmarkListByGuidRequest();
+                    req.AccessToken = api.Token;
+                    req.BookmarkListGuid = guid;
+                    var resp = api.Client.GetBookmarkListByGuid(req);
+                    if (resp.Status.StatusCode == 0)
+                    {
+                        result = (from c in resp.BookmarkList select c.CacheCode).ToList();
+
+                        Core.Settings.Default.SaveGCComBookmarkGeocaches(bm, result);
+                    }
+                    else
+                    {
+                        Core.ApplicationData.Instance.Logger.AddLog(this, new Exception(resp.Status.StatusMessage));
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
+            }
+
+            return result;
+        }
+
     }
 }

@@ -1040,30 +1040,41 @@ namespace GAPPSF
 
         async private Task NewDatabase()
         {
-            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-            dlg.FileName = ""; // Default file name
-            dlg.DefaultExt = ".gsf"; // Default file extension
-            dlg.Filter = "GAPP SF (.gsf)|*.gsf"; // Filter files by extension 
-
-            // Show open file dialog box
-            Nullable<bool> result = dlg.ShowDialog();
-
-            // Process open file dialog box results 
-            if (result == true)
+            try
             {
-                // Open document 
-                string filename = dlg.FileName;
-                Core.Storage.Database db = new Core.Storage.Database(filename);
-                bool success = await db.InitializeAsync();
-                if (success)
+                Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+                dlg.FileName = ""; // Default file name
+                dlg.DefaultExt = ".gsf"; // Default file extension
+                dlg.Filter = "GAPP SF (.gsf)|*.gsf"; // Filter files by extension 
+
+                // Show open file dialog box
+                Nullable<bool> result = dlg.ShowDialog();
+
+                // Process open file dialog box results 
+                if (result == true)
                 {
-                    Core.ApplicationData.Instance.Databases.Add(db);
-                    Core.ApplicationData.Instance.ActiveDatabase = db;
+                    // Open document 
+                    string filename = dlg.FileName;
+                    if (File.Exists(filename))
+                    {
+                        File.Delete(filename);
+                    }
+                    Core.Storage.Database db = new Core.Storage.Database(filename);
+                    bool success = await db.InitializeAsync();
+                    if (success)
+                    {
+                        Core.ApplicationData.Instance.Databases.Add(db);
+                        Core.ApplicationData.Instance.ActiveDatabase = db;
+                    }
+                    else
+                    {
+                        db.Dispose();
+                    }
                 }
-                else
-                {
-                    db.Dispose();
-                }
+            }
+            catch(Exception e)
+            {
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
             }
         }
 
@@ -1474,6 +1485,12 @@ namespace GAPPSF
         private void menud27_Click(object sender, RoutedEventArgs e)
         {
             Dialogs.ActionSequenceWindow dlg = new Dialogs.ActionSequenceWindow();
+            dlg.ShowDialog();
+        }
+
+        private void menud37_Click(object sender, RoutedEventArgs e)
+        {
+            Dialogs.GCComBookmarkWindow dlg = new Dialogs.GCComBookmarkWindow();
             dlg.ShowDialog();
         }
 

@@ -236,6 +236,7 @@
       <DependentUpon>AuthorizationWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="LiveAPI\GeocachingLive.cs" />
+    <Compile Include="LiveAPI\Import.cs" />
     <Compile Include="LiveAPI\Live.cs" />
     <Compile Include="Localization\ITranslationProvider.cs" />
     <Compile Include="Localization\LanguageChangedEventManager.cs" />

@@ -83,7 +83,7 @@ namespace GAPPSF.Core
                     _dbcon.ExecuteNonQuery("create table 'gccombm' (bm_id text, bm_name text, bmguid text)");
                     _dbcon.ExecuteNonQuery("create index idx_bmid on gccombm (bm_id)");
                 }
-                if (!_dbcon.TableExists("gccombm"))
+                if (!_dbcon.TableExists("gccomgc"))
                 {
                     _dbcon.ExecuteNonQuery("create table 'gccomgc' (bm_id text, gccode text)");
                     _dbcon.ExecuteNonQuery("create index idx_bmgcid on gccomgc (bm_id)");

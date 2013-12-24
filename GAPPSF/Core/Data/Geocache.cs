@@ -116,8 +116,8 @@ namespace GAPPSF.Core.Data
                 bw.Write(data.LongDescriptionInHtml); //3000
                 bw.Write(data.ShortDescriptionInHtml); //3001
                 //read both if needs description!
-                bw.Write(data.ShortDescription); //3002
-                bw.Write(data.LongDescription);
+                bw.Write(data.ShortDescription ?? ""); //3002
+                bw.Write(data.LongDescription ?? "");
 
                 RecordInfo = db.RequestGeocacheRecord(data.Code, "", DataBuffer, ms.Position, 500);
             }

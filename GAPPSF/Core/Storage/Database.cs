@@ -142,6 +142,11 @@ namespace GAPPSF.Core.Storage
             bool result = true;
             if (this.FileStream.Length==0)
             {
+                string fn = string.Concat(FileName, ".gsx");
+                if (File.Exists(fn))
+                {
+                    File.Delete(fn);
+                }
                 //create meta data
                 this.FileStream.SetLength(DATABASE_CONTENT_OFFSET);
                 this.FileStream.Position = DATABASE_META_VERSION_POS;

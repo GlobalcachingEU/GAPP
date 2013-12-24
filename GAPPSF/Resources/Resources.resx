@@ -958,4 +958,16 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="GeocachingComBookmarks" xml:space="preserve">
     <value>Geocaching.com bookmarks</value>
   </data>
+  <data name="ImportMissing" xml:space="preserve">
+    <value>Import missing</value>
+  </data>
+  <data name="Eg" xml:space="preserve">
+    <value>E.g.</value>
+  </data>
+  <data name="NewBookmark" xml:space="preserve">
+    <value>New bookmark</value>
+  </data>
+  <data name="Url" xml:space="preserve">
+    <value>Url</value>
+  </data>
 </root>
