@@ -1,0 +1,116 @@
+﻿<UserControl x:Class="GAPPSF.UIControls.Maps.Control"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GAPPSF.UIControls.Maps"
+             xmlns:map="clr-namespace:GAPPSF.MapProviders"
+             xmlns:l="clr-namespace:GAPPSF.Localization"
+             mc:Ignorable="d" 
+             xmlns:ui="clr-namespace:GAPPSF.UIControls" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Expander 
+            Header="{l:Translate Settings}"
+            Grid.Row="0"
+            HorizontalAlignment="Stretch">
+            <Expander.Background>
+                <SolidColorBrush Color="{DynamicResource SettingsBkColor}"/>
+            </Expander.Background>
+            <Expander.Content>
+                <Grid>
+                    <Grid Background="{x:Static SystemColors.ControlBrush}">
+                        <Grid.Resources>
+                            <ui:EnumBooleanConverter x:Key="enumBooleanConverter" />
+                        </Grid.Resources>
+                        <StackPanel >
+                            <RadioButton Margin="4" GroupName="selection" IsChecked="{Binding Path=TargetGeocaches, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Active}" Content="{l:Translate Active}" />
+                            <RadioButton Margin="4" GroupName="selection" IsChecked="{Binding Path=TargetGeocaches, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Selected}" Content="{l:Translate Selected}" />
+                            <RadioButton Margin="4" GroupName="selection" IsChecked="{Binding Path=TargetGeocaches, Converter={StaticResource enumBooleanConverter}, ConverterParameter=All}" Content="{l:Translate All}" />
+                            <local:SearchControl x:Name="searchBar" Grid.Row="0" Margin="10,10,10,0" VerticalAlignment="Top"
+                         Navigate="OnSearchControlNavigate" SearchArea="{Binding ElementName=tileCanvas, Path=Viewport}" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Expander.Content>
+        </Expander>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="errorBar" Grid.Row="1" Background="LightPink" Foreground="Red" Padding="2,1" Visibility="Collapsed" />
+            <Border Grid.Row="2" BorderBrush="{x:Static SystemColors.ActiveBorderBrush}" BorderThickness="1" Background="{x:Static SystemColors.AppWorkspaceBrush}">
+                <Grid ClipToBounds="True">
+                    <map:MapCanvas x:Name="tileCanvas">
+                        <!-- Set a negative margin to center on the location -->
+                        <Grid x:Name="searchMarker" Height="45" Width="30" Margin="-15,-45,0,0" Visibility="Hidden"
+                        map:MapCanvas.Latitude="{Binding Latitude}" map:MapCanvas.Longitude="{Binding Longitude}">
+                            <Path Fill="#E4949494" Stroke="#C222" StrokeThickness="2" Stretch="Uniform" SnapsToDevicePixels="True"
+                        Data="M5,6 H4 L3,9 2,6 H1 Q0,6 0,5 V1 Q0,0 1,0 H5 Q6,0 6,1 V5 Q6,6 5,6" ToolTip="{Binding DisplayName}" />
+                            <TextBlock Foreground="#FFF" FontFamily="Consolas" FontSize="18" Margin="0,0,0,15" HorizontalAlignment="Center" VerticalAlignment="Center"
+                           IsHitTestVisible="False" Text="{Binding Index}">
+                                <TextBlock.Effect>
+                                    <DropShadowEffect BlurRadius="3" Color="#C222" ShadowDepth="2" />
+                                </TextBlock.Effect>
+                            </TextBlock>
+                        </Grid>
+                        <Grid x:Name="cacheMarker" Height="34" Width="34" Margin="-17,-34,0,0" Visibility="Hidden"
+                           map:MapCanvas.Latitude="{Binding Latitude}" map:MapCanvas.Longitude="{Binding Longitude}">
+                            <Image Source="{Binding ImagePath}" />
+                        </Grid>
+                        <Grid x:Name="curposMarker" Height="12" Width="12" Margin="-6,-6,0,0" Visibility="Hidden"
+                           map:MapCanvas.Latitude="{Binding Latitude}" map:MapCanvas.Longitude="{Binding Longitude}">
+                            <Image Source="{Binding ImagePath}" />
+                        </Grid>
+                    </map:MapCanvas>
+                    <Grid x:Name="zoomGrid" RenderTransformOrigin="0.5, 0.5" SnapsToDevicePixels="True" Visibility="Hidden">
+                        <Grid.Resources>
+                            <Storyboard x:Key="zoomIn" Completed="OnZoomStoryboardCompleted">
+                                <DoubleAnimation Storyboard.TargetName="zoomGrid" Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"
+                               From="1.0" To="2.0" Duration="00:00:00.3" />
+                                <DoubleAnimation Storyboard.TargetName="zoomGrid" Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"
+                               From="1.0" To="2.0" Duration="00:00:00.3" />
+                            </Storyboard>
+                            <Storyboard x:Key="zoomOut" Completed="OnZoomStoryboardCompleted">
+                                <DoubleAnimation Storyboard.TargetName="zoomGrid" Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"
+                               From="1.0" To="0.5" Duration="00:00:00.3" />
+                                <DoubleAnimation Storyboard.TargetName="zoomGrid" Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"
+                               From="1.0" To="0.5" Duration="00:00:00.3" />
+                            </Storyboard>
+                        </Grid.Resources>
+                        <Image x:Name="zoomImage" />
+                        <Rectangle x:Name="zoomRectangle" Stroke="Red" />
+                    </Grid>
+                    <Ellipse x:Name="gotoCurpos" Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Bottom" Visibility="Hidden" MouseDown="gotoCurpos_MouseDown" Cursor="Hand">
+                        <Ellipse.Fill>
+                            <RadialGradientBrush >
+                                <GradientStop Color="#FF0F0FEF" Offset="0" />
+                                <GradientStop Color="White" Offset="1" />
+                            </RadialGradientBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <local:NavigationControls Map="{Binding ElementName=tileCanvas}" />
+                    <TextBlock x:Name="creditsinfo" Margin="5,2" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="10">
+          <Run Text="© " />
+          <Hyperlink NavigateUri="http://www.openstreetmap.org/"
+                     RequestNavigate="OnHyperlinkRequestNavigate">OpenStreetMap</Hyperlink>
+          <Run Text="contributors, " />
+          <Hyperlink NavigateUri="http://creativecommons.org/licenses/by-sa/2.0/"
+                     RequestNavigate="OnHyperlinkRequestNavigate">CC-BY-SA</Hyperlink>
+                    </TextBlock>
+                </Grid>
+            </Border>
+            <StatusBar Grid.Row="3">
+                <ProgressBar x:Name="progress" Width="100" Height="15" Visibility="Hidden" />
+                <TextBlock x:Name="label" Visibility="Hidden" />
+            </StatusBar>
+        </Grid>
+    </Grid>
+</UserControl>

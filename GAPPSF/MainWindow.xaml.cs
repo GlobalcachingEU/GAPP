@@ -437,11 +437,9 @@ namespace GAPPSF
                 string[] parts = s.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
                 foreach (string p in parts)
                 {
-                    Type t = Type.GetType(p);
-                    if (t != null)
+                    UserControl uc = CreateFeatureControl(p);
+                    if (uc!=null)
                     {
-                        ConstructorInfo constructor = t.GetConstructor(Type.EmptyTypes);
-                        UserControl uc = (UserControl)constructor.Invoke(Type.EmptyTypes);
                         FeatureWindow w = new FeatureWindow(uc);
                         w.Owner = this;
                         w.Show();
@@ -450,11 +448,27 @@ namespace GAPPSF
             }
         }
 
+        private string getFeatureControlSetting(UserControl uc)
+        {
+            if (uc==null)
+            {
+                return "";
+            }
+            else if (uc is UIControls.Maps.Control)
+            {
+                return (uc as UIControls.Maps.Control).MapFactory.GetType().ToString();
+            }
+            else
+            {
+                return uc.GetType().ToString();
+            }
+        }
+
         void rightPanelContent_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "FeatureControl")
             {
-                Core.Settings.Default.MainWindowRightPanelFeature = rightPanelContent.FeatureControl == null ? "" : rightPanelContent.FeatureControl.GetType().ToString();
+                Core.Settings.Default.MainWindowRightPanelFeature = getFeatureControlSetting(rightPanelContent.FeatureControl);
             }
         }
 
@@ -462,7 +476,7 @@ namespace GAPPSF
         {
             if (e.PropertyName == "FeatureControl")
             {
-                Core.Settings.Default.MainWindowExpandedPanelFeature = expandedPanelContent.FeatureControl == null ? "" : expandedPanelContent.FeatureControl.GetType().ToString();
+                Core.Settings.Default.MainWindowExpandedPanelFeature = getFeatureControlSetting(expandedPanelContent.FeatureControl);
             }
         }
 
@@ -471,7 +485,7 @@ namespace GAPPSF
         {
             if (e.PropertyName == "FeatureControl")
             {
-                Core.Settings.Default.MainWindowBottomRightPanelFeature = bottomRightPanelContent.FeatureControl == null ? "" : bottomRightPanelContent.FeatureControl.GetType().ToString();
+                Core.Settings.Default.MainWindowBottomRightPanelFeature = getFeatureControlSetting(bottomRightPanelContent.FeatureControl);
             }
         }
 
@@ -479,7 +493,7 @@ namespace GAPPSF
         {
             if (e.PropertyName == "FeatureControl")
             {
-                Core.Settings.Default.MainWindowBottomLeftPanelFeature = bottomLeftPanelContent.FeatureControl == null ? "" : bottomLeftPanelContent.FeatureControl.GetType().ToString();
+                Core.Settings.Default.MainWindowBottomLeftPanelFeature = getFeatureControlSetting(bottomLeftPanelContent.FeatureControl);
             }
         }
 
@@ -487,7 +501,7 @@ namespace GAPPSF
         {
             if (e.PropertyName == "FeatureControl")
             {
-                Core.Settings.Default.MainWindowTopPanelFeature = topPanelContent.FeatureControl == null ? "" : topPanelContent.FeatureControl.GetType().ToString();
+                Core.Settings.Default.MainWindowTopPanelFeature = getFeatureControlSetting(topPanelContent.FeatureControl);
             }
         }
 
@@ -495,7 +509,7 @@ namespace GAPPSF
         {
             if (e.PropertyName == "FeatureControl")
             {
-                Core.Settings.Default.MainWindowLeftPanelFeature = leftPanelContent.FeatureControl == null ? "" : leftPanelContent.FeatureControl.GetType().ToString();
+                Core.Settings.Default.MainWindowLeftPanelFeature = getFeatureControlSetting(leftPanelContent.FeatureControl);
             }
         }
 
@@ -507,15 +521,32 @@ namespace GAPPSF
             }
             if (!string.IsNullOrEmpty(setting))
             {
-                Type t = Type.GetType(setting);
-                if (t != null)
-                {
-                    ConstructorInfo constructor = t.GetConstructor(Type.EmptyTypes);
-                    UserControl uc = (UserControl)constructor.Invoke(Type.EmptyTypes);
-                    container.FeatureControl = uc;
-                }
+                UserControl uc = CreateFeatureControl(setting);
+                container.FeatureControl = uc;
             }
 
+        }
+
+        private UserControl CreateFeatureControl(string type)
+        {
+            UserControl result = null;
+            Type t = Type.GetType(type);
+            if (t != null)
+            {
+                if (type.StartsWith("GAPPSF.MapProviders."))
+                {
+                    ConstructorInfo constructor2 = t.GetConstructor(Type.EmptyTypes);
+                    MapProviders.MapControlFactory mcf = (GAPPSF.MapProviders.MapControlFactory)constructor2.Invoke(Type.EmptyTypes);
+                    result = new UIControls.Maps.Control(mcf);
+                }
+                else
+                {
+                    ConstructorInfo constructor = t.GetConstructor(Type.EmptyTypes);
+                    result = (UserControl)constructor.Invoke(Type.EmptyTypes);
+                }
+                //result = null;
+            }
+            return result;
         }
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
@@ -1550,7 +1581,7 @@ namespace GAPPSF
                 {
                     if (w is FeatureWindow)
                     {
-                        sb.AppendLine((w as FeatureWindow).featureContainer.FeatureControl.GetType().ToString());
+                        sb.AppendLine(getFeatureControlSetting((w as FeatureWindow).featureContainer.FeatureControl));
                     }
                 }
                 Core.Settings.Default.MainWindowWindowFeature = sb.ToString();
@@ -1655,6 +1686,20 @@ namespace GAPPSF
         private void menuexit_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void menux25_Click(object sender, RoutedEventArgs e)
+        {
+            Window w = new FeatureWindow(new UIControls.Maps.Control(new MapProviders.MapControlFactoryGoogle()));
+            w.Owner = this;
+            w.Show();
+        }
+
+        private void menuy25_Click(object sender, RoutedEventArgs e)
+        {
+            Window w = new FeatureWindow(new UIControls.Maps.Control(new MapProviders.MapControlFactoryOSMOnline()));
+            w.Owner = this;
+            w.Show();
         }
 
     }

@@ -245,6 +245,16 @@ namespace GAPPSF.UIControls
             FeatureControl = new ActionBuilder.Control();
         }
 
+        private void MenuItem_Click_10(object sender, RoutedEventArgs e)
+        {
+            FeatureControl = new Maps.Control(new MapProviders.MapControlFactoryGoogle());
+        }
+
+        private void MenuItem_Click_11(object sender, RoutedEventArgs e)
+        {
+            FeatureControl = new Maps.Control(new MapProviders.MapControlFactoryOSMOnline());
+        }
+
 
     }
 }

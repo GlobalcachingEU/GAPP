@@ -162,6 +162,7 @@
     <Compile Include="Core\Settings\IgnoreGeocachesSettings.cs" />
     <Compile Include="Core\Settings\LiveAPISettings.cs" />
     <Compile Include="Core\Settings\MainWindowSettings.cs" />
+    <Compile Include="Core\Settings\MapsSettings.cs" />
     <Compile Include="Core\Settings\OfflineImageSettings.cs" />
     <Compile Include="Core\Settings\OV2Settings.cs" />
     <Compile Include="Core\Settings\Settings.cs" />
@@ -249,6 +250,26 @@
     <Compile Include="Localization\TranslateExtension.cs" />
     <Compile Include="Localization\TranslationData.cs" />
     <Compile Include="Localization\TranslationManager.cs" />
+    <Compile Include="MapProviders\BitmapStore.cs" />
+    <Compile Include="MapProviders\Google\BitmapStoreGoogle.cs" />
+    <Compile Include="MapProviders\Google\MapControlFactoryGoogle.cs" />
+    <Compile Include="MapProviders\Google\SearchProviderGoogle.cs" />
+    <Compile Include="MapProviders\Google\TileGeneratorGoogle.cs" />
+    <Compile Include="MapProviders\MapCanvas.cs" />
+    <Compile Include="MapProviders\MapControlFactory.cs" />
+    <Compile Include="MapProviders\MapOffset.cs" />
+    <Compile Include="MapProviders\Marker.cs" />
+    <Compile Include="MapProviders\MarkerClusterer.cs" />
+    <Compile Include="MapProviders\OSMOnline\MapControlFactoryOSMOnline.cs" />
+    <Compile Include="MapProviders\OSM\BitmapStoreOSM.cs" />
+    <Compile Include="MapProviders\OSM\SearchProviderOSM.cs" />
+    <Compile Include="MapProviders\OSM\TileGeneratorOSM.cs" />
+    <Compile Include="MapProviders\SearchErrorEventArgs.cs" />
+    <Compile Include="MapProviders\SearchProvider.cs" />
+    <Compile Include="MapProviders\SearchResult.cs" />
+    <Compile Include="MapProviders\Tile.cs" />
+    <Compile Include="MapProviders\TileGenerator.cs" />
+    <Compile Include="MapProviders\TilePanel.cs" />
     <Compile Include="OV2\Export.cs" />
     <Compile Include="OV2\ExportWindow.xaml.cs">
       <DependentUpon>ExportWindow.xaml</DependentUpon>
@@ -367,6 +388,15 @@
     <Compile Include="UIControls\InverseBooleanConverter.cs" />
     <Compile Include="UIControls\IUIControl.cs" />
     <Compile Include="ImageGrabber\OfflineImagesManager.cs" />
+    <Compile Include="UIControls\Maps\Control.xaml.cs">
+      <DependentUpon>Control.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UIControls\Maps\NavigationControls.xaml.cs">
+      <DependentUpon>NavigationControls.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UIControls\Maps\SearchControl.xaml.cs">
+      <DependentUpon>SearchControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIControls\OfflineImages\Control.xaml.cs">
       <DependentUpon>Control.xaml</DependentUpon>
     </Compile>
@@ -671,6 +701,18 @@
     <Page Include="UIControls\InputDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\Maps\Control.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\Maps\NavigationControls.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UIControls\Maps\SearchControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UIControls\OfflineImages\Control.xaml">
       <SubType>Designer</SubType>
@@ -1224,6 +1266,7 @@
   <ItemGroup>
     <Resource Include="Resources\globalcaching.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)GlobalcachingApplication\bin\$(ConfigurationName)\"</PostBuildEvent>

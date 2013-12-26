@@ -982,4 +982,10 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="Update" xml:space="preserve">
     <value>Update</value>
   </data>
+  <data name="GoogleRoadMapOnline" xml:space="preserve">
+    <value>Google road map - online</value>
+  </data>
+  <data name="OpenStreetMapOnline" xml:space="preserve">
+    <value>Open street map - online</value>
+  </data>
 </root>
