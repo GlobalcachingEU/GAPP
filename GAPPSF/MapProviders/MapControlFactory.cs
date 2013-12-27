@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reflection;
+using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace GAPPSF.MapProviders
 {
@@ -13,10 +15,15 @@ namespace GAPPSF.MapProviders
         protected TileGenerator _tileGenerator = null;
         protected TilePanel _tilePanel = null;
 
+        public ObservableCollection<string> OSMBinFiles { get; private set; }
+        public Visibility OSMBinFilesVisibility { get; set; }
+
         public volatile int _lastRequestedZoomLevel = 0;
 
         protected MapControlFactory()
         {
+            OSMBinFiles = new ObservableCollection<string>();
+            OSMBinFilesVisibility = Visibility.Collapsed;
         }
 
         public virtual void SettingsChanged()

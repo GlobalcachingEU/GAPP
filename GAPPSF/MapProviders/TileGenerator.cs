@@ -23,6 +23,12 @@ namespace GAPPSF.MapProviders
                 {
                     System.IO.Directory.CreateDirectory(p);
                 }
+                p = System.IO.Path.Combine(new string[] { p, "MapCache" });
+                if (!System.IO.Directory.Exists(p))
+                {
+                    System.IO.Directory.CreateDirectory(p);
+                }
+
                 if (string.IsNullOrEmpty(_mapControlFactory.ID))
                 {
                     p = System.IO.Path.Combine(new string[] { p, "MapCache" });

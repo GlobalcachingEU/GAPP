@@ -988,4 +988,25 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="OpenStreetMapOnline" xml:space="preserve">
     <value>Open street map - online</value>
   </data>
+  <data name="OpenStreetMapOffline" xml:space="preserve">
+    <value>Open street map - offline</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="ClearCache" xml:space="preserve">
+    <value>Clear cache</value>
+  </data>
+  <data name="MapsDownload" xml:space="preserve">
+    <value>Maps download</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="GettingFileList" xml:space="preserve">
+    <value>Getting file list</value>
+  </data>
+  <data name="DownloadingFile" xml:space="preserve">
+    <value>Downloading file</value>
+  </data>
 </root>

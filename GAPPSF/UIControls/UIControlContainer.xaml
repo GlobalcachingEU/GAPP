@@ -23,6 +23,7 @@
                     <MenuItem Header="{l:Translate GoogleMap}" Click="MenuItem_Click_4" />
                     <MenuItem Header="{l:Translate GoogleRoadMapOnline}" Click="MenuItem_Click_10" />
                     <MenuItem Header="{l:Translate OpenStreetMapOnline}" Click="MenuItem_Click_11" />
+                    <MenuItem Header="{l:Translate OpenStreetMapOffline}" Click="MenuItem_Click_12" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate OfflineImages}" Click="MenuItem_Click_5" />
                 <MenuItem Header="{l:Translate IgnoreGeocaches}" Click="MenuItem_Click_7" />

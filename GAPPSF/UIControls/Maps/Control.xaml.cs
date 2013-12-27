@@ -1,4 +1,5 @@
-﻿using GAPPSF.MapProviders;
+﻿using GAPPSF.Commands;
+using GAPPSF.MapProviders;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -36,6 +37,13 @@ namespace GAPPSF.UIControls.Maps
         private List<UIElement> _waypointMarkers = new List<UIElement>();
         private List<UIElement> _geocacheMarkers = new List<UIElement>();
         private Core.Storage.Database _currentConnectedDatabase = null;
+
+        private string _selectedMap;
+        public string SelectedMap
+        {
+            get { return _selectedMap; }
+            set { SetProperty(ref _selectedMap, value); }
+        }
 
         public MapControlFactory MapFactory { get { return _mapControlFactory; } }
 
@@ -112,6 +120,58 @@ namespace GAPPSF.UIControls.Maps
             }
         }
 
+        private RelayCommand _removeSelectedMapCommand;
+        public RelayCommand RemoveSelectedMapCommand
+        {
+            get
+            {
+                if (_removeSelectedMapCommand==null)
+                {
+                    _removeSelectedMapCommand = new RelayCommand(param => RemoveSelectedMap(), param => !string.IsNullOrEmpty(SelectedMap));
+                }
+                return _removeSelectedMapCommand;
+            }
+        }
+        public void RemoveSelectedMap()
+        {
+            if (!string.IsNullOrEmpty(SelectedMap))
+            {
+                _mapControlFactory.OSMBinFiles.Remove(SelectedMap);
+            }
+        }
+
+        private RelayCommand _addMapCommand;
+        public RelayCommand AddMapCommand
+        {
+            get
+            {
+                if (_addMapCommand == null)
+                {
+                    _addMapCommand = new RelayCommand(param => AddMap());
+                }
+                return _addMapCommand;
+            }
+        }
+        public void AddMap()
+        {
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.FileName = ""; // Default file name
+            dlg.DefaultExt = ".map"; // Default file extension
+            dlg.Filter = "OSM Bin files (.map)|*.map"; // Filter files by extension 
+
+            // Show open file dialog box
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Process open file dialog box results 
+            if (result == true)
+            {
+                if (!_mapControlFactory.OSMBinFiles.Contains(dlg.FileName))
+                {
+                    _mapControlFactory.OSMBinFiles.Add(dlg.FileName);
+                }
+            }
+        }
+
         void tileCanvas_ZoomChanged(object sender, EventArgs e)
         {
             if (TargetGeocaches!= GeocachesOnMap.Active)
@@ -126,6 +186,12 @@ namespace GAPPSF.UIControls.Maps
             {
                 CurrentConnectedDatabase = null;
                 Core.ApplicationData.Instance.PropertyChanged -= Instance_PropertyChanged;
+
+                if (_mapControlFactory is IDisposable)
+                {
+                    (_mapControlFactory as IDisposable).Dispose();
+                }
+                _mapControlFactory = null;
             }
         }
 
@@ -658,6 +724,34 @@ namespace GAPPSF.UIControls.Maps
             set
             {
                 _mapControlFactory.WindowTop = value;
+            }
+        }
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            await Task.Run(() =>
+            {
+                try
+                {
+                    string[] dirs = System.IO.Directory.GetDirectories(_mapControlFactory.TileGenerator.CacheFolder);
+                    foreach (string d in dirs)
+                    {
+                        System.IO.Directory.Delete(d, true);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Core.ApplicationData.Instance.Logger.AddLog(this, ex);
+                }
+            });
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            GetMapsWindow dlg = new GetMapsWindow();
+            if (dlg.ShowDialog()==true)
+            {
+                _mapControlFactory.OSMBinFiles.Add(dlg.DownloadedFilePath);
             }
         }
     }

@@ -255,6 +255,11 @@ namespace GAPPSF.UIControls
             FeatureControl = new Maps.Control(new MapProviders.MapControlFactoryOSMOnline());
         }
 
+        private void MenuItem_Click_12(object sender, RoutedEventArgs e)
+        {
+            FeatureControl = new Maps.Control(new MapProviders.MapControlFactoryOSMOffline());
+        }
+
 
     }
 }

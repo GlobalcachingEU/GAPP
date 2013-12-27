@@ -1702,5 +1702,12 @@ namespace GAPPSF
             w.Show();
         }
 
+        private void menuz25_Click(object sender, RoutedEventArgs e)
+        {
+            Window w = new FeatureWindow(new UIControls.Maps.Control(new MapProviders.MapControlFactoryOSMOffline()));
+            w.Owner = this;
+            w.Show();
+        }
+
     }
 }

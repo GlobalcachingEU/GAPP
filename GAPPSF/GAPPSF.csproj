@@ -260,6 +260,21 @@
     <Compile Include="MapProviders\MapOffset.cs" />
     <Compile Include="MapProviders\Marker.cs" />
     <Compile Include="MapProviders\MarkerClusterer.cs" />
+    <Compile Include="MapProviders\OSMBinMap\FileHeader.cs" />
+    <Compile Include="MapProviders\OSMBinMap\ItemRenderer.cs" />
+    <Compile Include="MapProviders\OSMBinMap\MapFile.cs" />
+    <Compile Include="MapProviders\OSMBinMap\MapFilesHandler.cs" />
+    <Compile Include="MapProviders\OSMBinMap\POI.cs" />
+    <Compile Include="MapProviders\OSMBinMap\RenderInfo.cs" />
+    <Compile Include="MapProviders\OSMBinMap\RequestedTileInformation.cs" />
+    <Compile Include="MapProviders\OSMBinMap\SubFile.cs" />
+    <Compile Include="MapProviders\OSMBinMap\Tag.cs" />
+    <Compile Include="MapProviders\OSMBinMap\TextAlongPath.cs" />
+    <Compile Include="MapProviders\OSMBinMap\TileRenderer.cs" />
+    <Compile Include="MapProviders\OSMBinMap\Way.cs" />
+    <Compile Include="MapProviders\OSMBinMap\ZoomIntervalConfiguration.cs" />
+    <Compile Include="MapProviders\OSMOffline\BitmapStoreOSMOffline.cs" />
+    <Compile Include="MapProviders\OSMOffline\MapControlFactoryOSMOffline.cs" />
     <Compile Include="MapProviders\OSMOnline\MapControlFactoryOSMOnline.cs" />
     <Compile Include="MapProviders\OSM\BitmapStoreOSM.cs" />
     <Compile Include="MapProviders\OSM\SearchProviderOSM.cs" />
@@ -390,6 +405,9 @@
     <Compile Include="ImageGrabber\OfflineImagesManager.cs" />
     <Compile Include="UIControls\Maps\Control.xaml.cs">
       <DependentUpon>Control.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UIControls\Maps\GetMapsWindow.xaml.cs">
+      <DependentUpon>GetMapsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UIControls\Maps\NavigationControls.xaml.cs">
       <DependentUpon>NavigationControls.xaml</DependentUpon>
@@ -703,6 +721,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIControls\Maps\Control.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\Maps\GetMapsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1267,6 +1289,79 @@
     <Resource Include="Resources\globalcaching.png" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="MapProviders\OSMBinMap\patterns\access-destination.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\patterns\access-private.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\patterns\cemetery.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\patterns\marsh.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\patterns\military.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\patterns\nature-reserve.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\patterns\wood-coniferous.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\patterns\wood-deciduous.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\patterns\wood-mixed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\airport.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\atm.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\bakery.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\bank.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\bench.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\bicycle_rental.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\bus.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\bus_sta.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\cable_car.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\cafe.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\campSite.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\cave_entrance.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\chair_lift_2.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\church.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\cinema.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\fastfood.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\firebrigade.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\florist.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\fountain.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\gondola.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\helipad.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\hospital.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\hostel.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\hotel.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\information.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\kindergarten.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\library.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\mosque.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\oneway.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\parking.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\peak.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\petrolStation.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\pharmacy.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\playground.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\postbox.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\postoffice.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\pub.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\railway-crossing-small.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\railway-crossing.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\recycling.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\restaurant.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\school.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\shelter.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\soccer-borderless.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\supermarket.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\synagogue.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\telephone.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\tennis.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\theatre.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\toilets.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\traffic_signal.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\tree.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\university.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\viewpoint.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\vulcan.png" />
+    <EmbeddedResource Include="MapProviders\OSMBinMap\symbols\windmill.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="MapProviders\OSMBinMap\DefaultTheme.xml" />
+    <Resource Include="MapProviders\OSMBinMap\MissingTile.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)GlobalcachingApplication\bin\$(ConfigurationName)\"</PostBuildEvent>
