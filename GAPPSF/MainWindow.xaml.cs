@@ -679,6 +679,55 @@ namespace GAPPSF
         }
 
 
+        AsyncDelegateCommand _deleteAllCommand;
+        public ICommand DeleteAllCommand
+        {
+            get
+            {
+                if (_deleteAllCommand == null)
+                {
+                    _deleteAllCommand = new AsyncDelegateCommand(param => this.DeleteAllGeocache(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null);
+                }
+                return _deleteAllCommand;
+            }
+        }
+
+        async public Task DeleteAllGeocache()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                Core.ApplicationData.Instance.ActiveGeocache = null;
+                using (Utils.DataUpdater upd = new Utils.DataUpdater(Core.ApplicationData.Instance.ActiveDatabase))
+                {
+                    await Task.Run(() =>
+                    {
+                        int index = 0;
+                        DateTime nextUpdate = DateTime.Now.AddSeconds(1);
+                        List<Core.Data.Geocache> gcList = (from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection select a).ToList();
+                        using (Utils.ProgressBlock prog = new Utils.ProgressBlock("DeletingGeocaches", "DeletingGeocaches", gcList.Count, 0, true))
+                        {
+                            foreach (var gc in gcList)
+                            {
+                                Utils.DataAccess.DeleteGeocache(gc);
+                                index++;
+
+                                if (DateTime.Now >= nextUpdate)
+                                {
+                                    if (!prog.Update("Deleting geocaches...", gcList.Count, index))
+                                    {
+                                        break;
+                                    }
+                                    nextUpdate = DateTime.Now.AddSeconds(1);
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+        }
+
+
         AsyncDelegateCommand _importGpxCommand;
         public ICommand ImportGPXCommand
         {
@@ -712,6 +761,30 @@ namespace GAPPSF
                 await imp.ImportFilesAsync(dlg.FileNames);
             }
         }
+
+
+        AsyncDelegateCommand _importMyFindsCommand;
+        public ICommand ImportMyFindsCommand
+        {
+            get
+            {
+                if (_importMyFindsCommand == null)
+                {
+                    _importMyFindsCommand = new AsyncDelegateCommand(param => this.ImportMyFinds(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null && Core.Settings.Default.LiveAPIMemberTypeId > 0);
+                }
+                return _importMyFindsCommand;
+            }
+        }
+        private async Task ImportMyFinds()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                MyFinds.ImportLiveAPI mf = new MyFinds.ImportLiveAPI();
+                await mf.ImportMyFindsAsync(Core.ApplicationData.Instance.ActiveDatabase);
+            }
+        }
+
 
 
         AsyncDelegateCommand _updateStatusActiveCommand;
@@ -1707,6 +1780,12 @@ namespace GAPPSF
             Window w = new FeatureWindow(new UIControls.Maps.Control(new MapProviders.MapControlFactoryOSMOffline()));
             w.Owner = this;
             w.Show();
+        }
+
+        private void menut37_Click(object sender, RoutedEventArgs e)
+        {
+            GPX.ImportPQWindow dlg = new GPX.ImportPQWindow();
+            dlg.ShowDialog();
         }
 
     }

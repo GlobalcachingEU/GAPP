@@ -233,6 +233,9 @@
       <DependentUpon>ExportWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="GPX\Import.cs" />
+    <Compile Include="GPX\ImportPQWindow.xaml.cs">
+      <DependentUpon>ImportPQWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="iGeoKnife\Export.cs" />
     <Compile Include="iGeoKnife\ExportWindow.xaml.cs">
       <DependentUpon>ExportWindow.xaml</DependentUpon>
@@ -285,6 +288,7 @@
     <Compile Include="MapProviders\Tile.cs" />
     <Compile Include="MapProviders\TileGenerator.cs" />
     <Compile Include="MapProviders\TilePanel.cs" />
+    <Compile Include="MyFinds\ImportLiveAPI.cs" />
     <Compile Include="OV2\Export.cs" />
     <Compile Include="OV2\ExportWindow.xaml.cs">
       <DependentUpon>ExportWindow.xaml</DependentUpon>
@@ -495,6 +499,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GPX\ExportWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GPX\ImportPQWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

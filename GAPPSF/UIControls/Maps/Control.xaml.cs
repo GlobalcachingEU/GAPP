@@ -406,28 +406,31 @@ namespace GAPPSF.UIControls.Maps
                 this.Dispatcher.BeginInvoke(new Action(() => this.OnDownloadCountChanged(sender, e)), null);
                 return;
             }
-            if (_mapControlFactory.TileGenerator.DownloadCount == 0)
+            if (_mapControlFactory != null)
             {
-                this.label.Visibility = Visibility.Hidden;
-                this.progress.Visibility = Visibility.Hidden;
-                _maxDownload = -1;
-            }
-            else
-            {
-                this.errorBar.Visibility = Visibility.Collapsed;
-
-                if (_maxDownload < _mapControlFactory.TileGenerator.DownloadCount)
+                if (_mapControlFactory.TileGenerator.DownloadCount == 0)
                 {
-                    _maxDownload = _mapControlFactory.TileGenerator.DownloadCount;
+                    this.label.Visibility = Visibility.Hidden;
+                    this.progress.Visibility = Visibility.Hidden;
+                    _maxDownload = -1;
                 }
-                this.progress.Value = 100 - (_mapControlFactory.TileGenerator.DownloadCount * 100.0 / _maxDownload);
-                this.progress.Visibility = Visibility.Visible;
-                this.label.Text = string.Format(
-                    CultureInfo.CurrentUICulture,
-                    "Downloading {0} item{1}",
-                    _mapControlFactory.TileGenerator.DownloadCount,
-                    _mapControlFactory.TileGenerator.DownloadCount != 1 ? 's' : ' ');
-                this.label.Visibility = Visibility.Visible;
+                else
+                {
+                    this.errorBar.Visibility = Visibility.Collapsed;
+
+                    if (_maxDownload < _mapControlFactory.TileGenerator.DownloadCount)
+                    {
+                        _maxDownload = _mapControlFactory.TileGenerator.DownloadCount;
+                    }
+                    this.progress.Value = 100 - (_mapControlFactory.TileGenerator.DownloadCount * 100.0 / _maxDownload);
+                    this.progress.Visibility = Visibility.Visible;
+                    this.label.Text = string.Format(
+                        CultureInfo.CurrentUICulture,
+                        "Downloading {0} item{1}",
+                        _mapControlFactory.TileGenerator.DownloadCount,
+                        _mapControlFactory.TileGenerator.DownloadCount != 1 ? 's' : ' ');
+                    this.label.Visibility = Visibility.Visible;
+                }
             }
         }
 

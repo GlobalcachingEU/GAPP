@@ -107,10 +107,16 @@
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{l:Translate Edit}">
-                    <MenuItem x:Name="menu5" Header="{l:Translate Copy}" Command="{Binding CopyCommand, Source={x:Static c:ClipboardHandler.Instance}}" />
-                    <MenuItem x:Name="menu6" Header="{l:Translate Delete}" Command="{Binding DeleteActiveCommand}" />
-                    <MenuItem x:Name="menu7" Header="{l:Translate CopySelection}" Command="{Binding CopySelectedCommand, Source={x:Static c:ClipboardHandler.Instance}}" />
-                    <MenuItem x:Name="menu8" Header="{l:Translate DeleteSelection}" Command="{Binding DeleteSelectionCommand}" />
+                    <MenuItem Header="{l:Translate Copy}">
+                        <MenuItem x:Name="menu5" Header="{l:Translate Active}" Command="{Binding CopyCommand, Source={x:Static c:ClipboardHandler.Instance}}" />
+                        <MenuItem x:Name="menu7" Header="{l:Translate Selected}" Command="{Binding CopySelectedCommand, Source={x:Static c:ClipboardHandler.Instance}}" />
+                        <MenuItem x:Name="menux7" Header="{l:Translate All}" Command="{Binding CopyAllCommand, Source={x:Static c:ClipboardHandler.Instance}}" />
+                    </MenuItem>
+                    <MenuItem Header="{l:Translate Delete}">
+                        <MenuItem x:Name="menu6" Header="{l:Translate Active}" Command="{Binding DeleteActiveCommand}" />
+                        <MenuItem x:Name="menu8" Header="{l:Translate Selected}" Command="{Binding DeleteSelectionCommand}" />
+                        <MenuItem x:Name="menux8" Header="{l:Translate All}" Command="{Binding DeleteAllCommand}" />
+                    </MenuItem>
                     <MenuItem x:Name="menu9" Header="{l:Translate Paste}" Command="{Binding PasteCommand, Source={x:Static c:ClipboardHandler.Instance}}" />
                     <Separator />
                     <MenuItem x:Name="menu10" Header="{l:Translate SelectAll}" Command="{Binding SelectAllCommand}" />
@@ -151,6 +157,8 @@
                 <MenuItem Header="{l:Translate LiveAPI}">
                     <MenuItem x:Name="menu13" Header="{l:Translate Authorize}" Command="{Binding LiveApiAuthorizeCommand}" />
                     <MenuItem x:Name="menue37" Header="{l:Translate Bookmarks}" Click="menud37_Click" />
+                    <MenuItem x:Name="menut37" Header="{l:Translate ImportPQ}" Click="menut37_Click" />
+                    <MenuItem x:Name="menuq37" Header="{l:Translate ImportMyFinds}" Command="{Binding ImportMyFindsCommand}" />
                     <MenuItem Header="{l:Translate Refresh}">
                         <MenuItem x:Name="menuc50" Header="{l:Translate Active}" Command="{Binding UpdateActiveCommand}" />
                         <MenuItem x:Name="menuc51" Header="{l:Translate Selected}" Command="{Binding UpdateSelectedCommand}" />

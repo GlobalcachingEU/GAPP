@@ -8,7 +8,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <DataGrid Grid.Row="0" x:Name="dataGrid" AutoGenerateColumns="False">
+        <DataGrid Grid.Row="0" x:Name="dataGrid" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn Binding="{Binding Enabled}" Header="Enabled" />
                 <DataGridTextColumn Binding="{Binding Filename}" IsReadOnly="True" Header="File name" />

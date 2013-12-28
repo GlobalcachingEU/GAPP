@@ -815,7 +815,7 @@ This wizard will guide you through the initial setup. Before you start, you migh
     <value>Saving geocaches</value>
   </data>
   <data name="DebugLogView" xml:space="preserve">
-    <value>Log viewer</value>
+    <value>Debug log viewer</value>
   </data>
   <data name="ImportingGeocaches" xml:space="preserve">
     <value>Importing geocaches</value>
@@ -1008,5 +1008,29 @@ This wizard will guide you through the initial setup. Before you start, you migh
   </data>
   <data name="DownloadingFile" xml:space="preserve">
     <value>Downloading file</value>
+  </data>
+  <data name="ImportPQ" xml:space="preserve">
+    <value>Import Pocket Query</value>
+  </data>
+  <data name="DownloadingPQ" xml:space="preserve">
+    <value>Downloading PQ</value>
+  </data>
+  <data name="Downloadable" xml:space="preserve">
+    <value>Downloadable</value>
+  </data>
+  <data name="Generated" xml:space="preserve">
+    <value>Generated</value>
+  </data>
+  <data name="Processed" xml:space="preserve">
+    <value>Processed</value>
+  </data>
+  <data name="UnselectAll" xml:space="preserve">
+    <value>Unselect all</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>Count</value>
+  </data>
+  <data name="ImportMyFinds" xml:space="preserve">
+    <value>Import My Finds</value>
   </data>
 </root>

@@ -137,6 +137,28 @@ namespace GAPPSF.Clipboard
             }
         }
 
+        AsyncDelegateCommand _copyAllCommand;
+        public ICommand CopyAllCommand
+        {
+            get
+            {
+                if (_copyAllCommand == null)
+                {
+                    _copyAllCommand = new AsyncDelegateCommand(param => this.CopyAllGeocache(), param => Core.ApplicationData.Instance.ActiveDatabase!=null);
+                }
+                return _copyAllCommand;
+            }
+        }
+
+        async public Task CopyAllGeocache()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                List<string> gcList = (from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection select a.Code).ToList();
+                await CopyGeocachesAsync(Core.ApplicationData.Instance.ActiveGeocache.Database, gcList);
+            }
+        }
+
         AsyncDelegateCommand _pasteCommand;
         public ICommand PasteCommand
         {

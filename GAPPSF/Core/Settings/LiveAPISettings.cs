@@ -50,6 +50,12 @@ namespace GAPPSF.Core
             set { SetProperty(value.ToString()); }
         }
 
+        public int LiveAPIDelayGetUsersGeocacheLogs
+        {
+            get { return int.Parse(GetProperty("2000")); }
+            set { SetProperty(value.ToString()); }
+        }
+
         public int LiveAPIImportGeocachesBatchSize
         {
             get { return int.Parse(GetProperty("30")); }
@@ -60,6 +66,18 @@ namespace GAPPSF.Core
         {
             get { return int.Parse(GetProperty("109")); }
             set { SetProperty(value.ToString()); }
+        }
+
+        public int LiveAPIGetUsersGeocacheLogsBatchSize
+        {
+            get { return int.Parse(GetProperty("100")); }
+            set { SetProperty(value.ToString()); }
+        }
+
+        public string LiveAPIDownloadedPQs
+        {
+            get { return GetProperty(null); }
+            set { SetProperty(value); }
         }
 
     }
