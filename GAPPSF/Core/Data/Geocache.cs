@@ -41,7 +41,6 @@ namespace GAPPSF.Core.Data
             using (BinaryWriter bw = new BinaryWriter(ms))
             {
                 ms.Position = 0;
-                //todo: add string length checks!!!
 
                 ms.Position = 150;
                 bw.Write(data.Archived); //150
@@ -92,19 +91,19 @@ namespace GAPPSF.Core.Data
                 ms.Position = 400;
                 bw.Write(data.Country ?? "");
                 ms.Position = 500;
-                bw.Write(data.EncodedHints ?? "");
+                bw.Write(GetSafeString(500, 1000, data.EncodedHints) ?? "");
                 ms.Position = 1000;
                 bw.Write(data.Municipality ?? "");
                 ms.Position = 1100;
                 bw.Write(data.Name ?? "");
                 ms.Position = 1200;
-                bw.Write(data.Notes ?? "");
+                bw.Write(GetSafeString(1200, 2000, data.Notes) ?? "");
                 ms.Position = 2000;
                 bw.Write(data.Owner ?? "");
                 ms.Position = 2100;
                 bw.Write(data.OwnerId ?? "");
                 ms.Position = 2150;
-                bw.Write(data.PersonalNote ?? "");
+                bw.Write(GetSafeString(2150, 2400, data.PersonalNote) ?? "");
                 ms.Position = 2400;
                 bw.Write(data.PlacedBy ?? "");
                 ms.Position = 2500;
@@ -708,7 +707,7 @@ namespace GAPPSF.Core.Data
             set
             {
                 string s = EncodedHints;
-                SetProperty(500, ref s, value);
+                SetStringProperty(500, 1000, ref s, value);
             }
         }
 
@@ -790,7 +789,7 @@ namespace GAPPSF.Core.Data
             set
             {
                 string s = PersonalNote;
-                SetProperty(2150, ref s, value);
+                SetStringProperty(2150, 2400, ref s, value);
             }
         }
 
@@ -803,7 +802,7 @@ namespace GAPPSF.Core.Data
             set
             {
                 string s = PersonalNote;
-                SetProperty(1200, ref s, value);
+                SetStringProperty(1200, 2000, ref s, value);
             }
         }
 

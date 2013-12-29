@@ -938,6 +938,73 @@ namespace GAPPSF
         }
 
 
+        RelayCommand _exportGDAKActiveCommand;
+        public ICommand ExportGDAKActiveCommand
+        {
+            get
+            {
+                if (_exportGDAKActiveCommand == null)
+                {
+                    _exportGDAKActiveCommand = new RelayCommand(param => this.ExportGDAKActive(),
+                        param => Core.ApplicationData.Instance.ActiveGeocache != null);
+                }
+                return _exportGDAKActiveCommand;
+            }
+        }
+        private void ExportGDAKActive()
+        {
+            if (Core.ApplicationData.Instance.ActiveGeocache != null)
+            {
+                ExportGDAK(new Core.Data.Geocache[] { Core.ApplicationData.Instance.ActiveGeocache }.ToList());
+            }
+        }
+        RelayCommand _exportGDAKSelectedCommand;
+        public ICommand ExportGDAKSelectedCommand
+        {
+            get
+            {
+                if (_exportGDAKSelectedCommand == null)
+                {
+                    _exportIGKSelectedCommand = new RelayCommand(param => this.ExportGDAKSelected(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null && this.GeocacheSelectionCount > 0);
+                }
+                return _exportGDAKSelectedCommand;
+            }
+        }
+        private void ExportGDAKSelected()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                ExportGDAK((from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection where a.Selected select a).ToList());
+            }
+        }
+        RelayCommand _exportGDAKAllCommand;
+        public ICommand ExportGDAKAllCommand
+        {
+            get
+            {
+                if (_exportGDAKAllCommand == null)
+                {
+                    _exportGDAKAllCommand = new RelayCommand(param => this.ExportGDAKAll(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null);
+                }
+                return _exportGDAKAllCommand;
+            }
+        }
+        private void ExportGDAKAll()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                ExportGDAK(Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection);
+            }
+        }
+        private void ExportGDAK(List<Core.Data.Geocache> gcList)
+        {
+            GDAK.ExportWindow dlg = new GDAK.ExportWindow(gcList);
+            dlg.ShowDialog();
+        }
+
+
 
         RelayCommand _exportIGKActiveCommand;
         public ICommand ExportIGKActiveCommand

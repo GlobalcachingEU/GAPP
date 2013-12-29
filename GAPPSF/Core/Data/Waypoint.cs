@@ -30,7 +30,6 @@ namespace GAPPSF.Core.Data
             using (BinaryWriter bw = new BinaryWriter(ms))
             {
                 ms.Position = 0;
-                //todo: add string length checks!!!
 
                 ms.Position = 150;
                 bw.Write(Utils.Conversion.DateTimeToLong(data.DataFromDate)); //150
@@ -46,13 +45,13 @@ namespace GAPPSF.Core.Data
                 ms.Position = 240;
                 bw.Write(data.Code);
                 ms.Position = 280;
-                bw.Write(data.Description);
+                bw.Write(GetSafeString(280, 500, data.Description) ?? "");
                 ms.Position = 500;
-                bw.Write(data.Name);
+                bw.Write(GetSafeString(500, 600, data.Name) ?? "");
                 ms.Position = 600;
-                bw.Write(data.Url);
+                bw.Write(data.Url ?? "");
                 ms.Position = 700;
-                bw.Write(data.UrlName);
+                bw.Write(data.UrlName ?? "");
                 ms.Position = 800;
                 bw.Write(data.Comment);
 
@@ -88,7 +87,7 @@ namespace GAPPSF.Core.Data
             set
             {
                 string s = Name;
-                SetProperty(500, ref s, value);
+                SetStringProperty(500, 600, ref s, value);
             }
         }
 
@@ -134,7 +133,7 @@ namespace GAPPSF.Core.Data
             set
             {
                 string s = Description;
-                SetProperty(280, ref s, value);
+                SetStringProperty(280, 500, ref s, value);
             }
         }
 

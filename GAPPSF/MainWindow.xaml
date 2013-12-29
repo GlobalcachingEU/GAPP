@@ -105,6 +105,11 @@
                         <MenuItem x:Name="menu71" Header="{l:Translate Selected}" Command="{Binding ExportIGKSelectedCommand}" />
                         <MenuItem x:Name="menu72" Header="{l:Translate All}" Command="{Binding ExportIGKAllCommand}" />
                     </MenuItem>
+                    <MenuItem Header="{l:Translate ExportGDAK}">
+                        <MenuItem x:Name="menu410" Header="{l:Translate Active}" Command="{Binding ExportGDAKActiveCommand}" />
+                        <MenuItem x:Name="menu411" Header="{l:Translate Selected}" Command="{Binding ExportGDAKSelectedCommand}" />
+                        <MenuItem x:Name="menu412" Header="{l:Translate All}" Command="{Binding ExportGDAKAllCommand}" />
+                    </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{l:Translate Edit}">
                     <MenuItem Header="{l:Translate Copy}">

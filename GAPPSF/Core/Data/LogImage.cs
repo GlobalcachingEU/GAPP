@@ -30,7 +30,6 @@ namespace GAPPSF.Core.Data
             using (BinaryWriter bw = new BinaryWriter(ms))
             {
                 ms.Position = 0;
-                //todo: add string length checks!!!
 
                 ms.Position = 150;
                 bw.Write(Utils.Conversion.DateTimeToLong(data.DataFromDate)); //150

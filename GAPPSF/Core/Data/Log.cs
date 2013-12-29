@@ -41,7 +41,6 @@ namespace GAPPSF.Core.Data
             using (BinaryWriter bw = new BinaryWriter(ms))
             {
                 ms.Position = 0;
-                //todo: add string length checks!!!
 
                 ms.Position = 150;
                 bw.Write(data.LogType.ID); //150

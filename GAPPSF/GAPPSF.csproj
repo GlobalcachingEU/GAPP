@@ -154,6 +154,7 @@
     <Compile Include="Core\Settings\CacheListSettings.cs" />
     <Compile Include="Core\Settings\DebugLogViewSettings.cs" />
     <Compile Include="Core\Settings\GCComBookmarkSettings.cs" />
+    <Compile Include="Core\Settings\GDAKSettings.cs" />
     <Compile Include="Core\Settings\GeocacheFilterSettings.cs" />
     <Compile Include="Core\Settings\GeocacheViewerSettings.cs" />
     <Compile Include="Core\Settings\GoogleMapSettings.cs" />
@@ -227,6 +228,10 @@
     <Compile Include="Gavaghan.Geodesy\GlobalPosition.cs" />
     <Compile Include="GCComBookmarks\Bookmark.cs" />
     <Compile Include="GCComBookmarks\Manager.cs" />
+    <Compile Include="GDAK\Export.cs" />
+    <Compile Include="GDAK\ExportWindow.xaml.cs">
+      <DependentUpon>ExportWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GPX\Enums.cs" />
     <Compile Include="GPX\Export.cs" />
     <Compile Include="GPX\ExportWindow.xaml.cs">
@@ -495,6 +500,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="FeatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GDAK\ExportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -122,6 +122,7 @@ namespace GAPPSF.UIControls.OfflineImages
                 List<Core.Data.Geocache> gcList = new List<Core.Data.Geocache>();
                 gcList.Add(Core.ApplicationData.Instance.ActiveGeocache);
                 await GAPPSF.ImageGrabber.OfflineImagesManager.Instance.DownloadImagesAsync(gcList, true);
+                updateView();
             }
         }
 
@@ -132,7 +133,7 @@ namespace GAPPSF.UIControls.OfflineImages
             {
                 if (_importSelectedCommand == null)
                 {
-                    _importSelectedCommand = new AsyncDelegateCommand(param => this.ImportCurrent(), param => Core.ApplicationData.Instance.ActiveDatabase != null && (from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection where a.Selected select a).FirstOrDefault() != null);
+                    _importSelectedCommand = new AsyncDelegateCommand(param => this.ImportSelected(), param => Core.ApplicationData.Instance.ActiveDatabase != null && (from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection where a.Selected select a).FirstOrDefault() != null);
                 }
                 return _importSelectedCommand;
             }
@@ -146,6 +147,7 @@ namespace GAPPSF.UIControls.OfflineImages
                 if (gcList.Count>0)
                 {
                     await GAPPSF.ImageGrabber.OfflineImagesManager.Instance.DownloadImagesAsync(gcList, true);
+                    updateView();
                 }
             }
         }

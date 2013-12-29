@@ -1033,4 +1033,22 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="ImportMyFinds" xml:space="preserve">
     <value>Import My Finds</value>
   </data>
+  <data name="ExportGDAK" xml:space="preserve">
+    <value>Export GDAK</value>
+  </data>
+  <data name="ExportGrabbedImages" xml:space="preserve">
+    <value>Export grabbed images</value>
+  </data>
+  <data name="MaxInFolder" xml:space="preserve">
+    <value>Max. in folder</value>
+  </data>
+  <data name="NullIsUnlimted" xml:space="preserve">
+    <value>(0 = unlimited)</value>
+  </data>
+  <data name="Folder" xml:space="preserve">
+    <value>Folder</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Information</value>
+  </data>
 </root>

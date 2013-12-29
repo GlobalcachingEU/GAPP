@@ -31,6 +31,11 @@ namespace GAPPSF.ImageGrabber
                 {
                     System.IO.Directory.CreateDirectory(_imageFolder);
                 }
+                string sf = Path.Combine(_imageFolder, IMG_SUBFOLDER);
+                if (!System.IO.Directory.Exists(sf))
+                {
+                    System.IO.Directory.CreateDirectory(sf);
+                }
                 InitDatabase();
             }
             catch(Exception e)
@@ -204,115 +209,123 @@ namespace GAPPSF.ImageGrabber
 
         public async Task DownloadImagesAsync(List<Core.Data.Geocache> gcList, bool updateExisting)
         {
-            bool cancel = false;
-            ConcurrentQueue<Core.Data.Geocache> cq = new ConcurrentQueue<Core.Data.Geocache>();
-            foreach(var gc in gcList)
+            await Task.Run(async () =>
             {
-                cq.Enqueue(gc);
-            }
-
-            using (Utils.ProgressBlock prog = new ProgressBlock("DownloadingImages", "DownloadingImages", gcList.Count, 0, true))
-            {
-                Action actionUpdateProgress = () =>
+                bool cancel = false;
+                ConcurrentQueue<Core.Data.Geocache> cq = new ConcurrentQueue<Core.Data.Geocache>();
+                foreach (var gc in gcList)
                 {
-                    DateTime updateAt = DateTime.MinValue;
-                    int cnt = cq.Count;
-                    while (cnt>0)
+                    cq.Enqueue(gc);
+                }
+
+                using (Utils.ProgressBlock prog = new ProgressBlock("DownloadingImages", "DownloadingImages", gcList.Count, 0, true))
+                {
+                    Action actionUpdateProgress = () =>
                     {
-                        if (DateTime.Now>=updateAt)
+                        DateTime updateAt = DateTime.MinValue;
+                        int cnt = cq.Count;
+                        while (cnt > 0)
                         {
-                            if (!prog.Update("DownloadingImages", gcList.Count, gcList.Count - cnt))
+                            if (DateTime.Now >= updateAt)
                             {
-                                cancel = true;
-                                break;
+                                if (!prog.Update("DownloadingImages", gcList.Count, gcList.Count - cnt))
+                                {
+                                    cancel = true;
+                                    break;
+                                }
+                                updateAt = DateTime.Now.AddSeconds(1);
                             }
-                        }
-                        cnt = cq.Count;
+                            System.Threading.Thread.Sleep(200);
+                            cnt = cq.Count;
+                        };
                     };
-                };
 
-                Action actionDownload = () =>
-                {
-                    Core.Data.Geocache gc;
-                    while (!cancel && cq.TryDequeue(out gc))
+                    Action actionDownload = () =>
                     {
+                        Core.Data.Geocache gc;
                         using (System.Net.WebClient wc = new System.Net.WebClient())
                         {
-                            string fnp = System.IO.Path.Combine(_imageFolder, IMG_SUBFOLDER);
-                            bool grabOnlyNew = !updateExisting;
-                            try
+                            while (!cancel && cq.TryDequeue(out gc))
                             {
-                                List<string> linkList;
-                                lock (_lockObject)
+                                string fnp = System.IO.Path.Combine(_imageFolder, IMG_SUBFOLDER);
+                                bool grabOnlyNew = !updateExisting;
+                                try
                                 {
-                                    linkList = DataAccess.GetImagesOfGeocache(gc.Database, gc.Code);
-                                }
-
-                                foreach (string link in linkList)
-                                {
-                                    string fn = string.Format("{0}.jpg", Guid.NewGuid().ToString("N"));
-                                    bool skipInsert = false;
-                                    //if it fails, just ignore this image
-                                    try
+                                    List<string> linkList;
+                                    lock (_lockObject)
                                     {
-                                        //check if link already is in database
-                                        //if so, use this filename
-                                        lock (_lockObject)
+                                        linkList = DataAccess.GetImagesOfGeocache(gc.Database, gc.Code);
+                                    }
+
+                                    foreach (string link in linkList)
+                                    {
+                                        string fn = string.Format("{0}.jpg", Guid.NewGuid().ToString("N"));
+                                        bool skipInsert = false;
+                                        //if it fails, just ignore this image
+                                        try
                                         {
-                                            object o = _dbcon.ExecuteScalar(string.Format("select local_file from images where gccode='{0}' and org_url='{1}'", gc.Code.Replace("'", "''"), link.Replace("'", "''")));
-                                            if (o != null && o.GetType() != typeof(DBNull))
+                                            //check if link already is in database
+                                            //if so, use this filename
+                                            lock (_lockObject)
                                             {
-                                                fn = (string)o;
-                                                skipInsert = true;
-                                            }
-                                        }
-                                        if (grabOnlyNew && skipInsert)
-                                        {
-                                            if (System.IO.File.Exists(System.IO.Path.Combine(fnp, fn)))
-                                            {
-                                                continue;
-                                            }
-                                        }
-                                        using (System.IO.TemporaryFile tmp = new System.IO.TemporaryFile(true))
-                                        {
-                                            wc.DownloadFile(link, tmp.Path);
-                                            using (System.Drawing.Image img = System.Drawing.Image.FromFile(tmp.Path))
-                                            {
-                                                img.Save(System.IO.Path.Combine(fnp, fn), System.Drawing.Imaging.ImageFormat.Jpeg);
-                                                if (!skipInsert)
+                                                object o = _dbcon.ExecuteScalar(string.Format("select local_file from images where gccode='{0}' and org_url='{1}'", gc.Code.Replace("'", "''"), link.Replace("'", "''")));
+                                                if (o != null && o.GetType() != typeof(DBNull))
                                                 {
-                                                    lock (_lockObject)
+                                                    fn = (string)o;
+                                                    skipInsert = true;
+                                                }
+                                            }
+                                            if (grabOnlyNew && skipInsert)
+                                            {
+                                                if (System.IO.File.Exists(System.IO.Path.Combine(fnp, fn)))
+                                                {
+                                                    continue;
+                                                }
+                                            }
+                                            using (System.IO.TemporaryFile tmp = new System.IO.TemporaryFile(true))
+                                            {
+                                                wc.DownloadFile(link, tmp.Path);
+                                                if (new FileInfo(tmp.Path).Length < 10 * 1024 * 1024)
+                                                {
+                                                    using (System.Drawing.Image img = System.Drawing.Image.FromFile(tmp.Path))
                                                     {
-                                                        _dbcon.ExecuteNonQuery(string.Format("insert into images (gccode, org_url, local_file) values ('{0}', '{1}', '{2}')", gc.Code.Replace("'", "''"), link.Replace("'", "''"), fn));
+                                                        img.Save(System.IO.Path.Combine(fnp, fn), System.Drawing.Imaging.ImageFormat.Jpeg);
+                                                        if (!skipInsert)
+                                                        {
+                                                            lock (_lockObject)
+                                                            {
+                                                                _dbcon.ExecuteNonQuery(string.Format("insert into images (gccode, org_url, local_file) values ('{0}', '{1}', '{2}')", gc.Code.Replace("'", "''"), link.Replace("'", "''"), fn));
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             }
                                         }
+                                        catch (Exception e)
+                                        {
+                                            Core.ApplicationData.Instance.Logger.AddLog(this, e);
+                                        }
                                     }
-                                    catch(Exception e)
-                                    {
-                                        Core.ApplicationData.Instance.Logger.AddLog(this, e);
-                                    }
+
                                 }
-
+                                catch (Exception e)
+                                {
+                                    Core.ApplicationData.Instance.Logger.AddLog(this, e);
+                                    //skip and go to next one
+                                }
                             }
-                            catch(Exception e)
-                            {
-                                Core.ApplicationData.Instance.Logger.AddLog(this, e);
-                                //skip and go to next one
-                            }
-                        }
+                        };
                     };
-                };
 
-                List<Task> tasks = new List<Task>();
-                tasks.Add(new Task(actionUpdateProgress));
-                for (int i = 0; i < 4 && i < gcList.Count; i++)
-                {
-                    tasks.Add(new Task(actionDownload));
+                    List<Task> tasks = new List<Task>();
+                    tasks.Add(Task.Factory.StartNew(actionUpdateProgress));
+                    for (int i = 0; i < 4 && i < gcList.Count; i++)
+                    {
+                        tasks.Add(Task.Factory.StartNew(actionDownload));
+                    }
+                    await Task.WhenAll(tasks.ToArray());
                 }
-                await Task.WhenAll(tasks.ToArray());
-            }
+            });
         }
 
     }

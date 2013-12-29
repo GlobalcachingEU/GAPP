@@ -16,6 +16,9 @@ namespace GAPPSF.Core.Data
         public event EventHandler<EventArgs> DataChanged;
 
         private static byte[] _buffer = new byte[10000000];
+        private static MemoryStream _ms = new MemoryStream(_buffer);
+        private static BinaryWriter _bw = new BinaryWriter(_ms);
+
         private int _updateCounter = 0;
         private bool IsDataChanged = false;
 
@@ -108,6 +111,42 @@ namespace GAPPSF.Core.Data
             }
         }
 
+        protected void SetStringProperty(long pos, long nextpos, ref string field, string value, [CallerMemberName] string name = "")
+        {
+            string rvalue = GetSafeString(pos, nextpos, value);
+            if (!EqualityComparer<string>.Default.Equals(field, rvalue))
+            {
+                IsDataChanged = true;
+                field = rvalue;
+                StoreProperty(pos, name, rvalue);
+                if (_updateCounter == 0)
+                {
+                    var handler = PropertyChanged;
+                    if (handler != null)
+                    {
+                        handler(this, new PropertyChangedEventArgs(name));
+                    }
+                }
+                else
+                {
+                    IsDataChanged = false;
+                }
+            }
+        }
+
+        protected string GetSafeString(long pos, long nextpos, string value)
+        {
+            string result = value;
+            if (!string.IsNullOrEmpty(value))
+            {
+                while (!checkStringFits(result, pos, nextpos))
+                {
+                    result = result.Substring(0, result.Length - 1);
+                }
+            }
+            return value;
+        }
+
         protected bool checkStringFits(string s, long startPos)
         {
             return checkStringFits(s, startPos, RecordInfo.Length);
@@ -115,12 +154,9 @@ namespace GAPPSF.Core.Data
         protected bool checkStringFits(string s, long startPos, long nextPos)
         {
             bool result;
-            using (MemoryStream ms = new MemoryStream(_buffer))
-            using (BinaryWriter bw = new BinaryWriter(ms))
-            {
-                bw.Write(s);
-                result = (ms.Position <= (nextPos - startPos));
-            }
+            _ms.Position = 0;
+            _bw.Write(s);
+            result = (_ms.Position <= (nextPos - startPos));
             return result;
         }
 

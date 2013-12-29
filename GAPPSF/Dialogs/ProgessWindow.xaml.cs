@@ -139,6 +139,7 @@ namespace GAPPSF.Dialogs
             if (!CheckAccess())
             {
                 Dispatcher.BeginInvoke(new Action<string, string, int, int, bool>(Start), new object[] { title, mainAction, max, pos, canCancel });
+                //Dispatcher.Invoke(new Action<string, string, int, int, bool>(Start), new object[] { title, mainAction, max, pos, canCancel });
                 return;
             }
             _progressData.Title = title;
@@ -163,6 +164,7 @@ namespace GAPPSF.Dialogs
             if (!CheckAccess())
             {
                 Dispatcher.BeginInvoke(new Action(Stop), new object[]{});
+                //Dispatcher.Invoke(new Action(Stop), new object[] { });
                 return;
             }
             this.Visibility = System.Windows.Visibility.Hidden;
@@ -173,6 +175,7 @@ namespace GAPPSF.Dialogs
             if (!CheckAccess())
             {
                 Dispatcher.BeginInvoke(new Action<string, int, int>(ChangeProgress), new object[] { mainAction, value, max });
+                //Dispatcher.Invoke(new Action<string, int, int>(ChangeProgress), new object[] { mainAction, value, max });
                 return;
             }
             _progressData.MainAction = mainAction;
@@ -185,6 +188,7 @@ namespace GAPPSF.Dialogs
             if (!CheckAccess())
             {
                 Dispatcher.BeginInvoke(new Action<string, int, int>(ChangeProgressSub), new object[] { subAction, value, max });
+                //Dispatcher.Invoke(new Action<string, int, int>(ChangeProgressSub), new object[] { subAction, value, max });
                 return;
             }
             _progressData.SubAction = subAction;
@@ -198,6 +202,7 @@ namespace GAPPSF.Dialogs
             if (!CheckAccess())
             {
                 Dispatcher.BeginInvoke(new Action<string, int, int>(StartSub), new object[] { subAction, max, pos });
+                //Dispatcher.Invoke(new Action<string, int, int>(StartSub), new object[] { subAction, max, pos });
                 return;
             }
             Canceled = false;
@@ -212,6 +217,7 @@ namespace GAPPSF.Dialogs
             if (!CheckAccess())
             {
                 Dispatcher.BeginInvoke(new Action(StopSub), new object[] { });
+                //Dispatcher.Invoke(new Action(StopSub), new object[] { });
                 return;
             }
             _progressData.SubVisible = System.Windows.Visibility.Visible;
