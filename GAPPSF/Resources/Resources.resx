@@ -1051,4 +1051,46 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="Information" xml:space="preserve">
     <value>Information</value>
   </data>
+  <data name="ExportCachebox" xml:space="preserve">
+    <value>Export to Cachebox</value>
+  </data>
+  <data name="ExportExcel" xml:space="preserve">
+    <value>Export to Excel</value>
+  </data>
+  <data name="Sheets" xml:space="preserve">
+    <value>Sheets</value>
+  </data>
+  <data name="AutoCoord" xml:space="preserve">
+    <value>Auto coord.</value>
+  </data>
+  <data name="Coordinate" xml:space="preserve">
+    <value>Coordinate</value>
+  </data>
+  <data name="CustomCoord" xml:space="preserve">
+    <value>Custom coord.</value>
+  </data>
+  <data name="CustomLatitude" xml:space="preserve">
+    <value>Custom Latitude</value>
+  </data>
+  <data name="CustomLongitude" xml:space="preserve">
+    <value>Custom Longitude</value>
+  </data>
+  <data name="DescriptionHTML" xml:space="preserve">
+    <value>Description HTML</value>
+  </data>
+  <data name="DescriptionText" xml:space="preserve">
+    <value>Description Text</value>
+  </data>
+  <data name="FoundDate" xml:space="preserve">
+    <value>Found Date</value>
+  </data>
+  <data name="MemberOnly" xml:space="preserve">
+    <value>Member Only</value>
+  </data>
+  <data name="RDx" xml:space="preserve">
+    <value>RD x</value>
+  </data>
+  <data name="RDy" xml:space="preserve">
+    <value>RD y</value>
+  </data>
 </root>

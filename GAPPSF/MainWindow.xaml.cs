@@ -938,6 +938,147 @@ namespace GAPPSF
         }
 
 
+        RelayCommand _exportExcelActiveCommand;
+        public ICommand ExportExcelActiveCommand
+        {
+            get
+            {
+                if (_exportExcelActiveCommand == null)
+                {
+                    _exportExcelActiveCommand = new RelayCommand(param => this.ExportExcelActive(),
+                        param => Core.ApplicationData.Instance.ActiveGeocache != null);
+                }
+                return _exportExcelActiveCommand;
+            }
+        }
+        private void ExportExcelActive()
+        {
+            if (Core.ApplicationData.Instance.ActiveGeocache != null)
+            {
+                ExportExcel(new Core.Data.Geocache[] { Core.ApplicationData.Instance.ActiveGeocache }.ToList());
+            }
+        }
+        RelayCommand _exportExcelSelectedCommand;
+        public ICommand ExportExcelSelectedCommand
+        {
+            get
+            {
+                if (_exportExcelSelectedCommand == null)
+                {
+                    _exportExcelSelectedCommand = new RelayCommand(param => this.ExportExcelSelected(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null && this.GeocacheSelectionCount > 0);
+                }
+                return _exportExcelSelectedCommand;
+            }
+        }
+        private void ExportExcelSelected()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                ExportExcel((from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection where a.Selected select a).ToList());
+            }
+        }
+        RelayCommand _exportExcelAllCommand;
+        public ICommand ExportExcelAllCommand
+        {
+            get
+            {
+                if (_exportExcelAllCommand == null)
+                {
+                    _exportExcelAllCommand = new RelayCommand(param => this.ExportExcelAll(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null);
+                }
+                return _exportExcelAllCommand;
+            }
+        }
+        private void ExportExcelAll()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                ExportExcel(Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection);
+            }
+        }
+        private void ExportExcel(List<Core.Data.Geocache> gcList)
+        {
+            Excel.ExportWindow dlg = new Excel.ExportWindow(gcList);
+            dlg.ShowDialog();
+        }
+
+
+
+
+
+
+        RelayCommand _exportCacheboxActiveCommand;
+        public ICommand ExportCacheboxActiveCommand
+        {
+            get
+            {
+                if (_exportCacheboxActiveCommand == null)
+                {
+                    _exportCacheboxActiveCommand = new RelayCommand(param => this.ExportCacheboxActive(),
+                        param => Core.ApplicationData.Instance.ActiveGeocache != null);
+                }
+                return _exportCacheboxActiveCommand;
+            }
+        }
+        private void ExportCacheboxActive()
+        {
+            if (Core.ApplicationData.Instance.ActiveGeocache != null)
+            {
+                ExportCachebox(new Core.Data.Geocache[] { Core.ApplicationData.Instance.ActiveGeocache }.ToList());
+            }
+        }
+        RelayCommand _exportCacheboxSelectedCommand;
+        public ICommand ExportCacheboxSelectedCommand
+        {
+            get
+            {
+                if (_exportCacheboxSelectedCommand == null)
+                {
+                    _exportCacheboxSelectedCommand = new RelayCommand(param => this.ExportCacheboxSelected(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null && this.GeocacheSelectionCount > 0);
+                }
+                return _exportCacheboxSelectedCommand;
+            }
+        }
+        private void ExportCacheboxSelected()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                ExportCachebox((from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection where a.Selected select a).ToList());
+            }
+        }
+        RelayCommand _exportCacheboxAllCommand;
+        public ICommand ExportCacheboxAllCommand
+        {
+            get
+            {
+                if (_exportCacheboxAllCommand == null)
+                {
+                    _exportCacheboxAllCommand = new RelayCommand(param => this.ExportCacheboxAll(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null);
+                }
+                return _exportCacheboxAllCommand;
+            }
+        }
+        private void ExportCacheboxAll()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                ExportCachebox(Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection);
+            }
+        }
+        private void ExportCachebox(List<Core.Data.Geocache> gcList)
+        {
+            Cachebox.ExportWindow dlg = new Cachebox.ExportWindow(gcList);
+            dlg.ShowDialog();
+        }
+
+
+
+
+
         RelayCommand _exportGDAKActiveCommand;
         public ICommand ExportGDAKActiveCommand
         {
@@ -965,7 +1106,7 @@ namespace GAPPSF
             {
                 if (_exportGDAKSelectedCommand == null)
                 {
-                    _exportIGKSelectedCommand = new RelayCommand(param => this.ExportGDAKSelected(),
+                    _exportGDAKSelectedCommand = new RelayCommand(param => this.ExportGDAKSelected(),
                         param => Core.ApplicationData.Instance.ActiveDatabase != null && this.GeocacheSelectionCount > 0);
                 }
                 return _exportGDAKSelectedCommand;

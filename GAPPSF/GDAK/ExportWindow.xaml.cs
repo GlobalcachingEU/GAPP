@@ -56,6 +56,7 @@ namespace GAPPSF.GDAK
                 Core.Settings.Default.GDAKMaxLogCount,
                 Core.Settings.Default.GDAKExportOfflineImages,
                 Core.Settings.Default.GDAKMaxImagesInFolder);
+            Close();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

@@ -110,6 +110,16 @@
                         <MenuItem x:Name="menu411" Header="{l:Translate Selected}" Command="{Binding ExportGDAKSelectedCommand}" />
                         <MenuItem x:Name="menu412" Header="{l:Translate All}" Command="{Binding ExportGDAKAllCommand}" />
                     </MenuItem>
+                    <MenuItem Header="{l:Translate ExportCachebox}">
+                        <MenuItem x:Name="menu4x10" Header="{l:Translate Active}" Command="{Binding ExportCacheboxActiveCommand}" />
+                        <MenuItem x:Name="menu4x11" Header="{l:Translate Selected}" Command="{Binding ExportCacheboxSelectedCommand}" />
+                        <MenuItem x:Name="menu4x12" Header="{l:Translate All}" Command="{Binding ExportCacheboxAllCommand}" />
+                    </MenuItem>
+                    <MenuItem Header="{l:Translate ExportExcel}">
+                        <MenuItem x:Name="menu4y10" Header="{l:Translate Active}" Command="{Binding ExportExcelActiveCommand}" />
+                        <MenuItem x:Name="menu4y11" Header="{l:Translate Selected}" Command="{Binding ExportExcelSelectedCommand}" />
+                        <MenuItem x:Name="menu4y12" Header="{l:Translate All}" Command="{Binding ExportExcelAllCommand}" />
+                    </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{l:Translate Edit}">
                     <MenuItem Header="{l:Translate Copy}">
