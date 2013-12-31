@@ -260,6 +260,11 @@ namespace GAPPSF.UIControls
             FeatureControl = new Maps.Control(new MapProviders.MapControlFactoryOSMOffline());
         }
 
+        private void MenuItem_Click_13(object sender, RoutedEventArgs e)
+        {
+            FeatureControl = new GoogleEarth.Control();
+        }
+
 
     }
 }

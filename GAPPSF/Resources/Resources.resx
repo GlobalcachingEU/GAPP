@@ -1093,4 +1093,19 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="RDy" xml:space="preserve">
     <value>RD y</value>
   </data>
+  <data name="GoogleEarth" xml:space="preserve">
+    <value>Google Earth</value>
+  </data>
+  <data name="FixedView" xml:space="preserve">
+    <value>Fixed view</value>
+  </data>
+  <data name="FlyToSpeed" xml:space="preserve">
+    <value>Fly to speed</value>
+  </data>
+  <data name="ViewAltitude" xml:space="preserve">
+    <value>View altitude</value>
+  </data>
+  <data name="ViewAngle" xml:space="preserve">
+    <value>View angle</value>
+  </data>
 </root>

@@ -1996,5 +1996,12 @@ namespace GAPPSF
             dlg.ShowDialog();
         }
 
+        private void menuf25_Click(object sender, RoutedEventArgs e)
+        {
+            Window w = new FeatureWindow(new UIControls.GoogleEarth.Control());
+            w.Owner = this;
+            w.Show();
+        }
+
     }
 }

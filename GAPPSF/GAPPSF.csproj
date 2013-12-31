@@ -166,6 +166,7 @@
     <Compile Include="Core\Settings\GDAKSettings.cs" />
     <Compile Include="Core\Settings\GeocacheFilterSettings.cs" />
     <Compile Include="Core\Settings\GeocacheViewerSettings.cs" />
+    <Compile Include="Core\Settings\GoogleEarthSettings.cs" />
     <Compile Include="Core\Settings\GoogleMapSettings.cs" />
     <Compile Include="Core\Settings\GPXSettings.cs" />
     <Compile Include="Core\Settings\iGeoKnifeSettings.cs" />
@@ -693,6 +694,9 @@
     <Compile Include="UIControls\GMap\GoogleMap.xaml.cs">
       <DependentUpon>GoogleMap.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UIControls\GoogleEarth\Control.xaml.cs">
+      <DependentUpon>Control.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIControls\IgnoreGeocaches\Control.xaml.cs">
       <DependentUpon>Control.xaml</DependentUpon>
     </Compile>
@@ -1025,6 +1029,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIControls\GMap\GoogleMap.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\GoogleEarth\Control.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1604,7 +1612,11 @@
   <ItemGroup>
     <Resource Include="Resources\globalcaching.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="UIControls\GoogleEarth\Index.html">
+      <SubType>Designer</SubType>
+    </Resource>
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MapProviders\OSMBinMap\patterns\access-destination.png" />
     <EmbeddedResource Include="MapProviders\OSMBinMap\patterns\access-private.png" />

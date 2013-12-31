@@ -1,0 +1,133 @@
+﻿<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title>Sample</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"> </script>
+    <script type="text/javascript">
+      var ge;
+      var placemark;
+      //var icon;
+      var ready = false;
+
+      var geocacheTitle;
+      var geocacheLat;
+      var geocacheLon;
+      var geocacheIcon;
+      var flyToSpeed = 1.0;
+      var applyViewProps = false;
+      var tiltView;
+      var viewAltitude;
+
+      google.load("earth", "1");
+
+      function init() {
+      google.earth.createInstance('map3d', initCB, failureCB);
+      }
+
+      function initCB(instance) {
+      ge = instance;
+      ge.getWindow().setVisibility(true);
+      ge.getOptions().setStatusBarVisibility(true);
+      ge.getNavigationControl().setVisibility(ge.VISIBILITY_AUTO);
+      ge.getLayerRoot().enableLayerById(ge.LAYER_BORDERS, true);
+      ge.getLayerRoot().enableLayerById(ge.LAYER_ROADS, true);
+
+      ready = true;
+      checkSetPlacemark();
+      }
+
+      function setGeocache(title, lat, lon, icon, speed, applyV, tilt, altitude)
+      {
+      geocacheTitle = title;
+      geocacheLat = lat;
+      geocacheLon = lon;
+      geocacheIcon = icon;
+      flyToSpeed = speed;
+      applyViewProps = applyV;
+      tiltView = tilt;
+      viewAltitude = altitude;
+      checkSetPlacemark();
+      }
+
+      function checkSetPlacemark()
+      {
+      if (ready && geocacheTitle)
+      {
+      // Set the FlyTo speed.
+      ge.getOptions().setFlyToSpeed(flyToSpeed);
+      //ge.getOptions().setFlyToSpeed(0.5);
+
+      if (!placemark)
+      {
+      placemark = ge.createPlacemark('');
+      placemark.setName(geocacheTitle);
+
+      // Set the placemark's location.
+      var point = ge.createPoint('');
+      point.setLatitude(geocacheLat);
+      point.setLongitude(geocacheLon);
+      placemark.setGeometry(point);
+
+      //icon = ge.createIcon('');
+      //icon.setHref(geocacheIcon);
+      //var style = ge.createStyle(''); //create a new style
+      //style.getIconStyle().setIcon(icon); //apply the icon to the style
+      //placemark.setStyleSelector(style); //apply the style to the placemark
+
+      // Add the placemark to Earth.
+      ge.getFeatures().appendChild(placemark);
+      }
+      else
+      {
+      placemark.setName(geocacheTitle);
+      var point = ge.createPoint('');
+      point.setLatitude(geocacheLat);
+      point.setLongitude(geocacheLon);
+      //icon.setHref(geocacheIcon);
+      placemark.setGeometry(point);
+      }
+      // Get the current view.
+      var lookAt = ge.getView().copyAsLookAt(ge.ALTITUDE_RELATIVE_TO_GROUND);
+
+      // Set new latitude and longitude values.
+      lookAt.setLatitude(geocacheLat);
+      lookAt.setLongitude(geocacheLon);
+
+      if (applyViewProps)
+      {
+      lookAt.setTilt(tiltView);
+      lookAt.setRange(viewAltitude);
+      }
+
+      // Update the view in Google Earth.
+      ge.getView().setAbstractView(lookAt);
+      }
+      }
+
+      function failureCB(errorCode) {
+      }
+
+      //google.setOnLoadCallback(init);
+
+      function onResize() {
+      $('#map3d').width($(document).width()-40);
+      $('#map3d').height($(document).height()-40);
+      }
+
+      $(window).resize(function() {
+      onResize();
+      });
+
+      $(document).ready(function() {
+      init();
+      onResize();
+      });
+
+    </script>
+
+  </head>
+  <body>
+    <div id="map3d"></div>
+  </body>
+</html>
