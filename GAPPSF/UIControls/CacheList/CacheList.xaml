@@ -67,7 +67,12 @@
                         </Grid>
                     </StackPanel>
                     <Grid Grid.Row="0" Grid.Column="1">
-                        <ListView ItemsSource="{Binding ColumnInfoCollection}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <CheckBox Margin="4" Content="{l:Translate AutomaticSort}" IsChecked="{Binding CacheListEnableAutomaticSorting, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                        <ListView Margin="4" Grid.Row="1" ItemsSource="{Binding ColumnInfoCollection}">
                             <ListView.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <UniformGrid Rows="4" />

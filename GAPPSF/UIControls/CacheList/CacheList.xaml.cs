@@ -37,6 +37,12 @@ namespace GAPPSF.UIControls
             InitializeComponent();
             DataContext = this;
 
+            if (Core.Settings.Default.CacheListEnableAutomaticSorting && Core.Settings.Default.CacheListSortOnColumnIndex >= 0 && Core.Settings.Default.CacheListSortOnColumnIndex < cacheList.Columns.Count)
+            {
+                this.cacheList.Columns[Core.Settings.Default.CacheListSortOnColumnIndex].SortDirection = Core.Settings.Default.CacheListSortDirection == 0 ? ListSortDirection.Ascending : ListSortDirection.Descending;
+            }
+
+
             ColorPickerArchived.SelectedColor = (Color)ColorConverter.ConvertFromString(Core.Settings.Default.ArchivedRowColor);
             ColorPickerDisabled.SelectedColor = (Color)ColorConverter.ConvertFromString(Core.Settings.Default.DisabledRowColor);
             ColorPickerOwn.SelectedColor = (Color)ColorConverter.ConvertFromString(Core.Settings.Default.IsOwnRowColor);
@@ -162,9 +168,15 @@ namespace GAPPSF.UIControls
         {
             if (Core.ApplicationData.Instance.ActiveDatabase != null)
             {
+                DataGridSortDescription sort = null;
+                sort = DataGridUtil.SaveSorting(cacheList, this._geocacheCollectionView);
                 this._geocacheCollectionView = CollectionViewSource.GetDefaultView(Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection);
                 this._geocacheCollectionView.Filter = this.GeocacheViewFilter;
                 cacheList.ItemsSource = this._geocacheCollectionView;
+                if (sort != null && Core.Settings.Default.CacheListEnableAutomaticSorting)
+                {
+                    DataGridUtil.RestoreSorting(sort, cacheList, this._geocacheCollectionView);
+                }
             }
             else
             {
@@ -213,6 +225,15 @@ namespace GAPPSF.UIControls
 
         public void Dispose()
         {
+            for (int i = 0; i < cacheList.Columns.Count; i++)
+            {
+                if (cacheList.Columns[i].SortDirection != null)
+                {
+                    Core.Settings.Default.CacheListSortOnColumnIndex = i;
+                    Core.Settings.Default.CacheListSortDirection = cacheList.Columns[i].SortDirection == ListSortDirection.Ascending ? 0 : 1;
+                }
+            }
+
             Localization.TranslationManager.Instance.LanguageChanged -= Instance_LanguageChanged;
             Core.ApplicationData.Instance.PropertyChanged -= Instance_PropertyChanged;
             Core.Settings.Default.PropertyChanged -= Default_PropertyChanged;

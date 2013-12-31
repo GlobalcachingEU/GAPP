@@ -17,6 +17,8 @@ namespace GAPPSF
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            WpfSingleInstance.Make("GAPPSF", this);
+
             if (GAPPSF.Properties.Settings.Default.UpgradeNeeded)
             {
                 GAPPSF.Properties.Settings.Default.Upgrade();

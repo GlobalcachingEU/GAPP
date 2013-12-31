@@ -30,6 +30,9 @@ namespace GAPPSF
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        internal delegate void ProcessArgDelegate(String arg);
+        internal static ProcessArgDelegate ProcessArg;
+
         private Core.Storage.Database _currentConnectedDatabase = null;
 
         private string _popUpText = "";
@@ -43,6 +46,25 @@ namespace GAPPSF
 
         public MainWindow()
         {
+            ProcessArg = delegate(String arg)
+            {
+                //process arguments
+            };
+
+            this.Initialized += delegate(object sender, EventArgs e)
+            {
+                //process arguments
+                //ArgsRun.Text = (String)Application.Current.Resources[WpfSingleInstance.StartArgKey];
+                try
+                {
+                    Application.Current.Resources.Remove(WpfSingleInstance.StartArgKey);
+                }
+                catch
+                {
+
+                }
+            };
+
             CurrentConnectedDatabase = Core.ApplicationData.Instance.ActiveDatabase;
 
             this.DataContext = this;
@@ -1866,6 +1888,12 @@ namespace GAPPSF
                     }
                 }
                 Core.Settings.Default.MainWindowWindowFeature = sb.ToString();
+
+                if (leftPanelContent.FeatureControl is IDisposable) (leftPanelContent.FeatureControl as IDisposable).Dispose();
+                if (topPanelContent.FeatureControl is IDisposable) (topPanelContent.FeatureControl as IDisposable).Dispose();
+                if (bottomLeftPanelContent.FeatureControl is IDisposable) (topPanelContent.FeatureControl as IDisposable).Dispose();
+                if (bottomRightPanelContent.FeatureControl is IDisposable) (topPanelContent.FeatureControl as IDisposable).Dispose();
+                if (expandedPanelContent.FeatureControl is IDisposable) (topPanelContent.FeatureControl as IDisposable).Dispose();
             }
             else
             {

@@ -664,6 +664,7 @@
     </Compile>
     <Compile Include="UIControls\CacheList\CacheListColumnInfo.cs" />
     <Compile Include="UIControls\CacheList\CacheListColumnInfoCollection.cs" />
+    <Compile Include="UIControls\CacheList\DataGridUtil.cs" />
     <Compile Include="UIControls\CheckedListItem.cs" />
     <Compile Include="UIControls\ComboColorPicker.xaml.cs">
       <DependentUpon>ComboColorPicker.xaml</DependentUpon>
@@ -754,6 +755,7 @@
     <Compile Include="Utils\ProgressBlock.cs" />
     <Compile Include="Utils\ResourceHelper.cs" />
     <Compile Include="Utils\TemporaryFile.cs" />
+    <Compile Include="WpfSingleInstance.cs" />
     <Page Include="Cachebox\ExportWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

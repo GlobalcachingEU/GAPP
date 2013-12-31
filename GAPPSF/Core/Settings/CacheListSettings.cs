@@ -61,6 +61,24 @@ namespace GAPPSF.Core
             set { SetProperty(value.ToString()); }
         }
 
+        public int CacheListSortDirection
+        {
+            get { return int.Parse(GetProperty("0")); }
+            set { SetProperty(value.ToString()); }
+        }
+
+        public int CacheListSortOnColumnIndex
+        {
+            get { return int.Parse(GetProperty("-1")); }
+            set { SetProperty(value.ToString()); }
+        }
+
+        public bool CacheListEnableAutomaticSorting
+        {
+            get { return bool.Parse(GetProperty("False")); }
+            set { SetProperty(value.ToString()); }
+        }
+
         public bool CacheListShowSelectedOnly
         {
             get { return bool.Parse(GetProperty("False")); }

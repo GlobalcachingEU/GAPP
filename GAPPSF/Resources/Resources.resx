@@ -1108,4 +1108,7 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="ViewAngle" xml:space="preserve">
     <value>View angle</value>
   </data>
+  <data name="AutomaticSort" xml:space="preserve">
+    <value>Enable automatic sorting</value>
+  </data>
 </root>
