@@ -261,187 +261,191 @@ namespace GAPPSF.GPX
                             }
                         }
 
-                        gc.Lat = Utils.Conversion.StringToDouble(SafeAttributeInnerText(wp, "lat", "0.0"));
-                        gc.Lon = Utils.Conversion.StringToDouble(SafeAttributeInnerText(wp, "lon", "0.0"));
-                        gc.Code = code;
-                        n = wp.SelectSingleNode("y:cache", nsmgr);
-                        gc.DataFromDate = _gpxDataTime;
-                        gc.Name = n.SelectSingleNode("y:name", nsmgr).InnerText;
-                        gc.PublishedTime = DateTime.Parse(wp.SelectSingleNode("x:time", nsmgr).InnerText);
-                        gc.Url = SafeInnerText(wp.SelectSingleNode("x:url", nsmgr), "");
-                        if (SafeInnerText(wp.SelectSingleNode("x:sym", nsmgr), "").EndsWith(" Found"))
-                        {
-                            gc.Found = true;
-                        }
                         gc.Available = bool.Parse(n.Attributes["available"].InnerText);
                         gc.Archived = bool.Parse(SafeInnerText(n.Attributes["archived"], "False"));
-                        gc.Country = SafeInnerText(n.SelectSingleNode("y:country", nsmgr), "");
-                        gc.State = SafeInnerText(n.SelectSingleNode("y:state", nsmgr), "");
-                        gc.OwnerId = SafeAttributeInnerText(n.SelectSingleNode("y:owner", nsmgr), "id", "");
-                        if (_cachesGpxVersion >= V102)
+
+                        if (!(gc is Core.Data.Geocache) || !(gc as Core.Data.Geocache).Locked)
                         {
-                            gc.GeocacheType = Utils.DataAccess.GetGeocacheType(int.Parse(SafeAttributeInnerText(n.SelectSingleNode("y:type", nsmgr), "id", "-1")));
-                            gc.Container = Utils.DataAccess.GetGeocacheContainer(int.Parse(SafeAttributeInnerText(n.SelectSingleNode("y:container", nsmgr), "id", "-1")));
-                            gc.Favorites = int.Parse(SafeInnerText(n.SelectSingleNode("y:favorite_points", nsmgr), "0"));
-                            gc.MemberOnly = bool.Parse(SafeInnerText(n.Attributes["memberonly"], "False"));
-                            //gc.CustomCoords = bool.Parse(SafeInnerText(n.Attributes["customcoords"], "False"));
-                            gc.PersonalNote = SafeInnerText(n.Attributes["personal_note"], "");
-                        }
-                        else
-                        {
-                            string srchTxt = SafeInnerText(n.SelectSingleNode("y:type", nsmgr), "Unknown");
-                            if (!srchTxt.StartsWith("Groundspeak"))
+                            gc.Lat = Utils.Conversion.StringToDouble(SafeAttributeInnerText(wp, "lat", "0.0"));
+                            gc.Lon = Utils.Conversion.StringToDouble(SafeAttributeInnerText(wp, "lon", "0.0"));
+                            gc.Code = code;
+                            n = wp.SelectSingleNode("y:cache", nsmgr);
+                            gc.DataFromDate = _gpxDataTime;
+                            gc.Name = n.SelectSingleNode("y:name", nsmgr).InnerText;
+                            gc.PublishedTime = DateTime.Parse(wp.SelectSingleNode("x:time", nsmgr).InnerText);
+                            gc.Url = SafeInnerText(wp.SelectSingleNode("x:url", nsmgr), "");
+                            if (SafeInnerText(wp.SelectSingleNode("x:sym", nsmgr), "").EndsWith(" Found"))
                             {
-                                if (srchTxt.Contains("Trash"))
+                                gc.Found = true;
+                            }
+                            gc.Country = SafeInnerText(n.SelectSingleNode("y:country", nsmgr), "");
+                            gc.State = SafeInnerText(n.SelectSingleNode("y:state", nsmgr), "");
+                            gc.OwnerId = SafeAttributeInnerText(n.SelectSingleNode("y:owner", nsmgr), "id", "");
+                            if (_cachesGpxVersion >= V102)
+                            {
+                                gc.GeocacheType = Utils.DataAccess.GetGeocacheType(int.Parse(SafeAttributeInnerText(n.SelectSingleNode("y:type", nsmgr), "id", "-1")));
+                                gc.Container = Utils.DataAccess.GetGeocacheContainer(int.Parse(SafeAttributeInnerText(n.SelectSingleNode("y:container", nsmgr), "id", "-1")));
+                                gc.Favorites = int.Parse(SafeInnerText(n.SelectSingleNode("y:favorite_points", nsmgr), "0"));
+                                gc.MemberOnly = bool.Parse(SafeInnerText(n.Attributes["memberonly"], "False"));
+                                //gc.CustomCoords = bool.Parse(SafeInnerText(n.Attributes["customcoords"], "False"));
+                                gc.PersonalNote = SafeInnerText(n.Attributes["personal_note"], "");
+                            }
+                            else
+                            {
+                                string srchTxt = SafeInnerText(n.SelectSingleNode("y:type", nsmgr), "Unknown");
+                                if (!srchTxt.StartsWith("Groundspeak"))
                                 {
-                                    srchTxt = "Trash";
-                                }
-                                else
-                                {
-                                    int pos = srchTxt.IndexOf(' ');
-                                    if (pos > 0)
+                                    if (srchTxt.Contains("Trash"))
                                     {
-                                        srchTxt = srchTxt.Substring(0, pos);
+                                        srchTxt = "Trash";
+                                    }
+                                    else
+                                    {
+                                        int pos = srchTxt.IndexOf(' ');
+                                        if (pos > 0)
+                                        {
+                                            srchTxt = srchTxt.Substring(0, pos);
+                                        }
+                                    }
+                                }
+                                gc.GeocacheType = Utils.DataAccess.GetGeocacheType(srchTxt);
+                                gc.Container = Utils.DataAccess.GetGeocacheContainer(SafeInnerText(n.SelectSingleNode("y:container", nsmgr), "Unknown"));
+                            }
+                            gc.PlacedBy = SafeInnerText(n.SelectSingleNode("y:placed_by", nsmgr), "");
+                            gc.Owner = SafeInnerText(n.SelectSingleNode("y:owner", nsmgr), "");
+                            gc.Terrain = Utils.Conversion.StringToDouble(SafeInnerText(n.SelectSingleNode("y:terrain", nsmgr), "1"));
+                            gc.Difficulty = Utils.Conversion.StringToDouble(SafeInnerText(n.SelectSingleNode("y:difficulty", nsmgr), "1"));
+                            gc.ShortDescription = SafeInnerText(n.SelectSingleNode("y:short_description", nsmgr), "");
+                            gc.ShortDescriptionInHtml = bool.Parse(SafeAttributeInnerText(n.SelectSingleNode("y:short_description", nsmgr), "html", "False"));
+                            gc.LongDescription = SafeInnerText(n.SelectSingleNode("y:long_description", nsmgr), "");
+                            gc.LongDescriptionInHtml = bool.Parse(SafeAttributeInnerText(n.SelectSingleNode("y:long_description", nsmgr), "html", "False"));
+                            gc.EncodedHints = SafeInnerText(n.SelectSingleNode("y:encoded_hints", nsmgr), "");
+
+                            XmlNode attrs = n.SelectSingleNode("y:attributes", nsmgr);
+                            if (attrs != null && attrs.ChildNodes != null)
+                            {
+                                foreach (XmlNode attr in attrs.ChildNodes)
+                                {
+                                    int attrId = int.Parse(attr.Attributes["id"].InnerText);
+                                    int attrInc = int.Parse(SafeAttributeInnerText(attr, "inc", "1"));
+                                    if (attrInc == 1)
+                                    {
+                                        gc.AttributeIds.Add(attrId);
+                                    }
+                                    else
+                                    {
+                                        gc.AttributeIds.Add(-1 * attrId);
                                     }
                                 }
                             }
-                            gc.GeocacheType = Utils.DataAccess.GetGeocacheType(srchTxt);
-                            gc.Container = Utils.DataAccess.GetGeocacheContainer(SafeInnerText(n.SelectSingleNode("y:container", nsmgr), "Unknown"));
-                        }
-                        gc.PlacedBy = SafeInnerText(n.SelectSingleNode("y:placed_by", nsmgr), "");
-                        gc.Owner = SafeInnerText(n.SelectSingleNode("y:owner", nsmgr), "");
-                        gc.Terrain = Utils.Conversion.StringToDouble(SafeInnerText(n.SelectSingleNode("y:terrain", nsmgr), "1"));
-                        gc.Difficulty = Utils.Conversion.StringToDouble(SafeInnerText(n.SelectSingleNode("y:difficulty", nsmgr), "1"));
-                        gc.ShortDescription = SafeInnerText(n.SelectSingleNode("y:short_description", nsmgr), "");
-                        gc.ShortDescriptionInHtml = bool.Parse(SafeAttributeInnerText(n.SelectSingleNode("y:short_description", nsmgr), "html", "False"));
-                        gc.LongDescription = SafeInnerText(n.SelectSingleNode("y:long_description", nsmgr), "");
-                        gc.LongDescriptionInHtml = bool.Parse(SafeAttributeInnerText(n.SelectSingleNode("y:long_description", nsmgr), "html", "False"));
-                        gc.EncodedHints = SafeInnerText(n.SelectSingleNode("y:encoded_hints", nsmgr), "");
 
-                        XmlNode attrs = n.SelectSingleNode("y:attributes", nsmgr);
-                        if (attrs != null && attrs.ChildNodes != null)
-                        {
-                            foreach (XmlNode attr in attrs.ChildNodes)
+                            bool gcAdded = true;
+                            if (gc is Core.Data.GeocacheData)
                             {
-                                int attrId = int.Parse(attr.Attributes["id"].InnerText);
-                                int attrInc = int.Parse(SafeAttributeInnerText(attr, "inc", "1"));
-                                if (attrInc == 1)
-                                {
-                                    gc.AttributeIds.Add(attrId);
-                                }
-                                else
-                                {
-                                    gc.AttributeIds.Add(-1 * attrId);
-                                }
+                                gcAdded = Utils.DataAccess.AddGeocache(Core.ApplicationData.Instance.ActiveDatabase, gc as Core.Data.GeocacheData);
                             }
-                        }
-
-                        bool gcAdded = true;
-                        if (gc is Core.Data.GeocacheData)
-                        {
-                            gcAdded = Utils.DataAccess.AddGeocache(Core.ApplicationData.Instance.ActiveDatabase, gc as Core.Data.GeocacheData);
-                        }
-                        if (gcAdded)
-                        {
-                            gc = (from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection where a.Code == code select a).FirstOrDefault();
-                            Utils.Calculus.SetDistanceAndAngleGeocacheFromLocation(gc as Core.Data.Geocache, Core.ApplicationData.Instance.CenterLocation);
-
-
-                            //Logs
-                            XmlNode ln = n.SelectSingleNode("y:logs", nsmgr);
-                            if (ln != null)
+                            if (gcAdded)
                             {
-                                XmlNodeList logs = ln.SelectNodes("y:log", nsmgr);
-                                if (logs != null)
+                                gc = (from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection where a.Code == code select a).FirstOrDefault();
+                                Utils.Calculus.SetDistanceAndAngleGeocacheFromLocation(gc as Core.Data.Geocache, Core.ApplicationData.Instance.CenterLocation);
+
+
+                                //Logs
+                                XmlNode ln = n.SelectSingleNode("y:logs", nsmgr);
+                                if (ln != null)
                                 {
-                                    foreach (XmlNode l in logs)
+                                    XmlNodeList logs = ln.SelectNodes("y:log", nsmgr);
+                                    if (logs != null)
                                     {
-
-                                        string lid = SafeAttributeInnerText(l, "id", "");
-
-                                        if (lid.StartsWith("GL"))
+                                        foreach (XmlNode l in logs)
                                         {
-                                            //lg.ID = lid;
-                                        }
-                                        else
-                                        {
-                                            if (string.IsNullOrEmpty(lid) || lid.StartsWith("-"))
+
+                                            string lid = SafeAttributeInnerText(l, "id", "");
+
+                                            if (lid.StartsWith("GL"))
                                             {
-                                                continue;
+                                                //lg.ID = lid;
                                             }
-                                            try
+                                            else
                                             {
-                                                lid = string.Concat("GL", Utils.Conversion.GetCacheCodeFromCacheID(int.Parse(lid)).Substring(2));
-                                            }
-                                            catch
-                                            {
-                                                continue;
-                                            }
-                                        }
-
-                                        Core.Data.ILogData lg = null;
-                                        lg = (from a in Utils.DataAccess.GetLogs(Core.ApplicationData.Instance.ActiveDatabase, gc.Code) where a.ID == lid select a).FirstOrDefault();
-                                        if (lg == null)
-                                        {
-                                            lg = new Core.Data.LogData();
-                                        }
-
-                                        lg.ID = lid;
-                                        lg.GeocacheCode = gc.Code;
-                                        lg.DataFromDate = _gpxDataTime;
-                                        lg.Date = DateTime.Parse(l.SelectSingleNode("y:date", nsmgr).InnerText);
-                                        lg.Encoded = bool.Parse(l.SelectSingleNode("y:text", nsmgr).Attributes["encoded"].InnerText);
-                                        lg.Text = l.SelectSingleNode("y:text", nsmgr).InnerText;
-                                        lg.Finder = l.SelectSingleNode("y:finder", nsmgr).InnerText;
-                                        if (l.SelectSingleNode("y:finder", nsmgr).Attributes["id"] != null)
-                                        {
-                                            lg.FinderId = l.SelectSingleNode("y:finder", nsmgr).Attributes["id"].InnerText;
-                                        }
-                                        else
-                                        {
-                                            //GCTour has no finder id
-                                            lg.FinderId = "1";
-                                        }
-                                        if (_cachesGpxVersion >= V102)
-                                        {
-                                            lg.LogType = Utils.DataAccess.GetLogType(int.Parse(l.SelectSingleNode("y:type", nsmgr).Attributes["id"].InnerText));
-                                        }
-                                        else
-                                        {
-                                            lg.LogType = Utils.DataAccess.GetLogType(l.SelectSingleNode("y:type", nsmgr).InnerText);
-                                        }
-
-                                        if (lg is Core.Data.LogData)
-                                        {
-                                            Utils.DataAccess.AddLog(Core.ApplicationData.Instance.ActiveDatabase, lg as Core.Data.LogData);
-                                        }
-
-                                        //log images
-                                        XmlNode lni = l.SelectSingleNode("y:images", nsmgr);
-                                        if (lni != null)
-                                        {
-                                            XmlNodeList logis = lni.SelectNodes("y:image", nsmgr);
-                                            if (logis != null)
-                                            {
-                                                foreach (XmlNode li in logis)
+                                                if (string.IsNullOrEmpty(lid) || lid.StartsWith("-"))
                                                 {
-                                                    string url = li.SelectSingleNode("y:url", nsmgr).InnerText;
+                                                    continue;
+                                                }
+                                                try
+                                                {
+                                                    lid = string.Concat("GL", Utils.Conversion.GetCacheCodeFromCacheID(int.Parse(lid)).Substring(2));
+                                                }
+                                                catch
+                                                {
+                                                    continue;
+                                                }
+                                            }
 
-                                                    Core.Data.ILogImageData lgi = null;
-                                                    lgi = (from a in Utils.DataAccess.GetLogImages(Core.ApplicationData.Instance.ActiveDatabase, lg.ID) where a.ID == url select a).FirstOrDefault();
-                                                    if (lgi == null)
-                                                    {
-                                                        lgi = new Core.Data.LogImageData();
-                                                    }
-                                                    lgi.Url = url;
-                                                    lgi.ID = lgi.Url;
-                                                    lgi.LogId = lg.ID;
-                                                    lgi.Name = li.SelectSingleNode("y:name", nsmgr).InnerText;
-                                                    lgi.DataFromDate = _gpxDataTime;
+                                            Core.Data.ILogData lg = null;
+                                            lg = (from a in Utils.DataAccess.GetLogs(Core.ApplicationData.Instance.ActiveDatabase, gc.Code) where a.ID == lid select a).FirstOrDefault();
+                                            if (lg == null)
+                                            {
+                                                lg = new Core.Data.LogData();
+                                            }
 
-                                                    if (lgi is Core.Data.LogImageData)
+                                            lg.ID = lid;
+                                            lg.GeocacheCode = gc.Code;
+                                            lg.DataFromDate = _gpxDataTime;
+                                            lg.Date = DateTime.Parse(l.SelectSingleNode("y:date", nsmgr).InnerText);
+                                            lg.Encoded = bool.Parse(l.SelectSingleNode("y:text", nsmgr).Attributes["encoded"].InnerText);
+                                            lg.Text = l.SelectSingleNode("y:text", nsmgr).InnerText;
+                                            lg.Finder = l.SelectSingleNode("y:finder", nsmgr).InnerText;
+                                            if (l.SelectSingleNode("y:finder", nsmgr).Attributes["id"] != null)
+                                            {
+                                                lg.FinderId = l.SelectSingleNode("y:finder", nsmgr).Attributes["id"].InnerText;
+                                            }
+                                            else
+                                            {
+                                                //GCTour has no finder id
+                                                lg.FinderId = "1";
+                                            }
+                                            if (_cachesGpxVersion >= V102)
+                                            {
+                                                lg.LogType = Utils.DataAccess.GetLogType(int.Parse(l.SelectSingleNode("y:type", nsmgr).Attributes["id"].InnerText));
+                                            }
+                                            else
+                                            {
+                                                lg.LogType = Utils.DataAccess.GetLogType(l.SelectSingleNode("y:type", nsmgr).InnerText);
+                                            }
+
+                                            if (lg is Core.Data.LogData)
+                                            {
+                                                Utils.DataAccess.AddLog(Core.ApplicationData.Instance.ActiveDatabase, lg as Core.Data.LogData);
+                                            }
+
+                                            //log images
+                                            XmlNode lni = l.SelectSingleNode("y:images", nsmgr);
+                                            if (lni != null)
+                                            {
+                                                XmlNodeList logis = lni.SelectNodes("y:image", nsmgr);
+                                                if (logis != null)
+                                                {
+                                                    foreach (XmlNode li in logis)
                                                     {
-                                                        Utils.DataAccess.AddLogImage(Core.ApplicationData.Instance.ActiveDatabase, lgi as Core.Data.LogImageData);
+                                                        string url = li.SelectSingleNode("y:url", nsmgr).InnerText;
+
+                                                        Core.Data.ILogImageData lgi = null;
+                                                        lgi = (from a in Utils.DataAccess.GetLogImages(Core.ApplicationData.Instance.ActiveDatabase, lg.ID) where a.ID == url select a).FirstOrDefault();
+                                                        if (lgi == null)
+                                                        {
+                                                            lgi = new Core.Data.LogImageData();
+                                                        }
+                                                        lgi.Url = url;
+                                                        lgi.ID = lgi.Url;
+                                                        lgi.LogId = lg.ID;
+                                                        lgi.Name = li.SelectSingleNode("y:name", nsmgr).InnerText;
+                                                        lgi.DataFromDate = _gpxDataTime;
+
+                                                        if (lgi is Core.Data.LogImageData)
+                                                        {
+                                                            Utils.DataAccess.AddLogImage(Core.ApplicationData.Instance.ActiveDatabase, lgi as Core.Data.LogImageData);
+                                                        }
                                                     }
                                                 }
                                             }

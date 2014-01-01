@@ -194,17 +194,17 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Binding="{Binding Code}" Header="{l:Translate Code}" IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Name}" Header="{l:Translate Name}" Width="{Binding ColumnNameWidth, Source={x:Static p:Settings.Default}, Mode=TwoWay}" IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Owner}" Header="{l:Translate Owner}" IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding PublishedTime, StringFormat=\{0:d\}}" Header="{l:Translate Published}"  IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Favorites}" Header="{l:Translate Fav}" IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Country}" Header="{l:Translate Country}" IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding State}" Header="{l:Translate State}" IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Municipality}" Header="{l:Translate Municipality}" />
-                <DataGridTextColumn Binding="{Binding City}" Header="{l:Translate City}" Visibility="Hidden" />
-                <DataGridTextColumn Binding="{Binding Difficulty, StringFormat=\{0:0.#\}}" Header="{l:Translate Diff}"  IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Terrain, StringFormat=\{0:0.#\}}" Header="{l:Translate Terr}"  IsReadOnly="True" />
-                <DataGridCheckBoxColumn Binding="{Binding MemberOnly}" Header="{l:Translate PMO}"  IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Name}" Header="{l:Translate Name}" Width="{Binding ColumnNameWidth, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                <DataGridTextColumn Binding="{Binding Owner}" Header="{l:Translate Owner}" Width="{Binding ColumnOwnerWidth, Source={x:Static p:Settings.Default}, Mode=TwoWay}"/>
+                <DataGridTextColumn Binding="{Binding PublishedTime, StringFormat=\{0:d\}}" Header="{l:Translate Published}"  />
+                <DataGridTextColumn Binding="{Binding Favorites}" Header="{l:Translate Fav}" />
+                <DataGridTextColumn Binding="{Binding Country}" Header="{l:Translate Country}" Width="{Binding ColumnCountryWidth, Source={x:Static p:Settings.Default}, Mode=TwoWay}"/>
+                <DataGridTextColumn Binding="{Binding State}" Header="{l:Translate State}" Width="{Binding ColumnStateWidth, Source={x:Static p:Settings.Default}, Mode=TwoWay}"/>
+                <DataGridTextColumn Binding="{Binding Municipality}" Header="{l:Translate Municipality}" Width="{Binding ColumnMunicipalityWidth, Source={x:Static p:Settings.Default}, Mode=TwoWay}"/>
+                <DataGridTextColumn Binding="{Binding City}" Header="{l:Translate City}" Visibility="Hidden" Width="{Binding ColumnCityWidth, Source={x:Static p:Settings.Default}, Mode=TwoWay}"/>
+                <DataGridTextColumn Binding="{Binding Difficulty, StringFormat=\{0:0.#\}}" Header="{l:Translate Diff}"  />
+                <DataGridTextColumn Binding="{Binding Terrain, StringFormat=\{0:0.#\}}" Header="{l:Translate Terr}" />
+                <DataGridCheckBoxColumn Binding="{Binding MemberOnly}" Header="{l:Translate PMO}" />
                 <DataGridCheckBoxColumn Binding="{Binding ContainsNote, Mode=OneWay}" Header="{l:Translate Note}"  IsReadOnly="True" />
                 <DataGridCheckBoxColumn Binding="{Binding ContainsCustomLatLon, Mode=OneWay}" Header="{l:Translate AddCoords}"  IsReadOnly="True" />
                 <DataGridTextColumn Binding="{Binding FoundDate, StringFormat=\{0:d\}}" Header="{l:Translate Found}"  IsReadOnly="True" />
@@ -215,14 +215,32 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridCheckBoxColumn Binding="{Binding Available}" Header="{l:Translate Available}"  IsReadOnly="True" Visibility="Hidden" />
-                <DataGridCheckBoxColumn Binding="{Binding Archived}" Header="{l:Translate Archived}"  IsReadOnly="True" Visibility="Hidden"  />
-                <DataGridCheckBoxColumn Binding="{Binding Locked}" Header="{l:Translate Locked}"  Visibility="Hidden"  />
+                <DataGridTemplateColumn Header="{l:Translate Available}" Visibility="Hidden">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding Path=Available, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="{l:Translate Archived}" Visibility="Hidden">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding Path=Archived, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="{l:Translate Locked}" Visibility="Hidden">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding Path=Locked, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridCheckBoxColumn Binding="{Binding HasUserWaypoints, Mode=OneWay}" Header="{l:Translate UserWaypoints}"  IsReadOnly="True" Visibility="Hidden"  />
-                <DataGridTextColumn Binding="{Binding PersonaleNote}" Header="{l:Translate PersonalNotes}" IsReadOnly="True" Visibility="Hidden" />
+                <DataGridTextColumn Binding="{Binding PersonalNote}" Header="{l:Translate PersonalNotes}" Visibility="Hidden" Width="{Binding ColumnPersonalNoteWidth, Source={x:Static p:Settings.Default}, Mode=TwoWay}"/>
                 <DataGridTextColumn Binding="{Binding DataFromDate, StringFormat=\{0:d\}}" Header="{l:Translate DateOfData}"  IsReadOnly="True" Visibility="Hidden" />
                 <DataGridTextColumn Binding="{Binding GeocacheType}" Header="{l:Translate Type}" IsReadOnly="True" Visibility="Hidden" />
-                <DataGridTextColumn Binding="{Binding EncodedHints, Mode=OneWay}" Header="{l:Translate Hints}"  IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding EncodedHints, Mode=OneWay}" Header="{l:Translate Hints}" Visibility="Hidden" Width="{Binding ColumnEncodedHintsWidth, Source={x:Static p:Settings.Default}, Mode=TwoWay}"/>
                 <DataGridTextColumn Binding="{Binding WaypointInfoString, Mode=OneWay}" Header="{l:Translate Waypoints}" IsReadOnly="True" />
                 <DataGridTextColumn Binding="{Binding Path=., Converter={StaticResource GeocacheCoordConverter}}" Header="{l:Translate Coordinates}" IsReadOnly="True" Visibility="Hidden"/>
             </DataGrid.Columns>

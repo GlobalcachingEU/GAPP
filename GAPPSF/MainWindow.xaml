@@ -30,6 +30,11 @@
                                      Duration="0:0:0.5"
                                      From="0.0"
                                      To="300" />
+                                <DoubleAnimation 
+                                     Storyboard.TargetProperty="VerticalOffset"
+                                     Duration="0:0:0.5"
+                                     From="0.0"
+                                     To="-200" />
                             </Storyboard>
                         </BeginStoryboard>
                     </Trigger.EnterActions>
@@ -232,6 +237,10 @@
                     <MenuItem x:Name="menub27" Header="{l:Translate ActionBuilder}" Click="menub27_Click" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate Help}">
+                    <MenuItem x:Name="menua37" Header="{l:Translate Forum}" Click="menua37_Click" />
+                    <MenuItem x:Name="menua47" Header="{l:Translate InstructionVideos}" Click="menua47_Click" />
+                    <MenuItem x:Name="menua57" Header="{l:Translate DutchHelp}" Click="menua57_Click" />
+                    <Separator />
                     <MenuItem x:Name="menux27" Header="{l:Translate About}" Click="menux27_Click" />
                 </MenuItem>
             </Menu>

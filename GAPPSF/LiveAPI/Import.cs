@@ -36,7 +36,10 @@ namespace GAPPSF.LiveAPI
                                         gc.DataFromDate = DateTime.Now;
                                         gc.Archived = gs.Archived;
                                         gc.Available = gs.Available;
-                                        gc.Name = gs.CacheName;
+                                        if (!gc.Locked)
+                                        {
+                                            gc.Name = gs.CacheName;
+                                        }
                                         gc.MemberOnly = gs.Premium;
                                         if (Core.Settings.Default.LiveAPIDeselectAfterUpdate)
                                         {
@@ -150,7 +153,7 @@ namespace GAPPSF.LiveAPI
                 result = db.GeocacheCollection.GetGeocache(gc.Code);
 
                 Core.Data.IGeocacheData gcData;
-                if (result==null)
+                if (result == null)
                 {
                     gcData = new Core.Data.GeocacheData();
                     gcData.Code = gc.Code;
@@ -162,81 +165,85 @@ namespace GAPPSF.LiveAPI
 
                 gcData.Archived = gc.Archived ?? false;
                 gcData.Available = gc.Available ?? true;
-                gcData.Container = Utils.DataAccess.GetGeocacheContainer((int)gc.ContainerType.ContainerTypeId);
-                if (gc.Attributes != null)
-                {
-                    List<int> attr = new List<int>();
-                    foreach (LiveV6.Attribute a in gc.Attributes)
-                    {
-                        attr.Add(a.IsOn ? a.AttributeTypeID : -1 * a.AttributeTypeID);
-                    }
-                    gcData.AttributeIds = attr;
-                }
-                if (gc.Latitude != null) gcData.Lat = (double)gc.Latitude;
-                if (gc.Longitude != null) gcData.Lon = (double)gc.Longitude;
-                if (gc.Country != null) gcData.Country = gc.Country;
-                gcData.DataFromDate = DateTime.Now;
-                gcData.Difficulty = gc.Difficulty;
-                gcData.Terrain = gc.Terrain;
-                gcData.Name = gc.Name;
-                if (gc.FavoritePoints != null)
-                {
-                    gcData.Favorites = (int)gc.FavoritePoints;
-                }
-                gcData.GeocacheType = Utils.DataAccess.GetGeocacheType((int)gc.CacheType.GeocacheTypeId);
-                if (gc.LongDescription != null)
-                {
-                    gcData.LongDescription = gc.LongDescription;
-                    gcData.LongDescriptionInHtml = gc.LongDescriptionIsHtml;
-                }
-                if (gc.EncodedHints != null)
-                {
-                    gcData.EncodedHints = gc.EncodedHints;
-                }
-                gcData.MemberOnly = gc.IsPremium ?? false;
-                gcData.Owner = gc.Owner.UserName;
-                if (gc.Owner.Id != null)
-                {
-                    gcData.OwnerId = gc.Owner.Id.ToString();
-                }
-                gcData.PlacedBy = gc.PlacedBy;
-                gcData.PublishedTime = gc.UTCPlaceDate;
-                if (gcData.ShortDescription != null)
-                {
-                    gcData.ShortDescription = gc.ShortDescription;
-                    gcData.ShortDescriptionInHtml = gc.ShortDescriptionIsHtml;
-                }
-                if (gc.State == "None")
-                {
-                    gcData.State = "";
-                }
-                else
-                {
-                    gcData.State = gc.State;
-                }
-                gcData.PersonalNote = gc.GeocacheNote;
-                if (gc.HasbeenFoundbyUser != null)
-                {
-                    gcData.Found = (bool)gc.HasbeenFoundbyUser;
-                }
-                gcData.Url = gc.Url;
-                gcData.PersonalNote = gc.GeocacheNote ?? "";
 
-                if (gcData is Core.Data.GeocacheData)
+                if (result == null || !result.Locked)
                 {
-                    if (Utils.DataAccess.AddGeocache(db, gcData as Core.Data.GeocacheData))
+                    gcData.Container = Utils.DataAccess.GetGeocacheContainer((int)gc.ContainerType.ContainerTypeId);
+                    if (gc.Attributes != null)
                     {
-                        result = db.GeocacheCollection.GetGeocache(gcData.Code);
+                        List<int> attr = new List<int>();
+                        foreach (LiveV6.Attribute a in gc.Attributes)
+                        {
+                            attr.Add(a.IsOn ? a.AttributeTypeID : -1 * a.AttributeTypeID);
+                        }
+                        gcData.AttributeIds = attr;
                     }
-                }
-                if (result != null)
-                {
-                    Utils.Calculus.SetDistanceAndAngleGeocacheFromLocation(result, Core.ApplicationData.Instance.CenterLocation);
+                    if (gc.Latitude != null) gcData.Lat = (double)gc.Latitude;
+                    if (gc.Longitude != null) gcData.Lon = (double)gc.Longitude;
+                    if (gc.Country != null) gcData.Country = gc.Country;
+                    gcData.DataFromDate = DateTime.Now;
+                    gcData.Difficulty = gc.Difficulty;
+                    gcData.Terrain = gc.Terrain;
+                    gcData.Name = gc.Name;
+                    if (gc.FavoritePoints != null)
+                    {
+                        gcData.Favorites = (int)gc.FavoritePoints;
+                    }
+                    gcData.GeocacheType = Utils.DataAccess.GetGeocacheType((int)gc.CacheType.GeocacheTypeId);
+                    if (gc.LongDescription != null)
+                    {
+                        gcData.LongDescription = gc.LongDescription;
+                        gcData.LongDescriptionInHtml = gc.LongDescriptionIsHtml;
+                    }
+                    if (gc.EncodedHints != null)
+                    {
+                        gcData.EncodedHints = gc.EncodedHints;
+                    }
+                    gcData.MemberOnly = gc.IsPremium ?? false;
+                    gcData.Owner = gc.Owner.UserName;
+                    if (gc.Owner.Id != null)
+                    {
+                        gcData.OwnerId = gc.Owner.Id.ToString();
+                    }
+                    gcData.PlacedBy = gc.PlacedBy;
+                    gcData.PublishedTime = gc.UTCPlaceDate;
+                    if (gcData.ShortDescription != null)
+                    {
+                        gcData.ShortDescription = gc.ShortDescription;
+                        gcData.ShortDescriptionInHtml = gc.ShortDescriptionIsHtml;
+                    }
+                    if (gc.State == "None")
+                    {
+                        gcData.State = "";
+                    }
+                    else
+                    {
+                        gcData.State = gc.State;
+                    }
+                    gcData.PersonalNote = gc.GeocacheNote;
+                    if (gc.HasbeenFoundbyUser != null)
+                    {
+                        gcData.Found = (bool)gc.HasbeenFoundbyUser;
+                    }
+                    gcData.Url = gc.Url;
+                    gcData.PersonalNote = gc.GeocacheNote ?? "";
 
-                    ImportLogs(db, gc.GeocacheLogs);
-                    ImportWaypoints(db, gc.AdditionalWaypoints);
-                    ImportUserWaypoints(db, gc.UserWaypoints, gc.Code);
-                    ImportGeocacheImages(db, gc.Images, gc.Code);
+                    if (gcData is Core.Data.GeocacheData)
+                    {
+                        if (Utils.DataAccess.AddGeocache(db, gcData as Core.Data.GeocacheData))
+                        {
+                            result = db.GeocacheCollection.GetGeocache(gcData.Code);
+                        }
+                    }
+                    if (result != null)
+                    {
+                        Utils.Calculus.SetDistanceAndAngleGeocacheFromLocation(result, Core.ApplicationData.Instance.CenterLocation);
+
+                        ImportLogs(db, gc.GeocacheLogs);
+                        ImportWaypoints(db, gc.AdditionalWaypoints);
+                        ImportUserWaypoints(db, gc.UserWaypoints, gc.Code);
+                        ImportGeocacheImages(db, gc.Images, gc.Code);
+                    }
                 }
             }
             return result;

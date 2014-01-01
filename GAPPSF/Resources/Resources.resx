@@ -216,7 +216,7 @@ In order to use these features, you have to authorize this application to access
     <value>LiveAPI</value>
   </data>
   <data name="MainWindowTitle" xml:space="preserve">
-    <value>Globalcaching Application</value>
+    <value>Globalcaching Application - Preview and not ready!</value>
   </data>
   <data name="Maps" xml:space="preserve">
     <value>Maps</value>
@@ -1110,5 +1110,17 @@ This wizard will guide you through the initial setup. Before you start, you migh
   </data>
   <data name="AutomaticSort" xml:space="preserve">
     <value>Enable automatic sorting</value>
+  </data>
+  <data name="NewVersionAvailable" xml:space="preserve">
+    <value>Update available!</value>
+  </data>
+  <data name="DutchHelp" xml:space="preserve">
+    <value>Nederlandstalige hulp</value>
+  </data>
+  <data name="Forum" xml:space="preserve">
+    <value>Forum</value>
+  </data>
+  <data name="InstructionVideos" xml:space="preserve">
+    <value>Instruction Videos</value>
   </data>
 </root>

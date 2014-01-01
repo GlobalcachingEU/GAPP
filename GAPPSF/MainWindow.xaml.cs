@@ -9,6 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Automation.Peers;
@@ -22,6 +23,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Xml;
 
 namespace GAPPSF
 {
@@ -104,9 +106,12 @@ namespace GAPPSF
                 expandedView.Visibility = System.Windows.Visibility.Visible;
             }
 
+            menua57.Visibility = Localization.TranslationManager.Instance.CurrentLanguage.TwoLetterISOLanguageName.ToLower() == "nl" ? Visibility.Visible : Visibility.Collapsed;
+
             Core.ApplicationData.Instance.PropertyChanged += Instance_PropertyChanged;
             Core.Settings.Default.PropertyChanged += Default_PropertyChanged;
             Core.ApplicationData.Instance.Logger.LogAdded += Logger_LogAdded;
+            Localization.TranslationManager.Instance.LanguageChanged += Instance_LanguageChanged;
 
             rightPanelColumn.Width = rpgl;
             bottomLeftPanelColumn.Width = blgl;
@@ -117,6 +122,11 @@ namespace GAPPSF
             UIControls.ActionBuilder.Manager mng = UIControls.ActionBuilder.Manager.Instance;
             ActionSequence.Manager mng2 = ActionSequence.Manager.Instance;
             //popup.IsOpen = true;
+        }
+
+        void Instance_LanguageChanged(object sender, EventArgs e)
+        {
+            menua57.Visibility = Localization.TranslationManager.Instance.CurrentLanguage.TwoLetterISOLanguageName.ToLower() == "nl" ? Visibility.Visible : Visibility.Collapsed;
         }
 
         void Logger_LogAdded(object sender, Core.Logger.LogEventArgs e)
@@ -314,6 +324,48 @@ namespace GAPPSF
                 }
 
                 Core.ApplicationData.Instance.EndActiviy();
+            }
+
+            Thread thrd = new Thread(new ThreadStart(this.checkForNewVersionThreadMethod));
+            thrd.IsBackground = true;
+            thrd.Start();
+        }
+
+        private void checkForNewVersionThreadMethod()
+        {
+            try
+            {
+                using (System.Net.WebClient wc = new System.Net.WebClient())
+                {
+                    string ddoc = wc.DownloadString("http://application.globalcaching.eu/pkg/gappsf/gappsf.xml");
+
+                    XmlDocument doc = new XmlDocument();
+                    doc.LoadXml(ddoc);
+                    XmlElement root = doc.DocumentElement;
+                    XmlNodeList pkgs = root.SelectNodes("package");
+                    if (pkgs != null)
+                    {
+                        foreach (XmlNode pk in pkgs)
+                        {
+                            if (pk.Attributes["name"].InnerText == "application")
+                            {
+                                Version v = Version.Parse(pk.Attributes["version"].InnerText.Substring(1));
+                                string url = pk.Attributes["link"].InnerText;
+
+                                if (Assembly.GetExecutingAssembly().GetName().Version < v)
+                                {
+                                    Core.ApplicationData.Instance.Logger.AddLog(this, Core.Logger.Level.Error, Localization.TranslationManager.Instance.Translate("NewVersionAvailable") as string);
+                                }
+
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                //no error message checking new version!
             }
         }
 
@@ -2029,6 +2081,42 @@ namespace GAPPSF
             Window w = new FeatureWindow(new UIControls.GoogleEarth.Control());
             w.Owner = this;
             w.Show();
+        }
+
+        private void menua37_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start("http://gapp.globalcaching.eu/Forum.aspx");
+            }
+            catch(Exception ex)
+            {
+                Core.ApplicationData.Instance.Logger.AddLog(this, ex);
+            }
+        }
+
+        private void menua47_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start("http://gapp.globalcaching.eu/Instructionvideos.aspx");
+            }
+            catch (Exception ex)
+            {
+                Core.ApplicationData.Instance.Logger.AddLog(this, ex);
+            }
+        }
+
+        private void menua57_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start("http://gapp.globalcaching.eu/Help/Nederlandstaligehelp.aspx");
+            }
+            catch (Exception ex)
+            {
+                Core.ApplicationData.Instance.Logger.AddLog(this, ex);
+            }
         }
 
     }

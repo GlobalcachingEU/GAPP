@@ -103,6 +103,48 @@ namespace GAPPSF.Core
             set { SetProperty(value.Value.ToString(CultureInfo.InvariantCulture)); }
         }
 
+        public DataGridLength ColumnOwnerWidth
+        {
+            get { return new DataGridLength(double.Parse(GetProperty("100"), CultureInfo.InvariantCulture)); }
+            set { SetProperty(value.Value.ToString(CultureInfo.InvariantCulture)); }
+        }
+
+        public DataGridLength ColumnCountryWidth
+        {
+            get { return new DataGridLength(double.Parse(GetProperty("100"), CultureInfo.InvariantCulture)); }
+            set { SetProperty(value.Value.ToString(CultureInfo.InvariantCulture)); }
+        }
+
+        public DataGridLength ColumnStateWidth
+        {
+            get { return new DataGridLength(double.Parse(GetProperty("100"), CultureInfo.InvariantCulture)); }
+            set { SetProperty(value.Value.ToString(CultureInfo.InvariantCulture)); }
+        }
+
+        public DataGridLength ColumnMunicipalityWidth
+        {
+            get { return new DataGridLength(double.Parse(GetProperty("100"), CultureInfo.InvariantCulture)); }
+            set { SetProperty(value.Value.ToString(CultureInfo.InvariantCulture)); }
+        }
+
+        public DataGridLength ColumnCityWidth
+        {
+            get { return new DataGridLength(double.Parse(GetProperty("100"), CultureInfo.InvariantCulture)); }
+            set { SetProperty(value.Value.ToString(CultureInfo.InvariantCulture)); }
+        }
+
+        public DataGridLength ColumnPersonalNoteWidth
+        {
+            get { return new DataGridLength(double.Parse(GetProperty("200"), CultureInfo.InvariantCulture)); }
+            set { SetProperty(value.Value.ToString(CultureInfo.InvariantCulture)); }
+        }
+
+        public DataGridLength ColumnEncodedHintsNoteWidth
+        {
+            get { return new DataGridLength(double.Parse(GetProperty("200"), CultureInfo.InvariantCulture)); }
+            set { SetProperty(value.Value.ToString(CultureInfo.InvariantCulture)); }
+        }
+
         public string CacheListColumnInfo
         {
             get { return GetProperty(null); }
