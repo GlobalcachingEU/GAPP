@@ -162,6 +162,7 @@
     <Compile Include="Core\Settings\CacheListSettings.cs" />
     <Compile Include="Core\Settings\DebugLogViewSettings.cs" />
     <Compile Include="Core\Settings\ExcelSettings.cs" />
+    <Compile Include="Core\Settings\FavoritesSettings.cs" />
     <Compile Include="Core\Settings\GCComBookmarkSettings.cs" />
     <Compile Include="Core\Settings\GDAKSettings.cs" />
     <Compile Include="Core\Settings\GeocacheFilterSettings.cs" />
@@ -507,6 +508,8 @@
     <Compile Include="Excel\PropertyItem.cs" />
     <Compile Include="Excel\PropertyItemImplementations.cs" />
     <Compile Include="Excel\Sheet.cs" />
+    <Compile Include="Favorites\GCCom.cs" />
+    <Compile Include="Favorites\Manager.cs" />
     <Compile Include="FeatureWindow.xaml.cs">
       <DependentUpon>FeatureWindow.xaml</DependentUpon>
     </Compile>

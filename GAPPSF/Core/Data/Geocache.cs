@@ -370,7 +370,7 @@ namespace GAPPSF.Core.Data
         {
             get
             {
-                return DateTime.FromFileTime(readLong(156));
+                return Utils.Conversion.DateTimeFromLong(readLong(156));
             }
             set
             {
@@ -383,7 +383,7 @@ namespace GAPPSF.Core.Data
         {
             get
             {
-                return DateTime.FromFileTime(readLong(164));
+                return Utils.Conversion.DateTimeFromLong(readLong(164));
             }
             set
             {

@@ -1123,4 +1123,19 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="InstructionVideos" xml:space="preserve">
     <value>Instruction Videos</value>
   </data>
+  <data name="FavAddActive" xml:space="preserve">
+    <value>Add active geocache to your Favorites</value>
+  </data>
+  <data name="FavImportMissing" xml:space="preserve">
+    <value>Import all your missing Favorites geocaches</value>
+  </data>
+  <data name="FavRemoveActive" xml:space="preserve">
+    <value>Remove active geocache from your Favorites</value>
+  </data>
+  <data name="GetAllFavCodes" xml:space="preserve">
+    <value>Get all your Favorites geocache codes</value>
+  </data>
+  <data name="SelectYourFavorites" xml:space="preserve">
+    <value>Select your Favorites</value>
+  </data>
 </root>

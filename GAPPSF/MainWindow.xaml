@@ -147,6 +147,7 @@
                         <MenuItem x:Name="menud37" Header="{l:Translate Edit}" Click="menud37_Click" />
                         <Separator />
                     </MenuItem>
+                    <MenuItem x:Name="menud87" Header="{l:Translate SelectYourFavorites}" Click="menud87_Click" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate QuickSelect}">
                     <MenuItem x:Name="menua10" Header="{l:Translate SelectAll}" Command="{Binding SelectAllCommand}" />
@@ -179,6 +180,14 @@
                     <MenuItem x:Name="menue37" Header="{l:Translate Bookmarks}" Click="menud37_Click" />
                     <MenuItem x:Name="menut37" Header="{l:Translate ImportPQ}" Click="menut37_Click" />
                     <MenuItem x:Name="menuq37" Header="{l:Translate ImportMyFinds}" Command="{Binding ImportMyFindsCommand}" />
+                    <MenuItem Header="{l:Translate Favorites}">
+                        <MenuItem x:Name="menuf50" Header="{l:Translate GetAllFavCodes}" Command="{Binding ImportFavsCodesCommand}" />
+                        <MenuItem x:Name="menuf51" Header="{l:Translate FavImportMissing}" Command="{Binding ImportFavsGeocachesCommand}" />
+                        <MenuItem x:Name="menuf52" Header="{l:Translate FavAddActive}" Command="{Binding FavAddActiveGeocacheCommand}" />
+                        <MenuItem x:Name="menuf53" Header="{l:Translate FavRemoveActive}" Command="{Binding FavRemoveActiveGeocacheCommand}" />
+                        <Separator />
+                        <MenuItem x:Name="menud88" Header="{l:Translate SelectYourFavorites}" Click="menud87_Click" />
+                    </MenuItem>
                     <MenuItem Header="{l:Translate Refresh}">
                         <MenuItem x:Name="menuc50" Header="{l:Translate Active}" Command="{Binding UpdateActiveCommand}" />
                         <MenuItem x:Name="menuc51" Header="{l:Translate Selected}" Command="{Binding UpdateSelectedCommand}" />

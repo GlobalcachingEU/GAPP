@@ -16,7 +16,8 @@ namespace GAPPSF.Core.Data
         public event EventHandler<EventArgs> DataChanged;
 
         private static byte[] _buffer = new byte[10000000];
-        private static MemoryStream _ms = new MemoryStream(_buffer);
+        private static byte[] _checkbuffer = new byte[5000000];
+        private static MemoryStream _ms = new MemoryStream(_checkbuffer);
         private static BinaryWriter _bw = new BinaryWriter(_ms);
 
         private int _updateCounter = 0;

@@ -29,7 +29,14 @@ namespace GAPPSF.Utils
             }
             else
             {
-                return dt.ToFileTime();
+                try
+                {
+                    return dt.ToFileTime();
+                }
+                catch
+                {
+                    return 0;
+                }
             }
         }
 
@@ -41,7 +48,14 @@ namespace GAPPSF.Utils
             }
             else
             {
-                return DateTime.FromFileTime(l);
+                try
+                {
+                    return DateTime.FromFileTime(l);
+                }
+                catch
+                {
+                    return DateTime.MinValue;
+                }
             }
         }
 

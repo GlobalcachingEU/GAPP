@@ -837,6 +837,97 @@ namespace GAPPSF
         }
 
 
+        AsyncDelegateCommand _importMyFavsCodesCommand;
+        public ICommand ImportFavsCodesCommand
+        {
+            get
+            {
+                if (_importMyFavsCodesCommand == null)
+                {
+                    _importMyFavsCodesCommand = new AsyncDelegateCommand(param => this.ImportMyFavsCodes(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null && Core.Settings.Default.LiveAPIMemberTypeId > 1);
+                }
+                return _importMyFavsCodesCommand;
+            }
+        }
+        private async Task ImportMyFavsCodes()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                Favorites.GCCom com = new Favorites.GCCom();
+                await com.GetAllYourFavoriteGeocachesAsync(Core.ApplicationData.Instance.ActiveDatabase, false);
+            }
+        }
+        AsyncDelegateCommand _importMyFavsGeocachesCommand;
+        public ICommand ImportFavsGeocachesCommand
+        {
+            get
+            {
+                if (_importMyFavsGeocachesCommand == null)
+                {
+                    _importMyFavsGeocachesCommand = new AsyncDelegateCommand(param => this.ImportMyFavsGeocaches(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null && Core.Settings.Default.LiveAPIMemberTypeId > 1);
+                }
+                return _importMyFavsGeocachesCommand;
+            }
+        }
+        private async Task ImportMyFavsGeocaches()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                Favorites.GCCom com = new Favorites.GCCom();
+                await com.GetAllYourFavoriteGeocachesAsync(Core.ApplicationData.Instance.ActiveDatabase, true);
+            }
+        }
+        AsyncDelegateCommand _favAddActiveGeocacheCommand;
+        public ICommand FavAddActiveGeocacheCommand
+        {
+            get
+            {
+                if (_favAddActiveGeocacheCommand == null)
+                {
+                    _favAddActiveGeocacheCommand = new AsyncDelegateCommand(param => this.FavAddActiveGeocache(),
+                        param => Core.ApplicationData.Instance.ActiveGeocache != null 
+                            && Core.Settings.Default.LiveAPIMemberTypeId > 1
+                            && !Favorites.Manager.Instance.GeocacheFavorited(Core.ApplicationData.Instance.ActiveGeocache.Code));
+                }
+                return _favAddActiveGeocacheCommand;
+            }
+        }
+        private async Task FavAddActiveGeocache()
+        {
+            if (Core.ApplicationData.Instance.ActiveGeocache != null)
+            {
+                Favorites.GCCom com = new Favorites.GCCom();
+                await com.AddFavoriteGeocacheAsync(Core.ApplicationData.Instance.ActiveGeocache);
+            }
+        }
+        AsyncDelegateCommand _favRemoveActiveGeocacheCommand;
+        public ICommand FavRemoveActiveGeocacheCommand
+        {
+            get
+            {
+                if (_favRemoveActiveGeocacheCommand == null)
+                {
+                    _favRemoveActiveGeocacheCommand = new AsyncDelegateCommand(param => this.FavRemoveActiveGeocache(),
+                        param => Core.ApplicationData.Instance.ActiveGeocache != null
+                            && Core.Settings.Default.LiveAPIMemberTypeId > 1
+                            && Favorites.Manager.Instance.GeocacheFavorited(Core.ApplicationData.Instance.ActiveGeocache.Code));
+                }
+                return _favRemoveActiveGeocacheCommand;
+            }
+        }
+        private async Task FavRemoveActiveGeocache()
+        {
+            if (Core.ApplicationData.Instance.ActiveGeocache != null)
+            {
+                Favorites.GCCom com = new Favorites.GCCom();
+                await com.RemoveFavoriteGeocacheAsync(Core.ApplicationData.Instance.ActiveGeocache);
+            }
+        }
+
+
+
         AsyncDelegateCommand _importMyFindsCommand;
         public ICommand ImportMyFindsCommand
         {
@@ -2116,6 +2207,20 @@ namespace GAPPSF
             catch (Exception ex)
             {
                 Core.ApplicationData.Instance.Logger.AddLog(this, ex);
+            }
+        }
+
+        private void menud87_Click(object sender, RoutedEventArgs e)
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase!=null)
+            {
+                using (Utils.DataUpdater upd = new Utils.DataUpdater(Core.ApplicationData.Instance.ActiveDatabase))
+                {
+                    foreach(var gc in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection)
+                    {
+                        gc.Selected = Favorites.Manager.Instance.GeocacheFavorited(gc.Code);
+                    }
+                }
             }
         }
 
