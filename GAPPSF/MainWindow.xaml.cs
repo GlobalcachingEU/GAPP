@@ -695,6 +695,106 @@ namespace GAPPSF
             Localization.TranslationManager.Instance.CurrentLanguage = new CultureInfo("nl-NL");
         }
 
+
+
+        AsyncDelegateCommand _importGCComBotesCommand;
+        public ICommand ImportGCComNotesCommand
+        {
+            get
+            {
+                if (_importGCComBotesCommand == null)
+                {
+                    _importGCComBotesCommand = new AsyncDelegateCommand(param => this.ImportGCComNotes(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null && Core.Settings.Default.LiveAPIMemberTypeId >= 1);
+                }
+                return _importGCComBotesCommand;
+            }
+        }
+        public async Task ImportGCComNotes()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null && Core.Settings.Default.LiveAPIMemberTypeId >= 1)
+            {
+                using (Utils.DataUpdater upd = new Utils.DataUpdater(Core.ApplicationData.Instance.ActiveDatabase))
+                {
+                    await Task.Run(() =>
+                    {
+                        try
+                        {
+                            foreach (var gc in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection)
+                            {
+                                gc.PersonalNote = "";
+                            }
+
+                            List<LiveAPI.LiveV6.CacheNote> missingGeocaches = new List<LiveAPI.LiveV6.CacheNote>();
+                            using (LiveAPI.GeocachingLiveV6 client = new LiveAPI.GeocachingLiveV6())
+                            {
+                                int maxPerRequest = 100;
+                                int startIndex = 0;
+                                var resp = client.Client.GetUsersCacheNotes(client.Token, startIndex, maxPerRequest);
+                                while (resp.Status.StatusCode == 0)
+                                {
+                                    foreach (var n in resp.CacheNotes)
+                                    {
+                                        Core.Data.Geocache gc = Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection.GetGeocache(n.CacheCode);
+                                        if (gc != null)
+                                        {
+                                            string s = n.Note ?? "";
+                                            s = s.Replace("\r", "");
+                                            s = s.Replace("\n", "\r\n");
+                                            gc.PersonalNote = s;
+                                        }
+                                        else
+                                        {
+                                            missingGeocaches.Add(n);
+                                        }
+                                    }
+                                    if (resp.CacheNotes.Count() >= maxPerRequest)
+                                    {
+                                        startIndex += resp.CacheNotes.Count();
+                                        resp = client.Client.GetUsersCacheNotes(client.Token, startIndex, maxPerRequest);
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+                                }
+                                if (resp.Status.StatusCode != 0)
+                                {
+                                    Core.ApplicationData.Instance.Logger.AddLog(this, Core.Logger.Level.Error, resp.Status.StatusMessage);
+                                }
+                            }
+                            if (missingGeocaches.Count>0)
+                            {
+                                LiveAPI.Import.ImportGeocaches(Core.ApplicationData.Instance.ActiveDatabase, (from a in missingGeocaches select a.CacheCode).ToList());
+                                foreach (var n in missingGeocaches)
+                                {
+                                    Core.Data.Geocache gc = Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection.GetGeocache(n.CacheCode);
+                                    if (gc != null)
+                                    {
+                                        string s = n.Note ?? "";
+                                        s = s.Replace("\r", "");
+                                        s = s.Replace("\n", "\r\n");
+                                        gc.PersonalNote = s;
+                                    }
+                                }
+                            }
+                        }
+                        catch(Exception e)
+                        {
+                            Core.ApplicationData.Instance.Logger.AddLog(this, e);
+                        }
+                    });
+                }
+            }
+        }
+
+
+
+
+
+
+
+
         AsyncDelegateCommand _deleteActiveCommand;
         public ICommand DeleteActiveCommand
         {

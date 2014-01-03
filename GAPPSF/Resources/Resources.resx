@@ -1240,4 +1240,7 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="TrackMin" xml:space="preserve">
     <value>Track. min</value>
   </data>
+  <data name="ImportGeocacheNotes" xml:space="preserve">
+    <value>Import Geocache Notes</value>
+  </data>
 </root>
