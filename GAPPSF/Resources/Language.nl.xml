@@ -584,7 +584,6 @@
   <string name="import geocaches in area on map" value="Importeer geocaches in gebied van kaart" />
   <string name="import geocaches in bookmark" value="Importeer geocaches in bookmark" />
   <string name="import geocaches within radius" value="Importeer geocaches binnen een radius" />
-  <string name="import geocaches" value="Bezig met importeren van geocaches" />
   <string name="import ggz" value="Importeer GGZ" />
   <string name="import gpx" value="Importeer GPX" />
   <string name="import gsak database" value="Importeer GSAK database" />

@@ -52,6 +52,28 @@ namespace GAPPSF.UIControls
         }
     }
 
+    public class LogTypeConverter : IValueConverter
+    {
+        public LogTypeConverter()
+        {
+        }
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            GAPPSF.Core.Data.LogType gct = value as GAPPSF.Core.Data.LogType;
+            if (gct != null)
+            {
+                return Utils.ResourceHelper.GetResourceUri(string.Format("/Resources/LogTypes/{0}.gif", gct.ID));
+            }
+            return null;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
+
     public class GeocacheAttributeConverter : IValueConverter
     {
         public GeocacheAttributeConverter()

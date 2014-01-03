@@ -1032,15 +1032,12 @@ namespace GAPPSF.UIControls.ActionBuilder
         }
     }
 
-    /*
     public class ActionYourFavorite : ActionImplementationCondition
     {
-        public const string STR_NAME = "Your Favorite";
-        private Framework.Interfaces.IPlugin _favoritesPlugin = null;
-        private MethodInfo _method = null;
+        public const string STR_NAME = "YourFavorite";
         private string[] _params = null;
-        public ActionYourFavorite(Framework.Interfaces.ICore core)
-            : base(STR_NAME, core)
+        public ActionYourFavorite()
+            : base(STR_NAME)
         {
         }
         public override UIElement GetUIElement()
@@ -1065,46 +1062,27 @@ namespace GAPPSF.UIControls.ActionBuilder
                 return Operator.Equal | Operator.NotEqual;
             }
         }
-        public override bool PrepareRun()
-        {
-            _favoritesPlugin = Utils.PluginSupport.PluginByName(Core, "GlobalcachingApplication.Plugins.APIFavorites.SelectFavorites");
-            if (_favoritesPlugin != null)
-            {
-                _method = _favoritesPlugin.GetType().GetMethod("GetFavorite");
-                _params = new string[1];
-            }
-            else
-            {
-                _method = null;
-            }
-            return base.PrepareRun();
-        }
-        public override Operator Process(Framework.Data.Geocache gc)
+        public override Operator Process(Core.Data.Geocache gc)
         {
             Operator result = 0;
             if (Values.Count > 0)
             {
                 bool value = false;
-                if (_method != null)
+                if (bool.TryParse(Values[0], out value))
                 {
-                    if (bool.TryParse(Values[0], out value))
+                    if (Favorites.Manager.Instance.GeocacheFavorited(gc.Code ?? "") != value)
                     {
-                        _params[0] = gc.Code ?? "";
-                        if ((bool)_method.Invoke(_favoritesPlugin, _params) != value)
-                        {
-                            result = Operator.NotEqual;
-                        }
-                        else
-                        {
-                            result = Operator.Equal;
-                        }
+                        result = Operator.NotEqual;
+                    }
+                    else
+                    {
+                        result = Operator.Equal;
                     }
                 }
             }
             return result;
         }
     }
-    */
 
     public class ActionFound : ActionImplementationCondition
     {

@@ -1,0 +1,80 @@
+﻿<Window x:Class="GAPPSF.FindsOfUser.ImportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:l="clr-namespace:GAPPSF.Localization"
+        xmlns:p="clr-namespace:GAPPSF.Core"
+        xmlns:ui="clr-namespace:GAPPSF.UIControls"
+        Title="{l:Translate ImportLogsOfOtherUsers}" Height="600" Width="500">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=".5*" />
+            <ColumnDefinition Width=".5*" />
+        </Grid.ColumnDefinitions>
+        <GroupBox Grid.Row="0" Grid.Column="0" Header="{l:Translate Users}">
+            <GroupBox.Content>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <ListBox Margin="4" Grid.Row="0" ItemsSource="{Binding UserNames}" SelectedItem="{Binding SelectedUser, Mode=TwoWay}" />
+                    <Button Margin="4" Grid.Row="1" Content="{l:Translate Remove}" IsEnabled="{Binding IsUserSelected}" Click="Button_Click_1" />
+                    <Button Margin="4" Grid.Row="2" Content="{l:Translate RemoveAndLogs}" Command="{Binding RemoveLogsOfSelectedUserCommand}" />
+                    <TextBlock Margin="4" Grid.Row="3" Text="{l:Translate UserName}" />
+                    <Grid Grid.Row="4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="newUser" Margin="4" Grid.Column="0" />
+                        <Button Margin="4" Grid.Column="1" Content="{l:Translate Add}" Click="Button_Click" />
+                    </Grid>
+                </Grid>
+            </GroupBox.Content>            
+        </GroupBox>
+        <GroupBox Grid.Row="0" Grid.Column="1" Header="{l:Translate LogTypes}">
+            <GroupBox.Content>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".5*" />
+                        <ColumnDefinition Width=".5*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <ui:LogTypeSelection x:Name="logtypes" Margin="4" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" />
+                    <Button Margin="4" Grid.Row="1" Grid.Column="0" Content="{l:Translate SelectAll}" Click="Button_Click_2" />
+                    <Button Margin="4" Grid.Row="1" Grid.Column="1" Content="{l:Translate UnselectAll}" Click="Button_Click_3" />
+                </Grid>
+            </GroupBox.Content>
+        </GroupBox>
+        <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Header="{l:Translate GetLogs}">
+            <GroupBox.Content>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <CheckBox Margin="4" Grid.Row="0" Content="{l:Translate ImportMissingGeocaches}" IsChecked="{Binding FindLogsOfUserImportMissing, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                    <CheckBox Margin="4" Grid.Row="1" Content="{l:Translate BetweenDates}"  IsChecked="{Binding FindLogsOfUserBetweenDates, Source={x:Static p:Settings.Default}, Mode=TwoWay}"/>
+                    <DatePicker Margin="20,4,4,4" Grid.Row="2" SelectedDate="{Binding FindLogsOfUserMinDate, Source={x:Static p:Settings.Default}, Mode=TwoWay}" DisplayDate="{Binding FindLogsOfUserMinDate, Source={x:Static p:Settings.Default}}" />
+                    <DatePicker Margin="20,4,4,4" Grid.Row="3" SelectedDate="{Binding FindLogsOfUserMaxDate, Source={x:Static p:Settings.Default}, Mode=TwoWay}" DisplayDate="{Binding FindLogsOfUserMaxDate, Source={x:Static p:Settings.Default}}" />
+                    <Button Margin="4" Grid.Row="4" Content="{l:Translate ImportLogsOfSelectedUser}" Command="{Binding ImportLogsOfSelectedUserCommand}" />
+                    <Button Margin="4" Grid.Row="5" Content="{l:Translate ImportLogsOfAllUser}" Command="{Binding ImportLogsCommand}" />
+                </Grid>
+            </GroupBox.Content>
+        </GroupBox>
+    </Grid>
+</Window>

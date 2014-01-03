@@ -1138,4 +1138,106 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="SelectYourFavorites" xml:space="preserve">
     <value>Select your Favorites</value>
   </data>
+  <data name="ImportLogsOfOtherUsers" xml:space="preserve">
+    <value>Import logs of other users</value>
+  </data>
+  <data name="BetweenDates" xml:space="preserve">
+    <value>Between dates</value>
+  </data>
+  <data name="GetLogs" xml:space="preserve">
+    <value>Get logs</value>
+  </data>
+  <data name="ImportLogsOfAllUser" xml:space="preserve">
+    <value>Import logs of all users</value>
+  </data>
+  <data name="ImportLogsOfSelectedUser" xml:space="preserve">
+    <value>Import logs of selected user</value>
+  </data>
+  <data name="ImportMissingGeocaches" xml:space="preserve">
+    <value>Import missing geocaches</value>
+  </data>
+  <data name="LogTypes" xml:space="preserve">
+    <value>Log types</value>
+  </data>
+  <data name="RemoveAndLogs" xml:space="preserve">
+    <value>Remove and remove logs</value>
+  </data>
+  <data name="SearchingForLogs" xml:space="preserve">
+    <value>Searching for logs</value>
+  </data>
+  <data name="YourFavorite" xml:space="preserve">
+    <value>Your Favorite</value>
+  </data>
+  <data name="GetGeocachesUsingLiveAPI" xml:space="preserve">
+    <value>Get geocaches using Live API</value>
+  </data>
+  <data name="ImportGeocaches" xml:space="preserve">
+    <value>Import geocaches</value>
+  </data>
+  <data name="And" xml:space="preserve">
+    <value>And</value>
+  </data>
+  <data name="AreaCodes" xml:space="preserve">
+    <value>Areas / Codes</value>
+  </data>
+  <data name="Between" xml:space="preserve">
+    <value>Between</value>
+  </data>
+  <data name="Codes" xml:space="preserve">
+    <value>Codes</value>
+  </data>
+  <data name="DifMax" xml:space="preserve">
+    <value>Dif. max</value>
+  </data>
+  <data name="DifMin" xml:space="preserve">
+    <value>Dif. min</value>
+  </data>
+  <data name="Exclude" xml:space="preserve">
+    <value>Exclude</value>
+  </data>
+  <data name="FavMax" xml:space="preserve">
+    <value>Fav. max</value>
+  </data>
+  <data name="FavMin" xml:space="preserve">
+    <value>Fav. min</value>
+  </data>
+  <data name="FoundByUsers" xml:space="preserve">
+    <value>Found by users</value>
+  </data>
+  <data name="HiddenBy" xml:space="preserve">
+    <value>Hidden by</value>
+  </data>
+  <data name="HiddenByUsers" xml:space="preserve">
+    <value>Hidden by users</value>
+  </data>
+  <data name="HintCommaSeparated" xml:space="preserve">
+    <value>*) Comma separated</value>
+  </data>
+  <data name="Limits" xml:space="preserve">
+    <value>Limits</value>
+  </data>
+  <data name="LogCount" xml:space="preserve">
+    <value>Maximum logs</value>
+  </data>
+  <data name="Max30Days" xml:space="preserve">
+    <value>Max. 30 days.</value>
+  </data>
+  <data name="Properties" xml:space="preserve">
+    <value>Properties</value>
+  </data>
+  <data name="TerMax" xml:space="preserve">
+    <value>Ter. max</value>
+  </data>
+  <data name="TerMin" xml:space="preserve">
+    <value>Ter. min</value>
+  </data>
+  <data name="TotalMaximum" xml:space="preserve">
+    <value>Total maximum</value>
+  </data>
+  <data name="TrackMax" xml:space="preserve">
+    <value>Track. max</value>
+  </data>
+  <data name="TrackMin" xml:space="preserve">
+    <value>Track. min</value>
+  </data>
 </root>

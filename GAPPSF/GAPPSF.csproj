@@ -163,6 +163,7 @@
     <Compile Include="Core\Settings\DebugLogViewSettings.cs" />
     <Compile Include="Core\Settings\ExcelSettings.cs" />
     <Compile Include="Core\Settings\FavoritesSettings.cs" />
+    <Compile Include="Core\Settings\FindLogsOfUserSettings.cs" />
     <Compile Include="Core\Settings\GCComBookmarkSettings.cs" />
     <Compile Include="Core\Settings\GDAKSettings.cs" />
     <Compile Include="Core\Settings\GeocacheFilterSettings.cs" />
@@ -172,6 +173,7 @@
     <Compile Include="Core\Settings\GPXSettings.cs" />
     <Compile Include="Core\Settings\iGeoKnifeSettings.cs" />
     <Compile Include="Core\Settings\IgnoreGeocachesSettings.cs" />
+    <Compile Include="Core\Settings\LiveAPIGetGCSettings.cs" />
     <Compile Include="Core\Settings\LiveAPISettings.cs" />
     <Compile Include="Core\Settings\MainWindowSettings.cs" />
     <Compile Include="Core\Settings\MapsSettings.cs" />
@@ -513,6 +515,10 @@
     <Compile Include="FeatureWindow.xaml.cs">
       <DependentUpon>FeatureWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FindsOfUser\Import.cs" />
+    <Compile Include="FindsOfUser\ImportWindow.xaml.cs">
+      <DependentUpon>ImportWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GAPPDataStorage\RecordInfo.cs" />
     <Compile Include="Gavaghan.Geodesy\Angle.cs" />
     <Compile Include="Gavaghan.Geodesy\Ellipsoid.cs" />
@@ -541,6 +547,9 @@
       <DependentUpon>ExportWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="KML\Export.cs" />
+    <Compile Include="LiveAPIGetGeocaches\ImportWindow.xaml.cs">
+      <DependentUpon>ImportWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LiveAPI\AuthorizationWindow.xaml.cs">
       <DependentUpon>AuthorizationWindow.xaml</DependentUpon>
     </Compile>
@@ -681,6 +690,9 @@
     <Compile Include="UIControls\GeocacheAttributeSelection.xaml.cs">
       <DependentUpon>GeocacheAttributeSelection.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UIControls\LogTypeSelection.xaml.cs">
+      <DependentUpon>LogTypeSelection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIControls\GeocacheContainerSelection.xaml.cs">
       <DependentUpon>GeocacheContainerSelection.xaml</DependentUpon>
     </Compile>
@@ -811,6 +823,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="FindsOfUser\ImportWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GDAK\ExportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -824,6 +840,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="iGeoKnife\ExportWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LiveAPIGetGeocaches\ImportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1016,6 +1036,10 @@
     <Page Include="UIControls\GeocacheAttributeSelection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\LogTypeSelection.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UIControls\GeocacheContainerSelection.xaml">
       <SubType>Designer</SubType>

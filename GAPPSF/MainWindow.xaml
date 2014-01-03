@@ -177,9 +177,11 @@
                 </MenuItem>
                 <MenuItem Header="{l:Translate LiveAPI}">
                     <MenuItem x:Name="menu13" Header="{l:Translate Authorize}" Command="{Binding LiveApiAuthorizeCommand}" />
+                    <MenuItem x:Name="menub37" Header="{l:Translate ImportGeocaches}" Command="{Binding LiveAPIImportGeocachesCommand}" />
                     <MenuItem x:Name="menue37" Header="{l:Translate Bookmarks}" Click="menud37_Click" />
                     <MenuItem x:Name="menut37" Header="{l:Translate ImportPQ}" Click="menut37_Click" />
                     <MenuItem x:Name="menuq37" Header="{l:Translate ImportMyFinds}" Command="{Binding ImportMyFindsCommand}" />
+                    <MenuItem x:Name="menuk37" Header="{l:Translate ImportLogsOfOtherUsers}" Command="{Binding ImportLogsOfUsersCommand}" />
                     <MenuItem Header="{l:Translate Favorites}">
                         <MenuItem x:Name="menuf50" Header="{l:Translate GetAllFavCodes}" Command="{Binding ImportFavsCodesCommand}" />
                         <MenuItem x:Name="menuf51" Header="{l:Translate FavImportMissing}" Command="{Binding ImportFavsGeocachesCommand}" />

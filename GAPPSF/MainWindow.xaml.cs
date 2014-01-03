@@ -226,6 +226,30 @@ namespace GAPPSF
             }
         }
 
+
+        private RelayCommand _liveApiImportGeocachesCommand = null;
+        public RelayCommand LiveAPIImportGeocachesCommand
+        {
+            get
+            {
+                if (_liveApiImportGeocachesCommand == null)
+                {
+                    _liveApiImportGeocachesCommand = new RelayCommand(param => LiveAPIImportGeocaches(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase!=null && Core.Settings.Default.LiveAPIMemberTypeId>0);
+                }
+                return _liveApiImportGeocachesCommand;
+            }
+        }
+        public void LiveAPIImportGeocaches()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase!=null)
+            {
+                LiveAPIGetGeocaches.ImportWindow dlg = new LiveAPIGetGeocaches.ImportWindow();
+                dlg.ShowDialog();
+            }
+        }
+
+
         private RelayCommand _shortCutKeyCommand = null;
         public RelayCommand ShortCutKeyCommand
         {
@@ -833,6 +857,29 @@ namespace GAPPSF
                 // Open document 
                 GPX.Import imp = new GPX.Import();
                 await imp.ImportFilesAsync(dlg.FileNames);
+            }
+        }
+
+
+        RelayCommand _importLogsOfUsersCommand;
+        public ICommand ImportLogsOfUsersCommand
+        {
+            get
+            {
+                if (_importLogsOfUsersCommand == null)
+                {
+                    _importLogsOfUsersCommand = new RelayCommand(param => this.ImportLogsOfUsers(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null && Core.Settings.Default.LiveAPIMemberTypeId > 0);
+                }
+                return _importLogsOfUsersCommand;
+            }
+        }
+        private void ImportLogsOfUsers()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                FindsOfUser.ImportWindow dlg = new FindsOfUser.ImportWindow();
+                dlg.ShowDialog();
             }
         }
 

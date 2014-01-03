@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,8 +32,8 @@ namespace GAPPSF.Core
 
         public double GoogleEarthFlyToSpeed
         {
-            get { return double.Parse(GetProperty("0.5")); }
-            set { SetProperty(value.ToString()); }
+            get { return double.Parse(GetProperty("0.5"), CultureInfo.InvariantCulture); }
+            set { SetProperty(value.ToString(CultureInfo.InvariantCulture)); }
         }
 
         public bool GoogleEarthFixedView

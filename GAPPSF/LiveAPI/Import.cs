@@ -8,6 +8,76 @@ namespace GAPPSF.LiveAPI
 {
     public class Import
     {
+
+        public static void ImportGeocaches(Core.Storage.Database db, LiveV6.SearchForGeocachesRequest req, int max)
+        {
+            using (Utils.ProgressBlock progress = new Utils.ProgressBlock("ImportingGeocaches", "ImportingGeocaches", max, 0, true))
+            {
+                try
+                {
+                    using (GeocachingLiveV6 client = new GeocachingLiveV6())
+                    {
+                        req.AccessToken = client.Token;
+
+                        var resp = client.Client.SearchForGeocaches(req);
+                        if (resp.Status.StatusCode == 0 && resp.Geocaches != null)
+                        {
+                            ImportGeocaches(db, resp.Geocaches);
+
+                            if (resp.Geocaches.Count() >= req.MaxPerPage && req.MaxPerPage < max)
+                            {
+                                if (progress.Update("ImportingGeocaches", max, resp.Geocaches.Count()))
+                                {
+                                    var mreq = new LiveV6.GetMoreGeocachesRequest();
+                                    mreq.AccessToken = req.AccessToken;
+                                    mreq.GeocacheLogCount = req.GeocacheLogCount;
+                                    mreq.MaxPerPage = (int)Math.Min(req.MaxPerPage, max - resp.Geocaches.Count());
+                                    mreq.StartIndex = resp.Geocaches.Count();
+                                    mreq.TrackableLogCount = req.TrackableLogCount;
+                                    mreq.IsLite = req.IsLite;
+                                    mreq.GeocacheLogCount = req.GeocacheLogCount;
+
+                                    while (resp.Status.StatusCode == 0 && resp.Geocaches != null && resp.Geocaches.Count() >= req.MaxPerPage)
+                                    {
+                                        resp = client.Client.GetMoreGeocaches(mreq);
+
+                                        if (resp.Status.StatusCode == 0 && resp.Geocaches != null)
+                                        {
+                                            ImportGeocaches(db, resp.Geocaches);
+                                            if (!progress.Update("ImportingGeocaches", max, mreq.StartIndex + resp.Geocaches.Count()))
+                                            {
+                                                break;
+                                            }
+
+                                            mreq.StartIndex += resp.Geocaches.Count();
+                                            mreq.MaxPerPage = (int)Math.Min(req.MaxPerPage, max - mreq.StartIndex);
+                                            if (mreq.StartIndex >= max - 1)
+                                            {
+                                                break;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Core.ApplicationData.Instance.Logger.AddLog(new Import(), Core.Logger.Level.Error, resp.Status.StatusMessage);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Core.ApplicationData.Instance.Logger.AddLog(new Import(), Core.Logger.Level.Error, resp.Status.StatusMessage);
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    Core.ApplicationData.Instance.Logger.AddLog(new Import(), e);
+                }
+            }
+        }
+
+
         public static void ImportGeocacheStatus(Core.Storage.Database db, List<string> gcCodes)
         {
             try
