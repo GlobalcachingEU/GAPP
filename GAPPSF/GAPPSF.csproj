@@ -546,6 +546,10 @@
     <Compile Include="iGeoKnife\ExportWindow.xaml.cs">
       <DependentUpon>ExportWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ImageGrabber\Export.cs" />
+    <Compile Include="ImageGrabber\ExportWindow.xaml.cs">
+      <DependentUpon>ExportWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="KML\Export.cs" />
     <Compile Include="LiveAPIGetGeocaches\ImportWindow.xaml.cs">
       <DependentUpon>ImportWindow.xaml</DependentUpon>
@@ -840,6 +844,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="iGeoKnife\ExportWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ImageGrabber\ExportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

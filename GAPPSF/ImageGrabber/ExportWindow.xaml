@@ -1,0 +1,31 @@
+﻿<Window x:Class="GAPPSF.ImageGrabber.ExportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:l="clr-namespace:GAPPSF.Localization"
+        xmlns:p="clr-namespace:GAPPSF.Core"
+        xmlns:ui="clr-namespace:GAPPSF.UIControls"
+        Title="{l:Translate CreateImageFolder}" Height="200" Width="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock Margin="4" Grid.Row="0" Grid.Column="0" Text="{l:Translate Folder}" />
+        <TextBox Margin="4 " Grid.Row="0" Grid.Column="1" IsReadOnly="True" Text="{Binding OfflineImagesFolder, Source={x:Static p:Settings.Default}}" />
+        <Button Margin="4" Grid.Row="0" Grid.Column="2" Height="20" Width="20" Click="Button_Click">
+            <Image Height="16" Width="16" Source="/Resources/General/edit.png" />
+        </Button>
+        <CheckBox Margin="4" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Content="{l:Translate DownloadBeforeCreate}" IsChecked="{Binding OfflineImagesDownloadBeforeCreate, Source={x:Static p:Settings.Default}, Mode=TwoWay}"/>
+        <CheckBox Margin="4" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Content="{l:Translate OnlyImagesNotInDescr}"  IsChecked="{Binding OfflineImagesOnlyInDescr, Source={x:Static p:Settings.Default}, Mode=TwoWay}"/>
+        <CheckBox Margin="4" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Content="{l:Translate ClearFolderBeforeCopy}"  IsChecked="{Binding OfflineImagesClearFolder, Source={x:Static p:Settings.Default}, Mode=TwoWay}"/>
+        <Button Margin="4,14,4,4" Grid.Row="4" Grid.Column="1" Content="{l:Translate OK}" Command="{Binding ExportCommand}"/>
+    </Grid>
+</Window>

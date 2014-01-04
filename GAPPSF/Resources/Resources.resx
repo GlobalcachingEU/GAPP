@@ -1243,4 +1243,19 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="ImportGeocacheNotes" xml:space="preserve">
     <value>Import Geocache Notes</value>
   </data>
+  <data name="ClearFolderBeforeCopy" xml:space="preserve">
+    <value>Clear folder before copy</value>
+  </data>
+  <data name="CreateImageFolder" xml:space="preserve">
+    <value>Create image folder</value>
+  </data>
+  <data name="DownloadBeforeCreate" xml:space="preserve">
+    <value>Download before creating folder</value>
+  </data>
+  <data name="OnlyImagesNotInDescr" xml:space="preserve">
+    <value>Only images not in geocache description</value>
+  </data>
+  <data name="CreatingOfflineImageFolder" xml:space="preserve">
+    <value>Creating offline image folder</value>
+  </data>
 </root>

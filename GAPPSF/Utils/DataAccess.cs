@@ -326,8 +326,11 @@ namespace GAPPSF.Utils
             return db.LogImageCollection.GetLogImages(logId);
         }
 
-
         public static List<string> GetImagesOfGeocache(Database db, string geocacheCode)
+        {
+            return GetImagesOfGeocache(db, geocacheCode, false);
+        }
+        public static List<string> GetImagesOfGeocache(Database db, string geocacheCode, bool notInDescriptionOnly)
         {
             List<string> result = new List<string>();
 
@@ -369,6 +372,10 @@ namespace GAPPSF.Utils
                         if (!result.Contains(img.Url))
                         {
                             result.Add(img.Url);
+                        }
+                        else if (notInDescriptionOnly)
+                        {
+                            result.Remove(img.Url);
                         }
                     }
                 }

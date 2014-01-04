@@ -125,6 +125,11 @@
                         <MenuItem x:Name="menu4y11" Header="{l:Translate Selected}" Command="{Binding ExportExcelSelectedCommand}" />
                         <MenuItem x:Name="menu4y12" Header="{l:Translate All}" Command="{Binding ExportExcelAllCommand}" />
                     </MenuItem>
+                    <MenuItem Header="{l:Translate CreateImageFolder}">
+                        <MenuItem x:Name="menu4y20" Header="{l:Translate Active}" Command="{Binding ExportOfflineImgActiveCommand}" />
+                        <MenuItem x:Name="menu4y21" Header="{l:Translate Selected}" Command="{Binding ExportOfflineImgSelectedCommand}" />
+                        <MenuItem x:Name="menu4y22" Header="{l:Translate All}" Command="{Binding ExportOfflineImgAllCommand}" />
+                    </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{l:Translate Edit}">
                     <MenuItem Header="{l:Translate Copy}">

@@ -301,9 +301,9 @@ namespace GAPPSF.ImageGrabber
                                                 }
                                             }
                                         }
-                                        catch (Exception e)
+                                        catch //(Exception e)
                                         {
-                                            Core.ApplicationData.Instance.Logger.AddLog(this, e);
+                                            //Core.ApplicationData.Instance.Logger.AddLog(this, e);
                                         }
                                     }
 

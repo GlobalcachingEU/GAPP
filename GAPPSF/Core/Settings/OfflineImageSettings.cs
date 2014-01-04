@@ -35,5 +35,29 @@ namespace GAPPSF.Core
             set { SetProperty(value.ToString()); }
         }
 
+        public string OfflineImagesFolder
+        {
+            get { return GetProperty(null); }
+            set { SetProperty(value); }
+        }
+
+        public bool OfflineImagesDownloadBeforeCreate
+        {
+            get { return bool.Parse(GetProperty("False")); }
+            set { SetProperty(value.ToString()); }
+        }
+
+        public bool OfflineImagesOnlyInDescr
+        {
+            get { return bool.Parse(GetProperty("False")); }
+            set { SetProperty(value.ToString()); }
+        }
+
+        public bool OfflineImagesClearFolder
+        {
+            get { return bool.Parse(GetProperty("False")); }
+            set { SetProperty(value.ToString()); }
+        }
+
     }
 }

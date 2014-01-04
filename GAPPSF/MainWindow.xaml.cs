@@ -1389,6 +1389,73 @@ namespace GAPPSF
 
 
 
+        RelayCommand _exportOfflineImgActiveCommand;
+        public ICommand ExportOfflineImgActiveCommand
+        {
+            get
+            {
+                if (_exportOfflineImgActiveCommand == null)
+                {
+                    _exportOfflineImgActiveCommand = new RelayCommand(param => this.ExportOfflineImgActive(),
+                        param => Core.ApplicationData.Instance.ActiveGeocache != null);
+                }
+                return _exportOfflineImgActiveCommand;
+            }
+        }
+        private void ExportOfflineImgActive()
+        {
+            if (Core.ApplicationData.Instance.ActiveGeocache != null)
+            {
+                ExportOfflineImg(new Core.Data.Geocache[] { Core.ApplicationData.Instance.ActiveGeocache }.ToList());
+            }
+        }
+        RelayCommand _exportOfflineImgSelectedCommand;
+        public ICommand ExportOfflineImgSelectedCommand
+        {
+            get
+            {
+                if (_exportOfflineImgSelectedCommand == null)
+                {
+                    _exportOfflineImgSelectedCommand = new RelayCommand(param => this.ExportOfflineImgSelected(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null && this.GeocacheSelectionCount > 0);
+                }
+                return _exportOfflineImgSelectedCommand;
+            }
+        }
+        private void ExportOfflineImgSelected()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                ExportOfflineImg((from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection where a.Selected select a).ToList());
+            }
+        }
+        RelayCommand _exportOfflineImgAllCommand;
+        public ICommand ExportOfflineImgAllCommand
+        {
+            get
+            {
+                if (_exportOfflineImgAllCommand == null)
+                {
+                    _exportOfflineImgAllCommand = new RelayCommand(param => this.ExportOfflineImgAll(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null);
+                }
+                return _exportOfflineImgAllCommand;
+            }
+        }
+        private void ExportOfflineImgAll()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                ExportOfflineImg(Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection);
+            }
+        }
+        private void ExportOfflineImg(List<Core.Data.Geocache> gcList)
+        {
+            ImageGrabber.ExportWindow dlg = new ImageGrabber.ExportWindow(gcList);
+            dlg.ShowDialog();
+        }
+
+
 
 
         RelayCommand _exportGDAKActiveCommand;
