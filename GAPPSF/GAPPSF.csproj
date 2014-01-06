@@ -108,6 +108,8 @@
     </ApplicationDefinition>
     <Compile Include="ActionSequence\ActionSequence.cs" />
     <Compile Include="ActionSequence\Manager.cs" />
+    <Compile Include="Attachement\Item.cs" />
+    <Compile Include="Attachement\Manager.cs" />
     <Compile Include="Cachebox\Attributes.cs" />
     <Compile Include="Cachebox\DLong.cs" />
     <Compile Include="Cachebox\Export.cs" />
@@ -158,6 +160,7 @@
     <Compile Include="Core\Settings\ActionSequenceSettings.cs" />
     <Compile Include="Core\Settings\AppDataInfoSettings.cs" />
     <Compile Include="Core\Settings\ApplicationSettings.cs" />
+    <Compile Include="Core\Settings\AttachementSettings.cs" />
     <Compile Include="Core\Settings\CacheboxSettings.cs" />
     <Compile Include="Core\Settings\CacheListSettings.cs" />
     <Compile Include="Core\Settings\DebugLogViewSettings.cs" />
@@ -675,6 +678,9 @@
     <Compile Include="UIControls\ApplicationDataInfo\ApplicationDataInfo.xaml.cs">
       <DependentUpon>ApplicationDataInfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UIControls\Attachement\Control.xaml.cs">
+      <DependentUpon>Control.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIControls\CacheList\CacheList.xaml.cs">
       <DependentUpon>CacheList.xaml</DependentUpon>
     </Compile>
@@ -1026,6 +1032,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIControls\ApplicationDataInfo\ApplicationDataInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\Attachement\Control.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

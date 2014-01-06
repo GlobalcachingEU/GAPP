@@ -55,7 +55,7 @@ namespace GAPPSF.UIControls
         private string _inputText;
         public string InputText
         {
-            get { return _inputText; }
+            get { return _inputText ?? ""; }
             set { SetProperty(ref _inputText, value); }
         }
 

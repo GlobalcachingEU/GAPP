@@ -265,6 +265,11 @@ namespace GAPPSF.UIControls
             FeatureControl = new GoogleEarth.Control();
         }
 
+        private void MenuItem_Click_14(object sender, RoutedEventArgs e)
+        {
+            FeatureControl = new Attachement.Control();
+        }
+
 
     }
 }

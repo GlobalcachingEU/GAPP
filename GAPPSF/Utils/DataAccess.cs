@@ -332,7 +332,8 @@ namespace GAPPSF.Utils
         }
         public static List<string> GetImagesOfGeocache(Database db, string geocacheCode, bool notInDescriptionOnly)
         {
-            List<string> result = new List<string>();
+            List<string> bresult = new List<string>();
+            List<string> result;
 
             Core.Data.Geocache gc = db.GeocacheCollection.GetGeocache(geocacheCode);
 
@@ -360,25 +361,33 @@ namespace GAPPSF.Utils
                             int pos = s.IndexOf(" src", StringComparison.OrdinalIgnoreCase);
                             pos = s.IndexOfAny(new char[] { '\'', '"' }, pos);
                             int pos2 = s.IndexOfAny(new char[] { '\'', '"' }, pos + 1);
-                            result.Add(s.Substring(pos + 1, pos2 - pos - 1));
+                            bresult.Add(s.Substring(pos + 1, pos2 - pos - 1));
                         }
                     }
+                }
+                if (!notInDescriptionOnly)
+                {
+                    result = bresult;
+                }
+                else
+                {
+                    result = new List<string>();
                 }
                 List<Core.Data.GeocacheImage> imgList = DataAccess.GetGeocacheImages(db, geocacheCode);
                 if (imgList != null)
                 {
                     foreach (Core.Data.GeocacheImage img in imgList)
                     {
-                        if (!result.Contains(img.Url))
+                        if (!bresult.Contains(img.Url))
                         {
                             result.Add(img.Url);
                         }
-                        else if (notInDescriptionOnly)
-                        {
-                            result.Remove(img.Url);
-                        }
                     }
                 }
+            }
+            else
+            {
+                result = bresult;
             }
             return result;
         }

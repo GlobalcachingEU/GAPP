@@ -88,6 +88,11 @@ namespace GAPPSF.Core
                     _dbcon.ExecuteNonQuery("create table 'gccomgc' (bm_id text, gccode text)");
                     _dbcon.ExecuteNonQuery("create index idx_bmgcid on gccomgc (bm_id)");
                 }
+                if (!_dbcon.TableExists("attachm"))
+                {
+                    _dbcon.ExecuteNonQuery("create table 'attachm' (gccode text, filename text, comments text)");
+                    _dbcon.ExecuteNonQuery("create index idx_att on attachm (gccode)");
+                }
             }
             catch(Exception e)
             {
@@ -321,20 +326,73 @@ namespace GAPPSF.Core
         {
             lock (this)
             {
-                List<string> gcav = LoadGCComBookmarkGeocaches(bm);
-                foreach (string gc in gcav)
+                if (_dbcon != null)
                 {
-                    if (!gcCodes.Contains(gc))
+                    List<string> gcav = LoadGCComBookmarkGeocaches(bm);
+                    foreach (string gc in gcav)
                     {
-                        _dbcon.ExecuteNonQuery(string.Format("delete from gccomgc where bm_id='{0}' and gccode='{1}'", bm.ID, gc));
+                        if (!gcCodes.Contains(gc))
+                        {
+                            _dbcon.ExecuteNonQuery(string.Format("delete from gccomgc where bm_id='{0}' and gccode='{1}'", bm.ID, gc));
+                        }
+                    }
+                    foreach (string gc in gcCodes)
+                    {
+                        if (!gcav.Contains(gc))
+                        {
+                            _dbcon.ExecuteNonQuery(string.Format("insert into gccomgc (bm_id, gccode) values ('{0}', '{1}')", bm.ID, gc));
+                        }
                     }
                 }
-                foreach (string gc in gcCodes)
+            }
+        }
+
+
+        public List<Attachement.Item> GetAttachements(string gcCode)
+        {
+            List<Attachement.Item> result = new List<Attachement.Item>();
+            lock (this)
+            {
+                if (_dbcon != null)
                 {
-                    if (!gcav.Contains(gc))
+                    DbDataReader dr;
+                    if (string.IsNullOrEmpty(gcCode))
                     {
-                        _dbcon.ExecuteNonQuery(string.Format("insert into gccomgc (bm_id, gccode) values ('{0}', '{1}')", bm.ID, gc));
+                        dr = _dbcon.ExecuteReader("select gccode, filename, comments from attachm");
                     }
+                    else
+                    {
+                        dr = _dbcon.ExecuteReader(string.Format("select gccode, filename, comments from attachm where gccode='{0}'", gcCode));
+                    }
+                    while (dr.Read())
+                    {
+                        Attachement.Item it = new Attachement.Item();
+                        it.GeocacheCode = dr["gccode"] as string;
+                        it.FileName = dr["filename"] as string;
+                        it.Comment = dr["comments"] as string;
+                        result.Add(it);
+                    }
+                }
+            }
+            return result;
+        }
+        public void AddAttachement(Attachement.Item item)
+        {
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    _dbcon.ExecuteNonQuery(string.Format("insert into attachm (gccode, filename, comments) values ('{0}','{1}','{2}')", item.GeocacheCode, item.FileName, item.Comment.Replace("'", "''")));
+                }
+            }
+        }
+        public void DeleteAttachement(Attachement.Item item)
+        {
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    _dbcon.ExecuteNonQuery(string.Format("delete from attachm where gccode='{0}' and filename='{1}' and comments='{2}'", item.GeocacheCode, item.FileName, item.Comment.Replace("'", "''")));
                 }
             }
         }

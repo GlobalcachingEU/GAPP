@@ -30,5 +30,10 @@ namespace GAPPSF.Core
         void DeleteGCComBookmark(GCComBookmarks.Bookmark bm);
         List<string> LoadGCComBookmarkGeocaches(GCComBookmarks.Bookmark bm);
         void SaveGCComBookmarkGeocaches(GCComBookmarks.Bookmark bm, List<string> gcCodes);
+
+        //attachements
+        List<Attachement.Item> GetAttachements(string gcCode);
+        void AddAttachement(Attachement.Item item);
+        void DeleteAttachement(Attachement.Item item);
     }
 }

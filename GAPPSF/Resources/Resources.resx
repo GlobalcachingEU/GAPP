@@ -746,7 +746,7 @@ This wizard will guide you through the initial setup. Before you start, you migh
     <value>Export GPX</value>
   </data>
   <data name="FileName" xml:space="preserve">
-    <value>FileName</value>
+    <value>File name</value>
   </data>
   <data name="ExportingGPX" xml:space="preserve">
     <value>Exporting GPX</value>
@@ -1257,5 +1257,11 @@ This wizard will guide you through the initial setup. Before you start, you migh
   </data>
   <data name="CreatingOfflineImageFolder" xml:space="preserve">
     <value>Creating offline image folder</value>
+  </data>
+  <data name="Attachement" xml:space="preserve">
+    <value>Attachement</value>
+  </data>
+  <data name="Attachements" xml:space="preserve">
+    <value>Attachements</value>
   </data>
 </root>

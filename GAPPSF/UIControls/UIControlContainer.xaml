@@ -30,6 +30,7 @@
                 <MenuItem Header="{l:Translate IgnoreGeocaches}" Click="MenuItem_Click_7" />
                 <MenuItem Header="{l:Translate DebugLogView}" Click="MenuItem_Click_8" />
                 <MenuItem Header="{l:Translate ActionBuilder}" Click="MenuItem_Click_9" />
+                <MenuItem Header="{l:Translate Attachements}" Click="MenuItem_Click_14" />
             </MenuItem>
         </Menu>
         <Button Width="20" Height="20" HorizontalAlignment="Right" Click="Button_Click">

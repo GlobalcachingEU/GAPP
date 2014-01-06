@@ -2438,5 +2438,12 @@ namespace GAPPSF
             }
         }
 
+        private void menub07_Click(object sender, RoutedEventArgs e)
+        {
+            Window w = new FeatureWindow(new UIControls.Attachement.Control());
+            w.Owner = this;
+            w.Show();
+        }
+
     }
 }
