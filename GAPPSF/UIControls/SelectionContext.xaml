@@ -13,9 +13,9 @@
             <ui:EnumBooleanConverter x:Key="enumBooleanConverter" />
         </Grid.Resources>
         <StackPanel >
-            <RadioButton GroupName="SelectionTarget" IsChecked="{Binding Path=GeocacheSelectionContext, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=NewSelection}" Content="{l:Translate NewSelection}" />
-            <RadioButton GroupName="SelectionTarget" IsChecked="{Binding Path=GeocacheSelectionContext, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=WithinSelection}" Content="{l:Translate WithinSelection}" />
-            <RadioButton GroupName="SelectionTarget" IsChecked="{Binding Path=GeocacheSelectionContext, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=AddToSelection}" Content="{l:Translate AddToSelection}" />
+            <RadioButton GroupName="SelectionTarget" IsChecked="{Binding Path=GeocacheSelectionContext, Converter={StaticResource enumBooleanConverter}, ConverterParameter=NewSelection}" Content="{l:Translate NewSelection}" />
+            <RadioButton GroupName="SelectionTarget" IsChecked="{Binding Path=GeocacheSelectionContext, Converter={StaticResource enumBooleanConverter}, ConverterParameter=WithinSelection}" Content="{l:Translate WithinSelection}" />
+            <RadioButton GroupName="SelectionTarget" IsChecked="{Binding Path=GeocacheSelectionContext, Converter={StaticResource enumBooleanConverter}, ConverterParameter=AddToSelection}" Content="{l:Translate AddToSelection}" />
         </StackPanel>
     </Grid>
 </UserControl>

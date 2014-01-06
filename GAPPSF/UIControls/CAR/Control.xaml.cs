@@ -257,17 +257,21 @@ namespace GAPPSF.UIControls.CAR
                                 using (Utils.ProgressBlock progress = new Utils.ProgressBlock("GeocacheAlongARoute", "ProcessingStep", lat.Length, 0))
                                 {
                                     List<Core.Data.Geocache> gcList;
-                                    if (Core.Settings.Default.GeocacheSelectionContext == SelectionContext.Context.NewSelection)
+                                    if (selectionContext.GeocacheSelectionContext == SelectionContext.Context.NewSelection)
                                     {
                                         gcList = Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection;
                                     }
-                                    else if (Core.Settings.Default.GeocacheSelectionContext == SelectionContext.Context.WithinSelection)
+                                    else if (selectionContext.GeocacheSelectionContext == SelectionContext.Context.WithinSelection)
                                     {
                                         gcList = (from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection where a.Selected select a).ToList();
                                     }
                                     else
                                     {
                                         gcList = (from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection where !a.Selected select a).ToList();
+                                    }
+                                    foreach (var gc in gcList)
+                                    {
+                                        gc.Selected = false;
                                     }
                                     try
                                     {
