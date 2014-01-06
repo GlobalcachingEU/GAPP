@@ -2445,5 +2445,12 @@ namespace GAPPSF
             w.Show();
         }
 
+        private void menubi7_Click(object sender, RoutedEventArgs e)
+        {
+            Window w = new FeatureWindow(new UIControls.CAR.Control());
+            w.Owner = this;
+            w.Show();
+        }
+
     }
 }

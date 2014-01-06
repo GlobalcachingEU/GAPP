@@ -1264,4 +1264,13 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="Attachements" xml:space="preserve">
     <value>Attachements</value>
   </data>
+  <data name="CachesAlongARoute" xml:space="preserve">
+    <value>Caches along a route</value>
+  </data>
+  <data name="RouteFrom" xml:space="preserve">
+    <value>Route from</value>
+  </data>
+  <data name="RouteTo" xml:space="preserve">
+    <value>Route to</value>
+  </data>
 </root>

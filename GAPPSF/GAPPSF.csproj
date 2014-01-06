@@ -163,6 +163,7 @@
     <Compile Include="Core\Settings\AttachementSettings.cs" />
     <Compile Include="Core\Settings\CacheboxSettings.cs" />
     <Compile Include="Core\Settings\CacheListSettings.cs" />
+    <Compile Include="Core\Settings\CARSettings.cs" />
     <Compile Include="Core\Settings\DebugLogViewSettings.cs" />
     <Compile Include="Core\Settings\ExcelSettings.cs" />
     <Compile Include="Core\Settings\FavoritesSettings.cs" />
@@ -687,6 +688,9 @@
     <Compile Include="UIControls\CacheList\CacheListColumnInfo.cs" />
     <Compile Include="UIControls\CacheList\CacheListColumnInfoCollection.cs" />
     <Compile Include="UIControls\CacheList\DataGridUtil.cs" />
+    <Compile Include="UIControls\CAR\Control.xaml.cs">
+      <DependentUpon>Control.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIControls\CheckedListItem.cs" />
     <Compile Include="UIControls\ComboColorPicker.xaml.cs">
       <DependentUpon>ComboColorPicker.xaml</DependentUpon>
@@ -1040,6 +1044,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIControls\CacheList\CacheList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\CAR\Control.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1736,6 +1744,9 @@
   <ItemGroup>
     <Resource Include="MapProviders\OSMBinMap\DefaultTheme.xml" />
     <Resource Include="MapProviders\OSMBinMap\MissingTile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UIControls\CAR\route.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

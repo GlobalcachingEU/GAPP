@@ -31,6 +31,7 @@
                 <MenuItem Header="{l:Translate DebugLogView}" Click="MenuItem_Click_8" />
                 <MenuItem Header="{l:Translate ActionBuilder}" Click="MenuItem_Click_9" />
                 <MenuItem Header="{l:Translate Attachements}" Click="MenuItem_Click_14" />
+                <MenuItem Header="{l:Translate CachesAlongARoute}" Click="MenuItem_Click_15" />
             </MenuItem>
         </Menu>
         <Button Width="20" Height="20" HorizontalAlignment="Right" Click="Button_Click">

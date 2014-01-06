@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="GAPPSF.UIControls.CAR.Control"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:l="clr-namespace:GAPPSF.Localization"
+             xmlns:p="clr-namespace:GAPPSF.Core"
+             xmlns:ui="clr-namespace:GAPPSF.UIControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.Resources>
+            <ui:EnumBooleanConverter x:Key="enumBooleanConverter" />
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="0">
+            <StackPanel>
+                <Button Content="{l:Translate Restart}" Click="Button_Click" />
+                <ui:SelectionContext x:Name="selectionContext" />
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Grid.Row="1">
+            <StackPanel Orientation="Horizontal">
+                <Button Content="{l:Translate Select}" Width="100" Command="{Binding SelectCommand}" />
+                <ui:NumericUpDown Width="50" Minimum="0.1" Maximum="999" DecimalPlaces="1" Height="30" Value="{Binding CARRadius, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                <RadioButton Margin="2,4,4,2" GroupName="rradiuskm" Content="{l:Translate Km}" IsChecked="{Binding CARKm, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=True, Mode=TwoWay}" />
+                <RadioButton Margin="2,4,4,2" GroupName="rradiuskm" Content="{l:Translate Miles}" IsChecked="{Binding CARKm, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=False, Mode=TwoWay}" />
+            </StackPanel>
+        </GroupBox>
+        <WebBrowser Grid.Row="2" x:Name="webBrowser1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+    </Grid>
+</UserControl>

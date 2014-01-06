@@ -270,6 +270,11 @@ namespace GAPPSF.UIControls
             FeatureControl = new Attachement.Control();
         }
 
+        private void MenuItem_Click_15(object sender, RoutedEventArgs e)
+        {
+            FeatureControl = new CAR.Control();
+        }
+
 
     }
 }
