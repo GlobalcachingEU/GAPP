@@ -1273,4 +1273,13 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="RouteTo" xml:space="preserve">
     <value>Route to</value>
   </data>
+  <data name="ImportCommentsOnly" xml:space="preserve">
+    <value>Import comments only</value>
+  </data>
+  <data name="ImportGCComments" xml:space="preserve">
+    <value>Import GCComments</value>
+  </data>
+  <data name="GeocacheEditor" xml:space="preserve">
+    <value>Geocache Editor</value>
+  </data>
 </root>

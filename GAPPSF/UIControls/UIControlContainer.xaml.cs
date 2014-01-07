@@ -280,6 +280,11 @@ namespace GAPPSF.UIControls
             FeatureControl = new FormulaSolver.Control();
         }
 
+        private void MenuItem_Click_17(object sender, RoutedEventArgs e)
+        {
+            FeatureControl = new GCEditor.Control();
+        }
+
 
     }
 }

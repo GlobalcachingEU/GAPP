@@ -88,6 +88,10 @@
                     <MenuItem x:Name="menu3" Header="{l:Translate GPX}" Command="{Binding ImportGPXCommand}" />
                     <MenuItem x:Name="menu4" Header="{l:Translate GAPPDataStorage}" Command="{Binding ImportGAPPCommand}" />
                     <MenuItem x:Name="menub5" Header="{l:Translate ImportGSAKDatabase}" Command="{Binding ImportGSAKCommand}" />
+                    <MenuItem Header="{l:Translate ImportGCComments}">
+                        <MenuItem x:Name="menu4x" Header="{l:Translate ImportMissingGeocaches}" Command="{Binding ImportGCCMissingCommand}" />
+                        <MenuItem x:Name="menub5x" Header="{l:Translate ImportCommentsOnly}" Command="{Binding ImportGCCCommand}" />
+                    </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{l:Translate Export}">
                     <MenuItem Header="{l:Translate ExportGPX}">
@@ -255,6 +259,7 @@
                     <MenuItem x:Name="menub07" Header="{l:Translate Attachements}" Click="menub07_Click" />
                     <MenuItem x:Name="menubi7" Header="{l:Translate CachesAlongARoute}" Click="menubi7_Click" />
                     <MenuItem x:Name="menubk7" Header="{l:Translate FormulaSolver}" Click="menubk7_Click" />
+                    <MenuItem x:Name="menubkb7" Header="{l:Translate GeocacheEditor}" Click="menubkb7_Click" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate Help}">
                     <MenuItem x:Name="menua37" Header="{l:Translate Forum}" Click="menua37_Click" />

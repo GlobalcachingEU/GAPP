@@ -791,7 +791,40 @@ namespace GAPPSF
 
 
 
-
+        AsyncDelegateCommand _importGCCCommand;
+        public ICommand ImportGCCCommand
+        {
+            get
+            {
+                if (_importGCCCommand == null)
+                {
+                    _importGCCCommand = new AsyncDelegateCommand(param => this.ImportGCC(false),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null);
+                }
+                return _importGCCCommand;
+            }
+        }
+        AsyncDelegateCommand _importGCCMissingCommand;
+        public ICommand ImportGCCMissingCommand
+        {
+            get
+            {
+                if (_importGCCMissingCommand == null)
+                {
+                    _importGCCMissingCommand = new AsyncDelegateCommand(param => this.ImportGCC(true),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null);
+                }
+                return _importGCCMissingCommand;
+            }
+        }
+        public async Task ImportGCC(bool missing)
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                GCComments.Import imp = new GCComments.Import();
+                await imp.ImportGCComments(Core.ApplicationData.Instance.ActiveDatabase, missing);
+            }
+        }
 
 
 
@@ -2455,6 +2488,13 @@ namespace GAPPSF
         private void menubk7_Click(object sender, RoutedEventArgs e)
         {
             Window w = new FeatureWindow(new UIControls.FormulaSolver.Control());
+            w.Owner = this;
+            w.Show();
+        }
+
+        private void menubkb7_Click(object sender, RoutedEventArgs e)
+        {
+            Window w = new FeatureWindow(new UIControls.GCEditor.Control());
             w.Owner = this;
             w.Show();
         }

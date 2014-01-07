@@ -230,6 +230,7 @@
     <Compile Include="Core\Settings\FindLogsOfUserSettings.cs" />
     <Compile Include="Core\Settings\FormulaSolverSettings.cs" />
     <Compile Include="Core\Settings\GCComBookmarkSettings.cs" />
+    <Compile Include="Core\Settings\GCEditor.cs" />
     <Compile Include="Core\Settings\GDAKSettings.cs" />
     <Compile Include="Core\Settings\GeocacheFilterSettings.cs" />
     <Compile Include="Core\Settings\GeocacheViewerSettings.cs" />
@@ -594,6 +595,7 @@
     <Compile Include="Gavaghan.Geodesy\GlobalPosition.cs" />
     <Compile Include="GCComBookmarks\Bookmark.cs" />
     <Compile Include="GCComBookmarks\Manager.cs" />
+    <Compile Include="GCComments\Import.cs" />
     <Compile Include="GDAK\Export.cs" />
     <Compile Include="GDAK\ExportWindow.xaml.cs">
       <DependentUpon>ExportWindow.xaml</DependentUpon>
@@ -842,6 +844,9 @@
     <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\WriteToFile.cs" />
     <Compile Include="UIControls\FormulaSolver\StrRes.cs" />
     <Compile Include="UIControls\FormulaSolver\TypeChecker.cs" />
+    <Compile Include="UIControls\GCEditor\Control.xaml.cs">
+      <DependentUpon>Control.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIControls\GeocacheAttributeSelection.xaml.cs">
       <DependentUpon>GeocacheAttributeSelection.xaml</DependentUpon>
     </Compile>
@@ -1201,6 +1206,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIControls\FormulaSolver\Control.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\GCEditor\Control.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1897,6 +1906,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Resource Include="Resources\General\save.png" />
     <Resource Include="UIControls\FormulaSolver\Grammar\GC-test.txt" />
     <Resource Include="UIControls\FormulaSolver\Grammar\GC2KN1E.txt" />
     <Resource Include="UIControls\FormulaSolver\Grammar\GC2KYR1.txt" />
