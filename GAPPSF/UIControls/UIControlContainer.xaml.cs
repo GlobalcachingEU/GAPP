@@ -275,6 +275,11 @@ namespace GAPPSF.UIControls
             FeatureControl = new CAR.Control();
         }
 
+        private void MenuItem_Click_16(object sender, RoutedEventArgs e)
+        {
+            FeatureControl = new FormulaSolver.Control();
+        }
+
 
     }
 }

@@ -93,6 +93,11 @@ namespace GAPPSF.Core
                     _dbcon.ExecuteNonQuery("create table 'attachm' (gccode text, filename text, comments text)");
                     _dbcon.ExecuteNonQuery("create index idx_att on attachm (gccode)");
                 }
+                if (!_dbcon.TableExists("formulasolv"))
+                {
+                    _dbcon.ExecuteNonQuery("create table 'formulasolv' (gccode text, formula text)");
+                    _dbcon.ExecuteNonQuery("create index idx_form on formulasolv (gccode)");
+                }
             }
             catch(Exception e)
             {
@@ -396,6 +401,38 @@ namespace GAPPSF.Core
                 }
             }
         }
+
+
+        public string GetFormula(string gcCode)
+        {
+            string result = null;
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    result = _dbcon.ExecuteScalar(string.Format("select formula from formulasolv where gccode='{0}'", gcCode)) as string;
+                }
+            }
+            return result;
+        }
+        public void SetFormula(string gcCode, string formula)
+        {
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    if (string.IsNullOrEmpty(formula))
+                    {
+                        _dbcon.ExecuteNonQuery(string.Format("delete from formulasolv where gccode='{0}'", gcCode));
+                    }
+                    else if (_dbcon.ExecuteNonQuery(string.Format("update formulasolv set formula='{1}' where gccode='{0}'", gcCode, formula.Replace("'","''"))) == 0)
+                    {
+                        _dbcon.ExecuteNonQuery(string.Format("insert into formulasolv (gccode, formula) values ('{0}', '{1}')", gcCode, formula.Replace("'", "''")));
+                    }
+                }
+            }
+        }
+
 
     }
 }

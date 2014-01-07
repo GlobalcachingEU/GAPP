@@ -110,6 +110,66 @@
     <Compile Include="ActionSequence\Manager.cs" />
     <Compile Include="Attachement\Item.cs" />
     <Compile Include="Attachement\Manager.cs" />
+    <Compile Include="bsn.GoldParser\Grammar\CgtEntryType.cs" />
+    <Compile Include="bsn.GoldParser\Grammar\CgtReader.cs" />
+    <Compile Include="bsn.GoldParser\Grammar\CgtRecordType.cs" />
+    <Compile Include="bsn.GoldParser\Grammar\CgtVersion.cs" />
+    <Compile Include="bsn.GoldParser\Grammar\CgtWriter.cs" />
+    <Compile Include="bsn.GoldParser\Grammar\CompiledGrammar.cs" />
+    <Compile Include="bsn.GoldParser\Grammar\DfaCharset.cs" />
+    <Compile Include="bsn.GoldParser\Grammar\DfaState.cs" />
+    <Compile Include="bsn.GoldParser\Grammar\GrammarObject.cs" />
+    <Compile Include="bsn.GoldParser\Grammar\GrammarObjectSet.cs" />
+    <Compile Include="bsn.GoldParser\Grammar\Group.cs" />
+    <Compile Include="bsn.GoldParser\Grammar\GroupAdvanceMode.cs" />
+    <Compile Include="bsn.GoldParser\Grammar\GroupEndingMode.cs" />
+    <Compile Include="bsn.GoldParser\Grammar\IGroup.cs" />
+    <Compile Include="bsn.GoldParser\Grammar\IParser.cs" />
+    <Compile Include="bsn.GoldParser\Grammar\LalrAction.cs" />
+    <Compile Include="bsn.GoldParser\Grammar\LalrActionAccept.cs" />
+    <Compile Include="bsn.GoldParser\Grammar\LalrActionGoto.cs" />
+    <Compile Include="bsn.GoldParser\Grammar\LalrActionReduce.cs" />
+    <Compile Include="bsn.GoldParser\Grammar\LalrActionShift.cs" />
+    <Compile Include="bsn.GoldParser\Grammar\LalrActionType.cs" />
+    <Compile Include="bsn.GoldParser\Grammar\LalrActionWithLalrState.cs" />
+    <Compile Include="bsn.GoldParser\Grammar\LalrState.cs" />
+    <Compile Include="bsn.GoldParser\Grammar\ParseMessage.cs" />
+    <Compile Include="bsn.GoldParser\Grammar\Rule.cs" />
+    <Compile Include="bsn.GoldParser\Grammar\Symbol.cs" />
+    <Compile Include="bsn.GoldParser\Grammar\SymbolKind.cs" />
+    <Compile Include="bsn.GoldParser\Parser\DummyGroup.cs" />
+    <Compile Include="bsn.GoldParser\Parser\IToken.cs" />
+    <Compile Include="bsn.GoldParser\Parser\ITokenizer.cs" />
+    <Compile Include="bsn.GoldParser\Parser\LalrProcessor.cs" />
+    <Compile Include="bsn.GoldParser\Parser\LalrStack.cs" />
+    <Compile Include="bsn.GoldParser\Parser\LineInfo.cs" />
+    <Compile Include="bsn.GoldParser\Parser\Reduction.cs" />
+    <Compile Include="bsn.GoldParser\Parser\TextBuffer.cs" />
+    <Compile Include="bsn.GoldParser\Parser\TextToken.cs" />
+    <Compile Include="bsn.GoldParser\Parser\Token.cs" />
+    <Compile Include="bsn.GoldParser\Parser\Tokenizer.cs" />
+    <Compile Include="bsn.GoldParser\Parser\TokenParseResult.cs" />
+    <Compile Include="bsn.GoldParser\Semantic\RuleAttribute.cs" />
+    <Compile Include="bsn.GoldParser\Semantic\RuleAttributeBase.cs" />
+    <Compile Include="bsn.GoldParser\Semantic\RuleDeclarationParser.cs" />
+    <Compile Include="bsn.GoldParser\Semantic\RuleTrimAttribute.cs" />
+    <Compile Include="bsn.GoldParser\Semantic\SemanticActions.cs" />
+    <Compile Include="bsn.GoldParser\Semantic\SemanticNonterminalFactory.cs" />
+    <Compile Include="bsn.GoldParser\Semantic\SemanticNonterminalTypeFactory.cs" />
+    <Compile Include="bsn.GoldParser\Semantic\SemanticNonterminalTypeFactoryHelper.cs" />
+    <Compile Include="bsn.GoldParser\Semantic\SemanticProcessor.cs" />
+    <Compile Include="bsn.GoldParser\Semantic\SemanticTerminalFactory.cs" />
+    <Compile Include="bsn.GoldParser\Semantic\SemanticTerminalTypeFactory.cs" />
+    <Compile Include="bsn.GoldParser\Semantic\SemanticTerminalTypeFactoryHelper.cs" />
+    <Compile Include="bsn.GoldParser\Semantic\SemanticToken.cs" />
+    <Compile Include="bsn.GoldParser\Semantic\SemanticTokenFactory.cs" />
+    <Compile Include="bsn.GoldParser\Semantic\SemanticTrimFactory.cs" />
+    <Compile Include="bsn.GoldParser\Semantic\SemanticTypeActions.cs" />
+    <Compile Include="bsn.GoldParser\Semantic\SymbolTypeMap.cs" />
+    <Compile Include="bsn.GoldParser\Semantic\TerminalAttribute.cs" />
+    <Compile Include="bsn.GoldParser\Xml\GrammarXmlProcessor.cs" />
+    <Compile Include="bsn.GoldParser\Xml\ProcessResult.cs" />
+    <Compile Include="bsn.GoldParser\Xml\TokenXmlReader.cs" />
     <Compile Include="Cachebox\Attributes.cs" />
     <Compile Include="Cachebox\DLong.cs" />
     <Compile Include="Cachebox\Export.cs" />
@@ -168,6 +228,7 @@
     <Compile Include="Core\Settings\ExcelSettings.cs" />
     <Compile Include="Core\Settings\FavoritesSettings.cs" />
     <Compile Include="Core\Settings\FindLogsOfUserSettings.cs" />
+    <Compile Include="Core\Settings\FormulaSolverSettings.cs" />
     <Compile Include="Core\Settings\GCComBookmarkSettings.cs" />
     <Compile Include="Core\Settings\GDAKSettings.cs" />
     <Compile Include="Core\Settings\GeocacheFilterSettings.cs" />
@@ -701,6 +762,86 @@
     <Compile Include="UIControls\DragCanvas.cs" />
     <Compile Include="UIControls\EnumBooleanConverter.cs" />
     <Compile Include="UIControls\EnumValuesExtension.cs" />
+    <Compile Include="UIControls\FormulaSolver\Control.xaml.cs">
+      <DependentUpon>Control.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Assignment.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\BinaryOperation.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\BinaryOperator.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\ConcatElement.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Concatenation.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\DivisionOperator.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Exception\ArgumentCountException.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Exception\ArgumentRangeException.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Exception\FormulaSolverException.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\ExecutionContext.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Expression.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\FormulaInterpreter.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\FunctionCall.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\ContextFuntions\SetContext.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\CoordinateFunctions\Bearing.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\CoordinateFunctions\Crossbearing.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\CoordinateFunctions\Distance.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\CoordinateFunctions\Intersection.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\CoordinateFunctions\Latitude.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\CoordinateFunctions\Longitude.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\CoordinateFunctions\Projection.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\CoordinateFunctions\Waypoint.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\FunctionDescriptor.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\FunctionList.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\Functor.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\NumberFunctions\CrossProduct.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\NumberFunctions\CrossTotal.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\NumberFunctions\Factorial.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\NumberFunctions\IntFunction.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\NumberFunctions\IteratedCrossProduct.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\NumberFunctions\IteratedCrossTotal.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\NumberFunctions\Pi.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\NumberFunctions\PowerFunction.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\NumberFunctions\PrimeIndex.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\NumberFunctions\PrimeNumber.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\NumberFunctions\Rom2Dec.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\NumberFunctions\RoundFunction.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\TextFunctions\AlphaPos.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\TextFunctions\AlphaSum.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\TextFunctions\Mid.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\TextFunctions\PhoneCode.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\TextFunctions\PhoneSum.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\TextFunctions\Reverse.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\TextFunctions\Rot13.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\TextFunctions\TextLen.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\TrigonometricFunctions\ACos.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\TrigonometricFunctions\ASin.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\TrigonometricFunctions\ATan.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\TrigonometricFunctions\Cos.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\TrigonometricFunctions\CosH.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\TrigonometricFunctions\InverseTrigonometricFunction.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\TrigonometricFunctions\Sin.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\TrigonometricFunctions\SinH.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\TrigonometricFunctions\Tan.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\TrigonometricFunctions\TanH.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\TrigonometricFunctions\TrigonometricFunction.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\UnknownFunction.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\Utils\ArgumentChecker.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\Utils\CharMapAlphabet.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\Utils\CharMapAlphabetInverse.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\Utils\CharMapPhoneCode.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Functions\Utils\ICharacterMapper.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\FunctionToken.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\GCToken.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Identifier.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\MinusOperator.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\ModuloOperator.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\MultiplyOperator.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Negate.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\NumberLiteral.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Optional.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\PlusOperator.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Sequence.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\StringLiteral.cs" />
+    <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\WriteToFile.cs" />
+    <Compile Include="UIControls\FormulaSolver\StrRes.cs" />
+    <Compile Include="UIControls\FormulaSolver\TypeChecker.cs" />
     <Compile Include="UIControls\GeocacheAttributeSelection.xaml.cs">
       <DependentUpon>GeocacheAttributeSelection.xaml</DependentUpon>
     </Compile>
@@ -1059,6 +1200,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UIControls\FormulaSolver\Control.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UIControls\GeocacheAttributeSelection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1157,6 +1302,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="UIControls\FormulaSolver\Grammar\SingleLineFormula.egt" />
+    <None Include="UIControls\FormulaSolver\Grammar\SingleLineFormula.grm" />
     <Resource Include="iGeoKnife\sqlite.db3" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -1747,6 +1894,77 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="UIControls\CAR\route.html" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="UIControls\FormulaSolver\Grammar\GC-test.txt" />
+    <Resource Include="UIControls\FormulaSolver\Grammar\GC2KN1E.txt" />
+    <Resource Include="UIControls\FormulaSolver\Grammar\GC2KYR1.txt" />
+    <Resource Include="UIControls\FormulaSolver\Grammar\GC2NX2Z.txt" />
+    <Resource Include="UIControls\FormulaSolver\Grammar\GC389DQ.txt" />
+    <Resource Include="UIControls\FormulaSolver\Grammar\GC44XH7.txt" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\nl\dlg_insertformula.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\nl\dlg_mainwindow.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\nl\dlg_waypoints.png" />
+    <Content Include="UIControls\FormulaSolver\Documentation\nl\formulasolverdocs.html" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\nl\icon_gapp.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\nl\icon_solver.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\nl\missing_declarations.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\nl\missing_declarations_after.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\nl\missing_declarations_before.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\nl\smpl_assignments.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\nl\smpl_coordinatefunctions.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\nl\smpl_numberfunctions.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\nl\smpl_operations.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\nl\smpl_textfunctions.png" />
+    <Content Include="UIControls\FormulaSolver\Documentation\nl\TiddlySaver.jar" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\fr\dlg_insertformula.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\fr\dlg_mainwindow.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\fr\dlg_waypoints.png" />
+    <Content Include="UIControls\FormulaSolver\Documentation\fr\formulasolverdocs.html" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\fr\icon_gapp.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\fr\icon_solver.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\fr\missing_declarations.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\fr\missing_declarations_after.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\fr\missing_declarations_before.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\fr\smpl_assignments.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\fr\smpl_coordinatefunctions.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\fr\smpl_numberfunctions.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\fr\smpl_operations.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\fr\smpl_textfunctions.png" />
+    <Content Include="UIControls\FormulaSolver\Documentation\fr\TiddlySaver.jar" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\en\dlg_insertformula.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\en\dlg_mainwindow.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\en\dlg_waypoints.png" />
+    <Content Include="UIControls\FormulaSolver\Documentation\en\formulasolverdocs.html" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\en\icon_gapp.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\en\icon_solver.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\en\missing_declarations.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\en\missing_declarations_after.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\en\missing_declarations_before.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\en\samples.txt" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\en\smpl_assignments.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\en\smpl_coordinatefunctions.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\en\smpl_numberfunctions.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\en\smpl_operations.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\en\smpl_textfunctions.png" />
+    <Content Include="UIControls\FormulaSolver\Documentation\en\TiddlySaver.jar" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\de\dlg_insertformula.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\de\dlg_mainwindow.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\de\dlg_waypoints.png" />
+    <Content Include="UIControls\FormulaSolver\Documentation\de\formulasolverdocs.html" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\de\icon_gapp.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\de\icon_solver.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\de\missing_declarations.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\de\missing_declarations_after.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\de\missing_declarations_before.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\de\samples.txt" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\de\smpl_assignments.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\de\smpl_coordinatefunctions.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\de\smpl_numberfunctions.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\de\smpl_operations.png" />
+    <Resource Include="UIControls\FormulaSolver\Documentation\de\smpl_textfunctions.png" />
+    <Content Include="UIControls\FormulaSolver\Documentation\de\TiddlySaver.jar" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

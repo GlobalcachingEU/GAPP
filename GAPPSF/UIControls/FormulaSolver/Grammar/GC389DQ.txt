@@ -1,0 +1,13 @@
+﻿A=AlphaSum("KareemAbdulJabbar")
+B=AlphaSum("CharlesBarkley")
+C=AlphaSum("MichaelJordan")
+D=AlphaSum("DennisRodman")
+E=AlphaSum("ShaquilleONeal")
+F=AlphaSum("KobeBryant")
+G=AlphaSum("FridoFrey")
+H=AlphaSum("DirkNowitzki")
+I=AlphaSum("ChrisBosh")
+
+"N 51 °07."(A+B+C+D-50)" / E 006° 56."(E+F+G+H+I+98)
+
+

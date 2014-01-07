@@ -254,6 +254,7 @@
                     <MenuItem x:Name="menub27" Header="{l:Translate ActionBuilder}" Click="menub27_Click" />
                     <MenuItem x:Name="menub07" Header="{l:Translate Attachements}" Click="menub07_Click" />
                     <MenuItem x:Name="menubi7" Header="{l:Translate CachesAlongARoute}" Click="menubi7_Click" />
+                    <MenuItem x:Name="menubk7" Header="{l:Translate FormulaSolver}" Click="menubk7_Click" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate Help}">
                     <MenuItem x:Name="menua37" Header="{l:Translate Forum}" Click="menua37_Click" />

@@ -2452,5 +2452,12 @@ namespace GAPPSF
             w.Show();
         }
 
+        private void menubk7_Click(object sender, RoutedEventArgs e)
+        {
+            Window w = new FeatureWindow(new UIControls.FormulaSolver.Control());
+            w.Owner = this;
+            w.Show();
+        }
+
     }
 }

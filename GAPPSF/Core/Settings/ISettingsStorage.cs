@@ -35,5 +35,9 @@ namespace GAPPSF.Core
         List<Attachement.Item> GetAttachements(string gcCode);
         void AddAttachement(Attachement.Item item);
         void DeleteAttachement(Attachement.Item item);
+
+        //formula solver
+        string GetFormula(string gcCode);
+        void SetFormula(string gcCode, string formula);
     }
 }

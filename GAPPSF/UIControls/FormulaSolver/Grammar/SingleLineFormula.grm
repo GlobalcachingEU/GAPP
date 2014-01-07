@@ -1,0 +1,117 @@
+﻿"Name"     = 'GC Formula Solver'
+"Author"   = 'Udo Woitek'
+"Version"  = '0.0.1'
+
+"Start Symbol" = <Statement>
+
+! -------------------------------------------------
+! Character Sets
+! -------------------------------------------------
+
+{WS}           = {Whitespace} - {CR} - {LF}
+{String Char}  = {Printable} + {Printable Extended} - ["]
+
+! -------------------------------------------------
+! Terminals
+! -------------------------------------------------
+
+! The following defines the Whitespace terminal using the {WS}
+! set - which excludes the carriage return and line feed 
+! characters
+
+Whitespace    = {WS}+
+DecLiteral    = {Digit}{Digit}*
+FloatLiteral  = {Digit}*[.,]{Digit}+
+StringLiteral = '"'{String Char}*'"'
+Identifier    = {Letter}{AlphaNumeric}*
+
+Function = 'projection' | 'projektion' 
+         | 'intersection' | 'schnittpunkt'
+         | 'crossbearing' | 'kreuzpeilung'
+         | 'bearing' | 'peilung'
+         | 'distance' | 'abstand'
+         | 'crosstotal' | 'quersumme' | 'ct' | 'qs'
+         | 'icrosstotal' | 'iquersumme' | 'ict' | 'iqs'
+         | 'crossproduct' | 'querprodukt' | 'cp' | 'qp'
+         | 'icrossproduct' | 'iquerprodukt' | 'icp' | 'iqp'
+         | 'rom2dec'
+         | 'primenumber' | 'primzahl'
+         | 'primeindex' | 'primindex'
+         | 'int' | 'ganzzahl'
+         | 'round' | 'runden'
+         | 'pi'
+         | 'alphasum' | 'as'
+         | 'alphapos' | 'ap'
+         | 'phonecode' | 'handycode' | 'pc' | 'hc'
+         | 'phonesum' | 'handysum' | 'ps' | 'hs'
+         | 'length' | 'länge' | 'len'
+         | 'reverse'
+         | 'rot13'
+         | 'mid'
+         | 'wp' | 'waypoint' | 'wegpunkt'
+         | 'pow' | 'power' | 'potenz'
+         | 'fact' | 'factorial' | 'fakultät'
+         | 'lat' | 'latitude' | 'längengrad'
+         | 'lon' | 'longitude' | 'breitengrad'
+         | 'setcontext' | 'setzekontext'
+         | 'sin' | 'cos' | 'tan'
+         | 'asin' | 'acos' | 'atan'
+         | 'sinh' | 'cosh' | 'tanh'
+              
+! -------------------------------------------------
+! Rules
+! -------------------------------------------------
+           
+<Statement> ::= <Assignment>
+             | <Expression>
+
+<Assignment> ::= Identifier '=' <Expression>
+              | Identifier '=' 
+
+! -------------------------------------------------
+! Concatenation of Strings and mathematical 
+! expressions in parenthesis converted to strings
+! -------------------------------------------------
+
+<Concatenation> ::= <ConcatElement>
+                 | <ConcatElement> <Concatenation>
+
+<ConcatElement> ::= StringLiteral 
+                 | StringLiteral <ExpressionList>
+                 
+<ExpressionList> ::= '(' <Expression> ')' <ExpressionList>
+                  | '(' <Expression> ')'                 
+                              
+! -------------------------------------------------
+! Mathematical expressions
+! -------------------------------------------------
+
+<Expression>  ::= <Expression> '+' <Mult Exp> 
+               |  <Expression> '-' <Mult Exp> 
+               |  <Mult Exp> 
+
+<Mult Exp>    ::= <Mult Exp> '*' <Negate Exp> 
+               |  <Mult Exp> '/' <Negate Exp> 
+               |  <Mult Exp> '%' <Negate Exp>
+               |  <Negate Exp> 
+
+<Negate Exp>  ::= '-' <Value> 
+               |  <Value> 
+
+!Add more values to the rule below - as needed
+
+<Value>       ::= Identifier            
+               | <FunctionToken> '(' <OptionalArgumentList> ')'
+               | <Concatenation>
+               | DecLiteral
+               | FloatLiteral
+               | '(' <Expression> ')'
+
+<FunctionToken> ::= Function
+                 
+<OptionalArgumentList> ::= <ArgumentList>
+                        | !Empty
+
+<ArgumentList> ::= <Expression> ';' <ArgumentList>
+                | <Expression>
+
