@@ -37,6 +37,7 @@ using System.IO.Compression;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows;
 
 namespace bsn.GoldParser.Grammar {
 	/// <summary>
@@ -166,9 +167,11 @@ namespace bsn.GoldParser.Grammar {
 			if (name == null) {
 				throw new ArgumentNullException("name");
 			}
-			using (Stream stream = type.Assembly.GetManifestResourceStream(type, name)) {
-				return Load(stream);
-			}
+			//using (Stream stream = type.Assembly.GetManifestResourceStream(type, name)) {
+			//	return Load(stream);
+			//}
+            var resinfo = Application.GetResourceStream(GAPPSF.Utils.ResourceHelper.GetResourceUri("/bsn.GoldParser/Semantic/GoldRuleDeclaration.egt"));
+            return Load(resinfo.Stream);
 		}
 
 		public static void Pack(Stream input, Stream output) {

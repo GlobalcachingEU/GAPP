@@ -1344,6 +1344,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UIControls\FormulaSolver\Grammar\SingleLineFormula.egt" />
     <Resource Include="Locus\sqlite.db3" />
+    <Resource Include="bsn.GoldParser\Semantic\GoldRuleDeclaration.egt" />
+    <EmbeddedResource Include="bsn.GoldParser\Semantic\GoldRuleDeclaration.grm" />
     <None Include="UIControls\FormulaSolver\Grammar\SingleLineFormula.grm" />
     <Resource Include="iGeoKnife\sqlite.db3" />
     <None Include="Properties\Settings.settings">
