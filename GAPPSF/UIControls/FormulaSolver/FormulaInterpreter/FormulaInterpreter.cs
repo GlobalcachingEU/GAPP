@@ -24,9 +24,9 @@ namespace GAPPSF.UIControls.FormulaSolver.FormulaInterpreter
             {
                 actions.Initialize(true);
             }
-            catch (InvalidOperationException ex)
+            catch (System.Exception e)
             {
-                System.Diagnostics.Debug.Write(ex.Message);
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
             }
         }
 
