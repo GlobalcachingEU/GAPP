@@ -1291,4 +1291,19 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="OwnerId" xml:space="preserve">
     <value>Owner Id</value>
   </data>
+  <data name="DefaultName" xml:space="preserve">
+    <value>Default Name</value>
+  </data>
+  <data name="WaypointEditor" xml:space="preserve">
+    <value>Waypoint Editor</value>
+  </data>
+  <data name="ID" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="UrlName" xml:space="preserve">
+    <value>Url name</value>
+  </data>
+  <data name="Waypoint" xml:space="preserve">
+    <value>Waypoint</value>
+  </data>
 </root>

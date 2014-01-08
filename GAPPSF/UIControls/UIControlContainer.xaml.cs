@@ -285,6 +285,11 @@ namespace GAPPSF.UIControls
             FeatureControl = new GCEditor.Control();
         }
 
+        private void MenuItem_Click_18(object sender, RoutedEventArgs e)
+        {
+            FeatureControl = new WPEditor.Control();
+        }
+
 
     }
 }

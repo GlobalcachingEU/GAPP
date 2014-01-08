@@ -230,7 +230,7 @@
     <Compile Include="Core\Settings\FindLogsOfUserSettings.cs" />
     <Compile Include="Core\Settings\FormulaSolverSettings.cs" />
     <Compile Include="Core\Settings\GCComBookmarkSettings.cs" />
-    <Compile Include="Core\Settings\GCEditor.cs" />
+    <Compile Include="Core\Settings\GCEditorSettings.cs" />
     <Compile Include="Core\Settings\GDAKSettings.cs" />
     <Compile Include="Core\Settings\GeocacheFilterSettings.cs" />
     <Compile Include="Core\Settings\GeocacheViewerSettings.cs" />
@@ -249,6 +249,7 @@
     <Compile Include="Core\Settings\ISettingsStorage.cs" />
     <Compile Include="Core\Settings\ShapefilesSettings.cs" />
     <Compile Include="Core\Settings\SqliteSettingsStorage.cs" />
+    <Compile Include="Core\Settings\WPEditorSettings.cs" />
     <Compile Include="Core\Storage\DatabaseCollection.cs" />
     <Compile Include="Devices\GarminMassStorage.cs" />
     <Compile Include="Dialogs\About\AboutAssemblyDataProvider.cs" />
@@ -923,6 +924,12 @@
       <DependentUpon>UpDownButtons.xaml</DependentUpon>
     </Compile>
     <Compile Include="UIControls\UpDownCtrls\ValidTimeItem.cs" />
+    <Compile Include="UIControls\WaypointTypeCombo.xaml.cs">
+      <DependentUpon>WaypointTypeCombo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UIControls\WPEditor\Control.xaml.cs">
+      <DependentUpon>Control.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils\Calculus.cs" />
     <Compile Include="Utils\Conversion.cs" />
     <Compile Include="Utils\DataAccess.cs" />
@@ -1303,6 +1310,14 @@
     <Page Include="UIControls\UpDownCtrls\UpDownButtons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UIControls\WaypointTypeCombo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\WPEditor\Control.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

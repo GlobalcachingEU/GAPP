@@ -43,7 +43,7 @@ namespace GAPPSF.Core.Data
                 ms.Position = 200;
                 bw.Write(data.GeocacheCode);
                 ms.Position = 240;
-                bw.Write(data.Code);
+                bw.Write(data.Code ?? "");
                 ms.Position = 280;
                 bw.Write(GetSafeString(280, 500, data.Description) ?? "");
                 ms.Position = 500;
@@ -53,10 +53,15 @@ namespace GAPPSF.Core.Data
                 ms.Position = 700;
                 bw.Write(data.UrlName ?? "");
                 ms.Position = 800;
-                bw.Write(data.Comment);
+                bw.Write(data.Comment ?? "");
 
                 RecordInfo = db.RequestWaypointRecord(data.ID, data.GeocacheCode, DataBuffer, ms.Position, 100);
             }
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0}, {1}", Code ?? "", Description ?? "");
         }
 
         public int CompareTo(object obj)

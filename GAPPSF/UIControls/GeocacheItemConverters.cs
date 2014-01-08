@@ -74,6 +74,28 @@ namespace GAPPSF.UIControls
         }
     }
 
+    public class WaypointTypeConverter : IValueConverter
+    {
+        public WaypointTypeConverter()
+        {
+        }
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            GAPPSF.Core.Data.WaypointType gct = value as GAPPSF.Core.Data.WaypointType;
+            if (gct != null)
+            {
+                return Utils.ResourceHelper.GetResourceUri(string.Format("/Resources/WPTypes/{0}.gif", gct.ID));
+            }
+            return null;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
+
     public class GeocacheAttributeConverter : IValueConverter
     {
         public GeocacheAttributeConverter()

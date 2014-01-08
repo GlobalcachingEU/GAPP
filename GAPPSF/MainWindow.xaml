@@ -260,6 +260,7 @@
                     <MenuItem x:Name="menubi7" Header="{l:Translate CachesAlongARoute}" Click="menubi7_Click" />
                     <MenuItem x:Name="menubk7" Header="{l:Translate FormulaSolver}" Click="menubk7_Click" />
                     <MenuItem x:Name="menubkb7" Header="{l:Translate GeocacheEditor}" Click="menubkb7_Click" />
+                    <MenuItem x:Name="menubkb8" Header="{l:Translate WaypointEditor}" Click="menubkb8_Click" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate Help}">
                     <MenuItem x:Name="menua37" Header="{l:Translate Forum}" Click="menua37_Click" />

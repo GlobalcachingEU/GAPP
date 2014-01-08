@@ -63,7 +63,7 @@
                         </Style>
                     </Image.Style>
                 </Image>
-                <Button Margin="4" HorizontalAlignment="Right" Width="20" Height="20" ToolTip="{l:Translate New}">
+                <Button Margin="4" HorizontalAlignment="Right" Width="20" Height="20" ToolTip="{l:Translate New}" Click="Button_Click_3">
                     <Image Width="16" Height="16" Source="/Resources/general/new.png" />
                 </Button>
             </Grid>

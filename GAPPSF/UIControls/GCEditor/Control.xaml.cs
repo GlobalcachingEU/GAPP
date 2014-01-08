@@ -411,5 +411,58 @@ namespace GAPPSF.UIControls.GCEditor
             GeocacheCustomCoordinate = null;
         }
 
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                Core.Data.GeocacheData gc = new Core.Data.GeocacheData();
+
+                int maxId = int.MaxValue - 411120 - 100;
+                bool found = true;
+                string gcCode = "";
+                while (found)
+                {
+                    maxId--;
+                    gcCode = Utils.Conversion.GetCacheCodeFromCacheID(maxId);
+                    found = Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection.GetGeocache(gcCode) != null;
+                }
+                gc.Code = gcCode;
+                gc.Archived = false;
+                gc.Available = true;
+                gc.City = "";
+                gc.Container = Utils.DataAccess.GetGeocacheContainer(3);
+                gc.Country = "";
+                gc.Difficulty = 1.0;
+                gc.EncodedHints = "";
+                gc.Favorites = 0;
+                gc.Flagged = false;
+                gc.Found = false;
+                gc.GeocacheType = Utils.DataAccess.GetGeocacheType(2);
+                gc.Lat = Core.ApplicationData.Instance.CenterLocation.Lat;
+                gc.Locked = false;
+                gc.Lon = Core.ApplicationData.Instance.CenterLocation.Lon;
+                gc.LongDescription = "";
+                gc.LongDescriptionInHtml = false;
+                gc.MemberOnly = false;
+                gc.Municipality = "";
+                gc.Name = Localization.TranslationManager.Instance.Translate("DefaultName") as string;
+                gc.Notes = "";
+                gc.Owner = Core.ApplicationData.Instance.AccountInfos.GetAccountInfo("GC").AccountName;
+                gc.OwnerId = "0";
+                gc.PersonalNote = "";
+                gc.PlacedBy = gc.Owner;
+                gc.PublishedTime = DateTime.Now;
+                gc.ShortDescription = "";
+                gc.ShortDescriptionInHtml = false;
+                gc.State = "";
+                gc.Terrain = 1.0;
+                gc.Url = "";
+
+                Utils.DataAccess.AddGeocache(Core.ApplicationData.Instance.ActiveDatabase, gc);
+                Core.ApplicationData.Instance.ActiveGeocache = Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection.GetGeocache(gcCode);
+            }
+
+        }
+
     }
 }
