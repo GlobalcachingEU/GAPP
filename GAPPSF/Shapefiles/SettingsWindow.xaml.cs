@@ -40,7 +40,7 @@ namespace GAPPSF.Shapefiles
                     //Area type
                     //name prefix
                     string[] parts = shpFile.Split(new char[] { '|' }, 7);
-                    if (parts.Length == 6)
+                    if (parts.Length >= 6)
                     {
                         try
                         {

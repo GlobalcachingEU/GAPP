@@ -1306,4 +1306,10 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="Waypoint" xml:space="preserve">
     <value>Waypoint</value>
   </data>
+  <data name="ExportingLocus" xml:space="preserve">
+    <value>Exporting Locus - addon GSAK Database</value>
+  </data>
+  <data name="ExportLocus" xml:space="preserve">
+    <value>Export Locus - addon GSAK Database</value>
+  </data>
 </root>

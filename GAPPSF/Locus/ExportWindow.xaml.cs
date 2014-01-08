@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace GAPPSF.iGeoKnife
+namespace GAPPSF.Locus
 {
     /// <summary>
     /// Interaction logic for ExportWindow.xaml
@@ -40,7 +40,7 @@ namespace GAPPSF.iGeoKnife
             var dlg = new Dialogs.FolderPickerDialog();
             if (dlg.ShowDialog()==true)
             {
-                Core.Settings.Default.IGeoKnifeFolderName = dlg.SelectedPath;
+                Core.Settings.Default.LocusFolderName = dlg.SelectedPath;
             }
         }
 
@@ -62,7 +62,7 @@ namespace GAPPSF.iGeoKnife
             {
                 try
                 {
-                    Export.ExportToFile(System.IO.Path.Combine(Core.Settings.Default.IGeoKnifeFolderName, "sqlite.db3"), _gcList);
+                    Export.ExportToFile(System.IO.Path.Combine(Core.Settings.Default.LocusFolderName, "sqlite.db3"), _gcList);
                 }
                 catch(Exception e)
                 {
@@ -75,7 +75,7 @@ namespace GAPPSF.iGeoKnife
         private bool canExport()
         {
             bool result = false;
-            if (!string.IsNullOrEmpty(Core.Settings.Default.IGeoKnifeFolderName))
+            if (!string.IsNullOrEmpty(Core.Settings.Default.LocusFolderName))
             {
                 return true;
             }

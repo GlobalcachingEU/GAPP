@@ -1490,6 +1490,75 @@ namespace GAPPSF
 
 
 
+        RelayCommand _exportLocusActiveCommand;
+        public ICommand ExportLocusActiveCommand
+        {
+            get
+            {
+                if (_exportLocusActiveCommand == null)
+                {
+                    _exportLocusActiveCommand = new RelayCommand(param => this.ExportLocusActive(),
+                        param => Core.ApplicationData.Instance.ActiveGeocache != null);
+                }
+                return _exportLocusActiveCommand;
+            }
+        }
+        private void ExportLocusActive()
+        {
+            if (Core.ApplicationData.Instance.ActiveGeocache != null)
+            {
+                ExportLocus(new Core.Data.Geocache[] { Core.ApplicationData.Instance.ActiveGeocache }.ToList());
+            }
+        }
+        RelayCommand _exportLocusSelectedCommand;
+        public ICommand ExportLocusSelectedCommand
+        {
+            get
+            {
+                if (_exportLocusSelectedCommand == null)
+                {
+                    _exportLocusSelectedCommand = new RelayCommand(param => this.ExportLocusSelected(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null && this.GeocacheSelectionCount > 0);
+                }
+                return _exportLocusSelectedCommand;
+            }
+        }
+        private void ExportLocusSelected()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                ExportLocus((from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection where a.Selected select a).ToList());
+            }
+        }
+        RelayCommand _exportLocusAllCommand;
+        public ICommand ExportLocusAllCommand
+        {
+            get
+            {
+                if (_exportLocusAllCommand == null)
+                {
+                    _exportLocusAllCommand = new RelayCommand(param => this.ExportLocusAll(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null);
+                }
+                return _exportLocusAllCommand;
+            }
+        }
+        private void ExportLocusAll()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                ExportLocus(Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection);
+            }
+        }
+        private void ExportLocus(List<Core.Data.Geocache> gcList)
+        {
+            Locus.ExportWindow dlg = new Locus.ExportWindow(gcList);
+            dlg.ShowDialog();
+        }
+
+
+
+
 
         RelayCommand _exportGDAKActiveCommand;
         public ICommand ExportGDAKActiveCommand

@@ -359,9 +359,15 @@ namespace GAPPSF.Utils
                         if (s.StartsWith("img ", StringComparison.OrdinalIgnoreCase))
                         {
                             int pos = s.IndexOf(" src", StringComparison.OrdinalIgnoreCase);
-                            pos = s.IndexOfAny(new char[] { '\'', '"' }, pos);
-                            int pos2 = s.IndexOfAny(new char[] { '\'', '"' }, pos + 1);
-                            bresult.Add(s.Substring(pos + 1, pos2 - pos - 1));
+                            if (pos >= 0)
+                            {
+                                pos = s.IndexOfAny(new char[] { '\'', '"' }, pos);
+                                if (pos >= 0)
+                                {
+                                    int pos2 = s.IndexOfAny(new char[] { '\'', '"' }, pos + 1);
+                                    bresult.Add(s.Substring(pos + 1, pos2 - pos - 1));
+                                }
+                            }
                         }
                     }
                 }

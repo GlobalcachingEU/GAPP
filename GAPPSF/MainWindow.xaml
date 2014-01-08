@@ -119,6 +119,11 @@
                         <MenuItem x:Name="menu411" Header="{l:Translate Selected}" Command="{Binding ExportGDAKSelectedCommand}" />
                         <MenuItem x:Name="menu412" Header="{l:Translate All}" Command="{Binding ExportGDAKAllCommand}" />
                     </MenuItem>
+                    <MenuItem Header="{l:Translate ExportLocus}">
+                        <MenuItem x:Name="menu410x" Header="{l:Translate Active}" Command="{Binding ExportLocusActiveCommand}" />
+                        <MenuItem x:Name="menu411x" Header="{l:Translate Selected}" Command="{Binding ExportLocusSelectedCommand}" />
+                        <MenuItem x:Name="menu412x" Header="{l:Translate All}" Command="{Binding ExportLocusAllCommand}" />
+                    </MenuItem>
                     <MenuItem Header="{l:Translate ExportCachebox}">
                         <MenuItem x:Name="menu4x10" Header="{l:Translate Active}" Command="{Binding ExportCacheboxActiveCommand}" />
                         <MenuItem x:Name="menu4x11" Header="{l:Translate Selected}" Command="{Binding ExportCacheboxSelectedCommand}" />

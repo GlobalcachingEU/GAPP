@@ -241,6 +241,7 @@
     <Compile Include="Core\Settings\IgnoreGeocachesSettings.cs" />
     <Compile Include="Core\Settings\LiveAPIGetGCSettings.cs" />
     <Compile Include="Core\Settings\LiveAPISettings.cs" />
+    <Compile Include="Core\Settings\LocusSettings.cs" />
     <Compile Include="Core\Settings\MainWindowSettings.cs" />
     <Compile Include="Core\Settings\MapsSettings.cs" />
     <Compile Include="Core\Settings\OfflineImageSettings.cs" />
@@ -634,6 +635,10 @@
     <Compile Include="Localization\TranslateExtension.cs" />
     <Compile Include="Localization\TranslationData.cs" />
     <Compile Include="Localization\TranslationManager.cs" />
+    <Compile Include="Locus\Export.cs" />
+    <Compile Include="Locus\ExportWindow.xaml.cs">
+      <DependentUpon>ExportWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MapProviders\BitmapStore.cs" />
     <Compile Include="MapProviders\Google\BitmapStoreGoogle.cs" />
     <Compile Include="MapProviders\Google\MapControlFactoryGoogle.cs" />
@@ -1025,6 +1030,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Locus\ExportWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1334,6 +1343,7 @@
       <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="UIControls\FormulaSolver\Grammar\SingleLineFormula.egt" />
+    <Resource Include="Locus\sqlite.db3" />
     <None Include="UIControls\FormulaSolver\Grammar\SingleLineFormula.grm" />
     <Resource Include="iGeoKnife\sqlite.db3" />
     <None Include="Properties\Settings.settings">
