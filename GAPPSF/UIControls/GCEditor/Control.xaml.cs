@@ -51,17 +51,35 @@ namespace GAPPSF.UIControls.GCEditor
             get { return _difTerOptions; }
         }
 
+        private Visibility _warningVisibility;
+        public Visibility WarningVisibility
+        {
+            get { return _warningVisibility; }
+            set { SetProperty(ref _warningVisibility, value); }
+        }
+
 
         public Control()
         {
             InitializeComponent();
             Core.ApplicationData.Instance.PropertyChanged += Instance_PropertyChanged;
+            Core.Settings.Default.PropertyChanged += Default_PropertyChanged;
             UpdateView();
+            WarningVisibility = Core.Settings.Default.GCEditorEditActiveOnly ? Visibility.Collapsed : Visibility.Visible;
             DataContext = this;
+        }
+
+        void Default_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "GCEditorEditActiveOnly")
+            {
+                WarningVisibility = Core.Settings.Default.GCEditorEditActiveOnly ? Visibility.Collapsed : Visibility.Visible;               
+            }
         }
 
         public void Dispose()
         {
+            Core.Settings.Default.PropertyChanged -= Default_PropertyChanged;
             Core.ApplicationData.Instance.PropertyChanged -= Instance_PropertyChanged;
         }
 
@@ -79,6 +97,7 @@ namespace GAPPSF.UIControls.GCEditor
             {
                 GeocacheData = null;
                 GeocacheCoordinate = null;
+                geocacheTypeCombo.SelectedItem = null;
             }
             else
             {
@@ -86,6 +105,7 @@ namespace GAPPSF.UIControls.GCEditor
                 Core.Data.GeocacheData.Copy(Core.ApplicationData.Instance.ActiveGeocache, gd);
                 GeocacheData = gd;
                 GeocacheCoordinate = Utils.Conversion.GetCoordinatesPresentation(gd.Lat, gd.Lon);
+                geocacheTypeCombo.SelectedItem = gd.GeocacheType;
             }
         }
 
@@ -139,6 +159,7 @@ namespace GAPPSF.UIControls.GCEditor
                 {
                     using (Utils.DataUpdater upd = new Utils.DataUpdater(Core.ApplicationData.Instance.ActiveDatabase))
                     {
+                        GeocacheData.GeocacheType = geocacheTypeCombo.SelectedItem;
                         await Task.Run(() =>
                         {
                             try

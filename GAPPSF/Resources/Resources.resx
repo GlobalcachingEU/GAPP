@@ -1282,4 +1282,13 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="GeocacheEditor" xml:space="preserve">
     <value>Geocache Editor</value>
   </data>
+  <data name="GCEditorEditActiveOnly" xml:space="preserve">
+    <value>Edit active geocache only</value>
+  </data>
+  <data name="GCEditorEditSelection" xml:space="preserve">
+    <value>Edit selected geocaches</value>
+  </data>
+  <data name="OwnerId" xml:space="preserve">
+    <value>Owner Id</value>
+  </data>
 </root>

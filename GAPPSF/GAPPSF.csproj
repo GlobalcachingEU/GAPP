@@ -850,6 +850,9 @@
     <Compile Include="UIControls\GeocacheAttributeSelection.xaml.cs">
       <DependentUpon>GeocacheAttributeSelection.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UIControls\GeocacheTypeCombo.xaml.cs">
+      <DependentUpon>GeocacheTypeCombo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIControls\LogTypeSelection.xaml.cs">
       <DependentUpon>LogTypeSelection.xaml</DependentUpon>
     </Compile>
@@ -1214,6 +1217,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIControls\GeocacheAttributeSelection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\GeocacheTypeCombo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1916,6 +1923,7 @@
     <Resource Include="UIControls\FormulaSolver\Documentation\nl\dlg_insertformula.png" />
     <Resource Include="UIControls\FormulaSolver\Documentation\nl\dlg_mainwindow.png" />
     <Resource Include="UIControls\FormulaSolver\Documentation\nl\dlg_waypoints.png" />
+    <Resource Include="Resources\General\warning.png" />
     <Content Include="UIControls\FormulaSolver\Documentation\nl\formulasolverdocs.html" />
     <Resource Include="UIControls\FormulaSolver\Documentation\nl\icon_gapp.png" />
     <Resource Include="UIControls\FormulaSolver\Documentation\nl\icon_solver.png" />

@@ -47,7 +47,22 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
-                <CheckBox Margin="4" IsChecked="{Binding GCEditorEditActiveOnly, Source={x:Static p:Settings.Default}, Mode=TwoWay}" Content="{l:Translate EditActive}" HorizontalAlignment="Left" />
+                <CheckBox Margin="4" IsChecked="{Binding GCEditorEditActiveOnly, Source={x:Static p:Settings.Default}, Mode=TwoWay}" Content="{l:Translate GCEditorEditActiveOnly}" HorizontalAlignment="Left" />
+                <Image Width="16" Height="16" Source="/Resources/general/warning.png" HorizontalAlignment="Center" ToolTip="{l:Translate GCEditorEditSelection}" Visibility="{Binding WarningVisibility}" Opacity="1">
+                    <Image.Style>
+                        <Style>
+                            <Style.Triggers>
+                                <EventTrigger RoutedEvent="Image.Loaded">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="(Image.Opacity)" BeginTime="0:0:0" Duration="0:0:2" From="1.0" To="0.0" RepeatBehavior="Forever" AutoReverse="True"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
+                </Image>
                 <Button Margin="4" HorizontalAlignment="Right" Width="20" Height="20" ToolTip="{l:Translate New}">
                     <Image Width="16" Height="16" Source="/Resources/general/new.png" />
                 </Button>
@@ -72,7 +87,7 @@
                     <Image Width="16" Height="16" Source="/Resources/general/edit.png" />
                 </Button>
             </Grid>
-            <TextBlock Margin="4" Grid.Row="4" Grid.Column="0" Text="{l:Translate CustomCoordinate}" />
+            <TextBlock Margin="4" Grid.Row="4" Grid.Column="0" Text="{l:Translate CustomCoord}" />
             <Button Margin="4" Grid.Row="4" Grid.Column="1" Height="20" Width="20" Command="{Binding UpdateCommand}" CommandParameter="CustomCoordinate">
                 <Image Width="16" Height="16" Source="/Resources/general/save.png" />
             </Button>
@@ -136,6 +151,7 @@
             <Button Margin="4" Grid.Row="14" Grid.Column="1" Height="20" Width="20" Command="{Binding UpdateCommand}" CommandParameter="GeocacheType">
                 <Image Width="16" Height="16" Source="/Resources/general/save.png" />
             </Button>
+            <ui:GeocacheTypeCombo x:Name="geocacheTypeCombo"  Margin="4" Grid.Row="14" Grid.Column="2"/>
             <TextBlock Margin="4" Grid.Row="15" Grid.Column="0" Text="{l:Translate PlacedBy}" />
             <Button Margin="4" Grid.Row="15" Grid.Column="1" Height="20" Width="20" Command="{Binding UpdateCommand}" CommandParameter="PlacedBy">
                 <Image Width="16" Height="16" Source="/Resources/general/save.png" />
@@ -176,7 +192,7 @@
                 <Image Width="16" Height="16" Source="/Resources/general/save.png" />
             </Button>
             <ui:NumericUpDown Height="30" Margin="4" Grid.Row="22" Grid.Column="2" Width="60" Minimum="0" Maximum="99999" Value="{Binding Path=GeocacheData.Favorites, Mode=TwoWay}" HorizontalAlignment="Left" />
-            <TextBlock Margin="4" Grid.Row="23" Grid.Column="0" Text="{l:Translate PersonalNote}" />
+            <TextBlock Margin="4" Grid.Row="23" Grid.Column="0" Text="{l:Translate PersonalNotes}" />
             <Button Margin="4" Grid.Row="23" Grid.Column="1" Height="20" Width="20" Command="{Binding UpdateCommand}" CommandParameter="PersonalNote">
                 <Image Width="16" Height="16" Source="/Resources/general/save.png" />
             </Button>
