@@ -2595,5 +2595,12 @@ namespace GAPPSF
             w.Show();
         }
 
+        private void menubbb8_Click(object sender, RoutedEventArgs e)
+        {
+            Window w = new FeatureWindow(new UIControls.LogViewer.Control());
+            w.Owner = this;
+            w.Show();
+        }
+
     }
 }

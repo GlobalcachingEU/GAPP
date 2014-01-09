@@ -242,6 +242,7 @@
     <Compile Include="Core\Settings\LiveAPIGetGCSettings.cs" />
     <Compile Include="Core\Settings\LiveAPISettings.cs" />
     <Compile Include="Core\Settings\LocusSettings.cs" />
+    <Compile Include="Core\Settings\LogViewerSettings.cs" />
     <Compile Include="Core\Settings\MainWindowSettings.cs" />
     <Compile Include="Core\Settings\MapsSettings.cs" />
     <Compile Include="Core\Settings\OfflineImageSettings.cs" />
@@ -906,6 +907,9 @@
     <Compile Include="UIControls\InverseBooleanConverter.cs" />
     <Compile Include="UIControls\IUIControl.cs" />
     <Compile Include="ImageGrabber\OfflineImagesManager.cs" />
+    <Compile Include="UIControls\LogViewer\Control.xaml.cs">
+      <DependentUpon>Control.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIControls\Maps\Control.xaml.cs">
       <DependentUpon>Control.xaml</DependentUpon>
     </Compile>
@@ -1303,6 +1307,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIControls\InputDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\LogViewer\Control.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

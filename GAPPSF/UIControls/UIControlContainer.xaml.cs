@@ -290,6 +290,11 @@ namespace GAPPSF.UIControls
             FeatureControl = new WPEditor.Control();
         }
 
+        private void MenuItem_Click_19(object sender, RoutedEventArgs e)
+        {
+            FeatureControl = new LogViewer.Control();
+        }
+
 
     }
 }
