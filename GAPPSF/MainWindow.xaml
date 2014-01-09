@@ -188,6 +188,7 @@
                         <MenuItem x:Name="menuc27" Header="{l:Translate Edit}" Click="menub27_Click" />
                         <Separator />
                     </MenuItem>
+                    <MenuItem x:Name="menud271" Header="{l:Translate PurgeLogs}" Command="{Binding PurgeLogsCommand}" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate LiveAPI}">
                     <MenuItem x:Name="menu13" Header="{l:Translate Authorize}" Command="{Binding LiveApiAuthorizeCommand}" />

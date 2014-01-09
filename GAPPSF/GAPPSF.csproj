@@ -246,6 +246,7 @@
     <Compile Include="Core\Settings\MapsSettings.cs" />
     <Compile Include="Core\Settings\OfflineImageSettings.cs" />
     <Compile Include="Core\Settings\OV2Settings.cs" />
+    <Compile Include="Core\Settings\PurgeLogsSettings.cs" />
     <Compile Include="Core\Settings\Settings.cs" />
     <Compile Include="Core\Settings\ISettingsStorage.cs" />
     <Compile Include="Core\Settings\ShapefilesSettings.cs" />
@@ -678,6 +679,10 @@
     <Compile Include="OV2\Export.cs" />
     <Compile Include="OV2\ExportWindow.xaml.cs">
       <DependentUpon>ExportWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PurgeLogs\Purger.cs" />
+    <Compile Include="PurgeLogs\PurgerWindow.xaml.cs">
+      <DependentUpon>PurgerWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1178,6 +1183,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="OV2\ExportWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PurgeLogs\PurgerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1959,7 +1968,9 @@
   <ItemGroup>
     <Resource Include="UIControls\CAR\route.html" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\General\add.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\General\save.png" />
     <Resource Include="UIControls\FormulaSolver\Grammar\GC-test.txt" />

@@ -1,0 +1,75 @@
+﻿<Window x:Class="GAPPSF.PurgeLogs.PurgerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:l="clr-namespace:GAPPSF.Localization"
+        xmlns:p="clr-namespace:GAPPSF.Core"
+        xmlns:ui="clr-namespace:GAPPSF.UIControls"
+        Title="{l:Translate PurgeLogs}" Height="300" Width="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock Margin="4" Grid.Row="0" Grid.Column="0" Text="{l:Translate OlderThan}" />
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+            <ui:NumericUpDown Minimum="1" Maximum="99999" Value="{Binding PurgeLogsOlderThanDays, Source={x:Static p:Settings.Default}, Mode=TwoWay}" Width="80" />
+            <TextBlock Margin="4" Text="{l:Translate Days}" />
+        </StackPanel>
+        <TextBlock Margin="4" Grid.Row="1" Grid.Column="0" Text="{l:Translate KeepAtLeast}" />
+        <ui:NumericUpDown Grid.Row="1" Grid.Column="1" Minimum="1" Maximum="99999" Value="{Binding PurgeLogsKeepLogCount, Source={x:Static p:Settings.Default}, Mode=TwoWay}" Width="80" HorizontalAlignment="Left" />
+        <TextBlock Margin="4" Grid.Row="2" Grid.Column="0" Text="{l:Translate KeepAllOfOwnedCaches}" />
+        <CheckBox Margin="4"  Grid.Row="2" Grid.Column="1" IsChecked="{Binding PurgeLogsKeepOfOwnedCaches, Source={x:Static p:Settings.Default}, Mode=TwoWay}"/>
+        <TextBlock Margin="4" Grid.Row="3" Grid.Column="0" Text="{l:Translate KeepAllOfOwnLogs}" />
+        <CheckBox Margin="4"  Grid.Row="3" Grid.Column="1" IsChecked="{Binding PurgeLogsKeepOwnLogs, Source={x:Static p:Settings.Default}, Mode=TwoWay}"/>
+        <TextBlock Margin="4" Grid.Row="4" Grid.Column="0" Text="{l:Translate KeepLogsOf}" />
+        <Grid Grid.Row="4" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ListBox x:Name="keepList" Margin="4" Grid.Row="0" Grid.Column="0" ItemsSource="{Binding KeepLogsOfUsers}" />
+            <TextBox x:Name="newKeepLogsOfUser" Margin="4" Grid.Row="1" Grid.Column="0" />
+            <Button Grid.Row="0" Grid.Column="1" Height="24" Width="24" Click="Button_Click">
+                <Image Width="16" Height="16" Source="/Resources/General/delete.png" />
+            </Button>
+            <Button Grid.Row="1" Grid.Column="1" Height="24" Width="24" Click="Button_Click_2">
+                <Image Width="16" Height="16" Source="/Resources/General/add.png" />
+            </Button>
+        </Grid>
+        <TextBlock Margin="4" Grid.Row="5" Grid.Column="0" Text="{l:Translate RemoveAllLogsFrom}" />
+        <Grid Grid.Row="5" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="21*" />
+                <ColumnDefinition Width="104*"/>
+                <ColumnDefinition Width="11" />
+                <ColumnDefinition Width="13"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ListBox x:Name="removeList" Margin="4" Grid.Row="0" Grid.Column="0" ItemsSource="{Binding RemoveAllLogsOfUsers}" Grid.ColumnSpan="2" />
+            <TextBox x:Name="newRemoveLogsOfUser" Margin="4" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" />
+            <Button Grid.Row="0" Grid.Column="2" Height="24" Width="24" Margin="0,9" Click="Button_Click_1" Grid.ColumnSpan="2">
+                <Image Width="16" Height="16" Source="/Resources/General/delete.png" />
+            </Button>
+            <Button Grid.Row="1" Grid.Column="2" Height="24" Width="24" Margin="0,3" Grid.ColumnSpan="2" Click="Button_Click_3">
+                <Image Width="16" Height="16" Source="/Resources/General/add.png" />
+            </Button>
+        </Grid>
+        <Button Margin="4" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Content="{l:Translate PurgeLogs}" Command="{Binding PurgeLogsCommand}" />
+    </Grid>
+</Window>

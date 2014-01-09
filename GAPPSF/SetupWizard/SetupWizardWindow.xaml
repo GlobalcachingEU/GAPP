@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:l="clr-namespace:GAPPSF.Localization"
         xmlns:p="clr-namespace:GAPPSF.Core"
-        Title="SetupWizardWindow" Height="420" Width="618" ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterScreen" Closed="Window_Closed">
+        Title="{l:Translate SetupWizard}" Height="420" Width="618" ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterScreen" Closed="Window_Closed">
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />

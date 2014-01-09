@@ -2054,6 +2054,26 @@ namespace GAPPSF
             }
         }
 
+
+        RelayCommand _purgeLogsCommand;
+        public ICommand PurgeLogsCommand
+        {
+            get
+            {
+                if (_purgeLogsCommand == null)
+                {
+                    _purgeLogsCommand = new RelayCommand(param => this.PerformPurgeLogs(), param => Core.ApplicationData.Instance.ActiveDatabase != null);
+                }
+                return _purgeLogsCommand;
+            }
+        }
+        public void PerformPurgeLogs()
+        {
+            PurgeLogs.PurgerWindow dlg = new PurgeLogs.PurgerWindow();
+            dlg.ShowDialog();
+        }
+
+
         async private Task OpenDatabase()
         {
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();

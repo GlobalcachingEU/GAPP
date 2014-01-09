@@ -1348,4 +1348,31 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="Insert" xml:space="preserve">
     <value>Insert</value>
   </data>
+  <data name="SetupWizard" xml:space="preserve">
+    <value>Setup Wizard</value>
+  </data>
+  <data name="PurgeLogs" xml:space="preserve">
+    <value>Purge logs</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>Days</value>
+  </data>
+  <data name="KeepAllOfOwnedCaches" xml:space="preserve">
+    <value>Keep all of owned caches</value>
+  </data>
+  <data name="KeepAllOfOwnLogs" xml:space="preserve">
+    <value>Keep all own logs</value>
+  </data>
+  <data name="KeepAtLeast" xml:space="preserve">
+    <value>Keep at least</value>
+  </data>
+  <data name="KeepLogsOf" xml:space="preserve">
+    <value>Keep logs of</value>
+  </data>
+  <data name="OlderThan" xml:space="preserve">
+    <value>Older than</value>
+  </data>
+  <data name="RemoveAllLogsFrom" xml:space="preserve">
+    <value>Remove logs from</value>
+  </data>
 </root>
