@@ -848,8 +848,17 @@
     <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\Sequence.cs" />
     <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\StringLiteral.cs" />
     <Compile Include="UIControls\FormulaSolver\FormulaInterpreter\WriteToFile.cs" />
+    <Compile Include="UIControls\FormulaSolver\InsertFormulaWindow.xaml.cs">
+      <DependentUpon>InsertFormulaWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIControls\FormulaSolver\StrRes.cs" />
     <Compile Include="UIControls\FormulaSolver\TypeChecker.cs" />
+    <Compile Include="UIControls\FormulaSolver\UserHelpWindow.xaml.cs">
+      <DependentUpon>UserHelpWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UIControls\FormulaSolver\WaypointSelectorWindow.xaml.cs">
+      <DependentUpon>WaypointSelectorWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIControls\GCEditor\Control.xaml.cs">
       <DependentUpon>Control.xaml</DependentUpon>
     </Compile>
@@ -1225,6 +1234,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIControls\FormulaSolver\Control.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\FormulaSolver\InsertFormulaWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\FormulaSolver\UserHelpWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\FormulaSolver\WaypointSelectorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1947,69 +1968,70 @@
     <Resource Include="UIControls\FormulaSolver\Grammar\GC2NX2Z.txt" />
     <Resource Include="UIControls\FormulaSolver\Grammar\GC389DQ.txt" />
     <Resource Include="UIControls\FormulaSolver\Grammar\GC44XH7.txt" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\nl\dlg_insertformula.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\nl\dlg_mainwindow.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\nl\dlg_waypoints.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\nl\dlg_insertformula.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\nl\dlg_mainwindow.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\nl\dlg_waypoints.png" />
     <Resource Include="Resources\General\warning.png" />
-    <Content Include="UIControls\FormulaSolver\Documentation\nl\formulasolverdocs.html" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\nl\icon_gapp.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\nl\icon_solver.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\nl\missing_declarations.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\nl\missing_declarations_after.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\nl\missing_declarations_before.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\nl\smpl_assignments.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\nl\smpl_coordinatefunctions.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\nl\smpl_numberfunctions.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\nl\smpl_operations.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\nl\smpl_textfunctions.png" />
-    <Content Include="UIControls\FormulaSolver\Documentation\nl\TiddlySaver.jar" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\fr\dlg_insertformula.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\fr\dlg_mainwindow.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\fr\dlg_waypoints.png" />
-    <Content Include="UIControls\FormulaSolver\Documentation\fr\formulasolverdocs.html" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\fr\icon_gapp.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\fr\icon_solver.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\fr\missing_declarations.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\fr\missing_declarations_after.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\fr\missing_declarations_before.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\fr\smpl_assignments.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\fr\smpl_coordinatefunctions.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\fr\smpl_numberfunctions.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\fr\smpl_operations.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\fr\smpl_textfunctions.png" />
-    <Content Include="UIControls\FormulaSolver\Documentation\fr\TiddlySaver.jar" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\en\dlg_insertformula.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\en\dlg_mainwindow.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\en\dlg_waypoints.png" />
-    <Content Include="UIControls\FormulaSolver\Documentation\en\formulasolverdocs.html" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\en\icon_gapp.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\en\icon_solver.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\en\missing_declarations.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\en\missing_declarations_after.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\en\missing_declarations_before.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\en\samples.txt" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\en\smpl_assignments.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\en\smpl_coordinatefunctions.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\en\smpl_numberfunctions.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\en\smpl_operations.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\en\smpl_textfunctions.png" />
-    <Content Include="UIControls\FormulaSolver\Documentation\en\TiddlySaver.jar" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\de\dlg_insertformula.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\de\dlg_mainwindow.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\de\dlg_waypoints.png" />
-    <Content Include="UIControls\FormulaSolver\Documentation\de\formulasolverdocs.html" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\de\icon_gapp.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\de\icon_solver.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\de\missing_declarations.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\de\missing_declarations_after.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\de\missing_declarations_before.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\de\samples.txt" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\de\smpl_assignments.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\de\smpl_coordinatefunctions.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\de\smpl_numberfunctions.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\de\smpl_operations.png" />
-    <Resource Include="UIControls\FormulaSolver\Documentation\de\smpl_textfunctions.png" />
-    <Content Include="UIControls\FormulaSolver\Documentation\de\TiddlySaver.jar" />
+    <Resource Include="Resources\General\help.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\nl\formulasolverdocs.html" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\nl\icon_gapp.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\nl\icon_solver.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\nl\missing_declarations.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\nl\missing_declarations_after.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\nl\missing_declarations_before.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\nl\smpl_assignments.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\nl\smpl_coordinatefunctions.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\nl\smpl_numberfunctions.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\nl\smpl_operations.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\nl\smpl_textfunctions.png" />
+    <None Include="UIControls\FormulaSolver\Documentation\nl\TiddlySaver.jar" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\fr\dlg_insertformula.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\fr\dlg_mainwindow.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\fr\dlg_waypoints.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\fr\formulasolverdocs.html" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\fr\icon_gapp.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\fr\icon_solver.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\fr\missing_declarations.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\fr\missing_declarations_after.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\fr\missing_declarations_before.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\fr\smpl_assignments.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\fr\smpl_coordinatefunctions.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\fr\smpl_numberfunctions.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\fr\smpl_operations.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\fr\smpl_textfunctions.png" />
+    <None Include="UIControls\FormulaSolver\Documentation\fr\TiddlySaver.jar" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\en\dlg_insertformula.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\en\dlg_mainwindow.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\en\dlg_waypoints.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\en\formulasolverdocs.html" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\en\icon_gapp.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\en\icon_solver.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\en\missing_declarations.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\en\missing_declarations_after.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\en\missing_declarations_before.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\en\samples.txt" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\en\smpl_assignments.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\en\smpl_coordinatefunctions.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\en\smpl_numberfunctions.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\en\smpl_operations.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\en\smpl_textfunctions.png" />
+    <None Include="UIControls\FormulaSolver\Documentation\en\TiddlySaver.jar" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\de\dlg_insertformula.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\de\dlg_mainwindow.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\de\dlg_waypoints.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\de\formulasolverdocs.html" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\de\icon_gapp.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\de\icon_solver.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\de\missing_declarations.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\de\missing_declarations_after.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\de\missing_declarations_before.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\de\samples.txt" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\de\smpl_assignments.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\de\smpl_coordinatefunctions.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\de\smpl_numberfunctions.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\de\smpl_operations.png" />
+    <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\de\smpl_textfunctions.png" />
+    <None Include="UIControls\FormulaSolver\Documentation\de\TiddlySaver.jar" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

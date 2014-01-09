@@ -1312,4 +1312,40 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="ExportLocus" xml:space="preserve">
     <value>Export Locus - addon GSAK Database</value>
   </data>
+  <data name="FormulaSolver" xml:space="preserve">
+    <value>Formula Solver</value>
+  </data>
+  <data name="FormulaSolverHelp" xml:space="preserve">
+    <value>Formula Solver Help</value>
+  </data>
+  <data name="AsCenter" xml:space="preserve">
+    <value>As Center</value>
+  </data>
+  <data name="AsWaypoint" xml:space="preserve">
+    <value>As Waypoint</value>
+  </data>
+  <data name="Functions" xml:space="preserve">
+    <value>Functions</value>
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="InsertFormula" xml:space="preserve">
+    <value>Insert Formula</value>
+  </data>
+  <data name="InsertWaypoint" xml:space="preserve">
+    <value>Insert Waypoint</value>
+  </data>
+  <data name="OtherNames" xml:space="preserve">
+    <value>Other names</value>
+  </data>
+  <data name="SelectWaypoint" xml:space="preserve">
+    <value>Select Waypoint</value>
+  </data>
+  <data name="Solve" xml:space="preserve">
+    <value>Solve</value>
+  </data>
+  <data name="Insert" xml:space="preserve">
+    <value>Insert</value>
+  </data>
 </root>

@@ -74,13 +74,14 @@ namespace GAPPSF.UIControls.FormulaSolver
 
         private void UpdateView()
         {
+            tbSolutions.Text = "";
             if (_currentGeocache != null)
             {
-                //todo
+                tbFormula.Text = Core.Settings.Default.GetFormula(_currentGeocache.Code) ?? "";
             }
             else
             {
-                //todo
+                tbFormula.Text = Core.Settings.Default.GetFormula("NOTE") ?? "";
             }
         }
 
@@ -88,7 +89,11 @@ namespace GAPPSF.UIControls.FormulaSolver
         {
             if (_currentGeocache != null)
             {
-                //todo
+                Core.Settings.Default.SetFormula(_currentGeocache.Code, tbFormula.Text);
+            }
+            else
+            {
+                Core.Settings.Default.SetFormula("NOTE", tbFormula.Text);
             }
         }
 
@@ -205,6 +210,65 @@ namespace GAPPSF.UIControls.FormulaSolver
                 tbSolutions.Text = sb.ToString();
             }
 
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            InsertFormulaWindow dlg = new InsertFormulaWindow();
+            if (dlg.ShowDialog()==true)
+            {
+                UpdateFormulaText(dlg.SelectedFunction, -1);
+            }
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            WaypointSelectorWindow dlg = new WaypointSelectorWindow();
+            if (dlg.ShowDialog()==true)
+            {
+                UpdateFormulaText(string.Format("WP(\"{0}\")", dlg.SelectedWaypoint.Code), 0);
+            }
+        }
+
+        private void UpdateFormulaText(string txt, int moveCursorTo)
+        {
+            tbFormula.Focus();
+            var selectionIndex = tbFormula.SelectionStart;
+            tbFormula.Text = tbFormula.Text.Insert(selectionIndex, txt);
+            tbFormula.SelectionStart = selectionIndex + Math.Max(0, txt.Length + moveCursorTo);
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            //not implemented yet
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            Core.Data.Location ll = null;
+            if (tbSolutions.SelectionLength > 0)
+            {
+                ll = Utils.Conversion.StringToLocation(tbSolutions.SelectedText);
+            }
+            if (ll != null)
+            {
+                Utils.DataAccess.SetCenterLocation(ll.Lat, ll.Lon);
+            }
+            else
+            {
+                Core.ApplicationData.Instance.Logger.AddLog(this, Core.Logger.Level.Error, StrRes.GetString(StrRes.NO_PROPER_COORDINATES_SELECTED));
+            }
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            UserHelpWindow dlg = new UserHelpWindow();
+            dlg.ShowDialog();
+        }
+
+        private void Grid_MouseLeave(object sender, MouseEventArgs e)
+        {
+            saveData();
         }
 
 

@@ -1,0 +1,9 @@
+﻿<Window x:Class="GAPPSF.UIControls.FormulaSolver.UserHelpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:l="clr-namespace:GAPPSF.Localization"
+        Title="{l:Translate FormulaSolverHelp}" Height="700" Width="700">
+    <Grid>
+        <WebBrowser x:Name="webHelp" />
+    </Grid>
+</Window>

@@ -7,11 +7,12 @@
              xmlns:p="clr-namespace:GAPPSF.Core"
              xmlns:ui="clr-namespace:GAPPSF.UIControls"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
+             d:DesignHeight="200" d:DesignWidth="600">
+    <Grid MouseLeave="Grid_MouseLeave">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width=".5*" />
-            <ColumnDefinition Width=".5*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>    
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -23,15 +24,32 @@
                 <ColumnDefinition Width=".33*" />
                 <ColumnDefinition Width=".33*" />
             </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="{l:Translate InsertFormula}" Click="Button_Click_1" />
+            <Button Grid.Column="1" Content="{l:Translate InsertWaypoint}" Click="Button_Click_2" />
             <Button Grid.Column="2" Content="{l:Translate Solve}" Click="Button_Click" />
         </Grid>
-        <TextBox Grid.Row="1" Grid.Column="0" 
+        <Grid Grid.Row="0" Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".5*" />
+                <ColumnDefinition Width=".5*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="{l:Translate AsWaypoint}" Click="Button_Click_3" Visibility="Collapsed" />
+            <Button Grid.Column="1" Content="{l:Translate AsCenter}" Click="Button_Click_4" />
+            <Button Grid.Column="2" Width="24" Height="24" Click="Button_Click_5">
+                <Image Height="16" Width="16" Source="/Resources/General/help.png" />
+            </Button>
+        </Grid>
+        <TextBox Grid.Row="1" Grid.Column="0"
+                 AcceptsReturn="True"
                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
                  ScrollViewer.VerticalScrollBarVisibility="Auto"
                  x:Name="tbFormula"
                  Margin="4"
                  />
-        <TextBox Grid.Row="1" Grid.Column="1" 
+        <GridSplitter Grid.Row="1" Grid.Column="1" Width="5" ResizeBehavior="PreviousAndNext" ResizeDirection="Columns"/>
+        <TextBox Grid.Row="1" Grid.Column="2" 
+                 AcceptsReturn="True"
                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
                  ScrollViewer.VerticalScrollBarVisibility="Auto"
                  x:Name="tbSolutions" 
