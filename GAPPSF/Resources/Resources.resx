@@ -1375,4 +1375,25 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="RemoveAllLogsFrom" xml:space="preserve">
     <value>Remove logs from</value>
   </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="GeocacheCode" xml:space="preserve">
+    <value>Geocache code</value>
+  </data>
+  <data name="LogViewer" xml:space="preserve">
+    <value>Log viewer</value>
+  </data>
+  <data name="ShowLogsForActiveGeocache" xml:space="preserve">
+    <value>Show logs for active geocache</value>
+  </data>
+  <data name="Text" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="LoadingLogs" xml:space="preserve">
+    <value>Loading logs</value>
+  </data>
 </root>

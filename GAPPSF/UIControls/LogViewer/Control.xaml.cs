@@ -205,5 +205,20 @@ namespace GAPPSF.UIControls.LogViewer
             }
         }
 
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase!=null && logList.SelectedItems.Count>0)
+            {
+                using (Utils.DataUpdater upd = new Utils.DataUpdater(Core.ApplicationData.Instance.ActiveDatabase))
+                {
+                    foreach(Core.Data.Log l in logList.SelectedItems)
+                    {
+                        Utils.DataAccess.DeleteLog(Core.ApplicationData.Instance.ActiveDatabase, l);
+                    }
+                }
+                await UpdateView();
+            }
+        }
+
     }
 }

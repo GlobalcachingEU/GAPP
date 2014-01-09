@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace GAPPSF.Core
 {
@@ -27,6 +29,12 @@ namespace GAPPSF.Core
         {
             get { return int.Parse(GetProperty("100")); }
             set { SetProperty(value.ToString()); }
+        }
+
+        public DataGridLength LogViewerColumnTextWidth
+        {
+            get { return new DataGridLength(double.Parse(GetProperty("200"), CultureInfo.InvariantCulture)); }
+            set { SetProperty(value.Value.ToString(CultureInfo.InvariantCulture)); }
         }
 
         public string LogViewerFilterOnFinder

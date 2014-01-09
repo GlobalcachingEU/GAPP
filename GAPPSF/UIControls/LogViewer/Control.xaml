@@ -23,7 +23,7 @@
             <TextBlock Margin="4" Text="{l:Translate UserName}" Foreground="Black" />
             <TextBox Margin="4" Text="{Binding LogViewerFilterOnFinder, Source={x:Static p:Settings.Default}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=1000}" Width="150" />
         </StackPanel>
-        <DataGrid Grid.Row="2" VirtualizingStackPanel.VirtualizationMode="Recycling"  AutoGenerateColumns="False" ItemsSource="{Binding AvailableLogs}" HorizontalScrollBarVisibility="Auto" SelectionMode="Extended">
+        <DataGrid x:Name="logList" Grid.Row="2" VirtualizingStackPanel.VirtualizationMode="Recycling"  AutoGenerateColumns="False" ItemsSource="{Binding AvailableLogs}" HorizontalScrollBarVisibility="Auto" SelectionMode="Extended">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="{l:Translate T}">
                     <DataGridTemplateColumn.CellTemplate>
@@ -35,7 +35,7 @@
                 <DataGridTextColumn Binding="{Binding Date, StringFormat=\{0:d\}}" Header="{l:Translate Date}"  IsReadOnly="True" />
                 <DataGridTextColumn Binding="{Binding GeocacheCode}" Header="{l:Translate GeocacheCode}" IsReadOnly="True" />
                 <DataGridTextColumn Binding="{Binding Finder}" Header="{l:Translate User}" IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding Text}" Header="{l:Translate Text}" IsReadOnly="True">
+                <DataGridTextColumn Binding="{Binding Text}" Header="{l:Translate Text}" IsReadOnly="True" Width="{Binding LogViewerColumnTextWidth, Source={x:Static p:Settings.Default}, Mode=TwoWay}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="TextWrapping" Value="Wrap" />
@@ -44,7 +44,7 @@
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Margin="4" Grid.Row="3" Height="24" Width="24">
+        <Button Margin="4" Grid.Row="3" Height="24" Width="24" Click="Button_Click">
             <Image Height="16" Width="16" Source="/Resources/General/delete.png" />
         </Button>
     </Grid>
