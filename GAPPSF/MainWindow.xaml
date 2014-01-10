@@ -87,6 +87,7 @@
                 <MenuItem Header="{l:Translate Import}">
                     <MenuItem x:Name="menu3" Header="{l:Translate GPX}" Command="{Binding ImportGPXCommand}" />
                     <MenuItem x:Name="menu4" Header="{l:Translate GAPPDataStorage}" Command="{Binding ImportGAPPCommand}" />
+                    <MenuItem x:Name="menub5s" Header="{l:Translate ImportGAPPDataExchangeFile}" Command="{Binding ImportGAPPDECommand}" />
                     <MenuItem x:Name="menub5" Header="{l:Translate ImportGSAKDatabase}" Command="{Binding ImportGSAKCommand}" />
                     <MenuItem Header="{l:Translate ImportGCComments}">
                         <MenuItem x:Name="menu4x" Header="{l:Translate ImportMissingGeocaches}" Command="{Binding ImportGCCMissingCommand}" />
@@ -133,6 +134,11 @@
                         <MenuItem x:Name="menu4y10" Header="{l:Translate Active}" Command="{Binding ExportExcelActiveCommand}" />
                         <MenuItem x:Name="menu4y11" Header="{l:Translate Selected}" Command="{Binding ExportExcelSelectedCommand}" />
                         <MenuItem x:Name="menu4y12" Header="{l:Translate All}" Command="{Binding ExportExcelAllCommand}" />
+                    </MenuItem>
+                    <MenuItem Header="{l:Translate ExportToGAPPDataExchangeFile}">
+                        <MenuItem x:Name="menu4y101" Header="{l:Translate Active}" Command="{Binding ExportGAPPDEActiveCommand}" />
+                        <MenuItem x:Name="menu4y111" Header="{l:Translate Selected}" Command="{Binding ExportGAPPDESelectedCommand}" />
+                        <MenuItem x:Name="menu4y121" Header="{l:Translate All}" Command="{Binding ExportGAPPDEAllCommand}" />
                     </MenuItem>
                     <MenuItem Header="{l:Translate CreateImageFolder}">
                         <MenuItem x:Name="menu4y20" Header="{l:Translate Active}" Command="{Binding ExportOfflineImgActiveCommand}" />

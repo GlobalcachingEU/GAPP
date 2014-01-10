@@ -108,6 +108,7 @@ namespace GAPPSF.Core.Data
         public new void RemoveAt(int index)
         {
             UserWaypoint gc = this[index];
+            _qaItems.Remove(gc.ID);
             //grouping
             (_wpGroups[gc.GeocacheCode ?? ""] as Hashtable).Remove(gc.ID);
             //end grouping
@@ -139,6 +140,7 @@ namespace GAPPSF.Core.Data
                 gc.DataChanged -= gc_DataChanged;
                 gc.PropertyChanged -= gc_PropertyChanged;
             }
+            _qaItems.Clear();
             base.Clear();
             _wpGroups.Clear();
 

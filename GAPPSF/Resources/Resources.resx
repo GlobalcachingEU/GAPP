@@ -1396,4 +1396,10 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="LoadingLogs" xml:space="preserve">
     <value>Loading logs</value>
   </data>
+  <data name="ExportToGAPPDataExchangeFile" xml:space="preserve">
+    <value>Export to GAPP Data Exchange file</value>
+  </data>
+  <data name="ImportGAPPDataExchangeFile" xml:space="preserve">
+    <value>Import GAPP Data Exchange file</value>
+  </data>
 </root>

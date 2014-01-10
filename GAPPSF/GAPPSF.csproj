@@ -589,6 +589,8 @@
     <Compile Include="FindsOfUser\ImportWindow.xaml.cs">
       <DependentUpon>ImportWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GAPPDataExchange\Export.cs" />
+    <Compile Include="GAPPDataExchange\Import.cs" />
     <Compile Include="GAPPDataStorage\RecordInfo.cs" />
     <Compile Include="Gavaghan.Geodesy\Angle.cs" />
     <Compile Include="Gavaghan.Geodesy\Ellipsoid.cs" />

@@ -181,6 +181,7 @@ namespace GAPPSF.Core.Data
 
         public new void Remove(Geocache gc)
         {
+            _qaItems.Remove(gc.Code);
             gc.DataChanged -= gc_DataChanged;
             gc.PropertyChanged -= gc_PropertyChanged;
             base.RemoveAt(this.IndexOf(gc));
@@ -202,6 +203,7 @@ namespace GAPPSF.Core.Data
                 gc.DataChanged -= gc_DataChanged;
                 gc.PropertyChanged -= gc_PropertyChanged;
             }
+            _qaItems.Clear();
             base.Clear();
 
             if (_updateCounter <= 0)

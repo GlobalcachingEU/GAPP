@@ -108,7 +108,8 @@ namespace GAPPSF.Core.Data
         public new void RemoveAt(int index)
         {
             Log gc = this[index];
-            //grouping
+            _qaItems.Remove(gc.ID);
+                //grouping
             (_logGroups[gc.GeocacheCode ?? ""] as Hashtable).Remove(gc.ID);
             //end grouping
 
@@ -139,6 +140,7 @@ namespace GAPPSF.Core.Data
                 gc.DataChanged -= gc_DataChanged;
                 gc.PropertyChanged -= gc_PropertyChanged;
             }
+            _qaItems.Clear();
             base.Clear();
             _logGroups.Clear();
 

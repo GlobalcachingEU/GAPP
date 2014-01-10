@@ -790,6 +790,29 @@ namespace GAPPSF
 
 
 
+        AsyncDelegateCommand _importGAPPDECommand;
+        public ICommand ImportGAPPDECommand
+        {
+            get
+            {
+                if (_importGAPPDECommand == null)
+                {
+                    _importGAPPDECommand = new AsyncDelegateCommand(param => this.ImportGAPPDE(true),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null);
+                }
+                return _importGAPPDECommand;
+            }
+        }
+        public async Task ImportGAPPDE(bool missing)
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                GAPPDataExchange.Import imp = new GAPPDataExchange.Import();
+                await imp.ImportFile(Core.ApplicationData.Instance.ActiveDatabase);
+            }
+        }
+
+
 
         AsyncDelegateCommand _importGCCCommand;
         public ICommand ImportGCCCommand
@@ -1281,6 +1304,76 @@ namespace GAPPSF
                 }
             }
         }
+
+
+        AsyncDelegateCommand _exportGAPPDEActiveCommand;
+        public ICommand ExportGAPPDEActiveCommand
+        {
+            get
+            {
+                if (_exportGAPPDEActiveCommand == null)
+                {
+                    _exportGAPPDEActiveCommand = new AsyncDelegateCommand(param => this.ExportGAPPDEActive(),
+                        param => Core.ApplicationData.Instance.ActiveGeocache != null);
+                }
+                return _exportGAPPDEActiveCommand;
+            }
+        }
+        private async Task ExportGAPPDEActive()
+        {
+            if (Core.ApplicationData.Instance.ActiveGeocache != null)
+            {
+                await ExportGAPPDE(new Core.Data.Geocache[] { Core.ApplicationData.Instance.ActiveGeocache }.ToList());
+            }
+        }
+        AsyncDelegateCommand _exportGAPPDESelectedCommand;
+        public ICommand ExportGAPPDESelectedCommand
+        {
+            get
+            {
+                if (_exportGAPPDESelectedCommand == null)
+                {
+                    _exportGAPPDESelectedCommand = new AsyncDelegateCommand(param => this.ExportGAPPDESelected(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null && this.GeocacheSelectionCount > 0);
+                }
+                return _exportGAPPDESelectedCommand;
+            }
+        }
+        private async Task ExportGAPPDESelected()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                await ExportGAPPDE((from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection where a.Selected select a).ToList());
+            }
+        }
+        AsyncDelegateCommand _exportGAPPDEAllCommand;
+        public ICommand ExportGAPPDEAllCommand
+        {
+            get
+            {
+                if (_exportGAPPDEAllCommand == null)
+                {
+                    _exportGAPPDEAllCommand = new AsyncDelegateCommand(param => this.ExportGAPPDEAll(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null);
+                }
+                return _exportGAPPDEAllCommand;
+            }
+        }
+        private async Task ExportGAPPDEAll()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                await ExportGAPPDE(Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection);
+            }
+        }
+        private async Task ExportGAPPDE(List<Core.Data.Geocache> gcList)
+        {
+            GAPPDataExchange.Export exp = new GAPPDataExchange.Export();
+            await exp.ExportFile(gcList);
+        }
+
+
+
 
 
         RelayCommand _exportExcelActiveCommand;
