@@ -82,6 +82,11 @@
                     <MenuItem x:Name="menu1" Header="{l:Translate New}" Command="{Binding NewCommand}" />
                     <MenuItem x:Name="menu2" Header="{l:Translate Open}" Command="{Binding OpenCommand}"/>
                     <Separator />
+                    <MenuItem Header="{l:Translate Backup}">
+                        <MenuItem x:Name="menu2cv" Header="{l:Translate Active}" Command="{Binding BackupDatabaseActiveCommand}"/>
+                    </MenuItem>
+                    <MenuItem x:Name="menu3cv" Header="{l:Translate Restore}" Command="{Binding RestoreDatabaseCommand}"/>
+                    <Separator />
                     <MenuItem x:Name="menuexit" Header="{l:Translate Exit}" Click="menuexit_Click"/>
                 </MenuItem>
                 <MenuItem Header="{l:Translate Import}">
@@ -251,6 +256,7 @@
                 <MenuItem Header="{l:Translate Settings}">
                     <MenuItem x:Name="menu19" Header="{l:Translate Shapefiles}" Click="MenuItem_Click_8" />
                     <MenuItem x:Name="menu20" Header="{l:Translate ShortcutAssignment}" Click="MenuItem_Click_12" />
+                    <MenuItem x:Name="menu2c0" Header="{l:Translate Backup}" Click="MenuItem_Click_1c2" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate Window}">
                     <MenuItem x:Name="menu21" Header="{l:Translate CacheList}" Click="MenuItem_Click" />

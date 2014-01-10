@@ -224,6 +224,7 @@
     <Compile Include="Core\Settings\CacheboxSettings.cs" />
     <Compile Include="Core\Settings\CacheListSettings.cs" />
     <Compile Include="Core\Settings\CARSettings.cs" />
+    <Compile Include="Core\Settings\DatabaseBackupSettings.cs" />
     <Compile Include="Core\Settings\DebugLogViewSettings.cs" />
     <Compile Include="Core\Settings\ExcelSettings.cs" />
     <Compile Include="Core\Settings\FavoritesSettings.cs" />
@@ -262,6 +263,9 @@
     <Compile Include="Dialogs\About\IAboutDataProvider.cs" />
     <Compile Include="Dialogs\ActionSequenceWindow.xaml.cs">
       <DependentUpon>ActionSequenceWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\BackupSettingsWindow.xaml.cs">
+      <DependentUpon>BackupSettingsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\BrowseFolder\FolderPickerControl.xaml.cs">
       <DependentUpon>FolderPickerControl.xaml</DependentUpon>
@@ -975,6 +979,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\ActionSequenceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\BackupSettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -2053,6 +2061,12 @@
     <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\de\smpl_operations.png" />
     <EmbeddedResource Include="UIControls\FormulaSolver\Documentation\de\smpl_textfunctions.png" />
     <None Include="UIControls\FormulaSolver\Documentation\de\TiddlySaver.jar" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\restore.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\backup.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

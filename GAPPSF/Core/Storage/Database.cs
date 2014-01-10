@@ -36,6 +36,7 @@ namespace GAPPSF.Core.Storage
         private FileStream _fileStreamIdx = null;
 
         public long Version { get; private set; }
+        public DateTime MostRecentBackupDate { get; private set; }
 
 
         public LogCollection LogCollection { get; private set; }
@@ -94,6 +95,11 @@ namespace GAPPSF.Core.Storage
             return result;
         }
 
+        async public Task BackupAsync()
+        {
+            await Task.Run(() => { Backup(); });
+        }
+
         public bool Initialize()
         {
             bool result = false;
@@ -102,6 +108,10 @@ namespace GAPPSF.Core.Storage
                 this.FileStream = File.Open(FileName, FileMode.OpenOrCreate, FileAccess.ReadWrite);
                 BinaryReader = new System.IO.BinaryReader(this.FileStream);
                 BinaryWriter = new System.IO.BinaryWriter(this.FileStream);
+
+                getMostRecentBackupDate();
+                CheckAutoBackup();
+
                 bool cancelled = false;
                 if (LoadDatabaseMetaData())
                 {
@@ -134,6 +144,123 @@ namespace GAPPSF.Core.Storage
             if (_fileStreamIdx != null)
             {
                 _fileStreamIdx.Flush();
+            }
+        }
+
+        private void getMostRecentBackupDate()
+        {
+            try
+            {
+                DateTime lastBck = DateTime.MinValue;
+                string[] fls = Directory.GetFiles(Path.GetDirectoryName(FileName), string.Format("{0}.bak*", Path.GetFileName(FileName)));
+                if (fls != null)
+                {
+                    foreach (string f in fls)
+                    {
+                        if (File.GetCreationTime(f) > lastBck)
+                        {
+                            lastBck = File.GetCreationTime(f);
+                        }
+                    }
+                }
+                MostRecentBackupDate = lastBck;
+            }
+            catch (Exception e)
+            {
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
+            }
+        }
+
+        public async Task CheckAutoBackupAsync()
+        {
+            await Task.Run(() => { CheckAutoBackup(); });
+        }
+
+        public void CheckAutoBackup()
+        {
+            try
+            {
+                if (Core.Settings.Default.DatabaseBackupAutomatic)
+                {
+                    if (this.FileStream!=null && this.FileStream.Length > 0)
+                    {
+                        if (MostRecentBackupDate == DateTime.MinValue || (DateTime.Now - MostRecentBackupDate) > Core.Settings.Default.DatabaseBackupAutomaticInterval)
+                        {
+                            Backup();
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
+            }
+        }
+
+        public void Backup()
+        {
+            try
+            {
+                //file.bak01, file.bak02... file.bakNN where NN is the latest
+                string fn = string.Format("{0}.bak{1}", FileName, Core.Settings.Default.DatabaseBackupMaxBackups.ToString("00"));
+                if (File.Exists(fn))
+                {
+                    //ok, maximum reached
+                    //delete the oldest and rename the others
+                    fn = string.Format("{0}.bak{1}", FileName, 1.ToString("00"));
+                    if (File.Exists(fn))
+                    {
+                        File.Delete(fn);
+                    }
+                    for (int i = 1; i < Core.Settings.Default.DatabaseBackupMaxBackups; i++)
+                    {
+                        string fns = string.Format("{0}.bak{1}", FileName, (i + 1).ToString("00"));
+                        string fnd = string.Format("{0}.bak{1}", FileName, i.ToString("00"));
+                        if (File.Exists(fns))
+                        {
+                            File.Move(fns, fnd);
+                        }
+                    }
+                    fn = string.Format("{0}.bak{1}", FileName, Core.Settings.Default.DatabaseBackupMaxBackups.ToString("00"));
+                }
+                else
+                {
+                    //look for latest
+                    int i = 1;
+                    fn = string.Format("{0}.bak{1}", FileName, i.ToString("00"));
+                    while (File.Exists(fn))
+                    {
+                        i++;
+                        fn = string.Format("{0}.bak{1}", FileName, i.ToString("00"));
+                    }
+                }
+                DateTime nextUpdate = DateTime.Now.AddSeconds(1);
+                using (Utils.ProgressBlock prog = new ProgressBlock("CreatingBackup", "CreatingBackup", 100, 0))
+                {
+                    using (System.IO.FileStream fs = File.OpenWrite(fn))
+                    {
+                        int read;
+                        byte[] buffer = new byte[10 * 1024 * 1024];
+                        fs.SetLength(this.FileStream.Length);
+                        this.FileStream.Position = 0;
+                        while (this.FileStream.Position < this.FileStream.Length)
+                        {
+                            read = this.FileStream.Read(buffer, 0, buffer.Length);
+                            fs.Write(buffer, 0, read);
+                            if (DateTime.Now >= nextUpdate)
+                            {
+                                prog.Update("Loading", 100, (int)(100.0 * (double)this.FileStream.Position / (double)this.FileStream.Length));
+                                nextUpdate = DateTime.Now.AddSeconds(1);
+                            }
+                        }
+                    }
+                    MostRecentBackupDate = File.GetCreationTime(fn);
+                    this.FileStream.Position = 0;
+                }
+            }
+            catch (Exception e)
+            {
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
             }
         }
 

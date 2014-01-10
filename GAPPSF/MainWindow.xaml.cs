@@ -933,6 +933,100 @@ namespace GAPPSF
         }
 
 
+        AsyncDelegateCommand _restoreDatabaseCommand;
+        public ICommand RestoreDatabaseCommand
+        {
+            get
+            {
+                if (_restoreDatabaseCommand == null)
+                {
+                    _restoreDatabaseCommand = new AsyncDelegateCommand(param => this.RestoreDatabase());
+                }
+                return _restoreDatabaseCommand;
+            }
+        }
+        public async Task RestoreDatabase()
+        {
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.FileName = ""; // Default file name
+            dlg.Filter = "GAPP SF backup (*.gsf.bak)|*.gsf.bak*"; // Filter files by extension 
+
+            // Show open file dialog box
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Process open file dialog box results 
+            if (result == true)
+            {
+                int pos = dlg.FileName.ToLower().LastIndexOf(".bak");
+                string orgFn = dlg.FileName.Substring(0, pos);
+
+                //if database is open at the moment, close it.
+                var db = (from a in Core.ApplicationData.Instance.Databases where string.Compare(a.FileName, orgFn, true) == 0 select a).FirstOrDefault();
+                if (db != null)
+                {
+                    if (Core.ApplicationData.Instance.ActiveDatabase == db)
+                    {
+                        Core.ApplicationData.Instance.ActiveDatabase = null;
+                    }
+                    Core.ApplicationData.Instance.Databases.Remove(db);
+                }
+
+                //now, delete index file
+                string indexFile = string.Concat(orgFn, ".gsx");
+                if (File.Exists(indexFile))
+                {
+                    File.Delete(indexFile);
+                }
+
+                if (File.Exists(orgFn))
+                {
+                    File.Delete(orgFn);
+                }
+                File.Move(dlg.FileName, orgFn);
+
+                //load database
+                bool success;
+                db = new Core.Storage.Database(orgFn);
+                using (Utils.DataUpdater upd = new Utils.DataUpdater(db, true))
+                {
+                    success = await db.InitializeAsync();
+                }
+                if (success)
+                {
+                    Core.ApplicationData.Instance.Databases.Add(db);
+                    Core.ApplicationData.Instance.ActiveDatabase = db;
+                }
+                else
+                {
+                    db.Dispose();
+                }
+            }
+        }
+
+
+        AsyncDelegateCommand _backupDatabaseActiveCommand;
+        public ICommand BackupDatabaseActiveCommand
+        {
+            get
+            {
+                if (_backupDatabaseActiveCommand == null)
+                {
+                    _backupDatabaseActiveCommand = new AsyncDelegateCommand(param => this.BackupDatabaseActive(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null);
+                }
+                return _backupDatabaseActiveCommand;
+            }
+        }
+        public async Task BackupDatabaseActive()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                await Core.ApplicationData.Instance.ActiveDatabase.BackupAsync();
+            }
+        }
+
+
+
         AsyncDelegateCommand _deleteAllCommand;
         public ICommand DeleteAllCommand
         {
@@ -2693,6 +2787,12 @@ namespace GAPPSF
             Window w = new FeatureWindow(new UIControls.LogViewer.Control());
             w.Owner = this;
             w.Show();
+        }
+
+        private void MenuItem_Click_1c2(object sender, RoutedEventArgs e)
+        {
+            Dialogs.BackupSettingsWindow dlg = new Dialogs.BackupSettingsWindow();
+            dlg.ShowDialog();
         }
 
     }

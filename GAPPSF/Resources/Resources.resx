@@ -1402,4 +1402,28 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="ImportGAPPDataExchangeFile" xml:space="preserve">
     <value>Import GAPP Data Exchange file</value>
   </data>
+  <data name="CreatingBackup" xml:space="preserve">
+    <value>Creating backup</value>
+  </data>
+  <data name="Backup" xml:space="preserve">
+    <value>Backup</value>
+  </data>
+  <data name="Restore" xml:space="preserve">
+    <value>Restore</value>
+  </data>
+  <data name="AutomaticBackups" xml:space="preserve">
+    <value>Create backups automaticly</value>
+  </data>
+  <data name="AutomaticBackupsInterval" xml:space="preserve">
+    <value>Automatic backups interval</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Hours</value>
+  </data>
+  <data name="KeepMaximumBackups" xml:space="preserve">
+    <value>Keep maximum backups</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>Minutes</value>
+  </data>
 </root>

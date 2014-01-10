@@ -46,6 +46,8 @@ namespace GAPPSF.Utils
             db.UserWaypointCollection.BeginUpdate();
             db.LogImageCollection.BeginUpdate();
             db.GeocacheImageCollection.BeginUpdate();
+
+            db.CheckAutoBackup();
         }
 
         private void unblockUpdates(Database db)
