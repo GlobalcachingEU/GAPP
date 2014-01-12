@@ -251,6 +251,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Pl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GAPPSF", "GAPPSF\GAPPSF.csproj", "{DEE3C2B3-236E-42AC-BD54-2EA0100BCEF9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.GCEU", "DevelopPlugins\GlobalcachingApplication.Plugins.GCEU\GlobalcachingApplication.Plugins.GCEU.csproj", "{61B7D794-F405-4FA8-9E65-2BB2669C0C97}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -2111,6 +2113,22 @@ Global
 		{DEE3C2B3-236E-42AC-BD54-2EA0100BCEF9}.Release|x64.Build.0 = Release|x64
 		{DEE3C2B3-236E-42AC-BD54-2EA0100BCEF9}.Release|x86.ActiveCfg = Release|x86
 		{DEE3C2B3-236E-42AC-BD54-2EA0100BCEF9}.Release|x86.Build.0 = Release|x86
+		{61B7D794-F405-4FA8-9E65-2BB2669C0C97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61B7D794-F405-4FA8-9E65-2BB2669C0C97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61B7D794-F405-4FA8-9E65-2BB2669C0C97}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{61B7D794-F405-4FA8-9E65-2BB2669C0C97}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{61B7D794-F405-4FA8-9E65-2BB2669C0C97}.Debug|x64.ActiveCfg = Debug|x64
+		{61B7D794-F405-4FA8-9E65-2BB2669C0C97}.Debug|x64.Build.0 = Debug|x64
+		{61B7D794-F405-4FA8-9E65-2BB2669C0C97}.Debug|x86.ActiveCfg = Debug|x86
+		{61B7D794-F405-4FA8-9E65-2BB2669C0C97}.Debug|x86.Build.0 = Debug|x86
+		{61B7D794-F405-4FA8-9E65-2BB2669C0C97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61B7D794-F405-4FA8-9E65-2BB2669C0C97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61B7D794-F405-4FA8-9E65-2BB2669C0C97}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{61B7D794-F405-4FA8-9E65-2BB2669C0C97}.Release|Mixed Platforms.Build.0 = Release|x86
+		{61B7D794-F405-4FA8-9E65-2BB2669C0C97}.Release|x64.ActiveCfg = Release|x64
+		{61B7D794-F405-4FA8-9E65-2BB2669C0C97}.Release|x64.Build.0 = Release|x64
+		{61B7D794-F405-4FA8-9E65-2BB2669C0C97}.Release|x86.ActiveCfg = Release|x86
+		{61B7D794-F405-4FA8-9E65-2BB2669C0C97}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
