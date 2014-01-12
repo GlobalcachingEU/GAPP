@@ -77,6 +77,19 @@
   <PropertyGroup>
     <ApplicationIcon>Globalcaching.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationFramework.Classic" />
     <Reference Include="System" />
@@ -966,6 +979,8 @@
     <Compile Include="Utils\DBCon.cs" />
     <Compile Include="Utils\DBConComSqlite.cs" />
     <Compile Include="Utils\Geocoder.cs" />
+    <Compile Include="Utils\NativeMethods.cs" />
+    <Compile Include="Utils\Privileges.cs" />
     <Compile Include="Utils\ProgressBlock.cs" />
     <Compile Include="Utils\ResourceHelper.cs" />
     <Compile Include="Utils\TemporaryFile.cs" />
