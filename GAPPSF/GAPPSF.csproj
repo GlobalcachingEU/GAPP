@@ -87,8 +87,10 @@
   <PropertyGroup />
   <PropertyGroup />
   <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup />
   <PropertyGroup>
-    <NoWin32Manifest>true</NoWin32Manifest>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationFramework.Classic" />
@@ -1409,6 +1411,7 @@
     <Resource Include="Locus\sqlite.db3" />
     <Resource Include="bsn.GoldParser\Semantic\GoldRuleDeclaration.egt" />
     <EmbeddedResource Include="bsn.GoldParser\Semantic\GoldRuleDeclaration.grm" />
+    <EmbeddedResource Include="app.manifest" />
     <None Include="UIControls\FormulaSolver\Grammar\SingleLineFormula.grm" />
     <Resource Include="iGeoKnife\sqlite.db3" />
     <None Include="Properties\Settings.settings">
