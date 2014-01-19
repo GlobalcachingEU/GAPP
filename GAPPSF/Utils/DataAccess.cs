@@ -367,6 +367,14 @@ namespace GAPPSF.Utils
                                     int pos2 = s.IndexOfAny(new char[] { '\'', '"' }, pos + 1);
                                     bresult.Add(s.Substring(pos + 1, pos2 - pos - 1));
                                 }
+                                else
+                                {
+                                    Core.ApplicationData.Instance.Logger.AddLog(new DataAccess(), Logger.Level.Warning, string.Format("url parse error: {0}", s));
+                                }
+                            }
+                            else
+                            {
+                                Core.ApplicationData.Instance.Logger.AddLog(new DataAccess(), Logger.Level.Warning, string.Format("url parse error: {0}", s));
                             }
                         }
                     }

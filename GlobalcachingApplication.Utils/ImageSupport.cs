@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace GlobalcachingApplication.Utils
 {
@@ -37,6 +38,46 @@ namespace GlobalcachingApplication.Utils
                 }
                 return _uniqueInstance;
             }
+        }
+
+        public static List<string> GetImageUrlsFromGeocache(string html)
+        {
+            List<string> result = new List<string>();
+            try
+            {
+                Regex r = new Regex(@"</?\w+\s+[^>]*>", RegexOptions.Multiline);
+                MatchCollection mc = r.Matches(html);
+                foreach (Match m in mc)
+                {
+                    string s = m.Value.Substring(1).Replace('\r', ' ').Replace('\n', ' ').Trim();
+                    if (s.StartsWith("img ", StringComparison.OrdinalIgnoreCase))
+                    {
+                        int pos = s.IndexOf(" src", StringComparison.OrdinalIgnoreCase);
+                        if (pos >= 0)
+                        {
+                            pos = s.IndexOfAny(new char[] { '\'', '"' }, pos);
+                            if (pos > 0)
+                            {
+                                int pos2 = s.IndexOfAny(new char[] { '\'', '"' }, pos + 1);
+                                if (pos2 > 0)
+                                {
+                                    string link = s.Substring(pos + 1, pos2 - pos - 1);
+                                    result.Add(link);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+            return result;
+        }
+        public static List<string> GetImageUrlsFromGeocache(Framework.Data.Geocache gc)
+        {
+            return GetImageUrlsFromGeocache(string.Format("{0}{1}", gc.ShortDescriptionInHtml ? gc.ShortDescription ?? "" : "", gc.LongDescriptionInHtml ? gc.LongDescription ?? "" : ""));
         }
 
         public virtual void UpdateImageSupportPlugins(Framework.Interfaces.ICore core)

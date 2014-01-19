@@ -19,6 +19,7 @@
 						<File Id="Exec3" Name="GlobalcachingApplication.Framework.dll" Source="../GlobalcachingApplication/bin/Release/GlobalcachingApplication.Framework.dll" />
 						<File Id="Exec5"  Name="SharpZipLib.dll" Source="../GlobalcachingApplication/bin/Release/SharpZipLib.dll" />
 						<File Id="Exec6" Name="RestoreDefaultSettings.exe" Source="../GlobalcachingApplication/bin/Release/RestoreDefaultSettings.exe" />
+						<File Id="Exec7" Name="GAPPSF.exe" Source="../GlobalcachingApplication/bin/Release/GAPPSF.exe" />
 					</Component>
 					<Directory Id="PLUGINDIR" Name="Plugins">
 						<Component Id="Plugins" Guid="8B071A0C-E31C-4149-8CE4-A02EB6232CCE"  DiskId="1">
@@ -549,6 +550,11 @@
 		                     Name="Restore default settings" 
 		                   Description="Restore default settings"
 		                    Target="[INSTALLDIR]RestoreDefaultSettings.exe"
+		                          WorkingDirectory="INSTALLDIR"/>
+		                <Shortcut Id="ApplicationSFStartMenuShortcut" 
+		                     Name="Globalcaching Application SF" 
+		                   Description="Globalcaching Application SF"
+		                    Target="[INSTALLDIR]GAPPSF.exe"
 		                          WorkingDirectory="INSTALLDIR"/>
 		                <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
 		                <RegistryValue Root="HKCU" Key="Software\Microsoft\GlobalcachingApplication" Name="installed" Type="integer" Value="1" KeyPath="yes"/>

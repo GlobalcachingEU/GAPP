@@ -694,60 +694,51 @@ namespace GlobalcachingApplication.Plugins.Locus
                                     {
                                         try
                                         {
-                                            Regex r = new Regex(@"</?\w+\s+[^>]*>", RegexOptions.Multiline);
-                                            MatchCollection mc = r.Matches(string.Format("{0}{1}", gc.ShortDescriptionInHtml ? gc.ShortDescription ?? "" : "", gc.LongDescriptionInHtml ? gc.LongDescription ?? "" : ""));
-                                            foreach (Match m in mc)
+                                            List<string> linksInDescr = Utils.ImageSupport.GetImageUrlsFromGeocache(gc);
+                                            foreach (string link in linksInDescr)
                                             {
-                                                string s = m.Value.Substring(1).Replace('\r', ' ').Replace('\n', ' ').Trim();
-                                                if (s.StartsWith("img ", StringComparison.OrdinalIgnoreCase))
-                                                {
-                                                    int pos = s.IndexOf(" src", StringComparison.OrdinalIgnoreCase);
-                                                    pos = s.IndexOfAny(new char[] { '\'', '"' }, pos);
-                                                    int pos2 = s.IndexOfAny(new char[] { '\'', '"' }, pos + 1);
-                                                    string link = s.Substring(pos + 1, pos2 - pos - 1);
 
-                                                    string p = Utils.ImageSupport.Instance.GetImagePath(link);
-                                                    if (!string.IsNullOrEmpty(p) && IsLocalFile(p))
+                                                string p = Utils.ImageSupport.Instance.GetImagePath(link);
+                                                if (!string.IsNullOrEmpty(p) && IsLocalFile(p))
+                                                {
+                                                    using (SqliteCommand filescmd = new SqliteCommand("", dbconFiles))
                                                     {
-                                                        using (SqliteCommand filescmd = new SqliteCommand("", dbconFiles))
+                                                        filescmd.CommandText = string.Format("SELECT Fname FROM files WHERE Link='{0}'", link.Replace("'", "''"));
+                                                        object o = filescmd.ExecuteScalar();
+                                                        if (o == null || o.GetType() == typeof(DBNull))
                                                         {
-                                                            filescmd.CommandText = string.Format("SELECT Fname FROM files WHERE Link='{0}'", link.Replace("'", "''"));
-                                                            object o = filescmd.ExecuteScalar();
-                                                            if (o == null || o.GetType() == typeof(DBNull))
+                                                            filescmd.CommandText = string.Format("insert into files (Link, Fname, Found) values ('{0}', '{1}', 1)", link.Replace("'", "''"), System.IO.Path.GetFileName(p).Replace("'", "''"));
+                                                            filescmd.ExecuteNonQuery();
+                                                        }
+                                                    }
+                                                    if (Properties.Settings.Default.MaxFilesInFolder > 0)
+                                                    {
+                                                        imgInFolderCount++;
+                                                        if (imgInFolderCount > Properties.Settings.Default.MaxFilesInFolder)
+                                                        {
+                                                            imgFolderIndex++;
+                                                            imgInFolderCount = 1;
+                                                        }
+                                                        string imgSubFolder = System.IO.Path.Combine(basePath, string.Format("batch{0}", imgFolderIndex));
+                                                        if (imgInFolderCount == 1)
+                                                        {
+                                                            if (!System.IO.Directory.Exists(imgSubFolder))
                                                             {
-                                                                filescmd.CommandText = string.Format("insert into files (Link, Fname, Found) values ('{0}', '{1}', 1)", link.Replace("'", "''"), System.IO.Path.GetFileName(p).Replace("'", "''"));
-                                                                filescmd.ExecuteNonQuery();
+                                                                System.IO.Directory.CreateDirectory(imgSubFolder);
                                                             }
                                                         }
-                                                        if (Properties.Settings.Default.MaxFilesInFolder > 0)
+                                                        string dst = System.IO.Path.Combine(imgSubFolder, System.IO.Path.GetFileName(p));
+                                                        if (!System.IO.File.Exists(dst))
                                                         {
-                                                            imgInFolderCount++;
-                                                            if (imgInFolderCount > Properties.Settings.Default.MaxFilesInFolder)
-                                                            {
-                                                                imgFolderIndex++;
-                                                                imgInFolderCount = 1;
-                                                            }
-                                                            string imgSubFolder = System.IO.Path.Combine(basePath, string.Format("batch{0}", imgFolderIndex));
-                                                            if (imgInFolderCount == 1)
-                                                            {
-                                                                if (!System.IO.Directory.Exists(imgSubFolder))
-                                                                {
-                                                                    System.IO.Directory.CreateDirectory(imgSubFolder);
-                                                                }
-                                                            }
-                                                            string dst = System.IO.Path.Combine(imgSubFolder, System.IO.Path.GetFileName(p));
-                                                            if (!System.IO.File.Exists(dst))
-                                                            {
-                                                                System.IO.File.Copy(p, dst, true);
-                                                            }
+                                                            System.IO.File.Copy(p, dst, true);
                                                         }
-                                                        else
+                                                    }
+                                                    else
+                                                    {
+                                                        string dst = System.IO.Path.Combine(basePath, System.IO.Path.GetFileName(p));
+                                                        if (!System.IO.File.Exists(dst))
                                                         {
-                                                            string dst = System.IO.Path.Combine(basePath, System.IO.Path.GetFileName(p));
-                                                            if (!System.IO.File.Exists(dst))
-                                                            {
-                                                                System.IO.File.Copy(p, dst, true);
-                                                            }
+                                                            System.IO.File.Copy(p, dst, true);
                                                         }
                                                     }
                                                 }

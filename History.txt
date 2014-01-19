@@ -8,6 +8,12 @@ todo:
 - add option to set the logcount for GPX export
 - add tooltip for counters in main screen
 
+V1.9.10.0
+
+- fix: Extracting immage urls from geocache description
+- add: restore GAPP application settings now also restores GAPP SF settings
+- add: GAPP SF V0.0.17 Preview added to setup (requires .NET 4.5.1)
+
 V1.9.9.0
 
 - fix: Google maps, setting text for show geocache name

@@ -366,46 +366,24 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
                             }
                         }
 
-                        StringBuilder sb = new StringBuilder();
+                        List<string> linksInDescr;
                         lock (_lockDBObject)
                         {
-                            if (gc.ShortDescriptionInHtml && gc.ShortDescription != null)
-                            {
-                                sb.Append(gc.ShortDescription);
-                            }
-                            if (gc.LongDescriptionInHtml && gc.LongDescription != null)
-                            {
-                                sb.Append(gc.LongDescription);
-                            }
+                            linksInDescr = Utils.ImageSupport.GetImageUrlsFromGeocache(gc);
                         }
-                        if (sb.Length > 0)
+                        foreach (string lnk in linksInDescr)
                         {
-                            Regex r = new Regex(@"</?\w+\s+[^>]*>", RegexOptions.Multiline);
-                            MatchCollection mc = r.Matches(sb.ToString());
-                            foreach (Match m in mc)
+                            if (!linkList.Contains(lnk))
                             {
-                                string s = m.Value.Substring(1).Replace('\r', ' ').Replace('\n', ' ').Trim();
-                                if (s.StartsWith("img ", StringComparison.OrdinalIgnoreCase))
+                                if (!Properties.Settings.Default.CopyNotInDescription)
                                 {
-                                    int pos = s.IndexOf(" src", StringComparison.OrdinalIgnoreCase);
-                                    pos = s.IndexOfAny(new char[] { '\'', '"' }, pos);
-                                    int pos2 = s.IndexOfAny(new char[] { '\'', '"' }, pos + 1);
-
-                                    string lnk = s.Substring(pos + 1, pos2 - pos - 1);
-                                    if (!linkList.Contains(lnk))
-                                    {
-                                        if (!Properties.Settings.Default.CopyNotInDescription)
-                                        {
-                                            linkList.Add(lnk);
-                                        }
-                                    }
-                                    else if (Properties.Settings.Default.CopyNotInDescription)
-                                    {
-                                        //remove the entries that are within the description
-                                        linkList.Remove(lnk);
-                                    }
-
+                                    linkList.Add(lnk);
                                 }
+                            }
+                            else if (Properties.Settings.Default.CopyNotInDescription)
+                            {
+                                //remove the entries that are within the description
+                                linkList.Remove(lnk);
                             }
                         }
 
@@ -444,7 +422,7 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
                                         Framework.Data.GeocacheImage img = (from a in imgList where a.Url == link select a).FirstOrDefault();
                                         if (img != null)
                                         {
-                                            imgname = string.Format("{1}{0}", imgIndex,getValidNameForFile(img.Name));
+                                            imgname = string.Format("{1}{0}", imgIndex, getValidNameForFile(img.Name));
                                         }
                                     }
                                     string dst = Path.Combine(cacheFolder, string.Format("{0}{1}", imgname, Path.GetExtension(fn)));
@@ -459,7 +437,7 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
                         }
 
                         index++;
-                        if (DateTime.Now>=nextUpdate)
+                        if (DateTime.Now >= nextUpdate)
                         {
                             if (!progress.UpdateProgress(STR_CREATINGFOLDER, STR_CREATINGFOLDER, _gcList.Count, index))
                             {

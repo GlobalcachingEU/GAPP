@@ -318,23 +318,13 @@ namespace GlobalcachingApplication.Plugins.GCView
             string result = html;
             try
             {
-                Regex r = new Regex(@"</?\w+\s+[^>]*>", RegexOptions.Multiline);
-                MatchCollection mc = r.Matches(html);
-                foreach (Match m in mc)
+                List<string> linksInDescr = Utils.ImageSupport.GetImageUrlsFromGeocache(html);
+                foreach (string link in linksInDescr)
                 {
-                    string s = m.Value.Substring(1).Replace('\r', ' ').Replace('\n', ' ').Trim();
-                    if (s.StartsWith("img ", StringComparison.OrdinalIgnoreCase))
+                    string p = Utils.ImageSupport.Instance.GetImagePath(link);
+                    if (!string.IsNullOrEmpty(p))
                     {
-                        int pos = s.IndexOf(" src", StringComparison.OrdinalIgnoreCase);
-                        pos = s.IndexOfAny(new char[] { '\'', '"' }, pos);
-                        int pos2 = s.IndexOfAny(new char[] { '\'', '"' }, pos + 1);
-                        string link = s.Substring(pos + 1, pos2 - pos - 1);
-
-                        string p = Utils.ImageSupport.Instance.GetImagePath(link);
-                        if (!string.IsNullOrEmpty(p))
-                        {
-                            result = result.Replace(link, p);
-                        }
+                        result = result.Replace(link, p);
                     }
                 }
             }
