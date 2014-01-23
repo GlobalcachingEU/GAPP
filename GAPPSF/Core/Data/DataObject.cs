@@ -145,7 +145,7 @@ namespace GAPPSF.Core.Data
                     result = result.Substring(0, result.Length - 1);
                 }
             }
-            return value;
+            return result;
         }
 
         protected bool checkStringFits(string s, long startPos)

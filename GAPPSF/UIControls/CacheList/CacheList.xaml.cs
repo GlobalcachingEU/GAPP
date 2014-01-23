@@ -158,8 +158,13 @@ namespace GAPPSF.UIControls
             string ft = Core.Settings.Default.CacheListFilterText;
             if (!string.IsNullOrEmpty(ft))
             {
-                string s = gc.Name;
-                result &= s != null && s.IndexOf(ft, StringComparison.CurrentCultureIgnoreCase) >= 0;
+                if (result)
+                {
+                    string s = gc.Code;
+                    result = s.IndexOf(ft, StringComparison.CurrentCultureIgnoreCase) >= 0;
+                    s = gc.Name;
+                    result |= s != null && s.IndexOf(ft, StringComparison.CurrentCultureIgnoreCase) >= 0;
+                }
             }
             return result;
         }

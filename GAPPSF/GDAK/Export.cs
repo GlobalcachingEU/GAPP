@@ -546,7 +546,7 @@ namespace GAPPSF.GDAK
                                             cmd.Parameters["@IsLite"].Value = 0;
 
                                             cmd.ExecuteNonQuery();
-                                            if (index == 256) System.Diagnostics.Debugger.Break();
+                                            //if (index == 256) System.Diagnostics.Debugger.Break();
                                             cmd2.ExecuteNonQuery();
 
                                             List<int> attr = gc.AttributeIds;
