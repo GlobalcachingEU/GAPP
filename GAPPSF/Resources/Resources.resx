@@ -1426,4 +1426,10 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="Minutes" xml:space="preserve">
     <value>Minutes</value>
   </data>
+  <data name="Finish" xml:space="preserve">
+    <value>Finish</value>
+  </data>
+  <data name="CreateDatabase" xml:space="preserve">
+    <value>Create database</value>
+  </data>
 </root>

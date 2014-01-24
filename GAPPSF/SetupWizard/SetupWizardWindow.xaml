@@ -9,7 +9,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TabControl x:Name="tabControl" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <TabControl x:Name="tabControl" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="tabControl_SelectionChanged">
             <TabItem Header="{l:Translate Welcome}">
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <Image Margin="26,27,412,157" Source="/Resources/SetupWizard/Globalcaching.png"/>
@@ -64,16 +64,16 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <Button Grid.Row="0" Grid.Column="1" Content="{l:Translate Authorize}" Command="{Binding MainWindow.LiveApiAuthorizeCommand, Source={x:Static p:ApplicationData.Instance}}" />
-                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{l:Translate AccountName}" HorizontalAlignment="Left" />
-                        <TextBlock Grid.Row="1" Grid.Column="0" Text=":" HorizontalAlignment="Right" />
-                        <TextBox Grid.Row="1" Grid.Column="1" Width="200" Text="{Binding GeocachingAcccountName, Mode=TwoWay}"/>
-                        <TextBlock Grid.Row="2" Grid.Column="0" Text="{l:Translate Authorized}" HorizontalAlignment="Left" />
-                        <TextBlock Grid.Row="2" Grid.Column="0" Text=":" HorizontalAlignment="Right" />
-                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Authorized}" />
-                        <TextBlock Grid.Row="3" Grid.Column="0" Text="{l:Translate Membership}" HorizontalAlignment="Left" />
-                        <TextBlock Grid.Row="3" Grid.Column="0" Text=":" HorizontalAlignment="Right" />
-                        <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding LiveAPIMemberType, Source={x:Static p:Settings.Default}}" />
+                        <Button Margin="4" Grid.Row="0" Grid.Column="1" Content="{l:Translate Authorize}" Command="{Binding MainWindow.LiveApiAuthorizeCommand, Source={x:Static p:ApplicationData.Instance}}" />
+                        <TextBlock Margin="4" Grid.Row="1" Grid.Column="0" Text="{l:Translate AccountName}" HorizontalAlignment="Left" />
+                        <TextBlock Margin="4" Grid.Row="1" Grid.Column="0" Text=":" HorizontalAlignment="Right" />
+                        <TextBox Margin="4" Grid.Row="1" Grid.Column="1" Width="200" Text="{Binding GeocachingAcccountName, Mode=TwoWay}"/>
+                        <TextBlock Margin="4" Grid.Row="2" Grid.Column="0" Text="{l:Translate Authorized}" HorizontalAlignment="Left" />
+                        <TextBlock Margin="4" Grid.Row="2" Grid.Column="0" Text=":" HorizontalAlignment="Right" />
+                        <TextBlock Margin="4" Grid.Row="2" Grid.Column="1" Text="{Binding Authorized}" />
+                        <TextBlock Margin="4" Grid.Row="3" Grid.Column="0" Text="{l:Translate Membership}" HorizontalAlignment="Left" />
+                        <TextBlock Margin="4" Grid.Row="3" Grid.Column="0" Text=":" HorizontalAlignment="Right" />
+                        <TextBlock Margin="4" Grid.Row="3" Grid.Column="1" Text="{Binding LiveAPIMemberType, Source={x:Static p:Settings.Default}}" />
                     </Grid>
                 </Grid>
             </TabItem>
@@ -108,10 +108,19 @@
                     </Grid>
                 </Grid>
             </TabItem>
+            <TabItem Header="{l:Translate Database}">
+                <Grid>
+                    <Image Margin="26,27,412,157" Source="/Resources/SetupWizard/database.gif" />
+                    <Grid Margin="219,65,0,0">
+                        <Button Width="200" Height="40" Content="{l:Translate CreateDatabase}" Command="{Binding MainWindow.NewCommand, Source={x:Static p:ApplicationData.Instance}}" />
+                    </Grid>
+                </Grid>
+            </TabItem>
         </TabControl>
         <Grid Grid.Row="1" HorizontalAlignment="Stretch">
-            <Button Content="&lt;" Width="50" HorizontalAlignment="Left" Click="Button_Click_2"/>
-            <Button Content="&gt;" Width="50" HorizontalAlignment="Right" Click="Button_Click_1"/>
+            <Button x:Name="backButton" Content="&lt;" Width="50" HorizontalAlignment="Left" Click="Button_Click_2"/>
+            <Button x:Name="nextButton" Content="&gt;" Width="50" HorizontalAlignment="Right" Click="Button_Click_1"/>
+            <Button x:Name="finishButton" Content="{l:Translate Finish}" Width="50" HorizontalAlignment="Right" Click="Button_Click_Finish"/>
         </Grid>
     </Grid>
 </Window>

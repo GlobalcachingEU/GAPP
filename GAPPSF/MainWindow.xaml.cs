@@ -294,7 +294,8 @@ namespace GAPPSF
 
         private async Task initializeApplicationAsync()
         {
-            if (Core.Settings.Default.FirstStart)
+            if (true)
+            //if (Core.Settings.Default.FirstStart)
             {
                 Core.Settings.Default.FirstStart = false;
                 SetupWizard.SetupWizardWindow dlg = new SetupWizard.SetupWizardWindow();

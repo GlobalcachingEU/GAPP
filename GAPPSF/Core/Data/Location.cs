@@ -46,12 +46,12 @@ namespace GAPPSF.Core.Data
         public double Lat
         {
             get { return _lat; }
-            set { SetProperty(ref _lat, value); }
+            set { SetProperty(ref _lat, value); Text = ""; }
         }
         public double Lon
         {
             get { return _lon; }
-            set { SetProperty(ref _lon, value); }
+            set { SetProperty(ref _lon, value); Text = ""; }
         }
 
         public string SLat

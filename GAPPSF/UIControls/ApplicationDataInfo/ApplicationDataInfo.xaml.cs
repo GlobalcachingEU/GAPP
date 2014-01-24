@@ -97,6 +97,7 @@ namespace GAPPSF.UIControls
             if (db != null)
             {
                 Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+                dlg.InitialDirectory = System.IO.Path.GetDirectoryName(db.FileName);
                 dlg.FileName = ""; // Default file name
                 dlg.Filter = string.Format("GAPP SF backup ({0}.gsf.bak)|{0}.bak*", System.IO.Path.GetFileName(db.FileName)); // Filter files by extension 
 

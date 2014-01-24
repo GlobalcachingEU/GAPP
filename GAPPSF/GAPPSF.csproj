@@ -2086,6 +2086,9 @@
   <ItemGroup>
     <Resource Include="Resources\General\backup.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SetupWizard\database.gif" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)GlobalcachingApplication\bin\$(ConfigurationName)\"</PostBuildEvent>

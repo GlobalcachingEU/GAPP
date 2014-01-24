@@ -170,5 +170,26 @@ namespace GAPPSF.SetupWizard
             }
         }
 
+        private void Button_Click_Finish(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            backButton.IsEnabled = tabControl.SelectedIndex > 0;
+            nextButton.IsEnabled = tabControl.SelectedIndex < tabControl.Items.Count-1;
+            if (nextButton.IsEnabled)
+            {
+                nextButton.Visibility = System.Windows.Visibility.Visible;
+                finishButton.Visibility = System.Windows.Visibility.Collapsed;
+            }
+            else
+            {
+                nextButton.Visibility = System.Windows.Visibility.Collapsed;
+                finishButton.Visibility = System.Windows.Visibility.Visible;
+            }
+        }
+
     }
 }
