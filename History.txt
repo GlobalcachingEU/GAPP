@@ -12,6 +12,7 @@ V1.9.11.0
 
 - change: Geocache description and log text are not persistent in memory when loaded from database (smaller foot print)
 - add: Action Builder now contains a filter for text in the geocache description (optionally a regular expression)
+- change: Updated GAPP SF V0.0.19 (Preview, requires .NET 4.5.1)
 
 V1.9.10.0
 
