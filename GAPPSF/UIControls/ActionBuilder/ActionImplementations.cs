@@ -10,6 +10,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace GAPPSF.UIControls.ActionBuilder
 {
@@ -2807,5 +2808,132 @@ namespace GAPPSF.UIControls.ActionBuilder
         }
     }
 
+    public class ActionDescriptionContains : ActionImplementationCondition
+    {
+        public const string STR_NAME = "DescriptionContains";
+        public const string STR_REGULAREXPRESSION = "RegularExpression";
+        private string _value = "";
+        private Regex _regEx = null;
+        private bool _isRegularExpression = false;
+        public ActionDescriptionContains()
+            : base(STR_NAME)
+        {
+        }
+        public override ActionImplementation.Operator AllowOperators
+        {
+            get
+            {
+                return ActionImplementation.Operator.Equal | ActionImplementation.Operator.NotEqual;
+            }
+        }
+        public override UIElement GetUIElement()
+        {
+            if (Values.Count == 0)
+            {
+                Values.Add("");
+            }
+            if (Values.Count < 2)
+            {
+                Values.Add(false.ToString());
+            }
+            StackPanel sp = new StackPanel();
+            TextBox tb = new TextBox();
+            tb.HorizontalAlignment = HorizontalAlignment.Center;
+            sp.Children.Add(tb);
+            tb.Text = Values[0];
+            CheckBox cb = new CheckBox();
+            cb.Content = Localization.TranslationManager.Instance.Translate(STR_REGULAREXPRESSION);
+            cb.IsChecked = bool.Parse(Values[1]);
+            sp.Children.Add(cb);
+            return sp;
+        }
+
+        public override void CommitUIData(UIElement uiElement)
+        {
+            TextBox tb = (uiElement as StackPanel).Children[0] as TextBox;
+            Values[0] = tb.Text;
+            CheckBox cb = (uiElement as StackPanel).Children[1] as CheckBox;
+            Values[1] = cb.IsChecked == null ? false.ToString() : cb.IsChecked.ToString();
+        }
+        public override bool PrepareRun()
+        {
+            _value = "";
+            _isRegularExpression = false;
+            if (Values.Count > 0)
+            {
+                _value = Values[0];
+            }
+            if (Values.Count > 1)
+            {
+                bool.TryParse(Values[1], out _isRegularExpression);
+            }
+            if (_isRegularExpression)
+            {
+                _regEx = new Regex(_value, RegexOptions.Multiline);
+            }
+            else
+            {
+                _regEx = null;
+            }
+            return base.PrepareRun();
+        }
+        public override Operator Process(Core.Data.Geocache gc)
+        {
+            if (!_isRegularExpression)
+            {
+                int pos = -1;
+                string sd = gc.ShortDescription;
+                if (!string.IsNullOrEmpty(sd))
+                {
+                    pos = sd.IndexOf(_value, StringComparison.InvariantCultureIgnoreCase);
+                }
+                if (pos < 0)
+                {
+                    sd = gc.LongDescription;
+                    if (!string.IsNullOrEmpty(sd))
+                    {
+                        pos = sd.IndexOf(_value, StringComparison.InvariantCultureIgnoreCase);
+                    }
+                }
+                if (pos < 0)
+                {
+                    return Operator.NotEqual;
+                }
+                else
+                {
+                    return Operator.Equal;
+                }
+            }
+            else if (_regEx != null)
+            {
+                string sd = gc.ShortDescription;
+                int cnt = 0;
+                if (!string.IsNullOrEmpty(sd))
+                {
+                    cnt = _regEx.Matches(sd).Count;
+                }
+                if (cnt == 0)
+                {
+                    sd = gc.LongDescription;
+                    if (!string.IsNullOrEmpty(sd))
+                    {
+                        cnt = _regEx.Matches(sd).Count;
+                    }
+                }
+                if (cnt == 0)
+                {
+                    return Operator.NotEqual;
+                }
+                else
+                {
+                    return Operator.Equal;
+                }
+            }
+            else
+            {
+                return Operator.NotEqual;
+            }
+        }
+    }
 
 }

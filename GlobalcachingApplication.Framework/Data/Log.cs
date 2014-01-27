@@ -13,10 +13,10 @@ namespace GlobalcachingApplication.Framework.Data
         private string _tbCode;
         private DateTime _date = DateTime.MinValue;
         private DateTime _dataFromDate = DateTime.MinValue;
-        private string _finderId;
-        private string _finder;
-        private string _text = null;
-        private bool _encoded;
+        private string _finderId = "";
+        private string _finder = "";
+        private string _text = "";
+        private bool _encoded = false;
 
         private bool _dataChanged = false;
         public event EventArguments.LogEventHandler DataChanged;
@@ -26,6 +26,8 @@ namespace GlobalcachingApplication.Framework.Data
         //if text is null, then log is parially loaded
         public event EventArguments.LogEventHandler LoadFullData;
         private bool _loadingFullData = false;
+        private bool _fullDataLoaded = true;
+        private static Log _fullLoadLog = new Log();
 
         public Log()
         {
@@ -36,27 +38,55 @@ namespace GlobalcachingApplication.Framework.Data
             return _id.GetHashCode();
         }
 
-        private void fullDataRequest()
+        private void fullDataRequest(bool persist)
         {
             if (!FullDataLoaded)
             {
                 if (!_loadingFullData && LoadFullData != null)
                 {
                     _loadingFullData = true;
+                    _fullLoadLog.ID = this.ID;
+                    if (!persist)
+                    {
+                        _fullLoadLog._tbCode = this._tbCode;
+                        _fullLoadLog._finderId = this._finderId;
+                        _fullLoadLog._text = this._text;
+                        _fullLoadLog._encoded = this._encoded;
+                    }
                     LoadFullData(this, new EventArguments.LogEventArgs(this));
                     _loadingFullData = false;
+                    if (persist)
+                    {
+                        this._tbCode = _fullLoadLog._tbCode;
+                        this._finderId = _fullLoadLog._finderId;
+                        this._text = _fullLoadLog._text;
+                        this._encoded = _fullLoadLog._encoded;
+                        FullDataLoaded = true;
+                    }
                 }
-                //try once
-                if (_text == null)
-                {
-                    _text = "";
-                }
+            }
+            else
+            {
+                _fullLoadLog._tbCode = this._tbCode;
+                _fullLoadLog._finderId = this._finderId;
+                _fullLoadLog._text = this._text;
+                _fullLoadLog._encoded = this._encoded;
             }
         }
 
         public bool FullDataLoaded
         {
-            get { return (_text != null); }
+            get { return (_fullDataLoaded); }
+            set { _fullDataLoaded = value; }
+        }
+
+        public void ClearFullData()
+        {
+            this._tbCode = "";
+            this._finderId = "";
+            this._text = "";
+            this._encoded = false;
+            FullDataLoaded = false;
         }
 
         public void UpdateFrom(Log l)
@@ -106,14 +136,14 @@ namespace GlobalcachingApplication.Framework.Data
         {
             get 
             {
-                fullDataRequest();
-                return _text; 
+                fullDataRequest(false);
+                return _fullLoadLog._text; 
             }
             set
             {
-                fullDataRequest();
-                if (_text != value)
+                if (_fullLoadLog._text != value)
                 {
+                    fullDataRequest(true);
                     _text = value;
                     OnDataChanged(this);
                 }
@@ -125,14 +155,14 @@ namespace GlobalcachingApplication.Framework.Data
         {
             get 
             {
-                fullDataRequest();
-                return _encoded; 
+                fullDataRequest(false);
+                return _fullLoadLog._encoded; 
             }
             set
             {
-                fullDataRequest();
-                if (_encoded != value)
+                if (_fullLoadLog._encoded != value)
                 {
+                    fullDataRequest(true);
                     _encoded = value;
                     OnDataChanged(this);
                 }
@@ -156,14 +186,14 @@ namespace GlobalcachingApplication.Framework.Data
         {
             get 
             {
-                fullDataRequest();
-                return _finderId; 
+                fullDataRequest(false);
+                return _fullLoadLog._finderId; 
             }
             set
             {
-                fullDataRequest();
-                if (_finderId != value)
+                if (_fullLoadLog._finderId != value)
                 {
+                    fullDataRequest(true);
                     _finderId = value;
                     OnDataChanged(this);
                 }
@@ -214,14 +244,14 @@ namespace GlobalcachingApplication.Framework.Data
         {
             get 
             {
-                fullDataRequest();
-                return _tbCode; 
+                fullDataRequest(false);
+                return _fullLoadLog._tbCode; 
             }
             set
             {
-                fullDataRequest();
-                if (_tbCode != value)
+                if (_fullLoadLog._tbCode != value)
                 {
+                    fullDataRequest(true);
                     _tbCode = value;
                     OnDataChanged(this);
                 }

@@ -11,6 +11,7 @@ namespace GlobalcachingApplication.Framework.Data
         public static Version V1 = new Version(1, 0, 0);
         public static Version V2 = new Version(1, 0, 1);
         public static Version V3 = new Version(1, 0, 2);
+        private static Geocache _fullLoadGeocache = new Geocache();
 
         //data properties
         private string _id;
@@ -35,9 +36,9 @@ namespace GlobalcachingApplication.Framework.Data
         private GeocacheContainer _container;
         private double _terrain;
         private double _difficulty;
-        private string _shortDescription = null;
+        private string _shortDescription = "";
         private bool _shortDescriptionInHtml = false;
-        private string _longDescription = null;
+        private string _longDescription = "";
         private bool _longDescriptionInHtml = false;
         private string _encodedHints;
         private string _url;
@@ -62,12 +63,10 @@ namespace GlobalcachingApplication.Framework.Data
         public event EventArguments.GeocacheEventHandler DataChanged;
         private bool _updating = false;
         private bool _saved = false;
+        private bool _fullDataLoaded = true;
         private Hashtable _customAttributes = new Hashtable();
         public static List<string> CustomAttributesKeys = new List<string>();
         private Interfaces.ICore _core = null;
-
-        //memsaver
-        private byte[] _zippedLongDescription = null;
 
         //if _shortDescription is null, then cache is parially loaded
         public event EventArguments.GeocacheEventHandler LoadFullData;
@@ -88,29 +87,56 @@ namespace GlobalcachingApplication.Framework.Data
             set { _core = value; }
         }
 
-        private void fullDataRequest()
+        private void fullDataRequest(bool persist)
         {
             if (!FullDataLoaded)
             {
                 if (!_loadingFullData && LoadFullData != null)
                 {
                     _loadingFullData = true;
-                    LoadFullData(this, new EventArguments.GeocacheEventArgs(this));
+                    _fullLoadGeocache.Code = this.Code;
+                    if (!persist)
+                    {
+                        _fullLoadGeocache._shortDescription = this._shortDescription;
+                        _fullLoadGeocache._shortDescriptionInHtml = this._shortDescriptionInHtml;
+                        _fullLoadGeocache._longDescription = this._longDescription;
+                        _fullLoadGeocache._longDescriptionInHtml = this._longDescriptionInHtml;
+                    }
+                    LoadFullData(this, new EventArguments.GeocacheEventArgs(_fullLoadGeocache));
                     _loadingFullData = false;
+                    if (persist)
+                    {
+                        this._shortDescription = _fullLoadGeocache._shortDescription;
+                        this._shortDescriptionInHtml = _fullLoadGeocache._shortDescriptionInHtml;
+                        this._longDescription = _fullLoadGeocache._longDescription;
+                        this._longDescriptionInHtml = _fullLoadGeocache._longDescriptionInHtml;
+                        FullDataLoaded = true;
+                    }
                 }
-                //try once
-                if (_shortDescription == null)
-                {
-                    _shortDescription = "";
-                }
+            }
+            else
+            {
+                _fullLoadGeocache._shortDescription = this._shortDescription;
+                _fullLoadGeocache._shortDescriptionInHtml = this._shortDescriptionInHtml;
+                _fullLoadGeocache._longDescription = this._longDescription;
+                _fullLoadGeocache._longDescriptionInHtml = this._longDescriptionInHtml;
             }
         }
 
         public bool FullDataLoaded
         {
-            get { return (_shortDescription != null); }
+            get { return (_fullDataLoaded); }
+            set { _fullDataLoaded = value; }
         }
 
+        public void ClearFullData()
+        {
+            this._shortDescription = "";
+            this._shortDescriptionInHtml = false;
+            this._longDescription = "";
+            this._longDescriptionInHtml = false;
+            FullDataLoaded = false;
+        }
 
         public void UpdateFrom(Geocache gc, Version gpxDataVersion)
         {
@@ -524,14 +550,14 @@ namespace GlobalcachingApplication.Framework.Data
         {
             get 
             {
-                fullDataRequest(); 
-                return _shortDescription; 
+                fullDataRequest(false);
+                return _fullLoadGeocache._shortDescription; 
             }
             set
             {
-                fullDataRequest();
-                if (_shortDescription != value)
+                if (_fullLoadGeocache._shortDescription != value)
                 {
+                    fullDataRequest(true);
                     _shortDescription = value;
                     OnDataChanged(this);
                 }
@@ -541,14 +567,14 @@ namespace GlobalcachingApplication.Framework.Data
         {
             get 
             {
-                fullDataRequest();
-                return _shortDescriptionInHtml; 
+                fullDataRequest(false);
+                return _fullLoadGeocache._shortDescriptionInHtml; 
             }
             set
             {
-                fullDataRequest();
-                if (_shortDescriptionInHtml != value)
+                if (_fullLoadGeocache._shortDescriptionInHtml != value)
                 {
+                    fullDataRequest(true);
                     _shortDescriptionInHtml = value;
                     OnDataChanged(this);
                 }
@@ -558,36 +584,16 @@ namespace GlobalcachingApplication.Framework.Data
         {
             get 
             {
-                fullDataRequest();
-                if (!string.IsNullOrEmpty(_longDescription))
-                {
-                    return _longDescription;
-                }
-                else
-                {
-                    return CompressText.UnzipText(_zippedLongDescription);
-                }
+                fullDataRequest(false);
+                return _fullLoadGeocache._longDescription;
             }
             set
             {
-                fullDataRequest();
-                if (value == null || value.Length < 5000)
+                if (_fullLoadGeocache._longDescription != value)
                 {
-                    _longDescription = null;
-                    if (_longDescription != value)
-                    {
-                        _longDescription = value;
-                        OnDataChanged(this);
-                    }
-                }
-                else
-                {
-                    if (LongDescription != value)
-                    {
-                        _longDescription = null;
-                        _zippedLongDescription = CompressText.ZipText(value);
-                        OnDataChanged(this);
-                    }
+                    fullDataRequest(true);
+                    _longDescription = value;
+                    OnDataChanged(this);
                 }
             }
         }
@@ -595,14 +601,14 @@ namespace GlobalcachingApplication.Framework.Data
         {
             get 
             {
-                fullDataRequest();
-                return _longDescriptionInHtml; 
+                fullDataRequest(false);
+                return _fullLoadGeocache._longDescriptionInHtml; 
             }
             set
             {
-                fullDataRequest();
-                if (_longDescriptionInHtml != value)
+                if (_fullLoadGeocache._longDescriptionInHtml != value)
                 {
+                    fullDataRequest(true);
                     _longDescriptionInHtml = value;
                     OnDataChanged(this);
                 }

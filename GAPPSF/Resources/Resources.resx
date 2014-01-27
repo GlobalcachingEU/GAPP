@@ -1432,4 +1432,10 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="CreateDatabase" xml:space="preserve">
     <value>Create database</value>
   </data>
+  <data name="DescriptionContains" xml:space="preserve">
+    <value>Description contains</value>
+  </data>
+  <data name="RegularExpression" xml:space="preserve">
+    <value>Regular expression</value>
+  </data>
 </root>

@@ -764,6 +764,17 @@ namespace GlobalcachingApplication.Utils.BasePlugin
             try
             {
                 _actionResult = Save();
+                if (_actionResult)
+                {
+                    foreach(Framework.Data.Geocache gc in Core.Geocaches)
+                    {
+                        gc.ClearFullData();
+                    }
+                    foreach (Framework.Data.Log lg in Core.Logs)
+                    {
+                        lg.ClearFullData();
+                    }
+                }
             }
             catch
             {
@@ -804,6 +815,17 @@ namespace GlobalcachingApplication.Utils.BasePlugin
             try
             {
                 _actionResult = SaveAs();
+                if (_actionResult)
+                {
+                    foreach (Framework.Data.Geocache gc in Core.Geocaches)
+                    {
+                        gc.ClearFullData();
+                    }
+                    foreach (Framework.Data.Log lg in Core.Logs)
+                    {
+                        lg.ClearFullData();
+                    }
+                }
             }
             catch
             {
@@ -875,6 +897,14 @@ namespace GlobalcachingApplication.Utils.BasePlugin
             try
             {
                 _actionResult = Load(DoLoadInBackground);
+                foreach (Framework.Data.Geocache gc in Core.Geocaches)
+                {
+                    gc.FullDataLoaded = false;
+                }
+                foreach (Framework.Data.Log lg in Core.Logs)
+                {
+                    lg.FullDataLoaded = false;
+                }
                 DatabaseError = !_actionResult;
                 if (_actionResult && DoLoadInBackground)
                 {
@@ -990,6 +1020,10 @@ namespace GlobalcachingApplication.Utils.BasePlugin
             try
             {
                 LoadLogs(logs);
+                foreach (Framework.Data.Log lg in logs)
+                {
+                    lg.FullDataLoaded = false;
+                }
                 Core.Logs.Add(logs);
                 LoadWaypoints(wps, usrwps);
                 Core.Waypoints.Add(wps);
@@ -1047,6 +1081,10 @@ namespace GlobalcachingApplication.Utils.BasePlugin
             try
             {
                 _actionResult = Open(DoLoadInBackground);
+                foreach (Framework.Data.Geocache gc in Core.Geocaches)
+                {
+                    gc.FullDataLoaded = false;
+                }
                 if (_actionResult && DoLoadInBackground)
                 {
                     StartLoadingInBackground();
