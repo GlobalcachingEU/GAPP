@@ -39,5 +39,9 @@ namespace GAPPSF.Core
         //formula solver
         string GetFormula(string gcCode);
         void SetFormula(string gcCode, string formula);
+
+        //geocache notes
+        string GetGeocacheNotes(string gcCode);
+        void SetGeocacheNotes(string gcCode, string notes);
     }
 }

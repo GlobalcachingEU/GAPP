@@ -96,8 +96,14 @@ namespace GAPPSF.Core.Data
                 bw.Write(data.Municipality ?? "");
                 ms.Position = 1100;
                 bw.Write(data.Name ?? "");
-                ms.Position = 1200;
-                bw.Write(GetSafeString(1200, 2000, data.Notes) ?? "");
+                ms.Position = 1200; //spare now
+                //bw.Write(GetSafeString(1200, 2000, data.Notes) ?? "");
+                bw.Write("");
+                //do not overwrite note if note is not set (e.g. import GPX)
+                if (!string.IsNullOrEmpty(data.Notes))
+                {
+                    Core.Settings.Default.SetGeocacheNotes(data.Code, data.Notes);
+                }
                 ms.Position = 2000;
                 bw.Write(data.Owner ?? "");
                 ms.Position = 2100;
@@ -185,6 +191,10 @@ namespace GAPPSF.Core.Data
                 this.RecordInfo.Database.FileStream.Position = this.RecordInfo.Offset + 3002;
                 this.RecordInfo.Database.BinaryWriter.Write(sd);
                 this.RecordInfo.Database.BinaryWriter.Write(value as string ?? "");
+            }
+            else if (name == "Notes")
+            {
+                Core.Settings.Default.SetGeocacheNotes(this.Code, value as string);
             }
             else
             {
@@ -797,12 +807,13 @@ namespace GAPPSF.Core.Data
         {
             get
             {
-                return readString(1200);
+                return Core.Settings.Default.GetGeocacheNotes(this.Code) ?? "";
+                //return readString(1200);
             }
             set
             {
-                string s = PersonalNote;
-                SetStringProperty(1200, 2000, ref s, value);
+                string s = Notes;
+                SetProperty(1200, ref s, value);
             }
         }
 

@@ -2796,5 +2796,12 @@ namespace GAPPSF
             dlg.ShowDialog();
         }
 
+        private void menuqqb8_Click(object sender, RoutedEventArgs e)
+        {
+            Window w = new FeatureWindow(new UIControls.NotesEditor.Control());
+            w.Owner = this;
+            w.Show();
+        }
+
     }
 }

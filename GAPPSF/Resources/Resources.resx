@@ -1438,4 +1438,10 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="RegularExpression" xml:space="preserve">
     <value>Regular expression</value>
   </data>
+  <data name="NotesEditor" xml:space="preserve">
+    <value>Geocache note editor</value>
+  </data>
+  <data name="GeocachingComNote" xml:space="preserve">
+    <value>Personal note on geocaching.com</value>
+  </data>
 </root>

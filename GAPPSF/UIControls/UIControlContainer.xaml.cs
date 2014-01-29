@@ -295,6 +295,11 @@ namespace GAPPSF.UIControls
             FeatureControl = new LogViewer.Control();
         }
 
+        private void MenuItem_Click_20(object sender, RoutedEventArgs e)
+        {
+            FeatureControl = new NotesEditor.Control();
+        }
+
 
     }
 }

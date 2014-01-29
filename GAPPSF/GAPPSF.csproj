@@ -193,6 +193,8 @@
     </Compile>
     <Compile Include="Clipboard\ClipboardHandler.cs" />
     <Compile Include="Commands\AsyncDelegateCommand.cs" />
+    <Compile Include="Commands\CommandReference.cs" />
+    <Compile Include="Commands\DelegateCommand.cs" />
     <Compile Include="Commands\ForAllGeocachesCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Core\Data\AccountInfo.cs" />
@@ -261,6 +263,7 @@
     <Compile Include="Core\Settings\LogViewerSettings.cs" />
     <Compile Include="Core\Settings\MainWindowSettings.cs" />
     <Compile Include="Core\Settings\MapsSettings.cs" />
+    <Compile Include="Core\Settings\NotesEditorSettings.cs" />
     <Compile Include="Core\Settings\OfflineImageSettings.cs" />
     <Compile Include="Core\Settings\OV2Settings.cs" />
     <Compile Include="Core\Settings\PurgeLogsSettings.cs" />
@@ -895,6 +898,14 @@
     <Compile Include="UIControls\GeocacheTypeCombo.xaml.cs">
       <DependentUpon>GeocacheTypeCombo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UIControls\HtmlTextEditor\HtmlCssParser.cs" />
+    <Compile Include="UIControls\HtmlTextEditor\HtmlFromXamlConverter.cs" />
+    <Compile Include="UIControls\HtmlTextEditor\HtmlLexicalAnalyzer.cs" />
+    <Compile Include="UIControls\HtmlTextEditor\HtmlParser.cs" />
+    <Compile Include="UIControls\HtmlTextEditor\HtmlSchema.cs" />
+    <Compile Include="UIControls\HtmlTextEditor\HtmlTokenType.cs" />
+    <Compile Include="UIControls\HtmlTextEditor\HtmlToXamlConverter.cs" />
+    <Compile Include="UIControls\HtmlTextEditor\RichTextboxAssistant.cs" />
     <Compile Include="UIControls\LogTypeSelection.xaml.cs">
       <DependentUpon>LogTypeSelection.xaml</DependentUpon>
     </Compile>
@@ -943,10 +954,16 @@
     <Compile Include="UIControls\Maps\SearchControl.xaml.cs">
       <DependentUpon>SearchControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UIControls\NotesEditor\Control.xaml.cs">
+      <DependentUpon>Control.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIControls\OfflineImages\Control.xaml.cs">
       <DependentUpon>Control.xaml</DependentUpon>
     </Compile>
     <Compile Include="UIControls\OfflineImages\ImageInfo.cs" />
+    <Compile Include="UIControls\HtmlTextEditor\RichTextEditor.xaml.cs">
+      <DependentUpon>RichTextEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIControls\SelectionContext.xaml.cs">
       <DependentUpon>SelectionContext.xaml</DependentUpon>
     </Compile>
@@ -1357,9 +1374,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UIControls\NotesEditor\Control.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UIControls\OfflineImages\Control.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\HtmlTextEditor\RichTextEditor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UIControls\SelectionContext.xaml">
       <SubType>Designer</SubType>
@@ -2088,6 +2113,25 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\SetupWizard\database.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\TextEditor\charactergrowfont.png" />
+    <Resource Include="Resources\TextEditor\charactershrinkfont.png" />
+    <Resource Include="Resources\TextEditor\editcopy.png" />
+    <Resource Include="Resources\TextEditor\editcut.png" />
+    <Resource Include="Resources\TextEditor\editpaste.png" />
+    <Resource Include="Resources\TextEditor\editredo.png" />
+    <Resource Include="Resources\TextEditor\editundo.png" />
+    <Resource Include="Resources\TextEditor\fileopen.png" />
+    <Resource Include="Resources\TextEditor\filesave.png" />
+    <Resource Include="Resources\TextEditor\listbullets.png" />
+    <Resource Include="Resources\TextEditor\listnumbering.png" />
+    <Resource Include="Resources\TextEditor\paragraphcenterjustify.png" />
+    <Resource Include="Resources\TextEditor\paragraphdecreaseindentation.png" />
+    <Resource Include="Resources\TextEditor\paragraphfulljustify.png" />
+    <Resource Include="Resources\TextEditor\paragraphincreaseindentation.png" />
+    <Resource Include="Resources\TextEditor\paragraphleftjustify.png" />
+    <Resource Include="Resources\TextEditor\paragraphrightjustify.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

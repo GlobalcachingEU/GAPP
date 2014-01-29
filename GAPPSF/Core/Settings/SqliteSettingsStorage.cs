@@ -98,6 +98,11 @@ namespace GAPPSF.Core
                     _dbcon.ExecuteNonQuery("create table 'formulasolv' (gccode text, formula text)");
                     _dbcon.ExecuteNonQuery("create index idx_form on formulasolv (gccode)");
                 }
+                if (!_dbcon.TableExists("gcnotes"))
+                {
+                    _dbcon.ExecuteNonQuery("create table 'gcnotes' (gccode text, notes text)");
+                    _dbcon.ExecuteNonQuery("create index idx_note on gcnotes (gccode)");
+                }
             }
             catch(Exception e)
             {
@@ -433,6 +438,36 @@ namespace GAPPSF.Core
             }
         }
 
+        public string GetGeocacheNotes(string gcCode)
+        {
+            string result = null;
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    result = _dbcon.ExecuteScalar(string.Format("select notes from gcnotes where gccode='{0}'", gcCode)) as string;
+                }
+            }
+            return result;
+        }
+
+        public void SetGeocacheNotes(string gcCode, string notes)
+        {
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    if (string.IsNullOrEmpty(notes))
+                    {
+                        _dbcon.ExecuteNonQuery(string.Format("delete from gcnotes where gccode='{0}'", gcCode));
+                    }
+                    else if (_dbcon.ExecuteNonQuery(string.Format("update gcnotes set notes='{1}' where gccode='{0}'", gcCode, notes.Replace("'", "''"))) == 0)
+                    {
+                        _dbcon.ExecuteNonQuery(string.Format("insert into gcnotes (gccode, notes) values ('{0}', '{1}')", gcCode, notes.Replace("'", "''")));
+                    }
+                }
+            }
+        }
 
     }
 }
