@@ -8,6 +8,10 @@ todo:
 - add option to set the logcount for GPX export
 - add tooltip for counters in main screen
 
+V1.9.12.0
+
+- fix: GPX export, the Waypoint has now the description field if it has a description
+
 V1.9.11.0
 
 - change: Geocache description and log text are not persistent in memory when loaded from database (smaller foot print)

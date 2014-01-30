@@ -147,7 +147,7 @@ namespace GAPPSF.GPX
                         wpt.AppendChild(el);
 
                         el = doc.CreateElement("desc");
-                        if (string.IsNullOrEmpty(wp.Description))
+                        if (!string.IsNullOrEmpty(wp.Description))
                         {
                             txt = doc.CreateTextNode(wp.Description);
                         }
