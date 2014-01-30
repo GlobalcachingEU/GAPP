@@ -281,6 +281,7 @@
                     <MenuItem x:Name="menubkb8" Header="{l:Translate WaypointEditor}" Click="menubkb8_Click" />
                     <MenuItem x:Name="menubbb8" Header="{l:Translate LogViewer}" Click="menubbb8_Click" />
                     <MenuItem x:Name="menuqqb8" Header="{l:Translate NotesEditor}" Click="menuqqb8_Click" />
+                    <MenuItem x:Name="menuzzb8" Header="{l:Translate GeocacheCollections}" Click="menuzzb8_Click" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate Help}">
                     <MenuItem x:Name="menua37" Header="{l:Translate Forum}" Click="menua37_Click" />
@@ -292,11 +293,53 @@
             </Menu>
             <ToolBarTray Background="#FFD6DBE9">
                 <ToolBar Background="#FFCFD6E5">
-                    <Button Command="{Binding NewCommand}">
+                    <Button Command="{Binding NewCommand}" ToolTip="{l:Translate New}">
                         <Image Source="/Resources/MainWindow/database_add.png"/>
                     </Button>
-                    <Button Command="{Binding OpenCommand}">
+                    <Button Command="{Binding OpenCommand}" ToolTip="{l:Translate Open}">
                         <Image Source="/Resources/MainWindow/database.png"/>
+                    </Button>
+                </ToolBar>
+                <ToolBar Background="#FFCFD6E5">
+                    <Button Click="MenuItem_Click_1" ToolTip="{l:Translate GeocacheViewer}">
+                        <Image Source="/Resources/MainWindow/view.png"/>
+                    </Button>
+                    <Button Click="menubkb7_Click" ToolTip="{l:Translate GeocacheEditor}">
+                        <Image Source="/Resources/MainWindow/gcedit.gif"/>
+                    </Button>
+                    <Button Click="menubkb8_Click" ToolTip="{l:Translate WaypointEditor}">
+                        <Image Source="/Resources/MainWindow/wpedit.png"/>
+                    </Button>
+                    <Button Click="MenuItem_Click" ToolTip="{l:Translate CacheList}">
+                        <Image Source="/Resources/MainWindow/list.png"/>
+                    </Button>
+                    <Button Click="menubk7_Click" ToolTip="{l:Translate FormulaSolver}">
+                        <Image Source="/Resources/MainWindow/mathematics.png"/>
+                    </Button>
+                </ToolBar>
+                <ToolBar Background="#FFCFD6E5">
+                    <Button Click="MenuItem_Click_7" ToolTip="{l:Translate GoogleMap}">
+                        <Image Source="/Resources/MainWindow/google.png"/>
+                    </Button>
+                    <Button Click="menux25_Click" ToolTip="{l:Translate GoogleRoadMapOnline}">
+                        <Image Source="/Resources/MainWindow/google2.png"/>
+                    </Button>
+                    <Button Click="menuy25_Click" ToolTip="{l:Translate OpenStreetMapOnline}">
+                        <Image Source="/Resources/MainWindow/osm.png"/>
+                    </Button>
+                    <Button Click="menuz25_Click" ToolTip="{l:Translate OpenStreetMapOffline}">
+                        <Image Source="/Resources/MainWindow/maps.png"/>
+                    </Button>
+                    <Button Click="menuf25_Click" ToolTip="{l:Translate GoogleEarth}">
+                        <Image Source="/Resources/MainWindow/googleearth.png"/>
+                    </Button>
+                </ToolBar>
+                <ToolBar Background="#FFCFD6E5">
+                    <Button Click="menut37_Click" ToolTip="{l:Translate ImportPQ}">
+                        <Image Source="/Resources/MainWindow/dbimport.png"/>
+                    </Button>
+                    <Button Command="{Binding LiveAPIImportGeocachesCommand}" ToolTip="{l:Translate ImportGeocaches}">
+                        <Image Source="/Resources/MainWindow/Importgc.png"/>
                     </Button>
                 </ToolBar>
             </ToolBarTray>

@@ -37,6 +37,7 @@
                 <MenuItem Header="{l:Translate WaypointEditor}" Click="MenuItem_Click_18" />
                 <MenuItem Header="{l:Translate LogViewer}" Click="MenuItem_Click_19" />
                 <MenuItem Header="{l:Translate NotesEditor}" Click="MenuItem_Click_20" />
+                <MenuItem Header="{l:Translate GeocacheCollections}" Click="MenuItem_Click_21" />
             </MenuItem>
         </Menu>
         <Button Width="20" Height="20" HorizontalAlignment="Right" Click="Button_Click">

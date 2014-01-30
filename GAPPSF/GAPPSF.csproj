@@ -250,6 +250,7 @@
     <Compile Include="Core\Settings\GCComBookmarkSettings.cs" />
     <Compile Include="Core\Settings\GCEditorSettings.cs" />
     <Compile Include="Core\Settings\GDAKSettings.cs" />
+    <Compile Include="Core\Settings\GeocacheCollectionSettings.cs" />
     <Compile Include="Core\Settings\GeocacheFilterSettings.cs" />
     <Compile Include="Core\Settings\GeocacheViewerSettings.cs" />
     <Compile Include="Core\Settings\GoogleEarthSettings.cs" />
@@ -895,6 +896,9 @@
     <Compile Include="UIControls\GeocacheAttributeSelection.xaml.cs">
       <DependentUpon>GeocacheAttributeSelection.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UIControls\GeocacheCollection\Control.xaml.cs">
+      <DependentUpon>Control.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIControls\GeocacheTypeCombo.xaml.cs">
       <DependentUpon>GeocacheTypeCombo.xaml</DependentUpon>
     </Compile>
@@ -1311,6 +1315,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIControls\GeocacheAttributeSelection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\GeocacheCollection\Control.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -103,6 +103,16 @@ namespace GAPPSF.Core
                     _dbcon.ExecuteNonQuery("create table 'gcnotes' (gccode text, notes text)");
                     _dbcon.ExecuteNonQuery("create index idx_note on gcnotes (gccode)");
                 }
+                if (!_dbcon.TableExists("gccollections"))
+                {
+                    _dbcon.ExecuteNonQuery("create table 'gccollections' (col_id integer, name text)");
+                    _dbcon.ExecuteNonQuery("create index idx_col on gccollections (name)");
+                }
+                if (!_dbcon.TableExists("gcincol"))
+                {
+                    _dbcon.ExecuteNonQuery("create table 'gcincol' (col_id integer, gccode text)");
+                    _dbcon.ExecuteNonQuery("create index idx_gccol on gcincol (col_id)");
+                }
             }
             catch(Exception e)
             {
@@ -467,6 +477,188 @@ namespace GAPPSF.Core
                     }
                 }
             }
+        }
+
+        /*
+                if (!_dbcon.TableExists("gccollections"))
+                {
+                    _dbcon.ExecuteNonQuery("create table 'gccollections' (col_id integer, name text)");
+                    _dbcon.ExecuteNonQuery("create index idx_col on gccollections (name)");
+                }
+                if (!_dbcon.TableExists("gcincol"))
+                {
+                    _dbcon.ExecuteNonQuery("create table 'gcincol' (col_id integer, gccode text)");
+                    _dbcon.ExecuteNonQuery("create index idx_gccol on gcincol (col_id)");
+                }
+         */
+        private int getGCCollectionID(string name)
+        {
+            int result = -1;
+            object o = _dbcon.ExecuteScalar(string.Format("select col_id from gccollections where name='{0}'", name.Replace("'", "''")));
+            if (o!=null)
+            {
+                result = (int)o;
+            }
+            return result;
+        }
+        public int GetCollectionID(string collectionName)
+        {
+            int result = -1;
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    result = getGCCollectionID(collectionName);
+                }
+            }
+            return result;
+        }
+        public List<string> AvailableCollections()
+        {
+            List<string> result = new List<string>();
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    DbDataReader dr = _dbcon.ExecuteReader("select name from gccollections");
+                    while (dr.Read())
+                    {
+                        result.Add(dr[0] as string);
+                    }
+                }
+            }
+            return result;
+        }
+        public List<string> GetGeocachesInCollection(string collectionName)
+        {
+            List<string> result = new List<string>();
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    int id = getGCCollectionID(collectionName);
+                    if (id >= 0)
+                    {
+                        DbDataReader dr = _dbcon.ExecuteReader(string.Format("select gccode from gcincol where col_id={0}", id));
+                        while (dr.Read())
+                        {
+                            result.Add(dr[0] as string);
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+        public void AddCollection(string name)
+        {
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    int id = getGCCollectionID(name);
+                    if (id < 0)
+                    {
+                        _dbcon.ExecuteNonQuery(string.Format("insert into gccollections (name) values ('{0}')", name.Replace("'", "''")));
+                    }
+                }
+            }
+        }
+        public void DeleteCollection(string name)
+        {
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    int id = getGCCollectionID(name);
+                    if (id >= 0)
+                    {
+                        _dbcon.ExecuteNonQuery(string.Format("delete from gcincol where col_id={0}", id));
+                        _dbcon.ExecuteNonQuery(string.Format("delete from gccollections where col_id={0}", id));
+                    }
+                }
+            }
+        }
+        public void AddToCollection(string collectionName, string geocacheCode)
+        {
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    int id = getGCCollectionID(collectionName);
+                    if (id >= 0)
+                    {
+                        if (!InCollection(id, geocacheCode))
+                        {
+                            _dbcon.ExecuteNonQuery(string.Format("insert into gcincol (col_id, gccode) values ({0}, '{1}')", id, geocacheCode.Replace("'", "''")));
+                        }
+                    }
+                }
+            }
+        }
+        public void AddToCollection(int collectionID, string geocacheCode)
+        {
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    if (!InCollection(collectionID, geocacheCode))
+                    {
+                        _dbcon.ExecuteNonQuery(string.Format("insert into gcincol (col_id, gccode) values ({0}, '{1}')", collectionID, geocacheCode.Replace("'", "''")));
+                    }
+                }
+            }
+        }
+        public void RemoveFromCollection(string collectionName, string geocacheCode)
+        {
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    int id = getGCCollectionID(collectionName);
+                    if (id >= 0)
+                    {
+                        _dbcon.ExecuteNonQuery(string.Format("delete from gcincol where col_id={0} and gccode='{1}'", id, geocacheCode.Replace("'", "''")));
+                    }
+                }
+            }
+        }
+        public void RemoveFromCollection(int collectionID, string geocacheCode)
+        {
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    _dbcon.ExecuteNonQuery(string.Format("delete from gcincol where col_id={0} and gccode='{1}'", collectionID, geocacheCode.Replace("'", "''")));
+                }
+            }
+        }
+        public bool InCollection(string collectionName, string geocacheCode)
+        {
+            bool result = false;
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    int id = getGCCollectionID(collectionName);
+                    if (id >= 0)
+                    {
+                        result = (int)_dbcon.ExecuteScalar(string.Format("select count(1) from gcincol where col_id={0} and gccode='{1}'", id, geocacheCode.Replace("'", "''"))) > 0;
+                    }
+                }
+            }
+            return result;
+        }
+        public bool InCollection(int collectionID, string geocacheCode)
+        {
+            bool result = false;
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    result = (int)_dbcon.ExecuteScalar(string.Format("select count(1) from gcincol where col_id={0} and gccode='{1}'", collectionID, geocacheCode.Replace("'", "''"))) > 0;
+                }
+            }
+            return result;
         }
 
     }

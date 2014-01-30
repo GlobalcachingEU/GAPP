@@ -1444,4 +1444,7 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="GeocachingComNote" xml:space="preserve">
     <value>Personal note on geocaching.com</value>
   </data>
+  <data name="GeocacheCollections" xml:space="preserve">
+    <value>Geocache collections</value>
+  </data>
 </root>

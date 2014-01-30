@@ -43,5 +43,18 @@ namespace GAPPSF.Core
         //geocache notes
         string GetGeocacheNotes(string gcCode);
         void SetGeocacheNotes(string gcCode, string notes);
+
+        //Geocache Collections
+        List<string> AvailableCollections();
+        List<string> GetGeocachesInCollection(string collectionName);
+        void AddCollection(string name);
+        void DeleteCollection(string name);
+        void AddToCollection(string collectionName, string geocacheCode);
+        void AddToCollection(int collectionID, string geocacheCode);
+        void RemoveFromCollection(string collectionName, string geocacheCode);
+        void RemoveFromCollection(int collectionID, string geocacheCode);
+        bool InCollection(string collectionName, string geocacheCode);
+        bool InCollection(int collectionID, string geocacheCode);
+        int GetCollectionID(string collectionName);
     }
 }

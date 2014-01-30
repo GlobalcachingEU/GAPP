@@ -300,6 +300,11 @@ namespace GAPPSF.UIControls
             FeatureControl = new NotesEditor.Control();
         }
 
+        private void MenuItem_Click_21(object sender, RoutedEventArgs e)
+        {
+            FeatureControl = new GeocacheCollection.Control();
+        }
+
 
     }
 }
