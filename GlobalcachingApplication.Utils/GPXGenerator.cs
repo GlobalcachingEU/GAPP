@@ -191,6 +191,11 @@ namespace GlobalcachingApplication.Utils
                         el.AppendChild(txt);
                         wpt.AppendChild(el);
 
+                        el = doc.CreateElement("cmt");
+                        txt = doc.CreateTextNode(wp.Comment ?? "");
+                        el.AppendChild(txt);
+                        wpt.AppendChild(el);
+
                         el = doc.CreateElement("desc");
                         if (!string.IsNullOrEmpty(wp.Description))
                         {
