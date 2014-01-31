@@ -103,10 +103,10 @@ namespace GAPPSF.Core
                     _dbcon.ExecuteNonQuery("create table 'gcnotes' (gccode text, notes text)");
                     _dbcon.ExecuteNonQuery("create index idx_note on gcnotes (gccode)");
                 }
-                if (!_dbcon.TableExists("gccollections"))
+                if (!_dbcon.TableExists("gccollection"))
                 {
-                    _dbcon.ExecuteNonQuery("create table 'gccollections' (col_id integer, name text)");
-                    _dbcon.ExecuteNonQuery("create index idx_col on gccollections (name)");
+                    _dbcon.ExecuteNonQuery("create table 'gccollection' (col_id integer primary key autoincrement, name text)");
+                    //_dbcon.ExecuteNonQuery("create index idx_col on gccollection (name)");
                 }
                 if (!_dbcon.TableExists("gcincol"))
                 {
@@ -116,7 +116,7 @@ namespace GAPPSF.Core
             }
             catch(Exception e)
             {
-                Core.ApplicationData.Instance.Logger.AddLog(this, e);
+                //Core.ApplicationData.Instance.Logger.AddLog(this, e);
                 _dbcon = null;
             }
         }
@@ -479,25 +479,13 @@ namespace GAPPSF.Core
             }
         }
 
-        /*
-                if (!_dbcon.TableExists("gccollections"))
-                {
-                    _dbcon.ExecuteNonQuery("create table 'gccollections' (col_id integer, name text)");
-                    _dbcon.ExecuteNonQuery("create index idx_col on gccollections (name)");
-                }
-                if (!_dbcon.TableExists("gcincol"))
-                {
-                    _dbcon.ExecuteNonQuery("create table 'gcincol' (col_id integer, gccode text)");
-                    _dbcon.ExecuteNonQuery("create index idx_gccol on gcincol (col_id)");
-                }
-         */
         private int getGCCollectionID(string name)
         {
             int result = -1;
-            object o = _dbcon.ExecuteScalar(string.Format("select col_id from gccollections where name='{0}'", name.Replace("'", "''")));
-            if (o!=null)
+            DbDataReader dr = _dbcon.ExecuteReader(string.Format("select col_id from gccollection where name='{0}'", name.Replace("'", "''")));
+            if (dr.Read())
             {
-                result = (int)o;
+                result = dr.GetInt32(0);
             }
             return result;
         }
@@ -520,7 +508,7 @@ namespace GAPPSF.Core
             {
                 if (_dbcon != null)
                 {
-                    DbDataReader dr = _dbcon.ExecuteReader("select name from gccollections");
+                    DbDataReader dr = _dbcon.ExecuteReader("select name from gccollection");
                     while (dr.Read())
                     {
                         result.Add(dr[0] as string);
@@ -558,7 +546,7 @@ namespace GAPPSF.Core
                     int id = getGCCollectionID(name);
                     if (id < 0)
                     {
-                        _dbcon.ExecuteNonQuery(string.Format("insert into gccollections (name) values ('{0}')", name.Replace("'", "''")));
+                        _dbcon.ExecuteNonQuery(string.Format("insert into gccollection (name) values ('{0}')", name.Replace("'", "''")));
                     }
                 }
             }
@@ -573,7 +561,7 @@ namespace GAPPSF.Core
                     if (id >= 0)
                     {
                         _dbcon.ExecuteNonQuery(string.Format("delete from gcincol where col_id={0}", id));
-                        _dbcon.ExecuteNonQuery(string.Format("delete from gccollections where col_id={0}", id));
+                        _dbcon.ExecuteNonQuery(string.Format("delete from gccollection where col_id={0}", id));
                     }
                 }
             }
@@ -642,7 +630,7 @@ namespace GAPPSF.Core
                     int id = getGCCollectionID(collectionName);
                     if (id >= 0)
                     {
-                        result = (int)_dbcon.ExecuteScalar(string.Format("select count(1) from gcincol where col_id={0} and gccode='{1}'", id, geocacheCode.Replace("'", "''"))) > 0;
+                        result = (long)_dbcon.ExecuteScalar(string.Format("select count(1) from gcincol where col_id={0} and gccode='{1}'", id, geocacheCode.Replace("'", "''"))) > 0;
                     }
                 }
             }
@@ -655,7 +643,7 @@ namespace GAPPSF.Core
             {
                 if (_dbcon != null)
                 {
-                    result = (int)_dbcon.ExecuteScalar(string.Format("select count(1) from gcincol where col_id={0} and gccode='{1}'", collectionID, geocacheCode.Replace("'", "''"))) > 0;
+                    result = (long)_dbcon.ExecuteScalar(string.Format("select count(1) from gcincol where col_id={0} and gccode='{1}'", collectionID, geocacheCode.Replace("'", "''"))) > 0;
                 }
             }
             return result;

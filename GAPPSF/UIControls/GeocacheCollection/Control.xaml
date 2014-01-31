@@ -9,6 +9,59 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.Resources>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Foreground" Value="Black" />
+                </Style>
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Margin="4" Grid.Column="0" Text="{l:Translate Collection}" />
+            <ComboBox Margin="4" Grid.Column="1"
+                      ItemsSource="{Binding AvailableCollections}"
+                      SelectedItem="{Binding SelectedCollection, Mode=TwoWay}" ToolTip="{l:Translate Delete}" />
+            <Button Width="20" Height="20"  Margin="4" Grid.Column="2" Click="Button_Click_1" IsEnabled="{Binding CollectionSelected}">
+                <Image Width="16" Height="16" Source="/Resources/General/delete.png" />
+            </Button>
+            <Button Width="20" Height="20"  Margin="4" Grid.Column="3" Click="Button_Click" ToolTip="{l:Translate New}">
+                <Image Width="16" Height="16" Source="/Resources/General/new.png" />
+            </Button>
+        </Grid>
+        <ListView ItemsSource="{Binding GeocachesInCollections}" 
+                  SelectedItem="{Binding SelectedGeocacheCode, Mode=TwoWay}"
+                  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                  Grid.Row="1"
+                  SelectionMode="Extended"
+                  x:Name="gcInCollection"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Width="80" Text="{Binding Path=.}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" IsItemsHost="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+        </ListView>
+        <Button Margin="4" Grid.Row="2" Content="{l:Translate SelectAll}" IsEnabled="{Binding CollectionSelected}" Click="Button_Click_2" />
+        <Button Margin="4" Grid.Row="3" Content="{l:Translate RemoveFromCollection}" IsEnabled="{Binding CollectionSelected}" Click="Button_Click_3" />
+        <Button Margin="4" Grid.Row="4" Content="{l:Translate AddActiveGeocacheToCollection}" IsEnabled="{Binding CollectionSelected}" Click="Button_Click_4" />
+        <Button Margin="4" Grid.Row="5" Content="{l:Translate AddSelectedGeocachesToCollection}" IsEnabled="{Binding CollectionSelected}" Click="Button_Click_5" />
+        <ui:InputDialog Grid.Column="0" Grid.Row="0" Grid.RowSpan="6" x:Name="inputDialog" Panel.ZIndex="200" />
     </Grid>
 </UserControl>

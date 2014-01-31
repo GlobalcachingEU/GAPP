@@ -48,6 +48,7 @@ namespace GAPPSF.UIControls.GeocacheCollection
                         UpdateView();
                     }
                 }
+                CollectionSelected = _selectedCollection != null;
             }
         }
 
@@ -58,12 +59,36 @@ namespace GAPPSF.UIControls.GeocacheCollection
             set
             {
                 SetProperty(ref _selectedGeocacheCode, value);
-                //todo: make active if exists and not active already
+                if (_selectedGeocacheCode != null)
+                {
+                    if (Core.ApplicationData.Instance.ActiveGeocache != null && Core.ApplicationData.Instance.ActiveGeocache.Code == _selectedGeocacheCode)
+                    {
+                        //already active
+                    }
+                    else if (Core.ApplicationData.Instance.ActiveDatabase!=null)
+                    {
+                        Core.Data.Geocache g = Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection.GetGeocache(_selectedGeocacheCode);
+                        if (g != null)
+                        {
+                            Core.ApplicationData.Instance.ActiveGeocache = g;
+                        }
+                    }
+                }
             }
+        }
+
+        private bool _collectionSelected;
+        public bool CollectionSelected
+        {
+            get { return _collectionSelected; }
+            set { SetProperty(ref _collectionSelected, value); }
         }
 
         public Control()
         {
+            AvailableCollections = new ObservableCollection<string>();
+            GeocachesInCollections = new ObservableCollection<string>();
+
             InitializeComponent();
 
             Core.ApplicationData.Instance.PropertyChanged += Instance_PropertyChanged;
@@ -90,7 +115,13 @@ namespace GAPPSF.UIControls.GeocacheCollection
 
         private void UpdateView()
         {
-            //todo: set SelectedGeocacheCode if in list (activegeocache)
+            if (Core.ApplicationData.Instance.ActiveGeocache != null)
+            {
+                if (GeocachesInCollections.Contains(Core.ApplicationData.Instance.ActiveGeocache.Code))
+                {
+                    SelectedGeocacheCode = Core.ApplicationData.Instance.ActiveGeocache.Code;
+                }
+            }
         }
 
         public override string ToString()
@@ -156,6 +187,120 @@ namespace GAPPSF.UIControls.GeocacheCollection
             set
             {
                 Core.Settings.Default.GCEditorWindowTop = value;
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            inputDialog.Show(Localization.TranslationManager.Instance.Translate("Name").ToString());
+            inputDialog.DialogClosed += newDialog_DialogClosed;
+        }
+
+        private void newDialog_DialogClosed(object sender, EventArgs e)
+        {
+            inputDialog.DialogClosed -= newDialog_DialogClosed;
+            if (inputDialog.DialogResult)
+            {
+                if (!string.IsNullOrEmpty(inputDialog.InputText))
+                {
+                    string s = inputDialog.InputText.Trim();
+                    if (s.Length > 0)
+                    {
+                        int id = Core.Settings.Default.GetCollectionID(s);
+                        if (id < 0)
+                        {
+                            Core.Settings.Default.AddCollection(s);
+                            AvailableCollections.Add(s);
+                            SelectedCollection = s;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (SelectedCollection != null && AvailableCollections.Contains(SelectedCollection))
+            {
+                Core.Settings.Default.DeleteCollection(SelectedCollection);
+                AvailableCollections.Remove(SelectedCollection);
+            }
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase!=null && SelectedCollection!=null)
+            {
+                var gcList = from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection
+                             join b in GeocachesInCollections on a.Code equals b
+                             select a;
+                using (Utils.DataUpdater upd = new Utils.DataUpdater(Core.ApplicationData.Instance.ActiveDatabase))
+                {
+                    foreach(var gc in gcList)
+                    {
+                        gc.Selected = true;
+                    }
+                }
+            }
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            if (SelectedCollection != null)
+            {
+                int id = Core.Settings.Default.GetCollectionID(SelectedCollection);
+                if (id >= 0)
+                {
+                    List<string> sl = new List<string>();
+                    foreach (string s in gcInCollection.SelectedItems)
+                    {
+                        sl.Add(s);
+                    }
+                    foreach(string s in sl)
+                    {
+                        Core.Settings.Default.RemoveFromCollection(id, s);
+                        GeocachesInCollections.Remove(s);
+                    }
+                }
+            }
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            if (SelectedCollection != null && Core.ApplicationData.Instance.ActiveGeocache!=null)
+            {
+                int id = Core.Settings.Default.GetCollectionID(SelectedCollection);
+                if (id >= 0)
+                {
+                    if (!Core.Settings.Default.InCollection(id, Core.ApplicationData.Instance.ActiveGeocache.Code))
+                    {
+                        Core.Settings.Default.AddToCollection(id, Core.ApplicationData.Instance.ActiveGeocache.Code);
+                        GeocachesInCollections.Add(Core.ApplicationData.Instance.ActiveGeocache.Code);
+                        SelectedGeocacheCode = Core.ApplicationData.Instance.ActiveGeocache.Code;
+                    }
+                }
+            }
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            if (SelectedCollection != null && Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                int id = Core.Settings.Default.GetCollectionID(SelectedCollection);
+                if (id >= 0)
+                {
+                    foreach (var g in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection)
+                    {
+                        if (g.Selected)
+                        {
+                            if (!Core.Settings.Default.InCollection(id, g.Code))
+                            {
+                                Core.Settings.Default.AddToCollection(id, g.Code);
+                                GeocachesInCollections.Add(g.Code);
+                            }
+                        }
+                    }
+                }
             }
         }
 

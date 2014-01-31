@@ -1447,4 +1447,16 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="GeocacheCollections" xml:space="preserve">
     <value>Geocache collections</value>
   </data>
+  <data name="AddActiveGeocacheToCollection" xml:space="preserve">
+    <value>Add active geocache to collection</value>
+  </data>
+  <data name="AddSelectedGeocachesToCollection" xml:space="preserve">
+    <value>Add selected geocaches to collection</value>
+  </data>
+  <data name="Collection" xml:space="preserve">
+    <value>Collection</value>
+  </data>
+  <data name="RemoveFromCollection" xml:space="preserve">
+    <value>Remove from collection</value>
+  </data>
 </root>
