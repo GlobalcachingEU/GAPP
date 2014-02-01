@@ -7,7 +7,7 @@
              xmlns:p="clr-namespace:GAPPSF.Core"
              xmlns:ui="clr-namespace:GAPPSF.UIControls"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="300">
+             d:DesignHeight="900" d:DesignWidth="300">
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <Grid>
             <Grid.Resources>
@@ -21,6 +21,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -197,6 +198,16 @@
                 <Image Width="16" Height="16" Source="/Resources/general/save.png" />
             </Button>
             <TextBox Margin="4" Grid.Row="23" Grid.Column="2" Text="{Binding Path=GeocacheData.PersonalNote, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Margin="4" Grid.Row="24" Grid.Column="0" Text="{l:Translate Distance}" />
+            <Button Margin="4" Grid.Row="24" Grid.Column="1" Height="20" Width="20" Command="{Binding UpdateCommand}" CommandParameter="GeocacheDistance">
+                <Image Width="16" Height="16" Source="/Resources/general/save.png" />
+            </Button>
+            <Grid  Grid.Row="24" Grid.Column="2">
+                <TextBox x:Name="gcDistance" Margin="4" Grid.Column="0" Text="" HorizontalAlignment="Stretch" />
+                <Button Margin="4" Grid.Column="1" Height="20" Width="20" Click="Button_Click_4" HorizontalAlignment="Right">
+                    <Image Width="16" Height="16" Source="/Resources/general/delete.png" />
+                </Button>
+            </Grid>
         </Grid>
     </ScrollViewer>
 </UserControl>

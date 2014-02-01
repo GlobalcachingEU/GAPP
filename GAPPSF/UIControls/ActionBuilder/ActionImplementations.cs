@@ -2936,4 +2936,57 @@ namespace GAPPSF.UIControls.ActionBuilder
         }
     }
 
+
+    public class ActionDistance : ActionImplementationCondition
+    {
+        public const string STR_NAME = "Distance";
+        private double _value = 0.0;
+        public ActionDistance()
+            : base(STR_NAME)
+        {
+        }
+        public override UIElement GetUIElement()
+        {
+            TextBox tb = new TextBox();
+            tb.HorizontalAlignment = HorizontalAlignment.Center;
+            if (Values.Count == 0)
+            {
+                Values.Add("1.0");
+            }
+            tb.Text = Values[0];
+            return tb;
+        }
+
+        public override void CommitUIData(UIElement uiElement)
+        {
+            TextBox tb = uiElement as TextBox;
+            Values[0] = tb.Text;
+        }
+        public override bool PrepareRun()
+        {
+            if (Values.Count > 0)
+            {
+                try
+                {
+                    _value = Utils.Conversion.StringToDouble(Values[0]);
+                }
+                catch
+                {
+                }
+            }
+            return base.PrepareRun();
+        }
+        public override Operator Process(Core.Data.Geocache gc)
+        {
+            if (gc.GeocacheDistance == null)
+            {
+                return Operator.NotEqual;
+            }
+            else
+            {
+                return GetOperators(((double)gc.GeocacheDistance).CompareTo(_value));
+            }
+        }
+    }
+
 }

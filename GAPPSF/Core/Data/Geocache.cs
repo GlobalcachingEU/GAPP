@@ -196,6 +196,10 @@ namespace GAPPSF.Core.Data
             {
                 Core.Settings.Default.SetGeocacheNotes(this.Code, value as string);
             }
+            else if (name == "GeocacheDistance")
+            {
+                Core.Settings.Default.SetGeocacheDistance(this.Code, (double?)value);
+            }
             else
             {
                 base.StoreProperty(pos, name, value);
@@ -814,6 +818,19 @@ namespace GAPPSF.Core.Data
             {
                 string s = Notes;
                 SetProperty(1200, ref s, value);
+            }
+        }
+
+        public double? GeocacheDistance
+        {
+            get
+            {
+                return Core.Settings.Default.GetGeocacheDistance(this.Code);
+            }
+            set
+            {
+                double? s = GeocacheDistance;
+                SetProperty(-1, ref s, value);
             }
         }
 

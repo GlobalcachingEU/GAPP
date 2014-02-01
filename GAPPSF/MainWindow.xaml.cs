@@ -2242,6 +2242,24 @@ namespace GAPPSF
             }
         }
 
+        AsyncDelegateCommand _importGeocacheDistanceCommand;
+        public ICommand ImportGeocacheDistanceCommand
+        {
+            get
+            {
+                if (_importGeocacheDistanceCommand == null)
+                {
+                    _importGeocacheDistanceCommand = new AsyncDelegateCommand(param => this.ImportGeocacheDistance(), 
+                        param => Core.ApplicationData.Instance.ActiveDatabase!=null);
+                }
+                return _importGeocacheDistanceCommand;
+            }
+        }
+        public async Task ImportGeocacheDistance()
+        {
+            GlobalcachingEU.Import imp = new GlobalcachingEU.Import();
+            await imp.ImportGeocacheDistanceAsync(Core.ApplicationData.Instance.ActiveDatabase);
+        }
 
         RelayCommand _purgeLogsCommand;
         public ICommand PurgeLogsCommand

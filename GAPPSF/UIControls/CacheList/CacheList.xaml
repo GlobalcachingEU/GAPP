@@ -243,6 +243,7 @@
                 <DataGridTextColumn Binding="{Binding EncodedHints, Mode=OneWay}" Header="{l:Translate Hints}" Visibility="Hidden" Width="{Binding ColumnEncodedHintsWidth, Source={x:Static p:Settings.Default}, Mode=TwoWay}"/>
                 <DataGridTextColumn Binding="{Binding WaypointInfoString, Mode=OneWay}" Header="{l:Translate Waypoints}" IsReadOnly="True" />
                 <DataGridTextColumn Binding="{Binding Path=., Converter={StaticResource GeocacheCoordConverter}}" Header="{l:Translate Coordinates}" IsReadOnly="True" Visibility="Hidden"/>
+                <DataGridTextColumn Binding="{Binding GeocacheDistance, StringFormat=\{0:0.0\}}" Header="{l:Translate Distance}" Visibility="Hidden"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

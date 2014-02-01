@@ -200,6 +200,9 @@
                         <Separator />
                     </MenuItem>
                     <MenuItem x:Name="menud271" Header="{l:Translate PurgeLogs}" Command="{Binding PurgeLogsCommand}" />
+                    <MenuItem Header="Globalcaching.eu">
+                        <MenuItem x:Name="menui27" Header="{l:Translate ImportNLGeocacheDistance}" Command="{Binding ImportGeocacheDistanceCommand}" />
+                    </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{l:Translate LiveAPI}">
                     <MenuItem x:Name="menu13" Header="{l:Translate Authorize}" Command="{Binding LiveApiAuthorizeCommand}" />

@@ -56,5 +56,9 @@ namespace GAPPSF.Core
         bool InCollection(string collectionName, string geocacheCode);
         bool InCollection(int collectionID, string geocacheCode);
         int GetCollectionID(string collectionName);
+
+        //formula solver
+        double? GetGeocacheDistance(string gcCode);
+        void SetGeocacheDistance(string gcCode, double? dist);
     }
 }

@@ -1459,4 +1459,13 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="RemoveFromCollection" xml:space="preserve">
     <value>Remove from collection</value>
   </data>
+  <data name="Distance" xml:space="preserve">
+    <value>Distance</value>
+  </data>
+  <data name="DownloadingData" xml:space="preserve">
+    <value>Downloading data</value>
+  </data>
+  <data name="ImportNLGeocacheDistance" xml:space="preserve">
+    <value>Import NL Geocache distance</value>
+  </data>
 </root>

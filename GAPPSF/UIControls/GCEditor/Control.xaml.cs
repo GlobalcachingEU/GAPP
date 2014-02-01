@@ -98,6 +98,7 @@ namespace GAPPSF.UIControls.GCEditor
                 GeocacheData = null;
                 GeocacheCoordinate = null;
                 geocacheTypeCombo.SelectedItem = null;
+                gcDistance.Text = "";
             }
             else
             {
@@ -106,6 +107,14 @@ namespace GAPPSF.UIControls.GCEditor
                 GeocacheData = gd;
                 GeocacheCoordinate = Utils.Conversion.GetCoordinatesPresentation(gd.Lat, gd.Lon);
                 geocacheTypeCombo.SelectedItem = gd.GeocacheType;
+                if (Core.ApplicationData.Instance.ActiveGeocache.GeocacheDistance == null)
+                {
+                    gcDistance.Text = "";
+                }
+                else
+                {
+                    gcDistance.Text = Core.ApplicationData.Instance.ActiveGeocache.GeocacheDistance.ToString();
+                }
             }
         }
 
@@ -160,6 +169,11 @@ namespace GAPPSF.UIControls.GCEditor
                     using (Utils.DataUpdater upd = new Utils.DataUpdater(Core.ApplicationData.Instance.ActiveDatabase))
                     {
                         GeocacheData.GeocacheType = geocacheTypeCombo.SelectedItem;
+                        double? dist = null;
+                        if (!string.IsNullOrEmpty(gcDistance.Text))
+                        {
+                            dist = Utils.Conversion.StringToDouble(gcDistance.Text);
+                        }
                         await Task.Run(() =>
                         {
                             try
@@ -276,6 +290,10 @@ namespace GAPPSF.UIControls.GCEditor
                                         else if (param == "PersonalNote")
                                         {
                                             gc.PersonalNote = GeocacheData.PersonalNote;
+                                        }
+                                        else if (param == "GeocacheDistance")
+                                        {
+                                            gc.GeocacheDistance = dist;
                                         }
                                         else
                                         {
@@ -462,6 +480,11 @@ namespace GAPPSF.UIControls.GCEditor
                 Core.ApplicationData.Instance.ActiveGeocache = Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection.GetGeocache(gcCode);
             }
 
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            gcDistance.Text = "";
         }
 
     }

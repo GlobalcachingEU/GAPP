@@ -113,6 +113,11 @@ namespace GAPPSF.Core
                     _dbcon.ExecuteNonQuery("create table 'gcincol' (col_id integer, gccode text)");
                     _dbcon.ExecuteNonQuery("create index idx_gccol on gcincol (col_id)");
                 }
+                if (!_dbcon.TableExists("gcdist"))
+                {
+                    _dbcon.ExecuteNonQuery("create table 'gcdist' (gccode text, dist float)");
+                    _dbcon.ExecuteNonQuery("create index idx_dist on gcdist (gccode)");
+                }
             }
             catch(Exception e)
             {
@@ -647,6 +652,36 @@ namespace GAPPSF.Core
                 }
             }
             return result;
+        }
+
+        public double? GetGeocacheDistance(string gcCode)
+        {
+            double? result = null;
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    result = (double?)_dbcon.ExecuteScalar(string.Format("select dist from gcdist where gccode='{0}'", gcCode));
+                }
+            }
+            return result;
+        }
+        public void SetGeocacheDistance(string gcCode, double? dist)
+        {
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    if (dist==null)
+                    {
+                        _dbcon.ExecuteNonQuery(string.Format("delete from gcdist where gccode='{0}'", gcCode));
+                    }
+                    else if (_dbcon.ExecuteNonQuery(string.Format("update gcdist set dist={1} where gccode='{0}'", gcCode, dist.ToString().Replace(',','.'))) == 0)
+                    {
+                        _dbcon.ExecuteNonQuery(string.Format("insert into gcdist (gccode, dist) values ('{0}', {1})", gcCode, dist.ToString().Replace(',', '.')));
+                    }
+                }
+            }
         }
 
     }

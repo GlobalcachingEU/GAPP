@@ -251,6 +251,7 @@
     <Compile Include="Core\Settings\GCEditorSettings.cs" />
     <Compile Include="Core\Settings\GDAKSettings.cs" />
     <Compile Include="Core\Settings\GeocacheCollectionSettings.cs" />
+    <Compile Include="Core\Settings\GeocacheDistance.cs" />
     <Compile Include="Core\Settings\GeocacheFilterSettings.cs" />
     <Compile Include="Core\Settings\GeocacheViewerSettings.cs" />
     <Compile Include="Core\Settings\GoogleEarthSettings.cs" />
@@ -625,10 +626,12 @@
     <Compile Include="GCComBookmarks\Bookmark.cs" />
     <Compile Include="GCComBookmarks\Manager.cs" />
     <Compile Include="GCComments\Import.cs" />
+    <Compile Include="GCVote\Import.cs" />
     <Compile Include="GDAK\Export.cs" />
     <Compile Include="GDAK\ExportWindow.xaml.cs">
       <DependentUpon>ExportWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GlobalcachingEU\Import.cs" />
     <Compile Include="GPX\Enums.cs" />
     <Compile Include="GPX\Export.cs" />
     <Compile Include="GPX\ExportWindow.xaml.cs">
