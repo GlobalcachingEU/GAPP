@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Collections;
 using System.Data.Common;
+using System.Globalization;
 
 namespace GAPPSF.Core
 {
@@ -117,6 +118,11 @@ namespace GAPPSF.Core
                 {
                     _dbcon.ExecuteNonQuery("create table 'gcdist' (gccode text, dist float)");
                     _dbcon.ExecuteNonQuery("create index idx_dist on gcdist (gccode)");
+                }
+                if (!_dbcon.TableExists("gcvotes"))
+                {
+                    _dbcon.ExecuteNonQuery("create table 'gcvotes' (gccode text, VoteMedian float, VoteAvg float, VoteCnt integer, VoteUser float)");
+                    _dbcon.ExecuteNonQuery("create unique index idx_gcvotes on gcvotes (gccode)");
                 }
             }
             catch(Exception e)
@@ -680,6 +686,82 @@ namespace GAPPSF.Core
                     {
                         _dbcon.ExecuteNonQuery(string.Format("insert into gcdist (gccode, dist) values ('{0}', {1})", gcCode, dist.ToString().Replace(',', '.')));
                     }
+                }
+            }
+        }
+
+
+//                    _dbcon.ExecuteNonQuery("create table 'gcvotes' (gccode text, VoteMedian float, VoteAvg float, VoteCnt integer, VoteUser float)");
+        public double? GetGCVoteMedian(string gcCode)
+        {
+            double? result = null;
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    result = (double?)_dbcon.ExecuteScalar(string.Format("select VoteMedian from gcvotes where gccode='{0}'", gcCode));
+                }
+            }
+            return result;
+        }
+        public double? GetGCVoteAverage(string gcCode)
+        {
+            double? result = null;
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    result = (double?)_dbcon.ExecuteScalar(string.Format("select VoteAvg from gcvotes where gccode='{0}'", gcCode));
+                }
+            }
+            return result;
+        }
+        public int? GetGCVoteCount(string gcCode)
+        {
+            int? result = null;
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    result = (int?)_dbcon.ExecuteScalar(string.Format("select VoteCnt from gcvotes where gccode='{0}'", gcCode));
+                }
+            }
+            return result;
+        }
+        public double? GetGCVoteUser(string gcCode)
+        {
+            double? result = null;
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    result = (double?)_dbcon.ExecuteScalar(string.Format("select VoteUser from gcvotes where gccode='{0}'", gcCode));
+                }
+            }
+            return result;
+        }
+
+        public void SetGCVote(string gcCode, double median, double average, int cnt, double? user)
+        {
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    if (_dbcon.ExecuteNonQuery(string.Format("update gcvotes set VoteMedian={0}, VoteAvg={1}, VoteCnt={2}, VoteUser={3} where gccode='{4}'", median.ToString(CultureInfo.InvariantCulture), average.ToString(CultureInfo.InvariantCulture), cnt, user == null ? "null" : ((double)user).ToString(CultureInfo.InvariantCulture))) == 0)
+                    {
+                        _dbcon.ExecuteNonQuery(string.Format("insert into gcvotes (VoteMedian, VoteAvg, VoteCnt, VoteUser, gccode) values ({0}, {1}, {2}, {3}, '{4}')", median.ToString(CultureInfo.InvariantCulture), average.ToString(CultureInfo.InvariantCulture), cnt, user == null ? "null" : ((double)user).ToString(CultureInfo.InvariantCulture)));
+                    }
+                }
+            }
+        }
+
+        public void ClearGCVotes()
+        {
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    _dbcon.ExecuteNonQuery("delete from gcvotes");
                 }
             }
         }

@@ -249,6 +249,7 @@
     <Compile Include="Core\Settings\FormulaSolverSettings.cs" />
     <Compile Include="Core\Settings\GCComBookmarkSettings.cs" />
     <Compile Include="Core\Settings\GCEditorSettings.cs" />
+    <Compile Include="Core\Settings\GCVotesSettings.cs" />
     <Compile Include="Core\Settings\GDAKSettings.cs" />
     <Compile Include="Core\Settings\GeocacheCollectionSettings.cs" />
     <Compile Include="Core\Settings\GeocacheDistance.cs" />
