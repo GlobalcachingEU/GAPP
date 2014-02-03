@@ -44,6 +44,13 @@ namespace GAPPSF
             set { SetProperty(ref _popUpText, value); } 
         }
 
+        private Visibility _dutchMenusVisibility = Visibility.Visible;
+        public Visibility DutchMenusVisibility
+        {
+            get { return _dutchMenusVisibility; }
+            set { SetProperty(ref _dutchMenusVisibility, value); }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public MainWindow()
@@ -106,7 +113,7 @@ namespace GAPPSF
                 expandedView.Visibility = System.Windows.Visibility.Visible;
             }
 
-            menua57.Visibility = Localization.TranslationManager.Instance.CurrentLanguage.TwoLetterISOLanguageName.ToLower() == "nl" ? Visibility.Visible : Visibility.Collapsed;
+            DutchMenusVisibility = Localization.TranslationManager.Instance.CurrentLanguage.TwoLetterISOLanguageName.ToLower() == "nl" ? Visibility.Visible : Visibility.Collapsed;
 
             Core.ApplicationData.Instance.PropertyChanged += Instance_PropertyChanged;
             Core.Settings.Default.PropertyChanged += Default_PropertyChanged;
@@ -126,7 +133,7 @@ namespace GAPPSF
 
         void Instance_LanguageChanged(object sender, EventArgs e)
         {
-            menua57.Visibility = Localization.TranslationManager.Instance.CurrentLanguage.TwoLetterISOLanguageName.ToLower() == "nl" ? Visibility.Visible : Visibility.Collapsed;
+            DutchMenusVisibility = Localization.TranslationManager.Instance.CurrentLanguage.TwoLetterISOLanguageName.ToLower() == "nl" ? Visibility.Visible : Visibility.Collapsed;
         }
 
         void Logger_LogAdded(object sender, Core.Logger.LogEventArgs e)
@@ -2364,6 +2371,27 @@ namespace GAPPSF
             await imp.ImportGeocacheDistanceAsync(Core.ApplicationData.Instance.ActiveDatabase);
         }
 
+
+        AsyncDelegateCommand _importGeocacheFavoritesCommand;
+        public ICommand ImportGeocacheFavoritesCommand
+        {
+            get
+            {
+                if (_importGeocacheFavoritesCommand == null)
+                {
+                    _importGeocacheFavoritesCommand = new AsyncDelegateCommand(param => this.ImportGeocacheFavorites(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null);
+                }
+                return _importGeocacheFavoritesCommand;
+            }
+        }
+        public async Task ImportGeocacheFavorites()
+        {
+            GlobalcachingEU.Import imp = new GlobalcachingEU.Import();
+            await imp.ImportFavoritesAsync(Core.ApplicationData.Instance.ActiveDatabase);
+        }
+
+
         RelayCommand _purgeLogsCommand;
         public ICommand PurgeLogsCommand
         {
@@ -2929,6 +2957,18 @@ namespace GAPPSF
             Window w = new FeatureWindow(new UIControls.GeocacheCollection.Control());
             w.Owner = this;
             w.Show();
+        }
+
+        private void menum27_Click(object sender, RoutedEventArgs e)
+        {
+            GlobalcachingEU.AutoUpdaterWindow dlg = new GlobalcachingEU.AutoUpdaterWindow();
+            dlg.ShowDialog();
+        }
+
+        private void MenuItem_Click_1v0(object sender, RoutedEventArgs e)
+        {
+            LiveAPI.SettingsWindow dlg = new LiveAPI.SettingsWindow();
+            dlg.ShowDialog();
         }
 
     }

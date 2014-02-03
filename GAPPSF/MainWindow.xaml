@@ -205,8 +205,10 @@
                         <Separator />
                     </MenuItem>
                     <MenuItem x:Name="menud271" Header="{l:Translate PurgeLogs}" Command="{Binding PurgeLogsCommand}" />
-                    <MenuItem Header="Globalcaching.eu">
+                    <MenuItem Header="Globalcaching.eu" Visibility="{Binding DutchMenusVisibility}">
                         <MenuItem x:Name="menui27" Header="{l:Translate ImportNLGeocacheDistance}" Command="{Binding ImportGeocacheDistanceCommand}" />
+                        <MenuItem x:Name="menuh27" Header="{l:Translate GetFavoritesFromGlobalcaching}" Command="{Binding ImportGeocacheFavoritesCommand}" />
+                        <MenuItem x:Name="menum27" Header="{l:Translate UpdateStatusOfGeocachesAndImportNewGeocaches}" Click="menum27_Click" />
                     </MenuItem>
                     <MenuItem x:Name="menudv27" Header="{l:Translate ClearGCVotes}" Command="{Binding ResetGCVotesCommand}" />
                 </MenuItem>
@@ -266,6 +268,7 @@
                     <MenuItem x:Name="menu19" Header="{l:Translate Shapefiles}" Click="MenuItem_Click_8" />
                     <MenuItem x:Name="menu20" Header="{l:Translate ShortcutAssignment}" Click="MenuItem_Click_12" />
                     <MenuItem x:Name="menu2c0" Header="{l:Translate Backup}" Click="MenuItem_Click_1c2" />
+                    <MenuItem x:Name="menu2v0" Header="{l:Translate LiveAPI}" Click="MenuItem_Click_1v0" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate Window}">
                     <MenuItem x:Name="menu21" Header="{l:Translate CacheList}" Click="MenuItem_Click" />
@@ -295,7 +298,7 @@
                 <MenuItem Header="{l:Translate Help}">
                     <MenuItem x:Name="menua37" Header="{l:Translate Forum}" Click="menua37_Click" />
                     <MenuItem x:Name="menua47" Header="{l:Translate InstructionVideos}" Click="menua47_Click" />
-                    <MenuItem x:Name="menua57" Header="{l:Translate DutchHelp}" Click="menua57_Click" />
+                    <MenuItem x:Name="menua57" Header="{l:Translate DutchHelp}" Click="menua57_Click" Visibility="{Binding DutchMenusVisibility}"/>
                     <Separator />
                     <MenuItem x:Name="menux27" Header="{l:Translate About}" Click="menux27_Click" />
                 </MenuItem>

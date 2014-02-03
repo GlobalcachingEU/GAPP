@@ -255,6 +255,7 @@
     <Compile Include="Core\Settings\GeocacheDistance.cs" />
     <Compile Include="Core\Settings\GeocacheFilterSettings.cs" />
     <Compile Include="Core\Settings\GeocacheViewerSettings.cs" />
+    <Compile Include="Core\Settings\GlobalcachingEUSettings.cs" />
     <Compile Include="Core\Settings\GoogleEarthSettings.cs" />
     <Compile Include="Core\Settings\GoogleMapSettings.cs" />
     <Compile Include="Core\Settings\GPXSettings.cs" />
@@ -632,6 +633,9 @@
     <Compile Include="GDAK\ExportWindow.xaml.cs">
       <DependentUpon>ExportWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GlobalcachingEU\AutoUpdaterWindow.xaml.cs">
+      <DependentUpon>AutoUpdaterWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GlobalcachingEU\Import.cs" />
     <Compile Include="GPX\Enums.cs" />
     <Compile Include="GPX\Export.cs" />
@@ -660,6 +664,9 @@
     <Compile Include="LiveAPI\GeocachingLive.cs" />
     <Compile Include="LiveAPI\Import.cs" />
     <Compile Include="LiveAPI\Live.cs" />
+    <Compile Include="LiveAPI\SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Localization\ITranslationProvider.cs" />
     <Compile Include="Localization\LanguageChangedEventManager.cs" />
     <Compile Include="Localization\ResxTranslationProvider.cs" />
@@ -1076,6 +1083,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="GlobalcachingEU\AutoUpdaterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GPX\ExportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1097,6 +1108,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="LiveAPI\AuthorizationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LiveAPI\SettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

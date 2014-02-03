@@ -1492,4 +1492,40 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="ClearGCVotes" xml:space="preserve">
     <value>Clear GCVotes</value>
   </data>
+  <data name="GetFavoritesFromGlobalcaching" xml:space="preserve">
+    <value>Get Favorites from Globalcaching</value>
+  </data>
+  <data name="AutomaticUpdateAndDownloadGeocaches" xml:space="preserve">
+    <value>Automatic update and download geocaches</value>
+  </data>
+  <data name="UpdateStatusOfGeocachesAndImportNewGeocaches" xml:space="preserve">
+    <value>Update status of geocaches and import new geocaches</value>
+  </data>
+  <data name="DelayGetGeocacheStatus" xml:space="preserve">
+    <value>Delay GetGeocacheStatus</value>
+  </data>
+  <data name="DelayGetUsersGeocacheLogs" xml:space="preserve">
+    <value>Delay GetUsersGeocacheLogs</value>
+  </data>
+  <data name="DelaySearchForGeocaches" xml:space="preserve">
+    <value>Delay SearchForGeocaches</value>
+  </data>
+  <data name="DeselectAfterUpdate" xml:space="preserve">
+    <value>Deselect geocache after update</value>
+  </data>
+  <data name="GetGeocacheStatusBatchSize" xml:space="preserve">
+    <value>GetGeocacheStatus batch size</value>
+  </data>
+  <data name="GetUsersGeocacheLogsBatchSize" xml:space="preserve">
+    <value>GetUsersGeocacheLogs batch size</value>
+  </data>
+  <data name="ImportGeocachesBatchSize" xml:space="preserve">
+    <value>ImportGeocaches batch size</value>
+  </data>
+  <data name="ms" xml:space="preserve">
+    <value>ms</value>
+  </data>
+  <data name="LiveAPISettings" xml:space="preserve">
+    <value>LiveAPI Settings</value>
+  </data>
 </root>
