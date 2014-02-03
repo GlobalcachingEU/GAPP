@@ -747,9 +747,9 @@ namespace GAPPSF.Core
             {
                 if (_dbcon != null)
                 {
-                    if (_dbcon.ExecuteNonQuery(string.Format("update gcvotes set VoteMedian={0}, VoteAvg={1}, VoteCnt={2}, VoteUser={3} where gccode='{4}'", median.ToString(CultureInfo.InvariantCulture), average.ToString(CultureInfo.InvariantCulture), cnt, user == null ? "null" : ((double)user).ToString(CultureInfo.InvariantCulture))) == 0)
+                    if (_dbcon.ExecuteNonQuery(string.Format("update gcvotes set VoteMedian={0}, VoteAvg={1}, VoteCnt={2}, VoteUser={3} where gccode='{4}'", median.ToString(CultureInfo.InvariantCulture), average.ToString(CultureInfo.InvariantCulture), cnt, user == null ? "null" : ((double)user).ToString(CultureInfo.InvariantCulture), gcCode)) == 0)
                     {
-                        _dbcon.ExecuteNonQuery(string.Format("insert into gcvotes (VoteMedian, VoteAvg, VoteCnt, VoteUser, gccode) values ({0}, {1}, {2}, {3}, '{4}')", median.ToString(CultureInfo.InvariantCulture), average.ToString(CultureInfo.InvariantCulture), cnt, user == null ? "null" : ((double)user).ToString(CultureInfo.InvariantCulture)));
+                        _dbcon.ExecuteNonQuery(string.Format("insert into gcvotes (VoteMedian, VoteAvg, VoteCnt, VoteUser, gccode) values ({0}, {1}, {2}, {3}, '{4}')", median.ToString(CultureInfo.InvariantCulture), average.ToString(CultureInfo.InvariantCulture), cnt, user == null ? "null" : ((double)user).ToString(CultureInfo.InvariantCulture), gcCode));
                     }
                 }
             }

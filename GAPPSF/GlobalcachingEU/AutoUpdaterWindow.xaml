@@ -8,9 +8,9 @@
     <Grid>
         <StackPanel>
             <CheckBox Margin="4" Content="{l:Translate Netherlands}" IsChecked="{Binding GlobalcachingEUNetherlands, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
-            <CheckBox Margin="4" Content="{l:Translate Belgium}" IsChecked="{Binding GlobalcachingEUNetherlands, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
-            <CheckBox Margin="4" Content="{l:Translate Luxembourg}" IsChecked="{Binding GlobalcachingEUNetherlands, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
-            <CheckBox Margin="4" Content="{l:Translate Italy}" IsChecked="{Binding GlobalcachingEUNetherlands, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+            <CheckBox Margin="4" Content="{l:Translate Belgium}" IsChecked="{Binding GlobalcachingEUBelgium, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+            <CheckBox Margin="4" Content="{l:Translate Luxembourg}" IsChecked="{Binding GlobalcachingEULuxembourg, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+            <CheckBox Margin="4" Content="{l:Translate Italy}" IsChecked="{Binding GlobalcachingEUItaly, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
             <CheckBox Margin="4,10,4,4" Content="{l:Translate ImportMissingGeocaches}" IsChecked="{Binding GlobalcachingEUImportMissing, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
             <Button Margin="4,14,4,4" Content="{l:Translate Update}" Click="Button_Click" />
         </StackPanel>
