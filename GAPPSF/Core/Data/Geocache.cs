@@ -249,6 +249,23 @@ namespace GAPPSF.Core.Data
             _cachedFoundDateValid = false;
         }
 
+        public double? GCVoteMedian
+        {
+            get { return Core.Settings.Default.GetGCVoteMedian(this.Code); }
+        }
+        public double? GCVoteAverage
+        {
+            get { return Core.Settings.Default.GetGCVoteAverage(this.Code); }
+        }
+        public double? GCVoteUser
+        {
+            get { return Core.Settings.Default.GetGCVoteUser(this.Code); }
+        }
+        public int? GCVoteCount
+        {
+            get { return Core.Settings.Default.GetGCVoteCount(this.Code); }
+        }
+
         public string AccountName
         {
             get

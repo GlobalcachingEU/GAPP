@@ -2989,4 +2989,206 @@ namespace GAPPSF.UIControls.ActionBuilder
         }
     }
 
+    public class ActionGCVoteMedian : ActionImplementationCondition
+    {
+        public const string STR_NAME = "GCVoteMedian";
+        private double _value = 0.0;
+        public ActionGCVoteMedian()
+            : base(STR_NAME)
+        {
+        }
+        public override UIElement GetUIElement()
+        {
+            TextBox tb = new TextBox();
+            tb.HorizontalAlignment = HorizontalAlignment.Center;
+            if (Values.Count == 0)
+            {
+                Values.Add("1.0");
+            }
+            tb.Text = Values[0];
+            return tb;
+        }
+
+        public override void CommitUIData(UIElement uiElement)
+        {
+            TextBox tb = uiElement as TextBox;
+            Values[0] = tb.Text;
+        }
+        public override bool PrepareRun()
+        {
+            if (Values.Count > 0)
+            {
+                try
+                {
+                    _value = Utils.Conversion.StringToDouble(Values[0]);
+                }
+                catch
+                {
+                }
+            }
+            return base.PrepareRun();
+        }
+        public override Operator Process(Core.Data.Geocache gc)
+        {
+            if (gc.GCVoteMedian == null)
+            {
+                return Operator.NotEqual;
+            }
+            else
+            {
+                return GetOperators(((double)gc.GCVoteMedian).CompareTo(_value));
+            }
+        }
+    }
+
+    public class ActionGCVoteAverage : ActionImplementationCondition
+    {
+        public const string STR_NAME = "GCVoteAverage";
+        private double _value = 0.0;
+        public ActionGCVoteAverage()
+            : base(STR_NAME)
+        {
+        }
+        public override UIElement GetUIElement()
+        {
+            TextBox tb = new TextBox();
+            tb.HorizontalAlignment = HorizontalAlignment.Center;
+            if (Values.Count == 0)
+            {
+                Values.Add("1.0");
+            }
+            tb.Text = Values[0];
+            return tb;
+        }
+
+        public override void CommitUIData(UIElement uiElement)
+        {
+            TextBox tb = uiElement as TextBox;
+            Values[0] = tb.Text;
+        }
+        public override bool PrepareRun()
+        {
+            if (Values.Count > 0)
+            {
+                try
+                {
+                    _value = Utils.Conversion.StringToDouble(Values[0]);
+                }
+                catch
+                {
+                }
+            }
+            return base.PrepareRun();
+        }
+        public override Operator Process(Core.Data.Geocache gc)
+        {
+            if (gc.GCVoteAverage == null)
+            {
+                return Operator.NotEqual;
+            }
+            else
+            {
+                return GetOperators(((double)gc.GCVoteAverage).CompareTo(_value));
+            }
+        }
+    }
+
+    public class ActionGCVoteUser : ActionImplementationCondition
+    {
+        public const string STR_NAME = "GCVoteUser";
+        private double _value = 0.0;
+        public ActionGCVoteUser()
+            : base(STR_NAME)
+        {
+        }
+        public override UIElement GetUIElement()
+        {
+            TextBox tb = new TextBox();
+            tb.HorizontalAlignment = HorizontalAlignment.Center;
+            if (Values.Count == 0)
+            {
+                Values.Add("1.0");
+            }
+            tb.Text = Values[0];
+            return tb;
+        }
+
+        public override void CommitUIData(UIElement uiElement)
+        {
+            TextBox tb = uiElement as TextBox;
+            Values[0] = tb.Text;
+        }
+        public override bool PrepareRun()
+        {
+            if (Values.Count > 0)
+            {
+                try
+                {
+                    _value = Utils.Conversion.StringToDouble(Values[0]);
+                }
+                catch
+                {
+                }
+            }
+            return base.PrepareRun();
+        }
+        public override Operator Process(Core.Data.Geocache gc)
+        {
+            if (gc.GCVoteUser == null)
+            {
+                return Operator.NotEqual;
+            }
+            else
+            {
+                return GetOperators(((double)gc.GCVoteUser).CompareTo(_value));
+            }
+        }
+    }
+
+    public class ActionGCVoteCount : ActionImplementationCondition
+    {
+        public const string STR_NAME = "GCVoteCount";
+        private int _value = 0;
+        public ActionGCVoteCount()
+            : base(STR_NAME)
+        {
+        }
+        public override UIElement GetUIElement()
+        {
+            TextBox tb = new TextBox();
+            tb.HorizontalAlignment = HorizontalAlignment.Center;
+            if (Values.Count == 0)
+            {
+                Values.Add("1");
+            }
+            tb.Text = Values[0];
+            return tb;
+        }
+
+        public override void CommitUIData(UIElement uiElement)
+        {
+            TextBox tb = uiElement as TextBox;
+            Values[0] = tb.Text;
+        }
+        public override bool PrepareRun()
+        {
+            if (Values.Count > 0)
+            {
+                int.TryParse(Values[0], out _value);
+            }
+            return base.PrepareRun();
+        }
+        public override Operator Process(Core.Data.Geocache gc)
+        {
+            if (gc.GCVoteCount == null)
+            {
+                return Operator.NotEqual;
+            }
+            else
+            {
+                return GetOperators(((int)gc.GCVoteCount).CompareTo(_value));
+            }
+        }
+    }
+
 }

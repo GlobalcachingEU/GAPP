@@ -244,6 +244,10 @@
                 <DataGridTextColumn Binding="{Binding WaypointInfoString, Mode=OneWay}" Header="{l:Translate Waypoints}" IsReadOnly="True" />
                 <DataGridTextColumn Binding="{Binding Path=., Converter={StaticResource GeocacheCoordConverter}}" Header="{l:Translate Coordinates}" IsReadOnly="True" Visibility="Hidden"/>
                 <DataGridTextColumn Binding="{Binding GeocacheDistance, StringFormat=\{0:0.0\}}" Header="{l:Translate Distance}" Visibility="Hidden"/>
+                <DataGridTextColumn Binding="{Binding GCVoteMedian, StringFormat=\{0:0.0\}}" IsReadOnly="True" Header="{l:Translate GCVoteMedian}" Visibility="Hidden"/>
+                <DataGridTextColumn Binding="{Binding GCVoteAverage, StringFormat=\{0:0.0\}}" IsReadOnly="True" Header="{l:Translate GCVoteAverage}" Visibility="Hidden"/>
+                <DataGridTextColumn Binding="{Binding GCVoteCount}" IsReadOnly="True" Header="{l:Translate GCVoteCount}" Visibility="Hidden"/>
+                <DataGridTextColumn Binding="{Binding GCVoteUser, StringFormat=\{0:0.0\}}" IsReadOnly="True" Header="{l:Translate GCVoteUser}" Visibility="Hidden"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

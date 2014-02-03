@@ -1249,6 +1249,109 @@ namespace GAPPSF
         }
 
 
+        RelayCommand _resetGCVotesCommand;
+        public RelayCommand ResetGCVotesCommand
+        {
+            get
+            {
+                if (_resetGCVotesCommand == null)
+                {
+                    _resetGCVotesCommand = new RelayCommand(param => this.ResetGCVotes(),
+                        param => Core.ApplicationData.Instance.ActiveGeocache != null);
+                }
+                return _resetGCVotesCommand;
+            }
+        }
+        public void ResetGCVotes()
+        {
+            try
+            {
+                Core.Settings.Default.ClearGCVotes();
+                if (Core.ApplicationData.Instance.ActiveDatabase != null)
+                {
+                    Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection.OnCollectionChanged(new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Reset));
+                }
+            }
+            catch(Exception e)
+            {
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
+            }
+        }
+
+        AsyncDelegateCommand _importGcvoteActiveCommand;
+        public ICommand ImportGcvoteActiveCommand
+        {
+            get
+            {
+                if (_importGcvoteActiveCommand == null)
+                {
+                    _importGcvoteActiveCommand = new AsyncDelegateCommand(param => this.ImportGcvoteActive(),
+                        param => Core.ApplicationData.Instance.ActiveGeocache != null);
+                }
+                return _importGcvoteActiveCommand;
+            }
+        }
+        private async Task ImportGcvoteActive()
+        {
+            if (Core.ApplicationData.Instance.ActiveGeocache != null)
+            {
+                await ImportGcvote(new Core.Data.Geocache[] { Core.ApplicationData.Instance.ActiveGeocache }.ToList());
+            }
+        }
+        AsyncDelegateCommand _importGcvoteSelectedCommand;
+        public ICommand ImportGcvoteSelectedCommand
+        {
+            get
+            {
+                if (_importGcvoteSelectedCommand == null)
+                {
+                    _importGcvoteSelectedCommand = new AsyncDelegateCommand(param => this.ImportGcvoteSelected(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null && this.GeocacheSelectionCount > 0);
+                }
+                return _importGcvoteSelectedCommand;
+            }
+        }
+        private async Task ImportGcvoteSelected()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                await ImportGcvote((from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection where a.Selected select a).ToList());
+            }
+        }
+        AsyncDelegateCommand _importGcvoteAllCommand;
+        public ICommand ImportGcvoteAllCommand
+        {
+            get
+            {
+                if (_importGcvoteAllCommand == null)
+                {
+                    _importGcvoteAllCommand = new AsyncDelegateCommand(param => this.ImportGcvoteAll(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null);
+                }
+                return _importGcvoteAllCommand;
+            }
+        }
+        private async Task ImportGcvoteAll()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                await ImportGcvote((from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection select a).ToList());
+            }
+        }
+        private async Task ImportGcvote(List<Core.Data.Geocache> gcList)
+        {
+            GCVote.Import imp = new GCVote.Import();
+            await imp.ImporGCVotesAsync(gcList);
+            //refresh
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection.OnCollectionChanged(new System.Collections.Specialized.NotifyCollectionChangedEventArgs(System.Collections.Specialized.NotifyCollectionChangedAction.Reset));
+            }
+        }
+
+
+
+
 
         AsyncDelegateCommand _updateStatusActiveCommand;
         public ICommand UpdateStatusActiveCommand

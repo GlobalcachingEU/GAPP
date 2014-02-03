@@ -1468,4 +1468,28 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="ImportNLGeocacheDistance" xml:space="preserve">
     <value>Import NL Geocache distance</value>
   </data>
+  <data name="ImportingGCVotes" xml:space="preserve">
+    <value>Importing GCVotes</value>
+  </data>
+  <data name="UnableToGetTheDataFromGCVoteCom" xml:space="preserve">
+    <value>Unable to get the data from GCVote.com</value>
+  </data>
+  <data name="ImportGCVote" xml:space="preserve">
+    <value>Import GCVote</value>
+  </data>
+  <data name="GCVoteAverage" xml:space="preserve">
+    <value>GCVote  Average</value>
+  </data>
+  <data name="GCVoteCount" xml:space="preserve">
+    <value>GCVote Count</value>
+  </data>
+  <data name="GCVoteMedian" xml:space="preserve">
+    <value>GCVote Median</value>
+  </data>
+  <data name="GCVoteUser" xml:space="preserve">
+    <value>GCVote User</value>
+  </data>
+  <data name="ClearGCVotes" xml:space="preserve">
+    <value>Clear GCVotes</value>
+  </data>
 </root>

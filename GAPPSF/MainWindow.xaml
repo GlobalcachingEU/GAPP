@@ -98,6 +98,11 @@
                         <MenuItem x:Name="menu4x" Header="{l:Translate ImportMissingGeocaches}" Command="{Binding ImportGCCMissingCommand}" />
                         <MenuItem x:Name="menub5x" Header="{l:Translate ImportCommentsOnly}" Command="{Binding ImportGCCCommand}" />
                     </MenuItem>
+                    <MenuItem Header="{l:Translate ImportGCVote}">
+                        <MenuItem x:Name="menugc60" Header="{l:Translate Active}" Command="{Binding ImportGcvoteActiveCommand}" />
+                        <MenuItem x:Name="menugc61" Header="{l:Translate Selected}" Command="{Binding ImportGcvoteSelectedCommand}" />
+                        <MenuItem x:Name="menugc62" Header="{l:Translate All}" Command="{Binding ImportGcvoteAllCommand}" />
+                    </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{l:Translate Export}">
                     <MenuItem Header="{l:Translate ExportGPX}">
@@ -203,6 +208,7 @@
                     <MenuItem Header="Globalcaching.eu">
                         <MenuItem x:Name="menui27" Header="{l:Translate ImportNLGeocacheDistance}" Command="{Binding ImportGeocacheDistanceCommand}" />
                     </MenuItem>
+                    <MenuItem x:Name="menudv27" Header="{l:Translate ClearGCVotes}" Command="{Binding ResetGCVotesCommand}" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate LiveAPI}">
                     <MenuItem x:Name="menu13" Header="{l:Translate Authorize}" Command="{Binding LiveApiAuthorizeCommand}" />
