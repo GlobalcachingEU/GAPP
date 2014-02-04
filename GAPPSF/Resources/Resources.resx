@@ -1570,4 +1570,13 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="ImportingMunzees" xml:space="preserve">
     <value>Importing Munzees</value>
   </data>
+  <data name="SelectGeocachesInArea" xml:space="preserve">
+    <value>Select geocaches in area</value>
+  </data>
+  <data name="SelectWholeArea" xml:space="preserve">
+    <value>Select whole area</value>
+  </data>
+  <data name="SelectWithinRadius" xml:space="preserve">
+    <value>Select within radius</value>
+  </data>
 </root>

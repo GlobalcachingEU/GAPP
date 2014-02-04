@@ -374,6 +374,7 @@ namespace GAPPSF.UIControls.GMap
                     if (this._targetGeocaches == GeocachesOnMap.Selected)
                     {
                         addGeocachesToMap((from Core.Data.Geocache wp in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection
+                                           where wp.Selected
                                            select wp).ToList());
                     }
                     else if (this._targetGeocaches == GeocachesOnMap.All)

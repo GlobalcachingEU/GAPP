@@ -2997,5 +2997,11 @@ namespace GAPPSF
             dlg.ShowDialog();
         }
 
+        private void menudb7_Click(object sender, RoutedEventArgs e)
+        {
+            Dialogs.SelectAreaWindow dlg = new Dialogs.SelectAreaWindow();
+            dlg.ShowDialog();
+        }
+
     }
 }

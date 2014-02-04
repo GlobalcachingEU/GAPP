@@ -1,0 +1,24 @@
+﻿<Window x:Class="GAPPSF.Dialogs.SelectAreaWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:l="clr-namespace:GAPPSF.Localization"
+        xmlns:ui="clr-namespace:GAPPSF.UIControls"
+        Title="{l:Translate SelectGeocachesInArea}" Height="500" Width="500">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ui:SelectionContext Margin="4" Grid.Row="0"  x:Name="selectionContext" />
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Margin="10" Grid.Column="0" Content="{l:Translate SelectWithinRadius}" Command="{Binding SelectWithinRadiusCommand}" />
+            <Button Margin="10" Grid.Column="1" Content="{l:Translate SelectWholeArea}" Command="{Binding SelectWithinBoundsCommand}"/>
+        </Grid>
+        <WebBrowser x:Name="webBrowser1" Grid.Row="2" />
+    </Grid>
+</Window>

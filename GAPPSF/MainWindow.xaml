@@ -179,6 +179,7 @@
                         <Separator />
                     </MenuItem>
                     <MenuItem x:Name="menud87" Header="{l:Translate SelectYourFavorites}" Click="menud87_Click" />
+                    <MenuItem x:Name="menudb7" Header="{l:Translate SelectGeocachesInArea}" Click="menudb7_Click" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate QuickSelect}">
                     <MenuItem x:Name="menua10" Header="{l:Translate SelectAll}" Command="{Binding SelectAllCommand}" />

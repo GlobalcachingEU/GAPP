@@ -312,6 +312,9 @@
     <Compile Include="Dialogs\SelectActionWindow.xaml.cs">
       <DependentUpon>SelectActionWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\SelectAreaWindow.xaml.cs">
+      <DependentUpon>SelectAreaWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\ShortCutAssignmentWindow.xaml.cs">
       <DependentUpon>ShortCutAssignmentWindow.xaml</DependentUpon>
     </Compile>
@@ -1068,6 +1071,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\SelectActionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\SelectAreaWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -2175,6 +2182,9 @@
     <Resource Include="Resources\TextEditor\paragraphincreaseindentation.png" />
     <Resource Include="Resources\TextEditor\paragraphleftjustify.png" />
     <Resource Include="Resources\TextEditor\paragraphrightjustify.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Dialogs\SelectAreaWindow.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
