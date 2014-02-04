@@ -2197,6 +2197,26 @@ namespace GAPPSF
         }
 
 
+        RelayCommand _importMunzeeAfxCommand;
+        public ICommand ImportMunzeeAfxCommand
+        {
+            get
+            {
+                if (_importMunzeeAfxCommand == null)
+                {
+                    _importMunzeeAfxCommand = new RelayCommand(param => this.ImportMunzeeAfx(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null);
+                }
+                return _importMunzeeAfxCommand;
+            }
+        }
+        public void ImportMunzeeAfx()
+        {
+            Munzee.DfxAtImportWindow dlg = new Munzee.DfxAtImportWindow();
+            dlg.ShowDialog();
+        }
+
+
         AsyncDelegateCommand _importGSAKCommand;
         public ICommand ImportGSAKCommand
         {
@@ -2968,6 +2988,12 @@ namespace GAPPSF
         private void MenuItem_Click_1v0(object sender, RoutedEventArgs e)
         {
             LiveAPI.SettingsWindow dlg = new LiveAPI.SettingsWindow();
+            dlg.ShowDialog();
+        }
+
+        private void MenuItem_Click_2v4(object sender, RoutedEventArgs e)
+        {
+            Munzee.SettingsWindow dlg = new Munzee.SettingsWindow();
             dlg.ShowDialog();
         }
 

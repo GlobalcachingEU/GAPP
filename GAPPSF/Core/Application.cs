@@ -178,6 +178,14 @@ namespace GAPPSF.Core
             addCacheType(3774, "Groundspeak Lost and Found Celebration");
             addCacheType(4738, "Groundspeak Block Party");
 
+            addCacheType(95342, "Munzee", Core.Settings.Default.MunzeeGPXTagMunzee);
+            addCacheType(95343, "Virtual Munzee", Core.Settings.Default.MunzeeGPXTagVirtual);
+            addCacheType(95344, "Maintenance Munzee", Core.Settings.Default.MunzeeGPXTagMaintenance);
+            addCacheType(95345, "Business Munzee", Core.Settings.Default.MunzeeGPXTagBusiness);
+            addCacheType(95346, "Mystery Munzee", Core.Settings.Default.MunzeeGPXTagMystery);
+            addCacheType(95347, "NFC Munzee", Core.Settings.Default.MunzeeGPXTagNFC);
+            addCacheType(95348, "Premium Munzee", Core.Settings.Default.MunzeeGPXTagPremium);
+
             addCacheContainer(0, "Unknown");
             addCacheContainer(1, "Not chosen");
             addCacheContainer(2, "Micro");

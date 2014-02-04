@@ -1528,4 +1528,46 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="LiveAPISettings" xml:space="preserve">
     <value>LiveAPI Settings</value>
   </data>
+  <data name="Munzee" xml:space="preserve">
+    <value>Munzee</value>
+  </data>
+  <data name="SetMunzeeTypeInGPXExport" xml:space="preserve">
+    <value>Set Munzee type in GPX export</value>
+  </data>
+  <data name="Business" xml:space="preserve">
+    <value>Business</value>
+  </data>
+  <data name="Maintenance" xml:space="preserve">
+    <value>Maintenance</value>
+  </data>
+  <data name="Mystery" xml:space="preserve">
+    <value>Mystery</value>
+  </data>
+  <data name="NFC" xml:space="preserve">
+    <value>NFC</value>
+  </data>
+  <data name="Premium" xml:space="preserve">
+    <value>Premium</value>
+  </data>
+  <data name="Virtual" xml:space="preserve">
+    <value>Virtual</value>
+  </data>
+  <data name="CreateUrlOnMunzee" xml:space="preserve">
+    <value>Create the URL on munzee.dfx.at and choose JSON.</value>
+  </data>
+  <data name="ImportMunzeesfrommunzeedfxat" xml:space="preserve">
+    <value>Import Munzees from munzee.dfx.at</value>
+  </data>
+  <data name="MunzeeComAccount" xml:space="preserve">
+    <value>Munzee.com account</value>
+  </data>
+  <data name="SelectURL" xml:space="preserve">
+    <value>Select URL</value>
+  </data>
+  <data name="URLs" xml:space="preserve">
+    <value>URLs</value>
+  </data>
+  <data name="ImportingMunzees" xml:space="preserve">
+    <value>Importing Munzees</value>
+  </data>
 </root>

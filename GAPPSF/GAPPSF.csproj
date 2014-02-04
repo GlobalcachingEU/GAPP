@@ -267,6 +267,7 @@
     <Compile Include="Core\Settings\LogViewerSettings.cs" />
     <Compile Include="Core\Settings\MainWindowSettings.cs" />
     <Compile Include="Core\Settings\MapsSettings.cs" />
+    <Compile Include="Core\Settings\MunzeeSettings.cs" />
     <Compile Include="Core\Settings\NotesEditorSettings.cs" />
     <Compile Include="Core\Settings\OfflineImageSettings.cs" />
     <Compile Include="Core\Settings\OV2Settings.cs" />
@@ -712,6 +713,13 @@
     <Compile Include="MapProviders\Tile.cs" />
     <Compile Include="MapProviders\TileGenerator.cs" />
     <Compile Include="MapProviders\TilePanel.cs" />
+    <Compile Include="Munzee\DfxAtImportWindow.xaml.cs">
+      <DependentUpon>DfxAtImportWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Munzee\Import.cs" />
+    <Compile Include="Munzee\SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MyFinds\ImportLiveAPI.cs" />
     <Compile Include="OV2\Export.cs" />
     <Compile Include="OV2\ExportWindow.xaml.cs">
@@ -1253,6 +1261,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Munzee\DfxAtImportWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Munzee\SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="OV2\ExportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -103,6 +103,7 @@
                         <MenuItem x:Name="menugc61" Header="{l:Translate Selected}" Command="{Binding ImportGcvoteSelectedCommand}" />
                         <MenuItem x:Name="menugc62" Header="{l:Translate All}" Command="{Binding ImportGcvoteAllCommand}" />
                     </MenuItem>
+                    <MenuItem x:Name="menub5a" Header="{l:Translate ImportMunzeesfrommunzeedfxat}" Command="{Binding ImportMunzeeAfxCommand}" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate Export}">
                     <MenuItem Header="{l:Translate ExportGPX}">
@@ -269,6 +270,7 @@
                     <MenuItem x:Name="menu20" Header="{l:Translate ShortcutAssignment}" Click="MenuItem_Click_12" />
                     <MenuItem x:Name="menu2c0" Header="{l:Translate Backup}" Click="MenuItem_Click_1c2" />
                     <MenuItem x:Name="menu2v0" Header="{l:Translate LiveAPI}" Click="MenuItem_Click_1v0" />
+                    <MenuItem x:Name="menu2v4" Header="{l:Translate Munzee}" Click="MenuItem_Click_2v4" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate Window}">
                     <MenuItem x:Name="menu21" Header="{l:Translate CacheList}" Click="MenuItem_Click" />

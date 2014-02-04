@@ -1,0 +1,40 @@
+﻿<Window x:Class="GAPPSF.Munzee.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:l="clr-namespace:GAPPSF.Localization"
+        xmlns:p="clr-namespace:GAPPSF.Core"
+        xmlns:ui="clr-namespace:GAPPSF.UIControls"
+        Title="{l:Translate Munzee}" Height="300" Width="300" Closing="Window_Closing">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock Margin="4" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{l:Translate SetMunzeeTypeInGPXExport}" />
+        <TextBlock Margin="4" Grid.Row="1" Grid.Column="0" Text="{l:Translate Munzee}" />
+        <ComboBox  Margin="4" Grid.Row="1" Grid.Column="1" IsEditable="True" ItemsSource="{Binding AvailableTags}" Text="{Binding MunzeeGPXTagMunzee, Source={x:Static p:Settings.Default}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock Margin="4" Grid.Row="2" Grid.Column="0" Text="{l:Translate Virtual}" />
+        <ComboBox  Margin="4" Grid.Row="2" Grid.Column="1" IsEditable="True" ItemsSource="{Binding AvailableTags}" Text="{Binding MunzeeGPXTagVirtual, Source={x:Static p:Settings.Default}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock Margin="4" Grid.Row="3" Grid.Column="0" Text="{l:Translate Maintenance}" />
+        <ComboBox  Margin="4" Grid.Row="3" Grid.Column="1" IsEditable="True" ItemsSource="{Binding AvailableTags}" Text="{Binding MunzeeGPXTagMaintenance, Source={x:Static p:Settings.Default}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock Margin="4" Grid.Row="4" Grid.Column="0" Text="{l:Translate Mystery}" />
+        <ComboBox  Margin="4" Grid.Row="4" Grid.Column="1" IsEditable="True" ItemsSource="{Binding AvailableTags}" Text="{Binding MunzeeGPXTagMystery, Source={x:Static p:Settings.Default}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock Margin="4" Grid.Row="5" Grid.Column="0" Text="{l:Translate NFC}" />
+        <ComboBox  Margin="4" Grid.Row="5" Grid.Column="1" IsEditable="True" ItemsSource="{Binding AvailableTags}" Text="{Binding MunzeeGPXTagNFC, Source={x:Static p:Settings.Default}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock Margin="4" Grid.Row="6" Grid.Column="0" Text="{l:Translate Premium}" />
+        <ComboBox  Margin="4" Grid.Row="6" Grid.Column="1" IsEditable="True" ItemsSource="{Binding AvailableTags}" Text="{Binding MunzeeGPXTagPremium, Source={x:Static p:Settings.Default}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock Margin="4" Grid.Row="7" Grid.Column="0" Text="{l:Translate Business}" />
+        <ComboBox  Margin="4" Grid.Row="7" Grid.Column="1" IsEditable="True" ItemsSource="{Binding AvailableTags}" Text="{Binding MunzeeGPXTagBusiness, Source={x:Static p:Settings.Default}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+    </Grid>
+</Window>
