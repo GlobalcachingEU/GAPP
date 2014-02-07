@@ -302,6 +302,17 @@ namespace GAPPSF
         private async Task initializeApplicationAsync()
         {
             //if (true)
+            if (!Core.Settings.Default.IsStorageOK)
+            {
+                Core.ApplicationData.Instance.Logger.AddLog(this, Core.Logger.Level.Error, Localization.TranslationManager.Instance.Translate("SettingsCorruptDoRestore") as string);
+            }
+            else
+            {
+                if (Core.Settings.Default.SettingsBackupAtStartup)
+                {
+                    await Core.Settings.Default.BackupAsync();
+                }
+            }
             if (Core.Settings.Default.FirstStart)
             {
                 Core.Settings.Default.FirstStart = false;
@@ -1033,6 +1044,23 @@ namespace GAPPSF
             }
         }
 
+        AsyncDelegateCommand _backupSettingsCommand;
+        public ICommand BackupSettingsCommand
+        {
+            get
+            {
+                if (_backupSettingsCommand == null)
+                {
+                    _backupSettingsCommand = new AsyncDelegateCommand(param => this.BackupSettings(),
+                        param => Core.Settings.Default.IsStorageOK);
+                }
+                return _backupSettingsCommand;
+            }
+        }
+        public async Task BackupSettings()
+        {
+            await Core.Settings.Default.BackupAsync();
+        }
 
 
         AsyncDelegateCommand _deleteAllCommand;
@@ -3001,6 +3029,36 @@ namespace GAPPSF
         {
             Dialogs.SelectAreaWindow dlg = new Dialogs.SelectAreaWindow();
             dlg.ShowDialog();
+        }
+
+        private void MenuItem_Click_2v8(object sender, RoutedEventArgs e)
+        {
+            Dialogs.RestoreSettingsWindow dlg = new Dialogs.RestoreSettingsWindow();
+            if (dlg.ShowDialog()==true)
+            {
+                RestartApplication();
+            }
+        }
+
+        public void RestartApplication()
+        {
+            //automatic restart is not working unless:
+            //- including WinForms and perform application.restart
+            //- create batch file with delay and execute before shutdown
+            try
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine("sleep 5");
+                sb.AppendLine(string.Format("start \"\" \"{0}\"", Application.ResourceAssembly.Location));
+                string fn = System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "restart.bat");
+                File.WriteAllText(fn, sb.ToString());
+                Process.Start(fn);
+            }
+            catch
+            {
+
+            }
+            Application.Current.Shutdown();
         }
 
     }

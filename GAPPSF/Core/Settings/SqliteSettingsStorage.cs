@@ -124,12 +124,136 @@ namespace GAPPSF.Core
                     _dbcon.ExecuteNonQuery("create table 'gcvotes' (gccode text, VoteMedian float, VoteAvg float, VoteCnt integer, VoteUser float)");
                     _dbcon.ExecuteNonQuery("create unique index idx_gcvotes on gcvotes (gccode)");
                 }
+
+                object o = _dbcon.ExecuteScalar("PRAGMA integrity_check");
+                if (o as string == "ok")
+                {
+                    //what is expected
+                }
+                else
+                {
+                    //oeps?
+                    _dbcon.Dispose();
+                    _dbcon = null;
+                }
             }
-            catch(Exception e)
+            catch//(Exception e)
             {
                 //Core.ApplicationData.Instance.Logger.AddLog(this, e);
                 _dbcon = null;
             }
+        }
+
+        public bool IsStorageOK 
+        {
+            get
+            {
+                bool result;
+                lock (this)
+                {
+                    result = _dbcon != null;
+                }
+                return result;
+            }
+        }
+
+        public bool CreateBackup()
+        {
+            bool result = false;
+            try
+            {
+                File.Copy(Path.Combine(Properties.Settings.Default.SettingsFolder, "settings.db3"), Path.Combine(Properties.Settings.Default.SettingsFolder, string.Format("settings.{0}.db3", DateTime.Now.ToString("s").Replace(" ", "-").Replace(":", "-"))), true);
+                result = true;
+            }
+            catch(Exception e)
+            {
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
+            }
+            return result;
+        }
+
+        public List<string> AvailableBackups 
+        {
+            get
+            {
+                List<string> result;
+                try
+                {
+                    string[] fls = Directory.GetFiles(Properties.Settings.Default.SettingsFolder, "settings.*.db3");
+                    result = (from s in fls select Path.GetFileName(s)).OrderBy(x => x).ToList();
+                }
+                catch (Exception e)
+                {
+                    result = new List<string>();
+                    Core.ApplicationData.Instance.Logger.AddLog(this, e);
+                }
+                return result;
+            }
+        }
+
+        public bool RemoveBackup(string id)
+        {
+            bool result = false;
+            try
+            {
+                File.Delete(Path.Combine(Properties.Settings.Default.SettingsFolder, id));
+                result = true;
+            }
+            catch (Exception e)
+            {
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
+            }
+            return result;
+        }
+
+        public bool PrepareRestoreBackup(string id)
+        {
+            bool result = false;
+            lock (this)
+            {
+                bool restoreConnection = _dbcon != null;
+                try
+                {
+                    if (restoreConnection)
+                    {
+                        //copy settings.db3 to settings.db3.bak
+                        if (_dbcon != null)
+                        {
+                            _dbcon.Dispose();
+                            _dbcon = null;
+                        }
+                        File.Copy(Path.Combine(Properties.Settings.Default.SettingsFolder, "settings.db3"), Path.Combine(Properties.Settings.Default.SettingsFolder, "settings.db3.bak"), true);
+                    }
+                    File.Copy(Path.Combine(Properties.Settings.Default.SettingsFolder, id), Path.Combine(Properties.Settings.Default.SettingsFolder, "settings.db3"), true);
+
+                    if (restoreConnection)
+                    {
+                        //connect to previous settings file, so the backup is not overwritten.
+                        //application needs to restart
+                        //after restart the backup is used
+                        string sf = Path.Combine(Properties.Settings.Default.SettingsFolder, "settings.db3.bak");
+                        _dbcon = new Utils.DBConComSqlite(sf);
+                    }
+
+                    result = true;
+                }
+                catch (Exception e)
+                {
+                    Core.ApplicationData.Instance.Logger.AddLog(this, e);
+
+                    if (restoreConnection)
+                    {
+                        string sf = Path.Combine(Properties.Settings.Default.SettingsFolder, "settings.db3");
+                        if (_dbcon != null)
+                        {
+                            _dbcon.Dispose();
+                            _dbcon = null;
+                        }
+                        _dbcon = new Utils.DBConComSqlite(sf);
+                    }
+                }
+            }
+            return result;
         }
 
         public void StoreSetting(string name, string value)

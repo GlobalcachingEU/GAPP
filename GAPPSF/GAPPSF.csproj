@@ -274,6 +274,7 @@
     <Compile Include="Core\Settings\PurgeLogsSettings.cs" />
     <Compile Include="Core\Settings\Settings.cs" />
     <Compile Include="Core\Settings\ISettingsStorage.cs" />
+    <Compile Include="Core\Settings\SettingsBackupSettings.cs" />
     <Compile Include="Core\Settings\ShapefilesSettings.cs" />
     <Compile Include="Core\Settings\SqliteSettingsStorage.cs" />
     <Compile Include="Core\Settings\WPEditorSettings.cs" />
@@ -308,6 +309,9 @@
     </Compile>
     <Compile Include="Dialogs\ProgessWindow.xaml.cs">
       <DependentUpon>ProgessWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\RestoreSettingsWindow.xaml.cs">
+      <DependentUpon>RestoreSettingsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\SelectActionWindow.xaml.cs">
       <DependentUpon>SelectActionWindow.xaml</DependentUpon>
@@ -1067,6 +1071,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\ProgessWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\RestoreSettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

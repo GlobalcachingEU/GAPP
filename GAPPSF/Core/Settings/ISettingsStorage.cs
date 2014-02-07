@@ -12,6 +12,13 @@ namespace GAPPSF.Core
         void StoreSetting(string name, string value);
         Hashtable LoadSettings();
 
+        //integrity of settings
+        bool IsStorageOK { get; }
+        bool CreateBackup();
+        List<string> AvailableBackups { get; }
+        bool RemoveBackup(string id);
+        bool PrepareRestoreBackup(string id);
+
         //geocache ignore filter
         Hashtable LoadIgnoredGeocacheCodes();
         List<string> LoadIgnoredGeocacheNames();

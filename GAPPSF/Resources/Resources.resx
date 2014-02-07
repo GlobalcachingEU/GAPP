@@ -1579,4 +1579,16 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="SelectWithinRadius" xml:space="preserve">
     <value>Select within radius</value>
   </data>
+  <data name="SettingsCorruptDoRestore" xml:space="preserve">
+    <value>Settings are corrupt, please restore a backup.</value>
+  </data>
+  <data name="GeocacheDatabases" xml:space="preserve">
+    <value>Geocache databases</value>
+  </data>
+  <data name="BackupAtStartup" xml:space="preserve">
+    <value>Backup at startup</value>
+  </data>
+  <data name="RestoreSettings" xml:space="preserve">
+    <value>Restore settings</value>
+  </data>
 </root>

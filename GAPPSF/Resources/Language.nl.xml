@@ -105,7 +105,7 @@
   <string name="avg. diff. / terr." value="Gem. Moei. / Terr." />
   <string name="avg. on 1 day" value="Gem. op 1 dag" />
   <string name="background" value="Achtergrond" />
-  <string name="backup" value="Backup database" />
+  <string name="backup" value="Backup" />
   <string name="backup all coordinates" value="Backup alle coordinaten" />
   <string name="backup folder" value="" />
   <string name="backup/restore coordinates" value="Backup/Herstel coordinaten" />
