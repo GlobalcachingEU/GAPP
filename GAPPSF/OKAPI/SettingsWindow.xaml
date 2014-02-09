@@ -1,0 +1,39 @@
+﻿<Window x:Class="GAPPSF.OKAPI.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:l="clr-namespace:GAPPSF.Localization"
+        xmlns:p="clr-namespace:GAPPSF.Core"
+        xmlns:ui="clr-namespace:GAPPSF.UIControls"
+        xmlns:okapi="clr-namespace:GAPPSF.OKAPI"
+        Title="{l:Translate OKAPISettings}" Height="200" Width="300" Closing="Window_Closing">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock Margin="4" Grid.Row="0" Grid.Column="0" Text="{l:Translate Active}" />
+        <ComboBox Margin="4" Grid.Row="0" Grid.Column="1"
+                  ItemsSource="{Binding AvailableSites, Source={x:Static okapi:SiteManager.Instance}}"
+                  SelectedItem="{Binding ActiveSite, Source={x:Static okapi:SiteManager.Instance}}"
+                  />
+        <TextBlock Margin="4" Grid.Row="1" Grid.Column="0" Text="{l:Translate Username}" />
+        <TextBox Margin="4" Grid.Row="1" Grid.Column="1" Text="{Binding Path=ActiveSite.Username, Source={x:Static okapi:SiteManager.Instance}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock Margin="4" Grid.Row="2" Grid.Column="0" Text="{l:Translate UserID}" />
+        <Grid Grid.Row="2" Grid.Column="1">
+            <TextBox Margin="4" Text="{Binding Path=ActiveSite.UserID, Source={x:Static okapi:SiteManager.Instance}}" IsReadOnly="True" />
+            <Button Margin="4" HorizontalAlignment="Right" Content="{l:Translate Retrieve}" Click="Button_Click" />
+        </Grid>
+        <TextBlock Margin="4" Grid.Row="3" Grid.Column="0" Text="{l:Translate Authorized}" />
+        <Grid Grid.Row="3" Grid.Column="1">
+            <CheckBox Margin="4" IsChecked="{Binding Path=ActiveSite.IsAuthorized, Source={x:Static okapi:SiteManager.Instance}, Mode=OneWay}" IsEnabled="False" />
+            <Button Margin="4" HorizontalAlignment="Right" Content="{l:Translate Authorize}" />
+        </Grid>
+    </Grid>
+</Window>

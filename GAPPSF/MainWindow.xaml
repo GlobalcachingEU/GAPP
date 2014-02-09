@@ -242,6 +242,18 @@
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{l:Translate OKAPI}">
+                    <MenuItem x:Name="menud50h" Header="{l:Translate Settings}" Click="menud50h_Click" />
+                    <Separator />
+                    <MenuItem x:Name="menudf0h" Header="{l:Translate ImportGeocachesInAreaOnMap}"  />
+                    <MenuItem x:Name="menudf1h" Header="{l:Translate ImportGeocachesWithinRadius}"  />
+                    <MenuItem x:Name="menudf2h" Header="{l:Translate ImportGeocachesByCodes}"  />
+                    <MenuItem x:Name="menudf3h" Header="{l:Translate ImportAllMyLogs}"  />
+                    <Separator />
+                    <MenuItem Header="{l:Translate Refresh}">
+                        <MenuItem x:Name="menud50g" Header="{l:Translate Active}"  />
+                        <MenuItem x:Name="menud51g" Header="{l:Translate Selected}"  />
+                        <MenuItem x:Name="menud52g" Header="{l:Translate All}"  />
+                    </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{l:Translate Language}">
                     <MenuItem x:Name="menu14" Header="{l:Translate OriginalText}" Click="MenuItem_Click_2"  />

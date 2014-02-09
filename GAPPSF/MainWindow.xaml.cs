@@ -3061,5 +3061,11 @@ namespace GAPPSF
             Application.Current.Shutdown();
         }
 
+        private void menud50h_Click(object sender, RoutedEventArgs e)
+        {
+            OKAPI.SettingsWindow dlg = new OKAPI.SettingsWindow();
+            dlg.ShowDialog();
+        }
+
     }
 }

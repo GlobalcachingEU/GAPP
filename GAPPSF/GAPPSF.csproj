@@ -103,6 +103,7 @@
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -270,6 +271,7 @@
     <Compile Include="Core\Settings\MunzeeSettings.cs" />
     <Compile Include="Core\Settings\NotesEditorSettings.cs" />
     <Compile Include="Core\Settings\OfflineImageSettings.cs" />
+    <Compile Include="Core\Settings\OKAPISettings.cs" />
     <Compile Include="Core\Settings\OV2Settings.cs" />
     <Compile Include="Core\Settings\PurgeLogsSettings.cs" />
     <Compile Include="Core\Settings\Settings.cs" />
@@ -728,6 +730,17 @@
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MyFinds\ImportLiveAPI.cs" />
+    <Compile Include="OKAPI\Convert.cs" />
+    <Compile Include="OKAPI\OAuthBase.cs" />
+    <Compile Include="OKAPI\OKAPIService.cs" />
+    <Compile Include="OKAPI\SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OKAPI\SiteInfo.cs" />
+    <Compile Include="OKAPI\SiteInfoGermany.cs" />
+    <Compile Include="OKAPI\SiteInfoNetherlands.cs" />
+    <Compile Include="OKAPI\SiteInfoPoland.cs" />
+    <Compile Include="OKAPI\SiteManager.cs" />
     <Compile Include="OV2\Export.cs" />
     <Compile Include="OV2\ExportWindow.xaml.cs">
       <DependentUpon>ExportWindow.xaml</DependentUpon>
@@ -1284,6 +1297,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="OKAPI\SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="OV2\ExportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1495,6 +1512,7 @@
     <Resource Include="bsn.GoldParser\Semantic\GoldRuleDeclaration.egt" />
     <EmbeddedResource Include="bsn.GoldParser\Semantic\GoldRuleDeclaration.grm" />
     <EmbeddedResource Include="app.manifest" />
+    <None Include="OKAPI\ConsumerKeys.xml.example" />
     <None Include="UIControls\FormulaSolver\Grammar\SingleLineFormula.grm" />
     <Resource Include="iGeoKnife\sqlite.db3" />
     <None Include="Properties\Settings.settings">
@@ -2194,9 +2212,15 @@
   <ItemGroup>
     <Resource Include="Dialogs\SelectAreaWindow.html" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="OKAPI\ConsumerKeys.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)GlobalcachingApplication\bin\$(ConfigurationName)\"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>if NOT exist "$(ProjectDir)OKAPI\ConsumerKeys.xml" copy "$(ProjectDir)OKAPI\ConsumerKeys.xml.example" "$(ProjectDir)OKAPI\ConsumerKeys.xml"</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

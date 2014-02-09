@@ -186,6 +186,16 @@ namespace GAPPSF.Core
             addCacheType(95347, "NFC Munzee", Core.Settings.Default.MunzeeGPXTagNFC);
             addCacheType(95348, "Premium Munzee", Core.Settings.Default.MunzeeGPXTagPremium);
 
+            addCacheType(96001, "OC Traditional Cache", "Traditional Cache");
+            addCacheType(96002, "OC Multi-cache", "Multi-cache");
+            addCacheType(96003, "OC Virtual Cache", "Virtual Cache");
+            addCacheType(96004, "OC Event Cache", "Event Cache");
+            addCacheType(96005, "OC Unknown (Mystery) Cache", "Unknown Cache");
+            addCacheType(96006, "OC Webcam Cache", "Webcam Cache");
+            addCacheType(96007, "OC Moving Cache", "Locationless (Reverse) Cache");
+            addCacheType(96008, "OC Quiz Cache", "Unknown Cache");
+            addCacheType(96009, "OC Drive-in Cache", "Traditional Cache");
+
             addCacheContainer(0, "Unknown");
             addCacheContainer(1, "Not chosen");
             addCacheContainer(2, "Micro");

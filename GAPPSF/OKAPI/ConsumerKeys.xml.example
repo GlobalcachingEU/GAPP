@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<keys>
+  <OC>
+    <ConsumerKey>Place your key here</ConsumerKey>
+    <ConsumerSecret>Place your key here</ConsumerSecret>
+  </OC>
+  <OB>
+    <ConsumerKey>Place your key here</ConsumerKey>
+    <ConsumerSecret>Place your key here</ConsumerSecret>
+  </OB>
+  <OP>
+    <ConsumerKey>Place your key here</ConsumerKey>
+    <ConsumerSecret>Place your key here</ConsumerSecret>
+  </OP>
+</keys>

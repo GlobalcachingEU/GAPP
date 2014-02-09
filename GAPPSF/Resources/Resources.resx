@@ -1591,4 +1591,28 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="RestoreSettings" xml:space="preserve">
     <value>Restore settings</value>
   </data>
+  <data name="ObtainUserID" xml:space="preserve">
+    <value>You must obtain a User ID in order to execute this plugin. Please check your settings.</value>
+  </data>
+  <data name="SelectOpencachingSite" xml:space="preserve">
+    <value>Please select an opencaching site first by using the settings.</value>
+  </data>
+  <data name="ImportAllMyLogs" xml:space="preserve">
+    <value>Import all my logs</value>
+  </data>
+  <data name="ImportGeocachesByCodes" xml:space="preserve">
+    <value>Import geocaches by codes</value>
+  </data>
+  <data name="ImportGeocachesInAreaOnMap" xml:space="preserve">
+    <value>Import geocaches in area on map</value>
+  </data>
+  <data name="ImportGeocachesWithinRadius" xml:space="preserve">
+    <value>Import geocaches within radius</value>
+  </data>
+  <data name="ImportingOpencachingGeocaches" xml:space="preserve">
+    <value>Importing opencaching geocaches</value>
+  </data>
+  <data name="OKAPISettings" xml:space="preserve">
+    <value>OKAPI Settings</value>
+  </data>
 </root>
