@@ -244,10 +244,10 @@
                 <MenuItem Header="{l:Translate OKAPI}">
                     <MenuItem x:Name="menud50h" Header="{l:Translate Settings}" Click="menud50h_Click" />
                     <Separator />
-                    <MenuItem x:Name="menudf0h" Header="{l:Translate ImportGeocachesInAreaOnMap}"  />
-                    <MenuItem x:Name="menudf1h" Header="{l:Translate ImportGeocachesWithinRadius}"  />
-                    <MenuItem x:Name="menudf2h" Header="{l:Translate ImportGeocachesByCodes}"  />
-                    <MenuItem x:Name="menudf3h" Header="{l:Translate ImportAllMyLogs}"  />
+                    <MenuItem x:Name="menudf0h" Header="{l:Translate ImportGeocachesInAreaOnMap}" Click="menudf0h_Click" />
+                    <MenuItem x:Name="menudf1h" Header="{l:Translate ImportGeocachesWithinRadius}" Click="menudf1h_Click" />
+                    <MenuItem x:Name="menudf2h" Header="{l:Translate ImportGeocachesByCodes}" Visibility="Collapsed" />
+                    <MenuItem x:Name="menudf3h" Header="{l:Translate ImportAllMyLogs}" Command="{Binding ImportOKAPIMyFindsCommand}" />
                     <Separator />
                     <MenuItem Header="{l:Translate Refresh}">
                         <MenuItem x:Name="menud50g" Header="{l:Translate Active}"  />

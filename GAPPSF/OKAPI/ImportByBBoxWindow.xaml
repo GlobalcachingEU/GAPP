@@ -1,0 +1,17 @@
+﻿<Window x:Class="GAPPSF.OKAPI.ImportByBBoxWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:l="clr-namespace:GAPPSF.Localization"
+        xmlns:ui="clr-namespace:GAPPSF.UIControls"
+        Title="{l:Translate ImportGeocachesInAreaOnMap}" Height="500" Width="500">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Button Margin="10" Grid.Column="1" Content="{l:Translate SelectWholeArea}" Command="{Binding SelectWithinBoundsCommand}"/>
+        </Grid>
+        <WebBrowser x:Name="webBrowser1" Grid.Row="1" />
+    </Grid>
+</Window>

@@ -1615,4 +1615,7 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="OKAPISettings" xml:space="preserve">
     <value>OKAPI Settings</value>
   </data>
+  <data name="ImportingOpencachingLogs" xml:space="preserve">
+    <value>Importing opencaching logs</value>
+  </data>
 </root>

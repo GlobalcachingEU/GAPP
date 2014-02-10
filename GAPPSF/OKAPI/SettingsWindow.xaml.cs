@@ -49,5 +49,18 @@ namespace GAPPSF.OKAPI
                 Core.ApplicationData.Instance.Logger.AddLog(this, ex);
             }
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (SiteManager.Instance.ActiveSite != null)
+            {
+                AuthorizationWindow dlg = new AuthorizationWindow(SiteManager.Instance.ActiveSite);
+                if (dlg.ShowDialog()==true)
+                {
+                    SiteManager.Instance.ActiveSite.Token = dlg.Token;
+                    SiteManager.Instance.ActiveSite.TokenSecret = dlg.TokenSecret;
+                }
+            }
+        }
     }
 }

@@ -2440,6 +2440,29 @@ namespace GAPPSF
         }
 
 
+        AsyncDelegateCommand _importOKAPIMyFindsCommand;
+        public ICommand ImportOKAPIMyFindsCommand
+        {
+            get
+            {
+                if (_importOKAPIMyFindsCommand == null)
+                {
+                    _importOKAPIMyFindsCommand = new AsyncDelegateCommand(param => this.ImportOKAPIMyFinds(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null && OKAPI.SiteManager.Instance.ActiveSite != null);
+                }
+                return _importOKAPIMyFindsCommand;
+            }
+        }
+        public async Task ImportOKAPIMyFinds()
+        {
+            if (OKAPI.SiteManager.Instance.CheckAPIAccess())
+            {
+                OKAPI.Import imp = new OKAPI.Import();
+                await imp.ImportMyLogsWithCachesAsync(Core.ApplicationData.Instance.ActiveDatabase, OKAPI.SiteManager.Instance.ActiveSite);
+            }
+        }
+
+
         RelayCommand _purgeLogsCommand;
         public ICommand PurgeLogsCommand
         {
@@ -3065,6 +3088,24 @@ namespace GAPPSF
         {
             OKAPI.SettingsWindow dlg = new OKAPI.SettingsWindow();
             dlg.ShowDialog();
+        }
+
+        private void menudf0h_Click(object sender, RoutedEventArgs e)
+        {
+            if (OKAPI.SiteManager.Instance.CheckAPIAccess())
+            {
+                OKAPI.ImportByBBoxWindow dlg = new OKAPI.ImportByBBoxWindow();
+                dlg.ShowDialog();
+            }
+        }
+
+        private void menudf1h_Click(object sender, RoutedEventArgs e)
+        {
+            if (OKAPI.SiteManager.Instance.CheckAPIAccess())
+            {
+                OKAPI.ImportByRadiusWindow dlg = new OKAPI.ImportByRadiusWindow();
+                dlg.ShowDialog();
+            }
         }
 
     }

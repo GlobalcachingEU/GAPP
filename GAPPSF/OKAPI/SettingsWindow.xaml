@@ -33,7 +33,7 @@
         <TextBlock Margin="4" Grid.Row="3" Grid.Column="0" Text="{l:Translate Authorized}" />
         <Grid Grid.Row="3" Grid.Column="1">
             <CheckBox Margin="4" IsChecked="{Binding Path=ActiveSite.IsAuthorized, Source={x:Static okapi:SiteManager.Instance}, Mode=OneWay}" IsEnabled="False" />
-            <Button Margin="4" HorizontalAlignment="Right" Content="{l:Translate Authorize}" />
+            <Button Margin="4" HorizontalAlignment="Right" Content="{l:Translate Authorize}" Click="Button_Click_1" />
         </Grid>
     </Grid>
 </Window>

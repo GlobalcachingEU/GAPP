@@ -730,9 +730,19 @@
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MyFinds\ImportLiveAPI.cs" />
+    <Compile Include="OKAPI\AuthorizationWindow.xaml.cs">
+      <DependentUpon>AuthorizationWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="OKAPI\Convert.cs" />
+    <Compile Include="OKAPI\Import.cs" />
     <Compile Include="OKAPI\OAuthBase.cs" />
     <Compile Include="OKAPI\OKAPIService.cs" />
+    <Compile Include="OKAPI\ImportByBBoxWindow.xaml.cs">
+      <DependentUpon>ImportByBBoxWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OKAPI\ImportByRadiusWindow.xaml.cs">
+      <DependentUpon>ImportByRadiusWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="OKAPI\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
@@ -1296,6 +1306,18 @@
     <Page Include="Munzee\SettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OKAPI\AuthorizationWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="OKAPI\ImportByBBoxWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="OKAPI\ImportByRadiusWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="OKAPI\SettingsWindow.xaml">
       <SubType>Designer</SubType>
@@ -2214,6 +2236,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="OKAPI\ConsumerKeys.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="OKAPI\ImportByBBoxWindow.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="OKAPI\ImportByRadiusWindow.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

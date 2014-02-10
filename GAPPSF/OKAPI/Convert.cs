@@ -8,7 +8,7 @@ namespace GAPPSF.OKAPI
 {
     public class Convert
     {
-        public static Core.Data.Geocache Geocache(Core.Storage.Database db, OKAPIService.Geocache gc)
+        public static Core.Data.Geocache AddGeocache(Core.Storage.Database db, OKAPIService.Geocache gc)
         {
             Core.Data.Geocache result = null;
             if (gc != null)
@@ -142,7 +142,7 @@ namespace GAPPSF.OKAPI
         }
 
 
-        public static Core.Data.Log Log(Core.Storage.Database db, OKAPIService.Log lg, string finder, string finderId)
+        public static Core.Data.Log AddLog(Core.Storage.Database db, OKAPIService.Log lg, string finder, string finderId)
         {
             Core.Data.Log result = null;
             if (lg != null)
@@ -189,7 +189,7 @@ namespace GAPPSF.OKAPI
             return result;
         }
 
-        public static Core.Data.Waypoint Waypoint(Core.Storage.Database db, OKAPIService.Waypoint wp)
+        public static Core.Data.Waypoint AddWaypoint(Core.Storage.Database db, OKAPIService.Waypoint wp)
         {
             Core.Data.Waypoint result = null;
             if (wp != null)
@@ -256,7 +256,7 @@ namespace GAPPSF.OKAPI
             return result;
         }
 
-        public static Core.Data.GeocacheImage GeocacheImage(Core.Storage.Database db, OKAPIService.GeocacheImage img, string GeocacheCode)
+        public static Core.Data.GeocacheImage AddGeocacheImage(Core.Storage.Database db, OKAPIService.GeocacheImage img, string GeocacheCode)
         {
             Core.Data.GeocacheImage result = null;
             if (img != null)

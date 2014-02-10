@@ -1,0 +1,64 @@
+﻿
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://www.google.com/jsapi?autoload={'modules':[{name:'maps',version:3,other_params:'sensor=false'}]}"></script>
+    <script type="text/javascript">
+
+        var geocoder;
+        var map;
+
+        function init() {
+            var mapDiv = document.getElementById('map');
+            map = new google.maps.Map(mapDiv, {
+                center: new google.maps.LatLng(0.0, 0.0),
+                zoom: 8,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            geocoder = new google.maps.Geocoder();
+        }
+
+        function showAddress(address) {
+            geocoder.geocode({ 'address': address },
+            function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    map.setCenter(results[0].geometry.location);
+                }
+                else {
+                    alert("Unable to find location");
+                }
+            }
+        );
+        }
+
+        function getBounds() {
+            return map.getBounds().toString();
+        }
+
+        function onResize() {
+            $('#map').width($(document).width() - 40);
+            $('#map').height($(document).height() - 100);
+        }
+
+        $(window).resize(function () {
+            onResize();
+        });
+
+        $(document).ready(function () {
+            init();
+            onResize();
+        });
+    </script>
+  </head>
+  <body>
+    <div id="map"></div>
+    <div id="info"></div>
+      SLocationS:
+      <input name="addr" type="text" id="addr" onkeypress="javascript:if (event.keyCode == 13) { showAddress(this.value); return false; }" />
+      <input name="submit" type="button" id="submit" value="SGoS" onclick="javascript: showAddress(document.getElementById('addr').value); return false;" />
+  </body>
+</html>
