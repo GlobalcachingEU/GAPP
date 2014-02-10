@@ -82,6 +82,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssignCity.cs" />
     <Compile Include="AssignRegion.cs" />
     <Compile Include="AssignRegionForm.cs">
       <SubType>Form</SubType>

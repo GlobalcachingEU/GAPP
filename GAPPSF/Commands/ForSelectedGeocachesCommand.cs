@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace GAPPSF.Commands
 {
-    public class ForAllGeocachesCommand : AsyncDelegateCommand
+    public class ForSelectedGeocachesCommand : AsyncDelegateCommand
     {
         private Action<Core.Data.Geocache> _geocacheAction;
 
         private bool _showProgress;
 
-        public ForAllGeocachesCommand(Action<Core.Data.Geocache> geocacheAction)
+        public ForSelectedGeocachesCommand(Action<Core.Data.Geocache> geocacheAction)
             : this(geocacheAction, false)
         {
         }
-        public ForAllGeocachesCommand(Action<Core.Data.Geocache> geocacheAction, bool showProgress)
-            : base(null, param => Core.ApplicationData.Instance.ActiveDatabase != null)
+        public ForSelectedGeocachesCommand(Action<Core.Data.Geocache> geocacheAction, bool showProgress)
+            : base(null, param => Core.ApplicationData.Instance.ActiveDatabase != null && Core.ApplicationData.Instance.MainWindow.GeocacheSelectionCount>0)
         {
             _showProgress = showProgress;
             _geocacheAction = geocacheAction;
@@ -34,28 +34,32 @@ namespace GAPPSF.Commands
                     await Task.Run(() =>
                     {
                         Utils.ProgressBlock prog = null;
+                        int max = Core.ApplicationData.Instance.MainWindow.GeocacheSelectionCount;
                         DateTime nextUpdate = DateTime.Now.AddSeconds(1);
                         if (_showProgress)
                         {
-                            prog = new Utils.ProgressBlock("PerfomingAction", "PerfomingAction", db.GeocacheCollection.Count, 0, true);
+                            prog = new Utils.ProgressBlock("PerfomingAction", "PerfomingAction", max, 0, true);
                         }
                         try
                         {
                             int index = 0;
                             foreach (Core.Data.Geocache gc in db.GeocacheCollection)
                             {
-                                _geocacheAction(gc);
-
-                                if (prog!=null)
+                                if (gc.Selected)
                                 {
-                                    index++;
-                                    if (DateTime.Now>=nextUpdate)
+                                    _geocacheAction(gc);
+
+                                    if (prog != null)
                                     {
-                                        if (!prog.Update("PerfomingAction", db.GeocacheCollection.Count, index))
+                                        index++;
+                                        if (DateTime.Now >= nextUpdate)
                                         {
-                                            break;
+                                            if (!prog.Update("PerfomingAction", max, index))
+                                            {
+                                                break;
+                                            }
+                                            nextUpdate = DateTime.Now.AddSeconds(1);
                                         }
-                                        nextUpdate = DateTime.Now.AddSeconds(1);
                                     }
                                 }
                             }

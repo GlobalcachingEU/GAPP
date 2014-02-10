@@ -2520,6 +2520,62 @@ namespace GAPPSF
         }
 
 
+        ForAllGeocachesCommand _assignCityNameActiveCommand;
+        public ICommand AssignCityNameActiveCommand
+        {
+            get
+            {
+                if (_assignCityNameActiveCommand == null)
+                {
+                    _assignCityNameActiveCommand = new ForAllGeocachesCommand(param => this.assignCityNameActive(param), true);
+                }
+                return _assignCityNameActiveCommand;
+            }
+        }
+        private void assignCityNameActive(Core.Data.Geocache gc)
+        {
+            if (gc==Core.ApplicationData.Instance.ActiveGeocache)
+            {
+                gc.City = Utils.Geocoder.GetCityName(gc.Lat, gc.Lon);
+            }
+        }
+
+        ForSelectedGeocachesCommand _assignCityNameSelectedCommand;
+        public ICommand AssignCityNameSelectedCommand
+        {
+            get
+            {
+                if (_assignCityNameSelectedCommand == null)
+                {
+                    _assignCityNameSelectedCommand = new ForSelectedGeocachesCommand(param => this.assignCityNameSelected(param), true);
+                }
+                return _assignCityNameSelectedCommand;
+            }
+        }
+        private void assignCityNameSelected(Core.Data.Geocache gc)
+        {
+            System.Threading.Thread.Sleep(1000); //OSM user policy
+            gc.City = Utils.Geocoder.GetCityName(gc.Lat, gc.Lon);
+        }
+
+        ForAllGeocachesCommand _assignCityNameAllCommand;
+        public ICommand AssignCityNameAllCommand
+        {
+            get
+            {
+                if (_assignCityNameAllCommand == null)
+                {
+                    _assignCityNameAllCommand = new ForAllGeocachesCommand(param => this.assignCityNameAll(param));
+                }
+                return _assignCityNameAllCommand;
+            }
+        }
+        private void assignCityNameAll(Core.Data.Geocache gc)
+        {
+            System.Threading.Thread.Sleep(1000); //OSM user policy
+            gc.City = Utils.Geocoder.GetCityName(gc.Lat, gc.Lon);
+        }
+
 
         ForAllGeocachesCommand _selectWithUserWPCommand;
         public ICommand SelectWithUserWPCommand

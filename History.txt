@@ -9,6 +9,9 @@ todo:
 - add tooltip for counters in main screen
 
 V1.9.13.0
+
+- change: GetCityName now uses OSM as preferred provider and uses Google as fall back
+- add: New plugin that assigns city names to geocaches
 - change: Updated GAPP SF V0.0.21 (Preview, requires .NET 4.5.1)
 
 V1.9.12.0

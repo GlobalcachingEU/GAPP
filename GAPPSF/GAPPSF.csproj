@@ -196,6 +196,7 @@
     <Compile Include="Commands\AsyncDelegateCommand.cs" />
     <Compile Include="Commands\CommandReference.cs" />
     <Compile Include="Commands\DelegateCommand.cs" />
+    <Compile Include="Commands\ForSelectedGeocachesCommand.cs" />
     <Compile Include="Commands\ForAllGeocachesCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Core\Data\AccountInfo.cs" />

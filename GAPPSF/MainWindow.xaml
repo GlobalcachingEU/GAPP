@@ -213,6 +213,11 @@
                         <MenuItem x:Name="menum27" Header="{l:Translate UpdateStatusOfGeocachesAndImportNewGeocaches}" Click="menum27_Click" />
                     </MenuItem>
                     <MenuItem x:Name="menudv27" Header="{l:Translate ClearGCVotes}" Command="{Binding ResetGCVotesCommand}" />
+                    <MenuItem Header="{l:Translate GetCity}">
+                        <MenuItem x:Name="menu6c" Header="{l:Translate Active}" Command="{Binding AssignCityNameActiveCommand}" />
+                        <MenuItem x:Name="menu8c" Header="{l:Translate Selected}" Command="{Binding AssignCityNameSelectedCommand}" />
+                        <MenuItem x:Name="menux8c" Header="{l:Translate All}" Command="{Binding AssignCityNameAllCommand}" />
+                    </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{l:Translate LiveAPI}">
                     <MenuItem x:Name="menu13" Header="{l:Translate Authorize}" Command="{Binding LiveApiAuthorizeCommand}" />

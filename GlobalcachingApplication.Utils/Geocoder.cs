@@ -18,10 +18,47 @@ namespace GlobalcachingApplication.Utils
         }
         public static string GetCityName(double lat, double lon)
         {
+            string result = GetCityNameOSM(lat, lon);
+            if (string.IsNullOrEmpty(result))
+            {
+                try
+                {
+                    HttpWebRequest wr = (HttpWebRequest)WebRequest.Create(string.Format("http://maps.googleapis.com/maps/api/geocode/xml?latlng={0},{1}&sensor=false", lat.ToString().Replace(',', '.'), lon.ToString().Replace(',', '.')));
+                    wr.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.874.121 Safari/535.2";
+                    wr.Method = WebRequestMethods.Http.Get;
+                    HttpWebResponse webResponse = (HttpWebResponse)wr.GetResponse();
+                    StreamReader reader = new StreamReader(webResponse.GetResponseStream());
+                    string doc = reader.ReadToEnd();
+                    webResponse.Close();
+                    if (doc != null && doc.Length > 0)
+                    {
+                        XmlDocument xdoc = new XmlDocument();
+                        xdoc.LoadXml(doc);
+                        XmlNodeList nl = xdoc.SelectNodes("GeocodeResponse/result/address_component");
+                        foreach (XmlNode n in nl)
+                        {
+                            XmlNode nt = n.SelectSingleNode("type");
+                            if (nt != null && nt.InnerText == "locality")
+                            {
+                                result = n.SelectSingleNode("long_name").InnerText;
+                                break;
+                            }
+                        }
+                    }
+                }
+                catch
+                {
+                }
+            }
+            return result;
+        }
+
+        public static string GetCityNameOSM(double lat, double lon)
+        {
             string result = "";
             try
             {
-                HttpWebRequest wr = (HttpWebRequest)WebRequest.Create(string.Format("http://maps.googleapis.com/maps/api/geocode/xml?latlng={0},{1}&sensor=false", lat.ToString().Replace(',', '.'), lon.ToString().Replace(',', '.')));
+                HttpWebRequest wr = (HttpWebRequest)WebRequest.Create(string.Format("http://nominatim.openstreetmap.org/reverse?format=xml&lat={0}&lon={1}&zoom=18&addressdetails=1", lat.ToString().Replace(',', '.'), lon.ToString().Replace(',', '.')));
                 wr.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.874.121 Safari/535.2";
                 wr.Method = WebRequestMethods.Http.Get;
                 HttpWebResponse webResponse = (HttpWebResponse)wr.GetResponse();
@@ -32,15 +69,10 @@ namespace GlobalcachingApplication.Utils
                 {
                     XmlDocument xdoc = new XmlDocument();
                     xdoc.LoadXml(doc);
-                    XmlNodeList nl = xdoc.SelectNodes("GeocodeResponse/result/address_component");
-                    foreach (XmlNode n in nl)
+                    XmlNode n = xdoc.SelectSingleNode("reversegeocode/addressparts/city");
+                    if (n != null)
                     {
-                        XmlNode nt = n.SelectSingleNode("type");
-                        if (nt != null && nt.InnerText == "locality")
-                        {
-                            result = n.SelectSingleNode("long_name").InnerText;
-                            break;
-                        }
+                        result = n.InnerText;
                     }
                 }
             }
