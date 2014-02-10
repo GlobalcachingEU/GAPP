@@ -225,7 +225,10 @@
                     <MenuItem x:Name="menue37" Header="{l:Translate Bookmarks}" Click="menud37_Click" />
                     <MenuItem x:Name="menut37" Header="{l:Translate ImportPQ}" Click="menut37_Click" />
                     <MenuItem x:Name="menuq37" Header="{l:Translate ImportMyFinds}" Command="{Binding ImportMyFindsCommand}" />
-                    <MenuItem x:Name="menug37" Header="{l:Translate ImportGeocacheNotes}" Command="{Binding ImportGCComNotesCommand}" />
+                    <MenuItem Header="{l:Translate ImportGeocacheNotes}">
+                        <MenuItem x:Name="menug37" Header="{l:Translate NotesOnly}" Command="{Binding ImportGCComNotesCommand}" />
+                        <MenuItem x:Name="menug37v" Header="{l:Translate NotesAndMissingGeocaches}" Command="{Binding ImportGCComNotesMissingCommand}" />
+                    </MenuItem>
                     <MenuItem x:Name="menuk37" Header="{l:Translate ImportLogsOfOtherUsers}" Command="{Binding ImportLogsOfUsersCommand}" />
                     <MenuItem Header="{l:Translate Favorites}">
                         <MenuItem x:Name="menuf50" Header="{l:Translate GetAllFavCodes}" Command="{Binding ImportFavsCodesCommand}" />

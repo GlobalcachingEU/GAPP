@@ -1,12 +1,18 @@
-todo:
-
-- add markers between records in storage data, so recovery might result in less data loss
+todo GAPP:
 - processdialog, minimize or show on taskbar. Going to desktop fails now
-- add option in action builder to popup dialog for field values (fill in at runtime)
 - add log templates
-- add proxy support (Core data and accessible by plugins)
 - add option to set the logcount for GPX export
 - add tooltip for counters in main screen
+
+todo GAPP SF:
+- export using Garmin communicator
+- export garmin POI
+- Open Areas map
+- Internal browser
+- assign region (using shapefiles)
+- chat
+- log image viewer
+- log geocaches using LiveAPI
 
 V1.9.13.0
 

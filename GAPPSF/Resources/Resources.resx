@@ -1624,4 +1624,13 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="PerfomingAction" xml:space="preserve">
     <value>Perfoming action</value>
   </data>
+  <data name="ImportingGeocachingcomFieldNotes" xml:space="preserve">
+    <value>Importing geocaching.com field motes</value>
+  </data>
+  <data name="NotesAndMissingGeocaches" xml:space="preserve">
+    <value>Notes and missing geocaches</value>
+  </data>
+  <data name="NotesOnly" xml:space="preserve">
+    <value>Notes only</value>
+  </data>
 </root>

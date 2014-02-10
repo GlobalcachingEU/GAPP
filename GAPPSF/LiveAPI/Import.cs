@@ -631,5 +631,97 @@ namespace GAPPSF.LiveAPI
             return result;
         }
 
+        public async Task ImportNotesAsync(Core.Storage.Database db, bool importMissing)
+        {
+            using (Utils.DataUpdater upd = new Utils.DataUpdater(db))
+            {
+                await Task.Run(() =>
+                {
+                    ImportNotes(db, importMissing);
+                });
+            }
+        }
+        public void ImportNotes(Core.Storage.Database db, bool importMissing)
+        {
+            List<LiveAPI.LiveV6.CacheNote> missingGeocaches = new List<LiveAPI.LiveV6.CacheNote>();
+            bool error = false;
+            try
+            {
+                using (Utils.ProgressBlock progress = new Utils.ProgressBlock("ImportingGeocachingcomFieldNotes", "ImportingGeocachingcomFieldNotes", 1, 0))
+                {
+                    //clear all notes
+                    foreach (var gc in db.GeocacheCollection)
+                    {
+                        gc.PersonalNote = "";
+                    }
+
+                    using (LiveAPI.GeocachingLiveV6 client = new LiveAPI.GeocachingLiveV6(false))
+                    {
+                        int maxPerRequest = 100;
+                        int startIndex = 0;
+                        var resp = client.Client.GetUsersCacheNotes(client.Token, startIndex, maxPerRequest);
+                        while (resp.Status.StatusCode == 0)
+                        {
+                            foreach (var n in resp.CacheNotes)
+                            {
+                                var gc = db.GeocacheCollection.GetGeocache(n.CacheCode);
+                                if (gc != null)
+                                {
+                                    string s = n.Note ?? "";
+                                    s = s.Replace("\r", "");
+                                    s = s.Replace("\n", "\r\n");
+                                    gc.PersonalNote = s;
+                                }
+                                else
+                                {
+                                    missingGeocaches.Add(n);
+                                }
+                            }
+                            if (resp.CacheNotes.Count() >= maxPerRequest)
+                            {
+                                startIndex += resp.CacheNotes.Count();
+                                resp = client.Client.GetUsersCacheNotes(client.Token, startIndex, maxPerRequest);
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        if (resp.Status.StatusCode != 0)
+                        {
+                            error = true;
+                            if (!string.IsNullOrEmpty(resp.Status.StatusMessage))
+                            {
+                                Core.ApplicationData.Instance.Logger.AddLog(this, Core.Logger.Level.Error, resp.Status.StatusMessage);
+                            }
+                        }
+                    }
+                }
+                if (!error && missingGeocaches.Count > 0)
+                {
+                    List<string> gcList = (from a in missingGeocaches select a.CacheCode).ToList();
+                    if (importMissing)
+                    {
+                        LiveAPI.Import.ImportGeocaches(db, gcList);
+                        foreach (var n in missingGeocaches)
+                        {
+                            var gc = db.GeocacheCollection.GetGeocache(n.CacheCode);
+                            if (gc != null)
+                            {
+                                string s = n.Note ?? "";
+                                s = s.Replace("\r", "");
+                                s = s.Replace("\n", "\r\n");
+                                gc.PersonalNote = s;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
+            }
+        }
+
     }
 }

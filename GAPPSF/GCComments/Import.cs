@@ -24,9 +24,9 @@ namespace GAPPSF.GCComments
             if (result == true)
             {
                 // Open document
-                await Task.Run(() =>
+                using (Utils.DataUpdater upd = new Utils.DataUpdater(db))
                 {
-                    using (Utils.DataUpdater upd = new Utils.DataUpdater(db))
+                    await Task.Run(() =>
                     {
                         try
                         {
@@ -72,8 +72,8 @@ namespace GAPPSF.GCComments
                         {
                             Core.ApplicationData.Instance.Logger.AddLog(this, e);
                         }
-                    }
-                });
+                    });
+                }
             }
 
         }
