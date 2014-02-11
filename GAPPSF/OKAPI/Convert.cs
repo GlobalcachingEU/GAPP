@@ -48,27 +48,27 @@ namespace GAPPSF.OKAPI
                     // we chose to map the containers
                     if (gc.size2 == "none")
                     {
-                        result.Container = Utils.DataAccess.GetGeocacheContainer(5);
+                        gcData.Container = Utils.DataAccess.GetGeocacheContainer(5);
                     }
                     else if (gc.size2 == "micro" || gc.size2 == "nano")
                     {
-                        result.Container = Utils.DataAccess.GetGeocacheContainer(2);
+                        gcData.Container = Utils.DataAccess.GetGeocacheContainer(2);
                     }
                     else if (gc.size2 == "small")
                     {
-                        result.Container = Utils.DataAccess.GetGeocacheContainer(8);
+                        gcData.Container = Utils.DataAccess.GetGeocacheContainer(8);
                     }
                     else if (gc.size2 == "regular")
                     {
-                        result.Container = Utils.DataAccess.GetGeocacheContainer(3);
+                        gcData.Container = Utils.DataAccess.GetGeocacheContainer(3);
                     }
                     else if (gc.size2 == "large" || gc.size2 == "xlarge")
                     {
-                        result.Container = Utils.DataAccess.GetGeocacheContainer(4);
+                        gcData.Container = Utils.DataAccess.GetGeocacheContainer(4);
                     }
                     else
                     {
-                        result.Container = Utils.DataAccess.GetGeocacheContainer(6);
+                        gcData.Container = Utils.DataAccess.GetGeocacheContainer(6);
                     }
                     gcData.Country = gc.country ?? "";
                     gcData.Difficulty = gc.difficulty;
@@ -220,7 +220,7 @@ namespace GAPPSF.OKAPI
                 }
                 else if (wp.sym == "stage" || wp.sym == "physical-stage" || wp.sym == "virtual-stage")
                 {
-                    result.WPType = DataAccess.GetWaypointType(219);
+                    wpd.WPType = DataAccess.GetWaypointType(219);
                 }
                 else if (wp.sym == "final")
                 {

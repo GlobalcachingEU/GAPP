@@ -87,15 +87,15 @@ namespace GAPPSF.Core.Data
                     }
                 }
                 ms.Position = 300;
-                bw.Write(data.City ?? "");
+                bw.Write(GetSafeString(300, 400, data.City) ?? "");
                 ms.Position = 400;
-                bw.Write(data.Country ?? "");
+                bw.Write(GetSafeString(400, 500, data.Country) ?? "");
                 ms.Position = 500;
                 bw.Write(GetSafeString(500, 1000, data.EncodedHints) ?? "");
                 ms.Position = 1000;
-                bw.Write(data.Municipality ?? "");
+                bw.Write(GetSafeString(1000, 1100, data.Municipality) ?? "");
                 ms.Position = 1100;
-                bw.Write(data.Name ?? "");
+                bw.Write(GetSafeString(1100, 1200, data.Name) ?? "");
                 ms.Position = 1200; //spare now
                 //bw.Write(GetSafeString(1200, 2000, data.Notes) ?? "");
                 bw.Write("");
@@ -105,17 +105,17 @@ namespace GAPPSF.Core.Data
                     Core.Settings.Default.SetGeocacheNotes(data.Code, data.Notes);
                 }
                 ms.Position = 2000;
-                bw.Write(data.Owner ?? "");
+                bw.Write(GetSafeString(2000, 2100, data.Owner) ?? "");
                 ms.Position = 2100;
-                bw.Write(data.OwnerId ?? "");
+                bw.Write(GetSafeString(2100, 2150, data.OwnerId) ?? "");
                 ms.Position = 2150;
                 bw.Write(GetSafeString(2150, 2400, data.PersonalNote) ?? "");
                 ms.Position = 2400;
-                bw.Write(data.PlacedBy ?? "");
+                bw.Write(GetSafeString(2400, 2500, data.PlacedBy) ?? "");
                 ms.Position = 2500;
-                bw.Write(data.State ?? "");
+                bw.Write(GetSafeString(2500, 2600, data.State) ?? "");
                 ms.Position = 2600;
-                bw.Write(data.Url ?? "");
+                bw.Write(GetSafeString(2600, 2800, data.Url) ?? "");
                 //spare
                 ms.Position = 3000;
                 bw.Write(data.LongDescriptionInHtml); //3000
@@ -393,7 +393,7 @@ namespace GAPPSF.Core.Data
             set
             {
                 string _name = Name;
-                SetProperty(1100, ref _name, value);
+                SetStringProperty(1100, 1200, ref _name, value);
             }
         }
 
@@ -542,7 +542,7 @@ namespace GAPPSF.Core.Data
             set
             {
                 string s = Country;
-                SetProperty(400, ref s, value);
+                SetStringProperty(400, 500, ref s, value);
             }
         }
 
@@ -555,7 +555,7 @@ namespace GAPPSF.Core.Data
             set
             {
                 string s = State;
-                SetProperty(2500, ref s, value);
+                SetStringProperty(2500, 2600, ref s, value);
             }
         }
 
@@ -568,7 +568,7 @@ namespace GAPPSF.Core.Data
             set
             {
                 string s = Municipality;
-                SetProperty(1000, ref s, value);
+                SetStringProperty(1000, 1100, ref s, value);
             }
         }
 
@@ -581,7 +581,7 @@ namespace GAPPSF.Core.Data
             set
             {
                 string s = City;
-                SetProperty(300, ref s, value);
+                SetStringProperty(300, 400, ref s, value);
             }
         }
 
@@ -607,7 +607,7 @@ namespace GAPPSF.Core.Data
             set
             {
                 string s = PlacedBy;
-                SetProperty(2400, ref s, value);
+                SetStringProperty(2400, 2500, ref s, value);
             }
         }
 
@@ -620,7 +620,7 @@ namespace GAPPSF.Core.Data
             set
             {
                 string s = Owner;
-                SetProperty(2000, ref s, value);
+                SetStringProperty(2000, 2100, ref s, value);
             }
         }
 
@@ -633,7 +633,7 @@ namespace GAPPSF.Core.Data
             set
             {
                 string s = OwnerId;
-                SetProperty(2100, ref s, value);
+                SetStringProperty(2100, 2150, ref s, value);
             }
         }
 
@@ -751,7 +751,7 @@ namespace GAPPSF.Core.Data
             set
             {
                 string s = EncodedHints;
-                SetProperty(2600, ref s, value);
+                SetStringProperty(2600, 2800, ref s, value);
             }
         }
 

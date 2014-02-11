@@ -79,6 +79,7 @@
   <string name="ascii" value="" />
   <string name="ascii (dec)" value="" />
   <string name="ascii (hex)" value="" />
+  <string name="assign city" value="Ken plaatsnaam toe" />
   <string name="assign regions to geocaches" value="Ken regio's toe aan geocaches" />
   <string name="assigning regions..." value="Bezig met toekennen van regio's" />
   <string name="at least one user" value="Tenminste 1 gebruiker" />
@@ -432,7 +433,7 @@
   <string name="geocache counter" value="Geocache teller" />
   <string name="geocache editor" value="Geocache bewerker" />
   <string name="geocache event" value="" />
-  <string name="geocache ignore filter" value="" />
+  <string name="geocache ignore filter" value="Geocache negeerfilter" />
   <string name="geocache info" value="Geocache informatie" />
   <string name="geocache logged successfully, log another geocache?" value="Geocache is gelogd. Log een andere geocache?" />
   <string name="geocache note editor" value="Geocache notitie bewerker" />
@@ -451,6 +452,7 @@
   <string name="get access only" value="Alleen toegang verkrijgen" />
   <string name="get all trackable logs" value="Haal alle trackable logs op" />
   <string name="get all your favorites geocache codes" value="Haal al jouw Favoriete geocache codes op" />
+  <string name="get city" value="Haal plaatsnaam op" />
   <string name="get coordinates of a geocache waypoint by its name.&#xD;&#xA;waypoint(&quot;fn2y73e&quot;) = &quot;n 51° 12.345 e 006° 43.210&quot;&#xD;&#xA;no param gives cache coordinates." value="Geeft de coordinaten van een geocache waypoint mbv naam.&#xD;&#xA;Voorbeels: waypoint(&quot;FN2Y73E&quot;) = &quot;N51 12.345 E006 43.210&quot;&#xD;&#xA;Geen parameter geeft cache coordinaten" />
   <string name="get geocaches using live api" value="Verkrijg geocaches middels Live API" />
   <string name="get location" value="Bepaal locatie" />

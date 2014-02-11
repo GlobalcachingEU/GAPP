@@ -67,6 +67,10 @@ namespace GAPPSF.Core.Data
 
         public void BeginUpdate()
         {
+            if (_updateCounter == 0)
+            {
+                IsDataChanged = false;
+            }
             _updateCounter++;
         }
         public void EndUpdate()
@@ -105,10 +109,6 @@ namespace GAPPSF.Core.Data
                         handler(this, new PropertyChangedEventArgs(name));
                     }
                 }
-                else
-                {
-                    IsDataChanged = false;
-                }
             }
         }
 
@@ -127,10 +127,6 @@ namespace GAPPSF.Core.Data
                     {
                         handler(this, new PropertyChangedEventArgs(name));
                     }
-                }
-                else
-                {
-                    IsDataChanged = false;
                 }
             }
         }
