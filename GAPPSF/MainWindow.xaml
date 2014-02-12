@@ -218,6 +218,7 @@
                         <MenuItem x:Name="menu8c" Header="{l:Translate Selected}" Command="{Binding AssignCityNameSelectedCommand}" />
                         <MenuItem x:Name="menux8c" Header="{l:Translate All}" Command="{Binding AssignCityNameAllCommand}" />
                     </MenuItem>
+                    <MenuItem x:Name="menudv2v7" Header="{l:Translate AssignRegionsToGeocaches}" Click="menudv2v7_Click"/>
                 </MenuItem>
                 <MenuItem Header="{l:Translate LiveAPI}">
                     <MenuItem x:Name="menu13" Header="{l:Translate Authorize}" Command="{Binding LiveApiAuthorizeCommand}" />

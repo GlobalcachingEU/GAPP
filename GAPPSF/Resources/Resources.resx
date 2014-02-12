@@ -1633,4 +1633,16 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="NotesOnly" xml:space="preserve">
     <value>Notes only</value>
   </data>
+  <data name="AssignRegionsToGeocaches" xml:space="preserve">
+    <value>Assign regions to geocaches</value>
+  </data>
+  <data name="NamePrefix" xml:space="preserve">
+    <value>Name prefix</value>
+  </data>
+  <data name="SelectedOnly" xml:space="preserve">
+    <value>Selected only</value>
+  </data>
+  <data name="UnassignedOnly" xml:space="preserve">
+    <value>Unassigned only</value>
+  </data>
 </root>

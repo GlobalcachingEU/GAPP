@@ -760,6 +760,9 @@
     <Compile Include="PurgeLogs\PurgerWindow.xaml.cs">
       <DependentUpon>PurgerWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Regions\AssignRegionWindow.xaml.cs">
+      <DependentUpon>AssignRegionWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1329,6 +1332,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PurgeLogs\PurgerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Regions\AssignRegionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

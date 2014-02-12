@@ -1,0 +1,33 @@
+﻿<Window x:Class="GAPPSF.Regions.AssignRegionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:l="clr-namespace:GAPPSF.Localization"
+        xmlns:p="clr-namespace:GAPPSF.Core"
+        xmlns:ui="clr-namespace:GAPPSF.UIControls"
+        Title="{l:Translate AssignRegionsToGeocaches}" Height="200" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Margin="4" Grid.Row="0" Grid.Column="0" Text="{l:Translate Level}" />
+        <ComboBox Margin="4" Grid.Row="0" Grid.Column="1"
+                  ItemsSource="{Binding Arealevels}"
+                  SelectedItem="{Binding SelectedAreaLevel}"
+                  />
+        <TextBlock Margin="4" Grid.Row="1" Grid.Column="0" Text="{l:Translate NamePrefix}" />
+        <TextBox Margin="4" Grid.Row="1" Grid.Column="1" Text="{Binding Prefix, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock Margin="4" Grid.Row="2" Grid.Column="0" Text="{l:Translate UnassignedOnly}" />
+        <CheckBox Margin="4" Grid.Row="2" Grid.Column="1" IsChecked="{Binding UnassignedOnly}" />
+        <TextBlock Margin="4" Grid.Row="3" Grid.Column="0" Text="{l:Translate SelectedOnly}" />
+        <CheckBox Margin="4" Grid.Row="3" Grid.Column="1" IsChecked="{Binding SelectedOnly}" />
+        <Button Margin="4,14,4,4" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="{l:Translate Start}" Command="{Binding PerformActionCommand}" />
+    </Grid>
+</Window>

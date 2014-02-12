@@ -3110,5 +3110,11 @@ namespace GAPPSF
             }
         }
 
+        private void menudv2v7_Click(object sender, RoutedEventArgs e)
+        {
+            Regions.AssignRegionWindow dlg = new Regions.AssignRegionWindow();
+            dlg.ShowDialog();
+        }
+
     }
 }

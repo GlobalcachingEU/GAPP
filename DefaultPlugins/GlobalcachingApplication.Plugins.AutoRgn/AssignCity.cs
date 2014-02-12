@@ -51,7 +51,7 @@ namespace GlobalcachingApplication.Plugins.AutoRgn
             int max = _gcList.Count; //caches, waypoints, logs
             int index = 0;
             DateTime nextUpdate = DateTime.Now.AddSeconds(1);
-            using (Utils.ProgressBlock progress = new Utils.ProgressBlock(this, STR_ASSIGNCITY, STR_ASSIGNCITY, max, 0))
+            using (Utils.ProgressBlock progress = new Utils.ProgressBlock(this, STR_ASSIGNCITY, STR_ASSIGNCITY, max, 0, true))
             {
                 foreach (Framework.Data.Geocache gc in _gcList)
                 {
@@ -64,7 +64,10 @@ namespace GlobalcachingApplication.Plugins.AutoRgn
                     index++;
                     if (DateTime.Now >= nextUpdate)
                     {
-                        progress.UpdateProgress(STR_ASSIGNCITY, STR_ASSIGNCITY, max, index);
+                        if (!progress.UpdateProgress(STR_ASSIGNCITY, STR_ASSIGNCITY, max, index))
+                        {
+                            break;
+                        }
                     }
                 }
             }
