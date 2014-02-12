@@ -763,6 +763,9 @@
     <Compile Include="Regions\AssignRegionWindow.xaml.cs">
       <DependentUpon>AssignRegionWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Regions\SelectRegionWindow.xaml.cs">
+      <DependentUpon>SelectRegionWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1336,6 +1339,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Regions\AssignRegionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Regions\SelectRegionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

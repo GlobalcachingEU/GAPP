@@ -3116,5 +3116,11 @@ namespace GAPPSF
             dlg.ShowDialog();
         }
 
+        private void menudb8_Click(object sender, RoutedEventArgs e)
+        {
+            Regions.SelectRegionWindow dlg = new Regions.SelectRegionWindow();
+            dlg.ShowDialog();
+        }
+
     }
 }

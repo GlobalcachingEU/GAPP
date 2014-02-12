@@ -1645,4 +1645,16 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="UnassignedOnly" xml:space="preserve">
     <value>Unassigned only</value>
   </data>
+  <data name="InEnvelope" xml:space="preserve">
+    <value>In envelope</value>
+  </data>
+  <data name="RegionSelection" xml:space="preserve">
+    <value>Region selection</value>
+  </data>
+  <data name="SelectGeocachesWithinRegion" xml:space="preserve">
+    <value>Select geocaches within region</value>
+  </data>
+  <data name="SelectionOptions" xml:space="preserve">
+    <value>Selection options</value>
+  </data>
 </root>

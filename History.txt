@@ -17,6 +17,7 @@ todo GAPP SF:
 GAPP SF V0.0.22
 
 - add: Automatic assign region (country, state, municipality, city) using loaded shapefiles
+- add: Select geocaches within a region (country, state, municipality, city) using loaded shapefiles
 
 GAPP V1.9.14.0
 
