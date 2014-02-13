@@ -12,12 +12,12 @@ todo GAPP SF:
 - chat
 - log image viewer
 - log geocaches using LiveAPI
-- language edit support
 
 GAPP SF V0.0.23
 
 - add: LiveAPI, update geocache images
 - add: LiveAPI, update geocache logs
+- add: language edit by user support
 
 GAPP V1.9.15.0
 

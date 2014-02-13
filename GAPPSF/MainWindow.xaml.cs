@@ -3263,5 +3263,12 @@ namespace GAPPSF
             dlg.ShowDialog();
         }
 
+        private void MenuItem_Click_19x(object sender, RoutedEventArgs e)
+        {
+            Localization.SettingsWindow dlg = new Localization.SettingsWindow();
+            dlg.ShowDialog();
+            Localization.TranslationManager.Instance.ReloadUserTranslation();
+        }
+
     }
 }

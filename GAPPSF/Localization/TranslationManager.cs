@@ -17,6 +17,7 @@ namespace GAPPSF.Localization
     {
         private static TranslationManager _translationManager;
         private Hashtable _overrideTranslation;
+        private Hashtable _userTranslation;
 
         public event EventHandler LanguageChanged;
 
@@ -62,11 +63,49 @@ namespace GAPPSF.Localization
                     }
                 }
             }
+
+            //user translations
+            _userTranslation.Clear();
+            xmlFileContents = null;
+            try
+            {
+                if (CurrentLanguage.TwoLetterISOLanguageName.ToLower().Length == 2 &&
+                    CurrentLanguage.TwoLetterISOLanguageName.ToLower() != "iv")
+                {
+                    string fn = Path.Combine(Core.Settings.Default.SettingsFolder, string.Format("Language.{0}.xml", CurrentLanguage.TwoLetterISOLanguageName.ToLower()));
+                    if (File.Exists(fn))
+                    {
+                        xmlFileContents = File.ReadAllText(fn);
+                    }
+                }
+            }
+            catch
+            {
+                //not available
+            }
+            if (xmlFileContents != null)
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.LoadXml(xmlFileContents);
+                XmlElement root = doc.DocumentElement;
+                XmlNodeList strngs = root.SelectNodes("string");
+                if (strngs != null)
+                {
+                    foreach (XmlNode sn in strngs)
+                    {
+                        if (!string.IsNullOrEmpty(sn.Attributes["value"].InnerText))
+                        {
+                            _userTranslation[sn.Attributes["name"].InnerText.ToLower()] = sn.Attributes["value"].InnerText;
+                        }
+                    }
+                }
+            }
         }
 
         private TranslationManager() 
         {
             _overrideTranslation = new Hashtable();
+            _userTranslation = new Hashtable();
             loadOverrides();
         }
 
@@ -109,6 +148,12 @@ namespace GAPPSF.Localization
 
         public ITranslationProvider TranslationProvider { get; set; }
 
+        public void ReloadUserTranslation()
+        {
+            loadOverrides();
+            OnLanguageChanged();
+        }
+
         private void OnLanguageChanged()
         {
             if (LanguageChanged != null)
@@ -122,15 +167,23 @@ namespace GAPPSF.Localization
             if( TranslationProvider!= null)
             {
                 object translatedValue =TranslationProvider.Translate(key);
-                if( translatedValue != null)
+                if (translatedValue != null)
                 {
                     //see if there is an override in XML file
                     if (translatedValue is string)
                     {
-                        string patchedValue = _overrideTranslation[(translatedValue as string).ToLower()] as string;
+                        string patchedValue = _userTranslation[(translatedValue as string).ToLower()] as string;
                         if (!string.IsNullOrEmpty(patchedValue))
                         {
                             return patchedValue;
+                        }
+                        else
+                        {
+                            patchedValue = _overrideTranslation[(translatedValue as string).ToLower()] as string;
+                            if (!string.IsNullOrEmpty(patchedValue))
+                            {
+                                return patchedValue;
+                            }
                         }
                     }
                     return translatedValue;

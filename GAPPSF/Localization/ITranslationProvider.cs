@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Resources;
 using System.Text;
 
 namespace GAPPSF.Localization
@@ -20,6 +21,8 @@ namespace GAPPSF.Localization
         /// </summary>
         /// <value>The available languages.</value>
         IEnumerable<CultureInfo> Languages { get; }
+
+        ResourceManager ResourceManager { get; }
 
     }
 }

@@ -43,6 +43,9 @@ namespace GAPPSF.Localization
             return _resourceManager.GetString(key);
         }
 
+
+        public ResourceManager ResourceManager { get { return _resourceManager; } }
+
         #endregion
 
         #region ITranslationProvider Members

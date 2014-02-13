@@ -1,0 +1,56 @@
+﻿<Window x:Class="GAPPSF.Localization.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Closing="Window_Closing"
+        Title="Translations" Height="600" Width="600">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ComboBox Grid.Row="0" x:Name="languageSelectCombo" Margin="4" SelectionChanged="ComboBox_SelectionChanged">
+            <ComboBoxItem>
+                <StackPanel  Orientation="Horizontal">
+                    <Image Source="/Resources/MainWindow/en.gif" />
+                    <TextBlock Margin="4" Text="English" />
+                </StackPanel>
+            </ComboBoxItem>
+            <ComboBoxItem>
+                <StackPanel  Orientation="Horizontal">
+                    <Image Source="/Resources/MainWindow/de.gif" />
+                    <TextBlock Margin="4" Text="German" />
+                </StackPanel>
+            </ComboBoxItem>
+            <ComboBoxItem>
+                <StackPanel  Orientation="Horizontal">
+                    <Image Source="/Resources/MainWindow/nl.gif" />
+                    <TextBlock Margin="4" Text="Dutch" />
+                </StackPanel>
+            </ComboBoxItem>
+            <ComboBoxItem>
+                <StackPanel  Orientation="Horizontal">
+                    <Image Source="/Resources/MainWindow/fr.gif" />
+                    <TextBlock Margin="4" Text="French" />
+                </StackPanel>
+            </ComboBoxItem>
+        </ComboBox>
+        <DataGrid Grid.Row="1" Margin="4" AutoGenerateColumns="False" ItemsSource="{Binding TranslationData}" CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Item1}" Header="Original text" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Item2}" Header="Translation" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="TextBox">
+                            <Setter Property="TextWrapping" Value="Wrap" />
+                            <Setter Property="AcceptsReturn" Value="true" />
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

@@ -681,6 +681,9 @@
     <Compile Include="Localization\ITranslationProvider.cs" />
     <Compile Include="Localization\LanguageChangedEventManager.cs" />
     <Compile Include="Localization\ResxTranslationProvider.cs" />
+    <Compile Include="Localization\SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Localization\TranslateExtension.cs" />
     <Compile Include="Localization\TranslationData.cs" />
     <Compile Include="Localization\TranslationManager.cs" />
@@ -1165,6 +1168,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="LiveAPI\SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Localization\SettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

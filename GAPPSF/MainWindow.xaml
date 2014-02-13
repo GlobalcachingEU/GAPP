@@ -297,6 +297,8 @@
                             <Image Source="/Resources/MainWindow/nl.gif" />
                         </MenuItem.Icon>
                     </MenuItem>
+                    <Separator />
+                    <MenuItem x:Name="menu19x" Header="{l:Translate Settings}" Click="MenuItem_Click_19x" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate Settings}">
                     <MenuItem x:Name="menu19" Header="{l:Translate Shapefiles}" Click="MenuItem_Click_8" />
