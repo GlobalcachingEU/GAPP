@@ -2,12 +2,210 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GAPPSF.LiveAPI
 {
     public class Import
     {
+
+        public static async Task ImportGeocacheLogsAsync(Core.Storage.Database db, List<Core.Data.Geocache> gcList)
+        {
+            using (Utils.DataUpdater upd = new Utils.DataUpdater(db))
+            {
+                await Task.Run(() =>
+                {
+                    ImportGeocacheLogs(db, gcList);
+                });
+            }
+        }
+
+
+        public static void ImportGeocacheLogs(Core.Storage.Database db, List<Core.Data.Geocache> gcList)
+        {
+            try
+            {
+                using (Utils.ProgressBlock progress = new Utils.ProgressBlock("UpdatingGeocaches", "UpdatingGeocache", gcList.Count, 0, true))
+                {
+                    int totalcount = gcList.Count;
+                    using (LiveAPI.GeocachingLiveV6 client = new LiveAPI.GeocachingLiveV6())
+                    {
+                        int index = 0;
+
+                        while (gcList.Count > 0)
+                        {
+                            int logCount = 0;
+                            int maxPerPage = Core.Settings.Default.LiveAPIGetGeocacheLogsByCacheCodeBatchSize;
+                            bool done = false;
+
+                            if (Core.Settings.Default.LiveAPIUpdateGeocacheLogsMax > 0 && Core.Settings.Default.LiveAPIUpdateGeocacheLogsMax < 30)
+                            {
+                                maxPerPage = Core.Settings.Default.LiveAPIUpdateGeocacheLogsMax;
+                            }
+                            List<string> ids = new List<string>();
+
+                            if (index > 0)
+                            {
+                                Thread.Sleep(Core.Settings.Default.LiveAPIDelayGetGeocacheLogsByCacheCode);
+                            }
+                            var resp = client.Client.GetGeocacheLogsByCacheCode(client.Token, gcList[0].Code, logCount, maxPerPage);
+                            while (resp.Status.StatusCode == 0 && resp.Logs != null && resp.Logs.Count() > 0 && !done)
+                            {
+                                foreach (var lg in resp.Logs)
+                                {
+                                    if (!lg.IsArchived)
+                                    {
+                                        Core.Data.Log gcLog = ImportLog(db, lg);
+                                        if (Core.Settings.Default.LiveAPIUpdateGeocacheLogsMax == 0 && gcLog != null)
+                                        {
+                                            ids.Add(gcLog.ID);
+                                        }
+                                    }
+                                }
+
+                                logCount += resp.Logs.Count();
+                                if (Core.Settings.Default.LiveAPIUpdateGeocacheLogsMax > 0)
+                                {
+                                    int left = Core.Settings.Default.LiveAPIUpdateGeocacheLogsMax - logCount;
+                                    if (left < maxPerPage)
+                                    {
+                                        maxPerPage = left;
+                                    }
+                                }
+                                if (maxPerPage > 0)
+                                {
+                                    Thread.Sleep(Core.Settings.Default.LiveAPIDelayGetGeocacheLogsByCacheCode);
+                                    resp = client.Client.GetGeocacheLogsByCacheCode(client.Token, gcList[0].Code, logCount, maxPerPage);
+                                }
+                                else
+                                {
+                                    done = true;
+                                }
+                            }
+                            if (resp.Status.StatusCode != 0)
+                            {
+                                Core.ApplicationData.Instance.Logger.AddLog(new Import(), Core.Logger.Level.Error, resp.Status.StatusMessage);
+                                break;
+                            }
+                            else
+                            {
+                                if (Core.Settings.Default.LiveAPIDeselectAfterUpdate)
+                                {
+                                    gcList[0].Selected = false;
+                                }
+                                if (Core.Settings.Default.LiveAPIUpdateGeocacheLogsMax == 0)
+                                {
+                                    List<Core.Data.Log> allLogs = Utils.DataAccess.GetLogs(db, gcList[0].Code);
+                                    foreach (Core.Data.Log gim in allLogs)
+                                    {
+                                        if (!ids.Contains(gim.ID))
+                                        {
+                                            gim.DeleteRecord();
+                                            db.LogCollection.Remove(gim);
+                                        }
+                                    }
+                                }
+                            }
+
+                            index++;
+                            if (!progress.Update("UpdatingGeocache", totalcount, index))
+                            {
+                                break;
+                            }
+                            gcList.RemoveAt(0);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Core.ApplicationData.Instance.Logger.AddLog(new Import(), e);
+            }
+        }
+
+
+        public static async Task ImportGeocacheImagesAsync(Core.Storage.Database db, List<Core.Data.Geocache> gcList)
+        {
+            using (Utils.DataUpdater upd = new Utils.DataUpdater(db))
+            {
+                await Task.Run(() =>
+                    {
+                        ImportGeocacheImages(db, gcList);
+                    });
+            }
+        }
+
+        public static void ImportGeocacheImages(Core.Storage.Database db, List<Core.Data.Geocache> gcList)
+        {
+            try
+            {
+                using (Utils.ProgressBlock progress = new Utils.ProgressBlock("UpdatingGeocaches", "UpdatingGeocache", gcList.Count, 0, true))
+                {
+                    int totalcount = gcList.Count;
+                    using (LiveAPI.GeocachingLiveV6 client = new LiveAPI.GeocachingLiveV6())
+                    {
+                        int index = 0;
+                        while (gcList.Count > 0)
+                        {
+                            if (index > 0)
+                            {
+                                Thread.Sleep(Core.Settings.Default.LiveAPIDelayGetImagesForGeocache);
+                            }
+                            var resp = client.Client.GetImagesForGeocache(client.Token, gcList[0].Code);
+                            if (resp.Status.StatusCode == 0)
+                            {
+                                if (resp.Images != null)
+                                {
+                                    List<string> ids = new List<string>();
+                                    foreach (var img in resp.Images)
+                                    {
+                                        if (img.Url.IndexOf("/cache/log/") < 0)
+                                        {
+                                            Core.Data.GeocacheImage gcImg = ImportGeocacheImage(db, img, gcList[0].Code);
+                                            if (gcImg != null)
+                                            {
+                                                ids.Add(gcImg.ID);
+                                            }
+                                        }
+                                    }
+                                    List<Core.Data.GeocacheImage> allImages = Utils.DataAccess.GetGeocacheImages(db, gcList[0].Code);
+                                    foreach (Core.Data.GeocacheImage gim in allImages)
+                                    {
+                                        if (!ids.Contains(gim.ID))
+                                        {
+                                            gim.DeleteRecord();
+                                            db.GeocacheImageCollection.Remove(gim);
+                                        }
+                                    }
+                                }
+
+                                if (Core.Settings.Default.LiveAPIDeselectAfterUpdate)
+                                {
+                                    gcList[0].Selected = false;
+                                }
+
+                                index++;
+                                if (!progress.Update("UpdatingGeocache", totalcount, index))
+                                {
+                                    break;
+                                }
+                                gcList.RemoveAt(0);
+                            }
+                            else
+                            {
+                                Core.ApplicationData.Instance.Logger.AddLog(new Import(),  Core.Logger.Level.Error, resp.Status.StatusMessage);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Core.ApplicationData.Instance.Logger.AddLog(new Import(), e);
+            }
+        }
 
         public static void ImportGeocaches(Core.Storage.Database db, LiveV6.SearchForGeocachesRequest req, int max)
         {

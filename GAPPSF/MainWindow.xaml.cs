@@ -1382,7 +1382,7 @@ namespace GAPPSF
                 if (_updateStatusAllCommand == null)
                 {
                     _updateStatusAllCommand = new AsyncDelegateCommand(param => this.UpdateStatusAll(),
-                        param => Core.ApplicationData.Instance.ActiveDatabase != null);
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null && Core.Settings.Default.LiveAPIMemberTypeId > 0);
                 }
                 return _updateStatusAllCommand;
             }
@@ -1407,6 +1407,147 @@ namespace GAPPSF
                 }
             }
         }
+
+
+
+        AsyncDelegateCommand _updateGCLogsActiveCommand;
+        public ICommand UpdateGCLogsActiveCommand
+        {
+            get
+            {
+                if (_updateGCLogsActiveCommand == null)
+                {
+                    _updateGCLogsActiveCommand = new AsyncDelegateCommand(param => this.UpdateGCLogsActive(),
+                        param => Core.ApplicationData.Instance.ActiveGeocache != null && Core.Settings.Default.LiveAPIMemberTypeId > 0);
+                }
+                return _updateGCLogsActiveCommand;
+            }
+        }
+        private async Task UpdateGCLogsActive()
+        {
+            if (Core.ApplicationData.Instance.ActiveGeocache != null)
+            {
+                await UpdateGCLogsGeocaches(new Core.Data.Geocache[] { Core.ApplicationData.Instance.ActiveGeocache }.ToList());
+            }
+        }
+        AsyncDelegateCommand _updateGCLogsSelectedCommand;
+        public ICommand UpdateGCLogsSelectedCommand
+        {
+            get
+            {
+                if (_updateGCLogsSelectedCommand == null)
+                {
+                    _updateGCLogsSelectedCommand = new AsyncDelegateCommand(param => this.UpdateGCLogsSelected(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null && this.GeocacheSelectionCount > 0 && Core.Settings.Default.LiveAPIMemberTypeId > 0);
+                }
+                return _updateGCLogsSelectedCommand;
+            }
+        }
+        private async Task UpdateGCLogsSelected()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                await UpdateGCLogsGeocaches((from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection where a.Selected select a).ToList());
+            }
+        }
+        AsyncDelegateCommand _updateGCLogsAllCommand;
+        public ICommand UpdateGCLogsAllCommand
+        {
+            get
+            {
+                if (_updateGCLogsAllCommand == null)
+                {
+                    _updateGCLogsAllCommand = new AsyncDelegateCommand(param => this.UpdateGCLogsAll(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null && Core.Settings.Default.LiveAPIMemberTypeId > 0);
+                }
+                return _updateGCLogsAllCommand;
+            }
+        }
+        private async Task UpdateGCLogsAll()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                await UpdateGCLogsGeocaches(Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection);
+            }
+        }
+        private async Task UpdateGCLogsGeocaches(List<Core.Data.Geocache> gcList)
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                await LiveAPI.Import.ImportGeocacheLogsAsync(Core.ApplicationData.Instance.ActiveDatabase, gcList);
+            }
+        }
+
+
+
+        AsyncDelegateCommand _updateGCImagesActiveCommand;
+        public ICommand UpdateGCImagesActiveCommand
+        {
+            get
+            {
+                if (_updateGCImagesActiveCommand == null)
+                {
+                    _updateGCImagesActiveCommand = new AsyncDelegateCommand(param => this.UpdateGCImagesActive(),
+                        param => Core.ApplicationData.Instance.ActiveGeocache != null && Core.Settings.Default.LiveAPIMemberTypeId > 0);
+                }
+                return _updateGCImagesActiveCommand;
+            }
+        }
+        private async Task UpdateGCImagesActive()
+        {
+            if (Core.ApplicationData.Instance.ActiveGeocache != null)
+            {
+                await UpdateGCImagesGeocaches(new Core.Data.Geocache[] { Core.ApplicationData.Instance.ActiveGeocache }.ToList());
+            }
+        }
+        AsyncDelegateCommand _updateGCImagesSelectedCommand;
+        public ICommand UpdateGCImagesSelectedCommand
+        {
+            get
+            {
+                if (_updateGCImagesSelectedCommand == null)
+                {
+                    _updateGCImagesSelectedCommand = new AsyncDelegateCommand(param => this.UpdateGCImagesSelected(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null && this.GeocacheSelectionCount > 0 && Core.Settings.Default.LiveAPIMemberTypeId > 0);
+                }
+                return _updateGCImagesSelectedCommand;
+            }
+        }
+        private async Task UpdateGCImagesSelected()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                await UpdateGCImagesGeocaches((from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection where a.Selected select a).ToList());
+            }
+        }
+        AsyncDelegateCommand _updateGCImagesAllCommand;
+        public ICommand UpdateGCImagesAllCommand
+        {
+            get
+            {
+                if (_updateGCImagesAllCommand == null)
+                {
+                    _updateGCImagesAllCommand = new AsyncDelegateCommand(param => this.UpdateGCImagesAll(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null && Core.Settings.Default.LiveAPIMemberTypeId > 0);
+                }
+                return _updateGCImagesAllCommand;
+            }
+        }
+        private async Task UpdateGCImagesAll()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                await UpdateGCImagesGeocaches(Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection);
+            }
+        }
+        private async Task UpdateGCImagesGeocaches(List<Core.Data.Geocache> gcList)
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                await LiveAPI.Import.ImportGeocacheImagesAsync(Core.ApplicationData.Instance.ActiveDatabase, gcList);
+            }
+        }
+
 
 
 
@@ -1458,7 +1599,7 @@ namespace GAPPSF
                 if (_updateAllCommand == null)
                 {
                     _updateAllCommand = new AsyncDelegateCommand(param => this.UpdateAll(),
-                        param => Core.ApplicationData.Instance.ActiveDatabase != null);
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null && Core.Settings.Default.LiveAPIMemberTypeId > 0);
                 }
                 return _updateAllCommand;
             }

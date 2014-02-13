@@ -80,5 +80,29 @@ namespace GAPPSF.Core
             set { SetProperty(value); }
         }
 
+        public int LiveAPIDelayGetImagesForGeocache
+        {
+            get { return int.Parse(GetProperty("2000")); }
+            set { SetProperty(value.ToString()); }
+        }
+
+        public int LiveAPIDelayGetGeocacheLogsByCacheCode
+        {
+            get { return int.Parse(GetProperty("2000")); }
+            set { SetProperty(value.ToString()); }
+        }
+
+        public int LiveAPIGetGeocacheLogsByCacheCodeBatchSize
+        {
+            get { return int.Parse(GetProperty("30")); }
+            set { SetProperty(value.ToString()); }
+        }
+
+        public int LiveAPIUpdateGeocacheLogsMax
+        {
+            get { return int.Parse(GetProperty("5")); }
+            set { SetProperty(value.ToString()); }
+        }
+
     }
 }

@@ -1657,4 +1657,28 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="SelectionOptions" xml:space="preserve">
     <value>Selection options</value>
   </data>
+  <data name="UpdateGeocacheImages" xml:space="preserve">
+    <value>Update geocache images</value>
+  </data>
+  <data name="UpdatingGeocache" xml:space="preserve">
+    <value>Updating geocache</value>
+  </data>
+  <data name="UpdatingGeocaches" xml:space="preserve">
+    <value>Updating geocaches</value>
+  </data>
+  <data name="DelayGetImagesForGeocache" xml:space="preserve">
+    <value>Delay GetImagesForGeocache</value>
+  </data>
+  <data name="DelayGetGeocacheLogsByCacheCode" xml:space="preserve">
+    <value>Delay GetGeocacheLogsByCacheCode</value>
+  </data>
+  <data name="GetGeocacheLogsByCacheCodeBatchSize" xml:space="preserve">
+    <value>GetGeocacheLogsByCacheCode batch size</value>
+  </data>
+  <data name="UpdateGeocacheLogsMax" xml:space="preserve">
+    <value>Maximum number of logs with update (0=all)</value>
+  </data>
+  <data name="UpdateGeocacheLogs" xml:space="preserve">
+    <value>Update geocache logs</value>
+  </data>
 </root>

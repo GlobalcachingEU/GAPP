@@ -14,6 +14,16 @@ todo GAPP SF:
 - log geocaches using LiveAPI
 - language edit support
 
+GAPP SF V0.0.23
+
+- add: LiveAPI, update geocache images
+- add: LiveAPI, update geocache logs
+
+GAPP V1.9.15.0
+
+- change: Updated GAPP SF V0.0.23 (Preview, requires .NET 4.5.1)
+
+
 GAPP SF V0.0.22
 
 - add: Automatic assign region (country, state, municipality, city) using loaded shapefiles

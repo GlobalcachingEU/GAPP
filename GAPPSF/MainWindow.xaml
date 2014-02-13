@@ -250,6 +250,16 @@
                         <MenuItem x:Name="menud51" Header="{l:Translate Selected}" Command="{Binding UpdateStatusSelectedCommand}" />
                         <MenuItem x:Name="menud52" Header="{l:Translate All}" Command="{Binding UpdateStatusAllCommand}" />
                     </MenuItem>
+                    <MenuItem Header="{l:Translate UpdateGeocacheImages}">
+                        <MenuItem x:Name="menud50u" Header="{l:Translate Active}" Command="{Binding UpdateGCImagesActiveCommand}" />
+                        <MenuItem x:Name="menud51u" Header="{l:Translate Selected}" Command="{Binding UpdateGCImagesSelectedCommand}" />
+                        <MenuItem x:Name="menud52u" Header="{l:Translate All}" Command="{Binding UpdateGCImagesAllCommand}" />
+                    </MenuItem>
+                    <MenuItem Header="{l:Translate UpdateGeocacheLogs}">
+                        <MenuItem x:Name="menud50l" Header="{l:Translate Active}" Command="{Binding UpdateGCLogsActiveCommand}" />
+                        <MenuItem x:Name="menud51l" Header="{l:Translate Selected}" Command="{Binding UpdateGCLogsSelectedCommand}" />
+                        <MenuItem x:Name="menud52l" Header="{l:Translate All}" Command="{Binding UpdateGCLogsAllCommand}" />
+                    </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{l:Translate OKAPI}">
                     <MenuItem x:Name="menud50h" Header="{l:Translate Settings}" Click="menud50h_Click" />
