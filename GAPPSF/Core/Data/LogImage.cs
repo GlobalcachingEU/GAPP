@@ -61,6 +61,32 @@ namespace GAPPSF.Core.Data
             }
         }
 
+        public Log Log
+        {
+            get
+            {
+                Log result = null;
+                if (RecordInfo!=null && RecordInfo.Database != null)
+                {
+                    result = RecordInfo.Database.LogCollection.GetLog(LogId);
+                }
+                return result;
+            }
+        }
+
+        public DateTime LogDate
+        {
+            get
+            {
+                DateTime result = DateTime.MinValue;
+                Data.Log l = this.Log;
+                if (l != null)
+                {
+                    result = l.Date;
+                }
+                return result;
+            }
+        }
 
 
         public DateTime DataFromDate

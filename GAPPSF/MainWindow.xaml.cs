@@ -1970,6 +1970,72 @@ namespace GAPPSF
         }
 
 
+        RelayCommand _exportGarminPOIActiveCommand;
+        public ICommand ExportGarminPOIActiveCommand
+        {
+            get
+            {
+                if (_exportGarminPOIActiveCommand == null)
+                {
+                    _exportGarminPOIActiveCommand = new RelayCommand(param => this.ExportGarminPOIActive(),
+                        param => Core.ApplicationData.Instance.ActiveGeocache != null);
+                }
+                return _exportGarminPOIActiveCommand;
+            }
+        }
+        private void ExportGarminPOIActive()
+        {
+            if (Core.ApplicationData.Instance.ActiveGeocache != null)
+            {
+                ExportGarminPOI(new Core.Data.Geocache[] { Core.ApplicationData.Instance.ActiveGeocache }.ToList());
+            }
+        }
+        RelayCommand _exportGarminPOISelectedCommand;
+        public ICommand ExportGarminPOISelectedCommand
+        {
+            get
+            {
+                if (_exportGarminPOISelectedCommand == null)
+                {
+                    _exportGarminPOISelectedCommand = new RelayCommand(param => this.ExportGarminPOISelected(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null && this.GeocacheSelectionCount > 0);
+                }
+                return _exportGarminPOISelectedCommand;
+            }
+        }
+        private void ExportGarminPOISelected()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                ExportGarminPOI((from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection where a.Selected select a).ToList());
+            }
+        }
+        RelayCommand _exportGarminPOIAllCommand;
+        public ICommand ExportGarminPOIAllCommand
+        {
+            get
+            {
+                if (_exportGarminPOIAllCommand == null)
+                {
+                    _exportGarminPOIAllCommand = new RelayCommand(param => this.ExportGarminPOIAll(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null);
+                }
+                return _exportGarminPOIAllCommand;
+            }
+        }
+        private void ExportGarminPOIAll()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                ExportGarminPOI(Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection);
+            }
+        }
+        private void ExportGarminPOI(List<Core.Data.Geocache> gcList)
+        {
+            GarminPOI.ExportWindow dlg = new GarminPOI.ExportWindow(Core.ApplicationData.Instance.ActiveDatabase, gcList);
+            dlg.ShowDialog();
+        }
+
 
 
 
@@ -3268,6 +3334,13 @@ namespace GAPPSF
             Localization.SettingsWindow dlg = new Localization.SettingsWindow();
             dlg.ShowDialog();
             Localization.TranslationManager.Instance.ReloadUserTranslation();
+        }
+
+        private void menulib8_Click(object sender, RoutedEventArgs e)
+        {
+            Window w = new FeatureWindow(new UIControls.LogImageViewer.Control());
+            w.Owner = this;
+            w.Show();
         }
 
     }

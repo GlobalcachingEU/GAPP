@@ -6,11 +6,9 @@ todo GAPP:
 
 todo GAPP SF:
 - export using Garmin communicator
-- export garmin POI
 - Open Areas map
 - Internal browser
 - chat
-- log image viewer
 - log geocaches using LiveAPI
 
 GAPP SF V0.0.23
@@ -18,6 +16,8 @@ GAPP SF V0.0.23
 - add: LiveAPI, update geocache images
 - add: LiveAPI, update geocache logs
 - add: language edit by user support
+- add: log image viewer
+- add: export garmin POI
 
 GAPP V1.9.15.0
 

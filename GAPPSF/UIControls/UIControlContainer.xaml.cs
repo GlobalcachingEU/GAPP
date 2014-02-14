@@ -305,6 +305,11 @@ namespace GAPPSF.UIControls
             FeatureControl = new GeocacheCollection.Control();
         }
 
+        private void MenuItem_Click_22(object sender, RoutedEventArgs e)
+        {
+            FeatureControl = new LogImageViewer.Control();
+        }
+
 
     }
 }

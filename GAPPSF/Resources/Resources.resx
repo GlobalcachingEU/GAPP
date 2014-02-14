@@ -1681,4 +1681,43 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="UpdateGeocacheLogs" xml:space="preserve">
     <value>Update geocache logs</value>
   </data>
+  <data name="LogImageViewer" xml:space="preserve">
+    <value>Log image viewer</value>
+  </data>
+  <data name="ExportGarminPOI" xml:space="preserve">
+    <value>Export Garmin POI</value>
+  </data>
+  <data name="ClearDirectoryBeforeExport" xml:space="preserve">
+    <value>Clear directory before export</value>
+  </data>
+  <data name="ExportGeocachePOIs" xml:space="preserve">
+    <value>Export geocache POIs</value>
+  </data>
+  <data name="ExportWaypointPOIs" xml:space="preserve">
+    <value>Export waypoint POIs</value>
+  </data>
+  <data name="MaxPOIDescriptionLength" xml:space="preserve">
+    <value>Max. POI description length:</value>
+  </data>
+  <data name="MaxPOINameLength" xml:space="preserve">
+    <value>Max. POI name length:</value>
+  </data>
+  <data name="PassDirectoryToPOILoader" xml:space="preserve">
+    <value>Pass directory to POI Loader</value>
+  </data>
+  <data name="POILoader" xml:space="preserve">
+    <value>POI loader</value>
+  </data>
+  <data name="POIName" xml:space="preserve">
+    <value>POI name</value>
+  </data>
+  <data name="RunPOILoaderAfterExport" xml:space="preserve">
+    <value>Run POI Loader after export</value>
+  </data>
+  <data name="RunSilently" xml:space="preserve">
+    <value>Run silently</value>
+  </data>
+  <data name="TargetDirectoryForPOI" xml:space="preserve">
+    <value>Target directory for POI Loader CSV files</value>
+  </data>
 </root>

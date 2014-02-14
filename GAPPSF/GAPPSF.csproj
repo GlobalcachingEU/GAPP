@@ -249,6 +249,7 @@
     <Compile Include="Core\Settings\FavoritesSettings.cs" />
     <Compile Include="Core\Settings\FindLogsOfUserSettings.cs" />
     <Compile Include="Core\Settings\FormulaSolverSettings.cs" />
+    <Compile Include="Core\Settings\GarminPOISettings.cs" />
     <Compile Include="Core\Settings\GCComBookmarkSettings.cs" />
     <Compile Include="Core\Settings\GCEditorSettings.cs" />
     <Compile Include="Core\Settings\GCVotesSettings.cs" />
@@ -266,6 +267,7 @@
     <Compile Include="Core\Settings\LiveAPIGetGCSettings.cs" />
     <Compile Include="Core\Settings\LiveAPISettings.cs" />
     <Compile Include="Core\Settings\LocusSettings.cs" />
+    <Compile Include="Core\Settings\LogImageViewerSettings.cs" />
     <Compile Include="Core\Settings\LogViewerSettings.cs" />
     <Compile Include="Core\Settings\MainWindowSettings.cs" />
     <Compile Include="Core\Settings\MapsSettings.cs" />
@@ -629,6 +631,10 @@
     <Compile Include="GAPPDataExchange\Export.cs" />
     <Compile Include="GAPPDataExchange\Import.cs" />
     <Compile Include="GAPPDataStorage\RecordInfo.cs" />
+    <Compile Include="GarminPOI\Export.cs" />
+    <Compile Include="GarminPOI\ExportWindow.xaml.cs">
+      <DependentUpon>ExportWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Gavaghan.Geodesy\Angle.cs" />
     <Compile Include="Gavaghan.Geodesy\Ellipsoid.cs" />
     <Compile Include="Gavaghan.Geodesy\GeodeticCalculator.cs" />
@@ -969,6 +975,9 @@
     <Compile Include="UIControls\HtmlTextEditor\HtmlTokenType.cs" />
     <Compile Include="UIControls\HtmlTextEditor\HtmlToXamlConverter.cs" />
     <Compile Include="UIControls\HtmlTextEditor\RichTextboxAssistant.cs" />
+    <Compile Include="UIControls\LogImageViewer\Control.xaml.cs">
+      <DependentUpon>Control.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIControls\LogTypeSelection.xaml.cs">
       <DependentUpon>LogTypeSelection.xaml</DependentUpon>
     </Compile>
@@ -1132,6 +1141,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="FindsOfUser\ImportWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GarminPOI\ExportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1434,6 +1447,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIControls\GeocacheTypeCombo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\LogImageViewer\Control.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -2264,6 +2281,88 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="OKAPI\ImportByRadiusWindow.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="GarminPOI\Resources\CITO.bmp" />
+    <Resource Include="GarminPOI\Resources\CITO_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Earth.bmp" />
+    <Resource Include="GarminPOI\Resources\Earth_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Event.bmp" />
+    <Resource Include="GarminPOI\Resources\Event_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Final_Location.bmp" />
+    <Resource Include="GarminPOI\Resources\Final_Location_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Final_Location_Found.bmp" />
+    <Resource Include="GarminPOI\Resources\Found.bmp" />
+    <Resource Include="GarminPOI\Resources\Found_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Found_Solved.bmp" />
+    <Resource Include="GarminPOI\Resources\Groundspeak_Block_Party.bmp" />
+    <Resource Include="GarminPOI\Resources\Groundspeak_Block_Party_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Groundspeak_HQ.bmp" />
+    <Resource Include="GarminPOI\Resources\Groundspeak_HQ_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Groundspeak_Lost_and_Found.bmp" />
+    <Resource Include="GarminPOI\Resources\Groundspeak_Lost_and_Found_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Letterbox.bmp" />
+    <Resource Include="GarminPOI\Resources\Letterbox_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Locationless.bmp" />
+    <Resource Include="GarminPOI\Resources\Locationless_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Lost_and_Found_Event.bmp" />
+    <Resource Include="GarminPOI\Resources\Lost_and_Found_Event_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Maze.bmp" />
+    <Resource Include="GarminPOI\Resources\Maze_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Mega_Event.bmp" />
+    <Resource Include="GarminPOI\Resources\Mega_Event_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Micro.bmp" />
+    <Resource Include="GarminPOI\Resources\Micro_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Multi.bmp" />
+    <Resource Include="GarminPOI\Resources\Multi_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Multi_Solved.bmp" />
+    <Resource Include="GarminPOI\Resources\Munzee.bmp" />
+    <Resource Include="GarminPOI\Resources\Munzee_Business.bmp" />
+    <Resource Include="GarminPOI\Resources\Munzee_Business_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Munzee_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Munzee_Maintenance.bmp" />
+    <Resource Include="GarminPOI\Resources\Munzee_Maintenance_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Munzee_Mystery.bmp" />
+    <Resource Include="GarminPOI\Resources\Munzee_Mystery_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Munzee_NFC.bmp" />
+    <Resource Include="GarminPOI\Resources\Munzee_NFC_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Munzee_Premium.bmp" />
+    <Resource Include="GarminPOI\Resources\Munzee_Premium_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Munzee_Virtual.bmp" />
+    <Resource Include="GarminPOI\Resources\Munzee_Virtual_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Mystery.bmp" />
+    <Resource Include="GarminPOI\Resources\Mystery_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Mystery_Solved.bmp" />
+    <Resource Include="GarminPOI\Resources\Own.bmp" />
+    <Resource Include="GarminPOI\Resources\Own_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Parking_Area.bmp" />
+    <Resource Include="GarminPOI\Resources\Parking_Area_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Parking_Area_Found.bmp" />
+    <Resource Include="GarminPOI\Resources\Project_APE.bmp" />
+    <Resource Include="GarminPOI\Resources\Project_APE_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Question_to_Answer.bmp" />
+    <Resource Include="GarminPOI\Resources\Question_to_Answer_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Question_to_Answer_Found.bmp" />
+    <Resource Include="GarminPOI\Resources\Reference_Point.bmp" />
+    <Resource Include="GarminPOI\Resources\Reference_Point_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Reference_Point_Found.bmp" />
+    <Resource Include="GarminPOI\Resources\Stages_of_a_Multicache.bmp" />
+    <Resource Include="GarminPOI\Resources\Stages_of_a_Multicache_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Stages_of_a_Multicache_Found.bmp" />
+    <Resource Include="GarminPOI\Resources\Traditional.bmp" />
+    <Resource Include="GarminPOI\Resources\Traditional_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Trailhead.bmp" />
+    <Resource Include="GarminPOI\Resources\Trailhead_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Trailhead_Found.bmp" />
+    <Resource Include="GarminPOI\Resources\Virtual.bmp" />
+    <Resource Include="GarminPOI\Resources\Virtual_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Waymark.bmp" />
+    <Resource Include="GarminPOI\Resources\Waymark_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Webcam.bmp" />
+    <Resource Include="GarminPOI\Resources\Webcam_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Whereigo.bmp" />
+    <Resource Include="GarminPOI\Resources\Whereigo_Disabled.bmp" />
+    <Resource Include="GarminPOI\Resources\Whereigo_Solved.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
