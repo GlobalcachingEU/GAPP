@@ -265,6 +265,12 @@
                         <MenuItem x:Name="menud51l" Header="{l:Translate Selected}" Command="{Binding UpdateGCLogsSelectedCommand}" />
                         <MenuItem x:Name="menud52l" Header="{l:Translate All}" Command="{Binding UpdateGCLogsAllCommand}" />
                     </MenuItem>
+                    <MenuItem Header="{l:Translate LogGeocache}">
+                        <MenuItem x:Name="menufc52" Header="{l:Translate Editor}" Command="{Binding LiveAPILogGeocachesCommand}" />
+                        <Separator />
+                        <MenuItem x:Name="menufc50" Header="{l:Translate Active}" Command="{Binding LiveAPILogGeocachesActiveCommand}" />
+                        <MenuItem x:Name="menufc51" Header="{l:Translate Selected}" Command="{Binding LiveAPILogGeocachesSelectedCommand}" />
+                    </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{l:Translate OKAPI}">
                     <MenuItem x:Name="menud50h" Header="{l:Translate Settings}" Click="menud50h_Click" />

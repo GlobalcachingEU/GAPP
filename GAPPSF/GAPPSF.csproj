@@ -265,6 +265,7 @@
     <Compile Include="Core\Settings\iGeoKnifeSettings.cs" />
     <Compile Include="Core\Settings\IgnoreGeocachesSettings.cs" />
     <Compile Include="Core\Settings\LiveAPIGetGCSettings.cs" />
+    <Compile Include="Core\Settings\LiveAPILogGeocachesSettings.cs" />
     <Compile Include="Core\Settings\LiveAPISettings.cs" />
     <Compile Include="Core\Settings\LocusSettings.cs" />
     <Compile Include="Core\Settings\LogImageViewerSettings.cs" />
@@ -674,6 +675,10 @@
     <Compile Include="KML\Export.cs" />
     <Compile Include="LiveAPIGetGeocaches\ImportWindow.xaml.cs">
       <DependentUpon>ImportWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LiveAPILogGeocaches\LogInfo.cs" />
+    <Compile Include="LiveAPILogGeocaches\LogWindow.xaml.cs">
+      <DependentUpon>LogWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="LiveAPI\AuthorizationWindow.xaml.cs">
       <DependentUpon>AuthorizationWindow.xaml</DependentUpon>
@@ -1173,6 +1178,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="LiveAPIGetGeocaches\ImportWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LiveAPILogGeocaches\LogWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

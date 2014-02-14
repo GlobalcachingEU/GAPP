@@ -234,6 +234,63 @@ namespace GAPPSF
         }
 
 
+        private RelayCommand _liveApiLogGeocachesCommand = null;
+        public RelayCommand LiveAPILogGeocachesCommand
+        {
+            get
+            {
+                if (_liveApiLogGeocachesCommand == null)
+                {
+                    _liveApiLogGeocachesCommand = new RelayCommand(param => LiveAPILogGeocaches(null),
+                        param => Core.Settings.Default.LiveAPIMemberTypeId > 0);
+                }
+                return _liveApiLogGeocachesCommand;
+            }
+        }
+        private RelayCommand _liveApiLogGeocachesActiveCommand = null;
+        public RelayCommand LiveAPILogGeocachesActiveCommand
+        {
+            get
+            {
+                if (_liveApiLogGeocachesActiveCommand == null)
+                {
+                    _liveApiLogGeocachesActiveCommand = new RelayCommand(param => LiveAPILogGeocachesActive(),
+                        param => Core.ApplicationData.Instance.ActiveGeocache != null && Core.Settings.Default.LiveAPIMemberTypeId > 0);
+                }
+                return _liveApiLogGeocachesActiveCommand;
+            }
+        }
+        public void LiveAPILogGeocachesActive()
+        {
+            LiveAPILogGeocaches(new Core.Data.Geocache[] { Core.ApplicationData.Instance.ActiveGeocache }.ToList());
+        }
+        private RelayCommand _liveApiLogGeocachesSelectedCommand = null;
+        public RelayCommand LiveAPILogGeocachesSelectedCommand
+        {
+            get
+            {
+                if (_liveApiLogGeocachesSelectedCommand == null)
+                {
+                    _liveApiLogGeocachesSelectedCommand = new RelayCommand(param => LiveAPILogGeocachesSelected(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase!=null && GeocacheSelectionCount > 0 && Core.Settings.Default.LiveAPIMemberTypeId > 0);
+                }
+                return _liveApiLogGeocachesSelectedCommand;
+            }
+        }
+        public void LiveAPILogGeocachesSelected()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                LiveAPILogGeocaches((from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection where a.Selected select a).ToList());
+            }
+        }
+        public void LiveAPILogGeocaches(List<Core.Data.Geocache> gcList)
+        {
+            LiveAPILogGeocaches.LogWindow dlg = gcList == null ? new LiveAPILogGeocaches.LogWindow() : new LiveAPILogGeocaches.LogWindow(gcList);
+            dlg.ShowDialog();
+        }
+
+
         private RelayCommand _liveApiImportGeocachesCommand = null;
         public RelayCommand LiveAPIImportGeocachesCommand
         {
