@@ -657,6 +657,9 @@
     <Compile Include="GlobalcachingEU\Import.cs" />
     <Compile Include="GPX\Enums.cs" />
     <Compile Include="GPX\Export.cs" />
+    <Compile Include="GPX\ExportGarminCommunicatorWindow.xaml.cs">
+      <DependentUpon>ExportGarminCommunicatorWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GPX\ExportWindow.xaml.cs">
       <DependentUpon>ExportWindow.xaml</DependentUpon>
     </Compile>
@@ -1158,6 +1161,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GlobalcachingEU\AutoUpdaterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GPX\ExportGarminCommunicatorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -2372,6 +2379,9 @@
     <Resource Include="GarminPOI\Resources\Whereigo.bmp" />
     <Resource Include="GarminPOI\Resources\Whereigo_Disabled.bmp" />
     <Resource Include="GarminPOI\Resources\Whereigo_Solved.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="GPX\ExportGarminCommunicatorWindow.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

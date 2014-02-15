@@ -9,6 +9,7 @@ namespace GAPPSF.GPX
     public enum TargetDevice
     {
         Folder,
-        Garmin
+        Garmin,
+        GarminCommunicator
     }
 }

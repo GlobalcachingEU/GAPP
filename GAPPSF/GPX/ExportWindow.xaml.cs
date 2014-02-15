@@ -80,17 +80,26 @@ namespace GAPPSF.GPX
         }
         private async Task PerformExportAsync()
         {
-            await Task.Run(() =>
-                {
-                    if (Core.Settings.Default.GPXExportGGZ)
+            if (Core.Settings.Default.GPXTargetDevice == TargetDevice.GarminCommunicator)
+            {
+                ExportGarminCommunicatorWindow dlg = new ExportGarminCommunicatorWindow(_gcList);
+                dlg.ShowDialog();
+            }
+            else
+            {
+                await Task.Run(() =>
                     {
-                        exportToGGZ();
-                    }
-                    else
-                    {
-                        exportToGPX();
-                    }
-                });
+                        if (Core.Settings.Default.GPXExportGGZ)
+                        {
+                            exportToGGZ();
+                        }
+                        else
+                        {
+                            exportToGPX();
+                        }
+                    });
+            }
+            Close();
         }
 
         private void exportToGPX()
@@ -475,12 +484,16 @@ namespace GAPPSF.GPX
                         }
                     }
                 }
-                else
+                else if (Core.Settings.Default.GPXTargetDevice == TargetDevice.Garmin)
                 {
                     if (SelectedGarminDevice != null)
                     {
                         result = true;
                     }
+                }
+                else
+                {
+                    result = true;
                 }
             }
             return result;

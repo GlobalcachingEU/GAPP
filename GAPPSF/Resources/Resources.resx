@@ -1723,4 +1723,7 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="LogGeocache" xml:space="preserve">
     <value>Log geocache</value>
   </data>
+  <data name="ExportWithGarminCommunicator" xml:space="preserve">
+    <value>Export with Garmin Communicator</value>
+  </data>
 </root>

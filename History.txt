@@ -18,6 +18,8 @@ GAPP SF V0.0.23
 - add: language edit by user support
 - add: log image viewer
 - add: export garmin POI
+- change: Application Info, user can only select 1 database
+- fix: Cachelist, row now starts counting at 1
 
 GAPP V1.9.15.0
 

@@ -275,7 +275,7 @@ namespace GAPPSF.UIControls
             GAPPSF.Core.Data.Geocache item = e.Row.Item as GAPPSF.Core.Data.Geocache;
             if (item != null)
             {
-                e.Row.Header = (e.Row.GetIndex()).ToString();
+                e.Row.Header = (e.Row.GetIndex()+1).ToString();
             }
             else
             {

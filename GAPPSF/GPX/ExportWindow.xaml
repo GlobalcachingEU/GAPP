@@ -4,7 +4,7 @@
         xmlns:l="clr-namespace:GAPPSF.Localization"
         xmlns:p="clr-namespace:GAPPSF.Core"
         xmlns:ui="clr-namespace:GAPPSF.UIControls"
-        Title="{l:Translate ExportGPX}" Height="450" Width="500" Closing="Window_Closing">
+        Title="{l:Translate ExportGPX}" Height="500" Width="500" Closing="Window_Closing">
     <Grid>
         <Grid.Resources>
             <ui:EnumBooleanConverter x:Key="enumBooleanConverter" />
@@ -42,6 +42,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <RadioButton Margin="4" GroupName="rtarget" Grid.Row="0" Grid.Column="0" Content="Disk" IsChecked="{Binding GPXTargetDevice, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Folder, Mode=TwoWay}" />
                     <TextBox Margin="4" Grid.Row="0" Grid.Column="1" Text="{Binding GPXTargetFolder, Source={x:Static p:Settings.Default}}" IsReadOnly="True" />
@@ -50,6 +51,7 @@
                     </Button>
                     <RadioButton Margin="4" GroupName="rtarget" Grid.Row="1" Grid.Column="0" Content="Garmin" IsChecked="{Binding GPXTargetDevice, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Garmin, Mode=TwoWay}" />
                     <ComboBox Margin="4" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding GarminDevices}" SelectedIndex="{Binding SelectedGarminDevice, Mode=TwoWay}" SelectionChanged="ComboBox_SelectionChanged" />
+                    <RadioButton Margin="4" GroupName="rtarget" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Content="Garmin Communicator" IsChecked="{Binding GPXTargetDevice, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=GarminCommunicator, Mode=TwoWay}" IsEnabled="False" />
                 </Grid>
                 <TextBlock Margin="4" Grid.Row="2" Grid.Column="0" Text="{l:Translate IncludeChildWaypoints}" />
                 <CheckBox  Margin="4" Grid.Row="2" Grid.Column="1" IsChecked="{Binding GPXAddChildWaypoints, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
