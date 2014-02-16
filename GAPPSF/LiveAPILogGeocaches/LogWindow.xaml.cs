@@ -57,17 +57,22 @@ namespace GAPPSF.LiveAPILogGeocaches
 
         void AvailableLogs_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            StringBuilder sb = new StringBuilder();
-            foreach(var s in AvailableLogs)
-            {
-                sb.AppendLine(s.ToDataString());
-            }
-            Core.Settings.Default.LiveAPILogGeocachesLogs = sb.ToString();
+            saveData();
         }
 
         public LogWindow(List<Core.Data.Geocache> gcList)
             : this()
         {
+        }
+
+        private void saveData()
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (var s in AvailableLogs)
+            {
+                sb.AppendLine(s.ToDataString());
+            }
+            Core.Settings.Default.LiveAPILogGeocachesLogs = sb.ToString();
         }
 
         protected void SetProperty<T>(ref T field, T value, [CallerMemberName] string name = "")

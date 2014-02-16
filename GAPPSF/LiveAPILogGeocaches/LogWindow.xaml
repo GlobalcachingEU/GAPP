@@ -6,6 +6,55 @@
         xmlns:ui="clr-namespace:GAPPSF.UIControls"
         Title="{l:Translate LogGeocache}" Height="300" Width="300">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Expander 
+            Header="{l:Translate Settings}"
+            Grid.Row="0"
+            HorizontalAlignment="Stretch">
+            <Expander.Background>
+                <SolidColorBrush Color="{DynamicResource SettingsBkColor}"/>
+            </Expander.Background>
+            <Expander.Content>
+                <GroupBox Header="{l:Translate ImageLimits}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Margin="4" Grid.Row="0" Grid.Column="0" Text="{l:Translate Bytes}" />
+                        <ui:NumericUpDown Margin="4" Grid.Row="0" Grid.Column="1" Width="50" Height="25" DecimalPlaces="1" Minimum="0.1" Maximum="10.0" Value="{Binding LiveAPILogGeocachesMaxImageSizeMB, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                        <TextBlock Margin="4" Grid.Row="0" Grid.Column="2" Text="{l:Translate MB}" />
+                        <TextBlock Margin="4" Grid.Row="1" Grid.Column="0" Text="{l:Translate Width}" />
+                        <ui:NumericUpDown Margin="4" Grid.Row="1" Grid.Column="1" Width="50" Height="25" Minimum="10" Maximum="999999" Value="{Binding LiveAPILogGeocachesMaxImageWidth, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                        <TextBlock Margin="4" Grid.Row="2" Grid.Column="0" Text="{l:Translate Height}" />
+                        <ui:NumericUpDown Margin="4" Grid.Row="2" Grid.Column="1" Width="50" Height="25" Minimum="10" Maximum="999999" Value="{Binding LiveAPILogGeocachesMaxImageHeight, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                        <TextBlock Margin="4" Grid.Row="3" Grid.Column="0" Text="{l:Translate Quality}" />
+                        <ui:NumericUpDown Margin="4" Grid.Row="3" Grid.Column="1" Width="50" Height="25" Minimum="10" Maximum="999999" Value="{Binding LiveAPILogGeocachesImageQuality, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                        <TextBlock Margin="4" Grid.Row="3" Grid.Column="2" Text="%" />
+                    </Grid>
+                </GroupBox>
+            </Expander.Content>
+        </Expander>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ListBox Grid.Column="0">
+                
+            </ListBox>
+            <GridSplitter Grid.Column="1" Width="5" ResizeDirection="Columns" />
+        </Grid>
     </Grid>
 </Window>

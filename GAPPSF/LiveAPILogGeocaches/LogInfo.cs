@@ -12,12 +12,36 @@ namespace GAPPSF.LiveAPILogGeocaches
         public class ImageInfo
         {
             public string Uri { get; set; }
-            public string Name { get; set; }
+            public string Caption { get; set; }
+            public string Description { get; set; }
             public int RotationDeg { get; set; }
 
             public override string ToString()
             {
-                return Name ?? "";
+                return Caption ?? "";
+            }
+
+            public static ImageInfo FromDataString(string s)
+            {
+                ImageInfo result = new ImageInfo();
+                try
+                {
+                    string[] parts = s.Split(new char[] { '|' });
+                    result.Uri = parts[0];
+                    result.RotationDeg = int.Parse(parts[1]);
+                    result.Caption = parts[2].Replace("<!br!>", "\r\n").Replace("[!-!]", "|");
+                    result.Description = parts[3].Replace("<!br!>", "\r\n").Replace("[!-!]", "|");
+                }
+                catch
+                {
+                    result = null;
+                }
+                return result;
+            }
+
+            public string ToDataString()
+            {
+                return string.Format("{0}|{1}|{2}|{3}", Uri, RotationDeg, Caption == null ? "" : Caption.Replace("|", "[!-!]").Replace("\n", "").Replace("\r", "<!br!>"), Description == null ? "" : Description.Replace("|", "[!-!]").Replace("\n", "").Replace("\r", "<!br!>"));
             }
         }
 
@@ -51,7 +75,11 @@ namespace GAPPSF.LiveAPILogGeocaches
                 {
                     if (parts[i].Length>0)
                     {
-                        //todo
+                        ImageInfo ii = ImageInfo.FromDataString(parts[i].Replace("(!-!)", "|"));
+                        if (ii != null)
+                        {
+                            result.Images.Add(ii);
+                        }
                     }
                 }
             }
@@ -64,13 +92,21 @@ namespace GAPPSF.LiveAPILogGeocaches
 
         private string getImagesDataString()
         {
-            //todo
-            return "";
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < Images.Count; i++ )
+            {
+                if (i>0)
+                {
+                    sb.Append("|");
+                }
+                sb.Append(Images[i].ToDataString());
+            }
+            return sb.ToString();
         }
 
         public string ToDataString()
         {
-            return string.Format("{0}|{1}|{2}|{3}|{4}", GeocacheCode ?? "", LogType.ID, VisitDate.ToString("s"), LogText == null ? "" : LogText.Replace("|", "(!-!)").Replace("\n", "").Replace("\r", "<!br!>"), getImagesDataString());
+            return string.Format("{0}|{1}|{2}|{3}|{4}", GeocacheCode ?? "", LogType.ID, VisitDate.ToString("s"), LogText == null ? "" : LogText.Replace("|", "(!-!)").Replace("\n", "").Replace("\r", "<!br!>"), getImagesDataString().Replace("|", "(!-!)"));
         }
     }
 }

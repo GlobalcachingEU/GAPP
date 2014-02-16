@@ -1726,4 +1726,7 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="ExportWithGarminCommunicator" xml:space="preserve">
     <value>Export with Garmin Communicator</value>
   </data>
+  <data name="ImageLimits" xml:space="preserve">
+    <value>Image limits</value>
+  </data>
 </root>
