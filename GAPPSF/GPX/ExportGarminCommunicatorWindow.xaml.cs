@@ -40,7 +40,17 @@ namespace GAPPSF.GPX
             webBrowser1.LoadCompleted += webBrowser1_LoadCompleted;
             webBrowser1.Navigated += webBrowser1_Navigated;
 
-            DisplayHtml(Utils.ResourceHelper.GetEmbeddedTextFile("/GPX/ExportGarminCommunicatorWindow.html"));
+            //DisplayHtml(Utils.ResourceHelper.GetEmbeddedTextFile("/GPX/ExportGarminCommunicatorWindow.html"));
+            try
+            {
+                System.IO.TemporaryFile tmpFile = new System.IO.TemporaryFile(true);
+                Utils.ResourceHelper.SaveToFile("/GPX/ExportGarminCommunicatorWindow.html", tmpFile.Path, true);
+                webBrowser1.Navigate(string.Format("file://{0}", tmpFile.Path));
+            }
+            catch(Exception e)
+            {
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
+            }
         }
 
         void webBrowser1_Navigated(object sender, NavigationEventArgs e)
@@ -153,7 +163,7 @@ namespace GAPPSF.GPX
         {
             _gm = gm;
         }
-        public void garminPluginReady(string code)
+        public void garminPluginReady()
         {
             _gm.garminPluginReady();
         }

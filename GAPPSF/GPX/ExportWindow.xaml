@@ -51,7 +51,7 @@
                     </Button>
                     <RadioButton Margin="4" GroupName="rtarget" Grid.Row="1" Grid.Column="0" Content="Garmin" IsChecked="{Binding GPXTargetDevice, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Garmin, Mode=TwoWay}" />
                     <ComboBox Margin="4" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding GarminDevices}" SelectedIndex="{Binding SelectedGarminDevice, Mode=TwoWay}" SelectionChanged="ComboBox_SelectionChanged" />
-                    <RadioButton Margin="4" GroupName="rtarget" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Content="Garmin Communicator" IsChecked="{Binding GPXTargetDevice, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=GarminCommunicator, Mode=TwoWay}" IsEnabled="False" />
+                    <RadioButton Margin="4" GroupName="rtarget" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Content="Garmin Communicator" IsChecked="{Binding GPXTargetDevice, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=GarminCommunicator, Mode=TwoWay}" />
                 </Grid>
                 <TextBlock Margin="4" Grid.Row="2" Grid.Column="0" Text="{l:Translate IncludeChildWaypoints}" />
                 <CheckBox  Margin="4" Grid.Row="2" Grid.Column="1" IsChecked="{Binding GPXAddChildWaypoints, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />

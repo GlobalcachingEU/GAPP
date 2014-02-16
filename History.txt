@@ -5,7 +5,6 @@ todo GAPP:
 - add tooltip for counters in main screen
 
 todo GAPP SF:
-- export using Garmin communicator
 - Open Areas map
 - Internal browser
 - chat
@@ -20,6 +19,7 @@ GAPP SF V0.0.23
 - add: export garmin POI
 - change: Application Info, user can only select 1 database
 - fix: Cachelist, row now starts counting at 1
+- add: GPX export using Garmin communicator
 
 GAPP V1.9.15.0
 
