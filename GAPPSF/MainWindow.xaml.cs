@@ -241,8 +241,12 @@ namespace GAPPSF
             {
                 if (_liveApiLogGeocachesCommand == null)
                 {
+#if DEBUG
+                    _liveApiLogGeocachesCommand = new RelayCommand(param => LiveAPILogGeocaches(null));
+#else
                     _liveApiLogGeocachesCommand = new RelayCommand(param => LiveAPILogGeocaches(null),
                         param => Core.Settings.Default.LiveAPIMemberTypeId > 0);
+#endif
                 }
                 return _liveApiLogGeocachesCommand;
             }
@@ -271,8 +275,13 @@ namespace GAPPSF
             {
                 if (_liveApiLogGeocachesSelectedCommand == null)
                 {
+#if DEBUG
+                    _liveApiLogGeocachesSelectedCommand = new RelayCommand(param => LiveAPILogGeocachesSelected(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null && GeocacheSelectionCount > 0);
+#else
                     _liveApiLogGeocachesSelectedCommand = new RelayCommand(param => LiveAPILogGeocachesSelected(),
                         param => Core.ApplicationData.Instance.ActiveDatabase!=null && GeocacheSelectionCount > 0 && Core.Settings.Default.LiveAPIMemberTypeId > 0);
+#endif
                 }
                 return _liveApiLogGeocachesSelectedCommand;
             }

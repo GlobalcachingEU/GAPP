@@ -20,6 +20,8 @@ GAPP SF V0.0.23
 - change: Application Info, user can only select 1 database
 - fix: Cachelist, row now starts counting at 1
 - add: GPX export using Garmin communicator
+- fix: geocache editor, changed personal note to a multiline text field
+- fix: waypoint editor, changed comment to a multiline text field
 
 GAPP V1.9.15.0
 

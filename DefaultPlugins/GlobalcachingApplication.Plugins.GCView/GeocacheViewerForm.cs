@@ -139,7 +139,7 @@ namespace GlobalcachingApplication.Plugins.GCView
                 s = s.Replace("<!--name-->", HttpUtility.HtmlEncode(Core.ActiveGeocache.Name));
                 s = s.Replace("<!--url-->", HttpUtility.HtmlEncode(Core.ActiveGeocache.Url));
                 s = s.Replace("<!--hint-->", HttpUtility.HtmlEncode(Core.ActiveGeocache.EncodedHints));
-                s = s.Replace("<!--personalnote-->", HttpUtility.HtmlEncode(Core.ActiveGeocache.PersonaleNote??""));
+                s = s.Replace("<!--personalnote-->", HttpUtility.HtmlEncode((Core.ActiveGeocache.PersonaleNote??"")).Replace("\r","<br />"));
                 s = s.Replace("<!--note-->", Core.ActiveGeocache.Notes ?? "");
                 s = s.Replace("<!--personalnote_available-->", (!string.IsNullOrEmpty(Core.ActiveGeocache.PersonaleNote)).ToString().ToLower());
                 s = s.Replace("<!--note_available-->", (!string.IsNullOrEmpty(Core.ActiveGeocache.Notes)).ToString().ToLower());
@@ -253,7 +253,7 @@ namespace GlobalcachingApplication.Plugins.GCView
                         {
                             awp.Append("???<br />");
                         }
-                        awp.AppendFormat("{0}<br /><br />", HttpUtility.HtmlEncode(wp.Comment ?? ""));
+                        awp.AppendFormat("{0}<br /><br />", HttpUtility.HtmlEncode(wp.Comment ?? "").Replace("\r","<br />"));
                     }
                     awp.Append("</p>");
                     s = s.Replace("<!--waypoints-->", awp.ToString());

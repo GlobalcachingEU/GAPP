@@ -104,5 +104,10 @@ namespace GAPPSF.Core
             set { SetProperty(value.ToString()); }
         }
 
+        public int LiveAPIDelayCreateFieldNoteAndPublish
+        {
+            get { return int.Parse(GetProperty("2000")); }
+            set { SetProperty(value.ToString()); }
+        }
     }
 }

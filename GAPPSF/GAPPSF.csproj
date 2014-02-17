@@ -679,6 +679,7 @@
     <Compile Include="LiveAPIGetGeocaches\ImportWindow.xaml.cs">
       <DependentUpon>ImportWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LiveAPILogGeocaches\Logger.cs" />
     <Compile Include="LiveAPILogGeocaches\LogInfo.cs" />
     <Compile Include="LiveAPILogGeocaches\LogWindow.xaml.cs">
       <DependentUpon>LogWindow.xaml</DependentUpon>
@@ -971,6 +972,9 @@
     </Compile>
     <Compile Include="UIControls\GeocacheCollection\Control.xaml.cs">
       <DependentUpon>Control.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UIControls\LogTypeCombo.xaml.cs">
+      <DependentUpon>LogTypeCombo.xaml</DependentUpon>
     </Compile>
     <Compile Include="UIControls\GeocacheTypeCombo.xaml.cs">
       <DependentUpon>GeocacheTypeCombo.xaml</DependentUpon>
@@ -1461,6 +1465,10 @@
     <Page Include="UIControls\GeocacheCollection\Control.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\LogTypeCombo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UIControls\GeocacheTypeCombo.xaml">
       <SubType>Designer</SubType>

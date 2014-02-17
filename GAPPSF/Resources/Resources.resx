@@ -1729,4 +1729,7 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="ImageLimits" xml:space="preserve">
     <value>Image limits</value>
   </data>
+  <data name="DelayCreateFieldNoteAndPublish" xml:space="preserve">
+    <value>Delay CreateFieldNoteAndPublish</value>
+  </data>
 </root>

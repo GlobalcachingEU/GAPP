@@ -90,7 +90,7 @@ namespace GAPPSF.UIControls
                 s = s.Replace("<!--name-->", HttpUtility.HtmlEncode(Core.ApplicationData.Instance.ActiveGeocache.Name));
                 s = s.Replace("<!--url-->", HttpUtility.HtmlEncode(Core.ApplicationData.Instance.ActiveGeocache.Url));
                 s = s.Replace("<!--hint-->", HttpUtility.HtmlEncode(Core.ApplicationData.Instance.ActiveGeocache.EncodedHints));
-                s = s.Replace("<!--personalnote-->", HttpUtility.HtmlEncode(Core.ApplicationData.Instance.ActiveGeocache.PersonalNote ?? ""));
+                s = s.Replace("<!--personalnote-->", HttpUtility.HtmlEncode(Core.ApplicationData.Instance.ActiveGeocache.PersonalNote ?? "").Replace("\r","<br />"));
                 s = s.Replace("<!--note-->", Core.ApplicationData.Instance.ActiveGeocache.Notes ?? "");
                 s = s.Replace("<!--personalnote_available-->", (!string.IsNullOrEmpty(Core.ApplicationData.Instance.ActiveGeocache.PersonalNote)).ToString().ToLower());
                 s = s.Replace("<!--note_available-->", (!string.IsNullOrEmpty(Core.ApplicationData.Instance.ActiveGeocache.Notes)).ToString().ToLower());
@@ -194,7 +194,7 @@ namespace GAPPSF.UIControls
                         {
                             awp.Append("???<br />");
                         }
-                        awp.AppendFormat("{0}<br /><br />", HttpUtility.HtmlEncode(wp.Comment ?? ""));
+                        awp.AppendFormat("{0}<br /><br />", HttpUtility.HtmlEncode(wp.Comment ?? "").Replace("\r","<br />"));
                     }
                     awp.Append("</p>");
                     s = s.Replace("<!--waypoints-->", awp.ToString());
