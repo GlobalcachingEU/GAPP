@@ -24,7 +24,8 @@ GAPP SF V0.0.23
 GAPP V1.9.15.0
 
 - change: Updated GAPP SF V0.0.23 (Preview, requires .NET 4.5.1)
-
+- fix: geocache editor, changed personal note to a multiline text field
+- fix: waypoint editor, changed comment to a multiline text field
 
 GAPP SF V0.0.22
 
