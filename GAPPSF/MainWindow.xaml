@@ -268,6 +268,9 @@
                     <MenuItem Header="{l:Translate LogGeocache}">
                         <MenuItem x:Name="menufc52" Header="{l:Translate Editor}" Command="{Binding LiveAPILogGeocachesCommand}" />
                         <Separator />
+                        <MenuItem x:Name="menufc55" Header="{l:Translate GarminGeocacheVists}" Click="menufc55_Click" />
+                        <MenuItem x:Name="menufc56" Header="{l:Translate cgeoGeocacheVisits}" Click="menufc56_Click" />
+                        <Separator />
                         <MenuItem x:Name="menufc50" Header="{l:Translate Active}" Command="{Binding LiveAPILogGeocachesActiveCommand}" />
                         <MenuItem x:Name="menufc51" Header="{l:Translate Selected}" Command="{Binding LiveAPILogGeocachesSelectedCommand}" />
                     </MenuItem>

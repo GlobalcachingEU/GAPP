@@ -3409,5 +3409,17 @@ namespace GAPPSF
             w.Show();
         }
 
+        private void menufc55_Click(object sender, RoutedEventArgs e)
+        {
+            LiveAPILogGeocaches.GarminGeocacheVisits imp = new LiveAPILogGeocaches.GarminGeocacheVisits();
+            imp.SelectAndLog();
+        }
+
+        private void menufc56_Click(object sender, RoutedEventArgs e)
+        {
+            LiveAPILogGeocaches.CGeoGeocacheVisits imp = new LiveAPILogGeocaches.CGeoGeocacheVisits();
+            imp.SelectAndLog();
+        }
+
     }
 }

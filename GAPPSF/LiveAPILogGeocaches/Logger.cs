@@ -11,53 +11,88 @@ namespace GAPPSF.LiveAPILogGeocaches
         public async Task<List<LogInfo>> LogGeocachesAsync(List<LogInfo> logInfos)
         {
             List<LogInfo> result = new List<LogInfo>();
-            Utils.DataUpdater upd = null;
-            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            try
             {
-                upd = new Utils.DataUpdater(Core.ApplicationData.Instance.ActiveDatabase);
-            }
-            using (Utils.ProgressBlock prog = new Utils.ProgressBlock("LogGeocache", "Logging", logInfos.Count, 0, true))
-            {
-                using (var api = new LiveAPI.GeocachingLiveV6())
+                Utils.DataUpdater upd = null;
+                if (Core.ApplicationData.Instance.ActiveDatabase != null)
                 {
-                    foreach (LogInfo li in logInfos)
+                    upd = new Utils.DataUpdater(Core.ApplicationData.Instance.ActiveDatabase);
+                }
+                using (Utils.ProgressBlock prog = new Utils.ProgressBlock("LogGeocache", "Logging", logInfos.Count, 0, true))
+                {
+                    using (var api = new LiveAPI.GeocachingLiveV6())
                     {
-                        int index = 0;
-                        List<LiveAPI.LiveV6.Trackable> dropTbs = null;
-                        List<string> retrieveTbs = null;
-
-                        //todo: check if trackable dialog is needed
-                        //fetch in background
-
-                        bool ok = false;
-                        await Task.Run(() =>
+                        foreach (LogInfo li in logInfos)
                         {
-                            if (index > 0 && dropTbs == null && retrieveTbs == null)
+                            int index = 0;
+                            List<LiveAPI.LiveV6.Trackable> dropTbs = null;
+                            List<string> retrieveTbs = (from a in li.TrackableRetrieve.Split(new char[]{' ',',','\t'}, StringSplitOptions.RemoveEmptyEntries) select a.ToUpper()).ToList();
+
+                            //check if trackable dialog is needed
+                            if (li.TrackableDrop)
                             {
-                                System.Threading.Thread.Sleep(Core.Settings.Default.LiveAPIDelayCreateFieldNoteAndPublish);
+                                //fetch in background
+                                List<LiveAPI.LiveV6.Trackable> tbList = null;
+                                await Task.Run(() =>
+                                {
+                                    tbList = getOwnedTrackables(api);
+                                });
+                                if (tbList==null || tbList.Count==0)
+                                {
+                                    Core.ApplicationData.Instance.Logger.AddLog(this, Core.Logger.Level.Error, "NoTrackablesToDrop");
+                                    break;
+                                }
+                                Dialogs.SelectTrackablesWindow dlg = new Dialogs.SelectTrackablesWindow(tbList);
+                                if (dlg.ShowDialog() == true)
+                                {
+                                    dropTbs = dlg.SelectedTrackables;
+                                    if (dropTbs == null || dropTbs.Count == 0)
+                                    {
+                                        Core.ApplicationData.Instance.Logger.AddLog(this, Core.Logger.Level.Error, "NoTrackablesToDrop");
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    Core.ApplicationData.Instance.Logger.AddLog(this, Core.Logger.Level.Error, "NoTrackablesToDrop");
+                                    break;
+                                }
                             }
-                            ok = LogGeocache(api, li, dropTbs, retrieveTbs);
-                        });
-                        if (ok)
-                        {
-                            result.Add(li);
-                            index++;
-                            if (!prog.Update("Logging", logInfos.Count, index))
+
+                            bool ok = false;
+                            await Task.Run(() =>
+                            {
+                                if (index > 0 && dropTbs == null && retrieveTbs == null)
+                                {
+                                    System.Threading.Thread.Sleep(Core.Settings.Default.LiveAPIDelayCreateFieldNoteAndPublish);
+                                }
+                                ok = LogGeocache(api, li, dropTbs, retrieveTbs);
+                            });
+                            if (ok)
+                            {
+                                result.Add(li);
+                                index++;
+                                if (!prog.Update("Logging", logInfos.Count, index))
+                                {
+                                    break;
+                                }
+                            }
+                            else
                             {
                                 break;
                             }
                         }
-                        else
-                        {
-                            break;
-                        }
                     }
                 }
+                if (upd != null)
+                {
+                    upd.Dispose();
+                    upd = null;
+                }
             }
-            if (upd!=null)
+            catch(Exception e)
             {
-                upd.Dispose();
-                upd = null;
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
             }
             return result;
         }
@@ -149,14 +184,27 @@ namespace GAPPSF.LiveAPILogGeocaches
                         uplReq.ImageData.FileCaption = li.Caption;
                         uplReq.ImageData.FileDescription = li.Description;
                         uplReq.ImageData.FileName = li.Uri;
-                        //todo: scale image to comply to limits
-                        uplReq.ImageData.base64ImageData = System.Convert.ToBase64String(System.IO.File.ReadAllBytes(li.Uri));
-                        var resp2 = api.Client.UploadImageToGeocacheLog(uplReq);
-                        if (resp2.Status.StatusCode != 0)
+
+                        using (System.IO.TemporaryFile tmpFile = new System.IO.TemporaryFile(true))
                         {
-                            Core.ApplicationData.Instance.Logger.AddLog(this, Core.Logger.Level.Error, resp2.Status.StatusMessage);
+                            if (Utils.ResourceHelper.ScaleImage(li.Uri, tmpFile.Path, Core.Settings.Default.LiveAPILogGeocachesMaxImageWidth, Core.Settings.Default.LiveAPILogGeocachesMaxImageHeight, Core.Settings.Default.LiveAPILogGeocachesMaxImageSizeMB, Core.Settings.Default.LiveAPILogGeocachesImageQuality, li.RotationDeg))
+                            {
+                                uplReq.ImageData.base64ImageData = System.Convert.ToBase64String(System.IO.File.ReadAllBytes(tmpFile.Path));
+                            }
+                        }
+                        if (!string.IsNullOrEmpty(uplReq.ImageData.base64ImageData))
+                        {
+                            var resp2 = api.Client.UploadImageToGeocacheLog(uplReq);
+                            if (resp2.Status.StatusCode != 0)
+                            {
+                                Core.ApplicationData.Instance.Logger.AddLog(this, Core.Logger.Level.Error, resp2.Status.StatusMessage);
+                                error = true;
+                                //break;
+                            }
+                        }
+                        else
+                        {
                             error = true;
-                            //break;
                         }
                     }
 
@@ -178,5 +226,48 @@ namespace GAPPSF.LiveAPILogGeocaches
             }
             return result;
         }
+
+        private List<LiveAPI.LiveV6.Trackable> getOwnedTrackables(LiveAPI.GeocachingLiveV6 api)
+        {
+            List<LiveAPI.LiveV6.Trackable> result = new List<LiveAPI.LiveV6.Trackable>();
+            try
+            {
+                var req = new LiveAPI.LiveV6.GetTrackablesByUserRequest();
+                req.AccessToken = api.Token;
+                req.MaxPerPage = 10;
+                req.StartIndex = 0;
+                req.TrackableLogsCount = 0;
+                var resp = api.Client.GetUsersTrackables(req);
+                while (resp.Status.StatusCode == 0)
+                {
+                    if (resp.Trackables != null)
+                    {
+                        foreach (LiveAPI.LiveV6.Trackable tb in resp.Trackables)
+                        {
+                            result.Add(tb);
+                        }
+                        if (resp.Trackables.Count() < req.MaxPerPage)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            req.StartIndex += req.MaxPerPage;
+                            resp = api.Client.GetUsersTrackables(req);
+                        }
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
+            }
+            return result;
+        }
+
     }
 }

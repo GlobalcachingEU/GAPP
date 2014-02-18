@@ -325,6 +325,9 @@
     <Compile Include="Dialogs\SelectAreaWindow.xaml.cs">
       <DependentUpon>SelectAreaWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\SelectTrackablesWindow.xaml.cs">
+      <DependentUpon>SelectTrackablesWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\ShortCutAssignmentWindow.xaml.cs">
       <DependentUpon>ShortCutAssignmentWindow.xaml</DependentUpon>
     </Compile>
@@ -679,6 +682,9 @@
     <Compile Include="LiveAPIGetGeocaches\ImportWindow.xaml.cs">
       <DependentUpon>ImportWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LiveAPILogGeocaches\CGeoGeocacheVisits.cs" />
+    <Compile Include="LiveAPILogGeocaches\GarminGeocacheVisits.cs" />
+    <Compile Include="LiveAPILogGeocaches\GeocacheVisitsItem.cs" />
     <Compile Include="LiveAPILogGeocaches\Logger.cs" />
     <Compile Include="LiveAPILogGeocaches\LogInfo.cs" />
     <Compile Include="LiveAPILogGeocaches\LogWindow.xaml.cs">
@@ -1082,6 +1088,7 @@
     <Compile Include="Utils\DBCon.cs" />
     <Compile Include="Utils\DBConComSqlite.cs" />
     <Compile Include="Utils\Geocoder.cs" />
+    <Compile Include="Utils\ImageUtilities.cs" />
     <Compile Include="Utils\NativeMethods.cs" />
     <Compile Include="Utils\Privileges.cs" />
     <Compile Include="Utils\ProgressBlock.cs" />
@@ -1137,6 +1144,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\SelectAreaWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\SelectTrackablesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

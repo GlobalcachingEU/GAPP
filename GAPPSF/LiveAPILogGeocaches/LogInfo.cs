@@ -48,7 +48,7 @@ namespace GAPPSF.LiveAPILogGeocaches
         public string GeocacheCode { get; set; }
         public string LogText { get; set; }
         public bool TrackableDrop { get; set; } //before log, show trackable dialog
-        public bool TrackableRetrieve { get; set; } //before log, show trackable dialog
+        public string TrackableRetrieve { get; set; } //list of tracking numbers
         public bool AddToFavorites { get; set; }
         public Core.Data.LogType LogType { get; set; }
         public DateTime VisitDate { get; set; }
@@ -75,7 +75,7 @@ namespace GAPPSF.LiveAPILogGeocaches
                 result.VisitDate = DateTime.Parse(parts[2]);
                 result.LogType = Utils.DataAccess.GetLogType(int.Parse(parts[1]));
                 result.TrackableDrop = bool.Parse(parts[4]);
-                result.TrackableRetrieve = bool.Parse(parts[5]);
+                result.TrackableRetrieve = parts[5];
                 result.AddToFavorites = bool.Parse(parts[6]);
                 for (int i = 7; i < parts.Length; i++)
                 {
@@ -112,7 +112,7 @@ namespace GAPPSF.LiveAPILogGeocaches
 
         public string ToDataString()
         {
-            return string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}", GeocacheCode ?? "", LogType.ID, VisitDate.ToString("s"), LogText == null ? "" : LogText.Replace("|", "(!-!)").Replace("\n", "").Replace("\r", "<!br!>"), TrackableDrop.ToString(), TrackableRetrieve.ToString(), AddToFavorites.ToString(), getImagesDataString().Replace("|", "(!-!)"));
+            return string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}", GeocacheCode ?? "", LogType.ID, VisitDate.ToString("s"), LogText == null ? "" : LogText.Replace("|", "(!-!)").Replace("\n", "").Replace("\r", "<!br!>"), TrackableDrop.ToString(), TrackableRetrieve.Replace("|", "(!-!)"), AddToFavorites.ToString(), getImagesDataString().Replace("|", "(!-!)"));
         }
     }
 }

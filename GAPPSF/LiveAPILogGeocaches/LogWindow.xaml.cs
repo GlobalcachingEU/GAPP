@@ -132,7 +132,31 @@ namespace GAPPSF.LiveAPILogGeocaches
                         li.VisitDate = DateTime.Now.Date;
                         li.AddToFavorites = false;
                         li.TrackableDrop = false;
-                        li.TrackableRetrieve = false;
+                        li.TrackableRetrieve = "";
+                        AvailableLogs.Add(li);
+                    }
+                }
+            }
+        }
+
+        public LogWindow(List<GeocacheVisitsItem> gcList)
+            : this()
+        {
+            if (gcList != null)
+            {
+                foreach (var gc in gcList)
+                {
+                    LogInfo li = (from a in AvailableLogs where a.GeocacheCode == gc.Code select a).FirstOrDefault();
+                    if (li == null)
+                    {
+                        li = new LogInfo();
+                        li.GeocacheCode = gc.Code;
+                        li.LogText = gc.Comment;
+                        li.LogType = Utils.DataAccess.GetLogType(2);
+                        li.VisitDate = gc.LogDate;
+                        li.AddToFavorites = false;
+                        li.TrackableDrop = false;
+                        li.TrackableRetrieve = "";
                         AvailableLogs.Add(li);
                     }
                 }
@@ -148,7 +172,7 @@ namespace GAPPSF.LiveAPILogGeocaches
                 clogdate.SelectedDate = _selectedLog.VisitDate;
                 clogdate.DisplayDate = _selectedLog.VisitDate;
                 ctbdrop.IsChecked = _selectedLog.TrackableDrop;
-                ctbretrieve.IsChecked = _selectedLog.TrackableRetrieve;
+                ctbretrieve.Text = _selectedLog.TrackableRetrieve;
                 caddfav.IsChecked = _selectedLog.AddToFavorites;
                 //todo: images
             }
@@ -162,7 +186,7 @@ namespace GAPPSF.LiveAPILogGeocaches
                 _selectedLog.LogText = clogtext.Text;
                 _selectedLog.VisitDate = (DateTime)clogdate.SelectedDate;
                 _selectedLog.TrackableDrop = ctbdrop.IsChecked==true;
-                _selectedLog.TrackableRetrieve = ctbretrieve.IsChecked==true;
+                _selectedLog.TrackableRetrieve = ctbretrieve.Text;
                 _selectedLog.AddToFavorites = caddfav.IsChecked == true;
                 //todo: images
             }
@@ -225,7 +249,7 @@ namespace GAPPSF.LiveAPILogGeocaches
                     l.LogText = clogtext.Text;
                     l.VisitDate = (DateTime)clogdate.SelectedDate;
                     l.TrackableDrop = ctbdrop.IsChecked == true;
-                    l.TrackableRetrieve = ctbretrieve.IsChecked == true;
+                    //l.TrackableRetrieve = ctbretrieve.Text;
                     l.AddToFavorites = caddfav.IsChecked == true;
                     //todo: images
                 }

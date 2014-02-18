@@ -1732,4 +1732,55 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="DelayCreateFieldNoteAndPublish" xml:space="preserve">
     <value>Delay CreateFieldNoteAndPublish</value>
   </data>
+  <data name="SelectTrackables" xml:space="preserve">
+    <value>Select trackables</value>
+  </data>
+  <data name="Bytes" xml:space="preserve">
+    <value>Bytes</value>
+  </data>
+  <data name="CopyToSelected" xml:space="preserve">
+    <value>Copy to selected</value>
+  </data>
+  <data name="Favorite" xml:space="preserve">
+    <value>Favorite</value>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>Height</value>
+  </data>
+  <data name="Images" xml:space="preserve">
+    <value>Images</value>
+  </data>
+  <data name="ListRetrievedTrackingNumbers" xml:space="preserve">
+    <value>List tracking numbers of retrieved trackables separated by comma or space</value>
+  </data>
+  <data name="LogAll" xml:space="preserve">
+    <value>Log all</value>
+  </data>
+  <data name="Logging" xml:space="preserve">
+    <value>Logging</value>
+  </data>
+  <data name="LogSelected" xml:space="preserve">
+    <value>Log selected</value>
+  </data>
+  <data name="LogType" xml:space="preserve">
+    <value>Log type</value>
+  </data>
+  <data name="MB" xml:space="preserve">
+    <value>MB</value>
+  </data>
+  <data name="NoTrackablesToDrop" xml:space="preserve">
+    <value>No trackables to drop</value>
+  </data>
+  <data name="Trackables" xml:space="preserve">
+    <value>Trackables</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>Width</value>
+  </data>
+  <data name="GarminGeocacheVists" xml:space="preserve">
+    <value>Garmin geocache_visits.txt</value>
+  </data>
+  <data name="cgeoGeocacheVisits" xml:space="preserve">
+    <value>c:geo geocache visits</value>
+  </data>
 </root>

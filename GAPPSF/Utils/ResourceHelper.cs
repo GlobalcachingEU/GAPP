@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using System.Windows.Resources;
 
 namespace GAPPSF.Utils
@@ -94,5 +95,31 @@ namespace GAPPSF.Utils
             }
             objComWebBrowser.GetType().InvokeMember("Silent", BindingFlags.SetProperty, null, objComWebBrowser, new object[] { hide });
         }
+
+        public static bool ScaleImage(string sourcePath, string destPath, int maxWidth, int maxHeight, double maxMB, int quality, int rotationDeg)
+        {
+            bool result = false;
+            try
+            {
+                //todo: check result if size in MB is not above max.
+                //for now, just apply the max size in pixels
+                System.Drawing.Image image = System.Drawing.Image.FromFile(sourcePath);
+                if (rotationDeg==180) image.RotateFlip(System.Drawing.RotateFlipType.Rotate180FlipNone);
+                else if (rotationDeg == 90) image.RotateFlip(System.Drawing.RotateFlipType.Rotate90FlipNone);
+                else if (rotationDeg == 270) image.RotateFlip(System.Drawing.RotateFlipType.Rotate270FlipNone);
+                //max size
+                System.Drawing.Size sz1 = ImageUtilities.GetNewSize(new System.Drawing.Size(image.Size.Width, image.Size.Height), new System.Drawing.Size(maxWidth, maxHeight));
+                System.Drawing.Bitmap bmp = ImageUtilities.ResizeImage(image, sz1.Width, sz1.Height);
+                ImageUtilities.SaveJpeg(destPath, bmp, quality);
+
+                result = true;
+            }
+            catch(Exception e)
+            {
+                Core.ApplicationData.Instance.Logger.AddLog(new ResourceHelper(), e);
+            }
+            return result;
+        }
+
     }
 }
