@@ -54,6 +54,26 @@ namespace GAPPSF.LiveAPILogGeocaches
             set { SetProperty(ref _isLogSelected, value); }
         }
 
+
+        private LogInfo.ImageInfo _selectedLogImage;
+        public LogInfo.ImageInfo SelectedLogImage
+        {
+            get { return _selectedLogImage; }
+            set
+            {
+                SetProperty(ref _selectedLogImage, value);
+                IsLogImageSelected = _selectedLogImage != null;
+            }
+        }
+
+
+        private bool _isLogImageSelected;
+        public bool IsLogImageSelected
+        {
+            get { return _isLogImageSelected; }
+            set { SetProperty(ref _isLogImageSelected, value); }
+        }
+
         private bool _isMultipleLogSelected;
         public bool IsMultipleLogSelected
         {
@@ -174,7 +194,6 @@ namespace GAPPSF.LiveAPILogGeocaches
                 ctbdrop.IsChecked = _selectedLog.TrackableDrop;
                 ctbretrieve.Text = _selectedLog.TrackableRetrieve;
                 caddfav.IsChecked = _selectedLog.AddToFavorites;
-                //todo: images
             }
         }
 
@@ -188,7 +207,6 @@ namespace GAPPSF.LiveAPILogGeocaches
                 _selectedLog.TrackableDrop = ctbdrop.IsChecked==true;
                 _selectedLog.TrackableRetrieve = ctbretrieve.Text;
                 _selectedLog.AddToFavorites = caddfav.IsChecked == true;
-                //todo: images
             }
         }
 
@@ -251,7 +269,6 @@ namespace GAPPSF.LiveAPILogGeocaches
                     l.TrackableDrop = ctbdrop.IsChecked == true;
                     //l.TrackableRetrieve = ctbretrieve.Text;
                     l.AddToFavorites = caddfav.IsChecked == true;
-                    //todo: images
                 }
             }
         }
@@ -277,6 +294,40 @@ namespace GAPPSF.LiveAPILogGeocaches
                 AvailableLogs.RemoveAt(index);
                 AvailableLogs.Insert(index + 1, l);
                 SelectedLog = l;
+            }
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            if (SelectedLog!=null)
+            {
+                Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+                dlg.FileName = ""; // Default file name
+                dlg.Filter = "*.*|*.*"; // Filter files by extension 
+
+                // Show open file dialog box
+                Nullable<bool> result = dlg.ShowDialog();
+
+                // Process open file dialog box results 
+                if (result == true)
+                {
+                    LogInfo.ImageInfo ii = new LogInfo.ImageInfo();
+                    ii.Caption = System.IO.Path.GetFileName(dlg.FileName);
+                    ii.Description = System.IO.Path.GetFileName(dlg.FileName);
+                    ii.Uri = dlg.FileName;
+                    ii.RotationDeg = 0;
+
+                    SelectedLog.Images.Add(ii);
+                }
+
+            }
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            if (SelectedLog != null && SelectedLogImage!=null)
+            {
+                SelectedLog.Images.Remove(SelectedLogImage);
             }
         }
 

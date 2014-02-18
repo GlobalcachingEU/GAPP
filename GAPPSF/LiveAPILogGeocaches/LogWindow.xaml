@@ -110,7 +110,51 @@
                 <CheckBox Grid.Row="5" Grid.Column="1" x:Name="caddfav" Content="{l:Translate Add}" Margin="4" />
                 <TextBlock Margin="4" Grid.Row="6" Grid.Column="0" Text="{l:Translate Images}" />
                 <Grid  Grid.Row="6" Grid.Column="1" >
-                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <ListView Grid.Row="0" ItemsSource="{Binding Path=SelectedLog.Images}" SelectedItem="{Binding SelectedLogImage, Mode=TwoWay}">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Image Margin="4" Source="{Binding Path=Uri}" Width="50" Height="50" />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <Button Margin="4" Height="24" Width="24" Click="Button_Click_4" IsEnabled="{Binding IsLogSelected}">
+                            <Image Height="16" Width="16" Source="/Resources/General/new.png" />
+                        </Button>
+                        <Button Margin="4" Height="24" Width="24" IsEnabled="{Binding IsLogImageSelected}" Click="Button_Click_5">
+                            <Image Height="16" Width="16" Source="/Resources/General/delete.png" />
+                        </Button>
+                        <Button Margin="14,4,4,4" Height="24" Width="24" IsEnabled="{Binding IsLogImageSelected}">
+                            <Image Height="16" Width="16" Source="/Resources/General/rotateleft.png" />
+                        </Button>
+                        <Button Margin="4" Height="24" Width="24" IsEnabled="{Binding IsLogImageSelected}">
+                            <Image Height="16" Width="16" Source="/Resources/General/rotateright.png" />
+                        </Button>
+                    </StackPanel>
+                    <Grid Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Margin="4" Grid.Row="0" Grid.Column="0" Text="{l:Translate Name}" />
+                        <TextBox x:Name="cimgname" Margin="4" Grid.Row="0" Grid.Column="1" IsEnabled="{Binding IsLogImageSelected}" Text="{Binding Path=SelectedLogImage.Caption, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock Margin="4" Grid.Row="1" Grid.Column="0" Text="{l:Translate Description}" />
+                        <TextBox x:Name="cimgdescr" Margin="4" Grid.Row="1" Grid.Column="1" IsEnabled="{Binding IsLogImageSelected}" Text="{Binding Path=SelectedLogImage.Description, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Grid>
                 </Grid>
             </Grid>
         </Grid>

@@ -51,6 +51,18 @@ namespace GAPPSF
             set { SetProperty(ref _dutchMenusVisibility, value); }
         }
 
+        public Visibility DebugMenusVisibility
+        {
+            get 
+            {
+#if DEBUG
+                return Visibility.Visible;
+#else
+                return Visibility.Collapsed;
+#endif
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public MainWindow()
@@ -241,12 +253,8 @@ namespace GAPPSF
             {
                 if (_liveApiLogGeocachesCommand == null)
                 {
-#if DEBUG
-                    _liveApiLogGeocachesCommand = new RelayCommand(param => LiveAPILogGeocaches(null));
-#else
                     _liveApiLogGeocachesCommand = new RelayCommand(param => LiveAPILogGeocaches(null),
                         param => Core.Settings.Default.LiveAPIMemberTypeId > 0);
-#endif
                 }
                 return _liveApiLogGeocachesCommand;
             }
@@ -275,13 +283,8 @@ namespace GAPPSF
             {
                 if (_liveApiLogGeocachesSelectedCommand == null)
                 {
-#if DEBUG
-                    _liveApiLogGeocachesSelectedCommand = new RelayCommand(param => LiveAPILogGeocachesSelected(),
-                        param => Core.ApplicationData.Instance.ActiveDatabase != null && GeocacheSelectionCount > 0);
-#else
                     _liveApiLogGeocachesSelectedCommand = new RelayCommand(param => LiveAPILogGeocachesSelected(),
                         param => Core.ApplicationData.Instance.ActiveDatabase!=null && GeocacheSelectionCount > 0 && Core.Settings.Default.LiveAPIMemberTypeId > 0);
-#endif
                 }
                 return _liveApiLogGeocachesSelectedCommand;
             }
@@ -2603,6 +2606,23 @@ namespace GAPPSF
         public void LiveAPIAuthorize()
         {
             LiveAPI.GeocachingLiveV6.Authorize(true);
+        }
+
+        RelayCommand _liveApiAuthorizeTestSiteCommand;
+        public ICommand LiveApiAuthorizeTestSiteCommand
+        {
+            get
+            {
+                if (_liveApiAuthorizeTestSiteCommand == null)
+                {
+                    _liveApiAuthorizeTestSiteCommand = new RelayCommand(param => this.LiveAPIAuthorizeTestSite());
+                }
+                return _liveApiAuthorizeTestSiteCommand;
+            }
+        }
+        public void LiveAPIAuthorizeTestSite()
+        {
+            LiveAPI.GeocachingLiveV6.Authorize(true, true);
         }
 
 

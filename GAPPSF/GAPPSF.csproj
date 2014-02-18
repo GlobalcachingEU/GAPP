@@ -2402,6 +2402,10 @@
   <ItemGroup>
     <Resource Include="GPX\ExportGarminCommunicatorWindow.html" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\rotateleft.png" />
+    <Resource Include="Resources\General\rotateright.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)GlobalcachingApplication\bin\$(ConfigurationName)\"</PostBuildEvent>
