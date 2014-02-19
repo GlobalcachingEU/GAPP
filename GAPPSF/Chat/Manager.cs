@@ -70,6 +70,8 @@ namespace GAPPSF.Chat
         {
             _id = Guid.NewGuid().ToString("N");
             _room = "Lobby";
+            UsersInRoomList = new ObservableCollection<UserInRoomInfo>();
+            RoomList = new ObservableCollection<RoomInfo>();
 
             _context = SynchronizationContext.Current;
             if (_context == null)
@@ -193,6 +195,10 @@ namespace GAPPSF.Chat
                                 }
                                 else if (msg.Name == "txt")
                                 {
+                                    if (NewTextMessage!=null)
+                                    {
+                                        NewTextMessage(this, msg.ID, msg.Parameters["msg"], Color.FromArgb(int.Parse(msg.Parameters["color"])));
+                                    }
                                 }
                                 else if (msg.Name == "usersinroom")
                                 {

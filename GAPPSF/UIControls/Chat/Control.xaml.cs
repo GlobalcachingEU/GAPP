@@ -56,9 +56,8 @@ namespace GAPPSF.UIControls.Chat
             AddMessage(string.Format("{0} [{1}]:", DateTime.Now.ToString("t"), usr == null ? "" : usr.Username), System.Drawing.Color.Black);
             AddMessage(msg, col);
 
-            txtBox.AppendText(Environment.NewLine);
-            //txtBox.Selection.Start = txtBox.Document.Text.Length;
-            //txtBox.ScrollToCaret();            
+            txtBox.AppendText("\r");
+            txtBox.ScrollToEnd();            
         }
 
         void Instance_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -87,14 +86,11 @@ namespace GAPPSF.UIControls.Chat
         private void AddMessage(string msg, System.Drawing.Color col)
         {
             //InsertImage(Properties.Resources.wink);
-            /*
-            txtBox.SelectionStart = txtBox.TextLength;
-            txtBox.SelectionLength = 0;
 
-            txtBox.SelectionColor = col;
-            txtBox.AppendText(msg);
-            txtBox.SelectionColor = txtBox.ForeColor;
-             * */
+            TextRange tr = new TextRange(txtBox.Document.ContentEnd, txtBox.Document.ContentEnd);
+            tr.Text = msg;
+            var b = new SolidColorBrush(Color.FromArgb(col.A, col.R, col.G, col.B));
+            tr.ApplyPropertyValue(TextElement.ForegroundProperty, b);
         }
 
         public override string ToString()
