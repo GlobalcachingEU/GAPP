@@ -1783,4 +1783,10 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="cgeoGeocacheVisits" xml:space="preserve">
     <value>c:geo geocache visits</value>
   </data>
+  <data name="Dropped" xml:space="preserve">
+    <value>Dropped</value>
+  </data>
+  <data name="Chat" xml:space="preserve">
+    <value>Chat</value>
+  </data>
 </root>

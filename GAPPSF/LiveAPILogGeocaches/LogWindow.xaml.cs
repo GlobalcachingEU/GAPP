@@ -331,5 +331,35 @@ namespace GAPPSF.LiveAPILogGeocaches
             }
         }
 
+        private void Button_Click_6(object sender, RoutedEventArgs e)
+        {
+            if ( SelectedLogImage!=null)
+            {
+                if (SelectedLogImage.RotationDeg<90)
+                {
+                        SelectedLogImage.RotationDeg += 270;
+                }
+                else
+                {
+                    SelectedLogImage.RotationDeg -= 90;
+                }
+            }
+        }
+
+        private void Button_Click_7(object sender, RoutedEventArgs e)
+        {
+            if (SelectedLogImage != null)
+            {
+                if (SelectedLogImage.RotationDeg >= 270)
+                {
+                    SelectedLogImage.RotationDeg -= 270;
+                }
+                else
+                {
+                    SelectedLogImage.RotationDeg += 90;
+                }
+            }
+        }
+
     }
 }

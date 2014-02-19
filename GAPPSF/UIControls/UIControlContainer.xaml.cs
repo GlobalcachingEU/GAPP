@@ -310,6 +310,11 @@ namespace GAPPSF.UIControls
             FeatureControl = new LogImageViewer.Control();
         }
 
+        private void MenuItem_Click_23(object sender, RoutedEventArgs e)
+        {
+            FeatureControl = new Chat.Control();
+        }
+
 
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,12 +10,22 @@ namespace GAPPSF.LiveAPILogGeocaches
 {
     public class LogInfo
     {
-        public class ImageInfo
+        public class ImageInfo: INotifyPropertyChanged
         {
+            public event PropertyChangedEventHandler PropertyChanged;
+
             public string Uri { get; set; }
             public string Caption { get; set; }
             public string Description { get; set; }
-            public int RotationDeg { get; set; }
+
+            public int _rotationDeg = 0;
+            public int RotationDeg 
+            {
+                get { return _rotationDeg; } 
+                set 
+                { _rotationDeg = value; if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("RotationDeg")); } 
+            }
+        
 
             public override string ToString()
             {
@@ -43,6 +54,7 @@ namespace GAPPSF.LiveAPILogGeocaches
             {
                 return string.Format("{0}|{1}|{2}|{3}", Uri, RotationDeg, Caption == null ? "" : Caption.Replace("|", "[!-!]").Replace("\n", "").Replace("\r", "<!br!>"), Description == null ? "" : Description.Replace("|", "[!-!]").Replace("\n", "").Replace("\r", "<!br!>"));
             }
+
         }
 
         public string GeocacheCode { get; set; }
@@ -105,14 +117,14 @@ namespace GAPPSF.LiveAPILogGeocaches
                 {
                     sb.Append("|");
                 }
-                sb.Append(Images[i].ToDataString());
+                sb.Append(Images[i].ToDataString().Replace("|", "(!-!)"));
             }
             return sb.ToString();
         }
 
         public string ToDataString()
         {
-            return string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}", GeocacheCode ?? "", LogType.ID, VisitDate.ToString("s"), LogText == null ? "" : LogText.Replace("|", "(!-!)").Replace("\n", "").Replace("\r", "<!br!>"), TrackableDrop.ToString(), TrackableRetrieve.Replace("|", "(!-!)"), AddToFavorites.ToString(), getImagesDataString().Replace("|", "(!-!)"));
+            return string.Format("{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}", GeocacheCode ?? "", LogType.ID, VisitDate.ToString("s"), LogText == null ? "" : LogText.Replace("|", "(!-!)").Replace("\n", "").Replace("\r", "<!br!>"), TrackableDrop.ToString(), TrackableRetrieve.Replace("|", "(!-!)"), AddToFavorites.ToString(), getImagesDataString());
         }
     }
 }

@@ -192,6 +192,11 @@
     <Compile Include="Cachebox\ExportWindow.xaml.cs">
       <DependentUpon>ExportWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Chat\ChatMessage.cs" />
+    <Compile Include="Chat\Manager.cs" />
+    <Compile Include="Chat\RoomInfo.cs" />
+    <Compile Include="Chat\ServerConnection.cs" />
+    <Compile Include="Chat\UserInRoomInfo.cs" />
     <Compile Include="Clipboard\ClipboardHandler.cs" />
     <Compile Include="Commands\AsyncDelegateCommand.cs" />
     <Compile Include="Commands\CommandReference.cs" />
@@ -243,6 +248,7 @@
     <Compile Include="Core\Settings\CacheboxSettings.cs" />
     <Compile Include="Core\Settings\CacheListSettings.cs" />
     <Compile Include="Core\Settings\CARSettings.cs" />
+    <Compile Include="Core\Settings\ChatSettings.cs" />
     <Compile Include="Core\Settings\DatabaseBackupSettings.cs" />
     <Compile Include="Core\Settings\DebugLogViewSettings.cs" />
     <Compile Include="Core\Settings\ExcelSettings.cs" />
@@ -871,6 +877,9 @@
     <Compile Include="UIControls\CAR\Control.xaml.cs">
       <DependentUpon>Control.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UIControls\Chat\Control.xaml.cs">
+      <DependentUpon>Control.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIControls\CheckedListItem.cs" />
     <Compile Include="UIControls\ComboColorPicker.xaml.cs">
       <DependentUpon>ComboColorPicker.xaml</DependentUpon>
@@ -1438,6 +1447,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIControls\CAR\Control.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\Chat\Control.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -3441,5 +3441,12 @@ namespace GAPPSF
             imp.SelectAndLog();
         }
 
+        private void menulbb8_Click(object sender, RoutedEventArgs e)
+        {
+            Window w = new FeatureWindow(new UIControls.Chat.Control());
+            w.Owner = this;
+            w.Show();
+        }
+
     }
 }

@@ -8,7 +8,6 @@ todo GAPP SF:
 - Open Areas map
 - Internal browser
 - chat
-- log geocaches using LiveAPI
 
 GAPP SF V0.0.23
 
@@ -22,6 +21,7 @@ GAPP SF V0.0.23
 - add: GPX export using Garmin communicator
 - fix: geocache editor, changed personal note to a multiline text field
 - fix: waypoint editor, changed comment to a multiline text field
+- add: LiveAPI, log geocaches
 
 GAPP V1.9.15.0
 

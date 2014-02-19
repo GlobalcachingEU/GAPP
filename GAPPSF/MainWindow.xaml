@@ -350,6 +350,7 @@
                     <MenuItem x:Name="menuqqb8" Header="{l:Translate NotesEditor}" Click="menuqqb8_Click" />
                     <MenuItem x:Name="menuzzb8" Header="{l:Translate GeocacheCollections}" Click="menuzzb8_Click" />
                     <MenuItem x:Name="menulib8" Header="{l:Translate LogImageViewer}" Click="menulib8_Click" />
+                    <MenuItem x:Name="menulbb8" Header="{l:Translate Chat}" Click="menulbb8_Click" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate Help}">
                     <MenuItem x:Name="menua37" Header="{l:Translate Forum}" Click="menua37_Click" />
