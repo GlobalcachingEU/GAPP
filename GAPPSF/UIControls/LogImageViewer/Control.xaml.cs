@@ -35,16 +35,26 @@ namespace GAPPSF.UIControls.LogImageViewer
                 SetProperty(ref _selectedLogImage, value);
                 if (_selectedLogImage==null)
                 {
+                    LogImageThumbSource = null;
                     LogImageSource = null;
                 }
                 else
                 {
                     try
                     {
+                        if (_selectedLogImage.Url.IndexOf("/cache/log/") > 0)
+                        {
+                            LogImageThumbSource = new BitmapImage(new Uri(_selectedLogImage.Url.Replace("/cache/log", "/cache/log/thumb")));
+                        }
+                        else
+                        {
+                            LogImageThumbSource = null;
+                        }
                         LogImageSource = new BitmapImage(new Uri(_selectedLogImage.Url));
                     }
                     catch
                     {
+                        LogImageThumbSource = null;
                         LogImageSource = null;
                     }
                 }
@@ -58,6 +68,16 @@ namespace GAPPSF.UIControls.LogImageViewer
             set 
             {
                 SetProperty(ref _logImageSource, value);
+            }
+        }
+
+        private BitmapSource _logImageThumbSource;
+        public BitmapSource LogImageThumbSource
+        {
+            get { return _logImageThumbSource; }
+            set
+            {
+                SetProperty(ref _logImageThumbSource, value);
             }
         }
 
