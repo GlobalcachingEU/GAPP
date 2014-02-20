@@ -6,8 +6,10 @@
              xmlns:l="clr-namespace:GAPPSF.Localization"
              xmlns:p="clr-namespace:GAPPSF.Core"
              xmlns:ui="clr-namespace:GAPPSF.UIControls"
+             xmlns:osc="clr-namespace:OpenSourceControls"
+             xmlns:chat="clr-namespace:GAPPSF.Chat"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="500">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -15,14 +17,16 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <CheckBox Margin="0" Grid.Row="0" Content="{l:Translate ICanBeFollowed}" />
+        <CheckBox Margin="0" Grid.Row="0" IsEnabled="{Binding ChatEnabled}" Content="{l:Translate ICanBeFollowed}" IsChecked="{Binding ICanBeFollowed, Source={x:Static chat:Manager.Instance}, Mode=TwoWay}"  />
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="76*" />
+                <ColumnDefinition Width="8*"/>
+                <ColumnDefinition Width="246*"/>
                 <ColumnDefinition Width="5" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="165*" />
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0">
+            <Grid Grid.Column="0" Grid.ColumnSpan="3">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3*" />
                     <RowDefinition Height="5" />
@@ -30,19 +34,58 @@
                 </Grid.RowDefinitions>
                 <RichTextBox x:Name="txtBox" Margin="4" Grid.Row="0" />
                 <GridSplitter Height="5" Grid.Row="1" ResizeBehavior="PreviousAndNext" ResizeDirection="Rows" HorizontalAlignment="Stretch" />
-                <Grid Grid.Row="2">
+                <Grid Grid.Row="2" IsEnabled="{Binding ChatEnabled}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        
-                    </Grid>
-                    <TextBox Grid.Row="1" />
+                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                        <osc:ComboColorPicker Margin="4" Width="100" x:Name="colorPicker" ColorChanged="colorPicker_ColorChanged" />
+                        <CheckBox Margin="4" Content="{l:Translate PlaySounds}" IsChecked="{Binding ChatPlaySounds, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+                        <Button Margin="4" Content="{l:Translate Clear}" Click="Button_Click" />
+                    </StackPanel>
+                    <TextBox Grid.Row="1" x:Name="txtEntry" PreviewKeyDown="TextBox_PreviewKeyDown" />
                 </Grid>
             </Grid>
-            <GridSplitter Width="5" Grid.Column="1" ResizeBehavior="PreviousAndNext" ResizeDirection="Columns" />
-            <TabControl Margin="4" Grid.Column="2" />
+            <GridSplitter Width="5" Grid.Column="3" ResizeBehavior="PreviousAndNext" ResizeDirection="Columns" />
+            <TabControl Margin="4" Grid.Column="4">
+                <TabItem Header="{l:Translate Users}">
+                    <Grid IsEnabled="{Binding ChatEnabled}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Button Margin="4" Grid.Row="0" Content="{l:Translate Follow}" Click="Button_Click_1" />
+                        <Button Margin="4" Grid.Row="1" Content="{l:Translate CopySelection}" Click="Button_Click_3" />
+                        <TextBlock Margin="4" Grid.Row="2" Text="{Binding FollowActiveGeocacheText}" PreviewMouseLeftButtonDown="TextBlock_PreviewMouseLeftButtonDown" FontWeight="Bold" TextDecorations="Underline" Foreground="#FF1A99F1" />
+                        <ListBox Margin="4" Grid.Row="3" 
+                                 ItemsSource="{Binding UsersInRoomList, Source={x:Static chat:Manager.Instance}}"
+                                 SelectedItem="{Binding SelectedUser, Mode=TwoWay}"
+                                 DisplayMemberPath="Text"
+                                 />
+                    </Grid>
+                </TabItem>
+                <TabItem Header="{l:Translate Rooms}">
+                    <Grid IsEnabled="{Binding ChatEnabled}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Margin="4" Grid.Row="0" Text="{Binding Room, Source={x:Static chat:Manager.Instance}, Mode=OneWay}" HorizontalAlignment="Center" />
+                        <Button Margin="4" Grid.Row="1" Content="{l:Translate CreateJoinRoom}" Click="Button_Click_2" />
+                        <TextBox Margin="4" Grid.Row="2" x:Name="txtroom" />
+                        <ListBox Margin="4" Grid.Row="3" 
+                                 ItemsSource="{Binding RoomList, Source={x:Static chat:Manager.Instance}}"
+                                 SelectedItem="{Binding SelectedRoom, Mode=TwoWay}"
+                                 DisplayMemberPath="Name"
+                                 />
+                    </Grid>
+                </TabItem>
+            </TabControl>
         </Grid>
         <StatusBar Grid.Row="3">
             <TextBlock Text="{Binding StatusBarConnectionText}" />

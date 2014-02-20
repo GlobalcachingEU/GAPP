@@ -7,7 +7,6 @@ todo GAPP:
 todo GAPP SF:
 - Open Areas map
 - Internal browser
-- chat
 
 GAPP SF V0.0.23
 
@@ -22,6 +21,7 @@ GAPP SF V0.0.23
 - fix: geocache editor, changed personal note to a multiline text field
 - fix: waypoint editor, changed comment to a multiline text field
 - add: LiveAPI, log geocaches
+- add: Integrated Chat with follow user option
 
 GAPP V1.9.15.0
 

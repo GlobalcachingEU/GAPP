@@ -259,7 +259,7 @@ namespace GlobalcachingApplication.Plugins.Chat
                                 else if (msg.Name == "txt")
                                 {
                                     AddMessage(msg.ID, msg.Parameters["msg"], Color.FromArgb(int.Parse(msg.Parameters["color"])));
-                                    if (checkBoxPlaySound.Checked && _sndWelcome != null)
+                                    if (checkBoxPlaySound.Checked && _sndMessage != null)
                                     {
                                         _sndMessage.Play();
                                         //System.Media.SystemSounds.Beep.Play();

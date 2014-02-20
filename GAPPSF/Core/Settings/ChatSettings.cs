@@ -28,5 +28,15 @@ namespace GAPPSF.Core
             get { return int.Parse(GetProperty("100")); }
             set { SetProperty(value.ToString()); }
         }
+        public string ChatMessageColor
+        {
+            get { return GetProperty("Black"); }
+            set { SetProperty(value); }
+        }
+        public bool ChatPlaySounds
+        {
+            get { return bool.Parse(GetProperty("True")); }
+            set { SetProperty(value.ToString()); }
+        }
     }
 }

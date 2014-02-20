@@ -1789,4 +1789,46 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="Chat" xml:space="preserve">
     <value>Chat</value>
   </data>
+  <data name="MustAuthorize" xml:space="preserve">
+    <value>You must authorize this application in order to execute this plugin</value>
+  </data>
+  <data name="PMRequired" xml:space="preserve">
+    <value>Premium membership of geocaching.com is required in order to execute this plugin</value>
+  </data>
+  <data name="PlaySounds" xml:space="preserve">
+    <value>Play sounds</value>
+  </data>
+  <data name="JoinedTheRoom" xml:space="preserve">
+    <value>joined the room</value>
+  </data>
+  <data name="Connected" xml:space="preserve">
+    <value>Connected</value>
+  </data>
+  <data name="Connecting" xml:space="preserve">
+    <value>Connecting</value>
+  </data>
+  <data name="CreateJoinRoom" xml:space="preserve">
+    <value>Create/Join</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>Follow</value>
+  </data>
+  <data name="ICanBeFollowed" xml:space="preserve">
+    <value>I can be followed</value>
+  </data>
+  <data name="NotConnected" xml:space="preserve">
+    <value>Not connected</value>
+  </data>
+  <data name="SignedIn" xml:space="preserve">
+    <value>Signed in</value>
+  </data>
+  <data name="SigningIn" xml:space="preserve">
+    <value>Signing in</value>
+  </data>
+  <data name="Missing" xml:space="preserve">
+    <value>missing</value>
+  </data>
+  <data name="RequestedSelection" xml:space="preserve">
+    <value>requested selection</value>
+  </data>
 </root>

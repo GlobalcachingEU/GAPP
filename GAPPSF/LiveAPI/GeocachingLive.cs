@@ -11,10 +11,6 @@ namespace GAPPSF.LiveAPI
 {
     public class GeocachingLiveV6 : IDisposable
     {
-        public const string STR_PMREQUIRED = "Premium membership of geocaching.com is required in order to execute this plugin";
-        public const string STR_ERROR = "Error";
-        public const string STR_MUSTAUTHORIZE = "You must authorize this application in order to execute this plugin";
-
         private LiveV6.LiveClient _client = null;
         private string _token = "";
 
@@ -42,6 +38,7 @@ namespace GAPPSF.LiveAPI
                 MaxBufferSize = int.MaxValue,
                 MaxReceivedMessageSize = int.MaxValue,
                 AllowCookies = false,
+                //UseDefaultWebProxy = true,
             };
 
             // add the binding elements into a Custom Binding
@@ -92,12 +89,12 @@ namespace GAPPSF.LiveAPI
                 }
                 else
                 {
-                    //System.Windows.Forms.MessageBox.Show(STR_PMREQUIRED, STR_ERROR, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                    Core.ApplicationData.Instance.Logger.AddLog(null, Core.Logger.Level.Error, Localization.TranslationManager.Instance.Translate("PMRequired") as string);
                 }
             }
             else
             {
-                //System.Windows.Forms.MessageBox.Show(Utils.LanguageSupport.Instance.GetTranslation(STR_MUSTAUTHORIZE), Utils.LanguageSupport.Instance.GetTranslation(STR_ERROR), System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                Core.ApplicationData.Instance.Logger.AddLog(null, Core.Logger.Level.Error, Localization.TranslationManager.Instance.Translate("MustAuthorize") as string);
             }
             return result;
         }

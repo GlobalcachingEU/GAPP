@@ -24,20 +24,31 @@ namespace GAPPSF.Chat
         }
         
         public delegate void TextMessageEventHandler(object sender, string fromid, string msg, Color col);
+        public delegate void UserInfoUpdateEventHandler(object sender, UserInRoomInfo usr);
 
         private static Manager _uniqueInstance = null;
         private static object _lockObject = new object();
         private ServerConnection _serverConnection = null;
         private int _refCount = 0;
         private SynchronizationContext _context = null;
+        private System.Media.SoundPlayer _sndWelcome = null;
+        private System.Media.SoundPlayer _sndMessage = null;
+        private System.Windows.Threading.DispatcherTimer retryTimer = null;
+        private int _retryCount = 0;
+        private string _currentCopySelectionRequestID = null;
+
+        private Core.Storage.Database _copySelectionDb = null;
+        private List<string> _importGeocaches = new List<string>();
+        private Utils.DataUpdater _dataUpdater = null;
+        private Thread _getGeocacheThread = null;
 
         private string _id = "";
         public string ID { get { return _id; } }
 
         private string _room = "";
         public string Room 
-        { 
-            get { return _id; }
+        {
+            get { return _room; }
             set
             {
                 if (_room != value)
@@ -55,6 +66,7 @@ namespace GAPPSF.Chat
 
         public event PropertyChangedEventHandler PropertyChanged;
         public event TextMessageEventHandler NewTextMessage;
+        public event UserInfoUpdateEventHandler UserInfoUpdate;
 
         public ObservableCollection<UserInRoomInfo> UsersInRoomList { get; set; }
         public ObservableCollection<RoomInfo> RoomList { get; set; }
@@ -66,6 +78,35 @@ namespace GAPPSF.Chat
             set { SetProperty(ref _connectionStatus, value); }
         }
 
+        private bool _iCanBeFollowed = false;
+        public bool ICanBeFollowed
+        {
+            get { return _iCanBeFollowed; }
+            set
+            {
+                if (_iCanBeFollowed!=value)
+                {
+                    SetProperty(ref _iCanBeFollowed, value);
+                    if (_serverConnection!=null &&  _connectionStatus== ConnectionStatus.SignedIn)
+                    {
+                        ChatMessage msg = new ChatMessage();
+                        msg.Name = "follow";
+                        msg.Parameters.Add("canfollow", _iCanBeFollowed.ToString());
+                        msg.Parameters.Add("cache", _iCanBeFollowed ? Core.ApplicationData.Instance.ActiveGeocache == null ? "" : Core.ApplicationData.Instance.ActiveGeocache.Code : "");
+                        msg.Parameters.Add("selected", _iCanBeFollowed ? Core.ApplicationData.Instance.MainWindow.GeocacheSelectionCount.ToString() : "");
+                        if (!SendMessage(msg))
+                        {
+                            ICanBeFollowed = false;
+                        }
+                    }
+                    else
+                    {
+                        ICanBeFollowed = false;
+                    }
+                }
+            }
+        }
+
         private Manager()
         {
             _id = Guid.NewGuid().ToString("N");
@@ -73,10 +114,42 @@ namespace GAPPSF.Chat
             UsersInRoomList = new ObservableCollection<UserInRoomInfo>();
             RoomList = new ObservableCollection<RoomInfo>();
 
+            Core.ApplicationData.Instance.MainWindow.PropertyChanged += MainWindow_PropertyChanged;
+
+            try
+            {
+                Uri u = Utils.ResourceHelper.GetResourceUri("/Resources/General/welcome.wav");
+                System.Windows.Resources.StreamResourceInfo info = System.Windows.Application.GetResourceStream(u);
+                _sndWelcome = new System.Media.SoundPlayer(info.Stream);
+                u = Utils.ResourceHelper.GetResourceUri("/Resources/General/welcome.wav");
+                info = System.Windows.Application.GetResourceStream(u);
+                _sndMessage = new System.Media.SoundPlayer(info.Stream);
+            }
+            catch (Exception e)
+            {
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
+            }
+
             _context = SynchronizationContext.Current;
             if (_context == null)
             {
                 _context = new SynchronizationContext();
+            }
+        }
+
+        void MainWindow_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "GeocacheSelectionCount")
+            {
+                if (_serverConnection != null && _connectionStatus == ConnectionStatus.SignedIn && ICanBeFollowed)
+                {
+                    ChatMessage msg = new ChatMessage();
+                    msg.Name = "follow";
+                    msg.Parameters.Add("canfollow", _iCanBeFollowed.ToString());
+                    msg.Parameters.Add("cache", _iCanBeFollowed ? Core.ApplicationData.Instance.ActiveGeocache == null ? "" : Core.ApplicationData.Instance.ActiveGeocache.Code : "");
+                    msg.Parameters.Add("selected", _iCanBeFollowed ? Core.ApplicationData.Instance.MainWindow.GeocacheSelectionCount.ToString() : "");
+                    SendMessage(msg);
+                }
             }
         }
 
@@ -101,6 +174,10 @@ namespace GAPPSF.Chat
         public void Attach()
         {
             _refCount++;
+            if (_refCount==1)
+            {
+                _retryCount = 0;
+            }
             if (_serverConnection==null)
             {
                 openConnection();
@@ -111,8 +188,47 @@ namespace GAPPSF.Chat
             _refCount--;
             if (_refCount<=0)
             {
+                if (retryTimer!=null)
+                {
+                    retryTimer.IsEnabled = false;
+                }
                 _refCount = 0;
                 closeConnection();
+            }
+        }
+
+        public bool BroadcastTextMessage(string txt)
+        {
+            bool result = false;
+            if (_serverConnection != null && _connectionStatus == ConnectionStatus.SignedIn)
+            {
+                string s = txt.Trim();
+                if (s.Length > 0)
+                {
+                    ChatMessage msg = new ChatMessage();
+                    msg.Name = "txt";
+                    msg.Parameters.Add("msg", s);
+                    System.Windows.Media.Color c = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(Core.Settings.Default.ChatMessageColor);
+                    Color col = Color.FromArgb(c.A, c.R, c.G, c.B);
+                    msg.Parameters.Add("color", col.ToArgb().ToString());
+                    result = SendMessage(msg);
+                }
+            }
+            return result;
+        }
+
+        public void RequestCopySelection(UserInRoomInfo usr)
+        {
+            if (_serverConnection != null && _connectionStatus == ConnectionStatus.SignedIn && usr.CanBeFollowed && usr.SelectionCount > 0)
+            {
+                //send request
+                _currentCopySelectionRequestID = Guid.NewGuid().ToString("N");
+
+                ChatMessage msg = new ChatMessage();
+                msg.Name = "reqsel";
+                msg.Parameters.Add("reqid", _currentCopySelectionRequestID);
+                msg.Parameters.Add("clientid", usr.ID);
+                SendMessage(msg);
             }
         }
 
@@ -152,10 +268,30 @@ namespace GAPPSF.Chat
 
         private void checkRetry()
         {
-            if (_serverConnection == null && _refCount > 0)
+            if (_serverConnection == null && _refCount > 0 && _retryCount<3)
             {
-                //todo
+                if (retryTimer == null)
+                {
+                    retryTimer = new System.Windows.Threading.DispatcherTimer();
+                    retryTimer.Interval = new TimeSpan(0, 0, 2);
+                    retryTimer.Tick += retryTimer_Tick;
+                }
+                retryTimer.IsEnabled = false;
+                retryTimer.IsEnabled = true;
             }
+        }
+
+        void retryTimer_Tick(object sender, EventArgs e)
+        {
+            retryTimer.IsEnabled = false;
+            _context.Post(new SendOrPostCallback(delegate(object state)
+            {
+                if (_refCount > 0)
+                {
+                    _retryCount++;
+                    openConnection();
+                }
+            }), null);            
         }
 
         private void _serverConnection_ConnectionClosed(object sender, EventArgs e)
@@ -191,6 +327,7 @@ namespace GAPPSF.Chat
                                 }
                                 else if (msg.Name == "signinsuccess")
                                 {
+                                    _retryCount = 0;
                                     ChatConnectionStatus = ConnectionStatus.SignedIn;
                                 }
                                 else if (msg.Name == "txt")
@@ -198,6 +335,10 @@ namespace GAPPSF.Chat
                                     if (NewTextMessage!=null)
                                     {
                                         NewTextMessage(this, msg.ID, msg.Parameters["msg"], Color.FromArgb(int.Parse(msg.Parameters["color"])));
+                                    }
+                                    if (Core.Settings.Default.ChatPlaySounds && _sndMessage != null)
+                                    {
+                                        _sndMessage.Play();
                                     }
                                 }
                                 else if (msg.Name == "usersinroom")
@@ -234,16 +375,28 @@ namespace GAPPSF.Chat
                                             UsersInRoomList.Add(c);
                                             if (!wasempty)
                                             {
-                                                //todo
-                                                //AddMessage("-1", string.Format("{0} {1}", c.Username, Utils.LanguageSupport.Instance.GetTranslation(STR_JOINED)), Color.Black);
+                                                if (NewTextMessage != null)
+                                                {
+                                                    NewTextMessage(this, "-1", string.Format("{0} {1}", c.Username, Localization.TranslationManager.Instance.Translate("JoinedTheRoom") as string), Color.Black);
+                                                }
                                             }
                                             newUser = true;
                                         }
                                         else
                                         {
+                                            bool cbf = c.CanBeFollowed;
+                                            string agc = c.ActiveGeocache;
                                             c.CanBeFollowed = bool.Parse(msg.Parameters[string.Format("cbf{0}", i)]);
                                             c.ActiveGeocache = msg.Parameters[string.Format("agc{0}", i)];
                                             c.present = true;
+                                            c.UpdateText();
+                                            if (cbf!=c.CanBeFollowed || agc!=c.ActiveGeocache)
+                                            {
+                                                if (UserInfoUpdate != null)
+                                                {
+                                                    UserInfoUpdate(this, c);
+                                                }
+                                            }
                                         }
                                         i++;
                                     }
@@ -253,11 +406,10 @@ namespace GAPPSF.Chat
                                         UsersInRoomList.Remove(x);
                                     }
 
-                                    //if (checkBoxPlaySound.Checked && newUser && _sndWelcome != null)
-                                    //{
-                                    //    _sndWelcome.Play();
-                                        //System.Media.SystemSounds.Beep.Play();
-                                    //}
+                                    if (newUser && Core.Settings.Default.ChatPlaySounds && _sndWelcome != null)
+                                    {
+                                        _sndWelcome.Play();
+                                    }
                                 }
                                 else if (msg.Name == "follow")
                                 {
@@ -283,30 +435,11 @@ namespace GAPPSF.Chat
                                             {
                                                 c.FollowThisUser = false;
                                             }
-                                            else
-                                            {
-                                                if (!string.IsNullOrEmpty(c.ActiveGeocache))
-                                                {
-                                                    if (Core.ApplicationData.Instance.ActiveDatabase != null)
-                                                    {
-                                                        Core.Data.Geocache gc = Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection.GetGeocache(c.ActiveGeocache);
-                                                        if (gc != null)
-                                                        {
-                                                            Core.ApplicationData.Instance.ActiveGeocache = gc;
-                                                        }
-                                                        else if (c.ActiveGeocache.StartsWith("GC") && Core.Settings.Default.LiveAPIMemberTypeId > 0)
-                                                        {
-                                                            //offer to download
-                                                        }
-                                                        else
-                                                        {
-                                                        }
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                }
-                                            }
+                                        }
+                                        c.UpdateText();
+                                        if (UserInfoUpdate != null)
+                                        {
+                                            UserInfoUpdate(this, c);
                                         }
                                     }
                                 }
@@ -348,7 +481,10 @@ namespace GAPPSF.Chat
                                     UserInRoomInfo c = (from x in curUsr where x.ID == msg.ID select x).FirstOrDefault();
                                     if (c != null)
                                     {
-                                        //AddMessage("-1", string.Format("{0} {1}", c.Username, Utils.LanguageSupport.Instance.GetTranslation(STR_REQUESTEDSELECTION)), Color.Black);
+                                        if (NewTextMessage != null)
+                                        {
+                                            NewTextMessage(this, "-1", string.Format("{0} {1}", c.Username, Localization.TranslationManager.Instance.Translate("RequestedSelection") as string), Color.Black);
+                                        }
                                         if (Core.ApplicationData.Instance.ActiveDatabase != null)
                                         {
                                             var gsel = from Core.Data.Geocache g in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection where g.Selected select g;
@@ -367,46 +503,46 @@ namespace GAPPSF.Chat
 
                                     SendMessage(bmsg);
                                 }
-                                    /*
                                 else if (msg.Name == "reqselresp")
                                 {
-                                    if (msg.Parameters["reqid"] == _currentCopySelectionRequestID)
+                                    if (msg.Parameters["reqid"] == _currentCopySelectionRequestID && _getGeocacheThread==null)
                                     {
                                         //handle response
-                                        string[] gcCodes = msg.Parameters["selection"].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-                                        Core.Geocaches.BeginUpdate();
-                                        foreach (Framework.Data.Geocache g in Core.Geocaches)
+                                        Core.Storage.Database db = Core.ApplicationData.Instance.ActiveDatabase;
+                                        if (db != null)
                                         {
-                                            g.Selected = gcCodes.Contains(g.Code);
-                                        }
-                                        Core.Geocaches.EndUpdate();
-                                        //are we missing geocaches?
-                                        _importGeocaches.Clear();
-                                        if (Core.GeocachingComAccount.MemberTypeId > 1)
-                                        {
-                                            foreach (string s in gcCodes)
+                                            string[] gcCodes = msg.Parameters["selection"].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                                            using (Utils.DataUpdater upd = new Utils.DataUpdater(db))
                                             {
-                                                if (Utils.DataAccess.GetGeocache(Core.Geocaches, s) == null && s.StartsWith("GC"))
+                                                foreach (var g in db.GeocacheCollection)
                                                 {
-                                                    _importGeocaches.Add(s);
+                                                    g.Selected = gcCodes.Contains(g.Code);
                                                 }
                                             }
-                                            if (_importGeocaches.Count > 0)
+                                            //are we missing geocaches?
+                                            _importGeocaches.Clear();
+                                            if (Core.Settings.Default.LiveAPIMemberTypeId > 0)
                                             {
-                                                _frameworkUpdater = new Utils.FrameworkDataUpdater(Core);
-                                                _getGeocacheThread = new Thread(new ThreadStart(getCopiedSelectionGeocacheInbackgroundMethod));
-                                                _getGeocacheThread.IsBackground = true;
-                                                _getGeocacheThread.Start();
+                                                foreach (string s in gcCodes)
+                                                {
+                                                    if (db.GeocacheCollection.GetGeocache(s) == null && s.StartsWith("GC"))
+                                                    {
+                                                        _importGeocaches.Add(s);
+                                                    }
+                                                }
+                                                if (_importGeocaches.Count > 0)
+                                                {
+                                                    _copySelectionDb = db;
+                                                    _dataUpdater = new Utils.DataUpdater(db);
+                                                    _getGeocacheThread = new Thread(new ThreadStart(getCopiedSelectionGeocacheInbackgroundMethod));
+                                                    _getGeocacheThread.IsBackground = true;
+                                                    _getGeocacheThread.Start();
+                                                }
                                             }
                                         }
-                                        //reset request prop.
-                                        timerCopySelection.Enabled = false;
-                                        _currentCopySelectionRequestID = null;
-                                        _copySelectionRequestStarted = DateTime.MinValue;
-                                        toolStripStatusLabelRequestSelection.Visible = false;
                                     }
+                                    _currentCopySelectionRequestID = null;
                                 }
-                                     */
                             }
                             data = _serverConnection.ReadData();
                         }
@@ -416,6 +552,34 @@ namespace GAPPSF.Chat
                 {
                     closeConnection();
                 }
+            }), null);
+        }
+
+        private void getCopiedSelectionGeocacheInbackgroundMethod()
+        {
+            try
+            {
+                LiveAPI.Import.ImportGeocaches(_copySelectionDb, _importGeocaches);
+                foreach (string s in _importGeocaches)
+                {
+                    var gc = _copySelectionDb.GeocacheCollection.GetGeocache(s);
+                    if (gc!=null)
+                    {
+                        gc.Selected = true;
+                    }
+                }
+            }
+            catch(Exception e) 
+            {
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
+            }
+            _context.Post(new SendOrPostCallback(delegate(object state)
+            {
+                _dataUpdater.Dispose();
+                _dataUpdater = null;
+                _importGeocaches.Clear();
+                _getGeocacheThread = null;
+                _copySelectionDb = null;
             }), null);
         }
 
@@ -463,6 +627,8 @@ namespace GAPPSF.Chat
         {
             try
             {
+                UsersInRoomList.Clear();
+                RoomList.Clear();
                 if (_serverConnection != null)
                 {
                     _serverConnection.ConnectionClosed -= new EventHandler<EventArgs>(_serverConnection_ConnectionClosed);
