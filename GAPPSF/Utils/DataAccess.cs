@@ -326,6 +326,21 @@ namespace GAPPSF.Utils
             return db.LogImageCollection.GetLogImages(logId);
         }
 
+        public static List<Core.Data.LogImage> GetLogImages(Core.Data.Geocache gc)
+        {
+            Database db = gc.Database;
+            List<Core.Data.LogImage> result = new List<LogImage>();
+            List<Core.Data.Log> lgs = GetLogs(db, gc.Code);
+            if (lgs != null)
+            {
+                foreach (var l in lgs)
+                {
+                    result.AddRange(db.LogImageCollection.GetLogImages(l.ID));
+                }
+            }
+            return result;
+        }
+
         public static List<string> GetImagesOfGeocache(Database db, string geocacheCode)
         {
             return GetImagesOfGeocache(db, geocacheCode, false);

@@ -40,7 +40,7 @@ namespace GAPPSF.Core.Data
                 ms.Position = 420;
                 bw.Write(data.Name ?? "");
 
-                RecordInfo = db.RequestLogRecord(data.ID, data.LogId ?? "", DataBuffer, ms.Position, 10);
+                RecordInfo = db.RequestLogImageRecord(data.ID, data.LogId ?? "", DataBuffer, ms.Position, 10);
             }
         }
 

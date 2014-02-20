@@ -22,6 +22,7 @@ GAPP SF V0.0.23
 - fix: waypoint editor, changed comment to a multiline text field
 - add: LiveAPI, log geocaches
 - add: Integrated Chat with follow user option
+- fix: LogImages where not stored in database correctly
 
 GAPP V1.9.15.0
 

@@ -115,13 +115,14 @@ namespace GAPPSF.Chat
             RoomList = new ObservableCollection<RoomInfo>();
 
             Core.ApplicationData.Instance.MainWindow.PropertyChanged += MainWindow_PropertyChanged;
+            Core.ApplicationData.Instance.PropertyChanged += Instance_PropertyChanged;
 
             try
             {
                 Uri u = Utils.ResourceHelper.GetResourceUri("/Resources/General/welcome.wav");
                 System.Windows.Resources.StreamResourceInfo info = System.Windows.Application.GetResourceStream(u);
                 _sndWelcome = new System.Media.SoundPlayer(info.Stream);
-                u = Utils.ResourceHelper.GetResourceUri("/Resources/General/welcome.wav");
+                u = Utils.ResourceHelper.GetResourceUri("/Resources/General/message.wav");
                 info = System.Windows.Application.GetResourceStream(u);
                 _sndMessage = new System.Media.SoundPlayer(info.Stream);
             }
@@ -134,6 +135,25 @@ namespace GAPPSF.Chat
             if (_context == null)
             {
                 _context = new SynchronizationContext();
+            }
+        }
+
+        void Instance_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName=="ActiveGeocache")
+            {
+                if (_serverConnection != null && _connectionStatus == ConnectionStatus.SignedIn && ICanBeFollowed)
+                {
+                    if (ICanBeFollowed)
+                    {
+                        ChatMessage msg = new ChatMessage();
+                        msg.Name = "follow";
+                        msg.Parameters.Add("canfollow", _iCanBeFollowed.ToString());
+                        msg.Parameters.Add("cache", _iCanBeFollowed ? Core.ApplicationData.Instance.ActiveGeocache == null ? "" : Core.ApplicationData.Instance.ActiveGeocache.Code : "");
+                        msg.Parameters.Add("selected", _iCanBeFollowed ? Core.ApplicationData.Instance.MainWindow.GeocacheSelectionCount.ToString() : "");
+                        SendMessage(msg);
+                    }
+                }
             }
         }
 

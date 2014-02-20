@@ -95,7 +95,7 @@ namespace GAPPSF.UIControls.LogImageViewer
             AvailableLogImages.Clear();
             if (Core.ApplicationData.Instance.ActiveGeocache!=null)
             {
-                List<Core.Data.LogImage> lil = Utils.DataAccess.GetLogImages(Core.ApplicationData.Instance.ActiveGeocache.Database, Core.ApplicationData.Instance.ActiveGeocache.Code);
+                List<Core.Data.LogImage> lil = Utils.DataAccess.GetLogImages(Core.ApplicationData.Instance.ActiveGeocache);
                 foreach(var li in lil)
                 {
                     AvailableLogImages.Add(li);
