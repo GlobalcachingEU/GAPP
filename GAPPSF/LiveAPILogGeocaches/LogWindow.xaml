@@ -98,7 +98,7 @@
                 <TextBlock Margin="4" Grid.Row="1" Grid.Column="0" Text="{l:Translate Date}" />
                 <DatePicker x:Name="clogdate" Margin="4" Grid.Row="1" Grid.Column="2" />
                 <TextBlock Margin="4" Grid.Row="2" Grid.Column="0" Text="{l:Translate Text}" />
-                <TextBox x:Name="clogtext" Margin="4" Grid.Row="2" Grid.Column="1" AcceptsReturn="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                <TextBox x:Name="clogtext" Margin="4" Grid.Row="2" Grid.Column="1" MaxLength="4000" AcceptsReturn="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" />
                 <TextBlock Margin="4" Grid.Row="3" Grid.Column="0" Text="{l:Translate Trackables}" />
                 <CheckBox x:Name="ctbdrop"  Grid.Row="3" Grid.Column="1" Margin="4" Content="{l:Translate Dropped}" />
                 <TextBlock Margin="4" Grid.Row="4" Grid.Column="0" Text="{l:Translate Trackables}" />
@@ -163,8 +163,8 @@
             </Grid>
         </Grid>
         <StackPanel Grid.Row="2" Orientation="Horizontal">
-            <Button Margin="10,10,10,10" Content="{l:Translate LogSelected}" />
-            <Button Margin="10,10,10,10" Content="{l:Translate LogAll}" />
+            <Button Margin="10,10,10,10" Content="{l:Translate LogSelected}" Command="{Binding LogSelectedCommand}" />
+            <Button Margin="10,10,10,10" Content="{l:Translate LogAll}" Command="{Binding LogAllCommand}" />
             <Button Margin="10,10,10,10" Content="{l:Translate CopyToSelected}" IsEnabled="{Binding IsMultipleLogSelected}" Click="Button_Click_1" />
         </StackPanel>
     </Grid>

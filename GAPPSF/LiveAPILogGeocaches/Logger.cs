@@ -20,7 +20,7 @@ namespace GAPPSF.LiveAPILogGeocaches
                 }
                 using (Utils.ProgressBlock prog = new Utils.ProgressBlock("LogGeocache", "Logging", logInfos.Count, 0, true))
                 {
-                    using (var api = new LiveAPI.GeocachingLiveV6())
+                    using (var api = new LiveAPI.GeocachingLiveV6(true))
                     {
                         foreach (LogInfo li in logInfos)
                         {

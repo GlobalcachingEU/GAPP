@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GAPPSF.Commands;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -357,6 +358,57 @@ namespace GAPPSF.LiveAPILogGeocaches
                 else
                 {
                     SelectedLogImage.RotationDeg += 90;
+                }
+            }
+        }
+
+        private AsyncDelegateCommand _logAllCommand;
+        public AsyncDelegateCommand LogAllCommand
+        {
+            get
+            {
+                if (_logAllCommand==null)
+                {
+                    _logAllCommand = new AsyncDelegateCommand(param => LogAll(),
+                        param => AvailableLogs.Count > 0);
+                }
+                return _logAllCommand;
+            }
+        }
+        public async Task LogAll()
+        {
+            saveLogData();
+            Logger lgr = new Logger();
+            List<LogInfo> loglist=  await lgr.LogGeocachesAsync(AvailableLogs.ToList());
+            foreach(var l in loglist)
+            {
+                AvailableLogs.Remove(l);
+            }
+        }
+
+        private AsyncDelegateCommand _logSelectedCommand;
+        public AsyncDelegateCommand LogSelectedCommand
+        {
+            get
+            {
+                if (_logSelectedCommand == null)
+                {
+                    _logSelectedCommand = new AsyncDelegateCommand(param => LogSelected(),
+                        param => cloginfos.SelectedItems.Count> 0);
+                }
+                return _logSelectedCommand;
+            }
+        }
+        public async Task LogSelected()
+        {
+            if (cloginfos.SelectedItems.Count > 0)
+            {
+                saveLogData();
+                Logger lgr = new Logger();
+                List<LogInfo> loglist = await lgr.LogGeocachesAsync((from LogInfo a in cloginfos.SelectedItems select a).ToList());
+                foreach (var l in loglist)
+                {
+                    AvailableLogs.Remove(l);
                 }
             }
         }
