@@ -6,30 +6,28 @@ todo GAPP:
 
 todo GAPP SF:
 - Open Areas map
-- Internal browser
+- Trackable groeps
 
-GAPP SF V0.0.23
+V1.9.15.0
 
-- add: LiveAPI, update geocache images
-- add: LiveAPI, update geocache logs
-- add: language edit by user support
-- add: log image viewer
-- add: export garmin POI
-- change: Application Info, user can only select 1 database
-- fix: Cachelist, row now starts counting at 1
-- add: GPX export using Garmin communicator
-- fix: geocache editor, changed personal note to a multiline text field
-- fix: waypoint editor, changed comment to a multiline text field
-- add: LiveAPI, log geocaches
-- add: Integrated Chat with follow user option
-- fix: LogImages where not stored in database correctly
+- gapp: fix: geocache editor, changed personal note to a multiline text field
+- gapp: fix: waypoint editor, changed comment to a multiline text field
+- gapp: fix: Chat, changed IP address of chat server
 
-GAPP V1.9.15.0
-
-- change: Updated GAPP SF V0.0.23 (Preview, requires .NET 4.5.1)
-- fix: geocache editor, changed personal note to a multiline text field
-- fix: waypoint editor, changed comment to a multiline text field
-- fix: Chat, changed IP address of chat server
+- gappsf: add: LiveAPI, update geocache images
+- gappsf: add: LiveAPI, update geocache logs
+- gappsf: add: language edit by user support
+- gappsf: add: log image viewer
+- gappsf: add: export garmin POI
+- gappsf: change: Application Info, user can only select 1 database
+- gappsf: fix: Cachelist, row now starts counting at 1
+- gappsf: add: GPX export using Garmin communicator
+- gappsf: fix: geocache editor, changed personal note to a multiline text field
+- gappsf: fix: waypoint editor, changed comment to a multiline text field
+- gappsf: add: LiveAPI, log geocaches
+- gappsf: add: Integrated Chat with follow user option
+- gappsf: fix: LogImages where not stored in database correctly
+- gappsf: add: Internal browser
 
 GAPP SF V0.0.22
 

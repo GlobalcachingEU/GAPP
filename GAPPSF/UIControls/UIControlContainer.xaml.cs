@@ -315,6 +315,11 @@ namespace GAPPSF.UIControls
             FeatureControl = new Chat.Control();
         }
 
+        private void MenuItem_Click_24(object sender, RoutedEventArgs e)
+        {
+            FeatureControl = new InternalWebBrowser.Control();
+        }
+
 
     }
 }

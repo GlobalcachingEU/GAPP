@@ -8,43 +8,36 @@ namespace GAPPSF.Core
 {
     public partial class Settings
     {
-        public int GoogleMapWindowWidth
+        public int WebBrowserWindowWidth
         {
             get { return int.Parse(GetProperty("700")); }
             set { SetProperty(value.ToString()); }
         }
-        public int GoogleMapWindowHeight
+        public int WebBrowserWindowHeight
         {
             get { return int.Parse(GetProperty("700")); }
             set { SetProperty(value.ToString()); }
         }
-        public int GoogleMapWindowTop
+        public int WebBrowserWindowTop
         {
             get { return int.Parse(GetProperty("100")); }
             set { SetProperty(value.ToString()); }
         }
-        public int GoogleMapWindowLeft
+        public int WebBrowserWindowLeft
         {
             get { return int.Parse(GetProperty("100")); }
             set { SetProperty(value.ToString()); }
         }
 
-        public int GoogleMapClusterMinimumCountGeocaches
+        public string WebBrowserHomePage
         {
-            get { return int.Parse(GetProperty("500")); }
-            set { SetProperty(value.ToString()); }
+            get { return GetProperty("http://www.geocaching.com"); }
+            set { SetProperty(value); }
         }
-        public int GoogleMapClusterMaximumZoomLevel
+        public string WebBrowserBookmarks
         {
-            get { return int.Parse(GetProperty("13")); }
-            set { SetProperty(value.ToString()); }
+            get { return GetProperty(null); }
+            set { SetProperty(value); }
         }
-
-        public int GoogleMapClusterGridSize
-        {
-            get { return int.Parse(GetProperty("40")); }
-            set { SetProperty(value.ToString()); }
-        }
-
     }
 }

@@ -149,7 +149,7 @@ namespace GAPPSF.LiveAPIGetGeocaches
                         var SearchForGeocachesRequestProperties = new LiveAPI.LiveV6.SearchForGeocachesRequest();
                         SearchForGeocachesRequestProperties.IsLite = Core.Settings.Default.LiveAPIMemberTypeId == 1;
                         SearchForGeocachesRequestProperties.MaxPerPage = Core.Settings.Default.LiveAPIImportGeocachesBatchSize;
-                        if (!string.IsNullOrEmpty(Core.Settings.Default.LiveAPIGetGCLocation))
+                        if (!string.IsNullOrEmpty(Core.Settings.Default.LiveAPIGetGCLocation) && string.IsNullOrEmpty(Core.Settings.Default.LiveAPIGetGCCodes))
                         {
                             double dist = Core.Settings.Default.LiveAPIGetGCRadius * 1000.0;
                             if (Core.Settings.Default.LiveAPIGetGCLocationKm== UIControls.GeocacheFilter.BooleanEnum.False) dist *= 1.6214;

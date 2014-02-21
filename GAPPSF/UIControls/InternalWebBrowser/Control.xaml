@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="GAPPSF.UIControls.InternalWebBrowser.Control"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:l="clr-namespace:GAPPSF.Localization"
+             xmlns:p="clr-namespace:GAPPSF.Core"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Height="24" Width="24" Click="Button_Click_1">
+                <Image Height="16" Width="16" Source="/Resources/General/stop.png" />
+            </Button>
+            <Button Grid.Column="1" Height="24" Width="24" Click="Button_Click_2">
+                <Image Height="16" Width="16" Source="/Resources/General/back.gif" />
+            </Button>
+            <Button Grid.Column="2" Height="24" Width="24" Click="Button_Click_3">
+                <Image Height="16" Width="16" Source="/Resources/General/forward.gif" />
+            </Button>
+            <Button Grid.Column="3" Height="24" Width="24" Click="Button_Click_4">
+                <Image Height="16" Width="16" Source="/Resources/General/reload.png" />
+            </Button>
+            <Button Grid.Column="4" Height="24" Width="24" Click="Button_Click_5">
+                <Image Height="16" Width="16" Source="/Resources/General/home.png" />
+            </Button>
+            <ComboBox Grid.Column="5"
+                      IsEditable="True"
+                      Text="{Binding ActiveUrl, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                      PreviewKeyDown="ComboBox_PreviewKeyDown"
+                      ItemsSource="{Binding Favorites}"
+                      />
+            <Button Grid.Column="6" Height="24" Width="24" Visibility="{Binding IsNotFavoriteVisibility}" Click="Button_Click_6">
+                <Image Height="16" Width="16" Source="/Resources/General/favorite-no.gif" />
+            </Button>
+            <Button Grid.Column="6" Height="24" Width="24" Visibility="{Binding IsFavoriteVisibility}" Click="Button_Click_7">
+                <Image Height="16" Width="16" Source="/Resources/General/favorite-yes.png" />
+            </Button>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="155" />
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Grid.ColumnSpan="2">
+                <StackPanel Orientation="Horizontal">
+                    <Button Margin="4" Content="{l:Translate SelectGeocaches}" Click="Button_Click_8" />
+                    <TextBlock Margin="4" Text="{Binding MatchingGeocacheCount}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button Margin="4" Content="{l:Translate ImportGeocaches}" Command="{Binding ImportAllCommand}" />
+                    <TextBlock Margin="4" Text="{Binding AllGeocacheCount}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button Margin="4" Content="{l:Translate ImportMissingGeocaches}" Command="{Binding ImportMissingCommand}" />
+                    <TextBlock Margin="4" Text="{Binding MissingGeocacheCount}" />
+                </StackPanel>
+                <Button Margin="4,14,4,4" Content="{l:Translate ForceRework}" Click="Button_Click" />
+            </StackPanel>
+            <GridSplitter Grid.Column="2" ResizeBehavior="PreviousAndNext" ResizeDirection="Columns" Width="5" />
+            <WebBrowser x:Name="webBrowser1" Grid.Column="3" />
+        </Grid>
+    </Grid>
+</UserControl>

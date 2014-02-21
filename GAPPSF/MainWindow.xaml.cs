@@ -449,7 +449,7 @@ namespace GAPPSF
             {
                 using (System.Net.WebClient wc = new System.Net.WebClient())
                 {
-                    string ddoc = wc.DownloadString("http://application.globalcaching.eu/pkg/gappsf/gappsf.xml");
+                    string ddoc = wc.DownloadString(string.Format("http://application.globalcaching.eu/pkg/{0}/gapkg.xml", Environment.Is64BitProcess ? "x64" : "x86"));
 
                     XmlDocument doc = new XmlDocument();
                     doc.LoadXml(ddoc);
@@ -459,7 +459,7 @@ namespace GAPPSF
                     {
                         foreach (XmlNode pk in pkgs)
                         {
-                            if (pk.Attributes["name"].InnerText == "application")
+                            if (pk.Attributes["type"].InnerText == "core")
                             {
                                 Version v = Version.Parse(pk.Attributes["version"].InnerText.Substring(1));
                                 string url = pk.Attributes["link"].InnerText;
@@ -3444,6 +3444,13 @@ namespace GAPPSF
         private void menulbb8_Click(object sender, RoutedEventArgs e)
         {
             Window w = new FeatureWindow(new UIControls.Chat.Control());
+            w.Owner = this;
+            w.Show();
+        }
+
+        private void menulbb9_Click(object sender, RoutedEventArgs e)
+        {
+            Window w = new FeatureWindow(new UIControls.InternalWebBrowser.Control());
             w.Owner = this;
             w.Show();
         }

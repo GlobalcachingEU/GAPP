@@ -148,6 +148,7 @@ function updateGeocaches(gcList) {
 	{
 		//alert(err.message);
 	}
+	//alert(wps.length);
 	markers.length = 0;
 	for (var i = 0; i < wps.length; i++) {
 		var marker = new google.maps.Marker({
@@ -158,6 +159,7 @@ function updateGeocaches(gcList) {
 		addClickListener(marker);
 		markers.push(marker);
 	}
+	//alert(markers.length);
 	if (markers.length>=enableClusterMarkerAboveCount)
 	{
 		markerClusterer = new MarkerClusterer(map, markers, clusterOptions);

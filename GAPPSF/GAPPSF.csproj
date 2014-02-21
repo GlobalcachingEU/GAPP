@@ -289,6 +289,7 @@
     <Compile Include="Core\Settings\SettingsBackupSettings.cs" />
     <Compile Include="Core\Settings\ShapefilesSettings.cs" />
     <Compile Include="Core\Settings\SqliteSettingsStorage.cs" />
+    <Compile Include="Core\Settings\WebBrowserSettings.cs" />
     <Compile Include="Core\Settings\WPEditorSettings.cs" />
     <Compile Include="Core\Storage\DatabaseCollection.cs" />
     <Compile Include="Devices\GarminMassStorage.cs" />
@@ -988,6 +989,9 @@
     <Compile Include="UIControls\GeocacheCollection\Control.xaml.cs">
       <DependentUpon>Control.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UIControls\InternalWebBrowser\Control.xaml.cs">
+      <DependentUpon>Control.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIControls\LogTypeCombo.xaml.cs">
       <DependentUpon>LogTypeCombo.xaml</DependentUpon>
     </Compile>
@@ -1487,6 +1491,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIControls\GeocacheCollection\Control.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\InternalWebBrowser\Control.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -2424,6 +2432,17 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\General\welcome.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\back.gif" />
+    <Resource Include="Resources\General\favorite-no.gif" />
+    <Resource Include="Resources\General\favorite-yes.png" />
+    <Resource Include="Resources\General\forward.gif" />
+    <Resource Include="Resources\General\home.png" />
+    <Resource Include="Resources\General\reload.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\stop.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

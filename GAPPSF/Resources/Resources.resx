@@ -216,7 +216,7 @@ In order to use these features, you have to authorize this application to access
     <value>LiveAPI</value>
   </data>
   <data name="MainWindowTitle" xml:space="preserve">
-    <value>Globalcaching Application - Preview and not ready!</value>
+    <value>Globalcaching Application - Beta</value>
   </data>
   <data name="Maps" xml:space="preserve">
     <value>Maps</value>
@@ -1830,5 +1830,14 @@ This wizard will guide you through the initial setup. Before you start, you migh
   </data>
   <data name="RequestedSelection" xml:space="preserve">
     <value>requested selection</value>
+  </data>
+  <data name="WebBrowser" xml:space="preserve">
+    <value>Web browser</value>
+  </data>
+  <data name="ForceRework" xml:space="preserve">
+    <value>Force rework</value>
+  </data>
+  <data name="SelectGeocaches" xml:space="preserve">
+    <value>Select geocaches</value>
   </data>
 </root>

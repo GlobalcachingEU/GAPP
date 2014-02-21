@@ -379,7 +379,7 @@ namespace GAPPSF.UIControls.GMap
                     }
                     else if (this._targetGeocaches == GeocachesOnMap.All)
                     {
-                        addGeocachesToMap(Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection);
+                        addGeocachesToMap(Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection.ToList());
                     }
                 }
                 if (Core.ApplicationData.Instance.ActiveGeocache == null)
