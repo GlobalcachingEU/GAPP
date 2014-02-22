@@ -26,4 +26,4 @@ Then build the setup in SharpDevelop 4.3 (or higher) for the same platform (x86 
 
 Note
 =============
-GAPPSF project is a project that is in development and not functional yet.
+GAPPSF is in beta stage and included within the GAPP setup.
