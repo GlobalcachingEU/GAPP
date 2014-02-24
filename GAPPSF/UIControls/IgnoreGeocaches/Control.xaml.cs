@@ -53,10 +53,13 @@ namespace GAPPSF.UIControls.IgnoreGeocaches
         {
             if (e.PropertyName=="IgnoreGeocachesUpdateCounter")
             {
-                foreach(var c in IgnoreCategories)
+                Dispatcher.BeginInvoke((Action)(() =>
                 {
-                    c.UpdateItems();
-                }
+                    foreach (var c in IgnoreCategories)
+                    {
+                        c.UpdateItems();
+                    }
+                }));
             }
         }
 

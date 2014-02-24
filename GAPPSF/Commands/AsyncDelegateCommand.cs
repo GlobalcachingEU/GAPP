@@ -48,7 +48,7 @@ namespace GAPPSF.Commands
 
 
 
-        protected virtual async Task ExecuteAsync(object parameter)
+        public virtual async Task ExecuteAsync(object parameter)
         {
             Core.ApplicationData.Instance.BeginActiviy();
             await _asyncExecute(parameter);

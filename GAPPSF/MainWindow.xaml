@@ -173,6 +173,11 @@
                         <MenuItem x:Name="menu8" Header="{l:Translate Selected}" Command="{Binding DeleteSelectionCommand}" />
                         <MenuItem x:Name="menux8" Header="{l:Translate All}" Command="{Binding DeleteAllCommand}" />
                     </MenuItem>
+                    <MenuItem Header="{l:Translate DeleteAndIgnoreGeocache}">
+                        <MenuItem x:Name="menu6i" Header="{l:Translate Active}" Command="{Binding DeleteIgnoreActiveCommand}" />
+                        <MenuItem x:Name="menu8i" Header="{l:Translate Selected}" Command="{Binding DeleteIgnoreSelectionCommand}" />
+                        <MenuItem x:Name="menux8i" Header="{l:Translate All}" Command="{Binding DeleteIgnoreAllCommand}" />
+                    </MenuItem>
                     <MenuItem x:Name="menu9" Header="{l:Translate Paste}" Command="{Binding PasteCommand, Source={x:Static c:ClipboardHandler.Instance}}" />
                     <Separator />
                     <MenuItem x:Name="menu10" Header="{l:Translate SelectAll}" Command="{Binding SelectAllCommand}" />

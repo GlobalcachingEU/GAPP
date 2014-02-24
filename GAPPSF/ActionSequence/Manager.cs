@@ -192,21 +192,21 @@ namespace GAPPSF.ActionSequence
             }
         }
 
-        private RelayCommand _executeSequenceCommand;
-        public RelayCommand ExecuteSequenceCommand
+        private AsyncDelegateCommand _executeSequenceCommand;
+        public AsyncDelegateCommand ExecuteSequenceCommand
         {
             get
             {
                 if (_executeSequenceCommand == null)
                 {
-                    _executeSequenceCommand = new RelayCommand(param => RunActionSequence(param as Sequence),
+                    _executeSequenceCommand = new AsyncDelegateCommand(param => RunActionSequence(param as Sequence),
                         param => Core.ApplicationData.Instance.ActiveDatabase != null);
                 }
                 return _executeSequenceCommand;
             }
         }
 
-        public void RunActionSequence(Sequence af)
+        public async Task RunActionSequence(Sequence af)
         {
             if (Core.ApplicationData.Instance.ActiveDatabase != null)
             {
@@ -215,15 +215,22 @@ namespace GAPPSF.ActionSequence
                     MenuItem mni = Core.ApplicationData.Instance.MainWindow.mainMenu.FindName(t.Item1) as MenuItem;
                     if (mni!=null)
                     {
-                        //MenuItemAutomationPeer p = new MenuItemAutomationPeer(mni);
-                        //IInvokeProvider ip = p.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
-                        //ip.Invoke();
                         if (mni.Command != null)
                         {
-                            mni.Command.Execute(mni.CommandParameter);
+                            if (mni.Command is AsyncDelegateCommand)
+                            {
+                                await (mni.Command as AsyncDelegateCommand).ExecuteAsync(mni.CommandParameter);
+                            }
+                            else
+                            {
+                                mni.Command.Execute(mni.CommandParameter);
+                            }
                         }
                         else
                         {
+                            //MenuItemAutomationPeer p = new MenuItemAutomationPeer(mni);
+                            //IInvokeProvider ip = p.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
+                            //ip.Invoke();
                             mni.RaiseEvent(new RoutedEventArgs(MenuItem.ClickEvent));
                         }
                     }

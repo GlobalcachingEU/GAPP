@@ -1840,4 +1840,7 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="SelectGeocaches" xml:space="preserve">
     <value>Select geocaches</value>
   </data>
+  <data name="DeleteAndIgnoreGeocache" xml:space="preserve">
+    <value>Delete and ignore geocache</value>
+  </data>
 </root>

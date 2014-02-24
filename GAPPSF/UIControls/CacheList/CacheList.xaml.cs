@@ -102,12 +102,24 @@ namespace GAPPSF.UIControls
             {
                 if (_deleteCommand == null)
                 {
-                    _deleteCommand = new AsyncDelegateCommand(param => this.DeleteGeocache(), param => cacheList.SelectedItems.Count > 0);
+                    _deleteCommand = new AsyncDelegateCommand(param => this.DeleteGeocache(false), param => cacheList.SelectedItems.Count > 0);
                 }
                 return _deleteCommand;
             }
         }
-        async private Task DeleteGeocache()
+        AsyncDelegateCommand _deleteIgnoreCommand;
+        public ICommand DeleteIgnoreCommand
+        {
+            get
+            {
+                if (_deleteIgnoreCommand == null)
+                {
+                    _deleteIgnoreCommand = new AsyncDelegateCommand(param => this.DeleteGeocache(true), param => cacheList.SelectedItems.Count > 0);
+                }
+                return _deleteIgnoreCommand;
+            }
+        }
+        async private Task DeleteGeocache(bool ignore)
         {
             if (cacheList.SelectedItems.Count > 0)
             {
@@ -128,6 +140,10 @@ namespace GAPPSF.UIControls
                                 foreach (var gc in gcList)
                                 {
                                     Utils.DataAccess.DeleteGeocache(gc);
+                                    if (ignore)
+                                    {
+                                        Core.Settings.Default.AddIgnoreGeocacheCodes((new string[] { gc.Code }).ToList());
+                                    }
                                     index++;
 
                                     if (DateTime.Now >= nextUpdate)

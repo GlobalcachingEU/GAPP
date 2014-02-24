@@ -892,14 +892,28 @@ namespace GAPPSF
             {
                 if (_deleteActiveCommand == null)
                 {
-                    _deleteActiveCommand = new AsyncDelegateCommand(param => this.DeleteActiveGeocache(),
+                    _deleteActiveCommand = new AsyncDelegateCommand(param => this.DeleteActiveGeocache(false),
                         param => Core.ApplicationData.Instance.ActiveGeocache != null);
                 }
                 return _deleteActiveCommand;
             }
         }
 
-        async public Task DeleteActiveGeocache()
+        AsyncDelegateCommand _deleteIgnoreActiveCommand;
+        public ICommand DeleteIgnoreActiveCommand
+        {
+            get
+            {
+                if (_deleteIgnoreActiveCommand == null)
+                {
+                    _deleteIgnoreActiveCommand = new AsyncDelegateCommand(param => this.DeleteActiveGeocache(true),
+                        param => Core.ApplicationData.Instance.ActiveGeocache != null);
+                }
+                return _deleteIgnoreActiveCommand;
+            }
+        }
+
+        async public Task DeleteActiveGeocache(bool ignore)
         {
             if (Core.ApplicationData.Instance.ActiveGeocache != null)
             {
@@ -910,6 +924,10 @@ namespace GAPPSF
                     await Task.Run(() =>
                     {
                         Utils.DataAccess.DeleteGeocache(gc);
+                        if (ignore)
+                        {
+                            Core.Settings.Default.AddIgnoreGeocacheCodes((new string[] { gc.Code }).ToList());
+                        }
                     });
                 }
             }
@@ -922,14 +940,28 @@ namespace GAPPSF
             {
                 if (_deleteSelectionCommand == null)
                 {
-                    _deleteSelectionCommand = new AsyncDelegateCommand(param => this.DeleteSelectionGeocache(),
+                    _deleteSelectionCommand = new AsyncDelegateCommand(param => this.DeleteSelectionGeocache(false),
                         param => GeocacheSelectionCount>0);
                 }
                 return _deleteSelectionCommand;
             }
         }
 
-        async public Task DeleteSelectionGeocache()
+        AsyncDelegateCommand _deleteIgnoreSelectionCommand;
+        public ICommand DeleteIgnoreSelectionCommand
+        {
+            get
+            {
+                if (_deleteIgnoreSelectionCommand == null)
+                {
+                    _deleteIgnoreSelectionCommand = new AsyncDelegateCommand(param => this.DeleteSelectionGeocache(true),
+                        param => GeocacheSelectionCount > 0);
+                }
+                return _deleteIgnoreSelectionCommand;
+            }
+        }
+
+        async public Task DeleteSelectionGeocache(bool ignore)
         {
             if (Core.ApplicationData.Instance.ActiveDatabase != null)
             {
@@ -949,6 +981,10 @@ namespace GAPPSF
                             foreach (var gc in gcList)
                             {
                                 Utils.DataAccess.DeleteGeocache(gc);
+                                if (ignore)
+                                {
+                                    Core.Settings.Default.AddIgnoreGeocacheCodes((new string[] { gc.Code }).ToList());
+                                }
                                 index++;
 
                                 if (DateTime.Now >= nextUpdate)
@@ -1085,14 +1121,28 @@ namespace GAPPSF
             {
                 if (_deleteAllCommand == null)
                 {
-                    _deleteAllCommand = new AsyncDelegateCommand(param => this.DeleteAllGeocache(),
+                    _deleteAllCommand = new AsyncDelegateCommand(param => this.DeleteAllGeocache(false),
                         param => Core.ApplicationData.Instance.ActiveDatabase != null);
                 }
                 return _deleteAllCommand;
             }
         }
 
-        async public Task DeleteAllGeocache()
+        AsyncDelegateCommand _deleteIgnoreAllCommand;
+        public ICommand DeleteIgnoreAllCommand
+        {
+            get
+            {
+                if (_deleteIgnoreAllCommand == null)
+                {
+                    _deleteIgnoreAllCommand = new AsyncDelegateCommand(param => this.DeleteAllGeocache(true),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null);
+                }
+                return _deleteIgnoreAllCommand;
+            }
+        }
+
+        async public Task DeleteAllGeocache(bool ignore)
         {
             if (Core.ApplicationData.Instance.ActiveDatabase != null)
             {
@@ -1109,6 +1159,10 @@ namespace GAPPSF
                             foreach (var gc in gcList)
                             {
                                 Utils.DataAccess.DeleteGeocache(gc);
+                                if (ignore)
+                                {
+                                    Core.Settings.Default.AddIgnoreGeocacheCodes((new string[] { gc.Code }).ToList());
+                                }
                                 index++;
 
                                 if (DateTime.Now >= nextUpdate)

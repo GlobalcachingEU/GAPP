@@ -23,7 +23,7 @@ namespace GAPPSF.Commands
             _geocacheAction = geocacheAction;
         }
 
-        protected override async Task ExecuteAsync(object parameter)
+        public override async Task ExecuteAsync(object parameter)
         {
             Core.ApplicationData.Instance.BeginActiviy();
             Core.Storage.Database db = Core.ApplicationData.Instance.ActiveDatabase;

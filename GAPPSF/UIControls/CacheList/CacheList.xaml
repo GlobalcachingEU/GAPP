@@ -155,6 +155,7 @@
                     <MenuItem Header="{l:Translate Paste}" Command="{Binding PasteCommand, Source={x:Static c:ClipboardHandler.Instance}}" />
                     <Separator />
                     <MenuItem Header="{l:Translate Delete}" Command="{Binding DeleteCommand}" InputGestureText="Ctrl+Del" />
+                    <MenuItem Header="{l:Translate DeleteAndIgnoreGeocache}" Command="{Binding DeleteIgnoreCommand}" />
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.RowHeaderTemplate>
