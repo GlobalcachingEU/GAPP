@@ -34,6 +34,10 @@ namespace GAPPSF.Utils
                 }
                 Utils.Calculus.SetDistanceAndAngleGeocacheFromLocation(gc, ApplicationData.Instance.CenterLocation);
             }
+            else
+            {
+                result = false;
+            }
             return result;
         }
 
@@ -57,6 +61,10 @@ namespace GAPPSF.Utils
                     }
                 }
             }
+            else
+            {
+                result = false;
+            }
             return result;
         }
 
@@ -79,6 +87,10 @@ namespace GAPPSF.Utils
                         gc.EndUpdate();
                     }
                 }
+            }
+            else
+            {
+                result = false;
             }
             return result;
         }

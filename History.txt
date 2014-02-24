@@ -14,6 +14,7 @@ V1.9.16.0
 - gappsf: fix: Export to GGZ, sise tag in index file now left out when size is 1
 - gappsf: add: Menu options to delete geocaches and add them to the igore list
 - gappsf: fix: Action sequences now should execute the actions sequential
+- gappsf: fix: ignore geocache fix
 
 V1.9.15.0
 
