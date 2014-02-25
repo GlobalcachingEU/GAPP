@@ -305,38 +305,36 @@ namespace GlobalcachingApplication.Plugins.ExportGPX
                             el.AppendChild(txt);
                             ratingsEl.AppendChild(el);
 
-                            //size=1 should not be used
-                            //according to garmin (forum) the tag should be left out in case the size=1
-                            if (gei.GC.Container.ID == 1 ||
-                                gei.GC.Container.ID == 5 ||
-                                gei.GC.Container.ID == 6)
+                            el = doc.CreateElement("size");
+                            switch (gei.GC.Container.ID)
                             {
-                                //no tag
+                                case 1:
+                                    txt = doc.CreateTextNode("2.0");
+                                    break;
+                                case 5:
+                                    txt = doc.CreateTextNode("2.0");
+                                    break;
+                                case 6:
+                                    txt = doc.CreateTextNode("2.0");
+                                    break;
+                                case 2:
+                                    txt = doc.CreateTextNode("2.0");
+                                    break;
+                                case 3:
+                                    txt = doc.CreateTextNode("4.0");
+                                    break;
+                                case 4:
+                                    txt = doc.CreateTextNode("5.0");
+                                    break;
+                                case 8:
+                                    txt = doc.CreateTextNode("3.0");
+                                    break;
+                                default:
+                                    txt = doc.CreateTextNode("3.0");
+                                    break;
                             }
-                            else
-                            {
-                                el = doc.CreateElement("size");
-                                switch (gei.GC.Container.ID)
-                                {
-                                    case 2:
-                                        txt = doc.CreateTextNode("2.0");
-                                        break;
-                                    case 3:
-                                        txt = doc.CreateTextNode("4.0");
-                                        break;
-                                    case 4:
-                                        txt = doc.CreateTextNode("5.0");
-                                        break;
-                                    case 8:
-                                        txt = doc.CreateTextNode("3.0");
-                                        break;
-                                    default:
-                                        txt = doc.CreateTextNode("3.0");
-                                        break;
-                                }
-                                el.AppendChild(txt);
-                                ratingsEl.AppendChild(el);
-                            }
+                            el.AppendChild(txt);
+                            ratingsEl.AppendChild(el);
 
                             el = doc.CreateElement("terrain");
                             txt = doc.CreateTextNode(gei.GC.Terrain.ToString("0.#").Replace(',', '.'));
