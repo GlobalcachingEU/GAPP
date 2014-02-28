@@ -1843,4 +1843,7 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="DeleteAndIgnoreGeocache" xml:space="preserve">
     <value>Delete and ignore geocache</value>
   </data>
+  <data name="CenterLocation" xml:space="preserve">
+    <value>Center location</value>
+  </data>
 </root>

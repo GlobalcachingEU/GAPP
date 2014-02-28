@@ -8,6 +8,11 @@ todo GAPP SF:
 - Open Areas map
 - Trackable groeps
 
+V1.9.18.0
+
+- gapp: fix: Generation of statistics now ignores time when sorting finds
+- gappsf: add: Cachelist, added set selected geocache location as center
+
 V1.9.17.0
 
 - gapp: fix: Export to GGZ, size tag now always included, but never 1

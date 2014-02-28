@@ -47,7 +47,7 @@
         }
 		 _myFinds.Sort(delegate(MyGeocacheFind a, MyGeocacheFind b)
         {
-          int cv = a.logDate.CompareTo(b.logDate);
+          int cv = a.logDate.Date.CompareTo(b.logDate.Date);
           if (cv == 0) {return a.logDateForSort.CompareTo(b.logDateForSort);}
           else return cv;
         });

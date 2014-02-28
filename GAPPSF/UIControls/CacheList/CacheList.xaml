@@ -156,6 +156,8 @@
                     <Separator />
                     <MenuItem Header="{l:Translate Delete}" Command="{Binding DeleteCommand}" InputGestureText="Ctrl+Del" />
                     <MenuItem Header="{l:Translate DeleteAndIgnoreGeocache}" Command="{Binding DeleteIgnoreCommand}" />
+                    <Separator />
+                    <MenuItem Header="{l:Translate CenterLocation}" Command="{Binding CenterLocationCommand}" />
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.RowHeaderTemplate>
