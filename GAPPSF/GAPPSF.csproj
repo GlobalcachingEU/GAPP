@@ -335,6 +335,9 @@
     <Compile Include="Dialogs\SelectTrackablesWindow.xaml.cs">
       <DependentUpon>SelectTrackablesWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\SettingsFolderWindow.xaml.cs">
+      <DependentUpon>SettingsFolderWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\ShortCutAssignmentWindow.xaml.cs">
       <DependentUpon>ShortCutAssignmentWindow.xaml</DependentUpon>
     </Compile>
@@ -1161,6 +1164,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\SelectTrackablesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\SettingsFolderWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -2443,6 +2450,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\General\stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\exit.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

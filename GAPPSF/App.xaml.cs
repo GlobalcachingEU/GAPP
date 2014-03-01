@@ -25,14 +25,36 @@ namespace GAPPSF
                 GAPPSF.Properties.Settings.Default.UpgradeNeeded = false;
                 GAPPSF.Properties.Settings.Default.Save();
             }
-            Core.Settings.Default.SettingsFolder = GAPPSF.Properties.Settings.Default.SettingsFolder;
-            string sc = Core.Settings.Default.SelectedCulture;
-            if (sc==null)
+            bool settingsFolderOK = true;
+            string[] args = Environment.GetCommandLineArgs();
+            if (GAPPSF.Properties.Settings.Default.EnableSettingsFolderAtStartup || (args != null && args.Contains("/f")))
             {
-                Core.Settings.Default.SelectedCulture = "en-US";
+                Dialogs.SettingsFolderWindow dlg = new Dialogs.SettingsFolderWindow();
+                if (dlg.ShowDialog()==true)
+                {
+                    GAPPSF.Properties.Settings.Default.SettingsFolder = dlg.SelectedSettingsPath;
+                    GAPPSF.Properties.Settings.Default.Save();
+                }
+                else
+                {
+                    settingsFolderOK = false;
+                }
             }
-            TranslationManager.Instance.TranslationProvider = new ResxTranslationProvider("GAPPSF.Resources.Resources", Assembly.GetExecutingAssembly());
-            base.OnStartup(e);
+            if (settingsFolderOK)
+            {
+                Core.Settings.Default.SettingsFolder = GAPPSF.Properties.Settings.Default.SettingsFolder;
+                string sc = Core.Settings.Default.SelectedCulture;
+                if (sc == null)
+                {
+                    Core.Settings.Default.SelectedCulture = "en-US";
+                }
+                TranslationManager.Instance.TranslationProvider = new ResxTranslationProvider("GAPPSF.Resources.Resources", Assembly.GetExecutingAssembly());
+                base.OnStartup(e);
+            }
+            else
+            {
+                Environment.Exit(0);
+            }
         }
     }
 }

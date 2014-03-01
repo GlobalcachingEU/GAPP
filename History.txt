@@ -8,6 +8,9 @@ todo GAPP SF:
 - Open Areas map
 - Trackable groeps
 
+todo GAPP/GAPP SF
+- add option to mark selected geocaches on the map (when all is selected, selected geocaches are highlighted/marked)
+
 V1.9.17.0
 
 - gapp: fix: Export to GGZ, size tag now always included, but never 1

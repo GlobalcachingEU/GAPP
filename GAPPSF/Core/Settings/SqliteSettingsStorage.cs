@@ -7,6 +7,8 @@ using System.IO;
 using System.Collections;
 using System.Data.Common;
 using System.Globalization;
+using System.ComponentModel;
+using System.Windows;
 
 namespace GAPPSF.Core
 {
@@ -39,102 +41,104 @@ namespace GAPPSF.Core
                 Properties.Settings.Default.Save();
 
                 sf = Path.Combine(sf, "settings.db3");
-
-                _dbcon = new Utils.DBConComSqlite(sf);
-
-                if (!_dbcon.TableExists("settings"))
+                //if (!DesignerProperties.GetIsInDesignMode(new DependencyObject()))
                 {
-                    _dbcon.ExecuteNonQuery("create table 'settings' (item_name text, item_value text)");
-                    _dbcon.ExecuteNonQuery("create index idx_key on settings (item_name)");
-                }
-                else
-                {
-                    DbDataReader dr = _dbcon.ExecuteReader("select item_name, item_value from settings");
-                    while (dr.Read())
+                    _dbcon = new Utils.DBConComSqlite(sf);
+
+                    if (!_dbcon.TableExists("settings"))
                     {
-                        _availableKeys[dr[0] as string] = dr[1] as string;
+                        _dbcon.ExecuteNonQuery("create table 'settings' (item_name text, item_value text)");
+                        _dbcon.ExecuteNonQuery("create index idx_key on settings (item_name)");
                     }
-                }
-                if (!_dbcon.TableExists("ignoregc"))
-                {
-                    _dbcon.ExecuteNonQuery("create table 'ignoregc' (item_name text, item_value text)");
-                }
-                else
-                {
-                    DbDataReader dr = _dbcon.ExecuteReader("select item_name, item_value from ignoregc");
-                    while (dr.Read())
+                    else
                     {
-                        string item = dr[0] as string;
-                        if (item == "code")
+                        DbDataReader dr = _dbcon.ExecuteReader("select item_name, item_value from settings");
+                        while (dr.Read())
                         {
-                            _ignoredGeocacheCodes[dr[1] as string] = true;
-                        }
-                        else if (item == "name")
-                        {
-                            _ignoredGeocacheNames[dr[1] as string] = true;
-                        }
-                        else if (item == "owner")
-                        {
-                            _ignoredGeocacheOwners[dr[1] as string] = true;
+                            _availableKeys[dr[0] as string] = dr[1] as string;
                         }
                     }
-                }
-                if (!_dbcon.TableExists("gccombm"))
-                {
-                    _dbcon.ExecuteNonQuery("create table 'gccombm' (bm_id text, bm_name text, bmguid text)");
-                    _dbcon.ExecuteNonQuery("create index idx_bmid on gccombm (bm_id)");
-                }
-                if (!_dbcon.TableExists("gccomgc"))
-                {
-                    _dbcon.ExecuteNonQuery("create table 'gccomgc' (bm_id text, gccode text)");
-                    _dbcon.ExecuteNonQuery("create index idx_bmgcid on gccomgc (bm_id)");
-                }
-                if (!_dbcon.TableExists("attachm"))
-                {
-                    _dbcon.ExecuteNonQuery("create table 'attachm' (gccode text, filename text, comments text)");
-                    _dbcon.ExecuteNonQuery("create index idx_att on attachm (gccode)");
-                }
-                if (!_dbcon.TableExists("formulasolv"))
-                {
-                    _dbcon.ExecuteNonQuery("create table 'formulasolv' (gccode text, formula text)");
-                    _dbcon.ExecuteNonQuery("create index idx_form on formulasolv (gccode)");
-                }
-                if (!_dbcon.TableExists("gcnotes"))
-                {
-                    _dbcon.ExecuteNonQuery("create table 'gcnotes' (gccode text, notes text)");
-                    _dbcon.ExecuteNonQuery("create index idx_note on gcnotes (gccode)");
-                }
-                if (!_dbcon.TableExists("gccollection"))
-                {
-                    _dbcon.ExecuteNonQuery("create table 'gccollection' (col_id integer primary key autoincrement, name text)");
-                    //_dbcon.ExecuteNonQuery("create index idx_col on gccollection (name)");
-                }
-                if (!_dbcon.TableExists("gcincol"))
-                {
-                    _dbcon.ExecuteNonQuery("create table 'gcincol' (col_id integer, gccode text)");
-                    _dbcon.ExecuteNonQuery("create index idx_gccol on gcincol (col_id)");
-                }
-                if (!_dbcon.TableExists("gcdist"))
-                {
-                    _dbcon.ExecuteNonQuery("create table 'gcdist' (gccode text, dist float)");
-                    _dbcon.ExecuteNonQuery("create index idx_dist on gcdist (gccode)");
-                }
-                if (!_dbcon.TableExists("gcvotes"))
-                {
-                    _dbcon.ExecuteNonQuery("create table 'gcvotes' (gccode text, VoteMedian float, VoteAvg float, VoteCnt integer, VoteUser float)");
-                    _dbcon.ExecuteNonQuery("create unique index idx_gcvotes on gcvotes (gccode)");
-                }
+                    if (!_dbcon.TableExists("ignoregc"))
+                    {
+                        _dbcon.ExecuteNonQuery("create table 'ignoregc' (item_name text, item_value text)");
+                    }
+                    else
+                    {
+                        DbDataReader dr = _dbcon.ExecuteReader("select item_name, item_value from ignoregc");
+                        while (dr.Read())
+                        {
+                            string item = dr[0] as string;
+                            if (item == "code")
+                            {
+                                _ignoredGeocacheCodes[dr[1] as string] = true;
+                            }
+                            else if (item == "name")
+                            {
+                                _ignoredGeocacheNames[dr[1] as string] = true;
+                            }
+                            else if (item == "owner")
+                            {
+                                _ignoredGeocacheOwners[dr[1] as string] = true;
+                            }
+                        }
+                    }
+                    if (!_dbcon.TableExists("gccombm"))
+                    {
+                        _dbcon.ExecuteNonQuery("create table 'gccombm' (bm_id text, bm_name text, bmguid text)");
+                        _dbcon.ExecuteNonQuery("create index idx_bmid on gccombm (bm_id)");
+                    }
+                    if (!_dbcon.TableExists("gccomgc"))
+                    {
+                        _dbcon.ExecuteNonQuery("create table 'gccomgc' (bm_id text, gccode text)");
+                        _dbcon.ExecuteNonQuery("create index idx_bmgcid on gccomgc (bm_id)");
+                    }
+                    if (!_dbcon.TableExists("attachm"))
+                    {
+                        _dbcon.ExecuteNonQuery("create table 'attachm' (gccode text, filename text, comments text)");
+                        _dbcon.ExecuteNonQuery("create index idx_att on attachm (gccode)");
+                    }
+                    if (!_dbcon.TableExists("formulasolv"))
+                    {
+                        _dbcon.ExecuteNonQuery("create table 'formulasolv' (gccode text, formula text)");
+                        _dbcon.ExecuteNonQuery("create index idx_form on formulasolv (gccode)");
+                    }
+                    if (!_dbcon.TableExists("gcnotes"))
+                    {
+                        _dbcon.ExecuteNonQuery("create table 'gcnotes' (gccode text, notes text)");
+                        _dbcon.ExecuteNonQuery("create index idx_note on gcnotes (gccode)");
+                    }
+                    if (!_dbcon.TableExists("gccollection"))
+                    {
+                        _dbcon.ExecuteNonQuery("create table 'gccollection' (col_id integer primary key autoincrement, name text)");
+                        //_dbcon.ExecuteNonQuery("create index idx_col on gccollection (name)");
+                    }
+                    if (!_dbcon.TableExists("gcincol"))
+                    {
+                        _dbcon.ExecuteNonQuery("create table 'gcincol' (col_id integer, gccode text)");
+                        _dbcon.ExecuteNonQuery("create index idx_gccol on gcincol (col_id)");
+                    }
+                    if (!_dbcon.TableExists("gcdist"))
+                    {
+                        _dbcon.ExecuteNonQuery("create table 'gcdist' (gccode text, dist float)");
+                        _dbcon.ExecuteNonQuery("create index idx_dist on gcdist (gccode)");
+                    }
+                    if (!_dbcon.TableExists("gcvotes"))
+                    {
+                        _dbcon.ExecuteNonQuery("create table 'gcvotes' (gccode text, VoteMedian float, VoteAvg float, VoteCnt integer, VoteUser float)");
+                        _dbcon.ExecuteNonQuery("create unique index idx_gcvotes on gcvotes (gccode)");
+                    }
 
-                object o = _dbcon.ExecuteScalar("PRAGMA integrity_check");
-                if (o as string == "ok")
-                {
-                    //what is expected
-                }
-                else
-                {
-                    //oeps?
-                    _dbcon.Dispose();
-                    _dbcon = null;
+                    object o = _dbcon.ExecuteScalar("PRAGMA integrity_check");
+                    if (o as string == "ok")
+                    {
+                        //what is expected
+                    }
+                    else
+                    {
+                        //oeps?
+                        _dbcon.Dispose();
+                        _dbcon = null;
+                    }
                 }
             }
             catch//(Exception e)
@@ -468,10 +472,13 @@ namespace GAPPSF.Core
             List<string> result = new List<string>();
             lock (this)
             {
-                DbDataReader dr = _dbcon.ExecuteReader(string.Format("select gccode from gccomgc where bm_id='{0}'", bm.ID));
-                while (dr.Read())
+                if (_dbcon != null)
                 {
-                    result.Add(dr[0] as string);
+                    DbDataReader dr = _dbcon.ExecuteReader(string.Format("select gccode from gccomgc where bm_id='{0}'", bm.ID));
+                    while (dr.Read())
+                    {
+                        result.Add(dr[0] as string);
+                    }
                 }
             }
             return result;
@@ -617,10 +624,13 @@ namespace GAPPSF.Core
         private int getGCCollectionID(string name)
         {
             int result = -1;
-            DbDataReader dr = _dbcon.ExecuteReader(string.Format("select col_id from gccollection where name='{0}'", name.Replace("'", "''")));
-            if (dr.Read())
+            if (_dbcon != null)
             {
-                result = dr.GetInt32(0);
+                DbDataReader dr = _dbcon.ExecuteReader(string.Format("select col_id from gccollection where name='{0}'", name.Replace("'", "''")));
+                if (dr.Read())
+                {
+                    result = dr.GetInt32(0);
+                }
             }
             return result;
         }
@@ -814,8 +824,6 @@ namespace GAPPSF.Core
             }
         }
 
-
-//                    _dbcon.ExecuteNonQuery("create table 'gcvotes' (gccode text, VoteMedian float, VoteAvg float, VoteCnt integer, VoteUser float)");
         public double? GetGCVoteMedian(string gcCode)
         {
             double? result = null;

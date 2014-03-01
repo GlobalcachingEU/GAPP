@@ -79,15 +79,44 @@
         <StackPanel Grid.Row="0">
             <Menu x:Name="mainMenu" Background="#FFD6DBE9">
                 <MenuItem Header="{l:Translate File}">
-                    <MenuItem x:Name="menu1" Header="{l:Translate New}" Command="{Binding NewCommand}" />
-                    <MenuItem x:Name="menu2" Header="{l:Translate Open}" Command="{Binding OpenCommand}"/>
+                    <MenuItem x:Name="menu1" Header="{l:Translate New}" Command="{Binding NewCommand}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/MainWindow/database_add.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem x:Name="menu2" Header="{l:Translate Open}" Command="{Binding OpenCommand}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/MainWindow/database.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <ComboBox 
+                        ItemsSource="{Binding Databases, Source={x:Static p:ApplicationData.Instance}}" 
+                        SelectedItem="{Binding ActiveDatabase, Source={x:Static p:ApplicationData.Instance}}"
+                        MinWidth="100"
+                        />
+                    <MenuItem x:Name="menu2xr" Header="{l:Translate Remove}" Command="{Binding RemoveDatabaseCommand}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/delete.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <Separator />
                     <MenuItem Header="{l:Translate Backup}">
                         <MenuItem x:Name="menu2cv" Header="{l:Translate Active}" Command="{Binding BackupDatabaseActiveCommand}"/>
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/backup.png" />
+                        </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem x:Name="menu3cv" Header="{l:Translate Restore}" Command="{Binding RestoreDatabaseCommand}"/>
+                    <MenuItem x:Name="menu3cv" Header="{l:Translate Restore}" Command="{Binding RestoreDatabaseCommand}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/restore.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <Separator />
-                    <MenuItem x:Name="menuexit" Header="{l:Translate Exit}" Click="menuexit_Click"/>
+                    <MenuItem x:Name="menuexit" Header="{l:Translate Exit}" Click="menuexit_Click">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/exit.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{l:Translate Import}">
                     <MenuItem x:Name="menu3" Header="{l:Translate GPX}" Command="{Binding ImportGPXCommand}" />
@@ -415,6 +444,12 @@
                     </Button>
                     <Button Command="{Binding LiveAPIImportGeocachesCommand}" ToolTip="{l:Translate ImportGeocaches}">
                         <Image Source="/Resources/MainWindow/Importgc.png"/>
+                    </Button>
+                    <Button Command="{Binding LiveAPILogGeocachesActiveCommand}" ToolTip="{l:Translate LogActiveGeocache}">
+                        <Image Source="/Resources/MainWindow/found.png"/>
+                    </Button>
+                    <Button Command="{Binding LiveAPILogGeocachesSelectedCommand}" ToolTip="{l:Translate LogSelectedGeocaches}">
+                        <Image Source="/Resources/MainWindow/foundmore.gif"/>
                     </Button>
                 </ToolBar>
             </ToolBarTray>

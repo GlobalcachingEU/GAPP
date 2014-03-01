@@ -2680,6 +2680,30 @@ namespace GAPPSF
         }
 
 
+        private RelayCommand _removeDatabaseCommand = null;
+        public RelayCommand RemoveDatabaseCommand
+        {
+            get
+            {
+                if (_removeDatabaseCommand == null)
+                {
+                    _removeDatabaseCommand = new RelayCommand(param => RemoveDatabase(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase!=null);
+                }
+                return _removeDatabaseCommand;
+            }
+        }
+        public void RemoveDatabase()
+        {
+            Core.Storage.Database db = Core.ApplicationData.Instance.ActiveDatabase;
+            if (db != null)
+            {
+                Core.ApplicationData.Instance.ActiveDatabase = null;
+                Core.ApplicationData.Instance.Databases.Remove(db);
+            }
+        }
+
+
         AsyncDelegateCommand _openCommand;
         public ICommand OpenCommand
         {
