@@ -358,6 +358,8 @@
                     <Separator />
                     <MenuItem x:Name="menubu88" Header="{l:Translate Backup}" Command="{Binding BackupSettingsCommand}" />
                     <MenuItem x:Name="menure2v8" Header="{l:Translate Restore}" Click="MenuItem_Click_2v8" />
+                    <Separator />
+                    <MenuItem x:Name="menure2v88" Header="{l:Translate SettingsFolder}" Click="MenuItem_Click_2v88" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate Window}">
                     <MenuItem x:Name="menu21" Header="{l:Translate CacheList}" Click="MenuItem_Click" />

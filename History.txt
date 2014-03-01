@@ -14,6 +14,7 @@ V1.9.18.0
 - gappsf: add: Cachelist, added set selected geocache location as center
 - gappsf: add: selection of active database in main menu
 - gappsf: add: removal of active database in main menu
+- gappsf: add: user can select settings folder (also commandline option)
 
 todo GAPP/GAPP SF
 - add option to mark selected geocaches on the map (when all is selected, selected geocaches are highlighted/marked)

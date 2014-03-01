@@ -1852,4 +1852,7 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="LogSelectedGeocaches" xml:space="preserve">
     <value>Log selected geocaches</value>
   </data>
+  <data name="SettingsFolder" xml:space="preserve">
+    <value>Settings folder</value>
+  </data>
 </root>

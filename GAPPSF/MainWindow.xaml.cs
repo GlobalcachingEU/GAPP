@@ -3533,5 +3533,16 @@ namespace GAPPSF
             w.Show();
         }
 
+        private void MenuItem_Click_2v88(object sender, RoutedEventArgs e)
+        {
+            Dialogs.SettingsFolderWindow dlg = new Dialogs.SettingsFolderWindow();
+            if (dlg.ShowDialog()==true)
+            {
+                GAPPSF.Properties.Settings.Default.SettingsFolder = dlg.SelectedSettingsPath;
+                GAPPSF.Properties.Settings.Default.Save();
+                RestartApplication();
+            }
+        }
+
     }
 }
