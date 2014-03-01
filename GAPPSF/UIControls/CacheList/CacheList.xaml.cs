@@ -70,6 +70,39 @@ namespace GAPPSF.UIControls
             }
         }
 
+
+        AsyncDelegateCommand _centerLocationCommand;
+        public ICommand CenterLocationCommand
+        {
+            get
+            {
+                if (_centerLocationCommand == null)
+                {
+                    _centerLocationCommand = new AsyncDelegateCommand(param => this.CenterLocationGeocache(), 
+                        param => cacheList.SelectedItems.Count == 1);
+                }
+                return _centerLocationCommand;
+            }
+        }
+        async private Task CenterLocationGeocache()
+        {
+            if (cacheList.SelectedItems.Count == 1)
+            {
+                Core.Data.Geocache gc = (cacheList.SelectedItems[0] as Core.Data.Geocache);
+                if (gc != null)
+                {
+                    using (Utils.DataUpdater upd = new Utils.DataUpdater(gc.Database))
+                    {
+                        await Task.Run(() =>
+                        {
+                            Utils.DataAccess.SetCenterLocation(gc.Lat, gc.Lon);
+                        });
+                    }
+                }
+            }
+        }
+
+
         AsyncDelegateCommand _copyCommand;
         public ICommand CopyCommand
         {
