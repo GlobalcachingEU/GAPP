@@ -17,6 +17,7 @@ namespace GlobalcachingApplication.Plugins.GMap
         public const string STR_TITLE = "Google map";
         public const string STR_ACTIVE = "Active";
         public const string STR_SELECTED = "Selected";
+        public const string STR_SELECTEDMARKERS = "Selected markers";
         public const string STR_ALL = "All";
         public const string STR_SHOWGEOCACHES = "Show geocaches";
         public const string STR_AREAS = "Areas";
@@ -66,6 +67,8 @@ namespace GlobalcachingApplication.Plugins.GMap
                 Properties.Settings.Default.UpgradeNeeded = false;
                 Properties.Settings.Default.Save();
             }
+
+            checkBox1.Checked = Properties.Settings.Default.AddSelectedMarkers;
 
             if (Properties.Settings.Default.WindowPos != null && !Properties.Settings.Default.WindowPos.IsEmpty)
             {
@@ -153,6 +156,7 @@ namespace GlobalcachingApplication.Plugins.GMap
             this.groupBox2.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_AREAS);
             this.label1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_LEVEL);
             this.label2.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_NAME);
+            this.checkBox1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_SELECTEDMARKERS);
             this.button1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_ADD);
             if (Visible)
             {
@@ -234,6 +238,7 @@ namespace GlobalcachingApplication.Plugins.GMap
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(string.Format("var foundIcon = new google.maps.MarkerImage(\"{0}\");", System.IO.Path.Combine(new string[] { System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), "Images", "Map", "cachetypes", "gevonden.png" }).Replace("\\", "\\\\")));
             sb.AppendLine(string.Format("var curposIcon = new google.maps.MarkerImage(\"{0}\");", System.IO.Path.Combine(new string[] { System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), "Images", "Map", "curpos.png" }).Replace("\\", "\\\\")));
+            sb.AppendLine(string.Format("var selectedIcon = new google.maps.MarkerImage(\"{0}\");", System.IO.Path.Combine(new string[] { System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), "Images", "Map", "selected.png" }).Replace("\\", "\\\\")));
             foreach (Framework.Data.GeocacheType gctype in Core.GeocacheTypes)
             {
                 sb.AppendLine(string.Format("var gct{0}Icon = new google.maps.MarkerImage(\"{1}\");", gctype.ID.ToString().Replace("-","_"), Utils.ImageSupport.Instance.GetImagePath(Core, Framework.Data.ImageSize.Map, gctype).Replace("\\","\\\\")));
@@ -277,6 +282,27 @@ namespace GlobalcachingApplication.Plugins.GMap
             }
             sb.Append("]");
             executeScript("updateWaypoints", new object[] { sb.ToString() });
+        }
+
+        private void markSelectedGeocaches(List<Framework.Data.Geocache> gcList)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("[");
+            bool first = true;
+            foreach (Framework.Data.Geocache gc in gcList)
+            {
+                if (!first)
+                {
+                    sb.Append(",");
+                }
+                else
+                {
+                    first = false;
+                }
+                sb.Append(gc.Selected ? "1" : "0");
+            }
+            sb.Append("]");
+            executeScript("setSelectedGeocaches", new object[] { sb.ToString() });
         }
 
         private void addGeocachesToMap(List<Framework.Data.Geocache> gcList)
@@ -364,7 +390,20 @@ namespace GlobalcachingApplication.Plugins.GMap
                         if (reason == MapUpdateReason.Init || reason == MapUpdateReason.DataChanged)
                         {
                             addGeocachesToMap((from Framework.Data.Geocache wp in Core.Geocaches
-                                               select wp).ToList());
+                                               select wp).OrderBy(x=>x.Code).ToList());
+                            if (Properties.Settings.Default.AddSelectedMarkers)
+                            {
+                                markSelectedGeocaches((from Framework.Data.Geocache wp in Core.Geocaches
+                                                       select wp).OrderBy(x => x.Code).ToList());
+                            }
+                        }
+                        else if (reason == MapUpdateReason.SelectedChanged)
+                        {
+                            if (Properties.Settings.Default.AddSelectedMarkers)
+                            {
+                                markSelectedGeocaches((from Framework.Data.Geocache wp in Core.Geocaches
+                                                       select wp).OrderBy(x => x.Code).ToList());
+                            }
                         }
                         timer1.Enabled = true;
                         break;
@@ -636,6 +675,24 @@ namespace GlobalcachingApplication.Plugins.GMap
                 button2_Click(sender, e);
             }
         }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.AddSelectedMarkers = checkBox1.Checked;
+            Properties.Settings.Default.Save();
+            if (_activeMapType== MapType.Allgeocaches)
+            {
+                if (Properties.Settings.Default.AddSelectedMarkers)
+                {
+                    markSelectedGeocaches((from Framework.Data.Geocache wp in Core.Geocaches
+                                           select wp).OrderBy(x => x.Code).ToList());
+                }
+                else
+                {
+                    executeScript("setSelectedGeocaches", new object[] { "[]" });
+                }
+            }
+        }
     }
 
     public class GMap : Utils.BasePlugin.BaseUIChildWindow
@@ -648,6 +705,7 @@ namespace GlobalcachingApplication.Plugins.GMap
 
             core.LanguageItems.Add(new Framework.Data.LanguageItem(GMapForm.STR_TITLE));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(GMapForm.STR_SELECTED));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(GMapForm.STR_SELECTEDMARKERS));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(GMapForm.STR_ALL));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(GMapForm.STR_ACTIVE));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(GMapForm.STR_AREAS));

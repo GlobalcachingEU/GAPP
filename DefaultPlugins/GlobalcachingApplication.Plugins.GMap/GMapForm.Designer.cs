@@ -42,6 +42,7 @@
             this.comboBoxAreaLevel = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.radioButtonAll = new System.Windows.Forms.RadioButton();
             this.radioButtonSelected = new System.Windows.Forms.RadioButton();
             this.radioButtonActive = new System.Windows.Forms.RadioButton();
@@ -97,7 +98,7 @@
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.comboBoxAreaLevel);
             this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Location = new System.Drawing.Point(203, 4);
+            this.groupBox2.Location = new System.Drawing.Point(324, 7);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
@@ -182,6 +183,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkBox1);
             this.groupBox1.Controls.Add(this.radioButtonAll);
             this.groupBox1.Controls.Add(this.radioButtonSelected);
             this.groupBox1.Controls.Add(this.radioButtonActive);
@@ -189,15 +191,26 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(160, 121);
+            this.groupBox1.Size = new System.Drawing.Size(281, 121);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Show geocaches";
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(92, 87);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(131, 21);
+            this.checkBox1.TabIndex = 3;
+            this.checkBox1.Text = "selected marker";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // radioButtonAll
             // 
             this.radioButtonAll.AutoSize = true;
-            this.radioButtonAll.Location = new System.Drawing.Point(28, 87);
+            this.radioButtonAll.Location = new System.Drawing.Point(8, 87);
             this.radioButtonAll.Margin = new System.Windows.Forms.Padding(4);
             this.radioButtonAll.Name = "radioButtonAll";
             this.radioButtonAll.Size = new System.Drawing.Size(44, 21);
@@ -210,7 +223,7 @@
             // radioButtonSelected
             // 
             this.radioButtonSelected.AutoSize = true;
-            this.radioButtonSelected.Location = new System.Drawing.Point(28, 58);
+            this.radioButtonSelected.Location = new System.Drawing.Point(8, 58);
             this.radioButtonSelected.Margin = new System.Windows.Forms.Padding(4);
             this.radioButtonSelected.Name = "radioButtonSelected";
             this.radioButtonSelected.Size = new System.Drawing.Size(84, 21);
@@ -224,7 +237,7 @@
             // 
             this.radioButtonActive.AutoSize = true;
             this.radioButtonActive.Checked = true;
-            this.radioButtonActive.Location = new System.Drawing.Point(28, 28);
+            this.radioButtonActive.Location = new System.Drawing.Point(8, 28);
             this.radioButtonActive.Margin = new System.Windows.Forms.Padding(4);
             this.radioButtonActive.Name = "radioButtonActive";
             this.radioButtonActive.Size = new System.Drawing.Size(67, 21);
@@ -298,5 +311,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

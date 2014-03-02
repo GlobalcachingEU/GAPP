@@ -1,5 +1,6 @@
 ﻿var map;
 var markers = [];
+var selectedmarkers = [];
 var curposMarker;
 var wptmarkers = [];
 var markerClusterer = null;
@@ -132,6 +133,36 @@ function createWaypoint(id,point,ic,balloonCnt) {
    iw.open(map, marker);
    });
    return marker;
+}
+
+function setSelectedGeocaches(gcList) {
+	var wps;
+    //eval("wps = " + gcList); //[1,0,...]
+	try
+	{
+		wps = JSON.parse(gcList);
+	}
+	catch(err)
+	{
+		//alert(err.message);
+	}
+	for (var i = 0; i < selectedmarkers.length; i++) {
+		selectedmarkers[i].setMap(null);
+	}
+	selectedmarkers.length=0;
+	if (wps.length==markers.length) {
+		for (var i = 0; i < wps.length; i++) {
+			if (wps[i]==1) {
+				var marker = new google.maps.Marker({
+					position: markers[i].getPosition(),
+					icon: selectedIcon,
+					zIndex: -1,
+					map: map
+				});
+				selectedmarkers.push(marker);
+			}
+		}
+	}
 }
 
 function updateGeocaches(gcList) {

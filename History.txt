@@ -8,16 +8,18 @@ todo GAPP SF:
 - Open Areas map
 - Trackable groeps
 
+todo GAPP/GAPP SF
+- add option to mark selected geocaches on the map (when all is selected, selected geocaches are highlighted/marked)
+- add option to add attributes list in description
+
 V1.9.18.0
 
 - gapp: fix: Generation of statistics now ignores time when sorting finds
+- gapp: Google map, added option to mark selected geocaches when all geocaches are on the map
 - gappsf: add: Cachelist, added set selected geocache location as center
 - gappsf: add: selection of active database in main menu
 - gappsf: add: removal of active database in main menu
 - gappsf: add: user can select settings folder (also commandline option)
-
-todo GAPP/GAPP SF
-- add option to mark selected geocaches on the map (when all is selected, selected geocaches are highlighted/marked)
 
 V1.9.17.0
 
