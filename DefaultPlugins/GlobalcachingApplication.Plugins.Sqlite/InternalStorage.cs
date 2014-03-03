@@ -77,8 +77,8 @@ namespace GlobalcachingApplication.Plugins.Sqlite
             }
 
             SetDataSourceName(Properties.Settings.Default.ActiveDataFile);
-            core.Logs.LoadFullData += new Framework.EventArguments.LogEventHandler(Logs_LoadFullData);
-            core.Geocaches.LoadFullData += new Framework.EventArguments.GeocacheEventHandler(Geocaches_LoadFullData);
+            core.Logs.LoadFullData += new Framework.EventArguments.LoadFullLogEventHandler(Logs_LoadFullData);
+            core.Geocaches.LoadFullData += new Framework.EventArguments.LoadFullGeocacheEventHandler(Geocaches_LoadFullData);
 
             bool result = base.Initialize(core);
             return result;
@@ -132,21 +132,21 @@ namespace GlobalcachingApplication.Plugins.Sqlite
             }
         }
 
-        void Geocaches_LoadFullData(object sender, Framework.EventArguments.GeocacheEventArgs e)
+        void Geocaches_LoadFullData(object sender, Framework.EventArguments.LoadFullGeocacheEventArgs e)
         {
             if (_dbcon != null)
             {
                 try
                 {
-                    using (SqliteCommand cmd = new SqliteCommand(string.Format("select shortdescr, shortdescrhtml, longdescr, longdescrhtml from geocache where Code='{0}'", e.Geocache.Code.Replace("'", "''")), _dbcon))
+                    using (SqliteCommand cmd = new SqliteCommand(string.Format("select shortdescr, shortdescrhtml, longdescr, longdescrhtml from geocache where Code='{0}'", e.RequestedForGeocache.Code.Replace("'", "''")), _dbcon))
                     using (SqliteDataReader dr = cmd.ExecuteReader())
                     {
                         if (dr.Read())
                         {
-                            e.Geocache.ShortDescription = (string)dr["shortdescr"];
-                            e.Geocache.ShortDescriptionInHtml = (int)dr["shortdescrhtml"] != 0;
-                            e.Geocache.LongDescription = (string)dr["longdescr"];
-                            e.Geocache.LongDescriptionInHtml = (int)dr["longdescrhtml"] != 0;
+                            e.ShortDescription = (string)dr["shortdescr"];
+                            e.ShortDescriptionInHtml = (int)dr["shortdescrhtml"] != 0;
+                            e.LongDescription = (string)dr["longdescr"];
+                            e.LongDescriptionInHtml = (int)dr["longdescrhtml"] != 0;
                         }
                     }
                 }
@@ -156,20 +156,20 @@ namespace GlobalcachingApplication.Plugins.Sqlite
             }
         }
 
-        void Logs_LoadFullData(object sender, Framework.EventArguments.LogEventArgs e)
+        void Logs_LoadFullData(object sender, Framework.EventArguments.LoadFullLogEventArgs e)
         {
             if (_dbcon != null)
             {
                 try
                 {
-                    using (SqliteCommand cmd = new SqliteCommand(string.Format("select tbcode, finderid, logtext, encoded from log where ID='{0}'", e.Log.ID.Replace("'", "''")), _dbcon))
+                    using (SqliteCommand cmd = new SqliteCommand(string.Format("select tbcode, finderid, logtext, encoded from log where ID='{0}'", e.RequestForLog.ID.Replace("'", "''")), _dbcon))
                     using (SqliteDataReader dr = cmd.ExecuteReader())
                     if (dr.Read())
                     {
-                        e.Log.TBCode = dr["tbcode"] as string;
-                        e.Log.FinderId = dr["finderid"] as string;
-                        e.Log.Text = dr["logtext"] as string;
-                        e.Log.Encoded = (int)dr["encoded"] == 0 ? false : true;
+                        e.TBCode = dr["tbcode"] as string;
+                        e.FinderId = dr["finderid"] as string;
+                        e.Text = dr["logtext"] as string;
+                        e.Encoded = (int)dr["encoded"] == 0 ? false : true;
                     }
                 }
                 catch

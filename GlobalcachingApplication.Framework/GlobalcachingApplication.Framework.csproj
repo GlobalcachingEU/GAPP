@@ -127,6 +127,8 @@
     <Compile Include="EventArguments\CommandLineEventArgs.cs" />
     <Compile Include="EventArguments\GeocacheAccountNamesEventArgs.cs" />
     <Compile Include="EventArguments\GeocacheImageEventArgs.cs" />
+    <Compile Include="EventArguments\LoadFullGeocacheEventArgs.cs" />
+    <Compile Include="EventArguments\LoadFullLogEventArgs.cs" />
     <Compile Include="EventArguments\UserWaypointEventArgs.cs" />
     <Compile Include="EventArguments\GPSLocationEventArgs.cs" />
     <Compile Include="EventArguments\NotificationEventArgs.cs" />

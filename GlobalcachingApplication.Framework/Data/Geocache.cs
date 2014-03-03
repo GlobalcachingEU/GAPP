@@ -69,7 +69,7 @@ namespace GlobalcachingApplication.Framework.Data
         private Interfaces.ICore _core = null;
 
         //if _shortDescription is null, then cache is parially loaded
-        public event EventArguments.GeocacheEventHandler LoadFullData;
+        public event EventArguments.LoadFullGeocacheEventHandler LoadFullData;
         private bool _loadingFullData = false;
 
         public Geocache()
@@ -102,7 +102,12 @@ namespace GlobalcachingApplication.Framework.Data
                         _fullLoadGeocache._longDescription = this._longDescription;
                         _fullLoadGeocache._longDescriptionInHtml = this._longDescriptionInHtml;
                     }
-                    LoadFullData(this, new EventArguments.GeocacheEventArgs(_fullLoadGeocache));
+                    var e = new EventArguments.LoadFullGeocacheEventArgs(_fullLoadGeocache);
+                    LoadFullData(this, e);
+                    _fullLoadGeocache._shortDescription = e.ShortDescription;
+                    _fullLoadGeocache._shortDescriptionInHtml = e.ShortDescriptionInHtml;
+                    _fullLoadGeocache._longDescription = e.LongDescription;
+                    _fullLoadGeocache._longDescriptionInHtml = e.LongDescriptionInHtml;
                     _loadingFullData = false;
                     if (persist)
                     {

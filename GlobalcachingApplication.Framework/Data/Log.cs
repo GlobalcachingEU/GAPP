@@ -24,7 +24,7 @@ namespace GlobalcachingApplication.Framework.Data
         private bool _saved = false;
 
         //if text is null, then log is parially loaded
-        public event EventArguments.LogEventHandler LoadFullData;
+        public event EventArguments.LoadFullLogEventHandler LoadFullData;
         private bool _loadingFullData = false;
         private bool _fullDataLoaded = true;
         private static Log _fullLoadLog = new Log();
@@ -53,14 +53,19 @@ namespace GlobalcachingApplication.Framework.Data
                         _fullLoadLog._text = this._text;
                         _fullLoadLog._encoded = this._encoded;
                     }
-                    LoadFullData(this, new EventArguments.LogEventArgs(this));
+                    var e = new EventArguments.LoadFullLogEventArgs(this);
+                    LoadFullData(this, e);
+                    _fullLoadLog._tbCode = e.TBCode;
+                    _fullLoadLog._finderId = e.FinderId;
+                    _fullLoadLog._text = e.Text;
+                    _fullLoadLog._encoded = e.Encoded;
                     _loadingFullData = false;
                     if (persist)
                     {
-                        this._tbCode = _fullLoadLog._tbCode;
-                        this._finderId = _fullLoadLog._finderId;
-                        this._text = _fullLoadLog._text;
-                        this._encoded = _fullLoadLog._encoded;
+                        this._tbCode = e.TBCode;
+                        this._finderId = e.FinderId;
+                        this._text = e.Text;
+                        this._encoded = e.Encoded;
                         FullDataLoaded = true;
                     }
                 }

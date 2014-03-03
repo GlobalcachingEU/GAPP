@@ -18,7 +18,7 @@ namespace GlobalcachingApplication.Framework.Data
         public event Framework.EventArguments.GeocacheEventHandler GeocacheSelectedChanged;
         public event EventArguments.GeocacheEventHandler SelectedChanged;
         public event EventArguments.GeocacheEventHandler DataChanged;
-        public event EventArguments.GeocacheEventHandler LoadFullData;
+        public event EventArguments.LoadFullGeocacheEventHandler LoadFullData;
 
         //events in UI context (on the list, after EndUpdate)
         public event EventHandler ListSelectionChanged;
@@ -197,7 +197,7 @@ namespace GlobalcachingApplication.Framework.Data
                 result = base.Add(gc);
                 gc.DataChanged += new EventArguments.GeocacheEventHandler(gc_DataChanged);
                 gc.SelectedChanged += new EventArguments.GeocacheEventHandler(gc_SelectedChanged);
-                gc.LoadFullData += new EventArguments.GeocacheEventHandler(gc_LoadFullData);
+                gc.LoadFullData += new EventArguments.LoadFullGeocacheEventHandler(gc_LoadFullData);
                 OnCacheAdded(gc);
             }
             else 
@@ -218,7 +218,7 @@ namespace GlobalcachingApplication.Framework.Data
                                 base.Add(l);
                                 l.DataChanged += new EventArguments.GeocacheEventHandler(gc_DataChanged);
                                 l.SelectedChanged += new EventArguments.GeocacheEventHandler(gc_SelectedChanged);
-                                l.LoadFullData += new EventArguments.GeocacheEventHandler(gc_LoadFullData);
+                                l.LoadFullData += new EventArguments.LoadFullGeocacheEventHandler(gc_LoadFullData);
                             }
                         }
                         _dataChanged = true;
@@ -233,9 +233,9 @@ namespace GlobalcachingApplication.Framework.Data
             return result;
         }
 
-        void gc_LoadFullData(object sender, EventArguments.GeocacheEventArgs e)
+        void gc_LoadFullData(object sender, EventArguments.LoadFullGeocacheEventArgs e)
         {
-            OnLoadFullData(e.Geocache);
+            OnLoadFullData(e);
         }
 
         void gc_SelectedChanged(object sender, EventArguments.GeocacheEventArgs e)
@@ -274,7 +274,7 @@ namespace GlobalcachingApplication.Framework.Data
                 _qaItems.Remove(gc.Code);
                 gc.DataChanged -= new EventArguments.GeocacheEventHandler(gc_DataChanged);
                 gc.SelectedChanged -= new EventArguments.GeocacheEventHandler(gc_SelectedChanged);
-                gc.LoadFullData -= new EventArguments.GeocacheEventHandler(gc_LoadFullData);
+                gc.LoadFullData -= new EventArguments.LoadFullGeocacheEventHandler(gc_LoadFullData);
                 base.RemoveAt(index);
                 OnCacheRemoved(gc);
             }
@@ -289,7 +289,7 @@ namespace GlobalcachingApplication.Framework.Data
                 {
                     gc.DataChanged -= new EventArguments.GeocacheEventHandler(gc_DataChanged);
                     gc.SelectedChanged -= new EventArguments.GeocacheEventHandler(gc_SelectedChanged);
-                    gc.LoadFullData -= new EventArguments.GeocacheEventHandler(gc_LoadFullData);
+                    gc.LoadFullData -= new EventArguments.LoadFullGeocacheEventHandler(gc_LoadFullData);
                 }
                 _dataChanged = true;
                 base.Clear();
@@ -412,11 +412,11 @@ namespace GlobalcachingApplication.Framework.Data
             }
         }
 
-        public void OnLoadFullData(Framework.Data.Geocache gc)
+        public void OnLoadFullData(Framework.EventArguments.LoadFullGeocacheEventArgs e)
         {
             if (LoadFullData != null)
             {
-                LoadFullData(this, new Framework.EventArguments.GeocacheEventArgs(gc));
+                LoadFullData(this, e);
             }
         }
 

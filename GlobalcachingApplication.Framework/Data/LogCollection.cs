@@ -16,7 +16,7 @@ namespace GlobalcachingApplication.Framework.Data
         public event Framework.EventArguments.LogEventHandler LogAdded;
         public event Framework.EventArguments.LogEventHandler LogRemoved;
         public event EventArguments.LogEventHandler DataChanged;
-        public event EventArguments.LogEventHandler LoadFullData;
+        public event EventArguments.LoadFullLogEventHandler LoadFullData;
 
         //events in UI context (on the list, after EndUpdate)
         public event EventHandler ListDataChanged;
@@ -73,7 +73,7 @@ namespace GlobalcachingApplication.Framework.Data
                 _sorted = false;
                 result = base.Add(wp);
                 wp.DataChanged += new EventArguments.LogEventHandler(gc_DataChanged);
-                wp.LoadFullData += new EventArguments.LogEventHandler(wp_LoadFullData);
+                wp.LoadFullData += new EventArguments.LoadFullLogEventHandler(wp_LoadFullData);
                 OnLogAdded(wp);
             }
             else 
@@ -93,9 +93,9 @@ namespace GlobalcachingApplication.Framework.Data
             return result;
         }
 
-        void wp_LoadFullData(object sender, EventArguments.LogEventArgs e)
+        void wp_LoadFullData(object sender, EventArguments.LoadFullLogEventArgs e)
         {
-            OnLoadFullData(e.Log);
+            OnLoadFullData(e);
         }
 
         void gc_DataChanged(object sender, EventArguments.LogEventArgs e)
@@ -131,7 +131,7 @@ namespace GlobalcachingApplication.Framework.Data
                 //end grouping
                 _qaItems.Remove(wp.ID);
                 wp.DataChanged -= new EventArguments.LogEventHandler(gc_DataChanged);
-                wp.LoadFullData -= new EventArguments.LogEventHandler(wp_LoadFullData);
+                wp.LoadFullData -= new EventArguments.LoadFullLogEventHandler(wp_LoadFullData);
                 base.RemoveAt(index);
                 OnLogRemoved(wp);
             }
@@ -148,7 +148,7 @@ namespace GlobalcachingApplication.Framework.Data
                 foreach (Framework.Data.Log gc in this)
                 {
                     gc.DataChanged -= new EventArguments.LogEventHandler(gc_DataChanged);
-                    gc.LoadFullData -= new EventArguments.LogEventHandler(wp_LoadFullData);
+                    gc.LoadFullData -= new EventArguments.LoadFullLogEventHandler(wp_LoadFullData);
                 }
                 base.Clear();
                 _dataChanged = true;
@@ -193,7 +193,7 @@ namespace GlobalcachingApplication.Framework.Data
                                 _sorted = false;
                                 base.Add(l);
                                 l.DataChanged += new EventArguments.LogEventHandler(gc_DataChanged);
-                                l.LoadFullData += new EventArguments.LogEventHandler(wp_LoadFullData);
+                                l.LoadFullData += new EventArguments.LoadFullLogEventHandler(wp_LoadFullData);
                             }
                         }
                         _dataChanged = true;
@@ -238,11 +238,11 @@ namespace GlobalcachingApplication.Framework.Data
             }
         }
 
-        public void OnLoadFullData(Framework.Data.Log wp)
+        public void OnLoadFullData(Framework.EventArguments.LoadFullLogEventArgs e)
         {
             if (LoadFullData != null)
             {
-                LoadFullData(this, new Framework.EventArguments.LogEventArgs(wp));
+                LoadFullData(this, e);
             }
         }
 

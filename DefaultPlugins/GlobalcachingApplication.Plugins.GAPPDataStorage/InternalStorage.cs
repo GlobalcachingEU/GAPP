@@ -170,8 +170,8 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
             }
 
             SetDataSourceName(Properties.Settings.Default.ActiveDataFile);
-            core.Logs.LoadFullData += new Framework.EventArguments.LogEventHandler(Logs_LoadFullData);
-            core.Geocaches.LoadFullData += new Framework.EventArguments.GeocacheEventHandler(Geocaches_LoadFullData);
+            core.Logs.LoadFullData += new Framework.EventArguments.LoadFullLogEventHandler(Logs_LoadFullData);
+            core.Geocaches.LoadFullData += new Framework.EventArguments.LoadFullGeocacheEventHandler(Geocaches_LoadFullData);
 
             return base.Initialize(core);
         }
@@ -268,13 +268,13 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
             }
         }
 
-        void Geocaches_LoadFullData(object sender, Framework.EventArguments.GeocacheEventArgs e)
+        void Geocaches_LoadFullData(object sender, Framework.EventArguments.LoadFullGeocacheEventArgs e)
         {
             if (_fileCollection!=null)
             {
                 try
                 {
-                    string id = string.Concat("F_",e.Geocache.Code);
+                    string id = string.Concat("F_",e.RequestedForGeocache.Code);
                     RecordInfo ri = _fileCollection._geocachesInDB[id] as RecordInfo;
                     if (ri != null)
                     {
@@ -286,10 +286,10 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
                         {
                             ms.Position = sizeof(long)+1;
                             br.ReadString(); //id
-                            e.Geocache.ShortDescription = br.ReadString();
-                            e.Geocache.ShortDescriptionInHtml = br.ReadBoolean();
-                            e.Geocache.LongDescription = br.ReadString();
-                            e.Geocache.LongDescriptionInHtml = br.ReadBoolean();
+                            e.ShortDescription = br.ReadString();
+                            e.ShortDescriptionInHtml = br.ReadBoolean();
+                            e.LongDescription = br.ReadString();
+                            e.LongDescriptionInHtml = br.ReadBoolean();
                         }
                     }
                 }
@@ -299,13 +299,13 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
             }
         }
 
-        void Logs_LoadFullData(object sender, Framework.EventArguments.LogEventArgs e)
+        void Logs_LoadFullData(object sender, Framework.EventArguments.LoadFullLogEventArgs e)
         {
             if (_fileCollection != null)
             {
                 try
                 {
-                    string id = string.Concat("F_", e.Log.ID);
+                    string id = string.Concat("F_", e.RequestForLog.ID);
                     RecordInfo ri = _fileCollection._logsInDB[id] as RecordInfo;
                     if (ri != null)
                     {
@@ -317,10 +317,10 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
                         {
                             ms.Position = sizeof(long) + 1;
                             br.ReadString(); //id
-                            e.Log.TBCode = br.ReadString();
-                            e.Log.FinderId = br.ReadString();
-                            e.Log.Text = br.ReadString();
-                            e.Log.Encoded = br.ReadBoolean();
+                            e.TBCode = br.ReadString();
+                            e.FinderId = br.ReadString();
+                            e.Text = br.ReadString();
+                            e.Encoded = br.ReadBoolean();
                         }
                     }
                 }

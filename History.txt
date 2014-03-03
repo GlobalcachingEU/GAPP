@@ -16,6 +16,8 @@ V1.9.18.0
 
 - gapp: fix: Generation of statistics now ignores time when sorting finds
 - gapp: Google map, added option to mark selected geocaches when all geocaches are on the map
+- gapp: fix: fetching full log data for geocache viewer
+- gapp: change: fetching full geocache data
 - gappsf: add: Cachelist, added set selected geocache location as center
 - gappsf: add: selection of active database in main menu
 - gappsf: add: removal of active database in main menu
