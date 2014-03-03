@@ -75,6 +75,15 @@ namespace GlobalcachingApplication.Plugins.GCView
             SelectedLanguageChanged(this, EventArgs.Empty);
             core.Geocaches.DataChanged += new Framework.EventArguments.GeocacheEventHandler(Geocaches_DataChanged);
             core.Geocaches.ListDataChanged += new EventHandler(Geocaches_ListDataChanged);
+            core.Logs.ListDataChanged += Logs_ListDataChanged;
+        }
+
+        void Logs_ListDataChanged(object sender, EventArgs e)
+        {
+            if (Visible)
+            {
+                UpdateView();
+            }
         }
 
         void Geocaches_ListDataChanged(object sender, EventArgs e)

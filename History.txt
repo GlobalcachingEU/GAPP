@@ -18,6 +18,7 @@ V1.9.18.0
 - gapp: Google map, added option to mark selected geocaches when all geocaches are on the map
 - gapp: fix: fetching full log data for geocache viewer
 - gapp: change: fetching full geocache data
+- gapp: change: Geocache Viewer now automatically refreshed when log data is changed
 - gappsf: add: Cachelist, added set selected geocache location as center
 - gappsf: add: selection of active database in main menu
 - gappsf: add: removal of active database in main menu
