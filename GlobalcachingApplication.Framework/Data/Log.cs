@@ -97,16 +97,16 @@ namespace GlobalcachingApplication.Framework.Data
         public void UpdateFrom(Log l)
         {
             BeginUpdate();
-            this.GeocacheCode = l.GeocacheCode;
-            this.TBCode = l.TBCode;
-            this.ID = l.ID;
-            this.Date = l.Date;
-            this.Finder = l.Finder;
-            this.FinderId = l.FinderId;
-            this.Text = l.Text;
-            this.Encoded = l.Encoded;
-            this.DataFromDate = l.DataFromDate;
-            this.LogType = l.LogType;
+            this.GeocacheCode = l._geocacheCode;
+            this.TBCode = l._tbCode;
+            this.ID = l._id;
+            this.Date = l._date;
+            this.Finder = l._finder;
+            this.FinderId = l._finderId;
+            this.Text = l._text;
+            this.Encoded = l._encoded;
+            this.DataFromDate = l._dataFromDate;
+            this.LogType = l._logType;
 
             EndUpdate();
         }

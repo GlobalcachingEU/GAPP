@@ -171,10 +171,10 @@ namespace GlobalcachingApplication.Framework.Data
                 this.OwnerId = gc.OwnerId;
                 this.Terrain = gc.Terrain;
                 this.Difficulty = gc.Difficulty;
-                this.ShortDescription = gc.ShortDescription;
-                this.ShortDescriptionInHtml = gc.ShortDescriptionInHtml;
-                this.LongDescription = gc.LongDescription;
-                this.LongDescriptionInHtml = gc.LongDescriptionInHtml;
+                this.ShortDescription = gc._shortDescription;
+                this.ShortDescriptionInHtml = gc._shortDescriptionInHtml;
+                this.LongDescription = gc._longDescription;
+                this.LongDescriptionInHtml = gc._longDescriptionInHtml;
                 this.EncodedHints = gc.EncodedHints;
                 this.Title = gc.Title;
                 this.Url = gc.Url;

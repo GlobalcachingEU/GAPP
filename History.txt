@@ -12,6 +12,10 @@ todo GAPP/GAPP SF
 - add option to mark selected geocaches on the map (when all is selected, selected geocaches are highlighted/marked)
 - add option to add attributes list in description
 
+V1.9.19.0
+
+- gapp: fix: updating existing log text and geocache description
+
 V1.9.18.0
 
 - gapp: fix: Generation of statistics now ignores time when sorting finds
