@@ -15,6 +15,7 @@ todo GAPP/GAPP SF
 V1.9.19.0
 
 - gapp: fix: updating existing log text and geocache description
+- gapp: fix: added missing selected geocache marker to setup.
 
 V1.9.18.0
 

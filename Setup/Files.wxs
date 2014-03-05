@@ -457,6 +457,7 @@
 							<Component Id="mapmsimg" Guid="01360A42-70B6-4579-AFFF-C5996C699DC3"  DiskId="1">
 								<File Id="mapimg1"  Name="image-missing.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/image-missing.png" />
 								<File Id="mapimg2"  Name="curpos.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/curpos.png" />
+								<File Id="mapimg3"  Name="curpos.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/selected.png" />
 							</Component>
 							<Directory Id="IMAGESDIRMAPCT" Name="cachetypes">
 								<Component Id="mapct" Guid="DE913FC4-AEF4-4487-9B97-26B9433783C9"  DiskId="1">
