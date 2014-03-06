@@ -27,6 +27,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
         public const string STR_MINSTARTNAME = "Minimum start of name length";
         public const string STR_EXTRACOORDNAMEPREFIX = "Extra coord. name prefix";
         public const string STR_ADDIMAGES = "Add images";
+        public const string STR_EXTRAINFO = "Add extra information to description";
 
         private Utils.Devices.GarminMassStorage _garminmsDev = null;
 
@@ -50,6 +51,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
             this.label8.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_MAXNAMELENGTH);
             this.label7.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_MINSTARTNAME);
             this.label10.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_EXTRACOORDNAMEPREFIX);
+            this.checkBox10.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_EXTRAINFO);
 
             numericUpDown1.Value = Properties.Settings.Default.MaxGeocacheNameLength;
             numericUpDown2.Value = Properties.Settings.Default.MinStartOfGeocacheName;
@@ -65,6 +67,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
             checkBox8.Checked = Properties.Settings.Default.AddFieldNotesToDescription;
             textBox1.Text = Properties.Settings.Default.CorrectedNamePrefix ?? "";
             checkBox9.Checked = Properties.Settings.Default.AddImages;
+            checkBox10.Checked = Properties.Settings.Default.AddExtraInfoToDescription;
 
             comboBox2.Items.Add(Utils.GPXGenerator.V100);
             comboBox2.Items.Add(Utils.GPXGenerator.V101);
@@ -197,6 +200,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
             Properties.Settings.Default.AddFieldNotesToDescription = checkBox8.Checked;
             Properties.Settings.Default.CorrectedNamePrefix = textBox1.Text;
             Properties.Settings.Default.AddImages = checkBox9.Checked;
+            Properties.Settings.Default.AddExtraInfoToDescription = checkBox10.Checked;
             if (comboBox2.SelectedItem as Version == null)
             {
                 Properties.Settings.Default.GPXVersionStr = "";

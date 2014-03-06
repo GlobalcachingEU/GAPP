@@ -1855,4 +1855,10 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="SettingsFolder" xml:space="preserve">
     <value>Settings folder</value>
   </data>
+  <data name="AddExtraInfoToDescription" xml:space="preserve">
+    <value>Add extra information to description</value>
+  </data>
+  <data name="LastUpdated" xml:space="preserve">
+    <value>Last updated</value>
+  </data>
 </root>

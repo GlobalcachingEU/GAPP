@@ -9,13 +9,15 @@ todo GAPP SF:
 - Trackable groeps
 
 todo GAPP/GAPP SF
-- add option to mark selected geocaches on the map (when all is selected, selected geocaches are highlighted/marked)
 - add option to add attributes list in description
 
 V1.9.19.0
 
 - gapp: fix: updating existing log text and geocache description
 - gapp: fix: added missing selected geocache marker to setup.
+- gapp: add: option to add extra geocache information to cache description with GPX export
+- gappsf: add: option to add extra geocache information to cache description with GPX export
+- gappsf: fix: GPX export selection of target device
 
 V1.9.18.0
 

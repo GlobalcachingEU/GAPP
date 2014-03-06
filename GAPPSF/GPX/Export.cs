@@ -458,9 +458,9 @@ namespace GAPPSF.GPX
                 cache.AppendChild(el);
 
                 el = doc.CreateElement("groundspeak_short_description");
+                StringBuilder sb = new StringBuilder();
                 if (Core.Settings.Default.GPXAddFieldnotesToDescription && gc.ContainsNote)
                 {
-                    StringBuilder sb = new StringBuilder();
                     if (gc.ShortDescriptionInHtml)
                     {
                         if (!string.IsNullOrEmpty(gc.PersonalNote))
@@ -491,12 +491,62 @@ namespace GAPPSF.GPX
                         }
                     }
                     sb.Append(gc.ShortDescription ?? "");
-                    txt = doc.CreateTextNode(sb.ToString());
                 }
                 else
                 {
-                    txt = doc.CreateTextNode(gc.ShortDescription ?? "");
+                    sb.Append(gc.ShortDescription ?? "");
                 }
+                if (Core.Settings.Default.GPXAddExtraInfo)
+                {
+                    //cachetype
+                    //placed by
+                    //last updated
+                    //last found (not added yet)
+                    //atributes
+                    if (gc.ShortDescriptionInHtml)
+                    {
+                        sb.Append("<p>");
+                        sb.AppendFormat("<b>{0}</b>: {1}<br />", System.Web.HttpUtility.HtmlEncode(Localization.TranslationManager.Instance.Translate("CacheType")), System.Web.HttpUtility.HtmlEncode(Localization.TranslationManager.Instance.Translate(gc.GeocacheType.Name)));
+                        sb.AppendFormat("<b>{0}</b>: {1}<br />", System.Web.HttpUtility.HtmlEncode(Localization.TranslationManager.Instance.Translate("Owner")), System.Web.HttpUtility.HtmlEncode(gc.Owner ?? ""));
+                        sb.AppendFormat("<b>{0}</b>: {1}<br />", System.Web.HttpUtility.HtmlEncode(Localization.TranslationManager.Instance.Translate("LastUpdated")), System.Web.HttpUtility.HtmlEncode(gc.DataFromDate.ToString("d")));
+                        sb.AppendFormat("<b>{0}</b>:<br />", System.Web.HttpUtility.HtmlEncode(Localization.TranslationManager.Instance.Translate("Attributes")));
+                        foreach (int attrId in gc.AttributeIds)
+                        {
+                            int id = (int)Math.Abs(attrId);
+                            if (attrId < 0)
+                            {
+                                sb.AppendFormat(string.Format("{0} {1}<br />", System.Web.HttpUtility.HtmlEncode(Localization.TranslationManager.Instance.Translate("No")), System.Web.HttpUtility.HtmlEncode(Localization.TranslationManager.Instance.Translate(Utils.DataAccess.GetGeocacheAttribute(id).Name))));
+                            }
+                            else
+                            {
+                                sb.AppendFormat(string.Format("{0} {1}<br />", System.Web.HttpUtility.HtmlEncode(Localization.TranslationManager.Instance.Translate("Yes")), System.Web.HttpUtility.HtmlEncode(Localization.TranslationManager.Instance.Translate(Utils.DataAccess.GetGeocacheAttribute(id).Name))));
+                            }
+                        }
+                        sb.Append("</p>");
+                    }
+                    else
+                    {
+                        sb.AppendLine();
+                        sb.AppendFormat("{0}: {1}\r\n", Localization.TranslationManager.Instance.Translate("CacheType"), Localization.TranslationManager.Instance.Translate(gc.GeocacheType.Name));
+                        sb.AppendFormat("{0}: {1}\r\n", Localization.TranslationManager.Instance.Translate("Owner"), gc.Owner ?? "");
+                        sb.AppendFormat("{0}: {1}\r\n", Localization.TranslationManager.Instance.Translate("LastUpdated"), gc.DataFromDate.ToString("d"));
+                        sb.AppendFormat("{0}:\r\n", Localization.TranslationManager.Instance.Translate("Attributes"));
+                        foreach (int attrId in gc.AttributeIds)
+                        {
+                            int id = (int)Math.Abs(attrId);
+                            if (attrId < 0)
+                            {
+                                sb.AppendFormat(string.Format("{0} {1}\r\n", Localization.TranslationManager.Instance.Translate("No"), Localization.TranslationManager.Instance.Translate(Utils.DataAccess.GetGeocacheAttribute(id).Name)));
+                            }
+                            else
+                            {
+                                sb.AppendFormat(string.Format("{0} {1}\r\n", Localization.TranslationManager.Instance.Translate("Yes"), Localization.TranslationManager.Instance.Translate(Utils.DataAccess.GetGeocacheAttribute(id).Name)));
+                            }
+                        }
+                        sb.AppendLine();
+                    }
+                }
+                txt = doc.CreateTextNode(sb.ToString());
                 el.AppendChild(txt);
                 cache.AppendChild(el);
                 attr = doc.CreateAttribute("html");

@@ -59,6 +59,7 @@ namespace GlobalcachingApplication.Plugins.ExportGPX
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_INCLNOTES));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_ADDWAYPOINTS));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_EXTRACOORDNAMEPREFIX));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_EXTRAINFO));
 
             return base.Initialize(core);
         }
@@ -116,6 +117,7 @@ namespace GlobalcachingApplication.Plugins.ExportGPX
                                 _gpxGenerator.UseHintsForDescription = Properties.Settings.Default.UseHintsForDescription;
                                 _gpxGenerator.AddFieldnotesToDescription = Properties.Settings.Default.AddFieldnotesToDescription;
                                 _gpxGenerator.ExtraCoordPrefix = Properties.Settings.Default.CorrectedNamePrefix;
+                                _gpxGenerator.AddExtraInfoToDescription = Properties.Settings.Default.AddExtraInfoToDescription;
                                 PerformExport();
                             }
                         }

@@ -958,6 +958,7 @@
   <string name="selected" value="Sélectionné(es)" />
   <string name="selected events" value="Événements sélectionnés " />
   <string name="selected geocaches" value="Geocaches sélectionnées " />
+  <string name="selected markers" value="Marquer les sélectionnées" />
   <string name="selected only" value="Sélectionné uniquement" />
   <string name="selection" value="Sélection" />
   <string name="selection options" value="Options de sélection" />

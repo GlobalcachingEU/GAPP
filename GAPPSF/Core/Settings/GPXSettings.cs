@@ -86,6 +86,12 @@ namespace GAPPSF.Core
             set { SetProperty(value); }
         }
 
+        public bool GPXAddExtraInfo
+        {
+            get { return bool.Parse(GetProperty("False")); }
+            set { SetProperty(value.ToString()); }
+        }
+
         public string GPXVersion
         {
             get { return GetProperty("1.0.1"); }

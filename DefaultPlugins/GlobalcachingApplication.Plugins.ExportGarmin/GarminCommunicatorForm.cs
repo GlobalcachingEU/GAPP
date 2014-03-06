@@ -25,6 +25,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
         public const string STR_USEHINTSDESCR = "Use the hints for description";
         public const string STR_GPXVERSION = "GPX version";
         public const string STR_EXTRACOORDNAMEPREFIX = "Extra coord. name prefix";
+        public const string STR_EXTRAINFO = "Add extra information to description";
 
         private TemporaryFile tmpFile = null;
         private Framework.Interfaces.ICore _core = null;
@@ -57,6 +58,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
             checkBox3.Checked = Properties.Settings.Default.UseNameAndNotCode;
             checkBox4.Checked = Properties.Settings.Default.AddWaypointsToDescription;
             checkBox5.Checked = Properties.Settings.Default.UseHintsForDescription;
+            checkBox6.Checked = Properties.Settings.Default.AddExtraInfoToDescription;
             comboBox2.Items.Add(Utils.GPXGenerator.V100);
             comboBox2.Items.Add(Utils.GPXGenerator.V101);
             comboBox2.Items.Add(Utils.GPXGenerator.V102);
@@ -81,6 +83,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
             this.label2.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_MINSTARTNAME);
             this.label6.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_GPXVERSION);
             this.label10.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_EXTRACOORDNAMEPREFIX);
+            this.checkBox6.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_EXTRAINFO);
 
             tmpFile = new TemporaryFile(true);
             using (StreamReader textStreamReader = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("GlobalcachingApplication.Plugins.ExportGarmin.GarminCommunicator.html")))
@@ -115,6 +118,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
                 Properties.Settings.Default.UseNameAndNotCode = checkBox3.Checked;
                 Properties.Settings.Default.AddWaypointsToDescription = checkBox4.Checked;
                 Properties.Settings.Default.UseHintsForDescription = checkBox5.Checked;
+                Properties.Settings.Default.AddExtraInfoToDescription = checkBox6.Checked;
                 Properties.Settings.Default.CorrectedNamePrefix = textBox1.Text;
                 if (comboBox2.SelectedItem as Version == null)
                 {
@@ -160,6 +164,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
                                 gpxGenerator.AddAdditionWaypointsToDescription = Properties.Settings.Default.AddWaypointsToDescription;
                                 gpxGenerator.UseHintsForDescription = Properties.Settings.Default.UseHintsForDescription;
                                 gpxGenerator.ExtraCoordPrefix = Properties.Settings.Default.CorrectedNamePrefix;
+                                gpxGenerator.AddExtraInfoToDescription = Properties.Settings.Default.AddExtraInfoToDescription;
                                 
                                 using (System.IO.TemporaryFile gpxFile = new System.IO.TemporaryFile(true))
                                 {
@@ -256,6 +261,12 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             textBox1.Text = Properties.Settings.Default.CorrectedNamePrefix;
+            Properties.Settings.Default.Save();
+        }
+
+        private void checkBox6_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.AddExtraInfoToDescription = checkBox6.Checked;
             Properties.Settings.Default.Save();
         }
 

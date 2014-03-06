@@ -21,6 +21,7 @@ namespace GlobalcachingApplication.Plugins.ExportGPX
         public const string STR_INCLNOTES = "Include notes in description";
         public const string STR_ADDWAYPOINTS = "Add waypoints";
         public const string STR_EXTRACOORDNAMEPREFIX = "Extra coord. name prefix";
+        public const string STR_EXTRAINFO = "Add extra information to description";
 
         public SettingsPanel()
         {
@@ -36,6 +37,7 @@ namespace GlobalcachingApplication.Plugins.ExportGPX
             this.checkBox5.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_USEHINTSDESCR);
             this.checkBox2.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_INCLNOTES);
             this.checkBox4.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_ADDWAYPOINTS);
+            this.checkBox6.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_EXTRAINFO);
 
             numericUpDown1.Value = Properties.Settings.Default.MaxGeocacheNameLength;
             numericUpDown2.Value = Properties.Settings.Default.MinStartOfGeocacheName;
@@ -43,6 +45,7 @@ namespace GlobalcachingApplication.Plugins.ExportGPX
             checkBox1.Checked = Properties.Settings.Default.AddWaypointsToDescription;
             checkBox2.Checked = Properties.Settings.Default.AddFieldnotesToDescription;
             checkBox4.Checked = Properties.Settings.Default.AddWaypoints;
+            checkBox6.Checked = Properties.Settings.Default.AddExtraInfoToDescription;
             checkBoxZipFile.Checked = Properties.Settings.Default.ZipFile;
             textBox1.Text = Properties.Settings.Default.CorrectedNamePrefix ?? "";
             checkBox5.Checked = Properties.Settings.Default.UseHintsForDescription;
@@ -69,6 +72,7 @@ namespace GlobalcachingApplication.Plugins.ExportGPX
             Properties.Settings.Default.UseHintsForDescription = checkBox5.Checked;
             Properties.Settings.Default.AddFieldnotesToDescription = checkBox2.Checked;
             Properties.Settings.Default.AddWaypoints = checkBox4.Checked;
+            Properties.Settings.Default.AddExtraInfoToDescription = checkBox6.Checked;
             Properties.Settings.Default.CorrectedNamePrefix = textBox1.Text;
             if (comboBox1.SelectedItem as Version == null)
             {

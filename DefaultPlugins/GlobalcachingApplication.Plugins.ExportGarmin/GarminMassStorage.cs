@@ -64,6 +64,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
                     gpxGenerator.MaxNameLength = Properties.Settings.Default.MaxGeocacheNameLength;
                     gpxGenerator.MinStartOfname = Properties.Settings.Default.MinStartOfGeocacheName;
                     gpxGenerator.ExtraCoordPrefix = Properties.Settings.Default.CorrectedNamePrefix;
+                    gpxGenerator.AddExtraInfoToDescription = Properties.Settings.Default.AddExtraInfoToDescription;
                     using (System.IO.TemporaryFile gpxFile = new System.IO.TemporaryFile(false))
                     {
                         using (System.IO.StreamWriter sw = new System.IO.StreamWriter(gpxFile.Path, false, Encoding.UTF8))
@@ -135,6 +136,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
                         gpxGenerator.MaxNameLength = Properties.Settings.Default.MaxGeocacheNameLength;
                         gpxGenerator.MinStartOfname = Properties.Settings.Default.MinStartOfGeocacheName;
                         gpxGenerator.ExtraCoordPrefix = Properties.Settings.Default.CorrectedNamePrefix;
+                        gpxGenerator.AddExtraInfoToDescription = Properties.Settings.Default.AddExtraInfoToDescription;
                         using (System.IO.TemporaryFile gpxFile = new System.IO.TemporaryFile(true))
                         {
                             int block = 0;
@@ -219,6 +221,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
                                             gpxGenerator.MaxNameLength = Properties.Settings.Default.MaxGeocacheNameLength;
                                             gpxGenerator.MinStartOfname = Properties.Settings.Default.MinStartOfGeocacheName;
                                             gpxGenerator.ExtraCoordPrefix = Properties.Settings.Default.CorrectedNamePrefix;
+                                            gpxGenerator.AddExtraInfoToDescription = Properties.Settings.Default.AddExtraInfoToDescription;
 
                                             string filename = "geocaches.ggz";
                                             if (Properties.Settings.Default.UseDatabaseNameForFileName)
