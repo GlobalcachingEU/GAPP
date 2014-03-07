@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using System.Windows.Media.Imaging;
 
 namespace GAPPSF.UIControls
 {
@@ -29,6 +30,43 @@ namespace GAPPSF.UIControls
             throw new System.NotImplementedException();
         }
     }
+
+    public class ByteArrayImageConverter : IValueConverter
+    {
+        public ByteArrayImageConverter()
+        {
+        }
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            byte[] data = value as byte[];
+            if (data != null)
+            {
+                BitmapImage bm = null;
+                try
+                {
+                    using (System.IO.MemoryStream ms = new System.IO.MemoryStream(data))
+                    {
+                        bm.BeginInit();
+                        bm.StreamSource = ms;
+                        bm.EndInit();
+                    }
+                }
+                catch
+                {
+
+                }
+                return bm;
+            }
+            return null;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
+
 
     public class ContainerConverter : IValueConverter
     {

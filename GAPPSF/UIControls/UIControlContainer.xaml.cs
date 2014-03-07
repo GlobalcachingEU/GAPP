@@ -320,6 +320,11 @@ namespace GAPPSF.UIControls
             FeatureControl = new InternalWebBrowser.Control();
         }
 
+        private void MenuItem_Click_25(object sender, RoutedEventArgs e)
+        {
+            FeatureControl = new Trackables.Control();
+        }
+
 
     }
 }

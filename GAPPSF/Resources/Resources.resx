@@ -1861,4 +1861,22 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="LastUpdated" xml:space="preserve">
     <value>Last updated</value>
   </data>
+  <data name="TrackableGroups" xml:space="preserve">
+    <value>Trackable groups</value>
+  </data>
+  <data name="DelayGetOwnedTrackables" xml:space="preserve">
+    <value>Delay GetOwnedTrackables</value>
+  </data>
+  <data name="DelayGetTrackableLogsByTBCode" xml:space="preserve">
+    <value>Delay GetTrackableLogsByTBCode</value>
+  </data>
+  <data name="DelayGetTrackablesByTBCode" xml:space="preserve">
+    <value>Delay GetTrackablesByTBCode</value>
+  </data>
+  <data name="GetOwnedTrackablesBatchSize" xml:space="preserve">
+    <value>GetOwnedTrackables batch size</value>
+  </data>
+  <data name="GetTrackableLogsByTBCodeBatchSize" xml:space="preserve">
+    <value>GetTrackableLogsByTBCode batch size</value>
+  </data>
 </root>

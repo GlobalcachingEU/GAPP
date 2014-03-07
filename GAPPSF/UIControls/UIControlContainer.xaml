@@ -41,6 +41,7 @@
                 <MenuItem Header="{l:Translate LogImageViewer}" Click="MenuItem_Click_22" />
                 <MenuItem Header="{l:Translate Chat}" Click="MenuItem_Click_23" />
                 <MenuItem Header="{l:Translate WebBrowser}" Click="MenuItem_Click_24" />
+                <MenuItem Header="{l:Translate TrackableGroups}" Click="MenuItem_Click_25" />
             </MenuItem>
         </Menu>
         <Button Width="20" Height="20" HorizontalAlignment="Right" Click="Button_Click">

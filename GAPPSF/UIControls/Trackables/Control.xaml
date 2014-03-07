@@ -1,0 +1,96 @@
+﻿<UserControl x:Class="GAPPSF.UIControls.Trackables.Control"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:p="clr-namespace:GAPPSF.Core"
+             xmlns:ui="clr-namespace:GAPPSF.UIControls"
+             xmlns:l="clr-namespace:GAPPSF.Localization"
+             d:DesignHeight="500" d:DesignWidth="500">
+    <UserControl.Resources>
+        <ui:LogTypeConverter x:Key="ByteArrayImageConverter"></ui:LogTypeConverter>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0" Background="#FFD6DBE9">
+            <MenuItem Header="{l:Translate Trackables}">
+                <MenuItem Header="{l:Translate Clear}" />
+            </MenuItem>
+        </Menu>
+        <Expander 
+            Header="{l:Translate Settings}"
+            Grid.Row="1"
+            HorizontalAlignment="Stretch">
+            <Expander.Background>
+                <SolidColorBrush Color="{DynamicResource SettingsBkColor}"/>
+            </Expander.Background>
+            <Expander.Content>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Margin="4" Grid.Column="0" Text="{l:Translate TrackableCodes}" />
+                    <TextBox Margin="4" Grid.Column="1" x:Name="addTrackables" />
+                    <Button Margin="4" Grid.Column="2" Content="{l:Translate Add}" IsEnabled="{Binding IsTrackableGroupSelected}" Command="{Binding AddNewTrackablesCommand}" />
+                    <Button Margin="4" Grid.Column="3" Content="{l:Translate AddYourOwn}" IsEnabled="{Binding IsTrackableGroupSelected}" Command="{Binding AddOwnTrackablesCommand}"/>
+                </Grid>
+            </Expander.Content>
+        </Expander>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Margin="4" Grid.Column="0" Text="{l:Translate Name}" />
+            <ComboBox Margin="4" Grid.Column="1" 
+                      ItemsSource="{Binding AvailableTrackableGroups}" 
+                      SelectedItem="{Binding SelectedTrackableGroup, Mode=TwoWay}"
+                      DisplayMemberPath="Name"
+                      />
+            <Button Grid.Column="2" Height="20" Width="20" ToolTip="{l:Translate New}" Click="Button_Click">
+                <Image Width="16" Height="16" Source="/Resources/General/new.png" />
+            </Button>
+            <Button Margin="4" Grid.Column="3" Height="20" Width="20" ToolTip="{l:Translate Delete}" Click="Button_Click_1"  IsEnabled="{Binding IsTrackableGroupSelected}">
+                <Image Width="16" Height="16" Source="/Resources/General/delete.png" />
+            </Button>
+        </Grid>
+        <DataGrid x:Name="logList" 
+                  Grid.Row="3" 
+                  VirtualizingStackPanel.VirtualizationMode="Recycling"  
+                  AutoGenerateColumns="False" 
+                  ItemsSource="{Binding AvailableTrackableItems}"
+                  SelectedItem="{Binding SelectedTrackableItem, Mode=TwoWay}"
+                  HorizontalScrollBarVisibility="Auto" 
+                  SelectionMode="Extended">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="{l:Translate Icon}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Path=IconData, Converter={StaticResource ByteArrayImageConverter}}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Binding="{Binding Code}" Header="{l:Translate Code}" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Name}" Header="{l:Translate Name}" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Owner}" Header="{l:Translate Owner}" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding LastCache}" Header="{l:Translate LastCache}" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding HopCount}" Header="{l:Translate Hops}" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding InCacheCount}" Header="{l:Translate Drops}" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding DiscoverCount}" Header="{l:Translate Discoveries}" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding DistanceKm}" Header="{l:Translate Km}" IsReadOnly="True" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <ui:InputDialog Grid.Row="0" Grid.RowSpan="4"  x:Name="inputDialog" Panel.ZIndex="200" />
+    </Grid>
+</UserControl>

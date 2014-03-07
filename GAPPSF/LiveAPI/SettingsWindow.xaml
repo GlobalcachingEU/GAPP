@@ -4,7 +4,7 @@
         xmlns:l="clr-namespace:GAPPSF.Localization"
         xmlns:p="clr-namespace:GAPPSF.Core"
         xmlns:ui="clr-namespace:GAPPSF.UIControls"
-        Title="{l:Translate LiveAPISettings}" Height="500" Width="400">
+        Title="{l:Translate LiveAPISettings}" Height="700" Width="400">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -12,6 +12,11 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -54,5 +59,19 @@
         <ui:NumericUpDown Grid.Row="10" Grid.Column="1" Margin="4" Height="30" Minimum="0" Maximum="9999999"  Value="{Binding LiveAPIUpdateGeocacheLogsMax, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
         <TextBlock Grid.Row="11" Grid.Column="0" Margin="4" Text="{l:Translate DelayCreateFieldNoteAndPublish}" />
         <ui:NumericUpDown Grid.Row="11" Grid.Column="1" Margin="4" Height="30" Minimum="0" Maximum="9999999"  Value="{Binding LiveAPIDelayCreateFieldNoteAndPublish, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+        <TextBlock Grid.Row="11" Grid.Column="2" Margin="4" Text="{l:Translate ms}" />
+        <TextBlock Grid.Row="12" Grid.Column="0" Margin="4" Text="{l:Translate GetOwnedTrackablesBatchSize}" />
+        <ui:NumericUpDown Grid.Row="12" Grid.Column="1" Margin="4" Height="30" Minimum="0" Maximum="9999999"  Value="{Binding LiveAPIGetOwnedTrackablesBatchSize, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+        <TextBlock Grid.Row="13" Grid.Column="0" Margin="4" Text="{l:Translate DelayGetOwnedTrackables}" />
+        <ui:NumericUpDown Grid.Row="13" Grid.Column="1" Margin="4" Height="30" Minimum="0" Maximum="9999999"  Value="{Binding LiveAPIDelayGetOwnedTrackables, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+        <TextBlock Grid.Row="13" Grid.Column="2" Margin="4" Text="{l:Translate ms}" />
+        <TextBlock Grid.Row="14" Grid.Column="0" Margin="4" Text="{l:Translate DelayGetTrackablesByTBCode}" />
+        <ui:NumericUpDown Grid.Row="14" Grid.Column="1" Margin="4" Height="30" Minimum="0" Maximum="9999999"  Value="{Binding LiveAPIDelayGetTrackablesByTBCode, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+        <TextBlock Grid.Row="14" Grid.Column="2" Margin="4" Text="{l:Translate ms}" />
+        <TextBlock Grid.Row="15" Grid.Column="0" Margin="4" Text="{l:Translate GetTrackableLogsByTBCodeBatchSize}" />
+        <ui:NumericUpDown Grid.Row="15" Grid.Column="1" Margin="4" Height="30" Minimum="0" Maximum="9999999"  Value="{Binding LiveAPIGetTrackableLogsByTBCodeBatchSize, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+        <TextBlock Grid.Row="16" Grid.Column="0" Margin="4" Text="{l:Translate DelayGetTrackableLogsByTBCode}" />
+        <ui:NumericUpDown Grid.Row="16" Grid.Column="1" Margin="4" Height="30" Minimum="0" Maximum="9999999"  Value="{Binding LiveAPIDelayGetTrackableLogsByTBCode, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
+        <TextBlock Grid.Row="16" Grid.Column="2" Margin="4" Text="{l:Translate ms}" />
     </Grid>
 </Window>

@@ -109,5 +109,36 @@ namespace GAPPSF.Core
             get { return int.Parse(GetProperty("2000")); }
             set { SetProperty(value.ToString()); }
         }
+
+        public int LiveAPIGetOwnedTrackablesBatchSize
+        {
+            get { return int.Parse(GetProperty("10")); }
+            set { SetProperty(value.ToString()); }
+        }
+
+        public int LiveAPIDelayGetOwnedTrackables
+        {
+            get { return int.Parse(GetProperty("2000")); }
+            set { SetProperty(value.ToString()); }
+        }
+
+        public int LiveAPIDelayGetTrackablesByTBCode
+        {
+            get { return int.Parse(GetProperty("2000")); }
+            set { SetProperty(value.ToString()); }
+        }
+
+        public int LiveAPIGetTrackableLogsByTBCodeBatchSize
+        {
+            get { return int.Parse(GetProperty("30")); }
+            set { SetProperty(value.ToString()); }
+        }
+
+        public int LiveAPIDelayGetTrackableLogsByTBCode
+        {
+            get { return int.Parse(GetProperty("2000")); }
+            set { SetProperty(value.ToString()); }
+        }
+
     }
 }

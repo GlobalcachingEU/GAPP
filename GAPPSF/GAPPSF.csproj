@@ -289,6 +289,7 @@
     <Compile Include="Core\Settings\SettingsBackupSettings.cs" />
     <Compile Include="Core\Settings\ShapefilesSettings.cs" />
     <Compile Include="Core\Settings\SqliteSettingsStorage.cs" />
+    <Compile Include="Core\Settings\TrackableGroupSettings.cs" />
     <Compile Include="Core\Settings\WebBrowserSettings.cs" />
     <Compile Include="Core\Settings\WPEditorSettings.cs" />
     <Compile Include="Core\Storage\DatabaseCollection.cs" />
@@ -1076,6 +1077,14 @@
     <Compile Include="UIControls\SmallColorPicker.xaml.cs">
       <DependentUpon>SmallColorPicker.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UIControls\Trackables\Control.xaml.cs">
+      <DependentUpon>Control.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UIControls\Trackables\Import.cs" />
+    <Compile Include="UIControls\Trackables\LogItem.cs" />
+    <Compile Include="UIControls\Trackables\TrackableGroup.cs" />
+    <Compile Include="UIControls\Trackables\TrackableItem.cs" />
+    <Compile Include="UIControls\Trackables\TravelItem.cs" />
     <Compile Include="UIControls\UIControlContainer.xaml.cs">
       <DependentUpon>UIControlContainer.xaml</DependentUpon>
     </Compile>
@@ -1590,6 +1599,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIControls\SmallColorPicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIControls\Trackables\Control.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -2454,6 +2467,7 @@
   <ItemGroup>
     <Resource Include="Resources\General\exit.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)GlobalcachingApplication\bin\$(ConfigurationName)\"</PostBuildEvent>

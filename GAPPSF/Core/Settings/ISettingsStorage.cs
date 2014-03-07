@@ -75,5 +75,18 @@ namespace GAPPSF.Core
         double? GetGCVoteUser(string gcCode);
         void SetGCVote(string gcCode, double median, double average, int cnt, double? user);
         void ClearGCVotes();
+
+        //trackable groups
+        List<UIControls.Trackables.TrackableGroup> GetTrackableGroups();
+        void AddTrackableGroup(UIControls.Trackables.TrackableGroup grp);
+        void DeleteTrackableGroup(UIControls.Trackables.TrackableGroup grp);
+        List<UIControls.Trackables.TrackableItem> GetTrackables(UIControls.Trackables.TrackableGroup grp);
+        void AddUpdateTrackable(UIControls.Trackables.TrackableGroup grp, UIControls.Trackables.TrackableItem trackable);
+        void DeleteTrackable(UIControls.Trackables.TrackableGroup grp, UIControls.Trackables.TrackableItem trackable);
+        List<UIControls.Trackables.TravelItem> GetTrackableTravels(UIControls.Trackables.TrackableItem trackable);
+        void UpdateTrackableTravels(UIControls.Trackables.TrackableItem trackable, List<UIControls.Trackables.TravelItem> travels);
+        List<UIControls.Trackables.LogItem> GetTrackableLogs(UIControls.Trackables.TrackableItem trackable);
+        void UpdateTrackableLogs(UIControls.Trackables.TrackableItem trackable, List<UIControls.Trackables.LogItem> logs);
+        byte[] GetTrackableIconData(string iconUrl);
     }
 }

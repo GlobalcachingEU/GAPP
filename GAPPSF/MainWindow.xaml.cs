@@ -3544,5 +3544,12 @@ namespace GAPPSF
             }
         }
 
+        private void menulbm9_Click(object sender, RoutedEventArgs e)
+        {
+            Window w = new FeatureWindow(new UIControls.Trackables.Control());
+            w.Owner = this;
+            w.Show();
+        }
+
     }
 }

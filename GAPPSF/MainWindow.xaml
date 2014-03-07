@@ -388,6 +388,7 @@
                     <MenuItem x:Name="menulib8" Header="{l:Translate LogImageViewer}" Click="menulib8_Click" />
                     <MenuItem x:Name="menulbb8" Header="{l:Translate Chat}" Click="menulbb8_Click" />
                     <MenuItem x:Name="menulbb9" Header="{l:Translate WebBrowser}" Click="menulbb9_Click" />
+                    <MenuItem x:Name="menulbm9" Header="{l:Translate TrackableGroups}" Click="menulbm9_Click" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate Help}">
                     <MenuItem x:Name="menua37" Header="{l:Translate Forum}" Click="menua37_Click" />

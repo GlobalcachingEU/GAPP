@@ -9,6 +9,7 @@ using System.Data.Common;
 using System.Globalization;
 using System.ComponentModel;
 using System.Windows;
+using System.Data;
 
 namespace GAPPSF.Core
 {
@@ -127,6 +128,33 @@ namespace GAPPSF.Core
                         _dbcon.ExecuteNonQuery("create table 'gcvotes' (gccode text, VoteMedian float, VoteAvg float, VoteCnt integer, VoteUser float)");
                         _dbcon.ExecuteNonQuery("create unique index idx_gcvotes on gcvotes (gccode)");
                     }
+
+                    if (!_dbcon.TableExists("trkgroups"))
+                    {
+                        _dbcon.ExecuteNonQuery("create table 'trkgroups' (id integer, name text)");
+                    }
+                    if (!_dbcon.TableExists("trkimages"))
+                    {
+                        _dbcon.ExecuteNonQuery("create table 'trkimages' (url text, imagedata blob)");
+                    }
+                    if (!_dbcon.TableExists("trktrackables"))
+                    {
+                        _dbcon.ExecuteNonQuery("create table 'trktrackables' (groupid integer, AllowedToBeCollected integer, Archived integer, BugTypeID integer, Code text, CurrentGeocacheCode text, CurrentGoal text, DateCreated text, Description text, IconUrl text, Id integer, InCollection integer, Name text, TBTypeName text, Url text, WptTypeID integer, Owner text, HopCount integer, DiscoverCount integer, InCacheCount integer, DistanceKm real, Lat real, Lon real)");
+                        _dbcon.ExecuteNonQuery("create index idx_trackablesgroup on trktrackables (groupid)");
+                        _dbcon.ExecuteNonQuery("create index idx_trackablescode on trktrackables (code)");
+                    }
+                    if (!_dbcon.TableExists("trktravels"))
+                    {
+                        _dbcon.ExecuteNonQuery("create table 'trktravels' (pos integer, TrackableCode text, GeocacheCode text, lat real, lon real, DateLogged text)");
+                        _dbcon.ExecuteNonQuery("create index idx_travels on trktravels (TrackableCode)");
+                    }
+                    if (!_dbcon.TableExists("trklogs"))
+                    {
+                        _dbcon.ExecuteNonQuery("create table 'trklogs' (TrackableCode text, ID integer, LogCode text, GeocacheCode text, IsArchived integer, LoggedBy text, LogGuid text, LogIsEncoded integer, LogText text, WptLogTypeId integer, Url text, UTCCreateDate text, VisitDate text)");
+                        _dbcon.ExecuteNonQuery("create index idx_logstb on trklogs (TrackableCode)");
+                        _dbcon.ExecuteNonQuery("create index idx_logsid on trklogs (ID)");
+                    }
+
 
                     object o = _dbcon.ExecuteScalar("PRAGMA integrity_check");
                     if (o as string == "ok")
@@ -894,6 +922,543 @@ namespace GAPPSF.Core
                 if (_dbcon != null)
                 {
                     _dbcon.ExecuteNonQuery("delete from gcvotes");
+                }
+            }
+        }
+
+
+        public List<UIControls.Trackables.TrackableGroup> GetTrackableGroups()
+        {
+            List<UIControls.Trackables.TrackableGroup> result = new List<UIControls.Trackables.TrackableGroup>();
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    DbDataReader dr = _dbcon.ExecuteReader("select id, name from trkgroups");
+                    while (dr.Read())
+                    {
+                        UIControls.Trackables.TrackableGroup tg = new UIControls.Trackables.TrackableGroup();
+                        tg.ID = (int)dr["id"];
+                        tg.Name = (string)dr["name"];
+                        result.Add(tg);
+                    }
+                }
+            }
+            return result;
+        }
+        public void AddTrackableGroup(UIControls.Trackables.TrackableGroup grp)
+        {
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    if ((long)_dbcon.ExecuteScalar(string.Format("select count(1) from trkgroups where id={0}", grp.ID)) == 0)
+                    {
+                        _dbcon.ExecuteNonQuery(string.Format("insert into trkgroups (id, name) values ({0}, '{1}')", grp.ID, grp.Name.Replace("'", "''")));
+                    }
+                }
+            }
+        }
+        public void DeleteTrackableGroup(UIControls.Trackables.TrackableGroup grp)
+        {
+            lock(this)
+            {
+                if (_dbcon != null)
+                {
+                    List<UIControls.Trackables.TrackableItem> trbls = GetTrackables(grp);
+                    foreach(var t in trbls)
+                    {
+                        DeleteTrackable(grp, t);
+                    }
+                    _dbcon.ExecuteNonQuery(string.Format("delete from trkgroups where id={0}", grp.ID));
+                }
+            }
+        }
+        public List<UIControls.Trackables.TrackableItem> GetTrackables(UIControls.Trackables.TrackableGroup grp)
+        {
+            List<UIControls.Trackables.TrackableItem> result = new List<UIControls.Trackables.TrackableItem>();
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    DbDataReader dr = _dbcon.ExecuteReader(string.Format("select * from trktrackables where groupid={0}", grp.ID));
+                    while (dr.Read())
+                    {
+                        UIControls.Trackables.TrackableItem trk = new UIControls.Trackables.TrackableItem();
+                        trk.Code = (string)dr["Code"];
+                        if (dr["AllowedToBeCollected"] != null && dr["AllowedToBeCollected"].GetType() != typeof(DBNull))
+                        {
+                            trk.AllowedToBeCollected = (int)dr["AllowedToBeCollected"] != 0;
+                        }
+                        else
+                        {
+                            trk.AllowedToBeCollected = null;
+                        }
+                        trk.Archived = (int)dr["Archived"] != 0;
+                        trk.BugTypeID = (int)dr["BugTypeID"];
+                        trk.CurrentGeocacheCode = (string)dr["CurrentGeocacheCode"];
+                        trk.CurrentGoal = (string)dr["CurrentGoal"];
+                        trk.DateCreated = DateTime.Parse((string)dr["DateCreated"]);
+                        trk.Description = (string)dr["Description"];
+                        trk.IconUrl = (string)dr["IconUrl"];
+                        trk.Id = (int)dr["Id"];
+                        trk.InCollection = (int)dr["InCollection"] != 0;
+                        trk.Name = (string)dr["Name"];
+                        trk.TBTypeName = (string)dr["TBTypeName"];
+                        trk.Url = (string)dr["Url"];
+                        trk.WptTypeID = (int)dr["WptTypeID"];
+                        trk.Owner = (string)dr["Owner"];
+
+                        if (dr["HopCount"] != null && dr["HopCount"].GetType() != typeof(DBNull))
+                        {
+                            trk.HopCount = (int)dr["HopCount"];
+                        }
+                        else
+                        {
+                            trk.HopCount = 0;
+                        }
+                        if (dr["DiscoverCount"] != null && dr["DiscoverCount"].GetType() != typeof(DBNull))
+                        {
+                            trk.DiscoverCount = (int)dr["DiscoverCount"];
+                        }
+                        else
+                        {
+                            trk.DiscoverCount = 0;
+                        }
+                        if (dr["InCacheCount"] != null && dr["InCacheCount"].GetType() != typeof(DBNull))
+                        {
+                            trk.InCacheCount = (int)dr["InCacheCount"];
+                        }
+                        else
+                        {
+                            trk.InCacheCount = 0;
+                        }
+                        if (dr["DistanceKm"] != null && dr["DistanceKm"].GetType() != typeof(DBNull))
+                        {
+                            trk.DistanceKm = (double)dr["DistanceKm"];
+                        }
+                        else
+                        {
+                            trk.DistanceKm = 0.0;
+                        }
+                        if (dr["Lat"] != null && dr["Lat"].GetType() != typeof(DBNull))
+                        {
+                            trk.Lat = (double)dr["Lat"];
+                        }
+                        else
+                        {
+                            trk.Lat = null;
+                        }
+                        if (dr["Lon"] != null && dr["Lon"].GetType() != typeof(DBNull))
+                        {
+                            trk.Lon = (double)dr["Lon"];
+                        }
+                        else
+                        {
+                            trk.Lon = null;
+                        }
+
+                        result.Add(trk);
+                    }
+
+                    foreach(var t in result)
+                    {
+                        t.IconData = _dbcon.ExecuteScalar(string.Format("select imagedata from trkimages where url='{0}'", t.IconUrl ?? "")) as byte[];
+                    }
+                }
+            }
+            return result;
+        }
+        public byte[] GetTrackableIconData(string iconUrl)
+        {
+            byte[] result = null;
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    result = _dbcon.ExecuteScalar(string.Format("select imagedata from trkimages where url='{0}'", iconUrl ?? "")) as byte[];
+                }
+            }
+            return result;
+        }
+
+        public void AddUpdateTrackable(UIControls.Trackables.TrackableGroup grp, UIControls.Trackables.TrackableItem trackable)
+        {
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    try
+                    {
+                        UIControls.Trackables.TrackableItem t = trackable;
+                        DbParameter par;
+
+                        if (!string.IsNullOrEmpty(trackable.IconUrl) && trackable.IconData != null)
+                        {
+                            long cnt = (long)_dbcon.ExecuteScalar(string.Format("select count(1) from trkimages where url='{0}'", t.IconUrl));
+                            if (cnt == 0)
+                            {
+                                _dbcon.Command.Parameters.Clear();
+                                par = _dbcon.Command.CreateParameter();
+                                par.ParameterName = "@data";
+                                par.DbType = DbType.Binary;
+                                par.Value = trackable.IconData;
+                                _dbcon.Command.Parameters.Add(par);
+                                _dbcon.ExecuteNonQuery(string.Format("insert into trkimages (url, imagedata) values ('{0}', @data)", t.IconUrl));
+                                _dbcon.Command.Parameters.Clear();
+                            }
+                        }
+
+                        _dbcon.Command.Parameters.Clear();
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@groupid";
+                        par.DbType = DbType.Int32;
+                        par.Value = grp.ID;
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@AllowedToBeCollected";
+                        par.DbType = DbType.Int32;
+                        if (t.AllowedToBeCollected == null)
+                        {
+                            par.Value = DBNull.Value;
+                        }
+                        else
+                        {
+                            par.Value = t.AllowedToBeCollected == true ? 1 : 0;
+                        }
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@Archived";
+                        par.DbType = DbType.Int32;
+                        par.Value = t.Archived ? 1 : 0;
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@BugTypeID";
+                        par.DbType = DbType.Int32;
+                        par.Value = t.BugTypeID;
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@Code";
+                        par.DbType = DbType.String;
+                        par.Value = t.Code;
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@CurrentGeocacheCode";
+                        par.DbType = DbType.String;
+                        par.Value = t.CurrentGeocacheCode ?? "";
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@CurrentGoal";
+                        par.DbType = DbType.String;
+                        par.Value = t.CurrentGoal ?? "";
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@DateCreated";
+                        par.DbType = DbType.String;
+                        par.Value = t.DateCreated.ToString("u");
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@Description";
+                        par.DbType = DbType.String;
+                        par.Value = t.Description ?? "";
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@IconUrl";
+                        par.DbType = DbType.String;
+                        par.Value = t.IconUrl ?? "";
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@Id";
+                        par.DbType = DbType.Int32;
+                        par.Value = t.Id;
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@InCollection";
+                        par.DbType = DbType.Int32;
+                        par.Value = t.InCollection ? 1 : 0;
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@Name";
+                        par.DbType = DbType.String;
+                        par.Value = t.Name ?? "";
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@TBTypeName";
+                        par.DbType = DbType.String;
+                        par.Value = t.TBTypeName ?? "";
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@Url";
+                        par.DbType = DbType.String;
+                        par.Value = t.Url ?? "";
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@WptTypeID";
+                        par.DbType = DbType.Int32;
+                        par.Value = t.WptTypeID;
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@Owner";
+                        par.DbType = DbType.String;
+                        par.Value = t.Owner ?? "";
+                        _dbcon.Command.Parameters.Add(par);
+
+                        if (_dbcon.ExecuteNonQuery("update trktrackables set AllowedToBeCollected=@AllowedToBeCollected, Archived=@Archived, BugTypeID=@BugTypeID, CurrentGeocacheCode=@CurrentGeocacheCode, CurrentGoal=@CurrentGoal, DateCreated=@DateCreated, Description=@Description, IconUrl=@IconUrl, Id=@Id, InCollection=@InCollection, Name=@Name, TBTypeName=@TBTypeName, Url=@Url, WptTypeID=@WptTypeID, Owner=@Owner where groupid=@groupid and Code=@Code") == 0)
+                        {
+                            _dbcon.ExecuteNonQuery("insert into trktrackables (groupid, AllowedToBeCollected, Archived, BugTypeID, Code, CurrentGeocacheCode, CurrentGoal, DateCreated, Description, IconUrl, Id, InCollection, Name, TBTypeName, Url, WptTypeID, Owner) values (@groupid, @AllowedToBeCollected, @Archived, @BugTypeID, @Code, @CurrentGeocacheCode, @CurrentGoal, @DateCreated, @Description, @IconUrl, @Id, @InCollection, @Name, @TBTypeName, @Url, @WptTypeID, @Owner)");
+                        }
+                        _dbcon.Command.Parameters.Clear();
+                    }
+                    finally
+                    {
+                        _dbcon.Command.Parameters.Clear();
+                    }
+                }
+            }
+        }
+        public void DeleteTrackable(UIControls.Trackables.TrackableGroup grp, UIControls.Trackables.TrackableItem trackable)
+        {
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    _dbcon.ExecuteNonQuery(string.Format("delete from trktrackables where groupid={0} and Code='{1}'", grp.ID, trackable.Code));
+                    if ((long)_dbcon.ExecuteScalar(string.Format("select count(1) from trackables", trackable.Code))==0)
+                    {
+                        _dbcon.ExecuteNonQuery(string.Format("delete from trktravels where TrackableCode='{0}'", trackable.Code));
+                        _dbcon.ExecuteNonQuery(string.Format("delete from trklogs where TrackableCode='{0}'", trackable.Code));
+                    }
+                }
+            }
+        }
+        public List<UIControls.Trackables.TravelItem> GetTrackableTravels(UIControls.Trackables.TrackableItem trackable)
+        {
+            List<UIControls.Trackables.TravelItem> result = new List<UIControls.Trackables.TravelItem>();
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    DbDataReader dr = _dbcon.ExecuteReader(string.Format("select GeocacheCode, lat, lon, DateLogged from trktravels where TrackableCode='{0}' order by pos", trackable.Code));
+                    while (dr.Read())
+                    {
+                        UIControls.Trackables.TravelItem ti = new UIControls.Trackables.TravelItem();
+                        ti.DateLogged = DateTime.Parse((string)dr["DateLogged"]);
+                        ti.GeocacheCode = (string)dr["GeocacheCode"];
+                        ti.Lat = (double)dr["lat"];
+                        ti.Lon = (double)dr["lon"];
+                        result.Add(ti);
+                    }
+                }
+            }
+            return result;
+        }
+        public void UpdateTrackableTravels(UIControls.Trackables.TrackableItem trackable, List<UIControls.Trackables.TravelItem> travels)
+        {
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    try
+                    {
+                        _dbcon.ExecuteNonQuery(string.Format("delete from trktravels where TrackableCode='{0}'", trackable.Code));
+
+                        DbParameter par;
+                        _dbcon.Command.Parameters.Clear();
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@pos";
+                        par.DbType = DbType.Int32;
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@TrackableCode";
+                        par.DbType = DbType.String;
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@GeocacheCode";
+                        par.DbType = DbType.String;
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@lat";
+                        par.DbType = DbType.Double;
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@lon";
+                        par.DbType = DbType.Double;
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@DateLogged";
+                        par.DbType = DbType.String;
+                        _dbcon.Command.Parameters.Add(par);
+                        double DistanceKm = 0.0;
+                        double? LastLat = null;
+                        double? LastLon = null;
+                        for (int i = 0; i < travels.Count; i++)
+                        {
+                            _dbcon.Command.Parameters["@pos"].Value = i;
+                            _dbcon.Command.Parameters["@TrackableCode"].Value = travels[i].TrackableCode;
+                            _dbcon.Command.Parameters["@GeocacheCode"].Value = travels[i].GeocacheCode ?? "";
+                            _dbcon.Command.Parameters["@lat"].Value = travels[i].Lat;
+                            _dbcon.Command.Parameters["@lon"].Value = travels[i].Lon;
+                            _dbcon.Command.Parameters["@DateLogged"].Value = travels[i].DateLogged.ToString("u");
+                            _dbcon.ExecuteNonQuery("insert into trktravels (pos, TrackableCode, GeocacheCode, lat, lon, DateLogged) values (@pos, @TrackableCode, @GeocacheCode, @lat, @lon, @DateLogged)");
+
+                            LastLat = travels[i].Lat;
+                            LastLon = travels[i].Lon;
+                            if (i > 0)
+                            {
+                                DistanceKm += (double)Utils.Calculus.CalculateDistance(travels[i - 1].Lat, travels[i - 1].Lon, travels[i].Lat, travels[i].Lon).EllipsoidalDistance / 1000.0;
+                            }
+                        }
+                        _dbcon.Command.Parameters.Clear();
+
+                        if (LastLat != null && LastLon != null)
+                        {
+                            _dbcon.ExecuteNonQuery(string.Format("update trktrackables set DistanceKm={0}, Lat={2}, Lon={3} where Code='{1}'", DistanceKm.ToString().Replace(',', '.'), trackable.Code, LastLat.ToString().Replace(',', '.'), LastLon.ToString().Replace(',', '.')));
+                        }
+                    }
+                    finally
+                    {
+                        _dbcon.Command.Parameters.Clear();
+                    }
+                }
+            }
+        }
+        public List<UIControls.Trackables.LogItem> GetTrackableLogs(UIControls.Trackables.TrackableItem trackable)
+        {
+            List<UIControls.Trackables.LogItem> result = new List<UIControls.Trackables.LogItem>();
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    Core.ApplicationData.Instance.Logger.AddLog(this, Logger.Level.Error, "GetTrackableLogs not implemented!");
+                }
+            }
+            return result;
+        }
+        public void UpdateTrackableLogs(UIControls.Trackables.TrackableItem trackable, List<UIControls.Trackables.LogItem> logs)
+        {
+            lock (this)
+            {
+                if (_dbcon != null)
+                {
+                    try
+                    {
+                        List<int> logsIndb = new List<int>();
+                        DbDataReader dr = _dbcon.ExecuteReader(string.Format("select ID from trklogs where TrackableCode='{0}'", trackable.Code));
+                        while (dr.Read())
+                        {
+                            logsIndb.Add((int)dr["ID"]);
+                        }
+
+                        DbParameter par;
+                        _dbcon.Command.Parameters.Clear();
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@TrackableCode";
+                        par.DbType = DbType.String;
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@ID";
+                        par.DbType = DbType.Int32;
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@LogCode";
+                        par.DbType = DbType.String;
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@GeocacheCode";
+                        par.DbType = DbType.String;
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@IsArchived";
+                        par.DbType = DbType.Int32;
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@LoggedBy";
+                        par.DbType = DbType.String;
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@LogGuid";
+                        par.DbType = DbType.String;
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@LogText";
+                        par.DbType = DbType.String;
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@LogIsEncoded";
+                        par.DbType = DbType.Int32;
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@WptLogTypeId";
+                        par.DbType = DbType.Int32;
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@Url";
+                        par.DbType = DbType.String;
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@UTCCreateDate";
+                        par.DbType = DbType.String;
+                        _dbcon.Command.Parameters.Add(par);
+                        par = _dbcon.Command.CreateParameter();
+                        par.ParameterName = "@VisitDate";
+                        par.DbType = DbType.String;
+                        _dbcon.Command.Parameters.Add(par);
+
+                        int HopCount = 0;
+                        int DiscoverCount = 0;
+                        int InCacheCount = 0;
+                        for (int i = 0; i < logs.Count; i++)
+                        {
+                            _dbcon.Command.Parameters["@TrackableCode"].Value = logs[i].TrackableCode;
+                            _dbcon.Command.Parameters["@ID"].Value = logs[i].ID;
+                            _dbcon.Command.Parameters["@LogCode"].Value = logs[i].LogCode;
+                            _dbcon.Command.Parameters["@GeocacheCode"].Value = logs[i].GeocacheCode ?? "";
+                            _dbcon.Command.Parameters["@LogIsEncoded"].Value = logs[i].LogIsEncoded ? 1 : 0;
+                            _dbcon.Command.Parameters["@IsArchived"].Value = logs[i].IsArchived ? 1 : 0;
+                            _dbcon.Command.Parameters["@LoggedBy"].Value = logs[i].LoggedBy ?? "";
+                            _dbcon.Command.Parameters["@LogGuid"].Value = logs[i].LogGuid ?? "";
+                            _dbcon.Command.Parameters["@LogText"].Value = logs[i].LogText ?? "";
+                            _dbcon.Command.Parameters["@WptLogTypeId"].Value = logs[i].WptLogTypeId;
+                            _dbcon.Command.Parameters["@Url"].Value = logs[i].Url ?? "";
+                            _dbcon.Command.Parameters["@UTCCreateDate"].Value = logs[i].UTCCreateDate.ToString("u");
+                            _dbcon.Command.Parameters["@VisitDate"].Value = logs[i].VisitDate.ToString("u");
+
+                            if (logsIndb.Contains(logs[i].ID))
+                            {
+                                //for performance reasons, do not update. Assume nothing changed
+                                //_dbcon.ExecuteNonQuery("update logs....");
+                                logsIndb.Remove(logs[i].ID);
+                            }
+                            else
+                            {
+                                _dbcon.ExecuteNonQuery("insert into trklogs (TrackableCode, ID, LogCode, GeocacheCode, IsArchived, LoggedBy, LogGuid, LogIsEncoded, LogText, WptLogTypeId, Url, UTCCreateDate, VisitDate) values (@TrackableCode, @ID, @LogCode, @GeocacheCode, @IsArchived, @LoggedBy, @LogGuid, @LogIsEncoded, @LogText, @WptLogTypeId, @Url, @UTCCreateDate, @VisitDate)");
+                            }
+
+                            switch (logs[i].WptLogTypeId)
+                            {
+                                case 75: //visit
+                                    HopCount++;
+                                    break;
+                                case 14: //dropped
+                                    HopCount++;
+                                    InCacheCount++;
+                                    break;
+                                case 48: //disc
+                                    DiscoverCount++;
+                                    break;
+                            }
+                        }
+                        _dbcon.ExecuteNonQuery(string.Format("update trktrackables set HopCount={0}, InCacheCount={1}, DiscoverCount={2} where Code='{3}'", HopCount, InCacheCount, DiscoverCount, trackable.Code));
+                        foreach (int id in logsIndb)
+                        {
+                            _dbcon.ExecuteNonQuery(string.Format("delete from trklogs where ID={0}", id));
+                        }
+                        _dbcon.Command.Parameters.Clear();
+                    }
+                    finally
+                    {
+                        _dbcon.Command.Parameters.Clear();
+                    }
                 }
             }
         }
