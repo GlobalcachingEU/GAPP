@@ -11,6 +11,12 @@ todo GAPP SF:
 todo GAPP/GAPP SF
 - add option to add attributes list in description
 
+V1.9.20.0
+
+- gapp: fix: added missing selected geocache marker to setup.
+- gapp: change: moved extra geocache information to the absolute beginning of the description with GPX export
+- gappsf: change: moved extra geocache information to the absolute beginning of the description with GPX export
+
 V1.9.19.0
 
 - gapp: fix: updating existing log text and geocache description

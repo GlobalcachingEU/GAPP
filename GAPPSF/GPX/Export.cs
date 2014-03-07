@@ -459,43 +459,6 @@ namespace GAPPSF.GPX
 
                 el = doc.CreateElement("groundspeak_short_description");
                 StringBuilder sb = new StringBuilder();
-                if (Core.Settings.Default.GPXAddFieldnotesToDescription && gc.ContainsNote)
-                {
-                    if (gc.ShortDescriptionInHtml)
-                    {
-                        if (!string.IsNullOrEmpty(gc.PersonalNote))
-                        {
-                            sb.AppendFormat("<p>{0}</p><br />", System.Web.HttpUtility.HtmlEncode(gc.PersonalNote));
-                        }
-                        if (!string.IsNullOrEmpty(gc.Notes))
-                        {
-                            if (gc.Notes.StartsWith("<p>", StringComparison.OrdinalIgnoreCase))
-                            {
-                                sb.AppendFormat("{0}<br />", gc.Notes);
-                            }
-                            else
-                            {
-                                sb.AppendFormat("<p>{0}</p><br />", gc.Notes);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (!string.IsNullOrEmpty(gc.PersonalNote))
-                        {
-                            sb.AppendFormat("{0}\r\n\r\n", gc.PersonalNote);
-                        }
-                        if (!string.IsNullOrEmpty(gc.Notes))
-                        {
-                            sb.AppendFormat("{0}\r\n\r\n", gc.Notes);
-                        }
-                    }
-                    sb.Append(gc.ShortDescription ?? "");
-                }
-                else
-                {
-                    sb.Append(gc.ShortDescription ?? "");
-                }
                 if (Core.Settings.Default.GPXAddExtraInfo)
                 {
                     //cachetype
@@ -545,6 +508,43 @@ namespace GAPPSF.GPX
                         }
                         sb.AppendLine();
                     }
+                }
+                if (Core.Settings.Default.GPXAddFieldnotesToDescription && gc.ContainsNote)
+                {
+                    if (gc.ShortDescriptionInHtml)
+                    {
+                        if (!string.IsNullOrEmpty(gc.PersonalNote))
+                        {
+                            sb.AppendFormat("<p>{0}</p><br />", System.Web.HttpUtility.HtmlEncode(gc.PersonalNote));
+                        }
+                        if (!string.IsNullOrEmpty(gc.Notes))
+                        {
+                            if (gc.Notes.StartsWith("<p>", StringComparison.OrdinalIgnoreCase))
+                            {
+                                sb.AppendFormat("{0}<br />", gc.Notes);
+                            }
+                            else
+                            {
+                                sb.AppendFormat("<p>{0}</p><br />", gc.Notes);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(gc.PersonalNote))
+                        {
+                            sb.AppendFormat("{0}\r\n\r\n", gc.PersonalNote);
+                        }
+                        if (!string.IsNullOrEmpty(gc.Notes))
+                        {
+                            sb.AppendFormat("{0}\r\n\r\n", gc.Notes);
+                        }
+                    }
+                    sb.Append(gc.ShortDescription ?? "");
+                }
+                else
+                {
+                    sb.Append(gc.ShortDescription ?? "");
                 }
                 txt = doc.CreateTextNode(sb.ToString());
                 el.AppendChild(txt);

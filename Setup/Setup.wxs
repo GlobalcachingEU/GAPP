@@ -3,7 +3,7 @@
 	<Product Id="*"
 		Name="Globalcaching Application"
 		Language="1033"
-		Version="1.9.19.0"
+		Version="1.9.20.0"
 		UpgradeCode="6C16717C-6C5E-412E-B091-B3AD5C7D052E"
 		Manufacturer="Globalcaching.eu">
 		<Package Description="Geocache manager"

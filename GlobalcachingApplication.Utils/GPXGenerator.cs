@@ -510,6 +510,55 @@ namespace GlobalcachingApplication.Utils
 
                 el = doc.CreateElement("groundspeak_short_description");
                 StringBuilder sb = new StringBuilder();
+                if (_addExtraInfoToDescription)
+                {
+                    //cachetype
+                    //placed by
+                    //last updated
+                    //last found (not added yet)
+                    if (gc.ShortDescriptionInHtml)
+                    {
+                        sb.Append("<p>");
+                        sb.AppendFormat("<b>{0}</b>: {1}<br />", System.Web.HttpUtility.HtmlEncode(Utils.LanguageSupport.Instance.GetTranslation("Cache type")), System.Web.HttpUtility.HtmlEncode(Utils.LanguageSupport.Instance.GetTranslation(gc.GeocacheType.Name)));
+                        sb.AppendFormat("<b>{0}</b>: {1}<br />", System.Web.HttpUtility.HtmlEncode(Utils.LanguageSupport.Instance.GetTranslation("Owner")), System.Web.HttpUtility.HtmlEncode(gc.Owner ?? ""));
+                        sb.AppendFormat("<b>{0}</b>: {1}<br />", System.Web.HttpUtility.HtmlEncode(Utils.LanguageSupport.Instance.GetTranslation("Last updated")), System.Web.HttpUtility.HtmlEncode(gc.DataFromDate.ToString("d")));
+                        sb.AppendFormat("<b>{0}</b>:<br />", System.Web.HttpUtility.HtmlEncode(Utils.LanguageSupport.Instance.GetTranslation("Attributes")));
+                        foreach (int attrId in gc.AttributeIds)
+                        {
+                            int id = (int)Math.Abs(attrId);
+                            if (attrId < 0)
+                            {
+                                sb.AppendFormat(string.Format("{0} {1}<br />", System.Web.HttpUtility.HtmlEncode(Utils.LanguageSupport.Instance.GetTranslation("No")), System.Web.HttpUtility.HtmlEncode(Utils.LanguageSupport.Instance.GetTranslation(Utils.DataAccess.GetGeocacheAttribute(_core.GeocacheAttributes, id).Name))));
+                            }
+                            else
+                            {
+                                sb.AppendFormat(string.Format("{0} {1}<br />", System.Web.HttpUtility.HtmlEncode(Utils.LanguageSupport.Instance.GetTranslation("Yes")), System.Web.HttpUtility.HtmlEncode(Utils.LanguageSupport.Instance.GetTranslation(Utils.DataAccess.GetGeocacheAttribute(_core.GeocacheAttributes, id).Name))));
+                            }
+                        }
+                        sb.Append("</p><br />");
+                    }
+                    else
+                    {
+                        sb.AppendLine();
+                        sb.AppendFormat("{0}: {1}\r\n", Utils.LanguageSupport.Instance.GetTranslation("Cache type"), Utils.LanguageSupport.Instance.GetTranslation(gc.GeocacheType.Name));
+                        sb.AppendFormat("{0}: {1}\r\n", Utils.LanguageSupport.Instance.GetTranslation("Owner"), gc.Owner ?? "");
+                        sb.AppendFormat("{0}: {1}\r\n", Utils.LanguageSupport.Instance.GetTranslation("Last updated"), gc.DataFromDate.ToString("d"));
+                        sb.AppendFormat("{0}:\r\n", Utils.LanguageSupport.Instance.GetTranslation("Attributes"));
+                        foreach (int attrId in gc.AttributeIds)
+                        {
+                            int id = (int)Math.Abs(attrId);
+                            if (attrId < 0)
+                            {
+                                sb.AppendFormat(string.Format("{0} {1}\r\n", Utils.LanguageSupport.Instance.GetTranslation("No"), Utils.LanguageSupport.Instance.GetTranslation(Utils.DataAccess.GetGeocacheAttribute(_core.GeocacheAttributes, id).Name)));
+                            }
+                            else
+                            {
+                                sb.AppendFormat(string.Format("{0} {1}\r\n", Utils.LanguageSupport.Instance.GetTranslation("Yes"), Utils.LanguageSupport.Instance.GetTranslation(Utils.DataAccess.GetGeocacheAttribute(_core.GeocacheAttributes, id).Name)));
+                            }
+                        }
+                        sb.AppendLine("\r\n");
+                    }
+                }
                 if (_addFieldnotesToDescription && gc.ContainsNote)
                 {
                     if (gc.ShortDescriptionInHtml)
@@ -546,55 +595,6 @@ namespace GlobalcachingApplication.Utils
                 else
                 {
                     sb.Append(gc.ShortDescription ?? "");
-                }
-                if (_addExtraInfoToDescription)
-                {
-                    //cachetype
-                    //placed by
-                    //last updated
-                    //last found (not added yet)
-                    if (gc.ShortDescriptionInHtml)
-                    {
-                        sb.Append("<p>");
-                        sb.AppendFormat("<b>{0}</b>: {1}<br />", System.Web.HttpUtility.HtmlEncode(Utils.LanguageSupport.Instance.GetTranslation("Cache type")), System.Web.HttpUtility.HtmlEncode(Utils.LanguageSupport.Instance.GetTranslation(gc.GeocacheType.Name)));
-                        sb.AppendFormat("<b>{0}</b>: {1}<br />", System.Web.HttpUtility.HtmlEncode(Utils.LanguageSupport.Instance.GetTranslation("Owner")), System.Web.HttpUtility.HtmlEncode(gc.Owner ?? ""));
-                        sb.AppendFormat("<b>{0}</b>: {1}<br />", System.Web.HttpUtility.HtmlEncode(Utils.LanguageSupport.Instance.GetTranslation("Last updated")), System.Web.HttpUtility.HtmlEncode(gc.DataFromDate.ToString("d")));
-                        sb.AppendFormat("<b>{0}</b>:<br />", System.Web.HttpUtility.HtmlEncode(Utils.LanguageSupport.Instance.GetTranslation("Attributes")));
-                        foreach (int attrId in gc.AttributeIds)
-                        {
-                            int id = (int)Math.Abs(attrId);
-                            if (attrId < 0)
-                            {
-                                sb.AppendFormat(string.Format("{0} {1}<br />", System.Web.HttpUtility.HtmlEncode(Utils.LanguageSupport.Instance.GetTranslation("No")), System.Web.HttpUtility.HtmlEncode(Utils.LanguageSupport.Instance.GetTranslation(Utils.DataAccess.GetGeocacheAttribute(_core.GeocacheAttributes, id).Name))));
-                            }
-                            else
-                            {
-                                sb.AppendFormat(string.Format("{0} {1}<br />", System.Web.HttpUtility.HtmlEncode(Utils.LanguageSupport.Instance.GetTranslation("Yes")), System.Web.HttpUtility.HtmlEncode(Utils.LanguageSupport.Instance.GetTranslation(Utils.DataAccess.GetGeocacheAttribute(_core.GeocacheAttributes, id).Name))));
-                            }
-                        }
-                        sb.Append("</p>");
-                    }
-                    else
-                    {
-                        sb.AppendLine();
-                        sb.AppendFormat("{0}: {1}\r\n", Utils.LanguageSupport.Instance.GetTranslation("Cache type"), Utils.LanguageSupport.Instance.GetTranslation(gc.GeocacheType.Name));
-                        sb.AppendFormat("{0}: {1}\r\n", Utils.LanguageSupport.Instance.GetTranslation("Owner"), gc.Owner ?? "");
-                        sb.AppendFormat("{0}: {1}\r\n", Utils.LanguageSupport.Instance.GetTranslation("Last updated"), gc.DataFromDate.ToString("d"));
-                        sb.AppendFormat("{0}:\r\n", Utils.LanguageSupport.Instance.GetTranslation("Attributes"));
-                        foreach (int attrId in gc.AttributeIds)
-                        {
-                            int id = (int)Math.Abs(attrId);
-                            if (attrId < 0)
-                            {
-                                sb.AppendFormat(string.Format("{0} {1}\r\n", Utils.LanguageSupport.Instance.GetTranslation("No"), Utils.LanguageSupport.Instance.GetTranslation(Utils.DataAccess.GetGeocacheAttribute(_core.GeocacheAttributes, id).Name)));
-                            }
-                            else
-                            {
-                                sb.AppendFormat(string.Format("{0} {1}\r\n", Utils.LanguageSupport.Instance.GetTranslation("Yes"), Utils.LanguageSupport.Instance.GetTranslation(Utils.DataAccess.GetGeocacheAttribute(_core.GeocacheAttributes, id).Name)));
-                            }
-                        }
-                        sb.AppendLine();
-                    }
                 }
                 txt = doc.CreateTextNode(sb.ToString());
                 el.AppendChild(txt);
