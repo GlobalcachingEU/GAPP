@@ -1879,4 +1879,61 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="GetTrackableLogsByTBCodeBatchSize" xml:space="preserve">
     <value>GetTrackableLogsByTBCode batch size</value>
   </data>
+  <data name="AddYourOwn" xml:space="preserve">
+    <value>Add your own</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="CreatedOn" xml:space="preserve">
+    <value>Created on</value>
+  </data>
+  <data name="DeleteSelectedTrackables" xml:space="preserve">
+    <value>Delete selected trackables</value>
+  </data>
+  <data name="GoToGeocache" xml:space="preserve">
+    <value>Go to geocache</value>
+  </data>
+  <data name="GoToTrackablePage" xml:space="preserve">
+    <value>Go to trackable page</value>
+  </data>
+  <data name="InGeocache" xml:space="preserve">
+    <value>In geocache</value>
+  </data>
+  <data name="ShowGroupOnMap" xml:space="preserve">
+    <value>Show group on map</value>
+  </data>
+  <data name="ShowRoute" xml:space="preserve">
+    <value>Show route</value>
+  </data>
+  <data name="ShowRouteOfSelectedTrackable" xml:space="preserve">
+    <value>Show route of selected trackable</value>
+  </data>
+  <data name="ShowSelectedOnMap" xml:space="preserve">
+    <value>Show selected on map</value>
+  </data>
+  <data name="Step" xml:space="preserve">
+    <value>Step</value>
+  </data>
+  <data name="TrackableCodes" xml:space="preserve">
+    <value>Trackable code(s)</value>
+  </data>
+  <data name="TrackableGroup" xml:space="preserve">
+    <value>Trackable group</value>
+  </data>
+  <data name="TravelledDistance" xml:space="preserve">
+    <value>Travelled distance</value>
+  </data>
+  <data name="UpdateAllTrackablesInGroup" xml:space="preserve">
+    <value>Update all trackables in group</value>
+  </data>
+  <data name="UpdateSelectedTrackables" xml:space="preserve">
+    <value>Update selected trackables</value>
+  </data>
+  <data name="Discoveries" xml:space="preserve">
+    <value>Disc.</value>
+  </data>
+  <data name="LastCache" xml:space="preserve">
+    <value>Last Cache</value>
+  </data>
 </root>

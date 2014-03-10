@@ -20,7 +20,14 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0" Background="#FFD6DBE9">
             <MenuItem Header="{l:Translate Trackables}">
-                <MenuItem Header="{l:Translate Clear}" />
+                <MenuItem Header="{l:Translate ShowGroupOnMap}" Click="MenuItem_Click" IsEnabled="{Binding IsTrackableGroupSelected}" />
+                <MenuItem Header="{l:Translate ShowSelectedOnMap}" Click="MenuItem_Click_1"  IsEnabled="{Binding IsTrackableItemSelected}" />
+                <MenuItem Header="{l:Translate ShowRouteOfSelectedTrackable}" Click="MenuItem_Click_2"  IsEnabled="{Binding IsTrackableItemSelected}" />
+                <Separator />
+                <MenuItem Header="{l:Translate UpdateSelectedTrackables}" Command="{Binding UpdateSelectedTrackablesCommand}" />
+                <MenuItem Header="{l:Translate UpdateAllTrackablesInGroup}" Command="{Binding UpdateAllTrackablesCommand}" />
+                <Separator />
+                <MenuItem Header="{l:Translate DeleteSelectedTrackables}" Click="MenuItem_Click_3"  IsEnabled="{Binding IsTrackableItemSelected}" />
             </MenuItem>
         </Menu>
         <Expander 
@@ -46,6 +53,15 @@
             </Expander.Content>
         </Expander>
         <Grid Grid.Row="2">
+            <Grid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="{l:Translate GoToTrackablePage}"  IsEnabled="{Binding IsTrackableItemSelected}" Click="MenuItem_Click_4" />
+                    <MenuItem Header="{l:Translate GoToGeocache}"  IsEnabled="{Binding IsTrackableItemSelected}" Click="MenuItem_Click_5" />
+                    <MenuItem Header="{l:Translate ShowRoute}"  IsEnabled="{Binding IsTrackableItemSelected}" Click="MenuItem_Click_6" />
+                    <Separator />
+                    <MenuItem Header="{l:Translate Delete}"  IsEnabled="{Binding IsTrackableItemSelected}" Click="MenuItem_Click_7" />
+                </ContextMenu>
+            </Grid.ContextMenu>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -69,6 +85,8 @@
                   Grid.Row="3" 
                   VirtualizingStackPanel.VirtualizationMode="Recycling"  
                   AutoGenerateColumns="False" 
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
                   ItemsSource="{Binding AvailableTrackableItems}"
                   SelectedItem="{Binding SelectedTrackableItem, Mode=TwoWay}"
                   HorizontalScrollBarVisibility="Auto" 

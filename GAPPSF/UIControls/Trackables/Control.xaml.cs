@@ -190,7 +190,11 @@ namespace GAPPSF.UIControls.Trackables
                     if (s.Length > 0)
                     {
                         //add groep
-                        int maxId = AvailableTrackableGroups.Max(x => x.ID);
+                        int maxId = 0;
+                        if (AvailableTrackableGroups.Count > 0)
+                        {
+                            maxId = AvailableTrackableGroups.Max(x => x.ID);
+                        }
                         maxId++;
                         TrackableGroup tg = new TrackableGroup();
                         tg.ID = maxId;
@@ -278,6 +282,246 @@ namespace GAPPSF.UIControls.Trackables
                 SelectedTrackableGroup = tbg;
             }
         }
+
+
+        private void ShowTrackablesOnMap(List<TrackableItem> tbs)
+        {
+            try
+            {
+                string htmlcontent = Utils.ResourceHelper.GetEmbeddedTextFile("/UIControls/Trackables/trackablesmap.html");
+                StringBuilder sb = new StringBuilder();
+
+                foreach (var tb in tbs)
+                {
+                    StringBuilder bln = new StringBuilder();
+                    bln.AppendFormat("<a href=\"http://www.geocaching.com/track/details.aspx?tracker={0}\" target=\"_blank\">{0}</a>", tb.Code);
+                    bln.AppendFormat("<br />{0}: {1}", Localization.TranslationManager.Instance.Translate("Name"), tb.Name ?? "");
+                    bln.AppendFormat("<br />{0}: {1}", Localization.TranslationManager.Instance.Translate("Owner"), tb.Owner ?? "");
+                    bln.AppendFormat("<br />{0}: {1}", Localization.TranslationManager.Instance.Translate("CreatedOn"), tb.DateCreated.ToLongDateString());
+                    if (!string.IsNullOrEmpty(tb.CurrentGeocacheCode))
+                    {
+                        bln.AppendFormat("<br />{0}: <a href=\"http://coord.info/{1}\" target=\"_blank\">{1}</a>", Localization.TranslationManager.Instance.Translate("InGeocache"), tb.CurrentGeocacheCode);
+                    }
+                    bln.AppendFormat("<br />{0}: {1} km", Localization.TranslationManager.Instance.Translate("TravelledDistance"), tb.DistanceKm.ToString("0.0"));
+
+                    sb.AppendFormat("createMarker('{0}', new google.maps.LatLng({1}, {2}), {3}, '{4}');", tb.Code, tb.Lat.ToString().Replace(',', '.'), tb.Lon.ToString().Replace(',', '.'), string.IsNullOrEmpty(tb.CurrentGeocacheCode) ? "redIcon" : "blueIcon", bln.ToString().Replace("'", ""));
+                }
+
+                string html = htmlcontent.Replace("//patchwork", sb.ToString());
+                string fn = System.IO.Path.Combine(Core.Settings.Default.SettingsFolder, "trackablesmap.html");
+                System.IO.File.WriteAllText(fn, html);
+                System.Diagnostics.Process.Start(fn);
+            }
+            catch (Exception e)
+            {
+                Core.ApplicationData.Instance.Logger.AddLog(this, e);
+            }
+        }
+
+        private void ShowRouteOnMap(TrackableItem tb)
+        {
+            if (tb != null)
+            {
+                try
+                {
+                        string htmlcontent = Utils.ResourceHelper.GetEmbeddedTextFile("/UIControls/Trackables/trackablesmap.html");
+                        StringBuilder sb = new StringBuilder();
+                        List<TravelItem> til = Core.Settings.Default.GetTrackableTravels(tb);
+                        for (int i = 0; i < til.Count; i++)
+                        {
+                            StringBuilder bln = new StringBuilder();
+                            bln.AppendFormat("{0}: {1}", Localization.TranslationManager.Instance.Translate("Step"), i + 1);
+                            bln.AppendFormat("<br />{0}: {1}", Localization.TranslationManager.Instance.Translate("Date"), til[i].DateLogged.ToLongDateString());
+                            bln.AppendFormat("<br />{0}: <a href=\"http://coord.info/{1}\" target=\"_blank\">{1}</a>", Localization.TranslationManager.Instance.Translate("Geocache"), til[i].GeocacheCode);
+
+                            string iconColor;
+                            if (i == 0)
+                            {
+                                iconColor = "yellowIcon";
+                            }
+                            else if (i == til.Count - 1)
+                            {
+                                iconColor = "redIcon";
+                            }
+                            else
+                            {
+                                iconColor = "blueIcon";
+                            }
+                            sb.AppendFormat("createMarker('{5}-{0}', new google.maps.LatLng({1}, {2}), {3}, '{4}');", til[i].GeocacheCode, til[i].Lat.ToString().Replace(',', '.'), til[i].Lon.ToString().Replace(',', '.'), iconColor, bln.ToString().Replace("'", ""), i + 1);
+                        }
+
+                        if (til.Count > 1)
+                        {
+                            sb.AppendLine();
+                            sb.Append("var polylineA = new google.maps.Polyline({map: map, path: [");
+                            for (int i = 0; i < til.Count; i++)
+                            {
+                                if (i > 0)
+                                {
+                                    sb.Append(",");
+                                }
+                                sb.AppendFormat("new google.maps.LatLng({0}, {1})", til[i].Lat.ToString().Replace(',', '.'), til[i].Lon.ToString().Replace(',', '.'));
+                            }
+                            sb.Append("], strokeColor: '#8A2BE2', strokeWeight: 4, strokeOpacity: .9});");
+                        }
+                        string html = htmlcontent.Replace("//patchwork", sb.ToString());
+                        string fn = System.IO.Path.Combine(Core.Settings.Default.SettingsFolder, "trackablesmap.html");
+                        System.IO.File.WriteAllText(fn, html);
+                        System.Diagnostics.Process.Start(fn);
+                }
+                catch (Exception e)
+                {
+                    Core.ApplicationData.Instance.Logger.AddLog(this, e);
+                }
+            }
+        }
+
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (AvailableTrackableItems.Count>0)
+            {
+                ShowTrackablesOnMap((from TrackableItem l in AvailableTrackableItems where l.Lat != null && l.Lon != null select l).ToList());
+            }
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (AvailableTrackableItems.Count > 0)
+            {
+                ShowTrackablesOnMap((from TrackableItem l in logList.SelectedItems where l.Lat != null && l.Lon != null select l).ToList());
+            }
+        }
+
+        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        {
+            if (SelectedTrackableItem!=null)
+            {
+                ShowRouteOnMap(SelectedTrackableItem);
+            }
+        }
+
+
+        private AsyncDelegateCommand _updateAllTrackablesCommand;
+        public AsyncDelegateCommand UpdateAllTrackablesCommand
+        {
+            get
+            {
+                if (_updateAllTrackablesCommand == null)
+                {
+                    _updateAllTrackablesCommand = new AsyncDelegateCommand(param => UpdateAllTrackables(),
+                        param => SelectedTrackableGroup != null);
+                }
+                return _updateAllTrackablesCommand;
+            }
+        }
+        public async Task UpdateAllTrackables()
+        {
+            if (SelectedTrackableGroup != null)
+            {
+                await UpdateTrackables((from a in AvailableTrackableItems select a.Code). ToList());
+            }
+        }
+
+
+        private AsyncDelegateCommand _updateSelectedTrackablesCommand;
+        public AsyncDelegateCommand UpdateSelectedTrackablesCommand
+        {
+            get
+            {
+                if (_updateSelectedTrackablesCommand == null)
+                {
+                    _updateSelectedTrackablesCommand = new AsyncDelegateCommand(param => UpdateSelectedTrackables(),
+                        param => SelectedTrackableGroup != null);
+                }
+                return _updateSelectedTrackablesCommand;
+            }
+        }
+        public async Task UpdateSelectedTrackables()
+        {
+            if (SelectedTrackableGroup != null)
+            {
+                await UpdateTrackables((from TrackableItem l in logList.SelectedItems select l.Code).ToList());
+            }
+        }
+
+        public async Task UpdateTrackables(List<string> trkList)
+        {
+            if (SelectedTrackableGroup != null)
+            {
+                var tbg = SelectedTrackableGroup;
+                Import imp = new Import();
+                await imp.AddUpdateTrackablesAsync(SelectedTrackableGroup, trkList);
+                SelectedTrackableGroup = null;
+                SelectedTrackableGroup = tbg;
+            }
+        }
+
+        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
+        {
+            //delete selected
+            if (SelectedTrackableGroup != null)
+            {
+                List<TrackableItem> tl = (from TrackableItem l in logList.SelectedItems select l).ToList();
+                foreach (var t in tl)
+                {
+                    Core.Settings.Default.DeleteTrackable(SelectedTrackableGroup, t);
+                    AvailableTrackableItems.Remove(t);
+                }
+            }
+        }
+
+        private void MenuItem_Click_4(object sender, RoutedEventArgs e)
+        {
+            if (SelectedTrackableItem != null)
+            {
+                try
+                {
+                    System.Diagnostics.Process.Start(SelectedTrackableItem.Url);
+                }
+                catch (Exception ex)
+                {
+                    Core.ApplicationData.Instance.Logger.AddLog(this, ex);
+                }
+            }
+        }
+
+        private void MenuItem_Click_5(object sender, RoutedEventArgs e)
+        {
+            if (SelectedTrackableItem != null)
+            {
+                if (!string.IsNullOrEmpty(SelectedTrackableItem.CurrentGeocacheCode))
+                {
+                    try
+                    {
+                        System.Diagnostics.Process.Start(string.Format("http://coord.info/{0}", SelectedTrackableItem.CurrentGeocacheCode));
+                    }
+                    catch (Exception ex)
+                    {
+                        Core.ApplicationData.Instance.Logger.AddLog(this, ex);
+                    }
+                }
+            }
+        }
+
+        private void MenuItem_Click_6(object sender, RoutedEventArgs e)
+        {
+            if (SelectedTrackableItem != null)
+            {
+                ShowRouteOnMap(SelectedTrackableItem);
+            }
+        }
+
+        private void MenuItem_Click_7(object sender, RoutedEventArgs e)
+        {
+            if (SelectedTrackableItem != null)
+            {
+                var t = SelectedTrackableItem;
+                Core.Settings.Default.DeleteTrackable(SelectedTrackableGroup, t);
+                AvailableTrackableItems.Remove(t);
+            }
+        }
+
 
     }
 }
