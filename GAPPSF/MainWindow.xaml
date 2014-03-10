@@ -262,6 +262,7 @@
                 </MenuItem>
                 <MenuItem Header="{l:Translate LiveAPI}">
                     <MenuItem x:Name="menu13" Header="{l:Translate Authorize}" Command="{Binding LiveApiAuthorizeCommand}" />
+                    <MenuItem x:Name="menu13x" Header="{l:Translate ManualLiveAPIAuthorization}" Click="menu13x_Click" />
                     <MenuItem Header="[DBG] Authorize for test site" Command="{Binding LiveApiAuthorizeTestSiteCommand}" Visibility="{Binding DebugMenusVisibility}" />
                     <MenuItem x:Name="menub37" Header="{l:Translate ImportGeocaches}" Command="{Binding LiveAPIImportGeocachesCommand}" />
                     <MenuItem x:Name="menue37" Header="{l:Translate Bookmarks}" Click="menud37_Click" />

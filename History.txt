@@ -6,16 +6,18 @@ todo GAPP:
 
 todo GAPP SF:
 - Open Areas map
-- Trackable groeps
 
 todo GAPP/GAPP SF
-- add option to add attributes list in description
+
 
 V1.9.20.0
 
 - gapp: fix: added missing selected geocache marker to setup.
 - gapp: change: moved extra geocache information to the absolute beginning of the description with GPX export
+- gapp: add: Live API authorization with the default browser of the user
 - gappsf: change: moved extra geocache information to the absolute beginning of the description with GPX export
+- gappsf: add: trackable groups
+- gappsf: add: Live API authorization with the default browser of the user
 
 V1.9.19.0
 

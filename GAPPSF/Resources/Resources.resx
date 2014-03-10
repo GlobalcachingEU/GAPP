@@ -1936,4 +1936,22 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="LastCache" xml:space="preserve">
     <value>Last Cache</value>
   </data>
+  <data name="LiveAPIAuthorization" xml:space="preserve">
+    <value>LiveAPI Authorization</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="ManAuthorizeStep1" xml:space="preserve">
+    <value>Step 1: Perform authorization with your standard browser</value>
+  </data>
+  <data name="ManAuthorizeStep2" xml:space="preserve">
+    <value>Step 2: Copy obtained code from step 1</value>
+  </data>
+  <data name="ManAuthorizeStep3" xml:space="preserve">
+    <value>Step 3: Confirm</value>
+  </data>
+  <data name="ManualLiveAPIAuthorization" xml:space="preserve">
+    <value>Manual Live API Authorization</value>
+  </data>
 </root>

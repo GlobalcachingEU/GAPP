@@ -183,6 +183,7 @@
   <string name="compute the factorial of an integer.&#xD;&#xA;fact(10) = 3628800" value="Bereken de N facultiet.&#xD;&#xA;Voorbeeld: fact(10) = 3628800" />
   <string name="compute the power of the first to the second parameter&#xD;&#xA;pow(2;10) = 1024" value="Bereken de macht van het eerste tot de tweede parameter&#xD;&#xA;Voorbeeld: pow(2; 10) = 1024" />
   <string name="conditions" value="Condities" />
+  <string name="confirm" value="Bevestig" />
   <string name="connected" value="Verbonden" />
   <string name="connecting" value="Bezig met verbinden" />
   <string name="container" value="Container" />
@@ -724,6 +725,7 @@
   <string name="longitude" value="Lengtegraad" />
   <string name="luxembourg" value="Luxemburg" />
   <string name="maintenance" value="Onderhoud" />
+  <string name="manual live api authorization" value="Handmatige Live API autorisatie" />
   <string name="map" value="Kaart" />
   <string name="maps" value="Kaarten" />
   <string name="maps download" value="Kaarten download" />
@@ -1113,6 +1115,9 @@
   <string name="statistics generator" value="Statistieken generator" />
   <string name="status" value="" />
   <string name="step" value="Stap" />
+  <string name="step 1: perform authorization with your standard browser" value="Stap 1: Voer autorisatie uit in jouw standaard browser" />
+  <string name="step 2: copy obtained code from step 1" value="Stap 2: Kopieer de verkregen code uit stap 1" />
+  <string name="step 3: confirm" value="Stap 3: Bevestigen" />
   <string name="stop" value="" />
   <string name="stop after each log" value="Stop na elke log" />
   <string name="stops (max {0})" value="Tussenstop (max {0})" />

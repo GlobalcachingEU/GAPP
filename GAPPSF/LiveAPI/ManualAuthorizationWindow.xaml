@@ -1,0 +1,14 @@
+﻿<Window x:Class="GAPPSF.LiveAPI.ManualAuthorizationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:l="clr-namespace:GAPPSF.Localization"
+        Title="{l:Translate ManualLiveAPIAuthorization}" Height="250" Width="500">
+    <StackPanel>
+        <TextBlock Margin="4" Text="{l:Translate ManAuthorizeStep1}" />
+        <Button Margin="4" Content="{l:Translate Authorize}" Click="Button_Click" />
+        <TextBlock Margin="4" Text="{l:Translate ManAuthorizeStep2}" />
+        <TextBox Margin="4" Text="{Binding Token, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock Margin="4" Text="{l:Translate ManAuthorizeStep3}" />
+        <Button x:Name="bconfirm" Margin="4" Content="{l:Translate Confirm}" Click="Button_Click_1" />
+    </StackPanel>
+</Window>

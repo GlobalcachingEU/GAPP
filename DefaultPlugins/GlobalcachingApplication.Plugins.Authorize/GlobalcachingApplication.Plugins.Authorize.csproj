@@ -69,8 +69,10 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -79,6 +81,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GCLive.cs" />
+    <Compile Include="GCLiveManualForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GCLiveManualForm.Designer.cs">
+      <DependentUpon>GCLiveManualForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +98,11 @@
       <Project>{10CE1BC5-8951-4043-A9E5-D20C7EC55022}</Project>
       <Name>GlobalcachingApplication.Utils</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="GCLiveManualForm.resx">
+      <DependentUpon>GCLiveManualForm.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

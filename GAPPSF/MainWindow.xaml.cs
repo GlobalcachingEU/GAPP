@@ -3551,5 +3551,11 @@ namespace GAPPSF
             w.Show();
         }
 
+        private void menu13x_Click(object sender, RoutedEventArgs e)
+        {
+            var dlg = new LiveAPI.ManualAuthorizationWindow();
+            dlg.ShowDialog();
+        }
+
     }
 }

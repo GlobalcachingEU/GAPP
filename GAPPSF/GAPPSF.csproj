@@ -707,6 +707,9 @@
     <Compile Include="LiveAPI\GeocachingLive.cs" />
     <Compile Include="LiveAPI\Import.cs" />
     <Compile Include="LiveAPI\Live.cs" />
+    <Compile Include="LiveAPI\ManualAuthorizationWindow.xaml.cs">
+      <DependentUpon>ManualAuthorizationWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LiveAPI\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
@@ -1237,6 +1240,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="LiveAPI\AuthorizationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LiveAPI\ManualAuthorizationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

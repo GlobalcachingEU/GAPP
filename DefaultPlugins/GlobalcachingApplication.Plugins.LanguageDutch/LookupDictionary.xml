@@ -118,7 +118,6 @@
   <string name="belgium" value="Belgie" />
   <string name="between" value="Tussen" />
   <string name="between dates" value="Tussen data" />
-  <string name="bookmark" value="" />
   <string name="bookmarks" value="" />
   <string name="by" value="door" />
   <string name="bytes" value="" />
@@ -171,6 +170,7 @@
   <string name="compute the factorial of an integer.&#xD;&#xA;fact(10) = 3628800" value="Bereken de N facultiet.&#xD;&#xA;Voorbeeld: fact(10) = 3628800" />
   <string name="compute the power of the first to the second parameter&#xD;&#xA;pow(2;10) = 1024" value="Bereken de macht van het eerste tot de tweede parameter&#xD;&#xA;Voorbeeld: pow(2; 10) = 1024" />
   <string name="conditions" value="Condities" />
+  <string name="confirm" value="Bevestig" />
   <string name="connected" value="Verbonden" />
   <string name="connecting..." value="Bezig met verbinden..." />
   <string name="container" value="Container" />
@@ -471,7 +471,6 @@
   <string name="gives the rot13 encryption&#xD;&#xA;rot13(&quot;abc&quot;) = nop" value="Geeft de ROT13 encryptie&#xD;&#xA;Voorbeeld: rot13(&quot;abc&quot;) = nop" />
   <string name="globalcaching application is geocaching live enabled.&#xD;&#xA;&#xD;&#xA;with the geocaching live api from groundspeak it becomes easy to obtain data from geocaching.com and e.g. log a geocache without the need to go to the website of geocaching.com.&#xD;&#xA;pocket queries can be downloaded right from the application itself and geocaches can be updated instantly.&#xD;&#xA;&#xD;&#xA;in order to use these features, you have to authorize this application to access your account on geocaching.com." value="Globalcaching Application ondersteunt Geocaching Live.&#xD;&#xA;&#xD;&#xA;Met de Geocaching Live API van Groundspeak is het makkelijk om data van geocaching.com te verkrijgen and b.v. een geocache te loggen zonder dat je naar de website van geocaching.com hoeft te gaan.&#xD;&#xA;Pocket Queries kunnen rechtstreeks vanuit de applicatie gedownload worden en geocaches kunnen instantaan bijgewerkt worden.&#xD;&#xA;&#xD;&#xA;Om deze functionaliteiten te gebruiken moet je deze applicatie eerst autoriseren om toegang te krijgen tot de Live API." />
   <string name="globalcaching url" value="" />
-  <string name="globalcaching.eu - assign municipality" value="" />
   <string name="globalcachingapplication.plugins.accountswitcher" value="" />
   <string name="globalcachingapplication.plugins.actionsequence" value="" />
   <string name="globalcachingapplication.plugins.apibookmark" value="" />
@@ -508,7 +507,6 @@
   <string name="globalcachingapplication.plugins.gappdatastorage" value="" />
   <string name="globalcachingapplication.plugins.gccomments" value="" />
   <string name="globalcachingapplication.plugins.gcedit" value="" />
-  <string name="globalcachingapplication.plugins.gceu" value="" />
   <string name="globalcachingapplication.plugins.gcvote" value="" />
   <string name="globalcachingapplication.plugins.gdirections" value="" />
   <string name="globalcachingapplication.plugins.getimg" value="" />
@@ -718,6 +716,7 @@
   <string name="longitude" value="Lengtegraad" />
   <string name="luxembourg" value="Luxemburg" />
   <string name="maintenance" value="Onderhoud" />
+  <string name="manual live api authorization" value="Handmatige Live API autorisatie" />
   <string name="map" value="Kaart" />
   <string name="maps" value="Kaarten" />
   <string name="maps download" value="Kaarten download" />
@@ -844,7 +843,6 @@
   <string name="package manager" value="Pakket beheer" />
   <string name="package version" value="Pakket versie" />
   <string name="parameters in function call invalid" value="Parameters in de functie zijn ongeldig." />
-  <string name="parel of de maand" value="" />
   <string name="parent" value="Ouder" />
   <string name="pass directory to poi loader" value="Geef folder mee aan POI Loader" />
   <string name="password" value="Wachtwoord" />
@@ -1071,7 +1069,6 @@
   <string name="sort on" value="Sorteren op" />
   <string name="sort order" value="Sorteervolgorde" />
   <string name="splitscreen" value="Gespleten scherm" />
-  <string name="stadswandelcaches in nederland" value="" />
   <string name="start" value="" />
   <string name="start #foundcount" value="" />
   <string name="startup" value="Opstarten" />
@@ -1081,6 +1078,9 @@
   <string name="statistics generator" value="Statistieken generator" />
   <string name="status" value="" />
   <string name="step" value="Stap" />
+  <string name="step 1: perform authorization with your standard browser" value="Stap 1: Voer autorisatie uit in jouw standaard browser" />
+  <string name="step 2: copy obtained code from step 1" value="Stap 2: Kopieer de verkregen code uit stap 1" />
+  <string name="step 3: confirm" value="Stap 3: Bevestigen" />
   <string name="stop" value="" />
   <string name="stop after each log" value="Stop na elke log" />
   <string name="stops (max {0})" value="Tussenstop (max {0})" />
@@ -1106,9 +1106,6 @@
   <string name="ter. min" value="Ter. min" />
   <string name="terr" value="Terr" />
   <string name="terrain" value="Terrein" />
-  <string name="test" value="" />
-  <string name="test emmen" value="" />
-  <string name="testje" value="" />
   <string name="text" value="Tekst" />
   <string name="text color" value="Tekstkleur" />
   <string name="text functions" value="Text functie" />
