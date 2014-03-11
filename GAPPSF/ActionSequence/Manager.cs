@@ -54,9 +54,9 @@ namespace GAPPSF.ActionSequence
             }
         }
 
-        public void ExecuteSequence(Sequence seq)
+        public async Task ExecuteSequence(Sequence seq)
         {
-            RunActionSequence(seq);
+            await RunActionSequence(seq);
         }
 
         public void AddSequenceToMenu(Sequence seq)

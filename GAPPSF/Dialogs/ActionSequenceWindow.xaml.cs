@@ -68,24 +68,24 @@ namespace GAPPSF.Dialogs
         }
 
 
-        private RelayCommand _executeCommand;
-        public RelayCommand ExecuteCommand
+        private AsyncDelegateCommand _executeCommand;
+        public AsyncDelegateCommand ExecuteCommand
         {
             get
             {
                 if (_executeCommand == null)
                 {
-                    _executeCommand = new RelayCommand(param => ExecuteSequence(),
+                    _executeCommand = new AsyncDelegateCommand(param => ExecuteSequence(),
                         param => Core.ApplicationData.Instance.ActiveDatabase != null && IsSequenceActive);
                 }
                 return _executeCommand;
             }
         }
-        public void ExecuteSequence()
+        public async Task ExecuteSequence()
         {
             if (Core.ApplicationData.Instance.ActiveDatabase != null && ActiveSequence != null)
             {
-                Manager.Instance.ExecuteSequence(ActiveSequence);
+                await Manager.Instance.ExecuteSequence(ActiveSequence);
             }
         }
 
