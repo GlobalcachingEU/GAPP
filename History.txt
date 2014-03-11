@@ -15,9 +15,11 @@ V1.9.20.0
 - gapp: fix: added missing selected geocache marker to setup.
 - gapp: change: moved extra geocache information to the absolute beginning of the description with GPX export
 - gapp: add: Live API authorization with the default browser of the user
+- gapp: LiveAPI, import geocaches now has option to select center and radius from google map
 - gappsf: change: moved extra geocache information to the absolute beginning of the description with GPX export
 - gappsf: add: trackable groups
 - gappsf: add: Live API authorization with the default browser of the user
+- gappsf: LiveAPI, import geocaches now has option to select center and radius from google map
 
 V1.9.19.0
 

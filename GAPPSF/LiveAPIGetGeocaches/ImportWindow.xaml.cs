@@ -274,5 +274,16 @@ namespace GAPPSF.LiveAPIGetGeocaches
             }
         }
 
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            var dlg = new ImportByRadiusWindow();
+            if (dlg.ShowDialog()==true)
+            {
+                Core.Settings.Default.LiveAPIGetGCLocation = Utils.Conversion.GetCoordinatesPresentation(dlg.Center);
+                Core.Settings.Default.LiveAPIGetGCRadius = Math.Min(dlg.Radius, 50);
+                Core.Settings.Default.LiveAPIGetGCLocationKm = UIControls.GeocacheFilter.BooleanEnum.True;
+            }
+        }
+
     }
 }

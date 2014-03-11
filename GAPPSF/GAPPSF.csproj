@@ -690,6 +690,9 @@
       <DependentUpon>ExportWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="KML\Export.cs" />
+    <Compile Include="LiveAPIGetGeocaches\ImportByRadiusWindow.xaml.cs">
+      <DependentUpon>ImportByRadiusWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LiveAPIGetGeocaches\ImportWindow.xaml.cs">
       <DependentUpon>ImportWindow.xaml</DependentUpon>
     </Compile>
@@ -1230,6 +1233,10 @@
     <Page Include="ImageGrabber\ExportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LiveAPIGetGeocaches\ImportByRadiusWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="LiveAPIGetGeocaches\ImportWindow.xaml">
       <SubType>Designer</SubType>
@@ -2476,6 +2483,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="UIControls\Trackables\trackablesmap.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="LiveAPIGetGeocaches\ImportByRadiusWindow.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

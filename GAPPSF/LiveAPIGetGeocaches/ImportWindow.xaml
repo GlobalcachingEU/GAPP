@@ -53,6 +53,9 @@
                                 <ui:NumericUpDown Margin="4,0,0,0" Minimum="0.1" Maximum="50" DecimalPlaces="1" Width="60" Value="{Binding LiveAPIGetGCRadius, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
                                 <RadioButton Margin="4" GroupName="rdist" Content="{l:Translate Km}" IsChecked="{Binding LiveAPIGetGCLocationKm, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=True, Mode=TwoWay}"/>
                                 <RadioButton Margin="4" GroupName="rdist" Content="{l:Translate Miles}" IsChecked="{Binding LiveAPIGetGCLocationKm, Source={x:Static p:Settings.Default}, Converter={StaticResource enumBooleanConverter}, ConverterParameter=False, Mode=TwoWay}"/>
+                                <Button Grid.Column="1" Width="20" Height="20" Click="Button_Click_2">
+                                    <Image Width="16" Height="16" Source="/Resources/General/edit.png" />
+                                </Button>
                             </StackPanel>
                             <TextBlock Margin="4" Grid.Row="2" Grid.Column="0" Text="{l:Translate Codes}" />
                             <Grid Grid.Row="2" Grid.Column="1">

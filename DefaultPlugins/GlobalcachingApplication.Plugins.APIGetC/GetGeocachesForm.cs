@@ -779,6 +779,19 @@ namespace GlobalcachingApplication.Plugins.APIGetC
                 !checkBox1.Checked || Math.Abs((dateTimePicker2.Value - dateTimePicker1.Value).TotalDays) < 30);
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            using (var dlg = new SelectByAreaForm(_core))
+            {
+                if (dlg.ShowDialog()== System.Windows.Forms.DialogResult.OK)
+                {
+                    textBoxLocation.Text = Utils.Conversion.GetCoordinatesPresentation(dlg.Center);
+                    numericUpDownRadius.Value = Math.Min((decimal)dlg.Radius, numericUpDownRadius.Maximum);
+                    radioButtonKm.Checked = true;
+                }
+            }
+        }
+
     }
 
     public class GetGeocaches : Utils.BasePlugin.BaseImportFilter
