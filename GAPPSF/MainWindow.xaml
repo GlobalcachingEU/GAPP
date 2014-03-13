@@ -184,6 +184,11 @@
                         <MenuItem x:Name="menu4y20" Header="{l:Translate Active}" Command="{Binding ExportOfflineImgActiveCommand}" />
                         <MenuItem x:Name="menu4y21" Header="{l:Translate Selected}" Command="{Binding ExportOfflineImgSelectedCommand}" />
                         <MenuItem x:Name="menu4y22" Header="{l:Translate All}" Command="{Binding ExportOfflineImgAllCommand}" />
+                        <Separator />
+                        <MenuItem Header="{l:Translate Delete}">
+                            <MenuItem x:Name="menu4y20c" Header="{l:Translate Active}" Command="{Binding DeleteActiveFromImageFolderCommand}" />
+                            <MenuItem x:Name="menu4y21c" Header="{l:Translate Selected}" Command="{Binding DeleteSelectedFromImageFolderCommand}" />
+                        </MenuItem>
                     </MenuItem>
                     <MenuItem Header="{l:Translate ExportGarminPOI}">
                         <MenuItem x:Name="menu41b" Header="{l:Translate Active}" Command="{Binding ExportGarminPOIActiveCommand}" />

@@ -1957,6 +1957,50 @@ namespace GAPPSF
         }
 
 
+        AsyncDelegateCommand _deleteActiveFromImageFolderCommand;
+        AsyncDelegateCommand DeleteActiveFromImageFolderCommand
+        {
+            get
+            {
+                if (_deleteActiveFromImageFolderCommand==null)
+                {
+                    _deleteActiveFromImageFolderCommand = new AsyncDelegateCommand(param => DeleteActiveFromImageFolder(),
+                        param => Core.ApplicationData.Instance.ActiveGeocache != null);
+                }
+                return _deleteActiveFromImageFolderCommand;
+            }
+        }
+        public async Task DeleteActiveFromImageFolder()
+        {
+            await DeleteFromImageFolder(new Core.Data.Geocache[] { Core.ApplicationData.Instance.ActiveGeocache }.ToList());
+        }
+        AsyncDelegateCommand _deleteSelectedFromImageFolderCommand;
+        AsyncDelegateCommand DeleteSelectedFromImageFolderCommand
+        {
+            get
+            {
+                if (_deleteSelectedFromImageFolderCommand == null)
+                {
+                    _deleteSelectedFromImageFolderCommand = new AsyncDelegateCommand(param => DeleteSelectedFromImageFolder(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase!=null && this.GeocacheSelectionCount > 0);
+                }
+                return _deleteSelectedFromImageFolderCommand;
+            }
+        }
+        public async Task DeleteSelectedFromImageFolder()
+        {
+            await DeleteFromImageFolder((from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection where a.Selected select a).ToList());
+        }
+        public async Task DeleteFromImageFolder(List<Core.Data.Geocache> gcList)
+        {
+            var dlg = new GAPPSF.Dialogs.FolderPickerDialog();
+            if (dlg.ShowDialog() == true)
+            {
+                var exp = new ImageGrabber.Export();
+                await exp.DeleteImagesFromFolder(gcList, dlg.SelectedPath);
+            }
+        }
+
 
         RelayCommand _exportOfflineImgActiveCommand;
         public ICommand ExportOfflineImgActiveCommand

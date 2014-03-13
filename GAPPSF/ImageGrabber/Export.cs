@@ -9,6 +9,64 @@ namespace GAPPSF.ImageGrabber
 {
     public class Export
     {
+        public async Task DeleteImagesFromFolder(List<Core.Data.Geocache> gcList, string folder)
+        {
+            await Task.Run(() =>
+            {
+                try
+                {
+                    DateTime nextUpdate = DateTime.Now.AddSeconds(1);
+                    using (Utils.ProgressBlock progress = new Utils.ProgressBlock("DeletingImages", "DeletingImages", gcList.Count, 0, true))
+                    {
+                        string imgFolder;
+                        string checkFolder = Path.Combine(folder, "GeocachePhotos");
+                        if (Directory.Exists(checkFolder))
+                        {
+                            imgFolder = checkFolder;
+                        }
+                        else
+                        {
+                            imgFolder = folder;
+                        }
+
+                        int index = 0;
+                        foreach (var gc in gcList)
+                        {
+                            string cacheFolder = Path.Combine(imgFolder, gc.Code[gc.Code.Length - 1].ToString());
+                            if (Directory.Exists(cacheFolder))
+                            {
+                                cacheFolder = Path.Combine(cacheFolder, gc.Code[gc.Code.Length - 2].ToString());
+                                if (Directory.Exists(cacheFolder))
+                                {
+                                    cacheFolder = Path.Combine(cacheFolder, gc.Code);
+                                    if (Directory.Exists(cacheFolder))
+                                    {
+                                        Directory.Delete(cacheFolder, true);
+                                    }
+                                }
+                            }
+
+
+                            index++;
+                            if (DateTime.Now >= nextUpdate)
+                            {
+                                if (!progress.Update("DeletingImages", gcList.Count, index))
+                                {
+                                    break;
+                                }
+                                nextUpdate = DateTime.Now.AddSeconds(1);
+                            }
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    Core.ApplicationData.Instance.Logger.AddLog(this, e);
+                }
+            });
+        }
+
+
         public async Task CreateImageFolder(List<Core.Data.Geocache> gcList, string folder, bool download, bool NotDescrOnly, bool clearBeforeCopy)
         {
             if (download)

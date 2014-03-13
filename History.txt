@@ -12,7 +12,7 @@ todo GAPP/GAPP SF
 V1.9.21.0
 
 - gapp: add: delete images from image folder for active or selected geocaches
-
+- gappsf: add: delete images from image folder for active or selected geocaches
 
 V1.9.20.0
 
