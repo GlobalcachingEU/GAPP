@@ -29,6 +29,8 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
         public const string ACTION_GRAB_DELETE_ACTIVE = "Offline images|Delete for active";
         public const string ACTION_GRAB_DELETE_ALL = "Offline images|Delete for all";
         public const string ACTION_GRAB_DELETE_SELECTED = "Offline images|Delete for selection";
+        public const string ACTION_DELETEFOLDER_ACTIVE = "Offline images|Delete from image folder for active";
+        public const string ACTION_DELETEFOLDER_SELECTED = "Offline images|Delete from image folder for selection";
 
         private const string DATABASE_FILENAME = "grabbedimg.db3";
         private const string IMG_SUBFOLDER = "GrabbedImages";
@@ -38,6 +40,7 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
         private int _orgListCount;
         private volatile bool _grabOnlyNew = false;
         private ManualResetEvent _threadReady = null;
+        private string _imgFolder = null;
 
         public override bool Initialize(Framework.Interfaces.ICore core)
         {
@@ -49,6 +52,9 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
             AddAction(ACTION_GRAB_DELETE_ACTIVE);
             AddAction(ACTION_GRAB_DELETE_SELECTED);
             AddAction(ACTION_GRAB_DELETE_ALL);
+            AddAction(ACTION_GRAB_SEP);
+            AddAction(ACTION_DELETEFOLDER_ACTIVE);
+            AddAction(ACTION_DELETEFOLDER_SELECTED);
 
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_GRABBING_IMAGES));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DELETING_GRABBED_IMAGES));
@@ -214,7 +220,7 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
             bool result = base.Action(action);
             if (result)
             {
-                if (action == ACTION_GRAB_ACTIVE || action == ACTION_GRAB_DELETE_ACTIVE || action == ACTION_CREATE_ACTIVE)
+                if (action == ACTION_GRAB_ACTIVE || action == ACTION_GRAB_DELETE_ACTIVE || action == ACTION_CREATE_ACTIVE || action==ACTION_DELETEFOLDER_ACTIVE)
                 {
                     if (Core.ActiveGeocache != null)
                     {
@@ -222,7 +228,7 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
                         _gcList.Add(Core.ActiveGeocache);
                     }
                 }
-                else if (action == ACTION_GRAB_SELECTED || action == ACTION_GRAB_DELETE_SELECTED || action == ACTION_CREATE_SELECTED)
+                else if (action == ACTION_GRAB_SELECTED || action == ACTION_GRAB_DELETE_SELECTED || action == ACTION_CREATE_SELECTED || action == ACTION_DELETEFOLDER_SELECTED)
                 {
                     _gcList = Utils.DataAccess.GetSelectedGeocaches(Core.Geocaches);
                 }
@@ -310,9 +316,85 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
                         }
                         thrd.Join();
                     }
+                    else if (action == ACTION_DELETEFOLDER_ACTIVE || action == ACTION_DELETEFOLDER_SELECTED)
+                    {
+                        using (System.Windows.Forms.FolderBrowserDialog dlg = new System.Windows.Forms.FolderBrowserDialog())
+                        {
+                            if (!string.IsNullOrEmpty(Properties.Settings.Default.CreateFolderPath))
+                            {
+                                dlg.SelectedPath = Properties.Settings.Default.CreateFolderPath;
+                            }
+                            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                            {
+                                _imgFolder = dlg.SelectedPath;
+                                _threadReady = new ManualResetEvent(false);
+                                Thread thrd = new Thread(new ThreadStart(this.deleteImagesFromFolderThreadMethod));
+                                thrd.Start();
+                                while (!_threadReady.WaitOne(100))
+                                {
+                                    System.Windows.Forms.Application.DoEvents();
+                                }
+                                thrd.Join();
+                            }
+                        }
+                    }
                 }
             }
             return result;
+        }
+
+        private void deleteImagesFromFolderThreadMethod()
+        {
+            DateTime nextUpdate = DateTime.Now.AddSeconds(2);
+            using (Utils.ProgressBlock progress = new Utils.ProgressBlock(this, STR_DELETING_IMAGES, STR_DELETING_IMAGES, _gcList.Count, 0, true))
+            {
+                try
+                {
+                    string imgFolder;
+                    string checkFolder = Path.Combine(_imgFolder, "GeocachePhotos");
+                    if (Directory.Exists(checkFolder))
+                    {
+                        imgFolder = checkFolder;
+                    }
+                    else
+                    {
+                        imgFolder = _imgFolder;
+                    }
+
+                    int index = 0;
+                    foreach (Framework.Data.Geocache gc in _gcList)
+                    {
+                        string cacheFolder = Path.Combine(imgFolder, gc.Code[gc.Code.Length - 1].ToString());
+                        if (Directory.Exists(cacheFolder))
+                        {
+                            cacheFolder = Path.Combine(cacheFolder, gc.Code[gc.Code.Length - 2].ToString());
+                            if (Directory.Exists(cacheFolder))
+                            {
+                                cacheFolder = Path.Combine(cacheFolder, gc.Code);
+                                if (Directory.Exists(cacheFolder))
+                                {
+                                    Directory.Delete(cacheFolder, true);
+                                }
+                            }
+                        }
+
+
+                        index++;
+                        if (DateTime.Now >= nextUpdate)
+                        {
+                            if (!progress.UpdateProgress(STR_DELETING_IMAGES, STR_DELETING_IMAGES, _gcList.Count, index))
+                            {
+                                break;
+                            }
+                            nextUpdate = DateTime.Now.AddSeconds(2);
+                        }
+                    }
+                }
+                catch
+                {
+                }
+            }
+            _threadReady.Set();
         }
 
         private void copyToFolderThreadMethod()

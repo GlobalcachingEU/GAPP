@@ -251,6 +251,8 @@
   <string name="delete for active" value="Verwijder voor actieve" />
   <string name="delete for all" value="Verwijder voor alle" />
   <string name="delete for selection" value="Verwijder voor geselecteerde" />
+  <string name="delete from image folder for active" value="Verwijder plaatjes van plaatjesfolder voor actieve geocache" />
+  <string name="delete from image folder for selection" value="Verwijder plaatjes van plaatjesfolder voor geselecteerde geocaches" />
   <string name="delete geocache" value="Verwijder geocache" />
   <string name="delete selected trackables" value="Verwijder geselecteerde trackables" />
   <string name="deleting geocaches..." value="Bezig met verwijderen van geocaches..." />
