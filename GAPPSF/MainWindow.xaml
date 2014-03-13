@@ -119,33 +119,68 @@
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{l:Translate Import}">
-                    <MenuItem x:Name="menu3" Header="{l:Translate GPX}" Command="{Binding ImportGPXCommand}" />
-                    <MenuItem x:Name="menu4" Header="{l:Translate GAPPDataStorage}" Command="{Binding ImportGAPPCommand}" />
-                    <MenuItem x:Name="menub5s" Header="{l:Translate ImportGAPPDataExchangeFile}" Command="{Binding ImportGAPPDECommand}" />
-                    <MenuItem x:Name="menub5" Header="{l:Translate ImportGSAKDatabase}" Command="{Binding ImportGSAKCommand}" />
+                    <MenuItem x:Name="menu3" Header="{l:Translate GPX}" Command="{Binding ImportGPXCommand}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/gpx.gif" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem x:Name="menu4" Header="{l:Translate GAPPDataStorage}" Command="{Binding ImportGAPPCommand}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/globalcaching.ico" Height="16" Width="16" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem x:Name="menub5s" Header="{l:Translate ImportGAPPDataExchangeFile}" Command="{Binding ImportGAPPDECommand}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/globalcaching.ico" Height="16" Width="16" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem x:Name="menub5" Header="{l:Translate ImportGSAKDatabase}" Command="{Binding ImportGSAKCommand}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/GSAK.jpg" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <MenuItem Header="{l:Translate ImportGCComments}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/comment.gif" />
+                        </MenuItem.Icon>
                         <MenuItem x:Name="menu4x" Header="{l:Translate ImportMissingGeocaches}" Command="{Binding ImportGCCMissingCommand}" />
                         <MenuItem x:Name="menub5x" Header="{l:Translate ImportCommentsOnly}" Command="{Binding ImportGCCCommand}" />
                     </MenuItem>
                     <MenuItem Header="{l:Translate ImportGCVote}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/gcvote.jpg" />
+                        </MenuItem.Icon>
                         <MenuItem x:Name="menugc60" Header="{l:Translate Active}" Command="{Binding ImportGcvoteActiveCommand}" />
                         <MenuItem x:Name="menugc61" Header="{l:Translate Selected}" Command="{Binding ImportGcvoteSelectedCommand}" />
                         <MenuItem x:Name="menugc62" Header="{l:Translate All}" Command="{Binding ImportGcvoteAllCommand}" />
                     </MenuItem>
-                    <MenuItem x:Name="menub5a" Header="{l:Translate ImportMunzeesfrommunzeedfxat}" Command="{Binding ImportMunzeeAfxCommand}" />
+                    <MenuItem x:Name="menub5a" Header="{l:Translate ImportMunzeesfrommunzeedfxat}" Command="{Binding ImportMunzeeAfxCommand}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/munzee.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{l:Translate Export}">
                     <MenuItem Header="{l:Translate ExportGPX}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/gpx.gif" />
+                        </MenuItem.Icon>
                         <MenuItem x:Name="menu50" Header="{l:Translate Active}" Command="{Binding ExportGPXActiveCommand}" />
                         <MenuItem x:Name="menu51" Header="{l:Translate Selected}" Command="{Binding ExportGPXSelectedCommand}" />
                         <MenuItem x:Name="menu52" Header="{l:Translate All}" Command="{Binding ExportGPXAllCommand}" />
                     </MenuItem>
                     <MenuItem Header="{l:Translate ExportOV2}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/tomtom.png" />
+                        </MenuItem.Icon>
                         <MenuItem x:Name="menu60" Header="{l:Translate Active}" Command="{Binding ExportOV2ActiveCommand}" />
                         <MenuItem x:Name="menu61" Header="{l:Translate Selected}" Command="{Binding ExportOV2SelectedCommand}" />
                         <MenuItem x:Name="menu62" Header="{l:Translate All}" Command="{Binding ExportOV2AllCommand}" />
                     </MenuItem>
                     <MenuItem Header="{l:Translate ExportKML}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/kml.png" />
+                        </MenuItem.Icon>
                         <MenuItem x:Name="menu40" Header="{l:Translate Active}" Command="{Binding ExportKMLActiveCommand}" />
                         <MenuItem x:Name="menu41" Header="{l:Translate Selected}" Command="{Binding ExportKMLSelectedCommand}" />
                         <MenuItem x:Name="menu42" Header="{l:Translate All}" Command="{Binding ExportKMLAllCommand}" />
@@ -171,16 +206,25 @@
                         <MenuItem x:Name="menu4x12" Header="{l:Translate All}" Command="{Binding ExportCacheboxAllCommand}" />
                     </MenuItem>
                     <MenuItem Header="{l:Translate ExportExcel}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/excel.gif" />
+                        </MenuItem.Icon>
                         <MenuItem x:Name="menu4y10" Header="{l:Translate Active}" Command="{Binding ExportExcelActiveCommand}" />
                         <MenuItem x:Name="menu4y11" Header="{l:Translate Selected}" Command="{Binding ExportExcelSelectedCommand}" />
                         <MenuItem x:Name="menu4y12" Header="{l:Translate All}" Command="{Binding ExportExcelAllCommand}" />
                     </MenuItem>
                     <MenuItem Header="{l:Translate ExportToGAPPDataExchangeFile}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/globalcaching.ico" Height="16" Width="16" />
+                        </MenuItem.Icon>
                         <MenuItem x:Name="menu4y101" Header="{l:Translate Active}" Command="{Binding ExportGAPPDEActiveCommand}" />
                         <MenuItem x:Name="menu4y111" Header="{l:Translate Selected}" Command="{Binding ExportGAPPDESelectedCommand}" />
                         <MenuItem x:Name="menu4y121" Header="{l:Translate All}" Command="{Binding ExportGAPPDEAllCommand}" />
                     </MenuItem>
                     <MenuItem Header="{l:Translate CreateImageFolder}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/PhotoFolder.gif" />
+                        </MenuItem.Icon>
                         <MenuItem x:Name="menu4y20" Header="{l:Translate Active}" Command="{Binding ExportOfflineImgActiveCommand}" />
                         <MenuItem x:Name="menu4y21" Header="{l:Translate Selected}" Command="{Binding ExportOfflineImgSelectedCommand}" />
                         <MenuItem x:Name="menu4y22" Header="{l:Translate All}" Command="{Binding ExportOfflineImgAllCommand}" />
@@ -191,6 +235,9 @@
                         </MenuItem>
                     </MenuItem>
                     <MenuItem Header="{l:Translate ExportGarminPOI}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/garminpoi.png" />
+                        </MenuItem.Icon>
                         <MenuItem x:Name="menu41b" Header="{l:Translate Active}" Command="{Binding ExportGarminPOIActiveCommand}" />
                         <MenuItem x:Name="menu41c" Header="{l:Translate Selected}" Command="{Binding ExportGarminPOISelectedCommand}" />
                         <MenuItem x:Name="menu41f" Header="{l:Translate All}" Command="{Binding ExportGarminPOIAllCommand}" />
@@ -198,38 +245,86 @@
                 </MenuItem>
                 <MenuItem Header="{l:Translate Edit}">
                     <MenuItem Header="{l:Translate Copy}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/copy.gif" />
+                        </MenuItem.Icon>
                         <MenuItem x:Name="menu5" Header="{l:Translate Active}" Command="{Binding CopyCommand, Source={x:Static c:ClipboardHandler.Instance}}" />
                         <MenuItem x:Name="menu7" Header="{l:Translate Selected}" Command="{Binding CopySelectedCommand, Source={x:Static c:ClipboardHandler.Instance}}" />
                         <MenuItem x:Name="menux7" Header="{l:Translate All}" Command="{Binding CopyAllCommand, Source={x:Static c:ClipboardHandler.Instance}}" />
                     </MenuItem>
                     <MenuItem Header="{l:Translate Delete}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/delete.png" />
+                        </MenuItem.Icon>
                         <MenuItem x:Name="menu6" Header="{l:Translate Active}" Command="{Binding DeleteActiveCommand}" />
                         <MenuItem x:Name="menu8" Header="{l:Translate Selected}" Command="{Binding DeleteSelectionCommand}" />
                         <MenuItem x:Name="menux8" Header="{l:Translate All}" Command="{Binding DeleteAllCommand}" />
                     </MenuItem>
                     <MenuItem Header="{l:Translate DeleteAndIgnoreGeocache}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/ignored.png" />
+                        </MenuItem.Icon>
                         <MenuItem x:Name="menu6i" Header="{l:Translate Active}" Command="{Binding DeleteIgnoreActiveCommand}" />
                         <MenuItem x:Name="menu8i" Header="{l:Translate Selected}" Command="{Binding DeleteIgnoreSelectionCommand}" />
                         <MenuItem x:Name="menux8i" Header="{l:Translate All}" Command="{Binding DeleteIgnoreAllCommand}" />
                     </MenuItem>
-                    <MenuItem x:Name="menu9" Header="{l:Translate Paste}" Command="{Binding PasteCommand, Source={x:Static c:ClipboardHandler.Instance}}" />
+                    <MenuItem x:Name="menu9" Header="{l:Translate Paste}" Command="{Binding PasteCommand, Source={x:Static c:ClipboardHandler.Instance}}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/paste.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <Separator />
-                    <MenuItem x:Name="menu10" Header="{l:Translate SelectAll}" Command="{Binding SelectAllCommand}" />
-                    <MenuItem x:Name="menu11" Header="{l:Translate ClearSelection}" Command="{Binding SelectNoneCommand}" />
+                    <MenuItem x:Name="menu10" Header="{l:Translate SelectAll}" Command="{Binding SelectAllCommand}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/select_all.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem x:Name="menu11" Header="{l:Translate ClearSelection}" Command="{Binding SelectNoneCommand}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/select_none.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{l:Translate Search}">
                     <MenuItem x:Name="gccombmmnu" Header="{l:Translate Bookmarks}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/bookmark.png" />
+                        </MenuItem.Icon>
                         <MenuItem x:Name="menud37" Header="{l:Translate Edit}" Click="menud37_Click" />
                         <Separator />
                     </MenuItem>
-                    <MenuItem x:Name="menud87" Header="{l:Translate SelectYourFavorites}" Click="menud87_Click" />
-                    <MenuItem x:Name="menudb7" Header="{l:Translate SelectGeocachesInArea}" Click="menudb7_Click" />
-                    <MenuItem x:Name="menudb8" Header="{l:Translate SelectGeocachesWithinRegion}" Click="menudb8_Click" />
+                    <MenuItem x:Name="menud87" Header="{l:Translate SelectYourFavorites}" Click="menud87_Click">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/favorite.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem x:Name="menudb7" Header="{l:Translate SelectGeocachesInArea}" Click="menudb7_Click">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/searchmap.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem x:Name="menudb8" Header="{l:Translate SelectGeocachesWithinRegion}" Click="menudb8_Click">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/Polygon.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{l:Translate QuickSelect}">
-                    <MenuItem x:Name="menua10" Header="{l:Translate SelectAll}" Command="{Binding SelectAllCommand}" />
-                    <MenuItem x:Name="menua11" Header="{l:Translate ClearSelection}" Command="{Binding SelectNoneCommand}" />
-                    <MenuItem x:Name="menua12" Header="{l:Translate InvertSelection}" Command="{Binding SelectInvertCommand}" />
+                    <MenuItem x:Name="menua10" Header="{l:Translate SelectAll}" Command="{Binding SelectAllCommand}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/select_all.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem x:Name="menua11" Header="{l:Translate ClearSelection}" Command="{Binding SelectNoneCommand}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/select_none.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem x:Name="menua12" Header="{l:Translate InvertSelection}" Command="{Binding SelectInvertCommand}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/invert.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <Separator />
                     <MenuItem x:Name="menu12" Header="{l:Translate SelectArchived}" Command="{Binding SelectArchivedCommand}" />
                     <MenuItem x:Name="menu32" Header="{l:Translate SelectAvailable}" Command="{Binding SelectAvailableCommand}" />
@@ -244,26 +339,50 @@
                 </MenuItem>
                 <MenuItem Header="{l:Translate Action}">
                     <MenuItem x:Name="actseqmnu" Header="{l:Translate ActionSequence}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/rows.png" />
+                        </MenuItem.Icon>
                         <MenuItem x:Name="menud27" Header="{l:Translate Edit}" Click="menud27_Click" />
                         <Separator />
                     </MenuItem>
                     <MenuItem x:Name="actbuildermnu" Header="{l:Translate ActionBuilder}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/flowchart.png" />
+                        </MenuItem.Icon>
                         <MenuItem x:Name="menuc27" Header="{l:Translate Edit}" Click="menub27_Click" />
                         <Separator />
                     </MenuItem>
-                    <MenuItem x:Name="menud271" Header="{l:Translate PurgeLogs}" Command="{Binding PurgeLogsCommand}" />
+                    <MenuItem x:Name="menud271" Header="{l:Translate PurgeLogs}" Command="{Binding PurgeLogsCommand}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/purgelogs.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <MenuItem Header="Globalcaching.eu" Visibility="{Binding DutchMenusVisibility}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/globalcaching.ico" Height="16" Width="16" />
+                        </MenuItem.Icon>
                         <MenuItem x:Name="menui27" Header="{l:Translate ImportNLGeocacheDistance}" Command="{Binding ImportGeocacheDistanceCommand}" />
                         <MenuItem x:Name="menuh27" Header="{l:Translate GetFavoritesFromGlobalcaching}" Command="{Binding ImportGeocacheFavoritesCommand}" />
                         <MenuItem x:Name="menum27" Header="{l:Translate UpdateStatusOfGeocachesAndImportNewGeocaches}" Click="menum27_Click" />
                     </MenuItem>
-                    <MenuItem x:Name="menudv27" Header="{l:Translate ClearGCVotes}" Command="{Binding ResetGCVotesCommand}" />
+                    <MenuItem x:Name="menudv27" Header="{l:Translate ClearGCVotes}" Command="{Binding ResetGCVotesCommand}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/gcvote.jpg" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <MenuItem Header="{l:Translate GetCity}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/city.png" />
+                        </MenuItem.Icon>
                         <MenuItem x:Name="menu6c" Header="{l:Translate Active}" Command="{Binding AssignCityNameActiveCommand}" />
                         <MenuItem x:Name="menu8c" Header="{l:Translate Selected}" Command="{Binding AssignCityNameSelectedCommand}" />
                         <MenuItem x:Name="menux8c" Header="{l:Translate All}" Command="{Binding AssignCityNameAllCommand}" />
                     </MenuItem>
-                    <MenuItem x:Name="menudv2v7" Header="{l:Translate AssignRegionsToGeocaches}" Click="menudv2v7_Click"/>
+                    <MenuItem x:Name="menudv2v7" Header="{l:Translate AssignRegionsToGeocaches}" Click="menudv2v7_Click">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/Polygon.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{l:Translate LiveAPI}">
                     <MenuItem x:Name="menu13" Header="{l:Translate Authorize}" Command="{Binding LiveApiAuthorizeCommand}" />

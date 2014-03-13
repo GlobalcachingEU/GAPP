@@ -136,10 +136,10 @@ namespace GAPPSF
             bottomLeftPanelColumn.Width = blgl;
             bottomPanelsRow.Height = bpgl;
 
-            updateShortCutKeyAssignment();
-
             UIControls.ActionBuilder.Manager mng = UIControls.ActionBuilder.Manager.Instance;
             ActionSequence.Manager mng2 = ActionSequence.Manager.Instance;
+
+            updateShortCutKeyAssignment();
             //popup.IsOpen = true;
         }
 
@@ -194,7 +194,8 @@ namespace GAPPSF
                     string[] parts = l.Split(new char[] { '|' }, 6);
                     if (parts.Length == 6)
                     {
-                        MenuItem mi = FindName(parts[4]) as MenuItem;
+                        MenuItem mi = LogicalTreeHelper.FindLogicalNode(mainMenu, parts[4]) as MenuItem;
+                        //MenuItem mi = FindName(parts[4]) as MenuItem;
                         if (mi != null)
                         {
                             string decoration = "";
@@ -3249,7 +3250,10 @@ namespace GAPPSF
         private void MenuItem_Click_12(object sender, RoutedEventArgs e)
         {
             Dialogs.ShortCutAssignmentWindow dlg = new Dialogs.ShortCutAssignmentWindow();
-            dlg.ShowDialog();
+            if (dlg.ShowDialog()==true)
+            {
+                updateShortCutKeyAssignment();
+            }
         }
 
         private void menu27_Click(object sender, RoutedEventArgs e)

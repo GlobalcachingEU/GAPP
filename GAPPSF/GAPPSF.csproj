@@ -2487,6 +2487,78 @@
   <ItemGroup>
     <Resource Include="LiveAPIGetGeocaches\ImportByRadiusWindow.html" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\gpx.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\GSAK.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\comment.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\gcvote.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\munzee.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\tomtom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\kml.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\excel.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\PhotoFolder.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\garminpoi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\copy.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\ignored.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\paste.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\select_all.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\select_none.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\bookmark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\favorite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\searchmap.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\Polygon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\invert.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\rows.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\flowchart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\purgelogs.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\city.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)GlobalcachingApplication\bin\$(ConfigurationName)\"</PostBuildEvent>

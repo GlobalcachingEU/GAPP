@@ -13,6 +13,7 @@ V1.9.21.0
 
 - gapp: add: delete images from image folder for active or selected geocaches
 - gappsf: add: delete images from image folder for active or selected geocaches
+- gappsf: fix: Shortcut assignment fix for dynamic menu items like action sequences
 
 V1.9.20.0
 
