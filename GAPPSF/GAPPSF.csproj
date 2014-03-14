@@ -645,6 +645,7 @@
     </Compile>
     <Compile Include="GAPPDataExchange\Export.cs" />
     <Compile Include="GAPPDataExchange\Import.cs" />
+    <Compile Include="GAPPDataStorage\Exporter.cs" />
     <Compile Include="GAPPDataStorage\RecordInfo.cs" />
     <Compile Include="GarminPOI\Export.cs" />
     <Compile Include="GarminPOI\ExportWindow.xaml.cs">

@@ -1223,7 +1223,7 @@ namespace GAPPSF.Core
                 if (_dbcon != null)
                 {
                     _dbcon.ExecuteNonQuery(string.Format("delete from trktrackables where groupid={0} and Code='{1}'", grp.ID, trackable.Code));
-                    if ((long)_dbcon.ExecuteScalar(string.Format("select count(1) from trackables", trackable.Code))==0)
+                    if ((long)_dbcon.ExecuteScalar(string.Format("select count(1) from trktrackables", trackable.Code)) == 0)
                     {
                         _dbcon.ExecuteNonQuery(string.Format("delete from trktravels where TrackableCode='{0}'", trackable.Code));
                         _dbcon.ExecuteNonQuery(string.Format("delete from trklogs where TrackableCode='{0}'", trackable.Code));

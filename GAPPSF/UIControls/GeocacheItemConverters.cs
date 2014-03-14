@@ -42,19 +42,23 @@ namespace GAPPSF.UIControls
             byte[] data = value as byte[];
             if (data != null)
             {
-                BitmapImage bm = null;
+                BitmapImage bm = new BitmapImage();
                 try
                 {
                     using (System.IO.MemoryStream ms = new System.IO.MemoryStream(data))
                     {
                         bm.BeginInit();
+                        bm.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+                        bm.CacheOption = BitmapCacheOption.OnLoad;
+                        bm.UriSource = null;
                         bm.StreamSource = ms;
                         bm.EndInit();
                     }
+                    bm.Freeze();
                 }
                 catch
                 {
-
+                    bm = null;
                 }
                 return bm;
             }

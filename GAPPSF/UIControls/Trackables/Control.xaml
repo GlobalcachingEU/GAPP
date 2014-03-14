@@ -9,7 +9,7 @@
              xmlns:l="clr-namespace:GAPPSF.Localization"
              d:DesignHeight="500" d:DesignWidth="500">
     <UserControl.Resources>
-        <ui:LogTypeConverter x:Key="ByteArrayImageConverter"></ui:LogTypeConverter>
+        <ui:ByteArrayImageConverter x:Key="ByteArrayImageConverter"></ui:ByteArrayImageConverter>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -53,15 +53,6 @@
             </Expander.Content>
         </Expander>
         <Grid Grid.Row="2">
-            <Grid.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="{l:Translate GoToTrackablePage}"  IsEnabled="{Binding IsTrackableItemSelected}" Click="MenuItem_Click_4" />
-                    <MenuItem Header="{l:Translate GoToGeocache}"  IsEnabled="{Binding IsTrackableItemSelected}" Click="MenuItem_Click_5" />
-                    <MenuItem Header="{l:Translate ShowRoute}"  IsEnabled="{Binding IsTrackableItemSelected}" Click="MenuItem_Click_6" />
-                    <Separator />
-                    <MenuItem Header="{l:Translate Delete}"  IsEnabled="{Binding IsTrackableItemSelected}" Click="MenuItem_Click_7" />
-                </ContextMenu>
-            </Grid.ContextMenu>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -91,6 +82,15 @@
                   SelectedItem="{Binding SelectedTrackableItem, Mode=TwoWay}"
                   HorizontalScrollBarVisibility="Auto" 
                   SelectionMode="Extended">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="{l:Translate GoToTrackablePage}"  IsEnabled="{Binding IsTrackableItemSelected}" Click="MenuItem_Click_4" />
+                    <MenuItem Header="{l:Translate GoToGeocache}"  IsEnabled="{Binding IsTrackableItemSelected}" Click="MenuItem_Click_5" />
+                    <MenuItem Header="{l:Translate ShowRoute}"  IsEnabled="{Binding IsTrackableItemSelected}" Click="MenuItem_Click_6" />
+                    <Separator />
+                    <MenuItem Header="{l:Translate Delete}"  IsEnabled="{Binding IsTrackableItemSelected}" Click="MenuItem_Click_7" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="{l:Translate Icon}">
                     <DataGridTemplateColumn.CellTemplate>
@@ -102,11 +102,11 @@
                 <DataGridTextColumn Binding="{Binding Code}" Header="{l:Translate Code}" IsReadOnly="True" />
                 <DataGridTextColumn Binding="{Binding Name}" Header="{l:Translate Name}" IsReadOnly="True" />
                 <DataGridTextColumn Binding="{Binding Owner}" Header="{l:Translate Owner}" IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding LastCache}" Header="{l:Translate LastCache}" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding CurrentGeocacheCode}" Header="{l:Translate LastCache}" IsReadOnly="True" />
                 <DataGridTextColumn Binding="{Binding HopCount}" Header="{l:Translate Hops}" IsReadOnly="True" />
                 <DataGridTextColumn Binding="{Binding InCacheCount}" Header="{l:Translate Drops}" IsReadOnly="True" />
                 <DataGridTextColumn Binding="{Binding DiscoverCount}" Header="{l:Translate Discoveries}" IsReadOnly="True" />
-                <DataGridTextColumn Binding="{Binding DistanceKm}" Header="{l:Translate Km}" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding DistanceKm, StringFormat=\{0:0.0\}}" Header="{l:Translate Km}" IsReadOnly="True" />
             </DataGrid.Columns>
         </DataGrid>
         <ui:InputDialog Grid.Row="0" Grid.RowSpan="4"  x:Name="inputDialog" Panel.ZIndex="200" />

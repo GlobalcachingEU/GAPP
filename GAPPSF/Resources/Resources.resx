@@ -1957,4 +1957,22 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="DeletingImages" xml:space="preserve">
     <value>Deleting images</value>
   </data>
+  <data name="SavingGeocacheImages" xml:space="preserve">
+    <value>Saving geocache images</value>
+  </data>
+  <data name="SavingLogImages" xml:space="preserve">
+    <value>Saving log images</value>
+  </data>
+  <data name="SavingLogs" xml:space="preserve">
+    <value>Saving logs</value>
+  </data>
+  <data name="SavingUserWaypoints" xml:space="preserve">
+    <value>Saving user waypoints</value>
+  </data>
+  <data name="SavingWaypoints" xml:space="preserve">
+    <value>Saving waypoints</value>
+  </data>
+  <data name="GetTrackableData" xml:space="preserve">
+    <value>Get trackable data</value>
+  </data>
 </root>

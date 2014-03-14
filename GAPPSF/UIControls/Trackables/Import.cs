@@ -105,7 +105,7 @@ namespace GAPPSF.UIControls.Trackables
                 while (index < trkList.Count && AddUpdateTrackable(api, grp, trkList[index]))
                 {
                     index++;
-                    if (progr.Update("GetTrackableData", trkList.Count, index))
+                    if (!progr.Update("GetTrackableData", trkList.Count, index))
                     {
                         break;
                     }
@@ -119,7 +119,7 @@ namespace GAPPSF.UIControls.Trackables
 
         private bool AddUpdateTrackable(LiveAPI.GeocachingLiveV6 api, TrackableGroup grp, string trkCode)
         {
-            bool result = false;
+            bool result = true;
             if (trkCode.ToUpper().StartsWith("TB"))
             {
                 try
@@ -212,6 +212,7 @@ namespace GAPPSF.UIControls.Trackables
                                         else
                                         {
                                             logs = null;
+                                            result = false;
                                             Core.ApplicationData.Instance.Logger.AddLog(this, Core.Logger.Level.Error, resp3.Status.StatusMessage);
                                             break;
                                         }
@@ -223,6 +224,7 @@ namespace GAPPSF.UIControls.Trackables
                                 }
                                 else
                                 {
+                                    result = false;
                                     Core.ApplicationData.Instance.Logger.AddLog(this, Core.Logger.Level.Error, resp2.Status.StatusMessage);
                                 }
                             }
@@ -230,12 +232,14 @@ namespace GAPPSF.UIControls.Trackables
                     }
                     else
                     {
+                        result = false;
                         Core.ApplicationData.Instance.Logger.AddLog(this, Core.Logger.Level.Error, resp.Status.StatusMessage);
                     }
 
                 }
                 catch(Exception e)
                 {
+                    result = false;
                     Core.ApplicationData.Instance.Logger.AddLog(this, e);
                 }
             }
