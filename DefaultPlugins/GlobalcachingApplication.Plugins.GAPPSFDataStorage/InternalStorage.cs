@@ -704,6 +704,20 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
                         File.Delete(fn);
                     }
 
+                    //write header
+                    if (fileStream.Length == 0)
+                    {
+                        BinaryWriter fbw = new BinaryWriter(fileStream);
+                        //create meta data
+                        fileStream.SetLength(DATABASE_CONTENT_OFFSET);
+                        fileStream.Position = DATABASE_META_VERSION_POS;
+                        long v = 1;
+                        fbw.Write(v);
+                        fileStream.Position = DATABASE_META_ACTIVEGEOCACHE_POS;
+                        fbw.Write("");
+                    }
+
+
                     //**********************************************
                     //          GEOCACHES
                     //**********************************************
@@ -729,6 +743,123 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
                     {
                         using (Utils.ProgressBlock progress = new Utils.ProgressBlock(this, STR_SAVING, STR_SAVINGGEOCACHES, gclist.Count, 0))
                         {
+                            int index = 0;
+                            int procStep = 0;
+                            foreach (Framework.Data.Geocache gc in gclist)
+                            {
+                                ms.Position = 0;
+
+                                ms.Position = 150;
+                                bw.Write(gc.Archived); //150
+                                bw.Write(gc.Available); //151
+                                bw.Write(gc.Container == null ? 0 : gc.Container.ID); //152
+                                bw.Write(DateTimeToLong(gc.DataFromDate)); //156
+                                bw.Write(DateTimeToLong(gc.PublishedTime)); //164
+                                bw.Write(gc.Difficulty); //172
+                                bw.Write(gc.Terrain); //180
+                                bw.Write(gc.Favorites); //188
+                                bw.Write(gc.Flagged); //192
+                                bw.Write(gc.Found); //193
+                                bw.Write(gc.GeocacheType == null ? 0 : gc.GeocacheType.ID); //194
+                                bw.Write(gc.Lat); //198
+                                bw.Write(gc.Lon); //206
+                                bw.Write(gc.Locked); //214
+                                bw.Write(gc.CustomLat != null); //215
+                                if (gc.CustomLat != null)
+                                {
+                                    bw.Write((double)gc.CustomLat); //216
+                                }
+                                else
+                                {
+                                    bw.Write((double)0.0);
+                                }
+                                bw.Write(gc.CustomLon != null); //224
+                                if (gc.CustomLon != null)
+                                {
+                                    bw.Write((double)gc.CustomLon); //225
+                                }
+                                else
+                                {
+                                    bw.Write((double)0.0);
+                                }
+                                bw.Write(gc.MemberOnly);
+
+                                byte attrCount = (byte)(gc.AttributeIds == null ? 0 : gc.AttributeIds.Count);
+                                bw.Write(attrCount); //234
+                                if (attrCount > 0)
+                                {
+                                    foreach (int i in gc.AttributeIds)
+                                    {
+                                        bw.Write(i);
+                                    }
+                                }
+                                ms.Position = 300;
+                                bw.Write(GetSafeString(300, 400, gc.City) ?? "");
+                                ms.Position = 400;
+                                bw.Write(GetSafeString(400, 500, gc.Country) ?? "");
+                                ms.Position = 500;
+                                bw.Write(GetSafeString(500, 1000, gc.EncodedHints) ?? "");
+                                ms.Position = 1000;
+                                bw.Write(GetSafeString(1000, 1100, gc.Municipality) ?? "");
+                                ms.Position = 1100;
+                                bw.Write(GetSafeString(1100, 1200, gc.Name) ?? "");
+                                ms.Position = 1200; //spare now
+                                //bw.Write(GetSafeString(1200, 2000, data.Notes) ?? "");
+                                bw.Write("");
+                                ms.Position = 2000;
+                                bw.Write(GetSafeString(2000, 2100, gc.Owner) ?? "");
+                                ms.Position = 2100;
+                                bw.Write(GetSafeString(2100, 2150, gc.OwnerId) ?? "");
+                                ms.Position = 2150;
+                                bw.Write(GetSafeString(2150, 2400, gc.PersonaleNote) ?? "");
+                                ms.Position = 2400;
+                                bw.Write(GetSafeString(2400, 2500, gc.PlacedBy) ?? "");
+                                ms.Position = 2500;
+                                bw.Write(GetSafeString(2500, 2600, gc.State) ?? "");
+                                ms.Position = 2600;
+                                bw.Write(GetSafeString(2600, 2800, gc.Url) ?? "");
+                                //spare
+                                ms.Position = 3000;
+
+                                RecordInfo ri = _geocachesInDB[gc.Code] as RecordInfo;
+                                if (forceFullData || gc.FullDataLoaded || ri==null)
+                                {
+                                    bw.Write(gc.LongDescriptionInHtml); //3000
+                                    bw.Write(gc.ShortDescriptionInHtml); //3001
+                                    bw.Write(gc.ShortDescription ?? ""); //3002
+                                    bw.Write(gc.LongDescription ?? "");
+
+                                    //check length
+                                    if (ri==null || ri.Length<ms.Position)
+                                    {
+                                        ri = RequestGeocacheRecord(fileStream, gc.Code, "", memBuffer, ms.Position, 500);
+                                        _geocachesInDB.Add(gc.Code, ri);
+                                    }
+                                    else
+                                    {
+                                        //still fits
+                                        fileStream.Position = ri.Offset + 150;
+                                        fileStream.Write(memBuffer, 150, (int)ms.Position - 150);
+                                    }
+                                }
+                                else
+                                {
+                                    //always fits
+                                    //skip first 150
+                                    fileStream.Position = ri.Offset + 150;
+                                    fileStream.Write(memBuffer, 150, (int)ms.Position-150);
+                                }
+
+                                gc.Saved = true;
+
+                                index++;
+                                procStep++;
+                                if (procStep >= 1000)
+                                {
+                                    progress.UpdateProgress(STR_SAVING, STR_SAVINGGEOCACHES, gclist.Count, index);
+                                    procStep = 0;
+                                }
+                            }
                         }
                     }
 
@@ -777,6 +908,111 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
                     return DateTime.MinValue;
                 }
             }
+        }
+
+
+        public RecordInfo RequestGeocacheRecord(FileStream fileStream, string id, string subId, byte[] recordData, long minimumLength, long extraBuffer)
+        {
+            return RequestRecord(fileStream, id, subId ?? "", RECORD_GEOCACHE, recordData, minimumLength, extraBuffer);
+        }
+
+        public RecordInfo RequestLogRecord(FileStream fileStream, string id, string subId, byte[] recordData, long minimumLength, long extraBuffer)
+        {
+            return RequestRecord(fileStream, id, subId ?? "", RECORD_LOG, recordData, minimumLength, extraBuffer);
+        }
+
+        public RecordInfo RequestWaypointRecord(FileStream fileStream, string id, string subId, byte[] recordData, long minimumLength, long extraBuffer)
+        {
+            return RequestRecord(fileStream, id, subId ?? "", RECORD_WAYPOINT, recordData, minimumLength, extraBuffer);
+        }
+
+        public RecordInfo RequestUserWaypointRecord(FileStream fileStream, string id, string subId, byte[] recordData, long minimumLength, long extraBuffer)
+        {
+            return RequestRecord(fileStream, id, subId ?? "", RECORD_USERWAYPOINT, recordData, minimumLength, extraBuffer);
+        }
+        public RecordInfo RequestLogImageRecord(FileStream fileStream, string id, string subId, byte[] recordData, long minimumLength, long extraBuffer)
+        {
+            return RequestRecord(fileStream, id, subId ?? "", RECORD_LOGIMAGE, recordData, minimumLength, extraBuffer);
+        }
+        public RecordInfo RequestGeocacheImageRecord(FileStream fileStream, string id, string subId, byte[] recordData, long minimumLength, long extraBuffer)
+        {
+            return RequestRecord(fileStream, id, subId ?? "", RECORD_GEOCACHEIMAGE, recordData, minimumLength, extraBuffer);
+        }
+
+        private RecordInfo RequestRecord(FileStream fileStream, string id, string subId, byte recordType, byte[] recordData, long minimumLength, long extraBuffer)
+        {
+            RecordInfo result = null;
+            if (!_emptyRecordsSorted)
+            {
+                _emptyRecords.Sort(delegate(RecordInfo x, RecordInfo y)
+                {
+                    return x.Length.CompareTo(y.Length);
+                });
+                _emptyRecordsSorted = true;
+            }
+            result = (from a in _emptyRecords where a.Length >= minimumLength select a).FirstOrDefault();
+
+            if (result == null)
+            {
+                result = new RecordInfo();
+                result.Length = minimumLength + extraBuffer;
+                result.Offset = _fileStream.Length;
+                result.ID = id;
+                result.SubID = subId;
+                result.FieldType = recordType;
+                fileStream.SetLength(result.Offset + result.Length);
+            }
+            else
+            {
+                //re-use of an empty record
+                result.ID = id;
+                result.SubID = subId;
+                _emptyRecords.Remove(result);
+                result.FieldType = recordType;
+            }
+            //write record header data
+            BinaryWriter bw = new BinaryWriter(_fileStream);
+            fileStream.Position = result.Offset + RECORD_POS_LENGTH;
+            bw.Write(result.Length);
+            fileStream.Position = result.Offset + RECORD_POS_FIELDTYPE;
+            fileStream.WriteByte(recordType);
+            fileStream.Position = result.Offset + RECORD_POS_ID;
+            bw.Write(result.ID);
+            bw.Write(result.SubID);
+
+            //write data
+            fileStream.Position = result.Offset + 150;
+            fileStream.Write(recordData, 150, (int)minimumLength - 150);
+
+            //Flush();
+
+            return result;
+        }
+
+        protected string GetSafeString(long pos, long nextpos, string value)
+        {
+            string result = value;
+            if (!string.IsNullOrEmpty(value))
+            {
+                while (!checkStringFits(result, pos, nextpos))
+                {
+                    result = result.Substring(0, result.Length - 1);
+                }
+            }
+            return result;
+        }
+
+        private static byte[] _buffer = new byte[10000000];
+        private static byte[] _checkbuffer = new byte[5000000];
+        private static MemoryStream _ms = new MemoryStream(_checkbuffer);
+        private static BinaryWriter _bw = new BinaryWriter(_ms);
+        protected bool checkStringFits(string s, long startPos, long nextPos)
+        {
+            bool result;
+            _ms.Position = 0;
+            _bw.Write(s);
+            result = (_ms.Position <= (nextPos - startPos));
+            return result;
         }
 
     }
