@@ -81,6 +81,8 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_BACKINGUPDATA));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_RESTORINGDATA));
 
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_MAXCOUNT));
+
             if (Properties.Settings.Default.UpgradeNeeded)
             {
                 Properties.Settings.Default.Upgrade();
@@ -98,6 +100,27 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
             core.Geocaches.LoadFullData += new Framework.EventArguments.LoadFullGeocacheEventHandler(Geocaches_LoadFullData);
 
             return base.Initialize(core);
+        }
+
+        public override bool ApplySettings(List<System.Windows.Forms.UserControl> configPanels)
+        {
+            foreach (System.Windows.Forms.UserControl uc in configPanels)
+            {
+                if (uc is SettingsPanel)
+                {
+                    (uc as SettingsPanel).Apply();
+                    break;
+                }
+            }
+            return true;
+        }
+
+        public override List<System.Windows.Forms.UserControl> CreateConfigurationPanels()
+        {
+            List<System.Windows.Forms.UserControl> pnls = base.CreateConfigurationPanels();
+            if (pnls == null) pnls = new List<System.Windows.Forms.UserControl>();
+            pnls.Add(new SettingsPanel());
+            return pnls;
         }
 
         private void Geocaches_LoadFullData(object sender, Framework.EventArguments.LoadFullGeocacheEventArgs e)
@@ -386,7 +409,34 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
             {
                 closeCurrentFile();
                 _fileStream = File.Open(Properties.Settings.Default.ActiveDataFile, FileMode.Open, FileAccess.ReadWrite);
-                if (_fileStream.Length >= DATABASE_CONTENT_OFFSET)
+                if (_fileStream.Length==0)
+                {
+                    BinaryWriter fbw = new BinaryWriter(_fileStream);
+                    //create meta data
+                    _fileStream.SetLength(DATABASE_CONTENT_OFFSET);
+                    _fileStream.Position = DATABASE_META_VERSION_POS;
+                    long v = 1;
+                    fbw.Write(v);
+                    _fileStream.Position = DATABASE_META_ACTIVEGEOCACHE_POS;
+                    fbw.Write("");
+                }
+                else
+                {
+                    //read meta data
+                    BinaryReader fbw = new BinaryReader(_fileStream);
+                    //create meta data
+                    _fileStream.SetLength(DATABASE_CONTENT_OFFSET);
+                    _fileStream.Position = DATABASE_META_VERSION_POS;
+                    long v;
+                    v= fbw.ReadInt64();
+                    if (v!=1)
+                    {
+                        _fileStream.Dispose();
+                        _fileStream = null;
+                        throw new Exception("Not supported file version");
+                    }
+                }
+                if (_fileStream.Length > DATABASE_CONTENT_OFFSET)
                 {
                     BinaryReader fbr = new BinaryReader(_fileStream);
                     byte[] buffer = new byte[10000000];
@@ -677,6 +727,180 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
             Core.Geocaches.Add(gc);
         }
 
+        private void writeGeocacheData(Framework.Data.Geocache gc, MemoryStream ms, BinaryWriter bw)
+        {
+            //ms.Position = 0;
+
+            ms.Position = 150;
+            bw.Write(gc.Archived); //150
+            bw.Write(gc.Available); //151
+            bw.Write(gc.Container == null ? 0 : gc.Container.ID); //152
+            bw.Write(DateTimeToLong(gc.DataFromDate)); //156
+            bw.Write(DateTimeToLong(gc.PublishedTime)); //164
+            bw.Write(gc.Difficulty); //172
+            bw.Write(gc.Terrain); //180
+            bw.Write(gc.Favorites); //188
+            bw.Write(gc.Flagged); //192
+            bw.Write(gc.Found); //193
+            bw.Write(gc.GeocacheType == null ? 0 : gc.GeocacheType.ID); //194
+            bw.Write(gc.Lat); //198
+            bw.Write(gc.Lon); //206
+            bw.Write(gc.Locked); //214
+            bw.Write(gc.CustomLat != null); //215
+            if (gc.CustomLat != null)
+            {
+                bw.Write((double)gc.CustomLat); //216
+            }
+            else
+            {
+                bw.Write((double)0.0);
+            }
+            bw.Write(gc.CustomLon != null); //224
+            if (gc.CustomLon != null)
+            {
+                bw.Write((double)gc.CustomLon); //225
+            }
+            else
+            {
+                bw.Write((double)0.0);
+            }
+            bw.Write(gc.MemberOnly);
+
+            byte attrCount = (byte)(gc.AttributeIds == null ? 0 : gc.AttributeIds.Count);
+            bw.Write(attrCount); //234
+            if (attrCount > 0)
+            {
+                foreach (int i in gc.AttributeIds)
+                {
+                    bw.Write(i);
+                }
+            }
+            ms.Position = 300;
+            bw.Write(GetSafeString(300, 400, gc.City) ?? "");
+            ms.Position = 400;
+            bw.Write(GetSafeString(400, 500, gc.Country) ?? "");
+            ms.Position = 500;
+            bw.Write(GetSafeString(500, 1000, gc.EncodedHints) ?? "");
+            ms.Position = 1000;
+            bw.Write(GetSafeString(1000, 1100, gc.Municipality) ?? "");
+            ms.Position = 1100;
+            bw.Write(GetSafeString(1100, 1200, gc.Name) ?? "");
+            ms.Position = 1200; //spare now
+            string sOrg = gc.Notes ?? "";
+            string s = GetSafeString(1200, 2000, gc.Notes) ?? "";
+            if (s!=sOrg)
+            {
+                s = Utils.Conversion.StripHtmlTags(s);
+                s = GetSafeString(1200, 1990, s) ?? "";
+                s = string.Concat("<P>", s, "</P>");
+            }
+            bw.Write(s);
+            ms.Position = 2000;
+            bw.Write(GetSafeString(2000, 2100, gc.Owner) ?? "");
+            ms.Position = 2100;
+            bw.Write(GetSafeString(2100, 2150, gc.OwnerId) ?? "");
+            ms.Position = 2150;
+            bw.Write(GetSafeString(2150, 2400, gc.PersonaleNote) ?? "");
+            ms.Position = 2400;
+            bw.Write(GetSafeString(2400, 2500, gc.PlacedBy) ?? "");
+            ms.Position = 2500;
+            bw.Write(GetSafeString(2500, 2600, gc.State) ?? "");
+            ms.Position = 2600;
+            bw.Write(GetSafeString(2600, 2800, gc.Url) ?? "");
+        }
+
+        private void writeLogData(Framework.Data.Log data, MemoryStream ms, BinaryWriter bw)
+        {
+            //ms.Position = 0;
+
+            ms.Position = 150;
+            bw.Write(data.LogType.ID); //150
+            bw.Write(DateTimeToLong(data.Date)); //154
+            bw.Write(DateTimeToLong(data.DataFromDate)); //162
+            bw.Write(data.Encoded); //170
+            ms.Position = 180;
+            bw.Write(data.GeocacheCode ?? "");
+            ms.Position = 220;
+            bw.Write(data.Finder ?? "");
+            //ms.Position = 320;
+            //bw.Write(data.FinderId ?? "");
+            //ms.Position = 350;
+            //bw.Write(data.TBCode ?? "");
+            //ms.Position = 380;
+            //bw.Write(data.Text ?? "");
+        }
+
+
+        private void writeWaypointData(Framework.Data.Waypoint data, MemoryStream ms, BinaryWriter bw)
+        {
+            ms.Position = 150;
+            bw.Write(DateTimeToLong(data.DataFromDate)); //150
+            bw.Write((bool)(data.Lat != null)); //158
+            bw.Write(data.Lat == null ? (double)0.0 : (double)data.Lat); //159
+            bw.Write((bool)(data.Lon != null)); //167
+            bw.Write(data.Lon == null ? (double)0.0 : (double)data.Lon); //168
+            bw.Write(DateTimeToLong(data.Time)); //176
+            bw.Write(data.WPType.ID); //184
+            //spare
+            ms.Position = 200;
+            bw.Write(data.GeocacheCode);
+            ms.Position = 240;
+            bw.Write(data.Code ?? "");
+            ms.Position = 280;
+            bw.Write(GetSafeString(280, 500, data.Description) ?? "");
+            ms.Position = 500;
+            bw.Write(GetSafeString(500, 600, data.Name) ?? "");
+            ms.Position = 600;
+            bw.Write(data.Url ?? "");
+            ms.Position = 700;
+            bw.Write(data.UrlName ?? "");
+            ms.Position = 800;
+            bw.Write(data.Comment ?? "");
+        }
+
+
+        private void writeLogImageData(Framework.Data.LogImage data, MemoryStream ms, BinaryWriter bw)
+        {
+            ms.Position = 150;
+            bw.Write(DateTimeToLong(data.DataFromDate)); //150
+            ms.Position = 180;
+            bw.Write(data.LogID ?? "");
+            ms.Position = 220;
+            bw.Write(data.Url ?? "");
+            ms.Position = 420;
+            bw.Write(data.Name ?? "");
+        }
+
+
+        private void writeGeocacheImageData(Framework.Data.GeocacheImage data, MemoryStream ms, BinaryWriter bw)
+        {
+            ms.Position = 150;
+            bw.Write(DateTimeToLong(data.DataFromDate)); //150
+            ms.Position = 180;
+            bw.Write(data.GeocacheCode ?? "");
+            ms.Position = 220;
+            bw.Write(data.Url);
+            ms.Position = 420;
+            bw.Write(data.MobileUrl ?? "");
+            ms.Position = 520;
+            bw.Write(data.ThumbUrl ?? "");
+            ms.Position = 620;
+            bw.Write(GetSafeString(620, 800, data.Name) ?? "");
+            ms.Position = 800;
+            bw.Write(data.Description ?? "");
+        }
+
+        private void writeUserWaypointData(Framework.Data.UserWaypoint data, MemoryStream ms, BinaryWriter bw)
+        {
+            ms.Position = 150;
+            bw.Write(DateTimeToLong(data.Date)); //150
+            bw.Write(data.Lat); //158
+            bw.Write(data.Lon); //166
+            ms.Position = 200;
+            bw.Write(data.GeocacheCode);
+            ms.Position = 220;
+            bw.Write(data.Description);
+        }
 
         public override bool Save()
         {
@@ -687,6 +911,8 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
 
         public bool Save(FileStream fileStream, bool forceFullData)
         {
+            if (fileStream == null) return false;
+
             bool result = true;
             byte isFree = RECORD_EMPTY;
             //todo
@@ -747,91 +973,31 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
                             int procStep = 0;
                             foreach (Framework.Data.Geocache gc in gclist)
                             {
-                                ms.Position = 0;
-
-                                ms.Position = 150;
-                                bw.Write(gc.Archived); //150
-                                bw.Write(gc.Available); //151
-                                bw.Write(gc.Container == null ? 0 : gc.Container.ID); //152
-                                bw.Write(DateTimeToLong(gc.DataFromDate)); //156
-                                bw.Write(DateTimeToLong(gc.PublishedTime)); //164
-                                bw.Write(gc.Difficulty); //172
-                                bw.Write(gc.Terrain); //180
-                                bw.Write(gc.Favorites); //188
-                                bw.Write(gc.Flagged); //192
-                                bw.Write(gc.Found); //193
-                                bw.Write(gc.GeocacheType == null ? 0 : gc.GeocacheType.ID); //194
-                                bw.Write(gc.Lat); //198
-                                bw.Write(gc.Lon); //206
-                                bw.Write(gc.Locked); //214
-                                bw.Write(gc.CustomLat != null); //215
-                                if (gc.CustomLat != null)
-                                {
-                                    bw.Write((double)gc.CustomLat); //216
-                                }
-                                else
-                                {
-                                    bw.Write((double)0.0);
-                                }
-                                bw.Write(gc.CustomLon != null); //224
-                                if (gc.CustomLon != null)
-                                {
-                                    bw.Write((double)gc.CustomLon); //225
-                                }
-                                else
-                                {
-                                    bw.Write((double)0.0);
-                                }
-                                bw.Write(gc.MemberOnly);
-
-                                byte attrCount = (byte)(gc.AttributeIds == null ? 0 : gc.AttributeIds.Count);
-                                bw.Write(attrCount); //234
-                                if (attrCount > 0)
-                                {
-                                    foreach (int i in gc.AttributeIds)
-                                    {
-                                        bw.Write(i);
-                                    }
-                                }
-                                ms.Position = 300;
-                                bw.Write(GetSafeString(300, 400, gc.City) ?? "");
-                                ms.Position = 400;
-                                bw.Write(GetSafeString(400, 500, gc.Country) ?? "");
-                                ms.Position = 500;
-                                bw.Write(GetSafeString(500, 1000, gc.EncodedHints) ?? "");
-                                ms.Position = 1000;
-                                bw.Write(GetSafeString(1000, 1100, gc.Municipality) ?? "");
-                                ms.Position = 1100;
-                                bw.Write(GetSafeString(1100, 1200, gc.Name) ?? "");
-                                ms.Position = 1200; //spare now
-                                //bw.Write(GetSafeString(1200, 2000, data.Notes) ?? "");
-                                bw.Write("");
-                                ms.Position = 2000;
-                                bw.Write(GetSafeString(2000, 2100, gc.Owner) ?? "");
-                                ms.Position = 2100;
-                                bw.Write(GetSafeString(2100, 2150, gc.OwnerId) ?? "");
-                                ms.Position = 2150;
-                                bw.Write(GetSafeString(2150, 2400, gc.PersonaleNote) ?? "");
-                                ms.Position = 2400;
-                                bw.Write(GetSafeString(2400, 2500, gc.PlacedBy) ?? "");
-                                ms.Position = 2500;
-                                bw.Write(GetSafeString(2500, 2600, gc.State) ?? "");
-                                ms.Position = 2600;
-                                bw.Write(GetSafeString(2600, 2800, gc.Url) ?? "");
-                                //spare
-                                ms.Position = 3000;
+                                writeGeocacheData(gc, ms, bw);
 
                                 RecordInfo ri = _geocachesInDB[gc.Code] as RecordInfo;
-                                if (forceFullData || gc.FullDataLoaded || ri==null)
+                                if (forceFullData || gc.FullDataLoaded || ri == null)
                                 {
+                                    ms.Position = 3000;
                                     bw.Write(gc.LongDescriptionInHtml); //3000
                                     bw.Write(gc.ShortDescriptionInHtml); //3001
                                     bw.Write(gc.ShortDescription ?? ""); //3002
                                     bw.Write(gc.LongDescription ?? "");
 
                                     //check length
-                                    if (ri==null || ri.Length<ms.Position)
+                                    if (ri == null || ri.Length < ms.Position)
                                     {
+                                        if (ri != null)
+                                        {
+                                            //scratch file to mark it as free
+                                            fileStream.Position = ri.Offset + RECORD_POS_FIELDTYPE;
+                                            fileStream.WriteByte(isFree);
+
+                                            //mark current record as free
+                                            _emptyRecords.Add(ri);
+                                            _emptyRecordsSorted = false;
+                                            _geocachesInDB.Remove(ri.ID);
+                                        }
                                         ri = RequestGeocacheRecord(fileStream, gc.Code, "", memBuffer, ms.Position, 500);
                                         _geocachesInDB.Add(gc.Code, ri);
                                     }
@@ -847,7 +1013,7 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
                                     //always fits
                                     //skip first 150
                                     fileStream.Position = ri.Offset + 150;
-                                    fileStream.Write(memBuffer, 150, (int)ms.Position-150);
+                                    fileStream.Write(memBuffer, 150, (int)ms.Position - 150);
                                 }
 
                                 gc.Saved = true;
@@ -863,6 +1029,350 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
                         }
                     }
 
+                    //**********************************************
+                    //          LOGS
+                    //**********************************************
+
+                    //delete items that are not in the list anymore.
+                    deletedRecords = (from RecordInfo ri in _logsInDB.Values where Core.Logs.GetLog(ri.ID) == null select ri).ToList();
+                    foreach (RecordInfo ri in deletedRecords)
+                    {
+                        //scratch file to mark it as free
+                        fileStream.Position = ri.Offset + RECORD_POS_FIELDTYPE;
+                        fileStream.WriteByte(isFree);
+
+                        //mark current record as free
+                        _emptyRecords.Add(ri);
+                        _emptyRecordsSorted = false;
+                        _logsInDB.Remove(ri.ID);
+                    }
+
+                    List<Framework.Data.Log> lglist = (from Framework.Data.Log wp in Core.Logs
+                                                       where !wp.Saved
+                                                       select wp).ToList();
+                    if (lglist.Count > 0)
+                    {
+                        using (Utils.ProgressBlock progress = new Utils.ProgressBlock(this, STR_SAVING, STR_SAVINGLOGS, lglist.Count, 0))
+                        {
+                            int index = 0;
+                            int procStep = 0;
+                            foreach (Framework.Data.Log l in lglist)
+                            {
+                                writeLogData(l, ms, bw);
+
+                                RecordInfo ri = _logsInDB[l.ID] as RecordInfo;
+                                if (forceFullData || l.FullDataLoaded || ri == null)
+                                {
+                                    ms.Position = 320;
+                                    bw.Write(l.FinderId ?? "");
+                                    ms.Position = 350;
+                                    bw.Write(l.TBCode ?? "");
+                                    ms.Position = 380;
+                                    bw.Write(l.Text ?? "");
+
+                                    //check length
+                                    if (ri == null || ri.Length < ms.Position)
+                                    {
+                                        if (ri != null)
+                                        {
+                                            //scratch file to mark it as free
+                                            fileStream.Position = ri.Offset + RECORD_POS_FIELDTYPE;
+                                            fileStream.WriteByte(isFree);
+
+                                            //mark current record as free
+                                            _emptyRecords.Add(ri);
+                                            _emptyRecordsSorted = false;
+                                            _logsInDB.Remove(ri.ID);
+                                        }
+                                        ri = RequestLogRecord(fileStream, l.ID, l.GeocacheCode, memBuffer, ms.Position, 100);
+                                        _logsInDB.Add(l.ID, ri);
+                                    }
+                                    else
+                                    {
+                                        //still fits
+                                        fileStream.Position = ri.Offset + 150;
+                                        fileStream.Write(memBuffer, 150, (int)ms.Position - 150);
+                                    }
+                                }
+                                else
+                                {
+                                    //always fits
+                                    //skip first 150
+                                    fileStream.Position = ri.Offset + 150;
+                                    fileStream.Write(memBuffer, 150, (int)ms.Position - 150);
+                                }
+
+                                l.Saved = true;
+
+                                index++;
+                                procStep++;
+                                if (procStep >= 1000)
+                                {
+                                    progress.UpdateProgress(STR_SAVING, STR_SAVINGLOGS, lglist.Count, index);
+                                    procStep = 0;
+                                }
+                            }
+                        }
+                    }
+
+                    //**********************************************
+                    //          WAYPOINTS
+                    //**********************************************
+
+                    //delete items that are not in the list anymore.
+                    deletedRecords = (from RecordInfo ri in _wptsInDB.Values where Core.Waypoints.getWaypoint(ri.ID) == null select ri).ToList();
+                    foreach (RecordInfo ri in deletedRecords)
+                    {
+                        //scratch file to mark it as free
+                        fileStream.Position = ri.Offset + RECORD_POS_FIELDTYPE;
+                        fileStream.WriteByte(isFree);
+
+                        //mark current record as free
+                        _emptyRecords.Add(ri);
+                        _emptyRecordsSorted = false;
+                        _wptsInDB.Remove(ri.ID);
+                    }
+                    List<Framework.Data.Waypoint> wptlist = (from Framework.Data.Waypoint wp in Core.Waypoints
+                                                             where !wp.Saved
+                                                             select wp).ToList();
+                    if (wptlist.Count > 0)
+                    {
+                        int index = 0;
+                        int procStep = 0;
+                        using (Utils.ProgressBlock progress = new ProgressBlock(this, STR_SAVING, STR_SAVINGWAYPOINTS, wptlist.Count, 0))
+                        {
+                            foreach (Framework.Data.Waypoint wp in wptlist)
+                            {
+                                writeWaypointData(wp, ms, bw);
+
+                                RecordInfo ri = _wptsInDB[wp.Code] as RecordInfo;
+                                //check length
+                                if (ri == null || ri.Length < ms.Position)
+                                {
+                                    if (ri != null)
+                                    {
+                                        //scratch file to mark it as free
+                                        fileStream.Position = ri.Offset + RECORD_POS_FIELDTYPE;
+                                        fileStream.WriteByte(isFree);
+
+                                        //mark current record as free
+                                        _emptyRecords.Add(ri);
+                                        _emptyRecordsSorted = false;
+                                        _wptsInDB.Remove(ri.ID);
+                                    }
+                                    ri = RequestWaypointRecord(fileStream, wp.Code, wp.GeocacheCode, memBuffer, ms.Position, 10);
+                                    _wptsInDB.Add(wp.Code, ri);
+                                }
+                                else
+                                {
+                                    //still fits
+                                    fileStream.Position = ri.Offset + 150;
+                                    fileStream.Write(memBuffer, 150, (int)ms.Position - 150);
+                                }
+
+                                wp.Saved = true;
+
+                                index++;
+                                procStep++;
+                                if (procStep >= 1000)
+                                {
+                                    progress.UpdateProgress(STR_SAVING, STR_SAVINGLOGS, wptlist.Count, index);
+                                    procStep = 0;
+                                }
+                            }
+                        }
+                    }
+
+                    //**********************************************
+                    //          LOGIMAGES
+                    //**********************************************
+                    //delete items that are not in the list anymore.
+                    deletedRecords = (from RecordInfo ri in _logimgsInDB.Values where Core.LogImages.GetLogImage(ri.ID) == null select ri).ToList();
+                    foreach (RecordInfo ri in deletedRecords)
+                    {
+                        //scratch file to mark it as free
+                        fileStream.Position = ri.Offset + RECORD_POS_FIELDTYPE;
+                        fileStream.WriteByte(isFree);
+
+                        //mark current record as free
+                        _emptyRecords.Add(ri);
+                        _emptyRecordsSorted = false;
+                        _logimgsInDB.Add(ri.ID, ri);
+                    }
+
+                    List<Framework.Data.LogImage> lgimglist = (from Framework.Data.LogImage wp in Core.LogImages
+                                                               where !wp.Saved
+                                                               select wp).ToList();
+                    if (lgimglist.Count > 0)
+                    {
+                        int index = 0;
+                        int procStep = 0;
+                        using (Utils.ProgressBlock progress = new ProgressBlock(this, STR_SAVING, STR_SAVINGLOGIMAGES, lgimglist.Count, 0))
+                        {
+                            foreach (Framework.Data.LogImage li in lgimglist)
+                            {
+                                writeLogImageData(li, ms, bw);
+
+                                RecordInfo ri = _logimgsInDB[li.ID] as RecordInfo;
+                                //check length
+                                if (ri == null || ri.Length < ms.Position)
+                                {
+                                    if (ri != null)
+                                    {
+                                        //scratch file to mark it as free
+                                        fileStream.Position = ri.Offset + RECORD_POS_FIELDTYPE;
+                                        fileStream.WriteByte(isFree);
+
+                                        //mark current record as free
+                                        _emptyRecords.Add(ri);
+                                        _emptyRecordsSorted = false;
+                                        _logimgsInDB.Remove(ri.ID);
+                                    }
+                                    ri = RequestLogImageRecord(fileStream, li.ID, li.LogID, memBuffer, ms.Position, 10);
+                                    _logimgsInDB.Add(li.ID, ri);
+                                }
+                                else
+                                {
+                                    //still fits
+                                    fileStream.Position = ri.Offset + 150;
+                                    fileStream.Write(memBuffer, 150, (int)ms.Position - 150);
+                                }
+
+                                li.Saved = true;
+
+                                index++;
+                                procStep++;
+                                if (procStep >= 1000)
+                                {
+                                    progress.UpdateProgress(STR_SAVING, STR_SAVINGLOGIMAGES, lgimglist.Count, index);
+                                    procStep = 0;
+                                }
+                            }
+                        }
+                    }
+
+                    //**********************************************
+                    //          GEOCACHEIMAGES
+                    //**********************************************
+                    //delete items that are not in the list anymore.
+                    deletedRecords = (from RecordInfo ri in _geocacheimgsInDB.Values where Core.GeocacheImages.GetGeocacheImage(ri.ID) == null select ri).ToList();
+                    foreach (RecordInfo ri in deletedRecords)
+                    {
+                        //scratch file to mark it as free
+                        fileStream.Position = ri.Offset + RECORD_POS_FIELDTYPE;
+                        fileStream.WriteByte(isFree);
+
+                        //mark current record as free
+                        _emptyRecords.Add(ri);
+                        _emptyRecordsSorted = false;
+                        _geocacheimgsInDB.Add(ri.ID, ri);
+                    }
+
+                    List<Framework.Data.GeocacheImage> gcimglist = (from Framework.Data.GeocacheImage wp in Core.GeocacheImages
+                                                                    where !wp.Saved
+                                                                    select wp).ToList();
+                    if (gcimglist.Count > 0)
+                    {
+                        int index = 0;
+                        int procStep = 0;
+                        using (Utils.ProgressBlock progress = new ProgressBlock(this, STR_SAVING, STR_SAVINGGEOCACHEIMAGES, gcimglist.Count, 0))
+                        {
+                            foreach (Framework.Data.GeocacheImage li in gcimglist)
+                            {
+                                writeGeocacheImageData(li, ms, bw);
+
+                                RecordInfo ri = _geocacheimgsInDB[li.ID] as RecordInfo;
+                                //check length
+                                if (ri == null || ri.Length < ms.Position)
+                                {
+                                    if (ri != null)
+                                    {
+                                        //scratch file to mark it as free
+                                        fileStream.Position = ri.Offset + RECORD_POS_FIELDTYPE;
+                                        fileStream.WriteByte(isFree);
+
+                                        //mark current record as free
+                                        _emptyRecords.Add(ri);
+                                        _emptyRecordsSorted = false;
+                                        _geocacheimgsInDB.Remove(ri.ID);
+                                    }
+                                    ri = RequestGeocacheImageRecord(fileStream, li.ID, li.GeocacheCode, memBuffer, ms.Position, 10);
+                                    _geocacheimgsInDB.Add(li.ID, ri);
+                                }
+                                else
+                                {
+                                    //still fits
+                                    fileStream.Position = ri.Offset + 150;
+                                    fileStream.Write(memBuffer, 150, (int)ms.Position - 150);
+                                }
+
+                                li.Saved = true;
+
+                                index++;
+                                procStep++;
+                                if (procStep >= 1000)
+                                {
+                                    progress.UpdateProgress(STR_SAVING, STR_SAVINGGEOCACHEIMAGES, gcimglist.Count, index);
+                                    procStep = 0;
+                                }
+                            }
+                        }
+                    }
+
+                    //**********************************************
+                    //          USER WAYPOINTS
+                    //**********************************************
+                    //delete items that are not in the list anymore.
+                    deletedRecords = (from RecordInfo ri in _usrwptsInDB.Values where Core.UserWaypoints.getWaypoint(int.Parse(ri.ID)) == null select ri).ToList();
+                    foreach (RecordInfo ri in deletedRecords)
+                    {
+                        //scratch file to mark it as free
+                        fileStream.Position = ri.Offset + RECORD_POS_FIELDTYPE;
+                        fileStream.WriteByte(isFree);
+
+                        //mark current record as free
+                        _emptyRecords.Add(ri);
+                        _emptyRecordsSorted = false;
+                        _usrwptsInDB.Add(ri.ID, ri);
+                    }
+
+                    List<Framework.Data.UserWaypoint> usrwptlist = (from Framework.Data.UserWaypoint wp in Core.UserWaypoints
+                                                                    where !wp.Saved
+                                                                    select wp).ToList();
+                    if (usrwptlist.Count > 0)
+                    {
+                        foreach (Framework.Data.UserWaypoint wp in usrwptlist)
+                        {
+                            writeUserWaypointData(wp, ms, bw);
+
+                            RecordInfo ri = _usrwptsInDB[wp.ID] as RecordInfo;
+                            //check length
+                            if (ri == null || ri.Length < ms.Position)
+                            {
+                                if (ri != null)
+                                {
+                                    //scratch file to mark it as free
+                                    fileStream.Position = ri.Offset + RECORD_POS_FIELDTYPE;
+                                    fileStream.WriteByte(isFree);
+
+                                    //mark current record as free
+                                    _emptyRecords.Add(ri);
+                                    _emptyRecordsSorted = false;
+                                    _usrwptsInDB.Remove(ri.ID);
+                                }
+                                ri = RequestUserWaypointRecord(fileStream, wp.ID.ToString(), wp.GeocacheCode, memBuffer, ms.Position, 10);
+                                _usrwptsInDB.Add(wp.ID, ri);
+                            }
+                            else
+                            {
+                                //still fits
+                                fileStream.Position = ri.Offset + 150;
+                                fileStream.Write(memBuffer, 150, (int)ms.Position - 150);
+                            }
+
+                            wp.Saved = true;
+                        }
+                    }
                 }
             }
             catch
@@ -1015,5 +1525,135 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
             return result;
         }
 
+
+        protected override bool SupportsBackupRestoreDatabase
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+        public override bool PrepareBackup()
+        {
+            return (!string.IsNullOrEmpty(Properties.Settings.Default.ActiveDataFile) && _fileStream!=null);
+        }
+
+        public override bool Backup()
+        {
+            bool result = false;
+            try
+            {
+                //file.bak01, file.bak02... file.bakNN where NN is the latest
+                string fn = string.Format("{0}.bak{1}", Properties.Settings.Default.ActiveDataFile, Properties.Settings.Default.BackupKeepMaxCount.ToString("00"));
+                if (File.Exists(fn))
+                {
+                    //ok, maximum reached
+                    //delete the oldest and rename the others
+                    fn = string.Format("{0}.bak{1}", Properties.Settings.Default.ActiveDataFile, 1.ToString("00"));
+                    if (File.Exists(fn))
+                    {
+                        File.Delete(fn);
+                    }
+                    for (int i = 1; i < Properties.Settings.Default.BackupKeepMaxCount; i++)
+                    {
+                        string fns = string.Format("{0}.bak{1}", Properties.Settings.Default.ActiveDataFile, (i + 1).ToString("00"));
+                        string fnd = string.Format("{0}.bak{1}", Properties.Settings.Default.ActiveDataFile, i.ToString("00"));
+                        if (File.Exists(fns))
+                        {
+                            File.Move(fns, fnd);
+                        }
+                    }
+                    fn = string.Format("{0}.bak{1}", Properties.Settings.Default.ActiveDataFile, Properties.Settings.Default.BackupKeepMaxCount.ToString("00"));
+                }
+                else
+                {
+                    //look for latest
+                    int i = 1;
+                    fn = string.Format("{0}.bak{1}", Properties.Settings.Default.ActiveDataFile, i.ToString("00"));
+                    while (File.Exists(fn))
+                    {
+                        i++;
+                        fn = string.Format("{0}.bak{1}", Properties.Settings.Default.ActiveDataFile, i.ToString("00"));
+                    }
+                }
+                DateTime nextUpdate = DateTime.Now.AddSeconds(1);
+                using (Utils.ProgressBlock prog = new ProgressBlock(this, STR_BACKINGUPDATA, STR_BACKINGUPDATA, 100, 0))
+                {
+                    using (System.IO.FileStream fs = File.OpenWrite(fn))
+                    {
+                        int read;
+                        byte[] buffer = new byte[10 * 1024 * 1024];
+                        fs.SetLength(_fileStream.Length);
+                        _fileStream.Position = 0;
+                        while (_fileStream.Position < _fileStream.Length)
+                        {
+                            read = _fileStream.Read(buffer, 0, buffer.Length);
+                            fs.Write(buffer, 0, read);
+                            if (DateTime.Now >= nextUpdate)
+                            {
+                                prog.UpdateProgress(STR_BACKINGUPDATA, STR_BACKINGUPDATA, 100, (int)(100.0 * (double)_fileStream.Position / (double)_fileStream.Length));
+                                nextUpdate = DateTime.Now.AddSeconds(1);
+                            }
+                        }
+                    }
+                    _fileStream.Position = 0;
+                    result = true;
+                }
+            }
+            catch
+            {
+            }
+            return result;
+        }
+
+
+        private string _fileToRestore = null;
+        public override bool PrepareRestore()
+        {
+            bool result = false;
+            //select backup to restore
+            using (System.Windows.Forms.OpenFileDialog dlg = new System.Windows.Forms.OpenFileDialog())
+            {
+                dlg.InitialDirectory = System.IO.Path.GetDirectoryName(Properties.Settings.Default.ActiveDataFile);
+
+                try
+                {
+                    dlg.Filter = "*.gsf.bak*|*.gsf.bak*";
+                    dlg.InitialDirectory = Path.GetDirectoryName(Properties.Settings.Default.ActiveDataFile);
+                    dlg.FileName = "";
+                    if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        _fileToRestore = dlg.FileName;
+                        closeCurrentFile();
+
+                        Properties.Settings.Default.ActiveDataFile = _fileToRestore.Substring(0, _fileToRestore.LastIndexOf(".bak", StringComparison.InvariantCultureIgnoreCase));
+                        Properties.Settings.Default.Save();
+                        SetDataSourceName(Properties.Settings.Default.ActiveDataFile);
+
+                        Core.Geocaches.Clear();
+                        Core.Logs.Clear();
+                        Core.Waypoints.Clear();
+                        Core.LogImages.Clear();
+                        Core.UserWaypoints.Clear();
+
+                        result = true;
+                    }
+                }
+                catch
+                {
+
+                }
+            }
+            return result;
+        }
+
+        public override bool Restore(bool geocachesOnly)
+        {
+            bool result = false;
+            File.Copy(_fileToRestore, Properties.Settings.Default.ActiveDataFile, true);
+            result = Open(geocachesOnly);
+            return result;
+        }
     }
 }
