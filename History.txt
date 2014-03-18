@@ -1,7 +1,6 @@
 todo GAPP:
 - processdialog, minimize or show on taskbar. Going to desktop fails now
 - add log templates
-- add option to set the logcount for GPX export
 - add tooltip for counters in main screen
 
 todo GAPP SF:
@@ -12,9 +11,10 @@ todo GAPP/GAPP SF
 V1.9.21.0
 
 - gapp: add: delete images from image folder for active or selected geocaches
+- gapp: add: GAPP SF data storage plugin
 - gappsf: add: delete images from image folder for active or selected geocaches
 - gappsf: fix: Shortcut assignment fix for dynamic menu items like action sequences
-- gappsf: add: Export to GAPP Data storage files
+- gappsf: add: Export to GAPP data storage files
 - gappsf: fix: Trackable groups
 
 V1.9.20.0
@@ -23,6 +23,7 @@ V1.9.20.0
 - gapp: change: moved extra geocache information to the absolute beginning of the description with GPX export
 - gapp: add: Live API authorization with the default browser of the user
 - gapp: LiveAPI, import geocaches now has option to select center and radius from google map
+- gapp: add option to set the log count for GPX export and export to Garmin
 - gappsf: change: moved extra geocache information to the absolute beginning of the description with GPX export
 - gappsf: add: trackable groups
 - gappsf: add: Live API authorization with the default browser of the user

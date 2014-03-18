@@ -22,6 +22,7 @@ namespace GlobalcachingApplication.Plugins.ExportGPX
         public const string STR_ADDWAYPOINTS = "Add waypoints";
         public const string STR_EXTRACOORDNAMEPREFIX = "Extra coord. name prefix";
         public const string STR_EXTRAINFO = "Add extra information to description";
+        public const string STR_MAXLOGS = "Maximum number of logs";
 
         public SettingsPanel()
         {
@@ -38,9 +39,11 @@ namespace GlobalcachingApplication.Plugins.ExportGPX
             this.checkBox2.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_INCLNOTES);
             this.checkBox4.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_ADDWAYPOINTS);
             this.checkBox6.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_EXTRAINFO);
+            this.label10.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_MAXLOGS);
 
             numericUpDown1.Value = Properties.Settings.Default.MaxGeocacheNameLength;
             numericUpDown2.Value = Properties.Settings.Default.MinStartOfGeocacheName;
+            numericUpDown3.Value = Properties.Settings.Default.MaximumNumberOfLogs;
             checkBox3.Checked = Properties.Settings.Default.UseNameAndNotCode;
             checkBox1.Checked = Properties.Settings.Default.AddWaypointsToDescription;
             checkBox2.Checked = Properties.Settings.Default.AddFieldnotesToDescription;
@@ -68,6 +71,7 @@ namespace GlobalcachingApplication.Plugins.ExportGPX
             Properties.Settings.Default.AddWaypointsToDescription = checkBox1.Checked;
             Properties.Settings.Default.MaxGeocacheNameLength = (int)numericUpDown1.Value;
             Properties.Settings.Default.MinStartOfGeocacheName = (int)numericUpDown2.Value;
+            Properties.Settings.Default.MaximumNumberOfLogs = (int)numericUpDown3.Value;
             Properties.Settings.Default.ZipFile = checkBoxZipFile.Checked;
             Properties.Settings.Default.UseHintsForDescription = checkBox5.Checked;
             Properties.Settings.Default.AddFieldnotesToDescription = checkBox2.Checked;

@@ -31,6 +31,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
             core.LanguageItems.Add(new Framework.Data.LanguageItem(GarminCommunicatorForm.STR_ADDWPTTODESCR));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(GarminCommunicatorForm.STR_USEHINTSDESCR));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(GarminCommunicatorForm.STR_GPXVERSION));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(GarminCommunicatorForm.STR_MAXLOGS));
 
             return base.Initialize(core);
         }

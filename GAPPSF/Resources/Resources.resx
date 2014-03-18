@@ -216,7 +216,7 @@ In order to use these features, you have to authorize this application to access
     <value>LiveAPI</value>
   </data>
   <data name="MainWindowTitle" xml:space="preserve">
-    <value>Globalcaching Application SF - Beta</value>
+    <value>Globalcaching Application SF</value>
   </data>
   <data name="Maps" xml:space="preserve">
     <value>Maps</value>

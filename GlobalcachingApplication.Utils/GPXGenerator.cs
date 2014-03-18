@@ -51,6 +51,11 @@ namespace GlobalcachingApplication.Utils
             }
         }
 
+        public int MaxLogCount
+        {
+            get { return _maxLogCount; }
+            set { _maxLogCount = value; }
+        }
         public bool AddExtraInfoToDescription
         {
             get { return _addExtraInfoToDescription; }

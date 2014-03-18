@@ -118,6 +118,7 @@ namespace GlobalcachingApplication.Plugins.ExportGPX
                                 _gpxGenerator.AddFieldnotesToDescription = Properties.Settings.Default.AddFieldnotesToDescription;
                                 _gpxGenerator.ExtraCoordPrefix = Properties.Settings.Default.CorrectedNamePrefix;
                                 _gpxGenerator.AddExtraInfoToDescription = Properties.Settings.Default.AddExtraInfoToDescription;
+                                _gpxGenerator.MaxLogCount = Properties.Settings.Default.MaximumNumberOfLogs;
                                 PerformExport();
                             }
                         }

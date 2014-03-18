@@ -110,9 +110,7 @@
   <string name="background" value="Achtergrond" />
   <string name="backup" value="Backup database" />
   <string name="backup all coordinates" value="Backup alle coordinaten" />
-  <string name="backup folder" value="" />
   <string name="backup/restore coordinates" value="Backup/Herstel coordinaten" />
-  <string name="backups" value="" />
   <string name="batch log selected geocaches..." value="Batch log de geselecteerde geocaches..." />
   <string name="batch logging for trackables" value="Batch loggen voor trackables" />
   <string name="belgium" value="Belgie" />
@@ -736,6 +734,7 @@
   <string name="max. poi name length:" value="Max. POI naamlengte:" />
   <string name="maximum geocache name length" value="Maximale geocache naamlengte" />
   <string name="maximum logs" value="Maximum logs" />
+  <string name="maximum number of logs" value="Maximum aantal logs" />
   <string name="maximum number of logs with update (0=all)" value="Maximale aantal logs bij logs bijwerken (0=alles)" />
   <string name="maximum per request" value="Maximum per verzoek" />
   <string name="maximum zoom level" value="Maximale zoomniveau" />

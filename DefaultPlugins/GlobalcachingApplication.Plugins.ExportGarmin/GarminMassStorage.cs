@@ -46,6 +46,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SelectDeviceForm.STR_INCLNOTES));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SelectDeviceForm.STR_GPXVERSION));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SelectDeviceForm.STR_ADDIMAGES));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(SelectDeviceForm.STR_MAXLOGS));
 
             return base.Initialize(core);
         }
@@ -65,6 +66,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
                     gpxGenerator.MinStartOfname = Properties.Settings.Default.MinStartOfGeocacheName;
                     gpxGenerator.ExtraCoordPrefix = Properties.Settings.Default.CorrectedNamePrefix;
                     gpxGenerator.AddExtraInfoToDescription = Properties.Settings.Default.AddExtraInfoToDescription;
+                    gpxGenerator.MaxLogCount = Properties.Settings.Default.MaximumNumberOfLogs;
                     using (System.IO.TemporaryFile gpxFile = new System.IO.TemporaryFile(false))
                     {
                         using (System.IO.StreamWriter sw = new System.IO.StreamWriter(gpxFile.Path, false, Encoding.UTF8))
@@ -137,6 +139,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
                         gpxGenerator.MinStartOfname = Properties.Settings.Default.MinStartOfGeocacheName;
                         gpxGenerator.ExtraCoordPrefix = Properties.Settings.Default.CorrectedNamePrefix;
                         gpxGenerator.AddExtraInfoToDescription = Properties.Settings.Default.AddExtraInfoToDescription;
+                        gpxGenerator.MaxLogCount = Properties.Settings.Default.MaximumNumberOfLogs;
                         using (System.IO.TemporaryFile gpxFile = new System.IO.TemporaryFile(true))
                         {
                             int block = 0;
@@ -222,6 +225,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
                                             gpxGenerator.MinStartOfname = Properties.Settings.Default.MinStartOfGeocacheName;
                                             gpxGenerator.ExtraCoordPrefix = Properties.Settings.Default.CorrectedNamePrefix;
                                             gpxGenerator.AddExtraInfoToDescription = Properties.Settings.Default.AddExtraInfoToDescription;
+                                            gpxGenerator.MaxLogCount = Properties.Settings.Default.MaximumNumberOfLogs;
 
                                             string filename = "geocaches.ggz";
                                             if (Properties.Settings.Default.UseDatabaseNameForFileName)

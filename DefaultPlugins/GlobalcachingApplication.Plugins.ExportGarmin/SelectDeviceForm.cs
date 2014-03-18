@@ -28,6 +28,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
         public const string STR_EXTRACOORDNAMEPREFIX = "Extra coord. name prefix";
         public const string STR_ADDIMAGES = "Add images";
         public const string STR_EXTRAINFO = "Add extra information to description";
+        public const string STR_MAXLOGS = "Maximum number of logs";
 
         private Utils.Devices.GarminMassStorage _garminmsDev = null;
 
@@ -51,10 +52,12 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
             this.label8.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_MAXNAMELENGTH);
             this.label7.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_MINSTARTNAME);
             this.label10.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_EXTRACOORDNAMEPREFIX);
+            this.label12.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_MAXLOGS);
             this.checkBox10.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_EXTRAINFO);
 
             numericUpDown1.Value = Properties.Settings.Default.MaxGeocacheNameLength;
             numericUpDown2.Value = Properties.Settings.Default.MinStartOfGeocacheName;
+            numericUpDown3.Value = Properties.Settings.Default.MaximumNumberOfLogs;
             checkBox1.Checked = Properties.Settings.Default.SeperateFilePerGeocache;
             checkBox2.Checked = Properties.Settings.Default.AddChildWaypoints;
             checkBox3.Checked = Properties.Settings.Default.UseNameAndNotCode;
@@ -222,6 +225,12 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
         {
             checkBox1.Checked = false;
             checkBox1.Enabled = !checkBox7.Checked;
+        }
+
+        private void numericUpDown3_ValueChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.MaximumNumberOfLogs = (int)numericUpDown3.Value;
+            Properties.Settings.Default.Save();
         }
     }
 }

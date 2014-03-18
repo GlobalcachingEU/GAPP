@@ -91,7 +91,7 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
             }
             if (string.IsNullOrEmpty(Properties.Settings.Default.ActiveDataFile))
             {
-                Properties.Settings.Default.ActiveDataFile = System.IO.Path.Combine(core.PluginDataPath, "GAPPSFDataStorage.gpp");
+                Properties.Settings.Default.ActiveDataFile = System.IO.Path.Combine(core.PluginDataPath, "GAPPSFDataStorage.gsf");
                 Properties.Settings.Default.Save();
             }
 
@@ -424,8 +424,6 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
                 {
                     //read meta data
                     BinaryReader fbw = new BinaryReader(_fileStream);
-                    //create meta data
-                    _fileStream.SetLength(DATABASE_CONTENT_OFFSET);
                     _fileStream.Position = DATABASE_META_VERSION_POS;
                     long v;
                     v= fbw.ReadInt64();

@@ -26,6 +26,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
         public const string STR_GPXVERSION = "GPX version";
         public const string STR_EXTRACOORDNAMEPREFIX = "Extra coord. name prefix";
         public const string STR_EXTRAINFO = "Add extra information to description";
+        public const string STR_MAXLOGS = "Maximum number of logs";
 
         private TemporaryFile tmpFile = null;
         private Framework.Interfaces.ICore _core = null;
@@ -53,6 +54,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
             }
             numericUpDown1.Value = Properties.Settings.Default.MaxGeocacheNameLength;
             numericUpDown2.Value = Properties.Settings.Default.MinStartOfGeocacheName;
+            numericUpDown3.Value = Properties.Settings.Default.MaximumNumberOfLogs;
             checkBox1.Checked = Properties.Settings.Default.AddFieldNotesToDescription;
             checkBox2.Checked = Properties.Settings.Default.AddChildWaypoints;
             checkBox3.Checked = Properties.Settings.Default.UseNameAndNotCode;
@@ -83,6 +85,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
             this.label2.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_MINSTARTNAME);
             this.label6.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_GPXVERSION);
             this.label10.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_EXTRACOORDNAMEPREFIX);
+            this.label8.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_MAXLOGS);
             this.checkBox6.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_EXTRAINFO);
 
             tmpFile = new TemporaryFile(true);
@@ -165,6 +168,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
                                 gpxGenerator.UseHintsForDescription = Properties.Settings.Default.UseHintsForDescription;
                                 gpxGenerator.ExtraCoordPrefix = Properties.Settings.Default.CorrectedNamePrefix;
                                 gpxGenerator.AddExtraInfoToDescription = Properties.Settings.Default.AddExtraInfoToDescription;
+                                gpxGenerator.MaxLogCount = Properties.Settings.Default.MaximumNumberOfLogs;
                                 
                                 using (System.IO.TemporaryFile gpxFile = new System.IO.TemporaryFile(true))
                                 {
@@ -267,6 +271,12 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
         private void checkBox6_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.AddExtraInfoToDescription = checkBox6.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void numericUpDown3_ValueChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.MaximumNumberOfLogs = (int)numericUpDown3.Value;
             Properties.Settings.Default.Save();
         }
 
