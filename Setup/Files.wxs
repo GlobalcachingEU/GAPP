@@ -118,6 +118,7 @@
 							<File Id="plugin93"  Name="GlobalcachingApplication.Plugins.CGeo.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.CGeo.dll" />
 							<File Id="plugin94"  Name="GlobalcachingApplication.Plugins.GCComments.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.GCComments.dll" />
 							<File Id="plugin95"  Name="GlobalcachingApplication.Plugins.GAPPSFDataStorage.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.GAPPSFDataStorage.dll" />
+							<File Id="plugin96"  Name="GlobalcachingApplication.Plugins.ExportHTML.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.ExportHTML.dll" />
 						</Component>
 					</Directory>
 					<Directory Id="PLUGINDEPDIR" Name="PluginDependencies">
