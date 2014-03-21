@@ -345,6 +345,7 @@
   <string name="export to gapp data exchange file" value="Exporteren naar GAPP data uitwissel bestand" />
   <string name="export to garmin device" value="Exporteren naar Garmin apparaat" />
   <string name="export to garmin gpsr" value="Exporteren naar Garmin GPS ontvanger" />
+  <string name="export to html" value="Exporteren naar HTML" />
   <string name="export to ov2" value="Exporteren naar OV2" />
   <string name="export waypoint pois" value="Exporteer Waypoint POI's" />
   <string name="export with garmin communicator" value="Exporteren met Garmin Communicator" />
@@ -357,6 +358,7 @@
   <string name="exporting to c:geo..." value="Bezig met exporteren naar c:geo..." />
   <string name="exporting to cachebox..." value="Bezig met exporteren naar Cachebox..." />
   <string name="exporting to excel..." value="Bezig met exporteren naar Excel..." />
+  <string name="exporting to html..." value="Bezig met exporteren naar HTML..." />
   <string name="extension" value="Extensie" />
   <string name="extra coord. name prefix" value="Extra coordinaten naam voorvoegsel" />
   <string name="extra delay between get geocache images call" value="Extra wachttijd tussen elke aanroep om plaatjes op te halen." />
@@ -501,6 +503,7 @@
   <string name="globalcachingapplication.plugins.expexcel" value="" />
   <string name="globalcachingapplication.plugins.exportgarmin" value="" />
   <string name="globalcachingapplication.plugins.exportgarminpoi" value="" />
+  <string name="globalcachingapplication.plugins.exporthtml" value="" />
   <string name="globalcachingapplication.plugins.exportkml" value="" />
   <string name="globalcachingapplication.plugins.filterex" value="" />
   <string name="globalcachingapplication.plugins.gallery" value="" />

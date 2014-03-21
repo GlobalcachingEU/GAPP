@@ -1818,6 +1818,73 @@ namespace GAPPSF
 
 
 
+        RelayCommand _exportHTMLActiveCommand;
+        public ICommand ExportHTMLActiveCommand
+        {
+            get
+            {
+                if (_exportHTMLActiveCommand == null)
+                {
+                    _exportHTMLActiveCommand = new RelayCommand(param => this.ExportHTMLActive(),
+                        param => Core.ApplicationData.Instance.ActiveGeocache != null);
+                }
+                return _exportHTMLActiveCommand;
+            }
+        }
+        private void ExportHTMLActive()
+        {
+            if (Core.ApplicationData.Instance.ActiveGeocache != null)
+            {
+                ExportHTML(new Core.Data.Geocache[] { Core.ApplicationData.Instance.ActiveGeocache }.ToList());
+            }
+        }
+        RelayCommand _exportHTMLSelectedCommand;
+        public ICommand ExportHTMLSelectedCommand
+        {
+            get
+            {
+                if (_exportHTMLSelectedCommand == null)
+                {
+                    _exportHTMLSelectedCommand = new RelayCommand(param => this.ExportHTMLSelected(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null && this.GeocacheSelectionCount > 0);
+                }
+                return _exportHTMLSelectedCommand;
+            }
+        }
+        private void ExportHTMLSelected()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                ExportHTML((from a in Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection where a.Selected select a).ToList());
+            }
+        }
+        RelayCommand _exportHTMLAllCommand;
+        public ICommand ExportHTMLAllCommand
+        {
+            get
+            {
+                if (_exportHTMLAllCommand == null)
+                {
+                    _exportHTMLAllCommand = new RelayCommand(param => this.ExportHTMLAll(),
+                        param => Core.ApplicationData.Instance.ActiveDatabase != null);
+                }
+                return _exportHTMLAllCommand;
+            }
+        }
+        private void ExportHTMLAll()
+        {
+            if (Core.ApplicationData.Instance.ActiveDatabase != null)
+            {
+                ExportHTML(Core.ApplicationData.Instance.ActiveDatabase.GeocacheCollection);
+            }
+        }
+        private void ExportHTML(List<Core.Data.Geocache> gcList)
+        {
+            HTML.ExportWindow dlg = new HTML.ExportWindow(gcList);
+            dlg.ShowDialog();
+        }
+
+
 
 
         RelayCommand _exportExcelActiveCommand;

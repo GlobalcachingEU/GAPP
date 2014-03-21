@@ -213,6 +213,14 @@
                         <MenuItem x:Name="menu4y11" Header="{l:Translate Selected}" Command="{Binding ExportExcelSelectedCommand}" />
                         <MenuItem x:Name="menu4y12" Header="{l:Translate All}" Command="{Binding ExportExcelAllCommand}" />
                     </MenuItem>
+                    <MenuItem Header="{l:Translate ExportHTML}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/General/html.gif" />
+                        </MenuItem.Icon>
+                        <MenuItem x:Name="menu5y10" Header="{l:Translate Active}" Command="{Binding ExportHTMLActiveCommand}" />
+                        <MenuItem x:Name="menu5y11" Header="{l:Translate Selected}" Command="{Binding ExportHTMLSelectedCommand}" />
+                        <MenuItem x:Name="menu5y12" Header="{l:Translate All}" Command="{Binding ExportHTMLAllCommand}" />
+                    </MenuItem>
                     <MenuItem Header="{l:Translate GAPPDataStorage}">
                         <MenuItem.Icon>
                             <Image Source="/Resources/globalcaching.ico" Height="16" Width="16" />

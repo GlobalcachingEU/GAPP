@@ -255,6 +255,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Pl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.GAPPSFDataStorage", "DefaultPlugins\GlobalcachingApplication.Plugins.GAPPSFDataStorage\GlobalcachingApplication.Plugins.GAPPSFDataStorage.csproj", "{E49DB116-6A23-481B-A56C-84EEBBCC9B87}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.ExportHTML", "DefaultPlugins\GlobalcachingApplication.Plugins.ExportHTML\GlobalcachingApplication.Plugins.ExportHTML.csproj", "{56F3C3CF-1DD0-4E8F-84C7-DD858FFABB35}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -2147,6 +2149,22 @@ Global
 		{E49DB116-6A23-481B-A56C-84EEBBCC9B87}.Release|x64.Build.0 = Release|x64
 		{E49DB116-6A23-481B-A56C-84EEBBCC9B87}.Release|x86.ActiveCfg = Release|x86
 		{E49DB116-6A23-481B-A56C-84EEBBCC9B87}.Release|x86.Build.0 = Release|x86
+		{56F3C3CF-1DD0-4E8F-84C7-DD858FFABB35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56F3C3CF-1DD0-4E8F-84C7-DD858FFABB35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56F3C3CF-1DD0-4E8F-84C7-DD858FFABB35}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{56F3C3CF-1DD0-4E8F-84C7-DD858FFABB35}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{56F3C3CF-1DD0-4E8F-84C7-DD858FFABB35}.Debug|x64.ActiveCfg = Debug|x64
+		{56F3C3CF-1DD0-4E8F-84C7-DD858FFABB35}.Debug|x64.Build.0 = Debug|x64
+		{56F3C3CF-1DD0-4E8F-84C7-DD858FFABB35}.Debug|x86.ActiveCfg = Debug|x86
+		{56F3C3CF-1DD0-4E8F-84C7-DD858FFABB35}.Debug|x86.Build.0 = Debug|x86
+		{56F3C3CF-1DD0-4E8F-84C7-DD858FFABB35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56F3C3CF-1DD0-4E8F-84C7-DD858FFABB35}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56F3C3CF-1DD0-4E8F-84C7-DD858FFABB35}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{56F3C3CF-1DD0-4E8F-84C7-DD858FFABB35}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{56F3C3CF-1DD0-4E8F-84C7-DD858FFABB35}.Release|x64.ActiveCfg = Release|x64
+		{56F3C3CF-1DD0-4E8F-84C7-DD858FFABB35}.Release|x64.Build.0 = Release|x64
+		{56F3C3CF-1DD0-4E8F-84C7-DD858FFABB35}.Release|x86.ActiveCfg = Release|x86
+		{56F3C3CF-1DD0-4E8F-84C7-DD858FFABB35}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

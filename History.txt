@@ -8,6 +8,11 @@ todo GAPP SF:
 
 todo GAPP/GAPP SF
 
+V1.10.0.0
+
+- gapp: add: Export to HTML plugin (like export to Excel but then to HTML)
+- gappsf: add: Export to HTML (like export to Excel but then to HTML)
+
 V1.9.21.0
 
 - gapp: add: delete images from image folder for active or selected geocaches

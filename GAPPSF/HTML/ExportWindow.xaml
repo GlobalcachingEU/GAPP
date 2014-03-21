@@ -1,0 +1,60 @@
+﻿<Window x:Class="GAPPSF.HTML.ExportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:l="clr-namespace:GAPPSF.Localization"
+        xmlns:p="clr-namespace:GAPPSF.Core"
+        xmlns:ui="clr-namespace:GAPPSF.UIControls"
+        Title="{l:Translate ExportHTML}" Height="300" Width="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock Margin="4" Grid.Row="0" Grid.Column="0" Text="{l:Translate Folder}" />
+        <TextBox Margin="4" Grid.Column="1" Text="{Binding HTMLTargetPath, Source={x:Static p:Settings.Default}, Mode=TwoWay}" IsReadOnly="True" />
+        <Button Margin="4" Grid.Column="2" Click="Button_Click">
+            <Image Height="16" Width="16" Source="/Resources/General/edit.png" />
+        </Button>
+        <TextBlock Margin="4" Grid.Row="1" Grid.Column="0" Text="{l:Translate Sheets}" />
+        <ComboBox Margin="4" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Sheets}" SelectedItem="{Binding ActiveSheet, Mode=TwoWay}" />
+        <Button Margin="4" Grid.Row="1" Grid.Column="2" Click="Button_Click_1">
+            <Image Height="16" Width="16" Source="/Resources/General/new.png" />
+        </Button>
+        <Button Margin="4" Grid.Row="1" Grid.Column="3" IsEnabled="{Binding IsRemoveSheetEnabled}" Click="Button_Click_2">
+            <Image Height="16" Width="16" Source="/Resources/General/delete.png" />
+        </Button>
+        <TextBlock Margin="4" Grid.Row="2" Grid.Column="0" Text="{l:Translate Fields}" />
+        <ListBox Margin="4" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Fields}" SelectedItem="{Binding SelectedField, Mode=TwoWay}" >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <CheckBox Margin="4" Grid.Column="0" IsChecked="{Binding IsChecked}" />
+                        <TextBlock Margin="4" Grid.Column="1" Text="{Binding Path=Item.Text}" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Grid.Row="2" Grid.Column="2">
+            <Button Margin="4" IsEnabled="{Binding IsMoveUpEnabled}" Click="Button_Click_3">
+                <Image Height="16" Width="16" Source="/Resources/General/arrow-up.png" />
+            </Button>
+            <Button Margin="4" IsEnabled="{Binding IsMoveDownEnabled}" Click="Button_Click_4">
+                <Image Height="16" Width="16" Source="/Resources/General/arrow-down.png" />
+            </Button>
+        </StackPanel>
+        <Button Margin="4" Grid.Row="3" Grid.Column="1" Content="{l:Translate ExportHTML}" Command="{Binding ExportHTMLCommand}" />
+        <ui:InputDialog Grid.Row="0" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="4" x:Name="inputDialog" Panel.ZIndex="200" />
+    </Grid>
+</Window>

@@ -384,6 +384,7 @@
   <string name="export to gapp data exchange file" value="Exporteren naar GAPP data uitwissel bestand" />
   <string name="export to garmin device" value="Exporteren naar Garmin apparaat" />
   <string name="export to garmin gpsr" value="Exporteren naar Garmin GPS ontvanger" />
+  <string name="export to html" value="Exporteer naar HTML" />
   <string name="export to ov2" value="Exporteren naar OV2" />
   <string name="export waypoint pois" value="Exporteer Waypoint POI's" />
   <string name="export with garmin communicator" value="Exporteren met Garmin Communicator" />

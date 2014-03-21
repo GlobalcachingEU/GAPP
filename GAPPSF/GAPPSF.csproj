@@ -251,6 +251,7 @@
     <Compile Include="Core\Settings\ChatSettings.cs" />
     <Compile Include="Core\Settings\DatabaseBackupSettings.cs" />
     <Compile Include="Core\Settings\DebugLogViewSettings.cs" />
+    <Compile Include="Core\Settings\HtmlSettings.cs" />
     <Compile Include="Core\Settings\ExcelSettings.cs" />
     <Compile Include="Core\Settings\FavoritesSettings.cs" />
     <Compile Include="Core\Settings\FindLogsOfUserSettings.cs" />
@@ -682,6 +683,13 @@
     <Compile Include="GPX\ImportPQWindow.xaml.cs">
       <DependentUpon>ImportPQWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HTML\Export.cs" />
+    <Compile Include="HTML\ExportWindow.xaml.cs">
+      <DependentUpon>ExportWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="HTML\PropertyItem.cs" />
+    <Compile Include="HTML\PropertyItemImplementations.cs" />
+    <Compile Include="HTML\Sheet.cs" />
     <Compile Include="iGeoKnife\Export.cs" />
     <Compile Include="iGeoKnife\ExportWindow.xaml.cs">
       <DependentUpon>ExportWindow.xaml</DependentUpon>
@@ -1226,6 +1234,10 @@
     <Page Include="GPX\ImportPQWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HTML\ExportWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="iGeoKnife\ExportWindow.xaml">
       <SubType>Designer</SubType>
@@ -2559,6 +2571,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\General\city.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\General\html.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
