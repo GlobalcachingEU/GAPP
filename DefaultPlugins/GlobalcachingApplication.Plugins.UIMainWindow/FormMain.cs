@@ -398,6 +398,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
                             select wp).Count();
 
             toolStripStatusLabelCounts.Text = string.Format("{0}:{6}({4})/{1}/{2}/{3} ({5})", Core.Geocaches.Count, Core.Logs.Count, Core.Waypoints.Count, Core.LogImages.Count, _selCount, Core.GeocachingComAccount.AccountName, Core.GeocacheImages.Count);
+            toolStripStatusLabelCounts.ToolTipText = string.Format("#Geocaches: {0}\r\n#Geocache images: {6}\r\n#Selected: {4}\r\n#Logs: {1}\r\n#Waypoints: {2}\r\n#Log images: {3}\r\nUser name: {5}", Core.Geocaches.Count, Core.Logs.Count, Core.Waypoints.Count, Core.LogImages.Count, _selCount, Core.GeocachingComAccount.AccountName, Core.GeocacheImages.Count);
         }
 
         public void UpdateLocations()
