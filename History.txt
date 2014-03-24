@@ -1,12 +1,15 @@
 todo GAPP:
 - processdialog, minimize or show on taskbar. Going to desktop fails now
 - add log templates
-- add tooltip for counters in main screen
 
 todo GAPP SF:
 - Open Areas map
 
 todo GAPP/GAPP SF
+
+V1.10.1.0
+
+- gapp: fix: Export to HTML now has meta tag utf-8 encoded for correct display of some characters
 
 V1.10.0.0
 

@@ -112,7 +112,7 @@ namespace GlobalcachingApplication.Plugins.ExportHTML
                 {
                     File.Delete(fn);
                 }
-                sb.AppendLine("<html><header><title>GAPP HTML Export</title></header><body><h1><center>Index</center></h1>");
+                sb.AppendLine("<html><header><meta http-equiv='Content-Type' content='text/html;charset=UTF-8'><title>GAPP HTML Export</title></header><body><h1><center>Index</center></h1>");
                 for (int i = 0; i < _sheets.Count; i++ )
                 {
                     sb.AppendFormat("<a href=\"sheet{1}.html\">{0}</a><br />", HttpUtility.HtmlEncode(_sheets[i].Name), i);
@@ -129,7 +129,7 @@ namespace GlobalcachingApplication.Plugins.ExportHTML
                     }
                     sb.Length = 0;
 
-                    sb.AppendLine(string.Format("<html><header><title>GAPP HTML Export - {0}</title></header><body><h1><center>{0}</center></h1>", HttpUtility.HtmlEncode(_sheets[i].Name)));
+                    sb.AppendLine(string.Format("<html><header><meta http-equiv='Content-Type' content='text/html;charset=UTF-8'><title>GAPP HTML Export - {0}</title></header><body><h1><center>{0}</center></h1>", HttpUtility.HtmlEncode(_sheets[i].Name)));
                     for (int c = 0; c < _sheets.Count; c++)
                     {
                         sb.AppendFormat("<a href=\"sheet{1}.html\">{0}</a><br />", HttpUtility.HtmlEncode(_sheets[c].Name), c);
