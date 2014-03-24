@@ -25,6 +25,7 @@
                     <MenuItem Header="{l:Translate OpenStreetMapOnline}" Click="MenuItem_Click_11" />
                     <MenuItem Header="{l:Translate OpenStreetMapOffline}" Click="MenuItem_Click_12" />
                     <MenuItem Header="{l:Translate GoogleEarth}" Click="MenuItem_Click_13" />
+                    <MenuItem Header="{l:Translate OpenAreas}" Click="MenuItem_Click_n14" />
                 </MenuItem>
                 <MenuItem Header="{l:Translate OfflineImages}" Click="MenuItem_Click_5" />
                 <MenuItem Header="{l:Translate IgnoreGeocaches}" Click="MenuItem_Click_7" />

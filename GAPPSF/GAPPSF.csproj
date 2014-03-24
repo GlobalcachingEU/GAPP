@@ -283,6 +283,7 @@
     <Compile Include="Core\Settings\NotesEditorSettings.cs" />
     <Compile Include="Core\Settings\OfflineImageSettings.cs" />
     <Compile Include="Core\Settings\OKAPISettings.cs" />
+    <Compile Include="Core\Settings\OpenAreasSettings.cs" />
     <Compile Include="Core\Settings\OV2Settings.cs" />
     <Compile Include="Core\Settings\PurgeLogsSettings.cs" />
     <Compile Include="Core\Settings\Settings.cs" />
@@ -1086,6 +1087,9 @@
     <Compile Include="UIControls\HtmlTextEditor\RichTextEditor.xaml.cs">
       <DependentUpon>RichTextEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UIControls\OpenAreas\Control.xaml.cs">
+      <DependentUpon>Control.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIControls\SelectionContext.xaml.cs">
       <DependentUpon>SelectionContext.xaml</DependentUpon>
     </Compile>
@@ -1620,6 +1624,10 @@
     <Page Include="UIControls\HtmlTextEditor\RichTextEditor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UIControls\OpenAreas\Control.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIControls\SelectionContext.xaml">
       <SubType>Designer</SubType>
@@ -2574,6 +2582,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\General\html.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UIControls\OpenAreas\MultipleGeocache.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UIControls\OpenAreas\MultipleGeocache.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

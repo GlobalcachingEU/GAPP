@@ -1978,4 +1978,7 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="ExportHTML" xml:space="preserve">
     <value>Export to HTML</value>
   </data>
+  <data name="OpenAreas" xml:space="preserve">
+    <value>Open areas</value>
+  </data>
 </root>

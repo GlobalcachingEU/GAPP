@@ -1,6 +1,8 @@
 todo GAPP:
 - processdialog, minimize or show on taskbar. Going to desktop fails now
 - add log templates
+- make more screen sizable, but also settings screen
+- add color option for corrected in cache list
 
 todo GAPP SF:
 - Open Areas map

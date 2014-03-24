@@ -325,6 +325,11 @@ namespace GAPPSF.UIControls
             FeatureControl = new Trackables.Control();
         }
 
+        private void MenuItem_Click_n14(object sender, RoutedEventArgs e)
+        {
+            FeatureControl = new OpenAreas.Control();
+        }
+
 
     }
 }

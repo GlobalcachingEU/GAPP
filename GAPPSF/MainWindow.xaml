@@ -513,6 +513,7 @@
                         <MenuItem x:Name="menuy25" Header="{l:Translate OpenStreetMapOnline}" Click="menuy25_Click" />
                         <MenuItem x:Name="menuz25" Header="{l:Translate OpenStreetMapOffline}" Click="menuz25_Click" />
                         <MenuItem x:Name="menuf25" Header="{l:Translate GoogleEarth}" Click="menuf25_Click" />
+                        <MenuItem x:Name="menus25" Header="{l:Translate OpenAreas}" Click="menus25_Click" />
                     </MenuItem>
                     <MenuItem x:Name="menu26" Header="{l:Translate OfflineImages}" Click="MenuItem_Click_9" />
                     <MenuItem x:Name="menu27" Header="{l:Translate IgnoreGeocaches}" Click="menu27_Click" />
