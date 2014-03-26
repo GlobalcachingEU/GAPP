@@ -125,11 +125,11 @@ namespace GAPPSF.UIControls.OpenAreas
         private string addWaypointsToMap(string template, List<Core.Data.Waypoint> wpList)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("[");
+            sb.Append("var wpList = [");
             bool first = true;
             if (wpList != null)
             {
-                foreach (Core.Data.Waypoint wp in wpList)
+                foreach (var wp in wpList)
                 {
                     if (wp.Lat != null && wp.Lon != null)
                     {
@@ -144,25 +144,23 @@ namespace GAPPSF.UIControls.OpenAreas
                         StringBuilder bln = new StringBuilder();
                         bln.AppendFormat("{0}<br />", Utils.Conversion.GetCoordinatesPresentation((double)wp.Lat, (double)wp.Lon));
                         bln.AppendFormat("{0}<br />", wp.Code);
-                        bln.AppendFormat("{0}<br />", HttpUtility.HtmlEncode(wp.WPType.Name));
+                        bln.AppendFormat("{0}<br />", HttpUtility.HtmlEncode(Localization.TranslationManager.Instance.Translate(wp.WPType.Name)));
                         bln.AppendFormat("{0}<br />", HttpUtility.HtmlEncode(wp.Description)).Replace("\r\n", "<br />");
                         bln.AppendFormat("{0}", HttpUtility.HtmlEncode(wp.Comment).Replace("\r\n", "<br />"));
-                        sb.AppendLine(string.Format("{{a: '{0}', b: {1}, c: {2}, d: wpt{3}Icon, e: '{4}'}}", wp.Code, wp.Lat.ToString().Replace(',', '.'), wp.Lon.ToString().Replace(',', '.'), wp.WPType.ID.ToString().Replace("-", "_"), bln.ToString().Replace("'", "")));
+                        sb.AppendLine(string.Format("{{a: '{0}', b: {1}, c: {2}, d: wpt{3}Icon, e: '{4}'}}", wp.Code, wp.Lat.ToString().Replace(',', '.'), wp.Lon.ToString().Replace(',', '.'), wp.WPType.ID.ToString().Replace("-", "_"), bln.ToString().Replace("'", "").Replace("\r", "").Replace("\n", "")));
                     }
                 }
             }
-            sb.Append("]");
+            sb.Append("];");
             return template.Replace("//waypoints", sb.ToString());
         }
 
         private string addGeocachesToMap(string template, List<Core.Data.Geocache> gcList)
         {
-            string coordAccuracy = "0.00000";
-
             StringBuilder sb = new StringBuilder();
-            sb.Append("[");
+            sb.Append("var gcList = [");
             bool first = true;
-            foreach (Core.Data.Geocache gc in gcList)
+            foreach (var gc in gcList)
             {
                 if (!first)
                 {
@@ -172,32 +170,23 @@ namespace GAPPSF.UIControls.OpenAreas
                 {
                     first = false;
                 }
-                string tt;
-                tt = string.Format("{0}, {1}", gc.Code, gc.Name.Replace('"', ' ').Replace('\'', ' ').Replace('\r', ' ').Replace('\n', ' ').Replace('\t', ' ').Replace('\\', ' '));
-                if (gc.Found)
+                //if (gc.Found)
+                //{
+                //    sb.AppendLine(string.Format("{{a: '{0}', b: {1}, c: {2}, d: foundIcon}}", gc.Code, gc.Lat.ToString().Replace(',', '.'), gc.Lon.ToString().Replace(',', '.')));
+                //}
+                //else
+                //{
+                if (gc.ContainsCustomLatLon)
                 {
-                    if (gc.ContainsCustomLatLon)
-                    {
-                        sb.AppendLine(string.Format("{{\"a\":\"{0}\",\"b\":{1},\"c\":{2},\"d\":\"foundIcon\"}}", tt, ((double)gc.CustomLat).ToString(coordAccuracy).Replace(',', '.'), ((double)gc.CustomLon).ToString(coordAccuracy).Replace(',', '.')));
-                    }
-                    else
-                    {
-                        sb.AppendLine(string.Format("{{\"a\":\"{0}\",\"b\":{1},\"c\":{2},\"d\":\"foundIcon\"}}", tt, gc.Lat.ToString(coordAccuracy).Replace(',', '.'), gc.Lon.ToString(coordAccuracy).Replace(',', '.')));
-                    }
+                    sb.AppendLine(string.Format("{{a: '{0}', b: {1}, c: {2}, d: gct{3}IconC}}", gc.Code, gc.CustomLat.ToString().Replace(',', '.'), gc.CustomLon.ToString().Replace(',', '.'), gc.GeocacheType.ID.ToString().Replace("-", "_")));
                 }
                 else
                 {
-                    if (gc.ContainsCustomLatLon)
-                    {
-                        sb.AppendLine(string.Format("{{\"a\":\"{0}\",\"b\":{1},\"c\":{2},\"d\":\"gct{3}IconC\"}}", tt, ((double)gc.CustomLat).ToString(coordAccuracy).Replace(',', '.'), ((double)gc.CustomLon).ToString(coordAccuracy).Replace(',', '.'), gc.GeocacheType.ID.ToString().Replace("-", "_")));
-                    }
-                    else
-                    {
-                        sb.AppendLine(string.Format("{{\"a\":\"{0}\",\"b\":{1},\"c\":{2},\"d\":\"gct{3}Icon\"}}", tt, gc.Lat.ToString(coordAccuracy).Replace(',', '.'), gc.Lon.ToString(coordAccuracy).Replace(',', '.'), gc.GeocacheType.ID.ToString().Replace("-", "_")));
-                    }
+                    sb.AppendLine(string.Format("{{a: '{0}', b: {1}, c: {2}, d: gct{3}Icon}}", gc.Code, gc.Lat.ToString().Replace(',', '.'), gc.Lon.ToString().Replace(',', '.'), gc.GeocacheType.ID.ToString().Replace("-", "_")));
                 }
+                //}
             }
-            sb.Append("]");
+            sb.Append("];");
             return template.Replace("//geocaches", sb.ToString());
         }
 

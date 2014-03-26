@@ -1981,4 +1981,25 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="OpenAreas" xml:space="preserve">
     <value>Open areas</value>
   </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="CustomWaypoints" xml:space="preserve">
+    <value>Custom waypoints</value>
+  </data>
+  <data name="FillOpacity" xml:space="preserve">
+    <value>Fill opacity</value>
+  </data>
+  <data name="MysteryOnlyIfCorrected" xml:space="preserve">
+    <value>Mystery, only if corrected</value>
+  </data>
+  <data name="SelectedGeocaches" xml:space="preserve">
+    <value>Selected geocaches</value>
+  </data>
+  <data name="StrokeOpacity" xml:space="preserve">
+    <value>Stroke opacity</value>
+  </data>
+  <data name="UpdateMap" xml:space="preserve">
+    <value>Update map</value>
+  </data>
 </root>

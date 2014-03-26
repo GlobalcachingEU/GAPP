@@ -5,13 +5,14 @@ todo GAPP:
 - add color option for corrected in cache list
 
 todo GAPP SF:
-- Open Areas map
 
 todo GAPP/GAPP SF
 
 V1.10.1.0
 
 - gapp: fix: Export to HTML now has meta tag utf-8 encoded for correct display of some characters
+- gappsf: fix: Google Map, geocache selection in map blocked till map is loaded
+- GAPPSF: ADD: Open Areas map
 
 V1.10.0.0
 

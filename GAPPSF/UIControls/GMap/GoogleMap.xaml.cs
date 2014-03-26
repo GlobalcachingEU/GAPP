@@ -58,6 +58,13 @@ namespace GAPPSF.UIControls.GMap
             }
         }
 
+        private bool _targetGeocachesCanBeChanged = false;
+        public bool TargetGeocachesCanBeChanged
+        {
+            get { return _targetGeocachesCanBeChanged; }
+            set { SetProperty(ref _targetGeocachesCanBeChanged, value); }
+        }
+
         public GoogleMap()
         {
             Arealevels = new ObservableCollection<Core.Data.AreaType>();
@@ -105,6 +112,7 @@ namespace GAPPSF.UIControls.GMap
         void webBrowser1_Navigated(object sender, NavigationEventArgs e)
         {
             Utils.ResourceHelper.HideScriptErrors(webBrowser1, true);
+            TargetGeocachesCanBeChanged = true;
         }
 
         void Default_PropertyChanged(object sender, PropertyChangedEventArgs e)
