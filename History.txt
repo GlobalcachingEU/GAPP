@@ -2,7 +2,6 @@ todo GAPP:
 - processdialog, minimize or show on taskbar. Going to desktop fails now
 - add log templates
 - make more screen sizable, but also settings screen
-- add color option for corrected in cache list
 
 todo GAPP SF:
 
@@ -11,6 +10,7 @@ todo GAPP/GAPP SF
 V1.10.1.0
 
 - gapp: fix: Export to HTML now has meta tag utf-8 encoded for correct display of some characters
+- gapp: change: add color option for corrected in cache list
 - gappsf: fix: Google Map, geocache selection in map blocked till map is loaded
 - GAPPSF: ADD: Open Areas map
 

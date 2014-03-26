@@ -20,6 +20,7 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
         public const string STR_DEFERREDSCROLLING = "Use deferred scrolling";
         public const string STR_ENABLEAUTOSORT = "Enable automatic sorting";
         public const string STR_AUTOTOPPANEL = "Automatic top panel visibility";
+        public const string STR_EXTRACOORD = "Extr. coord.";
 
         public SettingsPanel()
         {
@@ -30,6 +31,7 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
             labelAvailable.BackColor = Properties.Settings.Default.BkColorAvailable;
             labelFound.BackColor = Properties.Settings.Default.BkColorFound;
             labelOwn.BackColor = Properties.Settings.Default.BkColorOwned;
+            label12.BackColor = Properties.Settings.Default.BkColorExtraCoord;
             checkBoxDefferredScrolling.Checked = Properties.Settings.Default.DeferredScrolling;
             checkBox1.Checked = Properties.Settings.Default.EnableAutomaticSorting;
             checkBox2.Checked = Properties.Settings.Default.AutoTopPanel;
@@ -37,6 +39,7 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
             button1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_BACKGROUND);
             button2.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_BACKGROUND);
             button3.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_BACKGROUND);
+            button4.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_BACKGROUND);
             buttonBkArchived.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_BACKGROUND);
 
             label1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_ARCHIVED);
@@ -44,6 +47,7 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
             label5.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_AVAILABLE);
             label4.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_FOUND);
             label11.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_OWN);
+            label13.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_EXTRACOORD);
 
             checkBoxDefferredScrolling.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_DEFERREDSCROLLING);
             checkBox1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_ENABLEAUTOSORT);
@@ -69,6 +73,10 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
         public System.Drawing.Color OwnBkColor
         {
             get { return labelOwn.BackColor; }
+        }
+        public System.Drawing.Color ExtraCoordBkColor
+        {
+            get { return label12.BackColor; }
         }
         public bool DeferredScrolling
         {
@@ -125,6 +133,15 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
                 labelOwn.BackColor = colorDialog1.Color;
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            colorDialog1.Color = label11.BackColor;
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                label12.BackColor = colorDialog1.Color;
             }
         }
     }

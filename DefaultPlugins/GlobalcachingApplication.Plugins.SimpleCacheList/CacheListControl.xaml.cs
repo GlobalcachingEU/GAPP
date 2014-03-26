@@ -31,6 +31,7 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
         private Brush _notAvailableBrush = null;
         private Brush _foundBrush = null;
         private Brush _ownBrush = null;
+        private Brush _extrCoordBrush = null;
 
         private string _filterOnText = "";
         private IEnumerable<Framework.Data.Geocache> _orgSourceList = null;
@@ -56,6 +57,7 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
             _notAvailableBrush = new SolidColorBrush(Colors.White);
             _foundBrush = new SolidColorBrush(Colors.White);
             _ownBrush = new SolidColorBrush(Colors.White);
+            _extrCoordBrush = new SolidColorBrush(Colors.White);
 
             if (Properties.Settings.Default.SortOnColumnIndex >= 0 && Properties.Settings.Default.SortOnColumnIndex < cacheList.Columns.Count)
             {
@@ -99,6 +101,13 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
                 R = Properties.Settings.Default.BkColorOwned.R,
                 G = Properties.Settings.Default.BkColorOwned.G,
                 B = Properties.Settings.Default.BkColorOwned.B
+            });
+            _extrCoordBrush = new SolidColorBrush(new System.Windows.Media.Color()
+            {
+                A = 255,
+                R = Properties.Settings.Default.BkColorExtraCoord.R,
+                G = Properties.Settings.Default.BkColorExtraCoord.G,
+                B = Properties.Settings.Default.BkColorExtraCoord.B
             });
             //cacheList.ScrollM
         }
@@ -215,13 +224,21 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
                 {
                     e.Row.Background = _archivedBrush;
                 }
-                else if (item.Available)
+                else if (item.ContainsCustomLatLon)
                 {
-                    e.Row.Background = _availableBrush;
+                    e.Row.Background = _extrCoordBrush;
+                }
+                else if (!item.Available)
+                {
+                    e.Row.Background = _notAvailableBrush;
+                }
+                else if (item.ContainsCustomLatLon)
+                {
+                    e.Row.Background = _extrCoordBrush;
                 }
                 else
                 {
-                    e.Row.Background = _notAvailableBrush;
+                    e.Row.Background = _availableBrush;
                 }
             }
             else

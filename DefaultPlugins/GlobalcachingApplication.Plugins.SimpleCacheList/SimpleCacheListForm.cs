@@ -828,6 +828,7 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
                     Properties.Settings.Default.BkColorNotAvailable = (uc as SettingsPanel).NotAvailableBkColor;
                     Properties.Settings.Default.BkColorFound = (uc as SettingsPanel).FoundBkColor;
                     Properties.Settings.Default.BkColorOwned = (uc as SettingsPanel).OwnBkColor;
+                    Properties.Settings.Default.BkColorExtraCoord = (uc as SettingsPanel).ExtraCoordBkColor;
                     Properties.Settings.Default.DeferredScrolling = (uc as SettingsPanel).DeferredScrolling;
                     Properties.Settings.Default.EnableAutomaticSorting = (uc as SettingsPanel).EnableAutomaticSorting;
                     Properties.Settings.Default.AutoTopPanel = (uc as SettingsPanel).AutoTopPanel;
