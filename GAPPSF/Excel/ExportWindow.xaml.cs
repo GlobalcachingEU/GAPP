@@ -194,7 +194,7 @@ namespace GAPPSF.Excel
                     }
                     else
                     {
-
+                        fitem.IsChecked = true;
                     }
                     insertAt++;
                 }
