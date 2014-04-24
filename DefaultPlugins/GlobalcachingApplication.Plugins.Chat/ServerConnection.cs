@@ -85,10 +85,10 @@ namespace GlobalcachingApplication.Plugins.Chat
             try
             {
 #if DEBUG
-                _tcpClient.Connect(new IPEndPoint(new IPAddress(new byte[] { 91, 220, 53, 33 }), 8542));
+                _tcpClient.Connect(new IPEndPoint(new IPAddress(new byte[] { 78, 46, 74, 53 }), 8542));
                 //_tcpClient.Connect(new IPEndPoint(new IPAddress(new byte[] { 127, 0, 0, 1 }), 8542));
 #else
-                _tcpClient.Connect(new IPEndPoint(new IPAddress(new byte[] { 91, 220, 53, 33 }), 8542));
+                _tcpClient.Connect(new IPEndPoint(new IPAddress(new byte[] { 78, 46, 74, 53 }), 8542));
 #endif
                 while (!_closed)
                 {
