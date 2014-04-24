@@ -20,8 +20,6 @@ namespace GlobalcachingApplication.Plugins.ExportHTML
         public const string STR_DELETE = "Delete";
         public const string STR_ADD = "Add";
 
-        private bool _updating = false;
-
         public class Sheet
         {
             public string Name { get; set; }
@@ -70,6 +68,7 @@ namespace GlobalcachingApplication.Plugins.ExportHTML
                 lvi.Tag = pi;
                 listView1.Items.Add(lvi);
             }
+            _cntdown = listView1.Items.Count;
 
             textBox1.Text = Properties.Settings.Default.FilePath ?? "";
             foreach (string s in Properties.Settings.Default.ExportFields)
@@ -152,7 +151,7 @@ namespace GlobalcachingApplication.Plugins.ExportHTML
 
         private void updateSelectedItems(Sheet sheet)
         {
-            _updating = true;
+            listView1.ItemChecked -= listView1_ItemChecked;
             //maintain selected order, so first
             button5.Enabled = false;
             button6.Enabled = false;
@@ -173,7 +172,7 @@ namespace GlobalcachingApplication.Plugins.ExportHTML
                     listView1.Items.Add(lvi);
                 }
             }
-            _updating = false;
+            listView1.ItemChecked += listView1_ItemChecked;
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -186,27 +185,37 @@ namespace GlobalcachingApplication.Plugins.ExportHTML
             checkOK();
         }
 
+        private void updateSelectedItemsForSheet()
+        {
+            Sheet sheet = comboBox1.SelectedItem as Sheet;
+            if (sheet != null)
+            {
+                sheet.SelectedItems.Clear();
+                for (int i = 0; i < listView1.Items.Count; i++)
+                {
+                    ListViewItem ci = listView1.Items[i];
+                    if (ci.Checked)
+                    {
+                        sheet.SelectedItems.Add(ci.Tag as PropertyItem);
+                    }
+                }
+            }
+        }
+
+        private int _cntdown;
         private void listView1_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
-            if (!_updating)
+            if (_cntdown > 0)
             {
-                Sheet sheet = comboBox1.SelectedItem as Sheet;
-                if (sheet != null)
+                _cntdown--;
+                return;
+            }
+            Sheet sheet = comboBox1.SelectedItem as Sheet;
+            if (sheet != null)
+            {
+                if (e.Item.Checked != sheet.SelectedItems.Contains((e.Item.Tag as PropertyItem)))
                 {
-                    if (e.Item.Checked)
-                    {
-                        if (!sheet.SelectedItems.Contains(e.Item.Tag))
-                        {
-                            sheet.SelectedItems.Add(e.Item.Tag as PropertyItem);
-                        }
-                    }
-                    else
-                    {
-                        if (sheet.SelectedItems.Contains(e.Item.Tag))
-                        {
-                            sheet.SelectedItems.Remove(e.Item.Tag as PropertyItem);
-                        }
-                    }
+                    updateSelectedItemsForSheet();
                 }
             }
         }

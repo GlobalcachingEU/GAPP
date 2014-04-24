@@ -12,9 +12,11 @@ V1.10.2.0
 - gapp: chat, connect to new server
 - gapp: Google Map, child waypoints did not show when there was a linefeed in the name
 - gapp: Export to Excel, the order of the fields are now restored correctly
+- gapp: Export to HTML, the order of the fields are now restored correctly
 - gappsf: chat, connect to new server
 - gappsf: Google Map, child waypoints did not show when there was a linefeed in the name
 - gappsf: Export to Excel, the fields are now restored correctly
+- gappsf: Export to HTML, the fields are now restored correctly
 
 V1.10.1.0
 

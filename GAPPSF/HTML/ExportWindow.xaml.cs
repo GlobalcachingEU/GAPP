@@ -194,7 +194,7 @@ namespace GAPPSF.HTML
                     }
                     else
                     {
-
+                        fitem.IsChecked = true;
                     }
                     insertAt++;
                 }
