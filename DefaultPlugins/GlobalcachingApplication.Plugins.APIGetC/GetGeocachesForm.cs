@@ -786,7 +786,7 @@ namespace GlobalcachingApplication.Plugins.APIGetC
                 if (dlg.ShowDialog()== System.Windows.Forms.DialogResult.OK)
                 {
                     textBoxLocation.Text = Utils.Conversion.GetCoordinatesPresentation(dlg.Center);
-                    numericUpDownRadius.Value = Math.Min((decimal)dlg.Radius, numericUpDownRadius.Maximum);
+                    numericUpDownRadius.Value = Math.Min(Math.Max((decimal)dlg.Radius, numericUpDownRadius.Minimum), numericUpDownRadius.Maximum);
                     radioButtonKm.Checked = true;
                 }
             }

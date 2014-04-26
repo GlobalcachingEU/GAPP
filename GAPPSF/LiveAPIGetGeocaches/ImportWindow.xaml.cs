@@ -280,7 +280,7 @@ namespace GAPPSF.LiveAPIGetGeocaches
             if (dlg.ShowDialog()==true)
             {
                 Core.Settings.Default.LiveAPIGetGCLocation = Utils.Conversion.GetCoordinatesPresentation(dlg.Center);
-                Core.Settings.Default.LiveAPIGetGCRadius = Math.Min(dlg.Radius, 50);
+                Core.Settings.Default.LiveAPIGetGCRadius = Math.Max(Math.Min(dlg.Radius, 50), 1);
                 Core.Settings.Default.LiveAPIGetGCLocationKm = UIControls.GeocacheFilter.BooleanEnum.True;
             }
         }
