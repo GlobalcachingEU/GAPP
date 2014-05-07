@@ -32,9 +32,13 @@ namespace GAPPSF.GPX
 
         public void ImportFile(string fileName)
         {
+            ImportFile(fileName, null);
+        }
+        public void ImportFile(string fileName, bool? isZip)
+        {
             try
             {
-                if (fileName.ToLower().EndsWith(".zip"))
+                if (isZip==true || fileName.ToLower().EndsWith(".zip"))
                 {
                     byte[] data = new byte[1024];
                     using (var fs = System.IO.File.OpenRead(fileName))
@@ -321,6 +325,7 @@ namespace GAPPSF.GPX
                             gc.LongDescriptionInHtml = bool.Parse(SafeAttributeInnerText(n.SelectSingleNode("y:long_description", nsmgr), "html", "False"));
                             gc.EncodedHints = SafeInnerText(n.SelectSingleNode("y:encoded_hints", nsmgr), "");
 
+                            gc.AttributeIds = new List<int>();
                             XmlNode attrs = n.SelectSingleNode("y:attributes", nsmgr);
                             if (attrs != null && attrs.ChildNodes != null)
                             {

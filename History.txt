@@ -7,6 +7,10 @@ todo GAPP SF:
 
 todo GAPP/GAPP SF
 
+V1.10.3.0
+
+- gappsf: LiveAPI, import pocket query fix
+
 V1.10.2.0
 
 - gapp: chat, connect to new server

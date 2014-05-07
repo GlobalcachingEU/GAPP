@@ -184,7 +184,7 @@ namespace GAPPSF.GPX
                                                 using (System.IO.TemporaryFile tf = new System.IO.TemporaryFile(true))
                                                 {
                                                     System.IO.File.WriteAllBytes(tf.Path, Convert.FromBase64String(resp.ZippedFile));
-                                                    imp.ImportFile(tf.Path);
+                                                    imp.ImportFile(tf.Path, true);
                                                     updateProcessedPq(pq.GUID);
                                                 }
                                             }
