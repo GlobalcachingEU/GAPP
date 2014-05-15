@@ -7,6 +7,11 @@ todo GAPP SF:
 
 todo GAPP/GAPP SF
 
+V1.10.4.0
+
+- gapp: fix: adapt GPX files changes of geocaching.com for child waypoints
+- gappsf: fix: adapt GPX files changes of geocaching.com for child waypoints
+
 V1.10.3.0
 
 - gappsf: LiveAPI, import pocket query fix

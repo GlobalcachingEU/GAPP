@@ -219,9 +219,9 @@ namespace GlobalcachingApplication.Plugins.DataSetup
 
                 addWaypointType(217, "Parking Area");
                 addWaypointType(220, "Final Location");
-                addWaypointType(218, "Question to Answer");
+                addWaypointType(218, "Virtual Stage"); //"Question to Answer"
                 addWaypointType(452, "Reference Point");
-                addWaypointType(219, "Stages of a Multicache");
+                addWaypointType(219, "Physical Stage"); //"Stages of a Multicache"
                 addWaypointType(221, "Trailhead");
             }
             return result;

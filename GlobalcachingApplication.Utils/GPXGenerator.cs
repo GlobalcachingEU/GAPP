@@ -23,6 +23,7 @@ namespace GlobalcachingApplication.Utils
         private bool _useHintsForDescription = false;
         private string _extraCoordPrefix = "";
         private bool _addExtraInfoToDescription = false;
+        private bool _overwriteWayointTags = true;
 
         public static Version V100 = new Version(1, 0, 0);
         public static Version V101 = new Version(1, 0, 1);
@@ -133,6 +134,31 @@ namespace GlobalcachingApplication.Utils
             return sb.ToString();
         }
 
+        private string getWaypointTagName(Framework.Data.WaypointType wpt)
+        {
+            string result;
+            if (_overwriteWayointTags)
+            {
+                if (wpt.ID == 218)
+                {
+                    result = "Question to Answer";
+                }
+                else if (wpt.ID == 219)
+                {
+                    result = "Stages of a Multicache";
+                }
+                else
+                {
+                    result = wpt.Name;
+                }
+            }
+            else
+            {
+                result = wpt.Name;
+            }
+            return result;
+        }
+
         public string WaypointData()
         {
             if (_activeGcg == null)
@@ -237,12 +263,12 @@ namespace GlobalcachingApplication.Utils
                         wpt.AppendChild(el);
 
                         el = doc.CreateElement("sym");
-                        txt = doc.CreateTextNode(wp.WPType.Name);
+                        txt = doc.CreateTextNode(getWaypointTagName(wp.WPType));
                         el.AppendChild(txt);
                         wpt.AppendChild(el);
 
                         el = doc.CreateElement("type");
-                        txt = doc.CreateTextNode(string.Format("Waypoint|{0}", wp.WPType.Name));
+                        txt = doc.CreateTextNode(string.Format("Waypoint|{0}", getWaypointTagName(wp.WPType)));
                         el.AppendChild(txt);
                         wpt.AppendChild(el);
                     }

@@ -260,6 +260,19 @@ namespace GlobalcachingApplication.Utils
                       select gt).FirstOrDefault();
             if (result == null)
             {
+                //Groundspeak renamed waypoint types
+                //be sure to be able to handle both
+                if ("question to answer".Contains(keyWord))
+                {
+                    result = GetWaypointType(wptCollection, 218);
+                }
+                else if ("stages of a multicache".Contains(keyWord))
+                {
+                    result = GetWaypointType(wptCollection, 219);
+                }
+            }
+            if (result == null)
+            {
                 //take special ID
                 result = GetWaypointType(wptCollection, 0);
             }
