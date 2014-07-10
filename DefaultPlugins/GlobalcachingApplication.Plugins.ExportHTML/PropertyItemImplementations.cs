@@ -47,6 +47,7 @@ namespace GlobalcachingApplication.Plugins.ExportHTML
         public const string STR_ENVELOPEAREA_OTHER = "In region envelop - other";
         public const string STR_INAREA_OTHER = "In region - other";
         public const string STR_GLOBALCACHINGURL = "Globalcaching URL";
+        public const string STR_NOTES = "Notes";
     }
 
     public class PropertyItemGlobalcachingUrl : PropertyItem
@@ -495,6 +496,17 @@ namespace GlobalcachingApplication.Plugins.ExportHTML
         public override object GetValue(Framework.Data.Geocache gc)
         {
             return gc.PersonaleNote ?? "";
+        }
+    }
+    public class PropertyItemNotes : PropertyItem
+    {
+        public PropertyItemNotes(Framework.Interfaces.ICore core)
+            : base(core, PropertyName.STR_NOTES)
+        {
+        }
+        public override object GetValue(Framework.Data.Geocache gc)
+        {
+            return gc.Notes ?? "";
         }
     }
     public class PropertyItemHints : PropertyItem

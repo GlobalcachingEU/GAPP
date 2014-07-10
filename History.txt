@@ -6,6 +6,17 @@ todo GAPP:
 todo GAPP SF:
 
 todo GAPP/GAPP SF
+- get notes add delay
+
+V1.10.5.0
+- gapp: fix: Live API, get personal notes a delay added between calls
+- gappsf: fix: Live API, get personal notes a delay added between calls
+- gapp: Munzee, removed import from munzee.dfx.at due to discontinued service
+- gappsf: Munzee, removed import from munzee.dfx.at due to discontinued service
+- gapp: fix: Removed dialog for downloading Open Street Maps due to discontinued (FTP) service
+- gappsf: fix: Removed dialog for downloading Open Street Maps due to discontinued (FTP) service
+- gapp: add: Export HTML, added export notes
+- gappsf: add: Export HTML, added export notes
 
 V1.10.4.0
 

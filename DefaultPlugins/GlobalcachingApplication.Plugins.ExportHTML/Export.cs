@@ -81,6 +81,7 @@ namespace GlobalcachingApplication.Plugins.ExportHTML
             ppi = new PropertyItemAutoCoordinate(core);
             ppi = new PropertyItemFavorites(core);
             ppi = new PropertyItemPersonalNotes(core);
+            ppi = new PropertyItemNotes(core);
             ppi = new PropertyItemFlagged(core);
             ppi = new PropertyItemFound(core);
             ppi = new PropertyItemFoundDate(core);
@@ -156,11 +157,15 @@ namespace GlobalcachingApplication.Plugins.ExportHTML
                             }
                             if (pi is PropertyItemDescriptionHTML)
                             {
-                                sb.AppendFormat("<td><div>{0}/<div></td>", o);
+                                sb.AppendFormat("<td><div>{0}</div></td>", o);
                             }
                             else if (pi is PropertyItemDescriptionText)
                             {
                                 sb.AppendFormat("<td>{0}</td>", HttpUtility.HtmlEncode(o.ToString()).Replace("\r", "<br />"));
+                            }
+                            else if (pi is PropertyItemNotes)
+                            {
+                                sb.AppendFormat("<td><div>{0}</div></td>", o);
                             }
                             else
                             {

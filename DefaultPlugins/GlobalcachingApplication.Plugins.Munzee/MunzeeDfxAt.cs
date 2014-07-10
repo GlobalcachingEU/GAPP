@@ -20,7 +20,7 @@ namespace GlobalcachingApplication.Plugins.Munzee
 
         public override bool Initialize(Framework.Interfaces.ICore core)
         {
-            AddAction(ACTION_IMPORT);
+            //AddAction(ACTION_IMPORT);
 
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DOWNLOADINGDATA));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_IMPORTING));

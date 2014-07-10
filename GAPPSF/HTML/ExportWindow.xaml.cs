@@ -129,6 +129,7 @@ namespace GAPPSF.HTML
                 ppi = new PropertyItemAutoCoordinate();
                 ppi = new PropertyItemFavorites();
                 ppi = new PropertyItemPersonalNotes();
+                ppi = new PropertyItemNotes();
                 ppi = new PropertyItemFlagged();
                 ppi = new PropertyItemFound();
                 ppi = new PropertyItemFoundDate();

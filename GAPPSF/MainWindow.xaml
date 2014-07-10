@@ -154,11 +154,13 @@
                         <MenuItem x:Name="menugc61" Header="{l:Translate Selected}" Command="{Binding ImportGcvoteSelectedCommand}" />
                         <MenuItem x:Name="menugc62" Header="{l:Translate All}" Command="{Binding ImportGcvoteAllCommand}" />
                     </MenuItem>
+                    <!--
                     <MenuItem x:Name="menub5a" Header="{l:Translate ImportMunzeesfrommunzeedfxat}" Command="{Binding ImportMunzeeAfxCommand}">
                         <MenuItem.Icon>
                             <Image Source="/Resources/General/munzee.png" />
                         </MenuItem.Icon>
                     </MenuItem>
+                    -->
                 </MenuItem>
                 <MenuItem Header="{l:Translate Export}">
                     <MenuItem Header="{l:Translate ExportGPX}">

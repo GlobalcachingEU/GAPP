@@ -54,7 +54,7 @@
                                             <ListBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding Path=MapFactory.OSMBinFiles}" SelectedItem="{Binding SelectedMap, Mode=TwoWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                                             <Button Margin="4" Grid.Row="1" Grid.Column="0" Content="{l:Translate Remove}" Command="{Binding RemoveSelectedMapCommand}" />
                                             <Button Margin="4" Grid.Row="1" Grid.Column="1" Content="{l:Translate Add}" Command="{Binding AddMapCommand}" />
-                                            <Button Margin="4" Grid.Row="1" Grid.Column="2" Content="{l:Translate Download}" Click="Button_Click_1" />
+                                            <Button Margin="4" Grid.Row="1" Grid.Column="2" Content="{l:Translate Download}" Click="Button_Click_1" Visibility="Hidden" />
                                         </Grid>
                                     </GroupBox.Content>
                                 </GroupBox>

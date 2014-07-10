@@ -47,6 +47,7 @@ namespace GAPPSF.HTML
         public const string STR_ENVELOPEAREA_OTHER = "In region envelop - other";
         public const string STR_INAREA_OTHER = "In region - other";
         public const string STR_GLOBALCACHINGURL = "Globalcaching URL";
+        public const string STR_NOTES = "Notes";
     }
 
     public class PropertyItemGlobalcachingUrl : PropertyItem
@@ -495,6 +496,17 @@ namespace GAPPSF.HTML
         public override object GetValue(Core.Data.Geocache gc)
         {
             return gc.PersonalNote ?? "";
+        }
+    }
+    public class PropertyItemNotes : PropertyItem
+    {
+        public PropertyItemNotes()
+            : base(PropertyName.STR_NOTES)
+        {
+        }
+        public override object GetValue(Core.Data.Geocache gc)
+        {
+            return gc.Notes ?? "";
         }
     }
     public class PropertyItemHints : PropertyItem

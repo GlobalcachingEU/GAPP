@@ -30,12 +30,12 @@
         {
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button3 = new System.Windows.Forms.Button();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.label2 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -63,16 +63,6 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Offline OSM maps";
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(307, 378);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(164, 33);
-            this.button3.TabIndex = 6;
-            this.button3.Text = "Get more...";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // checkedListBox1
             // 
@@ -117,6 +107,17 @@
             this.label1.Size = new System.Drawing.Size(62, 17);
             this.label1.TabIndex = 0;
             this.label1.Text = "Location";
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(307, 378);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(164, 33);
+            this.button3.TabIndex = 6;
+            this.button3.Text = "Get more...";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Visible = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // SettingsPanel
             // 

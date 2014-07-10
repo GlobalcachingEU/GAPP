@@ -76,11 +76,15 @@ namespace GAPPSF.HTML
                                     }
                                     if (pi is PropertyItemDescriptionHTML)
                                     {
-                                        sb.AppendFormat("<td><div>{0}/<div></td>", o);
+                                        sb.AppendFormat("<td><div>{0}</div></td>", o);
                                     }
                                     else if (pi is PropertyItemDescriptionText)
                                     {
                                         sb.AppendFormat("<td>{0}</td>", HttpUtility.HtmlEncode(o.ToString()).Replace("\r", "<br />"));
+                                    }
+                                    else if (pi is PropertyItemNotes)
+                                    {
+                                        sb.AppendFormat("<td><div>{0}</div></td>", o);
                                     }
                                     else
                                     {

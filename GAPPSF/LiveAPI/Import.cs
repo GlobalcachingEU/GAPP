@@ -878,6 +878,7 @@ namespace GAPPSF.LiveAPI
                             if (resp.CacheNotes.Count() >= maxPerRequest)
                             {
                                 startIndex += resp.CacheNotes.Count();
+                                Thread.Sleep(2100);
                                 resp = client.Client.GetUsersCacheNotes(client.Token, startIndex, maxPerRequest);
                             }
                             else
