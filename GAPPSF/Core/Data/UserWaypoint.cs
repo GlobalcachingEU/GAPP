@@ -46,7 +46,7 @@ namespace GAPPSF.Core.Data
 
         public int CompareTo(object obj)
         {
-            return string.Compare(this.ID, ((Waypoint)obj).ID);
+            return string.Compare(this.ID, ((UserWaypoint)obj).ID);
         }
 
 
