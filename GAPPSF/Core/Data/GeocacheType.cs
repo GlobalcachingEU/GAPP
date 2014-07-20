@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GAPPSF.Core.Data
 {
-    public class GeocacheType
+    public class GeocacheType: IComparable
     {
         public int ID { get; set; }
         public string Name { get; set; }
