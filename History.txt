@@ -10,6 +10,7 @@ todo GAPP/GAPP SF
 V1.10.7.0
 - gappsf: fix: Cachelist, fixed sorting on geocache type
 - gappsf: fix: Cachelist, fixed color of archived
+- gapp: fix: internal browser, create PQ series can read the new date format of project-gc
 
 V1.10.6.0
 - gappsf: fix: Deleting of geocaches with a UserWayoint caused the application to shut down.

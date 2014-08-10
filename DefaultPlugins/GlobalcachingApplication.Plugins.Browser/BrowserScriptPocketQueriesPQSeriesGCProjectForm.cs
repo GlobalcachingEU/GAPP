@@ -48,7 +48,11 @@ namespace GlobalcachingApplication.Plugins.Browser
                         if (int.TryParse(parts[0], out index))
                         {
                             DateTime dt;
-                            if (DateTime.TryParseExact(parts[1], "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
+                            if (DateTime.TryParseExact(parts[1], "MMMM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
+                            {
+                                DateList.Add(dt.Date);
+                            }
+                            else if (DateTime.TryParseExact(parts[1], "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
                             {
                                 DateList.Add(dt.Date);
                             }
