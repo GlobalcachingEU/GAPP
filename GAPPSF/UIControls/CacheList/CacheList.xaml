@@ -132,11 +132,11 @@
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding Archived}" Value="True">
-                            <Setter Property="Background" Value="{Binding ArchivedRowColor, Source={x:Static p:Settings.Default}}"></Setter>
-                        </DataTrigger>
                         <DataTrigger Binding="{Binding Available}" Value="False">
                             <Setter Property="Background" Value="{Binding DisabledRowColor, Source={x:Static p:Settings.Default}}"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Archived}" Value="True">
+                            <Setter Property="Background" Value="{Binding ArchivedRowColor, Source={x:Static p:Settings.Default}}"></Setter>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Found}" Value="True">
                             <Setter Property="Background" Value="{Binding FoundRowColor, Source={x:Static p:Settings.Default}}"></Setter>

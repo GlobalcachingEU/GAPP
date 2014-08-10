@@ -9,6 +9,7 @@ todo GAPP/GAPP SF
 
 V1.10.7.0
 - gappsf: fix: Cachelist, fixed sorting on geocache type
+- gappsf: fix: Cachelist, fixed color of archived
 
 V1.10.6.0
 - gappsf: fix: Deleting of geocaches with a UserWayoint caused the application to shut down.
