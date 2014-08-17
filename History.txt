@@ -7,6 +7,9 @@ todo GAPP SF:
 
 todo GAPP/GAPP SF
 
+V1.10.8.0
+- gapp: fix: Internal web browser saving and restoring Pocket Query settings
+
 V1.10.7.0
 - gappsf: fix: Cachelist, fixed sorting on geocache type
 - gappsf: fix: Cachelist, fixed color of archived

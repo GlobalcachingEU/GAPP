@@ -727,10 +727,10 @@ namespace GlobalcachingApplication.Plugins.Browser
                     }
                 }
                 wb.Document.GetElementById("ctl00_ContentBody_ddFormats").SetAttribute("value", FileFormat);
-                if (CompressFile != checkBoxChecked(wb, "ctl00_ContentBody_cbZip"))
-                {
-                    wb.Document.GetElementById("ctl00_ContentBody_cbZip").InvokeMember("Click");
-                }
+                //if (CompressFile != checkBoxChecked(wb, "ctl00_ContentBody_cbZip"))
+                //{
+                //    wb.Document.GetElementById("ctl00_ContentBody_cbZip").InvokeMember("Click");
+                //}
                 if (PQNameInFileName != checkBoxChecked(wb, "ctl00_ContentBody_cbIncludePQNameInFileName"))
                 {
                     wb.Document.GetElementById("ctl00_ContentBody_cbIncludePQNameInFileName").InvokeMember("Click");
@@ -1029,8 +1029,9 @@ namespace GlobalcachingApplication.Plugins.Browser
                 {
                     result.EMail = "";
                 }
-                core.DebugLog(Framework.Data.DebugLogLevel.Info, plugin, null, "ctl00_ContentBody_cbZip");
-                result.CompressFile = checkBoxChecked(wb, "ctl00_ContentBody_cbZip");
+                //core.DebugLog(Framework.Data.DebugLogLevel.Info, plugin, null, "ctl00_ContentBody_cbZip");
+                //result.CompressFile = checkBoxChecked(wb, "ctl00_ContentBody_cbZip");
+                result.CompressFile = true; //allways true now
                 core.DebugLog(Framework.Data.DebugLogLevel.Info, plugin, null, "ctl00_ContentBody_ddFormats");
                 result.FileFormat = wb.Document.GetElementById("ctl00_ContentBody_ddFormats").GetAttribute("value");
                 core.DebugLog(Framework.Data.DebugLogLevel.Info, plugin, null, "ctl00_ContentBody_cbIncludePQNameInFileName");
