@@ -802,8 +802,8 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
                     {
                         if (!UIChildWindowForm.Visible)
                         {
-                            (UIChildWindowForm as SimpleCacheListForm).UpdateList();
                             UIChildWindowForm.Show();
+                            (UIChildWindowForm as SimpleCacheListForm).UpdateList();
                         }
                         if (UIChildWindowForm.WindowState == FormWindowState.Minimized)
                         {

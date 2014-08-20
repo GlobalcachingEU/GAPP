@@ -145,7 +145,14 @@ namespace GAPPSF.GSAK
 
                                     gc.Code = (string)dr["code"];
                                     gc.Name = (string)dr["name"];
-                                    gc.DataFromDate = DateTime.Parse((string)dr["LastGPXDate"]);
+                                    if (string.IsNullOrEmpty((string)dr["LastGPXDate"]))
+                                    {
+                                        gc.DataFromDate = DateTime.Now.Date;
+                                    }
+                                    else
+                                    {
+                                        gc.DataFromDate = DateTime.Parse((string)dr["LastGPXDate"]);
+                                    }
                                     gc.Available = ((String)dr["Status"]).Equals("A");
                                     gc.Archived = (int)dr["archived"] != 0;
                                     gc.Country = (string)dr["country"];
