@@ -148,7 +148,7 @@ namespace GAPPSF.Core
             CenterLocation.PropertyChanged += CenterLocation_PropertyChanged;
             AccountInfos.CollectionChanged += AccountInfos_CollectionChanged;
 
-            string[] accountPrefixes = new string[] { "GC", "OX", "OB", "OC", "MZ", "OU", "OP"};
+            string[] accountPrefixes = new string[] { "GC", "OX", "OB", "OC", "MZ", "OU", "OP", "GS"};
             foreach (string acc in accountPrefixes)
             {
                 if (AccountInfos.GetAccountInfo(acc) == null)
@@ -195,6 +195,12 @@ namespace GAPPSF.Core
             addCacheType(96007, "OC Moving Cache", "Locationless (Reverse) Cache");
             addCacheType(96008, "OC Quiz Cache", "Unknown Cache");
             addCacheType(96009, "OC Drive-in Cache", "Traditional Cache");
+
+            addCacheType(97001, "Civil", Core.Settings.Default.GeoSpyGPXTagCivil);
+            addCacheType(97002, "Historic and religious", Core.Settings.Default.GeoSpyGPXTagHistoricAndReligious);
+            addCacheType(97003, "Natural", Core.Settings.Default.GeoSpyGPXTagNatural);
+            addCacheType(97004, "Technical", Core.Settings.Default.GeoSpyGPXTagTechnical);
+            addCacheType(97005, "Military", Core.Settings.Default.GeoSpyGPXTagMilitary);
 
             addCacheContainer(0, "Unknown");
             addCacheContainer(1, "Not chosen");

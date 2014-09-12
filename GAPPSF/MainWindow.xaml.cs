@@ -3613,6 +3613,12 @@ namespace GAPPSF
             dlg.ShowDialog();
         }
 
+        private void MenuItem_Click_2v5(object sender, RoutedEventArgs e)
+        {
+            GeoSpy.SettingsWindow dlg = new GeoSpy.SettingsWindow();
+            dlg.ShowDialog();
+        }
+
         private void menudb7_Click(object sender, RoutedEventArgs e)
         {
             Dialogs.SelectAreaWindow dlg = new Dialogs.SelectAreaWindow();

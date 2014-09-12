@@ -498,6 +498,7 @@
                     <MenuItem x:Name="menu2c0" Header="{l:Translate Backup}" Click="MenuItem_Click_1c2" />
                     <MenuItem x:Name="menu2v0" Header="{l:Translate LiveAPI}" Click="MenuItem_Click_1v0" />
                     <MenuItem x:Name="menu2v4" Header="{l:Translate Munzee}" Click="MenuItem_Click_2v4" />
+                    <MenuItem x:Name="menu2v5" Header="{l:Translate GeoSpy}" Click="MenuItem_Click_2v5" />
                     <Separator />
                     <MenuItem x:Name="menubu88" Header="{l:Translate Backup}" Command="{Binding BackupSettingsCommand}" />
                     <MenuItem x:Name="menure2v8" Header="{l:Translate Restore}" Click="MenuItem_Click_2v8" />

@@ -1,0 +1,36 @@
+﻿<Window x:Class="GAPPSF.GeoSpy.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:l="clr-namespace:GAPPSF.Localization"
+        xmlns:p="clr-namespace:GAPPSF.Core"
+        xmlns:ui="clr-namespace:GAPPSF.UIControls"
+        Title="{l:Translate GeoSpy}" Height="250" Width="300" Closing="Window_Closing">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock Margin="4" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{l:Translate SetGeoSpyTypeInGPXExport}" />
+        <TextBlock Margin="4" Grid.Row="1" Grid.Column="0" Text="{l:Translate Civil}" />
+        <ComboBox  Margin="4" Grid.Row="1" Grid.Column="1" IsEditable="True" ItemsSource="{Binding AvailableTags}" Text="{Binding GeoSpyGPXTagCivil, Source={x:Static p:Settings.Default}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock Margin="4" Grid.Row="2" Grid.Column="0" Text="{l:Translate HistoricAndReligious}" />
+        <ComboBox  Margin="4" Grid.Row="2" Grid.Column="1" IsEditable="True" ItemsSource="{Binding AvailableTags}" Text="{Binding GeoSpyGPXTagHistoricAndReligious, Source={x:Static p:Settings.Default}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock Margin="4" Grid.Row="3" Grid.Column="0" Text="{l:Translate Natural}" />
+        <ComboBox  Margin="4" Grid.Row="3" Grid.Column="1" IsEditable="True" ItemsSource="{Binding AvailableTags}" Text="{Binding GeoSpyGPXTagNatural, Source={x:Static p:Settings.Default}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock Margin="4" Grid.Row="4" Grid.Column="0" Text="{l:Translate Technical}" />
+        <ComboBox  Margin="4" Grid.Row="4" Grid.Column="1" IsEditable="True" ItemsSource="{Binding AvailableTags}" Text="{Binding GeoSpyGPXTagTechnical, Source={x:Static p:Settings.Default}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock Margin="4" Grid.Row="5" Grid.Column="0" Text="{l:Translate Military}" />
+        <ComboBox  Margin="4" Grid.Row="5" Grid.Column="1" IsEditable="True" ItemsSource="{Binding AvailableTags}" Text="{Binding GeoSpyGPXTagMilitary, Source={x:Static p:Settings.Default}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+    </Grid>
+</Window>

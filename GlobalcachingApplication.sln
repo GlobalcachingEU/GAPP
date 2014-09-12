@@ -257,6 +257,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Pl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.ExportHTML", "DefaultPlugins\GlobalcachingApplication.Plugins.ExportHTML\GlobalcachingApplication.Plugins.ExportHTML.csproj", "{56F3C3CF-1DD0-4E8F-84C7-DD858FFABB35}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.GeoSpy", "DefaultPlugins\GlobalcachingApplication.Plugins.GeoSpy\GlobalcachingApplication.Plugins.GeoSpy.csproj", "{428F1627-CBBC-4AE2-8E6B-D919BBA3E012}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -2165,6 +2167,22 @@ Global
 		{56F3C3CF-1DD0-4E8F-84C7-DD858FFABB35}.Release|x64.Build.0 = Release|x64
 		{56F3C3CF-1DD0-4E8F-84C7-DD858FFABB35}.Release|x86.ActiveCfg = Release|x86
 		{56F3C3CF-1DD0-4E8F-84C7-DD858FFABB35}.Release|x86.Build.0 = Release|x86
+		{428F1627-CBBC-4AE2-8E6B-D919BBA3E012}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{428F1627-CBBC-4AE2-8E6B-D919BBA3E012}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{428F1627-CBBC-4AE2-8E6B-D919BBA3E012}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{428F1627-CBBC-4AE2-8E6B-D919BBA3E012}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{428F1627-CBBC-4AE2-8E6B-D919BBA3E012}.Debug|x64.ActiveCfg = Debug|x64
+		{428F1627-CBBC-4AE2-8E6B-D919BBA3E012}.Debug|x64.Build.0 = Debug|x64
+		{428F1627-CBBC-4AE2-8E6B-D919BBA3E012}.Debug|x86.ActiveCfg = Debug|x86
+		{428F1627-CBBC-4AE2-8E6B-D919BBA3E012}.Debug|x86.Build.0 = Debug|x86
+		{428F1627-CBBC-4AE2-8E6B-D919BBA3E012}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{428F1627-CBBC-4AE2-8E6B-D919BBA3E012}.Release|Any CPU.Build.0 = Release|Any CPU
+		{428F1627-CBBC-4AE2-8E6B-D919BBA3E012}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{428F1627-CBBC-4AE2-8E6B-D919BBA3E012}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{428F1627-CBBC-4AE2-8E6B-D919BBA3E012}.Release|x64.ActiveCfg = Release|x64
+		{428F1627-CBBC-4AE2-8E6B-D919BBA3E012}.Release|x64.Build.0 = Release|x64
+		{428F1627-CBBC-4AE2-8E6B-D919BBA3E012}.Release|x86.ActiveCfg = Release|x86
+		{428F1627-CBBC-4AE2-8E6B-D919BBA3E012}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

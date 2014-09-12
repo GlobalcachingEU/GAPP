@@ -119,6 +119,7 @@
 							<File Id="plugin94"  Name="GlobalcachingApplication.Plugins.GCComments.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.GCComments.dll" />
 							<File Id="plugin95"  Name="GlobalcachingApplication.Plugins.GAPPSFDataStorage.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.GAPPSFDataStorage.dll" />
 							<File Id="plugin96"  Name="GlobalcachingApplication.Plugins.ExportHTML.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.ExportHTML.dll" />
+							<File Id="plugin97"  Name="GlobalcachingApplication.Plugins.GeoSpy.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.GeoSpy.dll" />
 						</Component>
 					</Directory>
 					<Directory Id="PLUGINDEPDIR" Name="PluginDependencies">
@@ -380,6 +381,10 @@
 									<File Id="dct36"  Name="96007.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/96007.gif" />
 									<File Id="dct37"  Name="96008.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/96008.gif" />
 									<File Id="dct38"  Name="96009.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/96009.gif" />
+									<File Id="dct39"  Name="97001.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/97001.gif" />
+									<File Id="dct40"  Name="97002.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/97002.gif" />
+									<File Id="dct41"  Name="97003.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/97003.gif" />
+									<File Id="dct42"  Name="97004.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/97004.gif" />
 								</Component>
 							</Directory>						
 							<Directory Id="IMAGESDIRDEFCP" Name="compass">
@@ -524,6 +529,14 @@
 									<File Id="mctc45"  Name="c96007.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/c96007.png" />
 									<File Id="mctc46"  Name="c96008.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/c96008.png" />
 									<File Id="mctc47"  Name="c96009.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/c96009.png" />
+									<File Id="mctc48"  Name="97001.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/97001.png" />
+									<File Id="mctc49"  Name="97002.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/97002.png" />
+									<File Id="mctc50"  Name="97003.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/97003.png" />
+									<File Id="mctc51"  Name="97004.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/97004.png" />
+									<File Id="mct48"  Name="c97001.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/c97001.png" />
+									<File Id="mct49"  Name="c97002.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/c97002.png" />
+									<File Id="mct50"  Name="c97003.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/c97003.png" />
+									<File Id="mct51"  Name="c97004.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/c97004.png" />
 								</Component>
 							</Directory>
 						</Directory>

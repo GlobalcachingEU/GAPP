@@ -279,6 +279,7 @@
     <Compile Include="Core\Settings\LogViewerSettings.cs" />
     <Compile Include="Core\Settings\MainWindowSettings.cs" />
     <Compile Include="Core\Settings\MapsSettings.cs" />
+    <Compile Include="Core\Settings\GeoSpySettings.cs" />
     <Compile Include="Core\Settings\MunzeeSettings.cs" />
     <Compile Include="Core\Settings\NotesEditorSettings.cs" />
     <Compile Include="Core\Settings\OfflineImageSettings.cs" />
@@ -667,6 +668,9 @@
     <Compile Include="GDAK\Export.cs" />
     <Compile Include="GDAK\ExportWindow.xaml.cs">
       <DependentUpon>ExportWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GeoSpy\SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="GlobalcachingEU\AutoUpdaterWindow.xaml.cs">
       <DependentUpon>AutoUpdaterWindow.xaml</DependentUpon>
@@ -1222,6 +1226,10 @@
     <Page Include="GDAK\ExportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GeoSpy\SettingsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="GlobalcachingEU\AutoUpdaterWindow.xaml">
       <SubType>Designer</SubType>
@@ -2588,6 +2596,25 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="UIControls\OpenAreas\MultipleGeocache.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\CacheTypes\97001.gif" />
+    <Resource Include="Resources\CacheTypes\97002.gif" />
+    <Resource Include="Resources\CacheTypes\97003.gif" />
+    <Resource Include="Resources\CacheTypes\97004.gif" />
+    <Resource Include="Resources\CacheTypes\97005.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\CacheTypes\Map\97001.png" />
+    <Resource Include="Resources\CacheTypes\Map\97002.png" />
+    <Resource Include="Resources\CacheTypes\Map\97003.png" />
+    <Resource Include="Resources\CacheTypes\Map\97004.png" />
+    <Resource Include="Resources\CacheTypes\Map\97005.png" />
+    <Resource Include="Resources\CacheTypes\Map\c97001.png" />
+    <Resource Include="Resources\CacheTypes\Map\c97002.png" />
+    <Resource Include="Resources\CacheTypes\Map\c97003.png" />
+    <Resource Include="Resources\CacheTypes\Map\c97004.png" />
+    <Resource Include="Resources\CacheTypes\Map\c97005.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

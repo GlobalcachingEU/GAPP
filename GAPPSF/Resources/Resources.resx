@@ -2002,4 +2002,25 @@ This wizard will guide you through the initial setup. Before you start, you migh
   <data name="UpdateMap" xml:space="preserve">
     <value>Update map</value>
   </data>
+  <data name="Civil" xml:space="preserve">
+    <value>Civil</value>
+  </data>
+  <data name="GeoSpy" xml:space="preserve">
+    <value>GeoSpy</value>
+  </data>
+  <data name="HistoricAndReligious" xml:space="preserve">
+    <value>Historic and religious</value>
+  </data>
+  <data name="Military" xml:space="preserve">
+    <value>Military</value>
+  </data>
+  <data name="Natural" xml:space="preserve">
+    <value>Natural</value>
+  </data>
+  <data name="SetGeoSpyTypeInGPXExport" xml:space="preserve">
+    <value>Set GeoSpy type in GPX export</value>
+  </data>
+  <data name="Technical" xml:space="preserve">
+    <value>Technical</value>
+  </data>
 </root>

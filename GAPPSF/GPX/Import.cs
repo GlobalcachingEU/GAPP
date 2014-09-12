@@ -110,6 +110,7 @@ namespace GAPPSF.GPX
 
         public void ImportGPX(string gpxDoc)
         {
+            bool isGeoSpy = false;
             try
             {
                 string firstPart;
@@ -135,7 +136,14 @@ namespace GAPPSF.GPX
                     nsmgr.AddNamespace("x", "http://www.topografix.com/GPX/1/0");
                 }
 
-                if (firstPart.IndexOf("http://www.groundspeak.com/cache/1/0/2", StringComparison.OrdinalIgnoreCase) > 0)
+                if (firstPart.IndexOf("http://geoget.ararat.cz/GpxExtensions/v2", StringComparison.OrdinalIgnoreCase) > 0)
+                {
+                    //GeoSpy
+                    isGeoSpy = true;
+                    _cachesGpxVersion = new Version(1, 0, 0);
+                    nsmgr.AddNamespace("y", "http://www.groundspeak.com/cache/1/0");
+                }
+                else if (firstPart.IndexOf("http://www.groundspeak.com/cache/1/0/2", StringComparison.OrdinalIgnoreCase) > 0)
                 {
                     nsmgr.AddNamespace("y", "http://www.groundspeak.com/cache/1/0/2");
                     _cachesGpxVersion = new Version(1, 0, 2);
@@ -167,7 +175,14 @@ namespace GAPPSF.GPX
                     _cachesGpxVersion = new Version(1, 0, 0);
                 }
 
-                _gpxDataTime = DateTime.Parse(root.SelectSingleNode("x:time", nsmgr).InnerText);
+                if (isGeoSpy)
+                {
+                    _gpxDataTime = DateTime.Parse(root.SelectSingleNode("x:metadata", nsmgr).SelectSingleNode("x:time", nsmgr).InnerText);
+                }
+                else
+                {
+                    _gpxDataTime = DateTime.Parse(root.SelectSingleNode("x:time", nsmgr).InnerText);
+                }
 
                 XmlNodeList wps = root.SelectNodes("x:wpt", nsmgr);
                 if (wps != null)
@@ -175,7 +190,15 @@ namespace GAPPSF.GPX
                     Version V102 = new Version(1, 0, 2);
                     foreach (XmlNode wp in wps)
                     {
-                        XmlNode n = wp.SelectSingleNode("y:cache", nsmgr);
+                        XmlNode n;
+                        if (isGeoSpy)
+                        {
+                            n = wp.SelectSingleNode("x:extensions", nsmgr).SelectSingleNode("y:cache", nsmgr);
+                        }
+                        else
+                        {
+                            n = wp.SelectSingleNode("y:cache", nsmgr);
+                        }
                         if (n == null)
                         {
                             //assume Child waypoint and yeah, well....multiple sources like GC or OB should be handled
@@ -273,11 +296,17 @@ namespace GAPPSF.GPX
                             gc.Lat = Utils.Conversion.StringToDouble(SafeAttributeInnerText(wp, "lat", "0.0"));
                             gc.Lon = Utils.Conversion.StringToDouble(SafeAttributeInnerText(wp, "lon", "0.0"));
                             gc.Code = code;
-                            n = wp.SelectSingleNode("y:cache", nsmgr);
                             gc.DataFromDate = _gpxDataTime;
                             gc.Name = n.SelectSingleNode("y:name", nsmgr).InnerText;
                             gc.PublishedTime = DateTime.Parse(wp.SelectSingleNode("x:time", nsmgr).InnerText);
-                            gc.Url = SafeInnerText(wp.SelectSingleNode("x:url", nsmgr), "");
+                            if (isGeoSpy)
+                            {
+                                gc.Url = wp.SelectSingleNode("x:link", nsmgr).Attributes["href"].Value;
+                            }
+                            else
+                            {
+                                gc.Url = SafeInnerText(wp.SelectSingleNode("x:url", nsmgr), "");
+                            }
                             if (SafeInnerText(wp.SelectSingleNode("x:sym", nsmgr), "").EndsWith(" Found"))
                             {
                                 gc.Found = true;
@@ -313,7 +342,14 @@ namespace GAPPSF.GPX
                                     }
                                 }
                                 gc.GeocacheType = Utils.DataAccess.GetGeocacheType(srchTxt);
-                                gc.Container = Utils.DataAccess.GetGeocacheContainer(SafeInnerText(n.SelectSingleNode("y:container", nsmgr), "Unknown"));
+                                if (isGeoSpy)
+                                {
+                                    gc.Container = Utils.DataAccess.GetGeocacheContainer("Virtual");
+                                }
+                                else
+                                {
+                                    gc.Container = Utils.DataAccess.GetGeocacheContainer(SafeInnerText(n.SelectSingleNode("y:container", nsmgr), "Unknown"));
+                                }
                             }
                             gc.PlacedBy = SafeInnerText(n.SelectSingleNode("y:placed_by", nsmgr), "");
                             gc.Owner = SafeInnerText(n.SelectSingleNode("y:owner", nsmgr), "");
@@ -399,7 +435,14 @@ namespace GAPPSF.GPX
                                             lg.DataFromDate = _gpxDataTime;
                                             lg.Date = DateTime.Parse(l.SelectSingleNode("y:date", nsmgr).InnerText);
                                             lg.Encoded = bool.Parse(l.SelectSingleNode("y:text", nsmgr).Attributes["encoded"].InnerText);
-                                            lg.Text = l.SelectSingleNode("y:text", nsmgr).InnerText;
+                                            if (isGeoSpy)
+                                            {
+                                                lg.Text = GAPPSF.Utils.Conversion.StripHtmlTags(System.Web.HttpUtility.HtmlDecode(l.SelectSingleNode("y:text", nsmgr).InnerText).Replace("</p>", "\r\n\r\n"));
+                                            }
+                                            else
+                                            {
+                                                lg.Text = l.SelectSingleNode("y:text", nsmgr).InnerText;
+                                            }
                                             lg.Finder = l.SelectSingleNode("y:finder", nsmgr).InnerText;
                                             if (l.SelectSingleNode("y:finder", nsmgr).Attributes["id"] != null)
                                             {

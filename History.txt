@@ -7,6 +7,10 @@ todo GAPP SF:
 
 todo GAPP/GAPP SF
 
+V1.11.0.0
+- gapp: add: Added GeoSpy support
+- gappsf: add: Added GeoSpy support
+
 V1.10.9.0
 - gapp: fix: Cache list refresh when showing cache list after it has been closed
 - gapp: fix: GSAK database import can handle empty LastGPXDate now
