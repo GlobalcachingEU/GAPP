@@ -385,6 +385,7 @@
 									<File Id="dct40"  Name="97002.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/97002.gif" />
 									<File Id="dct41"  Name="97003.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/97003.gif" />
 									<File Id="dct42"  Name="97004.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/97004.gif" />
+									<File Id="dct43"  Name="97005.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/97005.gif" />
 								</Component>
 							</Directory>						
 							<Directory Id="IMAGESDIRDEFCP" Name="compass">
@@ -537,6 +538,8 @@
 									<File Id="mct49"  Name="c97002.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/c97002.png" />
 									<File Id="mct50"  Name="c97003.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/c97003.png" />
 									<File Id="mct51"  Name="c97004.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/c97004.png" />
+									<File Id="mctc52"  Name="97005.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/97005.png" />
+									<File Id="mct53"  Name="c97005.png" Source="../GlobalcachingApplication/bin/Release/Images/Map/cachetypes/c97005.png" />
 								</Component>
 							</Directory>
 						</Directory>
