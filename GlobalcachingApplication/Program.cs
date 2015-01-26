@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.ApplicationServices;
+using CefSharp;
 
 namespace GlobalcachingApplication
 {
@@ -41,6 +42,11 @@ namespace GlobalcachingApplication
 
         protected override void OnCreateMainForm()
         {
+            var settings = new CefSettings();
+            if (!Cef.Initialize(settings))
+            {
+                throw new Exception("Unable to Initialize Cef");
+            } 
             MainForm = new FormMain();
         }
     }

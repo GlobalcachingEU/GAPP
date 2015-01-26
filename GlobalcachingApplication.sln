@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2013 for Windows Desktop
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication", "GlobalcachingApplication\GlobalcachingApplication.csproj", "{1C2F3389-8484-42EB-82FD-BF2E0D79A6DF}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -248,10 +248,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.OKAPI", "DefaultPlugins\GlobalcachingApplication.Plugins.OKAPI\GlobalcachingApplication.Plugins.OKAPI.csproj", "{5726AE9F-FD8C-447D-8651-834CB379FA77}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.GCComments", "DefaultPlugins\GlobalcachingApplication.Plugins.GCComments\GlobalcachingApplication.Plugins.GCComments.csproj", "{197BCEE3-832F-4CD2-A15B-73BB4FBD489B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GAPPSF", "GAPPSF\GAPPSF.csproj", "{DEE3C2B3-236E-42AC-BD54-2EA0100BCEF9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.GCEU", "DevelopPlugins\GlobalcachingApplication.Plugins.GCEU\GlobalcachingApplication.Plugins.GCEU.csproj", "{61B7D794-F405-4FA8-9E65-2BB2669C0C97}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.GAPPSFDataStorage", "DefaultPlugins\GlobalcachingApplication.Plugins.GAPPSFDataStorage\GlobalcachingApplication.Plugins.GAPPSFDataStorage.csproj", "{E49DB116-6A23-481B-A56C-84EEBBCC9B87}"
 EndProject
@@ -2103,38 +2099,6 @@ Global
 		{197BCEE3-832F-4CD2-A15B-73BB4FBD489B}.Release|x64.Build.0 = Release|x64
 		{197BCEE3-832F-4CD2-A15B-73BB4FBD489B}.Release|x86.ActiveCfg = Release|x86
 		{197BCEE3-832F-4CD2-A15B-73BB4FBD489B}.Release|x86.Build.0 = Release|x86
-		{DEE3C2B3-236E-42AC-BD54-2EA0100BCEF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DEE3C2B3-236E-42AC-BD54-2EA0100BCEF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DEE3C2B3-236E-42AC-BD54-2EA0100BCEF9}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{DEE3C2B3-236E-42AC-BD54-2EA0100BCEF9}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{DEE3C2B3-236E-42AC-BD54-2EA0100BCEF9}.Debug|x64.ActiveCfg = Debug|x64
-		{DEE3C2B3-236E-42AC-BD54-2EA0100BCEF9}.Debug|x64.Build.0 = Debug|x64
-		{DEE3C2B3-236E-42AC-BD54-2EA0100BCEF9}.Debug|x86.ActiveCfg = Debug|x86
-		{DEE3C2B3-236E-42AC-BD54-2EA0100BCEF9}.Debug|x86.Build.0 = Debug|x86
-		{DEE3C2B3-236E-42AC-BD54-2EA0100BCEF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DEE3C2B3-236E-42AC-BD54-2EA0100BCEF9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DEE3C2B3-236E-42AC-BD54-2EA0100BCEF9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{DEE3C2B3-236E-42AC-BD54-2EA0100BCEF9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{DEE3C2B3-236E-42AC-BD54-2EA0100BCEF9}.Release|x64.ActiveCfg = Release|x64
-		{DEE3C2B3-236E-42AC-BD54-2EA0100BCEF9}.Release|x64.Build.0 = Release|x64
-		{DEE3C2B3-236E-42AC-BD54-2EA0100BCEF9}.Release|x86.ActiveCfg = Release|x86
-		{DEE3C2B3-236E-42AC-BD54-2EA0100BCEF9}.Release|x86.Build.0 = Release|x86
-		{61B7D794-F405-4FA8-9E65-2BB2669C0C97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{61B7D794-F405-4FA8-9E65-2BB2669C0C97}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{61B7D794-F405-4FA8-9E65-2BB2669C0C97}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{61B7D794-F405-4FA8-9E65-2BB2669C0C97}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{61B7D794-F405-4FA8-9E65-2BB2669C0C97}.Debug|x64.ActiveCfg = Debug|x64
-		{61B7D794-F405-4FA8-9E65-2BB2669C0C97}.Debug|x64.Build.0 = Debug|x64
-		{61B7D794-F405-4FA8-9E65-2BB2669C0C97}.Debug|x86.ActiveCfg = Debug|x86
-		{61B7D794-F405-4FA8-9E65-2BB2669C0C97}.Debug|x86.Build.0 = Debug|x86
-		{61B7D794-F405-4FA8-9E65-2BB2669C0C97}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{61B7D794-F405-4FA8-9E65-2BB2669C0C97}.Release|Any CPU.Build.0 = Release|Any CPU
-		{61B7D794-F405-4FA8-9E65-2BB2669C0C97}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{61B7D794-F405-4FA8-9E65-2BB2669C0C97}.Release|Mixed Platforms.Build.0 = Release|x86
-		{61B7D794-F405-4FA8-9E65-2BB2669C0C97}.Release|x64.ActiveCfg = Release|x64
-		{61B7D794-F405-4FA8-9E65-2BB2669C0C97}.Release|x64.Build.0 = Release|x64
-		{61B7D794-F405-4FA8-9E65-2BB2669C0C97}.Release|x86.ActiveCfg = Release|x86
-		{61B7D794-F405-4FA8-9E65-2BB2669C0C97}.Release|x86.Build.0 = Release|x86
 		{E49DB116-6A23-481B-A56C-84EEBBCC9B87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E49DB116-6A23-481B-A56C-84EEBBCC9B87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E49DB116-6A23-481B-A56C-84EEBBCC9B87}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

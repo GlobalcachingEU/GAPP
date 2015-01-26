@@ -799,37 +799,12 @@ namespace GlobalcachingApplication.Core
             }
         }
 
-        private bool checkDotNetRequirements()
-        {
-            bool result = false;
-
-            try
-            {
-                using (RegistryKey v4 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full"))
-                {
-                    if (v4 != null)
-                    {
-                        object o = v4.GetValue("Install");
-                        result = (int)o == 1;
-                    }
-                }
-            }
-            catch
-            {
-            }
-            if (!result)
-            {
-                result = System.Windows.Forms.MessageBox.Show("This program requires .NET 4 Full, but has not been found on your machine. The program will not run properly. You will get error messages related to 'System.Web'.\r\nContinue anyway?", "Error", System.Windows.Forms.MessageBoxButtons.YesNo, System.Windows.Forms.MessageBoxIcon.Exclamation, System.Windows.Forms.MessageBoxDefaultButton.Button2) == System.Windows.Forms.DialogResult.Yes;
-            }
-            return result;
-        }
-
         public bool Initialize()
         {
             bool result = false;
             try
             {
-                if (_pluginDataFolderSelected && checkDotNetRequirements())
+                if (_pluginDataFolderSelected)
                 {
                     List<Framework.Interfaces.IPlugin> pins = new List<Framework.Interfaces.IPlugin>();
                     result = LoadAssemblyFolder(pins, Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Plugins"));
