@@ -4,7 +4,6 @@ var selectedmarkers = [];
 var curposMarker;
 var wptmarkers = [];
 var markerClusterer = null;
-var selectedMarker = "";
 var ignoreCenter = false;
 var custonOverlays = [];
 var geocoder;
@@ -19,24 +18,6 @@ var activeInfoWindow;
 
 //icons
 
-if (!window.JSON) {
-  window.JSON = {
-    parse: function (sJSON) { return eval("(" + sJSON + ")"); },
-    stringify: function (vContent) {
-      if (vContent instanceof Object) {
-        var sOutput = "";
-        if (vContent.constructor === Array) {
-          for (var nId = 0; nId < vContent.length; sOutput += this.stringify(vContent[nId]) + ",", nId++);
-          return "[" + sOutput.substr(0, sOutput.length - 1) + "]";
-        }
-        if (vContent.toString !== Object.prototype.toString) { return "\"" + vContent.toString().replace(/"/g, "\\$&") + "\""; }
-        for (var sProp in vContent) { sOutput += "\"" + sProp.replace(/"/g, "\\$&") + "\":" + this.stringify(vContent[sProp]) + ","; }
-        return "{" + sOutput.substr(0, sOutput.length - 1) + "}";
-      }
-      return typeof vContent === "string" ? "\"" + vContent.replace(/"/g, "\\$&") + "\"" : String(vContent);
-    }
-  };
-}
 
 function init() {
 	/*
@@ -96,6 +77,7 @@ function init() {
     });
 
     curposMarker = new google.maps.Marker({ title: 'none', 'map': map, draggable: false, icon: curposIcon, position: map.getCenter(), flat: true, visible: false });
+	bound.pageReady();
 }
 
 function setMapCenter(lat, lon) {
@@ -117,9 +99,9 @@ function updateWaypoints(wpList) {
 		wptmarkers[i].setMap(null);
 	}
 	wptmarkers.length = 0;
-    eval("var wps = " + wpList); //wpcode (a), lat (b), lon (c), wpic (d)
+	var wps = wpList;
 	for (var i = 0; i < wps.length; i++) {
-		wptmarkers.push(createWaypoint(wps[i].a,new google.maps.LatLng(wps[i].b, wps[i].c), wps[i].d, wps[i].e));
+		wptmarkers.push(createWaypoint(wps[i].a,new google.maps.LatLng(wps[i].b, wps[i].c), eval(wps[i].d), wps[i].e));
 	}
 }
 
@@ -136,16 +118,7 @@ function createWaypoint(id,point,ic,balloonCnt) {
 }
 
 function setSelectedGeocaches(gcList) {
-	var wps;
-    //eval("wps = " + gcList); //[1,0,...]
-	try
-	{
-		wps = JSON.parse(gcList);
-	}
-	catch(err)
-	{
-		//alert(err.message);
-	}
+	var wps = gcList;
 	for (var i = 0; i < selectedmarkers.length; i++) {
 		selectedmarkers[i].setMap(null);
 	}
@@ -169,16 +142,7 @@ function updateGeocaches(gcList) {
     if (markerClusterer != null) {
         markerClusterer.clearMarkers();
     }
-	var wps;
-    //eval("wps = " + gcList); //gccode (a), lat (b), lon (c), gcic (d)
-	try
-	{
-		wps = JSON.parse(gcList);
-	}
-	catch(err)
-	{
-		//alert(err.message);
-	}
+	var wps = gcList;
 	markers.length = 0;
 	for (var i = 0; i < wps.length; i++) {
 		var marker = new google.maps.Marker({
@@ -206,15 +170,10 @@ function addClickListener(marker) {
 	var gccode = marker.getTitle();
 	google.maps.event.addListener(marker, 'click', function () {
 		ignoreCenter = true;
-		selectedMarker = gccode;
+		bound.geocacheClicked(gccode);
 	});
 }
 
-function getSelectedGeocache() {
-	var tmp = selectedMarker;
-	selectedMarker = "";
-	return tmp;
-}
 
 function setGeocache(cacheType, gccode, name, lat, lon, gcic) {
     if (gccode.toString().length > 0) {
@@ -237,7 +196,7 @@ function setGeocache(cacheType, gccode, name, lat, lon, gcic) {
 }
 
 function addPolygons(polys) {
-    eval("var ps = " + polys);
+    var ps = polys;
     for (var i=0; i<ps.length; i++) {
         createArea(ps[i]);
     }

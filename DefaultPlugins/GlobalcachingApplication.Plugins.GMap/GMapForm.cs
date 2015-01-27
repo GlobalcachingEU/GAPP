@@ -9,6 +9,9 @@ using System.Windows.Forms;
 using System.IO;
 using System.Reflection;
 using System.Web;
+using GlobalcachingApplication.Utils.Controls;
+using System.Globalization;
+using System.Web.Script.Serialization;
 
 namespace GlobalcachingApplication.Plugins.GMap
 {
@@ -33,6 +36,9 @@ namespace GlobalcachingApplication.Plugins.GMap
         private string _defaultMultipleGeocachehtml = "";
         private string _defaultMultipleGeocachejs = "";
 
+        private GAPPWebBrowser _webBrowser = null;
+        private bool _webpageLoaded = false;
+
         private enum MapType
         {
             None,
@@ -51,6 +57,33 @@ namespace GlobalcachingApplication.Plugins.GMap
             MapSettingsChanged,
         }
 
+        public class JSCallBack
+        {
+            private GMapForm _parent;
+
+            public JSCallBack(GMapForm parent)
+            {
+                _parent = parent;
+            }
+
+            public void PageReady()
+            {
+                _parent._webpageLoaded = true;
+                _parent.BeginInvoke((Action)(() =>
+                {
+                    _parent.UpdateView(MapUpdateReason.Init);
+                }));
+            }
+
+            public void GeocacheClicked(string code)
+            {
+                _parent.BeginInvoke((Action)(() =>
+                {
+                    _parent.geocacheClicked(code);
+                }));
+            }
+        }
+
         public GMapForm()
         {
             InitializeComponent();
@@ -60,6 +93,10 @@ namespace GlobalcachingApplication.Plugins.GMap
             : base(owner, core)
         {
             InitializeComponent();
+
+            _webBrowser = new GAPPWebBrowser("");
+            panel2.Controls.Add(_webBrowser);
+            _webBrowser.Browser.RegisterJsObject("bound", new JSCallBack(this)); 
 
             if (Properties.Settings.Default.UpgradeNeeded)
             {
@@ -129,7 +166,7 @@ namespace GlobalcachingApplication.Plugins.GMap
         {
             if (Visible)
             {
-                executeScript("setCurrentPosition", new object[] { e.Location.Valid, e.Location.Position.Lat, e.Location.Position.Lon });
+                executeScript(string.Format("setCurrentPosition({0}, {1}, {2})", e.Location.Valid.ToString().ToLower(), e.Location.Position.Lat.ToString(CultureInfo.InvariantCulture), e.Location.Position.Lon.ToString(CultureInfo.InvariantCulture)));
                 if (button3.Visible != e.Location.Valid)
                 {
                     button3.Visible = e.Location.Valid;
@@ -236,52 +273,58 @@ namespace GlobalcachingApplication.Plugins.GMap
         private string setIcons(string template)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine(string.Format("var foundIcon = new google.maps.MarkerImage(\"{0}\");", System.IO.Path.Combine(new string[] { System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), "Images", "Map", "cachetypes", "gevonden.png" }).Replace("\\", "\\\\")));
-            sb.AppendLine(string.Format("var curposIcon = new google.maps.MarkerImage(\"{0}\");", System.IO.Path.Combine(new string[] { System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), "Images", "Map", "curpos.png" }).Replace("\\", "\\\\")));
-            sb.AppendLine(string.Format("var selectedIcon = new google.maps.MarkerImage(\"{0}\");", System.IO.Path.Combine(new string[] { System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), "Images", "Map", "selected.png" }).Replace("\\", "\\\\")));
+            sb.AppendLine(string.Format("var foundIcon = new google.maps.MarkerImage(\"gapp://{0}\");", System.IO.Path.Combine(new string[] { System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), "Images", "Map", "cachetypes", "gevonden.png" }).Replace("\\", "\\\\")));
+            sb.AppendLine(string.Format("var curposIcon = new google.maps.MarkerImage(\"gapp://{0}\");", System.IO.Path.Combine(new string[] { System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), "Images", "Map", "curpos.png" }).Replace("\\", "\\\\")));
+            sb.AppendLine(string.Format("var selectedIcon = new google.maps.MarkerImage(\"gapp://{0}\");", System.IO.Path.Combine(new string[] { System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), "Images", "Map", "selected.png" }).Replace("\\", "\\\\")));
             foreach (Framework.Data.GeocacheType gctype in Core.GeocacheTypes)
             {
-                sb.AppendLine(string.Format("var gct{0}Icon = new google.maps.MarkerImage(\"{1}\");", gctype.ID.ToString().Replace("-","_"), Utils.ImageSupport.Instance.GetImagePath(Core, Framework.Data.ImageSize.Map, gctype).Replace("\\","\\\\")));
-                sb.AppendLine(string.Format("var gct{0}IconC = new google.maps.MarkerImage(\"{1}\");", gctype.ID.ToString().Replace("-", "_"), Utils.ImageSupport.Instance.GetImagePath(Core, Framework.Data.ImageSize.Map, gctype, true).Replace("\\", "\\\\")));
+                sb.AppendLine(string.Format("var gct{0}Icon = new google.maps.MarkerImage(\"gapp://{1}\");", gctype.ID.ToString().Replace("-", "_"), Utils.ImageSupport.Instance.GetImagePath(Core, Framework.Data.ImageSize.Map, gctype).Replace("\\", "\\\\")));
+                sb.AppendLine(string.Format("var gct{0}IconC = new google.maps.MarkerImage(\"gapp://{1}\");", gctype.ID.ToString().Replace("-", "_"), Utils.ImageSupport.Instance.GetImagePath(Core, Framework.Data.ImageSize.Map, gctype, true).Replace("\\", "\\\\")));
             }
             foreach (Framework.Data.WaypointType wptype in Core.WaypointTypes)
             {
-                sb.AppendLine(string.Format("var wpt{0}Icon = new google.maps.MarkerImage(\"{1}\");", wptype.ID.ToString().Replace("-", "_"), Utils.ImageSupport.Instance.GetImagePath(Core, Framework.Data.ImageSize.Map, wptype).Replace("\\", "\\\\")));
+                sb.AppendLine(string.Format("var wpt{0}Icon = new google.maps.MarkerImage(\"gapp://{1}\");", wptype.ID.ToString().Replace("-", "_"), Utils.ImageSupport.Instance.GetImagePath(Core, Framework.Data.ImageSize.Map, wptype).Replace("\\", "\\\\")));
             }
             return template.Replace("//icons", sb.ToString());
         }
 
+        private class WaypointInfo
+        {
+            public string a { get; set; }
+            public double b { get; set; }
+            public double c { get; set; }
+            public string d { get; set; }
+            public string e { get; set; }
+        }
         private void addWaypointsToMap(List<Framework.Data.Waypoint> wpList)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("[");
-            bool first = true;
+            List<WaypointInfo> wpInfoList = new List<WaypointInfo>();
             if (wpList != null)
             {
                 foreach (Framework.Data.Waypoint wp in wpList)
                 {
                     if (wp.Lat != null && wp.Lon != null)
                     {
-                        if (!first)
-                        {
-                            sb.Append(",");
-                        }
-                        else
-                        {
-                            first = false;
-                        }
                         StringBuilder bln = new StringBuilder();
-                        bln.AppendFormat("{0}<br />", Utils.Conversion.GetCoordinatesPresentation((double)wp.Lat,(double)wp.Lon));
+                        bln.AppendFormat("{0}<br />", Utils.Conversion.GetCoordinatesPresentation((double)wp.Lat, (double)wp.Lon));
                         bln.AppendFormat("{0}<br />", wp.Code);
                         bln.AppendFormat("{0}<br />", HttpUtility.HtmlEncode(Utils.LanguageSupport.Instance.GetTranslation(wp.WPType.Name)));
                         bln.AppendFormat("{0}<br />", HttpUtility.HtmlEncode(wp.Description)).Replace("\r\n", "<br />").Replace("\n", "");
                         bln.AppendFormat("{0}", HttpUtility.HtmlEncode(wp.Comment).Replace("\r\n", "<br />").Replace("\n", ""));
-                        sb.AppendLine(string.Format("{{a: '{0}', b: {1}, c: {2}, d: wpt{3}Icon, e: '{4}'}}", wp.Code, wp.Lat.ToString().Replace(',', '.'), wp.Lon.ToString().Replace(',', '.'), wp.WPType.ID.ToString().Replace("-", "_"), bln.ToString().Replace("'", "")));
+                        
+                        WaypointInfo wpi = new WaypointInfo();
+                        wpi.a = wp.Code;
+                        wpi.b = (double)wp.Lat;
+                        wpi.c = (double)wp.Lon;
+                        wpi.d = string.Format("wpt{0}Icon", wp.WPType.ID.ToString().Replace("-", "_"));
+                        wpi.e = bln.ToString();
+                        wpInfoList.Add(wpi);
                     }
                 }
             }
-            sb.Append("]");
-            executeScript("updateWaypoints", new object[] { sb.ToString() });
+            var jsonSerialiser = new JavaScriptSerializer();
+            var json = jsonSerialiser.Serialize(wpInfoList);
+            executeScript(string.Format("updateWaypoints({0})", json));
         }
 
         private void markSelectedGeocaches(List<Framework.Data.Geocache> gcList)
@@ -302,66 +345,65 @@ namespace GlobalcachingApplication.Plugins.GMap
                 sb.Append(gc.Selected ? "1" : "0");
             }
             sb.Append("]");
-            executeScript("setSelectedGeocaches", new object[] { sb.ToString() });
+            executeScript(string.Format("setSelectedGeocaches({0})", sb.ToString()));
         }
 
+        private class GCInfo
+        {
+            public string a { get; set; }
+            public double b { get; set; }
+            public double c { get; set; }
+            public string d { get; set; }
+        }
         private void addGeocachesToMap(List<Framework.Data.Geocache> gcList)
         {
-            string coordAccuracy = "0.00000";
-
-            StringBuilder sb = new StringBuilder();
-            sb.Append("[");
-            bool first = true;
+            List<GCInfo> gcil = new List<GCInfo>();
             foreach (Framework.Data.Geocache gc in gcList)
             {
-                if (!first)
-                {
-                    sb.Append(",");
-                }
-                else
-                {
-                    first = false;
-                }
-                string tt;
+                var gci = new GCInfo();
                 if (Properties.Settings.Default.ShowNameInToolTip && gc.Name!=null)
                 {
-                    tt = string.Format("{0}, {1}", gc.Code, gc.Name.Replace('"', ' ').Replace('\'', ' ').Replace('\r', ' ').Replace('\n', ' ').Replace('\t', ' ').Replace('\\', ' '));
+                    gci.a = string.Format("{0}, {1}", gc.Code, gc.Name.Replace('"', ' ').Replace('\'', ' ').Replace('\r', ' ').Replace('\n', ' ').Replace('\t', ' ').Replace('\\', ' '));
                 }
                 else
                 {
-                    tt = gc.Code;
+                    gci.a = gc.Code;
                 }
                 if (gc.Found)
                 {
-                    if (gc.ContainsCustomLatLon)
-                    {
-                        sb.AppendLine(string.Format("{{\"a\":\"{0}\",\"b\":{1},\"c\":{2},\"d\":\"foundIcon\"}}", tt, ((double)gc.CustomLat).ToString(coordAccuracy).Replace(',', '.'), ((double)gc.CustomLon).ToString(coordAccuracy).Replace(',', '.')));
-                    }
-                    else
-                    {
-                        sb.AppendLine(string.Format("{{\"a\":\"{0}\",\"b\":{1},\"c\":{2},\"d\":\"foundIcon\"}}", tt, gc.Lat.ToString(coordAccuracy).Replace(',', '.'), gc.Lon.ToString(coordAccuracy).Replace(',', '.')));
-                    }
+                    gci.d = "foundIcon";
                 }
                 else
                 {
                     if (gc.ContainsCustomLatLon)
                     {
-                        sb.AppendLine(string.Format("{{\"a\":\"{0}\",\"b\":{1},\"c\":{2},\"d\":\"gct{3}IconC\"}}", tt, ((double)gc.CustomLat).ToString(coordAccuracy).Replace(',', '.'), ((double)gc.CustomLon).ToString(coordAccuracy).Replace(',', '.'), gc.GeocacheType.ID.ToString().Replace("-", "_")));
+                        gci.d = string.Format("gct{0}IconC", gc.GeocacheType.ID.ToString().Replace("-", "_"));
                     }
                     else
                     {
-                        sb.AppendLine(string.Format("{{\"a\":\"{0}\",\"b\":{1},\"c\":{2},\"d\":\"gct{3}Icon\"}}", tt, gc.Lat.ToString(coordAccuracy).Replace(',', '.'), gc.Lon.ToString(coordAccuracy).Replace(',', '.'), gc.GeocacheType.ID.ToString().Replace("-", "_")));
+                        gci.d = string.Format("gct{0}Icon", gc.GeocacheType.ID.ToString().Replace("-", "_"));
                     }
                 }
+                if (gc.ContainsCustomLatLon)
+                {
+                    gci.b = (double)gc.CustomLat;
+                    gci.c = (double)gc.CustomLon;
+                }
+                else
+                {
+                    gci.b = (double)gc.Lat;
+                    gci.c = (double)gc.Lon;
+                }
+                gcil.Add(gci);
             }
-            sb.Append("]");
-            executeScript("updateGeocaches", new object[] { sb.ToString() });
+            var jsonSerialiser = new JavaScriptSerializer();
+            var json = jsonSerialiser.Serialize(gcil);
+            executeScript(string.Format("updateGeocaches({0})", json));
         }
 
         public void UpdateView(MapUpdateReason reason)
         {
             Core.DebugLog(Framework.Data.DebugLogLevel.Info, OwnerPlugin, null, string.Format("GMap: UpdateView({0})", reason));
-            timer1.Enabled = false;
             if (radioButtonActive.Checked && (_activeMapType != MapType.SingleGeocache || reason== MapUpdateReason.MapSettingsChanged))
             {
                 _activeMapType = MapType.SingleGeocache;
@@ -380,7 +422,7 @@ namespace GlobalcachingApplication.Plugins.GMap
                 DisplayHtml(_defaultMultipleGeocachehtml.Replace("<!-- %MultipleGeocache.js% -->", setIcons(_defaultMultipleGeocachejs)));
                 reason = MapUpdateReason.Init;
             }
-            if (webBrowser1.ReadyState == WebBrowserReadyState.Complete)
+            if (_webpageLoaded)
             {
                 switch (_activeMapType)
                 {
@@ -405,32 +447,30 @@ namespace GlobalcachingApplication.Plugins.GMap
                                                        select wp).OrderBy(x => x.Code).ToList());
                             }
                         }
-                        timer1.Enabled = true;
                         break;
                     case MapType.SelectedGeocaches:
                         if (reason == MapUpdateReason.Init || reason == MapUpdateReason.DataChanged || reason == MapUpdateReason.SelectedChanged)
                         {
                             addGeocachesToMap(Utils.DataAccess.GetSelectedGeocaches(Core.Geocaches));
                         }
-                        timer1.Enabled = true;
                         break;
                 }
 
                 //and always do:
                 if (Core.ActiveGeocache == null)
                 {
-                    executeScript("setGeocache", new object[] { "", "", "", Core.CenterLocation.Lat, Core.CenterLocation.Lon, "" });
+                    executeScript(string.Format("setGeocache('','','', {0}, {1},'')", Core.CenterLocation.Lat.ToString(CultureInfo.InvariantCulture), Core.CenterLocation.Lon.ToString(CultureInfo.InvariantCulture)));
                     addWaypointsToMap(null);
                 }
                 else
                 {
                     if (Core.ActiveGeocache.ContainsCustomLatLon)
                     {
-                        executeScript("setGeocache", new object[] { Utils.ImageSupport.Instance.GetImagePath(Core, Framework.Data.ImageSize.Medium, Core.ActiveGeocache.GeocacheType), Core.ActiveGeocache.Code, HttpUtility.HtmlEncode(Core.ActiveGeocache.Name), Core.ActiveGeocache.CustomLat, Core.ActiveGeocache.CustomLon, string.Format("gct{0}IconC", Core.ActiveGeocache.GeocacheType.ID.ToString().Replace("-", "_")) });
+                        executeScript(string.Format("setGeocache('gapp://{0}', '{1}','{2}', {3}, {4}, '{5}')", Utils.ImageSupport.Instance.GetImagePath(Core, Framework.Data.ImageSize.Medium, Core.ActiveGeocache.GeocacheType), Core.ActiveGeocache.Code, HttpUtility.HtmlEncode(Core.ActiveGeocache.Name), ((double)Core.ActiveGeocache.CustomLat).ToString(CultureInfo.InvariantCulture), ((double)Core.ActiveGeocache.CustomLon).ToString(CultureInfo.InvariantCulture), string.Format("gct{0}IconC", Core.ActiveGeocache.GeocacheType.ID.ToString().Replace("-", "_"))));
                     }
                     else
                     {
-                        executeScript("setGeocache", new object[] { Utils.ImageSupport.Instance.GetImagePath(Core, Framework.Data.ImageSize.Medium, Core.ActiveGeocache.GeocacheType), Core.ActiveGeocache.Code, HttpUtility.HtmlEncode(Core.ActiveGeocache.Name), Core.ActiveGeocache.Lat, Core.ActiveGeocache.Lon, string.Format("gct{0}Icon", Core.ActiveGeocache.GeocacheType.ID.ToString().Replace("-", "_")) });
+                        executeScript(string.Format("setGeocache('gapp://{0}', '{1}','{2}', {3}, {4}, '{5}')", Utils.ImageSupport.Instance.GetImagePath(Core, Framework.Data.ImageSize.Medium, Core.ActiveGeocache.GeocacheType).Replace('\\','/'), Core.ActiveGeocache.Code, HttpUtility.HtmlEncode(Core.ActiveGeocache.Name), Core.ActiveGeocache.Lat.ToString(CultureInfo.InvariantCulture), Core.ActiveGeocache.Lon.ToString(CultureInfo.InvariantCulture), string.Format("gct{0}Icon", Core.ActiveGeocache.GeocacheType.ID.ToString().Replace("-", "_"))));
                     }
                     addWaypointsToMap(Utils.DataAccess.GetWaypointsFromGeocache(Core.Waypoints,Core.ActiveGeocache.Code));
                 }
@@ -439,11 +479,6 @@ namespace GlobalcachingApplication.Plugins.GMap
 
         private void DisplayHtml(string html)
         {
-            webBrowser1.Navigate("about:blank");
-            if (webBrowser1.Document != null)
-            {
-                webBrowser1.Document.Write(string.Empty);
-            }
             html = html.Replace("SLoadingS", Utils.LanguageSupport.Instance.GetTranslation(STR_SHOWGEOCACHES));
             html = html.Replace("SLocationS", Utils.LanguageSupport.Instance.GetTranslation(STR_LOCATION));
             html = html.Replace("SGoS", Utils.LanguageSupport.Instance.GetTranslation(STR_GO));
@@ -451,19 +486,13 @@ namespace GlobalcachingApplication.Plugins.GMap
             html = html.Replace("//clusterOptions.maxZoom", string.Format("clusterOptions.maxZoom = {0};", Properties.Settings.Default.ClusterMarkerMaxZoomLevel));
             html = html.Replace("//clusterOptions.gridSize", string.Format("clusterOptions.gridSize = {0};", Properties.Settings.Default.ClusterMarkerGridSize));
 
-            webBrowser1.DocumentText = html;
+            _webpageLoaded = false;
+            _webBrowser.DocumentText = html;
         }
 
-        private object executeScript(string script, object[] pars)
+        private object executeScript(string script)
         {
-            if (pars == null)
-            {
-                return webBrowser1.Document.InvokeScript(script);
-            }
-            else
-            {
-                return webBrowser1.Document.InvokeScript(script, pars);
-            }
+            return _webBrowser.InvokeScript(script);
         }
 
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
@@ -474,6 +503,7 @@ namespace GlobalcachingApplication.Plugins.GMap
                 return;
             }
             UpdateView(MapUpdateReason.Init);
+            /*
             if (webBrowser1.Document != null)
             {
                 foreach(HtmlElement el in webBrowser1.Document.GetElementsByTagName("div"))
@@ -481,6 +511,7 @@ namespace GlobalcachingApplication.Plugins.GMap
                     el.AttachEventHandler("onmouseenter", delegate { mousemoveEventHandler(el, EventArgs.Empty); });
                 }
             }
+             * */
         }
         public void mousemoveEventHandler(object sender, EventArgs e)
         {
@@ -505,29 +536,20 @@ namespace GlobalcachingApplication.Plugins.GMap
             UpdateView(MapUpdateReason.MapSettingsChanged);
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void geocacheClicked(string code)
         {
-            if (webBrowser1.ReadyState == WebBrowserReadyState.Complete)
+            if (!string.IsNullOrEmpty(code))
             {
-                object o = executeScript("getSelectedGeocache", null);
-                if (o != null)
+                code = code.Split(new char[] { ',' }, 2)[0];
+                if (Core.ActiveGeocache == null || Core.ActiveGeocache.Code != code)
                 {
-                    string s = (string)o;
-                    if (s.Length > 0)
-                    {
-                        s = s.Split(new char[] { ',' }, 2)[0];
-                        if (Core.ActiveGeocache == null || Core.ActiveGeocache.Code != s)
-                        {
-                            Core.ActiveGeocache = Utils.DataAccess.GetGeocache(Core.Geocaches, s);
-                        }
-                    }
+                    Core.ActiveGeocache = Utils.DataAccess.GetGeocache(Core.Geocaches, code);
                 }
             }
         }
 
         private void GMapForm_Leave(object sender, EventArgs e)
         {
-            timer1.Enabled = false;
         }
 
         private void GMapForm_Enter(object sender, EventArgs e)
@@ -536,11 +558,6 @@ namespace GlobalcachingApplication.Plugins.GMap
             comboBoxAreaName.Items.Clear();
             comboBoxAreaLevel.Items.AddRange(Enum.GetNames(typeof(Framework.Data.AreaType)));
             comboBoxAreaLevel.SelectedIndex = 0;
-
-            if (webBrowser1.ReadyState == WebBrowserReadyState.Complete && (_activeMapType == MapType.Allgeocaches || _activeMapType == MapType.SelectedGeocaches))
-            {
-                timer1.Enabled = true;
-            }
         }
 
         private void comboBoxAreaLevel_SelectedIndexChanged(object sender, EventArgs e)
@@ -571,7 +588,7 @@ namespace GlobalcachingApplication.Plugins.GMap
                             addPolygons(ai, ai.Polygons.Skip(count).Take(20).ToList());
                             count += 100;
                         }
-                        executeScript("zoomToBounds", new object[] { ai.MinLat, ai.MinLon, ai.MaxLat, ai.MaxLon });
+                        executeScript(string.Format("zoomToBounds({0}, {1}, {2}, {3})", ai.MinLat.ToString(CultureInfo.InvariantCulture), ai.MinLon.ToString(CultureInfo.InvariantCulture), ai.MaxLat.ToString(CultureInfo.InvariantCulture), ai.MaxLon.ToString(CultureInfo.InvariantCulture)));
                     }
                 }
             }
@@ -617,7 +634,7 @@ namespace GlobalcachingApplication.Plugins.GMap
                 sb.Append("]}");
             }
             sb.Append("]");
-            executeScript("addPolygons", new object[] { sb.ToString() });
+            executeScript(string.Format("addPolygons({0})", sb.ToString() ));
         }
 
         private void GMapForm_Shown(object sender, EventArgs e)
@@ -664,7 +681,7 @@ namespace GlobalcachingApplication.Plugins.GMap
         {
             if (Core.GPSLocation.Valid)
             {
-                executeScript("setMapCenter", new object[] { Core.GPSLocation.Position.Lat, Core.GPSLocation.Position.Lon });
+                executeScript(string.Format("setMapCenter({0}, {1})", Core.GPSLocation.Position.Lat.ToString(CultureInfo.InvariantCulture), Core.GPSLocation.Position.Lon.ToString(CultureInfo.InvariantCulture)));
             }
         }
 
@@ -689,7 +706,7 @@ namespace GlobalcachingApplication.Plugins.GMap
                 }
                 else
                 {
-                    executeScript("setSelectedGeocaches", new object[] { "[]" });
+                    executeScript("setSelectedGeocaches([])");
                 }
             }
         }

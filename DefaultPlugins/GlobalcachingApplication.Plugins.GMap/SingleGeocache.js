@@ -64,6 +64,8 @@ function init() {
 
     gcMarker = new google.maps.Marker({ title: 'none', 'map': map, draggable: false, icon: blueIcon, position: map.getCenter(), flat: false, visible: true });
     curposMarker = new google.maps.Marker({ title: 'none', 'map': map, draggable: false, icon: curposIcon, position: map.getCenter(), flat: true, visible: false });
+
+	bound.pageReady();
 }
 
 function setCurrentPosition(valid, lat, lon) {
@@ -95,14 +97,14 @@ function setGeocache(cacheType, gccode, name, lat, lon, gcic) {
     }
 }
 
-function updateWaypoints(wpList) {
+function updateWaypoints(wpList) {	
 	for (var i = 0; i < wptmarkers.length; i++) {
 		wptmarkers[i].setMap(null);
 	}
 	wptmarkers.length = 0;
-    eval("var wps = " + wpList); //wpcode (a), lat (b), lon (c), wpic (d)
+	var wps = wpList;
 	for (var i = 0; i < wps.length; i++) {
-		wptmarkers.push(createWaypoint(wps[i].a,new google.maps.LatLng(wps[i].b, wps[i].c), wps[i].d, wps[i].e));
+		wptmarkers.push(createWaypoint(wps[i].a,new google.maps.LatLng(wps[i].b, wps[i].c), eval(wps[i].d), wps[i].e));
 	}
 }
 
@@ -119,7 +121,7 @@ function createWaypoint(id,point,ic,balloonCnt) {
 }
 
 function addPolygons(polys) {
-    eval("var ps = " + polys);
+    var ps = polys;
     for (var i=0; i<ps.length; i++) {
         createArea(ps[i]);
     }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Reflection;
 using System.IO;
+using System.Globalization;
 
 namespace GlobalcachingApplication.Utils.Dialogs
 {
@@ -22,6 +23,7 @@ namespace GlobalcachingApplication.Utils.Dialogs
 
         private Framework.Data.Location _loc = null;
         private Framework.Interfaces.ICore _core = null;
+        private Controls.GAPPWebBrowser _webBrowser = null;
 
         public GetLocationForm()
         {
@@ -54,15 +56,14 @@ namespace GlobalcachingApplication.Utils.Dialogs
 
         private void buttonMap_Click(object sender, EventArgs e)
         {
-            webBrowser1.Visible = true;
+            if (_webBrowser == null)
+            {
+                _webBrowser = new Controls.GAPPWebBrowser("");
+                panel2.Controls.Add(_webBrowser);
+            }
             Assembly assembly = Assembly.GetExecutingAssembly();
             using (StreamReader textStreamReader = new StreamReader(assembly.GetManifestResourceStream("GlobalcachingApplication.Utils.Dialogs.GetLocationForm.html")))
             {
-                webBrowser1.Navigate("about:blank");
-                if (webBrowser1.Document != null)
-                {
-                    webBrowser1.Document.Write(string.Empty);
-                }
                 Framework.Data.Location ll = _loc;
                 if (ll == null)
                 {
@@ -72,7 +73,7 @@ namespace GlobalcachingApplication.Utils.Dialogs
                         ll = _core.CenterLocation;
                     }
                 }
-                webBrowser1.DocumentText = textStreamReader.ReadToEnd().Replace("$Location$", LanguageSupport.Instance.GetTranslation(STR_LOCATION)).Replace("google.maps.LatLng(0.0, 0.0)", string.Format("google.maps.LatLng({0})", ll.SLatLon));
+                _webBrowser.DocumentText = textStreamReader.ReadToEnd().Replace("$Location$", LanguageSupport.Instance.GetTranslation(STR_LOCATION)).Replace("google.maps.LatLng(0.0, 0.0)", string.Format("google.maps.LatLng({0})", ll.SLatLon));
                 timer1.Enabled = true;
             }
         }
@@ -98,28 +99,28 @@ namespace GlobalcachingApplication.Utils.Dialogs
         private void buttonFromHome_Click(object sender, EventArgs e)
         {
             textBoxLocation.Text = Utils.Conversion.GetCoordinatesPresentation(_core.HomeLocation);
-            if (webBrowser1.Visible && webBrowser1.ReadyState == WebBrowserReadyState.Complete)
+            if (_webBrowser!=null && _webBrowser.IsReady)
             {
-                webBrowser1.Document.InvokeScript("setCenter", new object[] { _core.HomeLocation.Lat, _core.HomeLocation.Lon });
+                _webBrowser.InvokeScript(string.Format("setCenter({0}, {1})", _core.HomeLocation.Lat.ToString(CultureInfo.InvariantCulture), _core.HomeLocation.Lon.ToString(CultureInfo.InvariantCulture)));
             }
         }
 
         private void buttonFromCenter_Click(object sender, EventArgs e)
         {
             textBoxLocation.Text = Utils.Conversion.GetCoordinatesPresentation(_core.CenterLocation);
-            if (webBrowser1.Visible && webBrowser1.ReadyState == WebBrowserReadyState.Complete)
+            if (_webBrowser != null && _webBrowser.IsReady)
             {
-                webBrowser1.Document.InvokeScript("setCenter", new object[] { _core.CenterLocation.Lat, _core.CenterLocation.Lon });
+                _webBrowser.InvokeScript(string.Format("setCenter({0}, {1})", _core.CenterLocation.Lat.ToString(CultureInfo.InvariantCulture), _core.CenterLocation.Lon.ToString(CultureInfo.InvariantCulture)));
             }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (webBrowser1.Visible)
+            if (_webBrowser!=null)
             {
-                if (webBrowser1.ReadyState == WebBrowserReadyState.Complete)
+                if (_webBrowser.IsReady)
                 {
-                    object o = webBrowser1.Document.InvokeScript("getNewLocation");
+                    object o = _webBrowser.InvokeScript("getNewLocation()");
                     if (o != null && o.GetType()!=typeof(DBNull))
                     {
                         string s = o.ToString().Replace("(", "").Replace(")", "");

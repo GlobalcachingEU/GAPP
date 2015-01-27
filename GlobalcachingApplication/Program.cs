@@ -43,11 +43,61 @@ namespace GlobalcachingApplication
         protected override void OnCreateMainForm()
         {
             var settings = new CefSettings();
+            settings.RegisterScheme(new CefCustomScheme
+            {
+                SchemeName = CefSharpSchemeHandlerFactory.SchemeName,
+                SchemeHandlerFactory = new CefSharpSchemeHandlerFactory()
+            });
             if (!Cef.Initialize(settings))
             {
                 throw new Exception("Unable to Initialize Cef");
             } 
             MainForm = new FormMain();
+        }
+    }
+
+    internal class CefSharpSchemeHandlerFactory : ISchemeHandlerFactory
+    {
+        public const string SchemeName = "gapp";
+
+        public ISchemeHandler Create()
+        {
+            return new CefSharpSchemeHandler();
+        }
+    }
+
+    internal class CefSharpSchemeHandler : ISchemeHandler
+    {
+        public CefSharpSchemeHandler()
+        {
+        }
+
+        public bool ProcessRequestAsync(IRequest request, ISchemeHandlerResponse response, OnRequestCompletedHandler requestCompletedCallback)
+        {
+            //gapp:// ignore this
+            // The 'host' portion is entirely ignored by this scheme handler.
+            try
+            {
+                var uri = new Uri(request.Url);
+                var fileName = uri.ToString().Substring(7).Replace('/', '\\').Insert(1, ":");
+                if (System.IO.File.Exists(fileName))
+                {
+                    response.ResponseStream = System.IO.File.OpenRead(fileName);
+                    response.MimeType = GetMimeType(fileName);
+                    requestCompletedCallback.BeginInvoke(requestCompletedCallback.EndInvoke, null);
+
+                    return true;
+                }
+            }
+            catch
+            {
+            }
+            return false;
+        }
+
+        private string GetMimeType(string fileName)
+        {
+            return ResourceHandler.GetMimeType(System.IO.Path.GetExtension(fileName));
         }
     }
 }
