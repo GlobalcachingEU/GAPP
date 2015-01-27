@@ -1289,7 +1289,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(ProjectDir)..\external\sqlite\$(PlatformName)\System.Data.SQLite.dll" "$(TargetDir)PluginDependencies"</PostBuildEvent>
+    <PostBuildEvent>copy "$(ProjectDir)..\external\sqlite\$(PlatformName)\System.Data.SQLite.dll" "$(TargetDir)PluginDependencies"
+copy "$(ProjectDir)..\external\Microsoft.VC110.CRT\$(PlatformName)\msvcp110.dll" "$(TargetDir)"
+copy "$(ProjectDir)..\external\Microsoft.VC110.CRT\$(PlatformName)\msvcr110.dll" "$(TargetDir)"
+copy "$(ProjectDir)..\external\Microsoft.VC110.CRT\$(PlatformName)\vccorlib110.dll" "$(TargetDir)"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\cef.redist.x86.3.2062.1898\build\cef.redist.x86.targets" Condition="Exists('..\packages\cef.redist.x86.3.2062.1898\build\cef.redist.x86.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
