@@ -11,6 +11,9 @@ using System.Web;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Security.Permissions;
+using GlobalcachingApplication.Utils.Controls;
+using CefSharp;
+using GlobalcachingApplication.Framework.Interfaces;
 
 namespace GlobalcachingApplication.Plugins.GCView
 {
@@ -27,7 +30,79 @@ namespace GlobalcachingApplication.Plugins.GCView
         internal string _defaultGeocacheTemplateHtml = "";
         internal string _defaultLogEvenTemplateHtml = "";
         internal string _defaultLogOddTemplateHtml = "";
-        private bool _loadingPage = true;
+        private GAPPWebBrowser _webBrowser = null;
+
+
+        public class LocalRequestHandler : IRequestHandler
+        {
+            private GeocacheViewerForm _parent;
+            private ICore _core;
+
+            public LocalRequestHandler(GeocacheViewerForm parent, ICore core)
+            {
+                _parent = parent;
+                _core = core;
+            }
+
+            public bool GetAuthCredentials(IWebBrowser browser, bool isProxy, string host, int port, string realm, string scheme, ref string username, ref string password)
+            {
+                return false;
+            }
+
+            public bool OnBeforeBrowse(IWebBrowser browser, IRequest request, bool isRedirect)
+            {
+                if (request.Url.ToLower() != "http://www.google.com/")
+                {
+                    try
+                    {
+                        if (Properties.Settings.Default.OpenInInternalBrowser)
+                        {
+                            _parent.BeginInvoke((Action)(() =>
+                            {
+                                Utils.BasePlugin.Plugin p = Utils.PluginSupport.PluginByName(_core, "GlobalcachingApplication.Plugins.Browser.BrowserPlugin") as Utils.BasePlugin.Plugin;
+                                if (p != null)
+                                {
+                                    var m = p.GetType().GetMethod("OpenNewBrowser");
+                                    m.Invoke(p, new object[] { request.Url.ToString() });
+                                }
+                            }));
+                        }
+                        else
+                        {
+                            System.Diagnostics.Process.Start(request.Url.ToString());
+                        }
+                        return true;
+                    }
+                    catch
+                    {
+                    }
+                }
+                return false;
+            }
+
+            public bool OnBeforePluginLoad(IWebBrowser browser, string url, string policyUrl, IWebPluginInfo info)
+            {
+                return false;
+            }
+
+            public bool OnBeforeResourceLoad(IWebBrowser browser, IRequest request, IResponse response)
+            {
+                return false;
+            }
+
+            public bool OnCertificateError(IWebBrowser browser, CefErrorCode errorCode, string requestUrl)
+            {
+                return false;
+            }
+
+            public void OnPluginCrashed(IWebBrowser browser, string pluginPath)
+            {
+            }
+
+            public void OnRenderProcessTerminated(IWebBrowser browser, CefTerminationStatus status)
+            {
+            }
+        }
 
         public GeocacheViewerForm()
         {
@@ -76,6 +151,41 @@ namespace GlobalcachingApplication.Plugins.GCView
             core.Geocaches.DataChanged += new Framework.EventArguments.GeocacheEventHandler(Geocaches_DataChanged);
             core.Geocaches.ListDataChanged += new EventHandler(Geocaches_ListDataChanged);
             core.Logs.ListDataChanged += Logs_ListDataChanged;
+
+            this.VisibleChanged += GeocacheViewerForm_VisibleChanged;
+        }
+
+        void GeocacheViewerForm_VisibleChanged(object sender, EventArgs e)
+        {
+            if (this.Visible)
+            {
+                AddWebBrowser();
+            }
+            else
+            {
+                RemoveWebBrowser();
+            }            
+        }
+
+        public void AddWebBrowser()
+        {
+            if (_webBrowser != null)
+            {
+                RemoveWebBrowser();
+            }
+            _webBrowser = new GAPPWebBrowser("");
+            _webBrowser.Browser.RequestHandler = new LocalRequestHandler(this, Core);
+            panel2.Controls.Add(_webBrowser);
+        }
+
+        public void RemoveWebBrowser()
+        {
+            if (_webBrowser != null)
+            {
+                panel2.Controls.Remove(_webBrowser);
+                _webBrowser.Dispose();
+                _webBrowser = null;
+            }
         }
 
         void Logs_ListDataChanged(object sender, EventArgs e)
@@ -170,7 +280,7 @@ namespace GlobalcachingApplication.Plugins.GCView
                     {
                         sbImgs.Append("<tr>");
                         sbImgs.Append("<td>");
-                        sbImgs.Append(string.Format("<img src=\"{0}\" />", System.IO.Path.Combine(new string[] { System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), "Images", "Default", "images.gif" })));
+                        sbImgs.Append(string.Format("<img src=\"gapp://{0}\" />", System.IO.Path.Combine(new string[] { System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), "Images", "Default", "images.gif" })));
                         string link = img.Url;
                         if (Properties.Settings.Default.UseOfflineImagesIfAvailable)
                         {
@@ -279,7 +389,7 @@ namespace GlobalcachingApplication.Plugins.GCView
 
                 for (int i = 0; i < Core.ActiveGeocache.AttributeIds.Count; i++)
                 {
-                    s = s.Replace(string.Format("<!--attribute{0}-->", i), string.Format("<img src=\"{0}\" />", Utils.ImageSupport.Instance.GetImagePath(Core, Framework.Data.ImageSize.Medium, Utils.DataAccess.GetGeocacheAttribute(Core.GeocacheAttributes, Core.ActiveGeocache.AttributeIds[i]), Core.ActiveGeocache.AttributeIds[i] > 0 ? Framework.Data.GeocacheAttribute.State.Yes : Framework.Data.GeocacheAttribute.State.No)));
+                    s = s.Replace(string.Format("<!--attribute{0}-->", i), string.Format("<img src=\"gapp://{0}\" />", Utils.ImageSupport.Instance.GetImagePath(Core, Framework.Data.ImageSize.Medium, Utils.DataAccess.GetGeocacheAttribute(Core.GeocacheAttributes, Core.ActiveGeocache.AttributeIds[i]), Core.ActiveGeocache.AttributeIds[i] > 0 ? Framework.Data.GeocacheAttribute.State.Yes : Framework.Data.GeocacheAttribute.State.No)));
                 }
 
                 List<Framework.Data.Log> logs = Utils.DataAccess.GetLogs(Core.Logs, Core.ActiveGeocache.Code);
@@ -360,15 +470,8 @@ namespace GlobalcachingApplication.Plugins.GCView
 
         private void DisplayHtml(string html)
         {
-            _loadingPage = true;
-            webBrowser1.Navigate("about:blank");
-            _loadingPage = true;
-            if (webBrowser1.Document != null)
-            {
-                webBrowser1.Document.Write(string.Empty);
-            }
             html = html.Replace("SbyS", Utils.LanguageSupport.Instance.GetTranslation(STR_BY));
-            webBrowser1.DocumentText = html;
+            _webBrowser.DocumentText = html;
         }
 
         private void GeocacheViewerForm_LocationChanged(object sender, EventArgs e)
@@ -399,6 +502,7 @@ namespace GlobalcachingApplication.Plugins.GCView
             }
         }
 
+        /*
         private void webBrowser1_Navigating(object sender, WebBrowserNavigatingEventArgs e)
         {
             if (!_loadingPage)
@@ -425,11 +529,7 @@ namespace GlobalcachingApplication.Plugins.GCView
                 e.Cancel = true;
             }
         }
-
-        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-            _loadingPage = false;
-        }
+         * */
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
@@ -515,8 +615,8 @@ namespace GlobalcachingApplication.Plugins.GCView
                     {
                         if (!UIChildWindowForm.Visible)
                         {
-                            (UIChildWindowForm as GeocacheViewerForm).UpdateView();
                             UIChildWindowForm.Show();
+                            (UIChildWindowForm as GeocacheViewerForm).UpdateView();
                         }
                         if (UIChildWindowForm.WindowState == FormWindowState.Minimized)
                         {

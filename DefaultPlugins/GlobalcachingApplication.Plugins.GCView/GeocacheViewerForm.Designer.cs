@@ -35,7 +35,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBoxOfflineImages = new System.Windows.Forms.CheckBox();
-            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
@@ -49,17 +49,17 @@
             this.panel1.Controls.Add(this.checkBoxOfflineImages);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(886, 53);
+            this.panel1.Size = new System.Drawing.Size(664, 43);
             this.panel1.TabIndex = 0;
             // 
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(4, 24);
+            this.checkBox2.Location = new System.Drawing.Point(3, 20);
+            this.checkBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(195, 21);
+            this.checkBox2.Size = new System.Drawing.Size(151, 17);
             this.checkBox2.TabIndex = 4;
             this.checkBox2.Text = "Show additional waypoints";
             this.checkBox2.UseVisualStyleBackColor = true;
@@ -67,32 +67,35 @@
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(387, 28);
+            this.numericUpDown1.Location = new System.Drawing.Point(290, 23);
+            this.numericUpDown1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(66, 22);
+            this.numericUpDown1.Size = new System.Drawing.Size(50, 20);
             this.numericUpDown1.TabIndex = 3;
             this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(318, 30);
+            this.label1.Location = new System.Drawing.Point(238, 24);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 17);
+            this.label1.Size = new System.Drawing.Size(49, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "Max logs";
             // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(319, 4);
+            this.checkBox1.Location = new System.Drawing.Point(239, 3);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(214, 21);
+            this.checkBox1.Size = new System.Drawing.Size(163, 17);
             this.checkBox1.TabIndex = 1;
             this.checkBox1.Text = "Open in internal web browser";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -101,37 +104,31 @@
             // checkBoxOfflineImages
             // 
             this.checkBoxOfflineImages.AutoSize = true;
-            this.checkBoxOfflineImages.Location = new System.Drawing.Point(4, 4);
-            this.checkBoxOfflineImages.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBoxOfflineImages.Location = new System.Drawing.Point(3, 3);
             this.checkBoxOfflineImages.Name = "checkBoxOfflineImages";
-            this.checkBoxOfflineImages.Size = new System.Drawing.Size(217, 21);
+            this.checkBoxOfflineImages.Size = new System.Drawing.Size(165, 17);
             this.checkBoxOfflineImages.TabIndex = 0;
             this.checkBoxOfflineImages.Text = "Use offline images if available";
             this.checkBoxOfflineImages.UseVisualStyleBackColor = true;
             this.checkBoxOfflineImages.CheckedChanged += new System.EventHandler(this.checkBoxOfflineImages_CheckedChanged);
             // 
-            // webBrowser1
+            // panel2
             // 
-            this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowser1.Location = new System.Drawing.Point(0, 53);
-            this.webBrowser1.Margin = new System.Windows.Forms.Padding(4);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(27, 25);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.ScriptErrorsSuppressed = true;
-            this.webBrowser1.Size = new System.Drawing.Size(886, 596);
-            this.webBrowser1.TabIndex = 2;
-            this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
-            this.webBrowser1.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.webBrowser1_Navigating);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 43);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(664, 484);
+            this.panel2.TabIndex = 1;
             // 
             // GeocacheViewerForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(886, 649);
-            this.Controls.Add(this.webBrowser1);
+            this.ClientSize = new System.Drawing.Size(664, 527);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(5);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "GeocacheViewerForm";
             this.ShowIcon = false;
             this.Text = "Geocache Viewer";
@@ -148,11 +145,11 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.WebBrowser webBrowser1;
         private System.Windows.Forms.CheckBox checkBoxOfflineImages;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.Panel panel2;
     }
 }
