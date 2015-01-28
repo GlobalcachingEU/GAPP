@@ -37,16 +37,16 @@
       checkSetPlacemark();
       }
 
-      function setGeocache(title, lat, lon, icon, speed, applyV, tilt, altitude)
+      function setGeocache(setting)
       {
-      geocacheTitle = title;
-      geocacheLat = lat;
-      geocacheLon = lon;
-      geocacheIcon = icon;
-      flyToSpeed = speed;
-      applyViewProps = applyV;
-      tiltView = tilt;
-      viewAltitude = altitude;
+      geocacheTitle = setting.title;
+      geocacheLat = setting.lat;
+      geocacheLon = setting.lon;
+      geocacheIcon = setting.icon;
+      flyToSpeed = setting.speed;
+      applyViewProps = setting.applyV;
+      tiltView = setting.tilt;
+      viewAltitude = setting.altitude;
       checkSetPlacemark();
       }
 
@@ -122,6 +122,7 @@
       $(document).ready(function() {
       init();
       onResize();
+      bound.pageReady();
       });
 
     </script>

@@ -8,12 +8,38 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Reflection;
+using GlobalcachingApplication.Utils.Controls;
+using System.Web.Script.Serialization;
 
 namespace GlobalcachingApplication.Plugins.GoogleEarth
 {
     public partial class MapForm : Utils.BasePlugin.BaseUIChildWindowForm
     {
         public const string STR_TITLE = "Google Earth";
+
+        private GAPPWebBrowser _webBrowser = null;
+        private bool _webpageLoaded = false;
+
+        public class JSCallBack
+        {
+            private MapForm _parent;
+
+            public JSCallBack(MapForm parent)
+            {
+                _parent = parent;
+            }
+
+            public void PageReady()
+            {
+                _parent._webpageLoaded = true;
+                _parent.BeginInvoke((Action)(() =>
+                {
+                    _parent.setActiveGeocacheInMap();
+                }));
+            }
+
+        }
+
 
         public MapForm()
         {
@@ -41,30 +67,88 @@ namespace GlobalcachingApplication.Plugins.GoogleEarth
             SelectedLanguageChanged(this, EventArgs.Empty);
 
             core.ActiveGeocacheChanged += new Framework.EventArguments.GeocacheEventHandler(core_ActiveGeocacheChanged);
+            this.VisibleChanged += MapForm_VisibleChanged;
+        }
+
+        void MapForm_VisibleChanged(object sender, EventArgs e)
+        {
+            if (this.Visible)
+            {
+                AddWebBrowser();
+            }
+            else
+            {
+                RemoveWebBrowser();
+            }            
+        }
+
+        public void AddWebBrowser()
+        {
+            if (_webBrowser != null)
+            {
+                RemoveWebBrowser();
+            }
+            _webpageLoaded = false;
+            _webBrowser = new GAPPWebBrowser("");
+            this.Controls.Add(_webBrowser);
+            _webBrowser.Browser.RegisterJsObject("bound", new JSCallBack(this));
+        }
+        public void RemoveWebBrowser()
+        {
+            if (_webBrowser != null)
+            {
+                _webpageLoaded = false;
+                this.Controls.Remove(_webBrowser);
+                _webBrowser.Dispose();
+                _webBrowser = null;
+            }
         }
 
         void core_ActiveGeocacheChanged(object sender, Framework.EventArguments.GeocacheEventArgs e)
         {
-            if (this.Visible && webBrowser1.ReadyState == WebBrowserReadyState.Complete)
+            if (this.Visible && _webpageLoaded)
             {
                 setActiveGeocacheInMap();
             }
         }
 
+        private class SetGeocacheInfo
+        {
+            public string title {get; set; }
+            public double lat {get; set; }
+            public double lon {get; set; }
+            public string icon {get; set; }
+            public double speed {get; set; }
+            public bool applyV {get; set; }
+            public double tilt {get; set; }
+            public double altitude {get; set; }
+        }
         private void setActiveGeocacheInMap()
         {
             if (this.Visible)
             {
                 if (Core.ActiveGeocache != null)
                 {
+                    SetGeocacheInfo sgi = new SetGeocacheInfo();
+                    sgi.title = string.Format("{0}, {1}", Core.ActiveGeocache.Code, Core.ActiveGeocache.Name ?? "");
+                    sgi.icon = string.Format("file//", Utils.ImageSupport.Instance.GetImagePath(Core, Framework.Data.ImageSize.Map, Core.ActiveGeocache.GeocacheType));
+                    sgi.speed = Properties.Settings.Default.FlyToSpeed;
+                    sgi.applyV = Properties.Settings.Default.FixedView;
+                    sgi.altitude = Properties.Settings.Default.AltitudeView;
+                    sgi.tilt = Properties.Settings.Default.TiltView;
                     if (Core.ActiveGeocache.ContainsCustomLatLon)
                     {
-                        executeScript("setGeocache", new object[] { string.Format("{0}, {1}", Core.ActiveGeocache.Code, Core.ActiveGeocache.Name ?? ""), (double)Core.ActiveGeocache.CustomLat, (double)Core.ActiveGeocache.CustomLon, string.Format("file//", Utils.ImageSupport.Instance.GetImagePath(Core, Framework.Data.ImageSize.Map, Core.ActiveGeocache.GeocacheType)), Properties.Settings.Default.FlyToSpeed, Properties.Settings.Default.FixedView, Properties.Settings.Default.TiltView, Properties.Settings.Default.AltitudeView });
+                        sgi.lat = (double)Core.ActiveGeocache.CustomLat;
+                        sgi.lon = (double)Core.ActiveGeocache.CustomLon;
                     }
                     else
                     {
-                        executeScript("setGeocache", new object[] { string.Format("{0}, {1}", Core.ActiveGeocache.Code, Core.ActiveGeocache.Name ?? ""), Core.ActiveGeocache.Lat, Core.ActiveGeocache.Lon, string.Format("file//", Utils.ImageSupport.Instance.GetImagePath(Core, Framework.Data.ImageSize.Map, Core.ActiveGeocache.GeocacheType)), Properties.Settings.Default.FlyToSpeed, Properties.Settings.Default.FixedView, Properties.Settings.Default.TiltView, Properties.Settings.Default.AltitudeView });
+                        sgi.lat = Core.ActiveGeocache.Lat;
+                        sgi.lon = Core.ActiveGeocache.Lon;
                     }
+                    var jsonSerialiser = new JavaScriptSerializer();
+                    var json = jsonSerialiser.Serialize(sgi);
+                    executeScript(string.Format("setGeocache({0})", json));
                 }
             }
         }
@@ -90,16 +174,9 @@ namespace GlobalcachingApplication.Plugins.GoogleEarth
             }
         }
 
-        private object executeScript(string script, object[] pars)
+        private object executeScript(string script)
         {
-            if (pars == null)
-            {
-                return webBrowser1.Document.InvokeScript(script);
-            }
-            else
-            {
-                return webBrowser1.Document.InvokeScript(script, pars);
-            }
+            return _webBrowser.InvokeScript(script);
         }
 
 
@@ -132,12 +209,7 @@ namespace GlobalcachingApplication.Plugins.GoogleEarth
 
         private void DisplayHtml(string html)
         {
-            webBrowser1.Navigate("about:blank");
-            if (webBrowser1.Document != null)
-            {
-                webBrowser1.Document.Write(string.Empty);
-            }
-            webBrowser1.DocumentText = html;
+            _webBrowser.DocumentText = html;
         }
 
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)

@@ -89,14 +89,32 @@ namespace GlobalcachingApplication.Plugins.GMap
             InitializeComponent();
         }
 
+        public void AddWebBrowser()
+        {
+            if (_webBrowser != null)
+            {
+                RemoveWebBrowser();
+            }
+            _webpageLoaded = false;
+            _webBrowser = new GAPPWebBrowser("");
+            panel2.Controls.Add(_webBrowser);
+            _webBrowser.Browser.RegisterJsObject("bound", new JSCallBack(this));
+        }
+        public void RemoveWebBrowser()
+        {
+            if (_webBrowser != null)
+            {
+                _webpageLoaded = false;
+                panel2.Controls.Remove(_webBrowser);
+                _webBrowser.Dispose();
+                _webBrowser = null;
+            }
+        }
+
         public GMapForm(Framework.Interfaces.IPlugin owner, Framework.Interfaces.ICore core)
             : base(owner, core)
         {
             InitializeComponent();
-
-            _webBrowser = new GAPPWebBrowser("");
-            panel2.Controls.Add(_webBrowser);
-            _webBrowser.Browser.RegisterJsObject("bound", new JSCallBack(this)); 
 
             if (Properties.Settings.Default.UpgradeNeeded)
             {
@@ -144,6 +162,19 @@ namespace GlobalcachingApplication.Plugins.GMap
             core.Waypoints.DataChanged += new Framework.EventArguments.WaypointEventHandler(Waypoints_DataChanged);
 
             SelectedLanguageChanged(this, EventArgs.Empty);
+            this.VisibleChanged += GMapForm_VisibleChanged;
+        }
+
+        void GMapForm_VisibleChanged(object sender, EventArgs e)
+        {
+            if (this.Visible)
+            {
+                AddWebBrowser();
+            }
+            else
+            {
+                RemoveWebBrowser();
+            }
         }
 
         void Waypoints_DataChanged(object sender, Framework.EventArguments.WaypointEventArgs e)
