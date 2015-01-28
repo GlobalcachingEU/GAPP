@@ -428,6 +428,7 @@ namespace GlobalcachingApplication.Plugins.GMap
                 gcil.Add(gci);
             }
             var jsonSerialiser = new JavaScriptSerializer();
+            jsonSerialiser.MaxJsonLength = int.MaxValue;
             var json = jsonSerialiser.Serialize(gcil);
             executeScript(string.Format("updateGeocaches({0})", json));
         }
