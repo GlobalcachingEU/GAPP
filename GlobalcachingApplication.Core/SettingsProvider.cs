@@ -143,11 +143,11 @@ namespace GlobalcachingApplication.Core
             {
                 if (_currentSettings.Contains(name))
                 {
-                    _database.Execute(string.Format("update Settings_{0} set Value=@0 where Name=@1", _scope.ID), value, name);
+                    _database.Execute(string.Format("update Settings_{0} set Value=@0 where Name=@1", _scope.ID), value ?? "", name);
                 }
                 else
                 {
-                    _database.Execute(string.Format("insert into Settings_{0} (Name, Value) values (@0, @1)", _scope.ID), name, value);
+                    _database.Execute(string.Format("insert into Settings_{0} (Name, Value) values (@0, @1)", _scope.ID), name, value ?? "");
                 }
                 _currentSettings[name] = value;
             }
@@ -244,6 +244,7 @@ namespace GlobalcachingApplication.Core
                     el.AppendChild(txt);
                     root.AppendChild(el);
                 }
+                /*
                 using (var stringWriter = new StringWriter())
                 using (var xmlTextWriter = XmlWriter.Create(stringWriter))
                 {
@@ -251,6 +252,8 @@ namespace GlobalcachingApplication.Core
                     xmlTextWriter.Flush();
                     SetSettingsValue(name, stringWriter.GetStringBuilder().ToString());
                 } 
+                 * */
+                SetSettingsValue(name, doc.OuterXml);
             }
             
         }

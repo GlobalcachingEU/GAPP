@@ -5,24 +5,6 @@
     <Setting Name="UpgradeNeeded" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="GCComAccountName" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="GCComAccountToken" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="GCComAccountTokenStaging" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="GCComAccountMemberType" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="GCComAccountMemberTypeId" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
-    </Setting>
-    <Setting Name="CultureID" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
-    </Setting>
     <Setting Name="InternalStorageClass" Type="System.String" Scope="User">
       <Value Profile="(Default)">GlobalcachingApplication.Plugins.GAPPDataStorage.InternalStorage</Value>
     </Setting>

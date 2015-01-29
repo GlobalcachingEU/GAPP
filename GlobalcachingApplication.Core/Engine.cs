@@ -106,13 +106,13 @@ namespace GlobalcachingApplication.Core
                     _geocachingAccountNames.Changed += new Framework.EventArguments.GeocachingAccountNamesEventHandler(_geocachingAccountNames_Changed);
 
                     _geocachingComAccount = new Framework.Data.GeocachingComAccountInfo();
-                    _geocachingComAccount.AccountName = Properties.Settings.Default.GCComAccountName;
-                    _geocachingComAccount.APIToken = Properties.Settings.Default.GCComAccountToken;
-                    _geocachingComAccount.APITokenStaging = Properties.Settings.Default.GCComAccountTokenStaging;
-                    _geocachingComAccount.MemberType = Properties.Settings.Default.GCComAccountMemberType;
-                    _geocachingComAccount.MemberTypeId = Properties.Settings.Default.GCComAccountMemberTypeId;
+                    _geocachingComAccount.AccountName = _settingsProvider.GetSettingsValue("Core.GCComAccountName", null);
+                    _geocachingComAccount.APIToken = _settingsProvider.GetSettingsValue("Core.GCComAccountToken", null);
+                    _geocachingComAccount.APITokenStaging = _settingsProvider.GetSettingsValue("Core.GCComAccountTokenStaging", null);
+                    _geocachingComAccount.MemberType = _settingsProvider.GetSettingsValue("Core.GCComAccountMemberType", null);
+                    _geocachingComAccount.MemberTypeId = _settingsProvider.GetSettingsValueInt("Core.GCComAccountMemberTypeId", 0);
                     _geocachingComAccount.Changed += new Framework.EventArguments.GeocacheComAccountEventHandler(_geocachingComAccount_Changed);
-                    GeocachingAccountNames.SetAccountName("GC", Properties.Settings.Default.GCComAccountName ?? "");
+                    GeocachingAccountNames.SetAccountName("GC", _settingsProvider.GetSettingsValue("Core.GCComAccountName", null) ?? "");
 
                     _logs = new Framework.Data.LogCollection();
                     _userWaypoints = new Framework.Data.UserWaypointCollection();
@@ -448,12 +448,11 @@ namespace GlobalcachingApplication.Core
 
         void _geocachingComAccount_Changed(object sender, Framework.EventArguments.GeocacheComAccountEventArgs e)
         {
-            Properties.Settings.Default.GCComAccountName = e.AccountInfo.AccountName;
-            Properties.Settings.Default.GCComAccountToken = e.AccountInfo.APIToken;
-            Properties.Settings.Default.GCComAccountTokenStaging = e.AccountInfo.APITokenStaging;
-            Properties.Settings.Default.GCComAccountMemberType = e.AccountInfo.MemberType;
-            Properties.Settings.Default.GCComAccountMemberTypeId = e.AccountInfo.MemberTypeId;
-            Properties.Settings.Default.Save();
+            _settingsProvider.SetSettingsValue("Core.GCComAccountName", e.AccountInfo.AccountName);
+            _settingsProvider.SetSettingsValue("Core.GCComAccountToken", e.AccountInfo.APIToken);
+            _settingsProvider.SetSettingsValue("Core.GCComAccountTokenStaging", e.AccountInfo.APITokenStaging);
+            _settingsProvider.SetSettingsValue("Core.GCComAccountMemberType", e.AccountInfo.MemberType);
+            _settingsProvider.SetSettingsValueInt("Core.GCComAccountMemberTypeId", e.AccountInfo.MemberTypeId);
             GeocachingAccountNames.SetAccountName("GC", e.AccountInfo.AccountName);
             OnGeocachingComAccountChanged(this);
         }
@@ -743,7 +742,7 @@ namespace GlobalcachingApplication.Core
         }
         public void OnSelectedLanguage()
         {
-            Properties.Settings.Default.CultureID = _selectedLanguage.LCID;
+            _settingsProvider.SetSettingsValueInt("Core.CultureID", _selectedLanguage.LCID);
             Properties.Settings.Default.Save();
             if (SelectedLanguageChanged != null)
             {
@@ -889,11 +888,11 @@ namespace GlobalcachingApplication.Core
                             }
                         }
                     }
-                    if (Properties.Settings.Default.CultureID != 0)
+                    if (_settingsProvider.GetSettingsValueInt("Core.CultureID", 0) != 0)
                     {
-                        _selectedLanguage = new CultureInfo(Properties.Settings.Default.CultureID);
+                        _selectedLanguage = new CultureInfo(_settingsProvider.GetSettingsValueInt("Core.CultureID", 0));
                     }
-                    if (Properties.Settings.Default.CultureID != 127)
+                    if (_settingsProvider.GetSettingsValueInt("Core.CultureID", 0) != 127)
                     {
                         //check if culture exists and if not, try match
                         List<Framework.Interfaces.IPlugin> lpins = (from p in pins where p.PluginType == Framework.PluginType.LanguageSupport select p).ToList();
