@@ -32,7 +32,7 @@ namespace GlobalcachingApplication.Core
             {
                 //oeps
                 //fall back to factory default
-                string p = System.IO.Path.Combine(new string[] { System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "GlobalcachingApplication" });
+                string p = System.IO.Path.Combine(new string[] { System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "GAPP" });
                 Properties.Settings.Default.PluginDataPath = p.TrimEnd(new char[] { '\\', '/' });
                 listBox1.Items.Add(eng.PluginDataPath);
             }

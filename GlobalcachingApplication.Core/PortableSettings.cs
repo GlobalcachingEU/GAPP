@@ -171,7 +171,7 @@ namespace GlobalcachingApplication.Core
 
                     if (!File.Exists(settingsFile))
                     {
-                        string p = System.IO.Path.Combine(new string[] { System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "GlobalcachingApplication" }).ToLower().TrimEnd(new char[] { '\\', '/' });
+                        string p = System.IO.Path.Combine(new string[] { System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "GAPP" }).ToLower().TrimEnd(new char[] { '\\', '/' });
                         string p2 = basePath.ToLower().TrimEnd(new char[] { '\\', '/' });
                         if (p == p2)
                         {

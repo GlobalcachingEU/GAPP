@@ -116,18 +116,12 @@ namespace GlobalcachingApplication.Plugins.GMap
         {
             InitializeComponent();
 
-            if (Properties.Settings.Default.UpgradeNeeded)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
+            checkBox1.Checked = PluginSettings.Instance.AddSelectedMarkers;
 
-            checkBox1.Checked = Properties.Settings.Default.AddSelectedMarkers;
-
-            if (Properties.Settings.Default.WindowPos != null && !Properties.Settings.Default.WindowPos.IsEmpty)
+            Rectangle r = PluginSettings.Instance.WindowPos;
+            if (r != null && !r.IsEmpty)
             {
-                this.Bounds = Properties.Settings.Default.WindowPos;
+                this.Bounds = r;
                 this.StartPosition = FormStartPosition.Manual;
             }
 
@@ -392,7 +386,7 @@ namespace GlobalcachingApplication.Plugins.GMap
             foreach (Framework.Data.Geocache gc in gcList)
             {
                 var gci = new GCInfo();
-                if (Properties.Settings.Default.ShowNameInToolTip && gc.Name!=null)
+                if (PluginSettings.Instance.ShowNameInToolTip && gc.Name != null)
                 {
                     gci.a = string.Format("{0}, {1}", gc.Code, gc.Name.Replace('"', ' ').Replace('\'', ' ').Replace('\r', ' ').Replace('\n', ' ').Replace('\t', ' ').Replace('\\', ' '));
                 }
@@ -465,7 +459,7 @@ namespace GlobalcachingApplication.Plugins.GMap
                         {
                             addGeocachesToMap((from Framework.Data.Geocache wp in Core.Geocaches
                                                select wp).OrderBy(x=>x.Code).ToList());
-                            if (Properties.Settings.Default.AddSelectedMarkers)
+                            if (PluginSettings.Instance.AddSelectedMarkers)
                             {
                                 markSelectedGeocaches((from Framework.Data.Geocache wp in Core.Geocaches
                                                        select wp).OrderBy(x => x.Code).ToList());
@@ -473,7 +467,7 @@ namespace GlobalcachingApplication.Plugins.GMap
                         }
                         else if (reason == MapUpdateReason.SelectedChanged)
                         {
-                            if (Properties.Settings.Default.AddSelectedMarkers)
+                            if (PluginSettings.Instance.AddSelectedMarkers)
                             {
                                 markSelectedGeocaches((from Framework.Data.Geocache wp in Core.Geocaches
                                                        select wp).OrderBy(x => x.Code).ToList());
@@ -514,9 +508,9 @@ namespace GlobalcachingApplication.Plugins.GMap
             html = html.Replace("SLoadingS", Utils.LanguageSupport.Instance.GetTranslation(STR_SHOWGEOCACHES));
             html = html.Replace("SLocationS", Utils.LanguageSupport.Instance.GetTranslation(STR_LOCATION));
             html = html.Replace("SGoS", Utils.LanguageSupport.Instance.GetTranslation(STR_GO));
-            html = html.Replace("//enableClusterMarkerAboveCount", string.Format("enableClusterMarkerAboveCount = {0};",Properties.Settings.Default.ClusterMarkerThreshold));
-            html = html.Replace("//clusterOptions.maxZoom", string.Format("clusterOptions.maxZoom = {0};", Properties.Settings.Default.ClusterMarkerMaxZoomLevel));
-            html = html.Replace("//clusterOptions.gridSize", string.Format("clusterOptions.gridSize = {0};", Properties.Settings.Default.ClusterMarkerGridSize));
+            html = html.Replace("//enableClusterMarkerAboveCount", string.Format("enableClusterMarkerAboveCount = {0};", PluginSettings.Instance.ClusterMarkerThreshold));
+            html = html.Replace("//clusterOptions.maxZoom", string.Format("clusterOptions.maxZoom = {0};", PluginSettings.Instance.ClusterMarkerMaxZoomLevel));
+            html = html.Replace("//clusterOptions.gridSize", string.Format("clusterOptions.gridSize = {0};", PluginSettings.Instance.ClusterMarkerGridSize));
 
             _webpageLoaded = false;
             _webBrowser.DocumentText = html;
@@ -547,7 +541,7 @@ namespace GlobalcachingApplication.Plugins.GMap
         }
         public void mousemoveEventHandler(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.AutoTopPanel && groupBox1.Visible)
+            if (PluginSettings.Instance.AutoTopPanel && groupBox1.Visible)
             {
                 button2_Click(sender, e);
             }
@@ -677,8 +671,7 @@ namespace GlobalcachingApplication.Plugins.GMap
         {
             if (WindowState == FormWindowState.Normal)
             {
-                Properties.Settings.Default.WindowPos = this.Bounds;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.WindowPos = this.Bounds;
             }
         }
 
@@ -686,8 +679,7 @@ namespace GlobalcachingApplication.Plugins.GMap
         {
             if (WindowState == FormWindowState.Normal)
             {
-                Properties.Settings.Default.WindowPos = this.Bounds;
-                Properties.Settings.Default.Save();
+               PluginSettings.Instance.WindowPos = this.Bounds;
             }
         }
 
@@ -719,7 +711,7 @@ namespace GlobalcachingApplication.Plugins.GMap
 
         private void panel1_MouseEnter(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.AutoTopPanel && !groupBox1.Visible)
+            if (PluginSettings.Instance.AutoTopPanel && !groupBox1.Visible)
             {
                 button2_Click(sender, e);
             }
@@ -727,11 +719,10 @@ namespace GlobalcachingApplication.Plugins.GMap
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.AddSelectedMarkers = checkBox1.Checked;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.AddSelectedMarkers = checkBox1.Checked;
             if (_activeMapType== MapType.Allgeocaches)
             {
-                if (Properties.Settings.Default.AddSelectedMarkers)
+                if (PluginSettings.Instance.AddSelectedMarkers)
                 {
                     markSelectedGeocaches((from Framework.Data.Geocache wp in Core.Geocaches
                                            select wp).OrderBy(x => x.Code).ToList());
@@ -750,6 +741,8 @@ namespace GlobalcachingApplication.Plugins.GMap
 
         public override bool Initialize(Framework.Interfaces.ICore core)
         {
+            var p = new PluginSettings(core);
+
             AddAction(ACTION_SHOW);
 
             core.LanguageItems.Add(new Framework.Data.LanguageItem(GMapForm.STR_TITLE));

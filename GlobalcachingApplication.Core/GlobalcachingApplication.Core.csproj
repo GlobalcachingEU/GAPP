@@ -105,8 +105,13 @@
     <Compile Include="SelectSettingsForm.Designer.cs">
       <DependentUpon>SelectSettingsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SettingsProvider.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Community.CsharpSqlite\Community.CsharpSqlite.csproj">
+      <Project>{2d1a02c2-46b7-42ab-b912-2f3a4a94d3b7}</Project>
+      <Name>Community.CsharpSqlite</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GlobalcachingApplication.Framework\GlobalcachingApplication.Framework.csproj">
       <Project>{45D6B089-F7F0-423A-AC63-83F9BB62A043}</Project>
       <Name>GlobalcachingApplication.Framework</Name>

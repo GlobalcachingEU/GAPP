@@ -33,7 +33,7 @@ namespace RestoreDefaultSettings
                         Directory.Delete(settingsFolder, true);
                         settingsFolderFound = true;
                     }
-                    string defaultFolder = Path.Combine(baseFolder, "GlobalcachingApplication");
+                    string defaultFolder = Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "GAPP");
                     if (Directory.Exists(defaultFolder))
                     {
                         Directory.Delete(defaultFolder, true);

@@ -87,6 +87,7 @@ namespace GlobalcachingApplication
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
+            _engine.Dispose();
             Cef.Shutdown();
         }
     }

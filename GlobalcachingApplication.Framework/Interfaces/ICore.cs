@@ -65,5 +65,7 @@ namespace GlobalcachingApplication.Framework.Interfaces
         event EventArguments.DebugLogEventHandler DebugLogAdded;
 
         bool LoadLogsInBackground { get; set; }
+
+        ISettings SettingsProvider { get; }
     }
 }

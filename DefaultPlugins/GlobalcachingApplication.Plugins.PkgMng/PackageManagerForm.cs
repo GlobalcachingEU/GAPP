@@ -148,7 +148,7 @@ namespace GlobalcachingApplication.Plugins.PkgMng
 
         void n_DownloadAndInstall(object sender, EventArgs e)
         {
-            string updatePath = System.IO.Path.Combine(new string[] { System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "GlobalcachingApplication" });
+            string updatePath = System.IO.Path.Combine(new string[] { System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "GAPP" });
             try
             {
                 if (!Directory.Exists(updatePath))
@@ -328,7 +328,7 @@ namespace GlobalcachingApplication.Plugins.PkgMng
                         }
                         else
                         {
-                            string updatePath = System.IO.Path.Combine(new string[] { System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "GlobalcachingApplication" });
+                            string updatePath = System.IO.Path.Combine(new string[] { System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "GAPP" });
                             try
                             {
                                 if (!Directory.Exists(updatePath))

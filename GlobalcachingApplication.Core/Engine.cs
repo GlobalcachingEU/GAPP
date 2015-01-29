@@ -12,7 +12,7 @@ using Microsoft.Win32;
 
 namespace GlobalcachingApplication.Core
 {
-    public class Engine: Framework.Interfaces.ICore
+    public class Engine: Framework.Interfaces.ICore, IDisposable
     {
         private List<Framework.Interfaces.IPlugin> _plugins = null;
         private List<string> _detectedPlugins = null;
@@ -50,6 +50,8 @@ namespace GlobalcachingApplication.Core
         private Framework.Data.LanguageItemCollection _languageItems = null;
         private List<Framework.Data.ShortcutInfo> _shortcuts = null;
 
+        private SettingsProvider _settingsProvider = null;
+
         public delegate void LoadingAssemblyHandler(object sender, string e);
         public event LoadingAssemblyHandler LoadingAssembly;
         public event LoadingAssemblyHandler InitializingPlugin;
@@ -77,6 +79,8 @@ namespace GlobalcachingApplication.Core
                 {
                     _pluginDataFolderSelected = true;
                 }
+
+                _settingsProvider = new SettingsProvider(null);//todo: select scope
 
                 if (_pluginDataFolderSelected)
                 {
@@ -135,9 +139,9 @@ namespace GlobalcachingApplication.Core
 
                     //set initial data
                     //default location settings
-                    _centerLocation.SetLocation(Properties.Settings.Default.CenterLat, Properties.Settings.Default.CenterLon);
+                    _centerLocation.SetLocation(_settingsProvider.GetSettingsValueDouble("Core.CenterLat", 51.5), _settingsProvider.GetSettingsValueDouble("Core.CenterLon", 5.5));
                     _centerLocation.Changed += new Framework.EventArguments.LocationEventHandler(_centerLocation_Changed);
-                    _homeLocation.SetLocation(Properties.Settings.Default.HomeLat, Properties.Settings.Default.HomeLon);
+                    _homeLocation.SetLocation(_settingsProvider.GetSettingsValueDouble("Core.HomeLat", 51.5), _settingsProvider.GetSettingsValueDouble("Core.HomeLon", 5.5));
                     _homeLocation.Changed += new Framework.EventArguments.LocationEventHandler(_homeLocation_Changed);
 
                     //default (unknown) cache- ,container etc. types. Position 0 means unknown
@@ -172,6 +176,11 @@ namespace GlobalcachingApplication.Core
             }
         }
 
+        public Framework.Interfaces.ISettings SettingsProvider 
+        {
+            get { return _settingsProvider; }
+        }
+
         void _geocachingAccountNames_Changed(object sender, Framework.EventArguments.GeocachingAccountNamesEventArgs e)
         {
             if (Properties.Settings.Default.GeocachingAccountNames == null)
@@ -201,6 +210,8 @@ namespace GlobalcachingApplication.Core
 
                 try
                 {
+                    _settingsProvider.Dispose();
+                    _settingsProvider = null;
                     Process.GetCurrentProcess().Kill();
                 }
                 catch
@@ -318,7 +329,7 @@ namespace GlobalcachingApplication.Core
             {
                 if (string.IsNullOrEmpty(Properties.Settings.Default.PluginDataPath))
                 {
-                    string p = System.IO.Path.Combine(new string[] { System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "GlobalcachingApplication" });
+                    string p = System.IO.Path.Combine(new string[] { System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "GAPP" });
                     Properties.Settings.Default.PluginDataPath = p.TrimEnd(new char[] { '\\', '/' });
                 }
                 if (!System.IO.Directory.Exists(Properties.Settings.Default.PluginDataPath))
@@ -450,7 +461,7 @@ namespace GlobalcachingApplication.Core
         public void InitiateUpdaterAndExit()
         {
             //check the type of update
-            string updatePath = System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "GlobalcachingApplication", "Update");
+            string updatePath = System.IO.Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "GAPP", "Update");
             string[] files = Directory.GetFiles(updatePath);
             if (files != null && files.Length>0)
             {
@@ -479,6 +490,8 @@ namespace GlobalcachingApplication.Core
 
                     try
                     {
+                        _settingsProvider.Dispose();
+                        _settingsProvider = null;
                         Process.GetCurrentProcess().Kill();
                     }
                     catch
@@ -510,6 +523,8 @@ namespace GlobalcachingApplication.Core
 
                     try
                     {
+                        _settingsProvider.Dispose();
+                        _settingsProvider = null;
                         Process.GetCurrentProcess().Kill();
                     }
                     catch
@@ -523,16 +538,14 @@ namespace GlobalcachingApplication.Core
 
         void _homeLocation_Changed(object sender, Framework.EventArguments.LocationEventArgs e)
         {
-            Properties.Settings.Default.HomeLat = e.Location.Lat;
-            Properties.Settings.Default.HomeLon = e.Location.Lon;
-            Properties.Settings.Default.Save();
+            _settingsProvider.SetSettingsValueDouble("Core.HomeLat", e.Location.Lat);
+            _settingsProvider.SetSettingsValueDouble("Core.HomeLon", e.Location.Lon);
         }
 
         void _centerLocation_Changed(object sender, Framework.EventArguments.LocationEventArgs e)
         {
-            Properties.Settings.Default.CenterLat = e.Location.Lat;
-            Properties.Settings.Default.CenterLon = e.Location.Lon;
-            Properties.Settings.Default.Save();
+            _settingsProvider.SetSettingsValueDouble("Core.CenterLat", e.Location.Lat);
+            _settingsProvider.SetSettingsValueDouble("Core.CenterLon", e.Location.Lon);
         }
 
         public Framework.Data.GeocachingComAccountInfo GeocachingComAccount
@@ -983,7 +996,8 @@ namespace GlobalcachingApplication.Core
                             }
                             if (!isInternalStorage || Properties.Settings.Default.InternalStorageClass == t.FullName)
                             {
-                                //if (Properties.Settings.Default.DisabledPlugins == null || !Properties.Settings.Default.DisabledPlugins.Contains(t.FullName))
+                                //var dpil = _settingsProvider.GetSettingsValueStringCollection("Core.DisabledPlugins", null);
+                                //if (dpil == null || !dpil.Contains(t.FullName))
                                 {
                                     ConstructorInfo constructor = t.GetConstructor(new Type[0]);
                                     object[] parameters = new object[0];
@@ -1026,7 +1040,7 @@ namespace GlobalcachingApplication.Core
 
         public bool SetDisabledPlugins(string[] plugins)
         {
-            System.Collections.Specialized.StringCollection sc = Properties.Settings.Default.DisabledPlugins;
+            System.Collections.Specialized.StringCollection sc = _settingsProvider.GetSettingsValueStringCollection("Core.DisabledPlugins", null);
             if (sc==null)
             {
                 sc = new System.Collections.Specialized.StringCollection();
@@ -1051,8 +1065,7 @@ namespace GlobalcachingApplication.Core
             {
                 sc.Clear();
                 sc.AddRange(plugins);
-                Properties.Settings.Default.DisabledPlugins = sc;
-                Properties.Settings.Default.Save();
+                _settingsProvider.SetSettingsValueStringCollection("Core.DisabledPlugins", sc);
             }
             return restart;
         }
@@ -1070,6 +1083,15 @@ namespace GlobalcachingApplication.Core
             if (PluginAdded!=null)
             {
                 PluginAdded(this, new Framework.EventArguments.PluginEventArgs(p));
+            }
+        }
+
+        public void Dispose()
+        {
+            if (_settingsProvider != null)
+            {
+                _settingsProvider.Dispose();
+                _settingsProvider = null;
             }
         }
     }

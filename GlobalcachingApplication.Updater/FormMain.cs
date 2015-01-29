@@ -24,7 +24,7 @@ namespace GlobalcachingApplication.Updater
         {
             timer1.Enabled = false;
             string exePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string updatePath = System.IO.Path.Combine(new string[] { System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "GlobalcachingApplication", "Update" });
+            string updatePath = System.IO.Path.Combine(new string[] { System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "GAPP", "Update" });
 
             //step 1: close Globalcaching.Application
             labelInfo.Text = "Stopping application...";

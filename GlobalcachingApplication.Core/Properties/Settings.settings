@@ -2,23 +2,8 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="GlobalcachingApplication.Core.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="DisabledPlugins" Type="System.Collections.Specialized.StringCollection" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="UpgradeNeeded" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="CenterLat" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">51.5</Value>
-    </Setting>
-    <Setting Name="CenterLon" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">5.5</Value>
-    </Setting>
-    <Setting Name="HomeLat" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">51.5</Value>
-    </Setting>
-    <Setting Name="HomeLon" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">5.5</Value>
     </Setting>
     <Setting Name="GCComAccountName" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

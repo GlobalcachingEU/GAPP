@@ -32,26 +32,26 @@ namespace GlobalcachingApplication.Plugins.GMap
             this.checkBox2.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_AUTOTOPPANEL);
 
             SettingsChanged = false;
-            numericUpDown1.Value = Properties.Settings.Default.ClusterMarkerThreshold;
-            numericUpDown2.Value = Properties.Settings.Default.ClusterMarkerMaxZoomLevel;
-            numericUpDown3.Value = Properties.Settings.Default.ClusterMarkerGridSize;
-            checkBox1.Checked = Properties.Settings.Default.ShowNameInToolTip;
-            checkBox2.Checked = Properties.Settings.Default.AutoTopPanel;
+            numericUpDown1.Value = PluginSettings.Instance.ClusterMarkerThreshold;
+            numericUpDown2.Value = PluginSettings.Instance.ClusterMarkerMaxZoomLevel;
+            numericUpDown3.Value = PluginSettings.Instance.ClusterMarkerGridSize;
+            checkBox1.Checked = PluginSettings.Instance.ShowNameInToolTip;
+            checkBox2.Checked = PluginSettings.Instance.AutoTopPanel;
         }
 
         public void Apply()
         {
             SettingsChanged = false;
-            SettingsChanged |= (int)numericUpDown1.Value != Properties.Settings.Default.ClusterMarkerThreshold;
-            SettingsChanged |= (int)numericUpDown2.Value != Properties.Settings.Default.ClusterMarkerMaxZoomLevel;
-            SettingsChanged |= (int)numericUpDown3.Value != Properties.Settings.Default.ClusterMarkerGridSize;
-            SettingsChanged |= checkBox1.Checked != Properties.Settings.Default.ShowNameInToolTip;
+            SettingsChanged |= (int)numericUpDown1.Value != PluginSettings.Instance.ClusterMarkerThreshold;
+            SettingsChanged |= (int)numericUpDown2.Value != PluginSettings.Instance.ClusterMarkerMaxZoomLevel;
+            SettingsChanged |= (int)numericUpDown3.Value != PluginSettings.Instance.ClusterMarkerGridSize;
+            SettingsChanged |= checkBox1.Checked != PluginSettings.Instance.ShowNameInToolTip;
 
-            Properties.Settings.Default.ClusterMarkerThreshold = (int)numericUpDown1.Value;
-            Properties.Settings.Default.ClusterMarkerMaxZoomLevel = (int)numericUpDown2.Value;
-            Properties.Settings.Default.ClusterMarkerGridSize = (int)numericUpDown3.Value;
-            Properties.Settings.Default.ShowNameInToolTip = checkBox1.Checked;
-            Properties.Settings.Default.AutoTopPanel = checkBox2.Checked;
+            PluginSettings.Instance.ClusterMarkerThreshold = (int)numericUpDown1.Value;
+            PluginSettings.Instance.ClusterMarkerMaxZoomLevel = (int)numericUpDown2.Value;
+            PluginSettings.Instance.ClusterMarkerGridSize = (int)numericUpDown3.Value;
+            PluginSettings.Instance.ShowNameInToolTip = checkBox1.Checked;
+            PluginSettings.Instance.AutoTopPanel = checkBox2.Checked;
             Properties.Settings.Default.Save();
         }
     }

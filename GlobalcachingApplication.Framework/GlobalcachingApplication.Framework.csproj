@@ -140,6 +140,8 @@
     <Compile Include="Interfaces\IPluginInternalStorage.cs" />
     <Compile Include="Interfaces\IPluginUIChildWindow.cs" />
     <Compile Include="Interfaces\IPluginUIMainWindow.cs" />
+    <Compile Include="Interfaces\ISettings.cs" />
+    <Compile Include="PetaPoco.cs" />
     <Compile Include="PluginType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

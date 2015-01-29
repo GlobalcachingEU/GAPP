@@ -392,7 +392,7 @@ namespace GlobalcachingApplication.Plugins.AccountSwitcher
 
         private void button9_Click(object sender, EventArgs e)
         {
-            string p = System.IO.Path.Combine(new string[] { System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "GlobalcachingApplication" });
+            string p = System.IO.Path.Combine(new string[] { System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "GAPP" });
             string s = p.TrimEnd(new char[] { '\\', '/' });
             if (s.Length > 2)
             {
