@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using System.IO;
 using System.Reflection;
 using System.Threading;
+using GlobalcachingApplication.Utils.Controls;
+using System.Web.Script.Serialization;
 
 namespace GlobalcachingApplication.Plugins.CAR
 {
@@ -33,6 +35,55 @@ namespace GlobalcachingApplication.Plugins.CAR
         private double _difLat;
         private double _difLon;
         private List<Framework.Data.Geocache> _gcAlongRoute;
+
+        private GAPPWebBrowser _webBrowser = null;
+
+        public class JSCallBack
+        {
+            private CachesAlongRouteForm _parent;
+
+            public JSCallBack(CachesAlongRouteForm parent)
+            {
+                _parent = parent;
+            }
+
+            public void GeocacheClicked(string code)
+            {
+                _parent.BeginInvoke((Action)(() =>
+                {
+                    _parent.geocacheClicked(code);
+                }));
+            }
+
+            public void RouteAvailable(bool available)
+            {
+                _parent.BeginInvoke((Action)(() =>
+                {
+                    _parent.routeAvailable(available);
+                }));
+            }
+
+        }
+
+        public void AddWebBrowser()
+        {
+            if (_webBrowser != null)
+            {
+                RemoveWebBrowser();
+            }
+            _webBrowser = new GAPPWebBrowser("");
+            panel2.Controls.Add(_webBrowser);
+            _webBrowser.Browser.RegisterJsObject("bound", new JSCallBack(this));
+        }
+        public void RemoveWebBrowser()
+        {
+            if (_webBrowser != null)
+            {
+                panel2.Controls.Remove(_webBrowser);
+                _webBrowser.Dispose();
+                _webBrowser = null;
+            }
+        }
 
         public CachesAlongRouteForm()
         {
@@ -78,6 +129,20 @@ namespace GlobalcachingApplication.Plugins.CAR
             this.radioButtonMiles.Checked = !Properties.Settings.Default.UseMetric;
 
             SelectedLanguageChanged(this, EventArgs.Empty);
+
+            this.VisibleChanged += CachesAlongRouteForm_VisibleChanged;
+        }
+
+        void CachesAlongRouteForm_VisibleChanged(object sender, EventArgs e)
+        {
+            if (this.Visible)
+            {
+                AddWebBrowser();
+            }
+            else
+            {
+                RemoveWebBrowser();
+            }
         }
 
 
@@ -93,126 +158,95 @@ namespace GlobalcachingApplication.Plugins.CAR
         private string setIcons(string template)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine(string.Format("var foundIcon = new google.maps.MarkerImage(\"{0}\");", System.IO.Path.Combine(new string[] { System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), "Images", "Map", "cachetypes", "gevonden.png" }).Replace("\\", "\\\\")));
+            sb.AppendLine(string.Format("var foundIcon = new google.maps.MarkerImage(\"gapp://{0}\");", System.IO.Path.Combine(new string[] { System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), "Images", "Map", "cachetypes", "gevonden.png" }).Replace("\\", "\\\\")));
             foreach (Framework.Data.GeocacheType gctype in Core.GeocacheTypes)
             {
-                sb.AppendLine(string.Format("var gct{0}Icon = new google.maps.MarkerImage(\"{1}\");", gctype.ID.ToString().Replace("-", "_"), Utils.ImageSupport.Instance.GetImagePath(Core, Framework.Data.ImageSize.Map, gctype).Replace("\\", "\\\\")));
+                sb.AppendLine(string.Format("var gct{0}Icon = new google.maps.MarkerImage(\"gapp://{1}\");", gctype.ID.ToString().Replace("-", "_"), Utils.ImageSupport.Instance.GetImagePath(Core, Framework.Data.ImageSize.Map, gctype).Replace("\\", "\\\\")));
             }
             return template.Replace("//icons", sb.ToString());
         }
 
+        private class GCInfo
+        {
+            public string a { get; set; }
+            public double b { get; set; }
+            public double c { get; set; }
+            public string d { get; set; }
+        }
         private void addGeocachesToMap(List<Framework.Data.Geocache> gcList)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("[");
-            bool first = true;
+            List<GCInfo> gcil = new List<GCInfo>();
             foreach (Framework.Data.Geocache gc in gcList)
             {
-                if (!first)
-                {
-                    sb.Append(",");
-                }
-                else
-                {
-                    first = false;
-                }
+                var gci = new GCInfo();
+                gci.a = gc.Code;
+                gci.b = gc.Lat;
+                gci.c = gc.Lon;
                 if (gc.Found)
                 {
-                    sb.AppendLine(string.Format("{{a: '{0}', b: {1}, c: {2}, d: foundIcon}}", gc.Code, gc.Lat.ToString().Replace(',', '.'), gc.Lon.ToString().Replace(',', '.')));
+                    gci.d = "foundIcon";
                 }
                 else
                 {
-                    sb.AppendLine(string.Format("{{a: '{0}', b: {1}, c: {2}, d: gct{3}Icon}}", gc.Code, gc.Lat.ToString().Replace(',', '.'), gc.Lon.ToString().Replace(',', '.'), gc.GeocacheType.ID.ToString().Replace("-", "_")));
+                    gci.d = string.Format("gct{0}Icon", gc.GeocacheType.ID.ToString().Replace("-", "_"));
                 }
+                gcil.Add(gci);
             }
-            sb.Append("]");
-            executeScript("updateGeocaches", new object[] { sb.ToString() });
+            var jsonSerialiser = new JavaScriptSerializer();
+            jsonSerialiser.MaxJsonLength = int.MaxValue;
+            var json = jsonSerialiser.Serialize(gcil);
+            executeScript(string.Format("updateGeocaches({0})", json));
         }
 
         private void CachesAlongRouteForm_Shown(object sender, EventArgs e)
         {
+        }
+
+        public void UpdateView()
+        {
             Assembly assembly = Assembly.GetExecutingAssembly();
             using (StreamReader textStreamReader = new StreamReader(assembly.GetManifestResourceStream("GlobalcachingApplication.Plugins.CAR.route.html")))
             {
-                webBrowser1.Navigate("about:blank");
-                if (webBrowser1.Document != null)
-                {
-                    webBrowser1.Document.Write(string.Empty);
-                }
                 string html = setIcons(textStreamReader.ReadToEnd().Replace("google.maps.LatLng(0.0, 0.0)", string.Format("google.maps.LatLng({0})", Core.CenterLocation.SLatLon)));
-                html = html.Replace("SRoute fromS",Utils.LanguageSupport.Instance.GetTranslation(STR_ROUTEFROM));
-                html = html.Replace("Sroute toS",Utils.LanguageSupport.Instance.GetTranslation(STR_ROUTETO));
-                webBrowser1.DocumentText = html;
+                html = html.Replace("SRoute fromS", Utils.LanguageSupport.Instance.GetTranslation(STR_ROUTEFROM));
+                html = html.Replace("Sroute toS", Utils.LanguageSupport.Instance.GetTranslation(STR_ROUTETO));
+                _webBrowser.DocumentText = html;
             }
-            timer1.Enabled = true;
         }
 
-        private object executeScript(string script, object[] pars)
+        private object executeScript(string script)
         {
-            if (pars == null)
-            {
-                return webBrowser1.Document.InvokeScript(script);
-            }
-            else
-            {
-                return webBrowser1.Document.InvokeScript(script, pars);
-            }
+            return _webBrowser.InvokeScript(script);
         }
 
         private void buttonReload_Click(object sender, EventArgs e)
         {
-            CachesAlongRouteForm_Shown(sender, e);
+            UpdateView();
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void geocacheClicked(string code)
         {
-            if (this.Visible)
+            if (!string.IsNullOrEmpty(code))
             {
-                bool v = buttonSelect.Enabled;
-                try
+                code = code.Split(new char[] { ',' }, 2)[0];
+                if (Core.ActiveGeocache == null || Core.ActiveGeocache.Code != code)
                 {
-                    if (webBrowser1.ReadyState == WebBrowserReadyState.Complete)
-                    {
-                        v = bool.Parse(executeScript("isRouteAvailable", null).ToString());
-                    }
-                    else
-                    {
-                        v = false;
-                    }
+                    Core.ActiveGeocache = Utils.DataAccess.GetGeocache(Core.Geocaches, code);
+                }
+            }
+        }
 
-                    object o = executeScript("getSelectedGeocache", null);
-                    if (o != null)
-                    {
-                        string s = (string)o;
-                        if (s.Length > 0 && (Core.ActiveGeocache == null || Core.ActiveGeocache.Code != s))
-                        {
-                            Core.ActiveGeocache = Utils.DataAccess.GetGeocache(Core.Geocaches, s);
-                        }
-                    }
-                }
-                catch
-                {
-                    v = false;
-                }
-                if (v != buttonSelect.Enabled)
-                {
-                    buttonSelect.Enabled = v;
-                }
-            }
-            else
-            {
-                timer1.Enabled = false;
-            }
+        private void routeAvailable(bool available)
+        {
+            buttonSelect.Enabled = available;
         }
 
         private void CachesAlongRouteForm_Leave(object sender, EventArgs e)
         {
-            timer1.Enabled = false;
         }
 
         private void CachesAlongRouteForm_Enter(object sender, EventArgs e)
         {
-            timer1.Enabled = true;
         }
 
         private void buttonSelect_Click(object sender, EventArgs e)
@@ -222,7 +256,7 @@ namespace GlobalcachingApplication.Plugins.CAR
 
             try
             {
-                string s = executeScript("getRoute", null).ToString();
+                string s = executeScript("getRoute()").ToString();
                 string[] parts = s.Split(new char[] { ',', '(', ')', ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 _lat = new double[parts.Length/2];
                 _lon = new double[parts.Length / 2];
@@ -400,6 +434,7 @@ namespace GlobalcachingApplication.Plugins.CAR
                         if (!UIChildWindowForm.Visible)
                         {
                             UIChildWindowForm.Show();
+                            (UIChildWindowForm as CachesAlongRouteForm).UpdateView();
                         }
                         if (UIChildWindowForm.WindowState == FormWindowState.Minimized)
                         {

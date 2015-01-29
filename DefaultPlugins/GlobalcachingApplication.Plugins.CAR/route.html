@@ -10,7 +10,6 @@
       var map;
       var markers = [];
       var markerClusterer = null;
-      var selectedMarker = "";
       var ignoreCenter = false;
       var custonOverlays = [];
       var geocoder;
@@ -52,12 +51,12 @@
       if (markerClusterer != null) {
       markerClusterer.clearMarkers();
       }
-      eval("var wps = " + gcList); //gccode (a), lat (b), lon (c), gcic (d)
+      var wps = gcList;
       markers.length = 0;
       for (var i = 0; i < wps.length; i++) {
 		var marker = new google.maps.Marker({
 			position: new google.maps.LatLng(wps[i].b, wps[i].c),
-			icon: wps[i].d,
+			icon: eval(wps[i].d),
 			title: wps[i].a
 		});
 		addClickListener(marker);
@@ -70,23 +69,8 @@ function addClickListener(marker) {
 	var gccode = marker.getTitle();
 	google.maps.event.addListener(marker, 'click', function () {
 		ignoreCenter = true;
-		selectedMarker = gccode;
+    bound.geocacheClicked(gccode);
 	});
-}
-
-function getSelectedGeocache() {
-	var tmp = selectedMarker;
-	selectedMarker = "";
-	return tmp;
-}
-
-function isRouteAvailable() {
-	if (pointsArray.length==0) {
-	  return "False";
-  }
-  else {
-	  return "True";
-  }
 }
         
 function getRoute() {
@@ -101,35 +85,40 @@ function calcRoute(mode) {
 	var start = $('#fromloc').val();
 	var end = $('#toloc').val();
 	if (start != '' && end != '') {
-	    var request = {
-	        origin: start,
-	        destination: end,
-	        travelMode: mode
-	    };
+    var request = {
+    origin: start,
+    destination: end,
+    travelMode: mode
+    };
 
-	    directionsService.route(request, function (response, status) {
-	        if (status == google.maps.DirectionsStatus.OK) {
-	            directionsDisplay.setDirections(response);
-	            pointsArray = response.routes[0].overview_path;
-	        }
-	    });
-	}
-} 
+    directionsService.route(request, function (response, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+    directionsDisplay.setDirections(response);
+    pointsArray = response.routes[0].overview_path;
+    bound.routeAvailable(true);
+    }
+    else
+    {
+    bound.routeAvailable(false);
+    }
+    });
+    }
+    }
 
-function onResize() {
-  $('#map').width($(document).width()-40);
-  $('#map').height($(document).height()-100);
-}
+    function onResize() {
+    $('#map').width($(document).width()-40);
+    $('#map').height($(document).height()-100);
+    }
 
-$(window).resize(function() {
-	onResize();
-});
+    $(window).resize(function() {
+    onResize();
+    });
 
-$(document).ready(function() {
+    $(document).ready(function() {
     init();
-	onResize();
-});
-    </script>
+    onResize();
+    });
+  </script>
 
 	</head>
     <body>
