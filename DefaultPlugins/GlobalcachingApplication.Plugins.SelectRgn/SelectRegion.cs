@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.SelectRgn
 {
@@ -9,7 +10,7 @@ namespace GlobalcachingApplication.Plugins.SelectRgn
     {
         public const string ACTION_SHOW = "Select geocaches within region";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SHOW);
 
@@ -32,7 +33,7 @@ namespace GlobalcachingApplication.Plugins.SelectRgn
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SelectRegionForm.STR_TITLE));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SelectRegionForm.STR_INENVELOPE));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override string DefaultAction

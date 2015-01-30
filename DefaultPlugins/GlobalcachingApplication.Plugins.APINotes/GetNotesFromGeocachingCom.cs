@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.APINotes
 {
@@ -16,7 +17,7 @@ namespace GlobalcachingApplication.Plugins.APINotes
 
         public const string ACTION_IMPORT = "Import Geocache Notes";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_IMPORT);
 
@@ -26,7 +27,7 @@ namespace GlobalcachingApplication.Plugins.APINotes
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_QUESTIONGEOCACHES));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_IMPORTINGGEOCACHES));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override string DefaultAction

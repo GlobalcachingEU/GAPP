@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Controls.Primitives;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.SimpleCacheList
 {
@@ -443,9 +444,9 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
             }
         }
 
-        private void viewGeocacheToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void viewGeocacheToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Utils.PluginSupport.ExecuteDefaultAction(Core, "GlobalcachingApplication.Plugins.GCView.GeocacheViewer");
+            await Utils.PluginSupport.ExecuteDefaultActionAsync(Core, "GlobalcachingApplication.Plugins.GCView.GeocacheViewer");
         }
 
         private void checkBoxShowFlaggedOnly_CheckedChanged(object sender, EventArgs e)
@@ -453,9 +454,9 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
             UpdateList();
         }
 
-        private void editNoteToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void editNoteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Utils.PluginSupport.ExecuteDefaultAction(Core, "GlobalcachingApplication.Plugins.NoteEdit.GeocacheNoteEditor");
+            await Utils.PluginSupport.ExecuteDefaultActionAsync(Core, "GlobalcachingApplication.Plugins.NoteEdit.GeocacheNoteEditor");
         }
 
         private void setCenterLocationToolStripMenuItem_Click(object sender, EventArgs e)
@@ -625,24 +626,24 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
             Properties.Settings.Default.Save();
         }
 
-        private void geocacheEditorToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void geocacheEditorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Utils.PluginSupport.ExecuteDefaultAction(Core, "GlobalcachingApplication.Plugins.GCEdit.GCEditor");
+            await Utils.PluginSupport.ExecuteDefaultActionAsync(Core, "GlobalcachingApplication.Plugins.GCEdit.GCEditor");
         }
 
-        private void waypointEditorToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void waypointEditorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Utils.PluginSupport.ExecuteDefaultAction(Core, "GlobalcachingApplication.Plugins.GCEdit.WPEditor");
+            await Utils.PluginSupport.ExecuteDefaultActionAsync(Core, "GlobalcachingApplication.Plugins.GCEdit.WPEditor");
         }
 
-        private void deleteGeocacheToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void deleteGeocacheToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (Core.ActiveGeocache != null)
             {
                 Framework.Interfaces.IPlugin p = Utils.PluginSupport.PluginByName(Core, "GlobalcachingApplication.Plugins.QuickAc.Actions");
                 if (p != null)
                 {
-                    p.Action("Delete|Active");
+                    await p.ActionAsync("Delete|Active");
                 }
             }
         }
@@ -749,10 +750,10 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
     {
         public const string ACTION_SHOW = "Simple cache list";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SHOW);
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override void ApplicationClosing()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.APIUPD
 {
@@ -21,7 +22,7 @@ namespace GlobalcachingApplication.Plugins.APIUPD
         private List<Framework.Data.Geocache> _gcList = null;
         private string _errormessage = null;
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_UPDATE_ALL);
             AddAction(ACTION_UPDATE_SELECTED);
@@ -33,7 +34,7 @@ namespace GlobalcachingApplication.Plugins.APIUPD
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_UPDATINGGEOCACHES));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_UPDATINGGEOCACHE));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override Framework.PluginType PluginType

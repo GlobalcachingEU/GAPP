@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GlobalcachingApplication.Plugins.OLMap
@@ -10,7 +11,7 @@ namespace GlobalcachingApplication.Plugins.OLMap
     {
         public const string ACTION_SHOW = "OpenLayers Map";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SHOW);
 
@@ -20,7 +21,7 @@ namespace GlobalcachingApplication.Plugins.OLMap
             core.LanguageItems.Add(new Framework.Data.LanguageItem(OpenLayersMapForm.STR_SELECTED));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(OpenLayersMapForm.STR_SHOWGEOCACHES));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         protected override Utils.BasePlugin.BaseUIChildWindowForm CreateUIChildWindowForm(Framework.Interfaces.ICore core)

@@ -5,6 +5,7 @@ using System.Text;
 using System.Web;
 using System.Xml;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.GCVote
 {
@@ -24,7 +25,7 @@ namespace GlobalcachingApplication.Plugins.GCVote
         public List<Framework.Data.Geocache> _gcList = null;
         public string _errorMessage = null;
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_IMPORT_ACTIVE);
             AddAction(ACTION_IMPORT_SELECTED);
@@ -48,7 +49,7 @@ namespace GlobalcachingApplication.Plugins.GCVote
 
             Repository.Instance.Initialize(core);
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override string FriendlyName
@@ -59,9 +60,9 @@ namespace GlobalcachingApplication.Plugins.GCVote
             }
         }
 
-        public override void ApplicationInitialized()
+        public async override Task ApplicationInitializedAsync()
         {
-            base.ApplicationInitialized();
+            await base.ApplicationInitializedAsync();
 
             if (Properties.Settings.Default.ActivateAtAtartup)
             {

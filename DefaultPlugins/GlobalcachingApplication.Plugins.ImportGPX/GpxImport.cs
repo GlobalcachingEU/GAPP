@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.ImportGPX
 {
@@ -23,7 +24,7 @@ namespace GlobalcachingApplication.Plugins.ImportGPX
             get { return "Import GPX"; }
         }
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_IMPORT);
 
@@ -34,7 +35,7 @@ namespace GlobalcachingApplication.Plugins.ImportGPX
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_IMPORTINGLOGIMAGES));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_IMPORTINGWAYPOINTS));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         protected override void InitUIMainWindow(Framework.Interfaces.IPluginUIMainWindow mainWindowPlugin)

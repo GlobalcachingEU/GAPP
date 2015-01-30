@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Reflection;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.SetupWzrd
 {
@@ -225,7 +226,7 @@ namespace GlobalcachingApplication.Plugins.SetupWzrd
     {
         public const string ACTION_SHOW = "Setup wizard";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SHOW);
 
@@ -263,7 +264,7 @@ namespace GlobalcachingApplication.Plugins.SetupWzrd
                 Properties.Settings.Default.Save();
             }
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override Framework.PluginType PluginType
@@ -282,9 +283,9 @@ namespace GlobalcachingApplication.Plugins.SetupWzrd
             }
         }
 
-        public override void ApplicationInitialized()
+        public async override Task ApplicationInitializedAsync()
         {
-            base.ApplicationInitialized();
+            await base.ApplicationInitializedAsync();
             if (Properties.Settings.Default.FirstTimeUse)
             {
                 using (SetupWizardForm dlg = new SetupWizardForm(this, Core))

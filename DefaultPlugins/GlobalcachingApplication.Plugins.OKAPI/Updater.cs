@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.OKAPI
 {
@@ -19,7 +20,7 @@ namespace GlobalcachingApplication.Plugins.OKAPI
         private List<Framework.Data.Geocache> _gcList = null;
         private string _errormessage = null;
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_UPDATEFULL_ALL);
             AddAction(ACTION_UPDATEFULL_SELECTED);
@@ -30,7 +31,7 @@ namespace GlobalcachingApplication.Plugins.OKAPI
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_UNABLELIVE));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_UPDATINGGEOCACHES));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         protected override void ImportMethod()

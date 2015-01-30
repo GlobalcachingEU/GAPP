@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.ImportGPX
 {
@@ -23,7 +24,7 @@ namespace GlobalcachingApplication.Plugins.ImportGPX
             get { return "Import GGZ"; }
         }
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_IMPORT);
 
@@ -34,7 +35,7 @@ namespace GlobalcachingApplication.Plugins.ImportGPX
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_IMPORTINGLOGIMAGES));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_IMPORTINGWAYPOINTS));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         protected override void InitUIMainWindow(Framework.Interfaces.IPluginUIMainWindow mainWindowPlugin)
@@ -45,28 +46,28 @@ namespace GlobalcachingApplication.Plugins.ImportGPX
             mainWindowPlugin.CommandLineArguments += new Framework.EventArguments.CommandLineEventHandler(mainWindowPlugin_CommandLineArguments);
         }
 
-        void mainWindowPlugin_CommandLineArguments(object sender, Framework.EventArguments.CommandLineEventArgs e)
+        async void mainWindowPlugin_CommandLineArguments(object sender, Framework.EventArguments.CommandLineEventArgs e)
         {
             if (e.Arguments != null && e.Arguments.Length > 0)
             {
                 _filenames = (from s in e.Arguments where s.ToLower().EndsWith(".ggz") select s).ToArray();
                 if (_filenames.Length > 0)
                 {
-                    PerformImport();
+                    await PerformImport();
                 }
             }
         }
 
-        void mainWindowPlugin_FileDrop(object sender, Framework.EventArguments.FileDropEventArgs e)
+        async void mainWindowPlugin_FileDrop(object sender, Framework.EventArguments.FileDropEventArgs e)
         {
             _filenames = (from s in e.FilePath where s.ToLower().EndsWith(".ggz") select s).ToArray();
             if (_filenames.Length > 0)
             {
-                PerformImport();
+                await PerformImport();
             }
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result)
@@ -81,7 +82,7 @@ namespace GlobalcachingApplication.Plugins.ImportGPX
                         if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                         {
                             _filenames = dlg.FileNames;
-                            PerformImport();
+                            await PerformImport();
                         }
                     }
                 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Utils.BasePlugin
 {
@@ -9,14 +10,14 @@ namespace GlobalcachingApplication.Utils.BasePlugin
     {
         private BaseUIChildWindowForm _uiChildWindowForm = null;
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             bool result = false;
             _uiChildWindowForm = CreateUIChildWindowForm(core);
             if (_uiChildWindowForm != null)
             {
                 _uiChildWindowForm.FormClosed += new System.Windows.Forms.FormClosedEventHandler(_uiChildWindowForm_FormClosed);
-                result = base.Initialize(core);
+                result = await base.InitializeAsync(core);
             }
             return result;
         }

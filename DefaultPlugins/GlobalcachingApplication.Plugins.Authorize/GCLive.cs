@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.Authorize
 {
@@ -11,7 +12,7 @@ namespace GlobalcachingApplication.Plugins.Authorize
         public const string ACTION_AUTHORIZE = "Authorize|Get access and sync. settings";
         public const string ACTION_AUTHORIZE_MANUAL = "Authorize|Manual Live API Authorization";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_AUTHORIZEONLY);
             AddAction(ACTION_AUTHORIZE);
@@ -25,7 +26,7 @@ namespace GlobalcachingApplication.Plugins.Authorize
             core.LanguageItems.Add(new Framework.Data.LanguageItem(GCLiveManualForm.STR_STEP3));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(GCLiveManualForm.STR_TITLE));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override Framework.PluginType PluginType

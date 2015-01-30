@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.ExportGarmin
 {
@@ -13,7 +14,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
         public const string ACTION_EXPORT_ACTIVE = "Export with Garmin Communicator|Active";
         public const string ACTION_EXPORT_SELECTED = "Export with Garmin Communicator|Selected";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_EXPORT_ACTIVE);
             AddAction(ACTION_EXPORT_SELECTED);
@@ -33,7 +34,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
             core.LanguageItems.Add(new Framework.Data.LanguageItem(GarminCommunicatorForm.STR_GPXVERSION));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(GarminCommunicatorForm.STR_MAXLOGS));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override Framework.PluginType PluginType

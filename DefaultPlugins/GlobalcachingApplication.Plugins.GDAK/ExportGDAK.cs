@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.Common;
 using Community.CsharpSqlite.SQLiteClient;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.GDAK
 {
@@ -30,7 +31,7 @@ namespace GlobalcachingApplication.Plugins.GDAK
             get { return "Export GDAK"; }
         }
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_EXPORT_ALL);
             AddAction(ACTION_EXPORT_SELECTED);
@@ -55,7 +56,7 @@ namespace GlobalcachingApplication.Plugins.GDAK
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_MAXFILESINFOLDERNULL));
 
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override bool Action(string action)

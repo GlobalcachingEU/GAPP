@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.APILogT
 {
@@ -10,7 +11,7 @@ namespace GlobalcachingApplication.Plugins.APILogT
         public const string ACTION_BATCH = "Log trackables";
         public const string ACTION_VISITFINDS = "Log trackable visits My Finds";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_BATCH);
             AddAction(ACTION_VISITFINDS);
@@ -55,7 +56,7 @@ namespace GlobalcachingApplication.Plugins.APILogT
             core.LanguageItems.Add(new Framework.Data.LanguageItem(VisitMyFindsForm.STR_TITLE));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(VisitMyFindsForm.STR_TRACKINGNUMBER));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override string DefaultAction

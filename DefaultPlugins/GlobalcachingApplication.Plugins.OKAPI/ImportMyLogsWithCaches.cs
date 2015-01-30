@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.OKAPI
 {
@@ -16,7 +17,7 @@ namespace GlobalcachingApplication.Plugins.OKAPI
 
         private string _errormessage = null;
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_IMPORT);
 
@@ -25,7 +26,7 @@ namespace GlobalcachingApplication.Plugins.OKAPI
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_IMPORTINGCACHES));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_ERROR));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override string DefaultAction

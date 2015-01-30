@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Reflection;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.SelectArea
 {
@@ -172,7 +173,7 @@ namespace GlobalcachingApplication.Plugins.SelectArea
     {
         public const string ACTION_SELECT = "Select geocaches by area";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SELECT);
 
@@ -186,7 +187,7 @@ namespace GlobalcachingApplication.Plugins.SelectArea
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SelectByAreaForm.STR_LOCATION));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SelectByAreaForm.STR_DISTANCE));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override Framework.PluginType PluginType

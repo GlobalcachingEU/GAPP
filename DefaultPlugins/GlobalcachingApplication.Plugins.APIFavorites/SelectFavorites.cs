@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.APIFavorites
 {
@@ -9,11 +10,11 @@ namespace GlobalcachingApplication.Plugins.APIFavorites
     {
         public const string ACTION_SELECT = "Select your Favorites";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SELECT);
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override string DefaultAction

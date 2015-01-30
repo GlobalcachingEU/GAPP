@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.Maps
 {
@@ -119,7 +120,7 @@ namespace GlobalcachingApplication.Plugins.Maps
             }
         }
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_OSMONLINE);
             AddAction(ACTION_OSMOFFLINE);
@@ -183,7 +184,7 @@ namespace GlobalcachingApplication.Plugins.Maps
             _tileLocalServer = new TileLocalServer();
             _tileLocalServer.Start(core);
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override List<System.Windows.Forms.UserControl> CreateConfigurationPanels()

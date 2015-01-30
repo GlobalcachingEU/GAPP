@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Data.Common;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.ScrPresets
 {
@@ -17,7 +18,7 @@ namespace GlobalcachingApplication.Plugins.ScrPresets
         private string _presetDatabaseFile = null;
         private List<string> _presets = new List<string>();
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SAVECURRENT);
             AddAction(ACTION_SEP);
@@ -66,7 +67,7 @@ namespace GlobalcachingApplication.Plugins.ScrPresets
             }
 
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         private void initDatabase(Utils.DBCon dbcon)
@@ -156,9 +157,9 @@ namespace GlobalcachingApplication.Plugins.ScrPresets
             }
         }
 
-        public override void ApplicationInitialized()
+        public async override Task ApplicationInitializedAsync()
         {
-            base.ApplicationInitialized();
+            await base.ApplicationInitializedAsync();
             if (Properties.Settings.Default.FirstUse)
             {
                 Properties.Settings.Default.FirstUse = false;
@@ -174,7 +175,7 @@ namespace GlobalcachingApplication.Plugins.ScrPresets
         }
 
 
-        private void splitScreen()
+        private async Task splitScreen()
         {
             Form main = (from Framework.Interfaces.IPluginUIMainWindow a in Core.GetPlugin(Framework.PluginType.UIMainWindow) select a.MainForm).FirstOrDefault();
             if (main != null)
@@ -185,9 +186,9 @@ namespace GlobalcachingApplication.Plugins.ScrPresets
                 Framework.Interfaces.IPluginUIChildWindow mapPlugin = (from Framework.Interfaces.IPluginUIChildWindow a in Core.GetPlugin(Framework.PluginType.Map) where a.GetType().ToString() == "GlobalcachingApplication.Plugins.GMap.GMap" select a).FirstOrDefault();
                 if (gclistPlugin != null && viewerPlugin != null && mapPlugin != null)
                 {
-                    gclistPlugin.Action(gclistPlugin.DefaultAction);
-                    viewerPlugin.Action(viewerPlugin.DefaultAction);
-                    mapPlugin.Action(mapPlugin.DefaultAction);
+                    await gclistPlugin.ActionAsync(gclistPlugin.DefaultAction);
+                    await viewerPlugin.ActionAsync(viewerPlugin.DefaultAction);
+                    await mapPlugin.ActionAsync(mapPlugin.DefaultAction);
                     if (gclistPlugin.ChildForm != null && viewerPlugin.ChildForm != null && mapPlugin.ChildForm != null)
                     {
                         System.Drawing.Size clntSize = main.ClientSize;
@@ -277,7 +278,7 @@ namespace GlobalcachingApplication.Plugins.ScrPresets
             }
         }
 
-        private void openPreset(string presetname)
+        private async Task openPreset(string presetname)
         {
             try
             {
@@ -308,7 +309,7 @@ namespace GlobalcachingApplication.Plugins.ScrPresets
                                     {
                                         if (p.ChildForm == null || !p.ChildForm.Visible)
                                         {
-                                            p.Action(p.DefaultAction);
+                                            await p.ActionAsync(p.DefaultAction);
                                         }
                                         if (p.ChildForm != null)
                                         {
@@ -344,14 +345,14 @@ namespace GlobalcachingApplication.Plugins.ScrPresets
             }
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result)
             {
                 if (action == ACTION_SPLITSCREEN)
                 {
-                    splitScreen();
+                    await splitScreen();
                 }
                 else if (action == ACTION_SAVECURRENT)
                 {
@@ -359,7 +360,7 @@ namespace GlobalcachingApplication.Plugins.ScrPresets
                 }
                 else
                 {
-                    openPreset(action);
+                    await openPreset(action);
                 }
             }
             return result;

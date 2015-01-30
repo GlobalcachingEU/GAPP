@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Globalization;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Framework.Interfaces
 {
@@ -15,7 +16,7 @@ namespace GlobalcachingApplication.Framework.Interfaces
         event EventArguments.NotificationEventHandler Notification;
 
         bool Prerequisite { get; }
-        bool Initialize(ICore core);
+        Task<bool> InitializeAsync(ICore core);
         void Close();
         PluginType PluginType { get; }
         Version Version { get; }
@@ -26,13 +27,13 @@ namespace GlobalcachingApplication.Framework.Interfaces
 
         List<System.Windows.Forms.UserControl> CreateConfigurationPanels();
         bool ApplySettings(List<System.Windows.Forms.UserControl> configPanels);
-        bool Action(string action);
+        Task<bool> ActionAsync(string action);
         bool ActionEnabled(string action, int selectCount, bool active);
         List<string> GetActionSubactionList(char subActionSeperator);
 
         void ShowHelp();
 
-        void ApplicationInitialized();
+        Task ApplicationInitializedAsync();
         void ApplicationClosing();
     }
 }

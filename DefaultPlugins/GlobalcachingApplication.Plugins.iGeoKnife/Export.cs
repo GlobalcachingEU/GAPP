@@ -8,6 +8,7 @@ using Community.CsharpSqlite.SQLiteClient;
 using System.Reflection;
 using System.IO;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.iGeoKnife
 {
@@ -32,7 +33,7 @@ namespace GlobalcachingApplication.Plugins.iGeoKnife
             get { return "Export iGeoKnife"; }
         }
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_EXPORT_ALL);
             AddAction(ACTION_EXPORT_SELECTED);
@@ -54,7 +55,7 @@ namespace GlobalcachingApplication.Plugins.iGeoKnife
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_MAXLOGS));
 
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override bool Action(string action)

@@ -5,6 +5,7 @@ using System.Text;
 using System.Xml;
 using System.Web;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.GCComments
 {
@@ -20,7 +21,7 @@ namespace GlobalcachingApplication.Plugins.GCComments
         private bool _importMissing = false;
         private string _errormessage;
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_IMPORT);
 
@@ -28,7 +29,7 @@ namespace GlobalcachingApplication.Plugins.GCComments
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_IMPORTING));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_ERROR));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override bool Action(string action)

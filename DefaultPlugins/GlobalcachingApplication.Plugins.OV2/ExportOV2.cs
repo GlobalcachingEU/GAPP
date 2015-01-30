@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.OV2
 {
@@ -17,7 +18,7 @@ namespace GlobalcachingApplication.Plugins.OV2
 
         List<Framework.Data.Geocache> _gcList = null;
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             if (Properties.Settings.Default.UpgradeNeeded)
             {
@@ -46,7 +47,7 @@ namespace GlobalcachingApplication.Plugins.OV2
             core.LanguageItems.Add(new Framework.Data.LanguageItem(ExportOV2Form.STR_TERRAIN));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(ExportOV2Form.STR_TITLE));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override bool Action(string action)

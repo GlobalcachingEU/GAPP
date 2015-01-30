@@ -12,6 +12,7 @@ using System.Web;
 using GlobalcachingApplication.Utils.Controls;
 using System.Globalization;
 using System.Web.Script.Serialization;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.GMap
 {
@@ -739,7 +740,7 @@ namespace GlobalcachingApplication.Plugins.GMap
     {
         public const string ACTION_SHOW = "Google Map";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             var p = new PluginSettings(core);
 
@@ -766,7 +767,7 @@ namespace GlobalcachingApplication.Plugins.GMap
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_SHOWNAME));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_AUTOTOPPANEL));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override string FriendlyName

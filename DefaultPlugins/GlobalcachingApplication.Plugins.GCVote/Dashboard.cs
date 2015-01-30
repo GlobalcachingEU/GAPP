@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GlobalcachingApplication.Plugins.GCVote
@@ -10,7 +11,7 @@ namespace GlobalcachingApplication.Plugins.GCVote
     {
         public const string ACTION_SHOW = "GCVote dashboard";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SHOW);
 
@@ -29,7 +30,7 @@ namespace GlobalcachingApplication.Plugins.GCVote
             core.LanguageItems.Add(new Framework.Data.LanguageItem(DashboardForm.STR_WARNING));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(DashboardForm.STR_YOURVOTE));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override string DefaultAction

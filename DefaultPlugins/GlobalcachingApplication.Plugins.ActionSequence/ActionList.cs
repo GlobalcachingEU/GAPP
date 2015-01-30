@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GlobalcachingApplication.Plugins.ActionSequence
@@ -11,7 +12,7 @@ namespace GlobalcachingApplication.Plugins.ActionSequence
         public const string ACTION_EDIT = "Action sequence|Edit";
         public const string ACTION_SEP = "Action sequence|-";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_EDIT);
             AddAction(ACTION_SEP);
@@ -40,12 +41,12 @@ namespace GlobalcachingApplication.Plugins.ActionSequence
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SelectActionForm.STR_SUBACTION));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SelectActionForm.STR_TITLE));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
-        public override void ApplicationInitialized()
+        public async override Task ApplicationInitializedAsync()
         {
-            base.ApplicationInitialized();
+            await base.ApplicationInitializedAsync();
 
             (UIChildWindowForm as ActionListForm).ApplicationInitialized();
         }

@@ -6,6 +6,7 @@ using GlobalcachingApplication.Utils;
 using System.Data.Common;
 using System.Data;
 using Community.CsharpSqlite.SQLiteClient;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.ImportGSAK
 {
@@ -26,7 +27,7 @@ namespace GlobalcachingApplication.Plugins.ImportGSAK
             get { return "Import GSAK Database"; }
         }
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_IMPORT);
 
@@ -37,7 +38,7 @@ namespace GlobalcachingApplication.Plugins.ImportGSAK
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_IMPORTINGLOGIMAGES));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_IMPORTINGWAYPOINTS));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override bool Action(string action)

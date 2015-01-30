@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GlobalcachingApplication.Plugins.ActBuilder
@@ -12,7 +13,7 @@ namespace GlobalcachingApplication.Plugins.ActBuilder
         public const string ACTION_DOWNLOADANDPUBLISH = "Action builder|Download and publish";
         public const string ACTION_SEP = "Action builder|-";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SHOW);
             AddAction(ACTION_DOWNLOADANDPUBLISH);
@@ -75,12 +76,12 @@ namespace GlobalcachingApplication.Plugins.ActBuilder
             core.LanguageItems.Add(new Framework.Data.LanguageItem(ActionWaypointCounter.STR_ADDGEOCACHE));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(ActionAttributes.STR_ALL));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
-        public override void ApplicationInitialized()
+        public async override Task ApplicationInitializedAsync()
         {
-            base.ApplicationInitialized();
+            await base.ApplicationInitializedAsync();
             if (UIChildWindowForm != null)
             {
                 (UIChildWindowForm as ActionBuilderForm).ApplicationInitialized();

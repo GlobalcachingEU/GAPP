@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GlobalcachingApplication.Plugins.APIFavorites
@@ -26,7 +27,7 @@ namespace GlobalcachingApplication.Plugins.APIFavorites
         private int _apiLimit = -1;
         private int _apiLeft = -1;
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_GET);
             AddAction(ACTION_IMPORT);
@@ -42,7 +43,7 @@ namespace GlobalcachingApplication.Plugins.APIFavorites
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_REMOVE));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_IMPORTINGCACHES));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override Framework.PluginType PluginType

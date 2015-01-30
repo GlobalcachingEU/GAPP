@@ -9,6 +9,7 @@ using System.Data;
 using System.IO;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.Locus
 {
@@ -33,7 +34,7 @@ namespace GlobalcachingApplication.Plugins.Locus
             get { return "Export Locus - addon GSAK Database"; }
         }
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_EXPORT_ALL);
             AddAction(ACTION_EXPORT_SELECTED);
@@ -57,7 +58,7 @@ namespace GlobalcachingApplication.Plugins.Locus
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_MAXFILESINFOLDER));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_MAXFILESINFOLDERNULL));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override bool Action(string action)

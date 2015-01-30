@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GlobalcachingApplication.Plugins.QryBuilder
@@ -11,7 +12,7 @@ namespace GlobalcachingApplication.Plugins.QryBuilder
         public const string ACTION_SHOW = "Query builder|Editor";
         public const string ACTION_SEP = "Query builder|-";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SHOW);
             AddAction(ACTION_SEP);
@@ -58,7 +59,7 @@ namespace GlobalcachingApplication.Plugins.QryBuilder
             qei = new QELocked(core);
             qei = new QEQuery(core);
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         protected override Utils.BasePlugin.BaseUIChildWindowForm CreateUIChildWindowForm(Framework.Interfaces.ICore core)
@@ -82,9 +83,9 @@ namespace GlobalcachingApplication.Plugins.QryBuilder
             }
         }
 
-        public override void ApplicationInitialized()
+        public async override Task ApplicationInitializedAsync()
         {
-            base.ApplicationInitialized();
+            await base.ApplicationInitializedAsync();
             if (UIChildWindowForm != null)
             {
                 (UIChildWindowForm as QueryBuilderForm).ApplicationInitialized();

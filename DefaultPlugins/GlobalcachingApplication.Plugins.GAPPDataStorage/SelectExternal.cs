@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.GAPPDataStorage
 {
@@ -11,11 +12,11 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
         public const string ACTION_SELECTPRESENT = "Other database|Select geocaches also present in other gpp database";
         public const string ACTION_SELECTNOTPRESENT = "Other database|Select geocaches not present in other gpp database";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SELECTPRESENT);
             AddAction(ACTION_SELECTNOTPRESENT);
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override Framework.PluginType PluginType

@@ -14,6 +14,7 @@ using System.Security.Permissions;
 using GlobalcachingApplication.Utils.Controls;
 using CefSharp;
 using GlobalcachingApplication.Framework.Interfaces;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.GCView
 {
@@ -563,7 +564,7 @@ namespace GlobalcachingApplication.Plugins.GCView
     {
         public const string ACTION_SHOW = "View Geocache";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SHOW);
 
@@ -575,7 +576,7 @@ namespace GlobalcachingApplication.Plugins.GCView
             core.LanguageItems.Add(new Framework.Data.LanguageItem(GeocacheViewerForm.STR_MAXLOGS));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(GeocacheViewerForm.STR_SHOWWPTS));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override string FriendlyName

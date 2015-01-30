@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.GDirections
 {
@@ -9,7 +10,7 @@ namespace GlobalcachingApplication.Plugins.GDirections
     {
         public const string ACTION_START = "Create route for selected geocaches";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_START);
 
@@ -28,7 +29,7 @@ namespace GlobalcachingApplication.Plugins.GDirections
             core.LanguageItems.Add(new Framework.Data.LanguageItem(GoogleDirectionsForm.STR_TITLE));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(GoogleDirectionsForm.STR_TOTALDISTANCE));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override string DefaultAction

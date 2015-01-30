@@ -5,6 +5,7 @@ using System.Text;
 using System.Data.Common;
 using System.Data;
 using System.Web;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.Cachebox
 {
@@ -28,7 +29,7 @@ namespace GlobalcachingApplication.Plugins.Cachebox
             get { return "Export to Cachebox"; }
         }
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             if (Properties.Settings.Default.UpgradeNeeded)
             {
@@ -49,7 +50,7 @@ namespace GlobalcachingApplication.Plugins.Cachebox
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_GRABBEDIMG));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_MAXLOGS));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override bool Action(string action)

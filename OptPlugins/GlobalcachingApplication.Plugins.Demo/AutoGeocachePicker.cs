@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GlobalcachingApplication.Plugins.Demo
@@ -10,13 +11,13 @@ namespace GlobalcachingApplication.Plugins.Demo
     {
         public const string ACTION_SHOW = "Random geocache selector";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SHOW);
 
             core.LanguageItems.Add(new Framework.Data.LanguageItem(AutoGeocachePickerForm.STR_TITLE));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override string FriendlyName

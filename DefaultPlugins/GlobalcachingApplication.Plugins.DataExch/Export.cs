@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.DataExch
 {
@@ -16,7 +17,7 @@ namespace GlobalcachingApplication.Plugins.DataExch
         private string _filename = null;
         private List<Framework.Data.Geocache> _gcList = null;
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_EXPORT_ALL);
             AddAction(ACTION_EXPORT_SELECTED);
@@ -24,7 +25,7 @@ namespace GlobalcachingApplication.Plugins.DataExch
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_NOGEOCACHESELECTED));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_ERROR));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override bool Action(string action)

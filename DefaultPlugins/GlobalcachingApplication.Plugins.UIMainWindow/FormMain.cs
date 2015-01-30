@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using GlobalcachingApplication.Framework.Interfaces;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.UIMainWindow
 {
@@ -645,7 +646,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             }
         }
 
-        private void startPluginAction(PluginAction pa)
+        private async Task startPluginAction(PluginAction pa)
         {
             if (pa != null)
             {
@@ -654,11 +655,11 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
                 {
                     if (string.IsNullOrEmpty(pa.subaction))
                     {
-                        pa.plugin.Action(pa.action);
+                        await pa.plugin.ActionAsync(pa.action);
                     }
                     else
                     {
-                        pa.plugin.Action(string.Format("{0}{1}{2}", pa.action, Utils.BasePlugin.Plugin.SubActionSep, pa.subaction));
+                        await pa.plugin.ActionAsync(string.Format("{0}{1}{2}", pa.action, Utils.BasePlugin.Plugin.SubActionSep, pa.subaction));
                     }
                 }
                 catch(Exception e)
@@ -669,16 +670,16 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             }
         }
 
-        void mi_Click(object sender, EventArgs e)
+        async void mi_Click(object sender, EventArgs e)
         {
             ToolStripMenuItem mi = sender as ToolStripMenuItem;
             if (mi != null)
             {
-                startPluginAction(mi.Tag as PluginAction);
+                await startPluginAction(mi.Tag as PluginAction);
             }
             else if (sender is ToolStripButton)
             {
-                startPluginAction((sender as ToolStripButton).Tag as PluginAction);
+                await startPluginAction((sender as ToolStripButton).Tag as PluginAction);
             }
         }
 
@@ -848,14 +849,14 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             }
         }
 
-        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        private async void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (Core.AutoSaveOnClose)
             {
                 Framework.Interfaces.IPluginInternalStorage p = (from Framework.Interfaces.IPluginInternalStorage ip in Core.GetPlugin(Framework.PluginType.InternalStorage) select ip).FirstOrDefault();
                 if (p != null)
                 {
-                    e.Cancel = !p.SaveAllData();
+                    e.Cancel = ! await p.SaveAllData();
                 }
             }
             else
@@ -873,7 +874,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
                         Framework.Interfaces.IPluginInternalStorage p = (from Framework.Interfaces.IPluginInternalStorage ip in Core.GetPlugin(Framework.PluginType.InternalStorage) select ip).FirstOrDefault();
                         if (p != null)
                         {
-                            e.Cancel = !p.SaveAllData();
+                            e.Cancel = ! await p.SaveAllData();
                         }
                     }
                     else if (res == System.Windows.Forms.DialogResult.No)
@@ -1103,11 +1104,11 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             }
         }
 
-        private void toolStripButtonExecute_Click(object sender, EventArgs e)
+        private async void toolStripButtonExecute_Click(object sender, EventArgs e)
         {
             if (toolStripComboBoxScript.SelectedItem as PluginAction != null)
             {
-                startPluginAction(toolStripComboBoxScript.SelectedItem as PluginAction);
+                await startPluginAction(toolStripComboBoxScript.SelectedItem as PluginAction);
             }
         }
 
@@ -1271,11 +1272,11 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             }
         }
 
-        private void toolStripButtonExecuteAction_Click(object sender, EventArgs e)
+        private async void toolStripButtonExecuteAction_Click(object sender, EventArgs e)
         {
             if (toolStripComboBoxBuilderFlows.SelectedItem as PluginAction != null)
             {
-                startPluginAction(toolStripComboBoxBuilderFlows.SelectedItem as PluginAction);
+                await startPluginAction(toolStripComboBoxBuilderFlows.SelectedItem as PluginAction);
             }
         }
 
@@ -1330,11 +1331,11 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             }
         }
 
-        private void toolStripButtonExecuteActionSequence_Click(object sender, EventArgs e)
+        private async void toolStripButtonExecuteActionSequence_Click(object sender, EventArgs e)
         {
             if (toolStripComboBoxActionSequence.SelectedItem as PluginAction != null)
             {
-                startPluginAction(toolStripComboBoxActionSequence.SelectedItem as PluginAction);
+                await startPluginAction(toolStripComboBoxActionSequence.SelectedItem as PluginAction);
             }
         }
 
@@ -1489,9 +1490,9 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             listDataChanged(sender, EventArgs.Empty);            
         }
 
-        public override void ApplicationInitialized()
+        public async override Task ApplicationInitializedAsync()
         {
-            base.ApplicationInitialized();
+            await base.ApplicationInitializedAsync();
             Framework.Interfaces.IPluginInternalStorage intStr = Core.GetPlugin(Framework.PluginType.InternalStorage).FirstOrDefault() as Framework.Interfaces.IPluginInternalStorage;
             if (intStr != null)
             {

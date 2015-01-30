@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using OfficeOpenXml;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.ExpExcel
 {
@@ -20,7 +21,7 @@ namespace GlobalcachingApplication.Plugins.ExpExcel
         private List<Framework.Data.Geocache> _gcList = null;
         private List<ExportForm.Sheet> _sheets = null;
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_EXPORT_ALL);
             AddAction(ACTION_EXPORT_SELECTED);
@@ -92,7 +93,7 @@ namespace GlobalcachingApplication.Plugins.ExpExcel
             ppi = new PropertyItemInAreaOther(core);
             ppi = new PropertyItemGlobalcachingUrl(core);
 #endif
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         protected override void ExportMethod()

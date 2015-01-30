@@ -39,10 +39,10 @@ namespace GlobalcachingApplication.Utils.Dialogs
             Close();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             DialogResult = System.Windows.Forms.DialogResult.OK;
-            PluginSupport.ExecuteDefaultAction(_core, "GlobalcachingApplication.Plugins.IgnoreGeocaches.Editor");
+            await PluginSupport.ExecuteDefaultActionAsync(_core, "GlobalcachingApplication.Plugins.IgnoreGeocaches.Editor");
             Close();
         }
     }

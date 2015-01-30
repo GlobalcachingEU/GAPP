@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.APIGetC
 {
@@ -807,7 +808,7 @@ namespace GlobalcachingApplication.Plugins.APIGetC
         private int _apiLeft = -1;
         private string _errormessage = null;
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SHOW);
 
@@ -871,7 +872,7 @@ namespace GlobalcachingApplication.Plugins.APIGetC
             core.LanguageItems.Add(new Framework.Data.LanguageItem(PresetsForm.STR_SAVED));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(PresetsForm.STR_TITLE));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override Framework.PluginType PluginType

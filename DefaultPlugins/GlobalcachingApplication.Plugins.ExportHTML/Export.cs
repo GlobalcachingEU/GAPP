@@ -21,7 +21,7 @@ namespace GlobalcachingApplication.Plugins.ExportHTML
         private List<Framework.Data.Geocache> _gcList = null;
         private List<ExportForm.Sheet> _sheets = null;
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_EXPORT_ALL);
             AddAction(ACTION_EXPORT_SELECTED);
@@ -94,7 +94,7 @@ namespace GlobalcachingApplication.Plugins.ExportHTML
             ppi = new PropertyItemInAreaOther(core);
             ppi = new PropertyItemGlobalcachingUrl(core);
 #endif
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         protected override void ExportMethod()

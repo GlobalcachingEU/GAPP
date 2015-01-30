@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.Common;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.Shortcuts
 {
@@ -32,9 +33,9 @@ namespace GlobalcachingApplication.Plugins.Shortcuts
                 return true;
             }
         }
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
-            bool result = base.Initialize(core);
+            bool result = await base.InitializeAsync(core);
             if (result)
             {
                 core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_CLEAR));

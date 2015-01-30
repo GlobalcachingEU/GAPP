@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Data.Common;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.APIPQ
 {
@@ -27,7 +28,7 @@ namespace GlobalcachingApplication.Plugins.APIPQ
         private List<Utils.API.LiveV6.PQData> _pqs = null;
         private Utils.API.GeocachingLiveV6 _client = null;
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_IMPORT);
 
@@ -61,7 +62,7 @@ namespace GlobalcachingApplication.Plugins.APIPQ
             }
 
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override string DefaultAction

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Utils.BasePlugin
 {
@@ -12,9 +13,9 @@ namespace GlobalcachingApplication.Utils.BasePlugin
         public event Framework.EventArguments.FileDropEventHandler FileDrop;
         public event Framework.EventArguments.CommandLineEventHandler CommandLineArguments;
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
-            bool result = base.Initialize(core);
+            bool result = await base.InitializeAsync(core);
             if (result)
             {
                 _uiMainWindowForm = CreateUIMainWindowForm(core);
@@ -27,14 +28,14 @@ namespace GlobalcachingApplication.Utils.BasePlugin
             return result;
         }
 
-        public override void ApplicationInitialized()
+        public async override Task ApplicationInitializedAsync()
         {
             ImageSupport.Instance.UpdateImageSupportPlugins(Core);
             LanguageSupport.Instance.UpdateLanguageSupportPlugins(Core);
             GeometrySupport.Instance.UpdateGeometrySupportPlugins(Core);
             GeocacheIgnoreSupport.Instance.UpdateIgnoreGeocachesSupportPlugins(Core);
             GeocacheCollectionSupport.Instance.UpdateIgnoreGeocachesCollectionPlugins(Core);
-            base.ApplicationInitialized();
+            await base.ApplicationInitializedAsync();
         }
 
         public virtual void OnDropFile(string[] filename)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Globalization;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Utils.BasePlugin
 {
@@ -19,13 +20,14 @@ namespace GlobalcachingApplication.Utils.BasePlugin
             get { return false; } 
         }
 
-        public virtual bool Initialize(Framework.Interfaces.ICore core)
+        public async virtual Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
-            return Initialize(core, null);
+            return await InitializeAsync(core, null);
         }
 
-        public virtual void ApplicationInitialized()
+        public async virtual Task ApplicationInitializedAsync()
         {
+            await Task.Run(() => { ;});
         }
 
         public virtual void ApplicationClosing()
@@ -37,7 +39,7 @@ namespace GlobalcachingApplication.Utils.BasePlugin
             return (from s in _actions where s!="-" && !s.EndsWith("|-") select s.Replace(SubActionSep,subActionSeperator)).ToList();
         }
 
-        public virtual bool Initialize(Framework.Interfaces.ICore core, string[] actions)
+        public async virtual Task<bool> InitializeAsync(Framework.Interfaces.ICore core, string[] actions)
         {
             bool result = false;
             _core = core;
@@ -61,7 +63,7 @@ namespace GlobalcachingApplication.Utils.BasePlugin
                 {
                     foreach (Framework.Interfaces.IPluginUIMainWindow mwp in p)
                     {
-                        InitUIMainWindow(mwp);
+                        await InitUIMainWindowAsync(mwp);
                     }
                 }
                 core.PluginAdded += new Framework.EventArguments.PluginEventHandler(_core_PluginAdded);
@@ -70,16 +72,16 @@ namespace GlobalcachingApplication.Utils.BasePlugin
             return result;
         }
 
-        void _core_PluginAdded(object sender, Framework.EventArguments.PluginEventArgs e)
+        async void _core_PluginAdded(object sender, Framework.EventArguments.PluginEventArgs e)
         {
-            PluginAdded(e.Plugin);
+            await PluginAddedAsync(e.Plugin);
         }
 
-        protected virtual void PluginAdded(Framework.Interfaces.IPlugin plugin)
+        protected async virtual Task PluginAddedAsync(Framework.Interfaces.IPlugin plugin)
         {
             if (plugin != null && plugin.PluginType == Framework.PluginType.UIMainWindow)
             {
-                InitUIMainWindow(plugin as Framework.Interfaces.IPluginUIMainWindow);
+                await InitUIMainWindowAsync(plugin as Framework.Interfaces.IPluginUIMainWindow);
             }
         }
 
@@ -148,6 +150,15 @@ namespace GlobalcachingApplication.Utils.BasePlugin
             }
         }
 
+        protected async virtual Task InitUIMainWindowAsync(Framework.Interfaces.IPluginUIMainWindow mainWindowPlugin)
+        {
+            if (mainWindowPlugin == null)
+            {
+                await Task.Run(() => { return true; });
+            }
+            InitUIMainWindow(mainWindowPlugin);
+        }
+
         protected virtual void InitUIMainWindow(Framework.Interfaces.IPluginUIMainWindow mainWindowPlugin)
         {
             //add menu items
@@ -189,6 +200,16 @@ namespace GlobalcachingApplication.Utils.BasePlugin
         {
             return true;
         }
+
+        public async virtual Task<bool> ActionAsync(string action)
+        {
+            if (action == null)
+            {
+                return await Task.Run(() => { return true; });
+            }
+            return Action(action);
+        }
+
 
         public virtual bool ActionEnabled(string action, int selectCount, bool active)
         {

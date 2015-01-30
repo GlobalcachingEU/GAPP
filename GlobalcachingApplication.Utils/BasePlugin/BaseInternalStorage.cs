@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -38,7 +39,6 @@ namespace GlobalcachingApplication.Utils.BasePlugin
         protected const string STR_NOGEOCACHESELECTED = "No geocache selected for export";
         protected const string STR_BACKUPFAILED = "Backup failed";
 
-        private ManualResetEvent _actionReady = new ManualResetEvent(false);
         private volatile bool _actionResult = false;
         private bool _dataLoaded = false;
         private bool _databaseError = false;
@@ -67,7 +67,7 @@ namespace GlobalcachingApplication.Utils.BasePlugin
         {
         }
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             _recentDatabases = new List<Framework.Data.InternalStorageDestination>();
 
@@ -110,12 +110,12 @@ namespace GlobalcachingApplication.Utils.BasePlugin
             }
             availableActions.Add(ACTION_RECENT);
 
-            return base.Initialize(core, availableActions.ToArray());
+            return await base.InitializeAsync(core, availableActions.ToArray());
         }
 
-        public override void ApplicationInitialized()
+        public async override Task ApplicationInitializedAsync()
         {
-            base.ApplicationInitialized();
+            await base.ApplicationInitializedAsync();
 
             Framework.Data.InternalStorageDestination curDatabase = ActiveStorageDestination;
             if (curDatabase != null)
@@ -294,18 +294,18 @@ namespace GlobalcachingApplication.Utils.BasePlugin
 
         public virtual Framework.Data.InternalStorageDestination ActiveStorageDestination { get { return null; } }
 
-        public bool SetStorageDestination(Framework.Data.InternalStorageDestination dst)
+        public async Task<bool> SetStorageDestination(Framework.Data.InternalStorageDestination dst)
         {
             bool result = false;
             if (CheckBackgroundTaskNotRunning())
             {
                 if (dst != null)
                 {
-                    if (checkDataSaved())
+                    if (await checkDataSaved())
                     {
                         if (PrepareSetStorageDestination(dst))
                         {
-                            ExecuteInBackground(new ThreadStart(this.OpenMethod));
+                            await ExecuteInBackground(new Action(this.OpenMethod));
                             result = _actionResult;
                             saveMostRecentDatabases();
                         }
@@ -319,35 +319,20 @@ namespace GlobalcachingApplication.Utils.BasePlugin
         {
             return false;
         }
-        private void CopyToNew()
+        private async Task CopyToNew()
         {
-            try
+            await Task.Run(() => 
             {
-                _actionReady.Reset();
-                _actionResult = false;
-                Thread thrd = new Thread(copyToNewThreadMethod);
-                thrd.Start();
-                while (!_actionReady.WaitOne(50))
+                try
                 {
-                    System.Windows.Forms.Application.DoEvents();
+                    CopyToNewMethod();
                 }
-                thrd.Join();
-            }
-            catch
-            {
-            }
+                catch
+                {
+                }
+            });
         }
-        private void copyToNewThreadMethod()
-        {
-            try
-            {
-                CopyToNewMethod();
-            }
-            catch
-            {
-            }
-            _actionReady.Set();
-        }
+
         protected virtual void CopyToNewMethod()
         {
         }
@@ -356,35 +341,20 @@ namespace GlobalcachingApplication.Utils.BasePlugin
         {
             return false;
         }
-        private void CopyToExisting()
+        private async Task CopyToExisting()
         {
-            try
+            await Task.Run(() =>
             {
-                _actionReady.Reset();
-                _actionResult = false;
-                Thread thrd = new Thread(copyToExistingThreadMethod);
-                thrd.Start();
-                while (!_actionReady.WaitOne(50))
+                try
                 {
-                    System.Windows.Forms.Application.DoEvents();
+                    CopyToExistingMethod();
                 }
-                thrd.Join();
-            }
-            catch
-            {
-            }
+                catch
+                {
+                }
+            });
         }
-        private void copyToExistingThreadMethod()
-        {
-            try
-            {
-                CopyToExistingMethod();
-            }
-            catch
-            {
-            }
-            _actionReady.Set();
-        }
+
         protected virtual void CopyToExistingMethod()
         {
         }
@@ -431,16 +401,6 @@ namespace GlobalcachingApplication.Utils.BasePlugin
             }
         }
 
-        public override void Close()
-        {
-            if (_actionReady != null)
-            {
-                _actionReady.Close();
-                _actionReady = null;
-            }
-            base.Close();
-        }
-
         protected virtual bool SupportsBackupRestoreDatabase
         {
             get { return false; }
@@ -471,7 +431,7 @@ namespace GlobalcachingApplication.Utils.BasePlugin
         }
 
         //On UI Context
-        private void ExecuteInBackground(ThreadStart ts)
+        private async Task ExecuteInBackground(Action ts)
         {
             _cachesEmpty = Core.Geocaches.Count == 0;
             _logsEmpty = Core.Logs.Count == 0;
@@ -481,16 +441,7 @@ namespace GlobalcachingApplication.Utils.BasePlugin
             _geocacheImgsEmpty = Core.GeocacheImages.Count == 0;
             using (Utils.FrameworkDataUpdater upd = new FrameworkDataUpdater(Core))
             {
-                _actionReady.Reset();
-                _actionResult = false;
-                Thread thrd = new Thread(ts);
-                thrd.IsBackground = true;
-                thrd.Start();
-                while (!_actionReady.WaitOne(50))
-                {
-                    System.Windows.Forms.Application.DoEvents();
-                }
-                thrd.Join();
+                await Task.Run(ts);
             }
             _cachesEmpty = false;
             _logsEmpty = false;
@@ -500,12 +451,12 @@ namespace GlobalcachingApplication.Utils.BasePlugin
             _geocacheImgsEmpty = false;
         }
 
-        private bool checkDataSaved()
+        private async Task<bool> checkDataSaved()
         {
             bool result = true;
             if (Core.AutoSaveOnClose)
             {
-                result = SaveAllData();
+                result = await SaveAllData();
             }
             else
             {
@@ -520,7 +471,7 @@ namespace GlobalcachingApplication.Utils.BasePlugin
                     if (res == System.Windows.Forms.DialogResult.Yes)
                     {
 
-                        result = SaveAllData();
+                        result = await SaveAllData();
                     }
                     else if (res == System.Windows.Forms.DialogResult.No)
                     {
@@ -534,11 +485,11 @@ namespace GlobalcachingApplication.Utils.BasePlugin
             return result;
         }
 
-        public bool SaveAllData()
+        public async Task<bool> SaveAllData()
         {
             if (CheckBackgroundTaskNotRunning())
             {
-                ExecuteInBackground(new ThreadStart(this.SaveMethod));
+                await ExecuteInBackground(new Action(this.SaveMethod));
                 return _actionResult;
             }
             else
@@ -561,7 +512,7 @@ namespace GlobalcachingApplication.Utils.BasePlugin
             return result;
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result)
@@ -570,12 +521,12 @@ namespace GlobalcachingApplication.Utils.BasePlugin
                 {
                     if (action == ACTION_NEW)
                     {
-                        if (checkDataSaved())
+                        if (await checkDataSaved())
                         {
                             if (PrepareNew())
                             {
                                 DatabaseError = false;
-                                ExecuteInBackground(new ThreadStart(this.NewMethod));
+                                await ExecuteInBackground(new Action(this.NewMethod));
                                 result = _actionResult;
                                 saveMostRecentDatabases();
                             }
@@ -586,19 +537,19 @@ namespace GlobalcachingApplication.Utils.BasePlugin
                         if (PrepareSaveAs())
                         {
                             DatabaseError = false;
-                            ExecuteInBackground(new ThreadStart(this.SaveAsMethod));
+                            await ExecuteInBackground(new Action(this.SaveAsMethod));
                             result = _actionResult;
                             saveMostRecentDatabases();
                         }
                     }
                     else if (action == ACTION_OPEN)
                     {
-                        if (checkDataSaved())
+                        if (await checkDataSaved())
                         {
                             if (PrepareOpen())
                             {
                                 DatabaseError = false;
-                                ExecuteInBackground(new ThreadStart(this.OpenMethod));
+                                await ExecuteInBackground(new Action(this.OpenMethod));
                                 result = _actionResult;
                                 DatabaseError = !_actionResult;
                                 saveMostRecentDatabases();
@@ -607,12 +558,12 @@ namespace GlobalcachingApplication.Utils.BasePlugin
                     }
                     else if (action == ACTION_RESTORE)
                     {
-                        if (checkDataSaved())
+                        if (await checkDataSaved())
                         {
                             if (PrepareRestore())
                             {
                                 DatabaseError = false;
-                                ExecuteInBackground(new ThreadStart(this.RestoreMethod));
+                                await ExecuteInBackground(new Action(this.RestoreMethod));
                                 result = _actionResult;
                                 DatabaseError = !_actionResult;
                                 saveMostRecentDatabases();
@@ -621,11 +572,11 @@ namespace GlobalcachingApplication.Utils.BasePlugin
                     }
                     else if (action == ACTION_BACKUP)
                     {
-                        if (checkDataSaved())
+                        if (await checkDataSaved())
                         {
                             if (PrepareBackup())
                             {
-                                ExecuteInBackground(new ThreadStart(this.BackupMethod));
+                                await ExecuteInBackground(new Action(this.BackupMethod));
                             }
                             else
                             {
@@ -638,7 +589,7 @@ namespace GlobalcachingApplication.Utils.BasePlugin
                         if (PrepareRepair())
                         {
                             DatabaseError = false;
-                            ExecuteInBackground(new ThreadStart(this.RepairMethod));
+                            await ExecuteInBackground(new Action(this.RepairMethod));
                             result = _actionResult;
                             DatabaseError = !_actionResult;
                         }
@@ -647,7 +598,7 @@ namespace GlobalcachingApplication.Utils.BasePlugin
                     {
                         if (PrepareInsertFromDatabase())
                         {
-                            ExecuteInBackground(new ThreadStart(this.InsertFromDatabaseOnlyNewMethod));
+                            await ExecuteInBackground(new Action(this.InsertFromDatabaseOnlyNewMethod));
                             result = _actionResult;
                         }
                     }
@@ -655,7 +606,7 @@ namespace GlobalcachingApplication.Utils.BasePlugin
                     {
                         if (PrepareInsertFromDatabase())
                         {
-                            ExecuteInBackground(new ThreadStart(this.InsertFromDatabaseOverwriteMethod));
+                            await ExecuteInBackground(new Action(this.InsertFromDatabaseOverwriteMethod));
                             result = _actionResult;
                         }
                     }
@@ -667,7 +618,7 @@ namespace GlobalcachingApplication.Utils.BasePlugin
                             CopyToList.Add(Core.ActiveGeocache);
                             if (PrepareCopyToExisting())
                             {
-                                CopyToExisting();
+                                await CopyToExisting();
                             }
                         }
                         else
@@ -682,7 +633,7 @@ namespace GlobalcachingApplication.Utils.BasePlugin
                         {
                             if (PrepareCopyToExisting())
                             {
-                                CopyToExisting();
+                                await CopyToExisting();
                             }
                         }
                         else
@@ -698,7 +649,7 @@ namespace GlobalcachingApplication.Utils.BasePlugin
                             CopyToList.Add(Core.ActiveGeocache);
                             if (PrepareCopyToNew())
                             {
-                                CopyToNew();
+                                await CopyToNew();
                             }
                         }
                         else
@@ -713,7 +664,7 @@ namespace GlobalcachingApplication.Utils.BasePlugin
                         {
                             if (PrepareCopyToNew())
                             {
-                                CopyToNew();
+                                await CopyToNew();
                             }
                         }
                         else
@@ -723,14 +674,14 @@ namespace GlobalcachingApplication.Utils.BasePlugin
                     }
                     else if (action == ACTION_SAVE)
                     {
-                        ExecuteInBackground(new ThreadStart(this.SaveMethod));
+                        await ExecuteInBackground(new Action(this.SaveMethod));
                         result = _actionResult;
                         DatabaseError = !_actionResult;
                     }
                     else if (action == ACTION_LOAD)
                     {
                         DatabaseError = false;
-                        ExecuteInBackground(new ThreadStart(this.LoadMethod));
+                        await ExecuteInBackground(new Action(this.LoadMethod));
                         result = _actionResult;
                         DatabaseError = !_actionResult;
                     }
@@ -747,7 +698,7 @@ namespace GlobalcachingApplication.Utils.BasePlugin
                                     if (index > 0 && index <= _recentDatabases.Count)
                                     {
                                         DatabaseError = false;
-                                        result = SetStorageDestination(_recentDatabases[index - 1]);
+                                        result = await SetStorageDestination(_recentDatabases[index - 1]);
                                         DatabaseError = !_actionResult;
                                     }
                                 }
@@ -779,7 +730,6 @@ namespace GlobalcachingApplication.Utils.BasePlugin
             catch
             {
             } 
-            _actionReady.Set();
         }
         public virtual bool Save()
         {
@@ -799,7 +749,6 @@ namespace GlobalcachingApplication.Utils.BasePlugin
             catch
             {
             }
-            _actionReady.Set();
         }
         public virtual bool NewFile()
         {
@@ -830,7 +779,6 @@ namespace GlobalcachingApplication.Utils.BasePlugin
             catch
             {
             }
-            _actionReady.Set();
         }
         public virtual bool SaveAs()
         {
@@ -850,7 +798,6 @@ namespace GlobalcachingApplication.Utils.BasePlugin
             catch
             {
             }
-            _actionReady.Set();
         }
         public virtual bool InsertFromDatabaseOnlyNew()
         {
@@ -865,7 +812,6 @@ namespace GlobalcachingApplication.Utils.BasePlugin
             catch
             {
             }
-            _actionReady.Set();
         }
         public virtual bool InsertFromDatabaseOverwrite()
         {
@@ -885,7 +831,6 @@ namespace GlobalcachingApplication.Utils.BasePlugin
             catch
             {
             }
-            _actionReady.Set();
         }
         public virtual bool Backup()
         {
@@ -915,7 +860,6 @@ namespace GlobalcachingApplication.Utils.BasePlugin
             {
                 DatabaseError = true;
             }
-            _actionReady.Set();
         }
         public virtual bool Load(bool geocachesOnly)
         {
@@ -1093,7 +1037,6 @@ namespace GlobalcachingApplication.Utils.BasePlugin
             catch
             {
             }
-            _actionReady.Set();
         }
         public virtual bool Open(bool geocachesOnly)
         {
@@ -1117,7 +1060,6 @@ namespace GlobalcachingApplication.Utils.BasePlugin
             catch
             {
             }
-            _actionReady.Set();
         }
         public virtual bool Repair(bool geocachesOnly)
         {
@@ -1141,19 +1083,18 @@ namespace GlobalcachingApplication.Utils.BasePlugin
             catch
             {
             }
-            _actionReady.Set();
         }
         public virtual bool Restore(bool geocachesOnly)
         {
             return true;
         }
 
-        protected override void InitUIMainWindow(Framework.Interfaces.IPluginUIMainWindow mainWindowPlugin)
+        protected async override Task InitUIMainWindowAsync(Framework.Interfaces.IPluginUIMainWindow mainWindowPlugin)
         {
             base.InitUIMainWindow(mainWindowPlugin);
             if (!_dataLoaded)
             {
-                ExecuteInBackground(new ThreadStart(this.LoadMethod));
+                await ExecuteInBackground(new Action(this.LoadMethod));
                 _dataLoaded = true;
             }
         }

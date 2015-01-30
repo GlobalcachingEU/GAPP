@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.AutoUpdater
 {
@@ -20,7 +21,7 @@ namespace GlobalcachingApplication.Plugins.AutoUpdater
         private ManualResetEvent _actionReady = null;
         private string _errormessage;
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             if (Properties.Settings.Default.UpgradeNeeded)
             {
@@ -48,7 +49,7 @@ namespace GlobalcachingApplication.Plugins.AutoUpdater
 
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsForm.STR_OK));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override string FriendlyName

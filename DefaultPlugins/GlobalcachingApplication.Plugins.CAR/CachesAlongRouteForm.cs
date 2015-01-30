@@ -11,6 +11,7 @@ using System.Reflection;
 using System.Threading;
 using GlobalcachingApplication.Utils.Controls;
 using System.Web.Script.Serialization;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.CAR
 {
@@ -381,7 +382,7 @@ namespace GlobalcachingApplication.Plugins.CAR
     {
         public const string ACTION_SHOW = "Search geocaches along a route";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SHOW);
 
@@ -398,7 +399,7 @@ namespace GlobalcachingApplication.Plugins.CAR
             core.LanguageItems.Add(new Framework.Data.LanguageItem(CachesAlongRouteForm.STR_ROUTEFROM));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(CachesAlongRouteForm.STR_ROUTETO));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override Framework.PluginType PluginType

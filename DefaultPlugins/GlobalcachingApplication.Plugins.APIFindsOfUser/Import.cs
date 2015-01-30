@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.APIFindsOfUser
 {
@@ -22,7 +23,7 @@ namespace GlobalcachingApplication.Plugins.APIFindsOfUser
         private int _apiLimit = -1;
         private int _apiLeft = -1;
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_IMPORT);
 
@@ -54,7 +55,7 @@ namespace GlobalcachingApplication.Plugins.APIFindsOfUser
             core.LanguageItems.Add(new Framework.Data.LanguageItem(ImportForm.STR_SELECTALL));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(ImportForm.STR_DESELECTALL));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override string DefaultAction

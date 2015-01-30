@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.SHP
 {
@@ -42,7 +43,7 @@ namespace GlobalcachingApplication.Plugins.SHP
             return true;
         }
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             bool result = false;
 
@@ -81,7 +82,7 @@ namespace GlobalcachingApplication.Plugins.SHP
             }
 
 
-            if (base.Initialize(core))
+            if (await base.InitializeAsync(core))
             {
                 core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_ADD));
                 core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_CITY));

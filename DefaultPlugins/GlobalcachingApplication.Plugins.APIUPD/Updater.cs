@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.APIUPD
 {
@@ -26,7 +27,7 @@ namespace GlobalcachingApplication.Plugins.APIUPD
         private bool _updateStatusOnly = false;
         private string _errormessage = null;
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_UPDATESTATUS_ALL);
             AddAction(ACTION_UPDATESTATUS_SELECTED);
@@ -53,7 +54,7 @@ namespace GlobalcachingApplication.Plugins.APIUPD
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_EXTRADELAYLOGS));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_MAXLOGS));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override string FriendlyName

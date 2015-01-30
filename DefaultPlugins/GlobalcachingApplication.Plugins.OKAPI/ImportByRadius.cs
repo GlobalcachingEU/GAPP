@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.OKAPI
 {
@@ -17,7 +18,7 @@ namespace GlobalcachingApplication.Plugins.OKAPI
         private double _radiusKm =  30.0;
         private Framework.Data.Location _centerLoc = null;
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_IMPORT);
 
@@ -33,7 +34,7 @@ namespace GlobalcachingApplication.Plugins.OKAPI
             core.LanguageItems.Add(new Framework.Data.LanguageItem(ImportByRadiusForm.STR_RADIUS));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(ImportByRadiusForm.STR_TITLE));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override string DefaultAction

@@ -6,6 +6,7 @@ using System.Data.Common;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GlobalcachingApplication.Plugins.Attach
@@ -273,7 +274,7 @@ namespace GlobalcachingApplication.Plugins.Attach
     {
         public const string ACTION_SHOW = "Geocache attachements";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SHOW);
 
@@ -290,7 +291,7 @@ namespace GlobalcachingApplication.Plugins.Attach
             core.LanguageItems.Add(new Framework.Data.LanguageItem(AddFilesForm.STR_FILES));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(AddFilesForm.STR_OK));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override Framework.PluginType PluginType

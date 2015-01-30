@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.Waymark
 {
@@ -21,9 +22,9 @@ namespace GlobalcachingApplication.Plugins.Waymark
                 return true;
             }
         }
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
-            bool result = base.Initialize(core);
+            bool result = await base.InitializeAsync(core);
             if (result)
             {
                 addCacheType(63542, "Waymark");

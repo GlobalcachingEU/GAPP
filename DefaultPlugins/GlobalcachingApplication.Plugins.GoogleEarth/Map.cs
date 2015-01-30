@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GlobalcachingApplication.Plugins.GoogleEarth
@@ -10,7 +11,7 @@ namespace GlobalcachingApplication.Plugins.GoogleEarth
     {
         public const string ACTION_SHOW = "Google Earth";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SHOW);
 
@@ -20,7 +21,7 @@ namespace GlobalcachingApplication.Plugins.GoogleEarth
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_TILT));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(MapForm.STR_TITLE));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         protected override Utils.BasePlugin.BaseUIChildWindowForm CreateUIChildWindowForm(Framework.Interfaces.ICore core)

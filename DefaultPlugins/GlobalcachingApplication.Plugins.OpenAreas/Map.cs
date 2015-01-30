@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GlobalcachingApplication.Plugins.OpenAreas
@@ -10,7 +11,7 @@ namespace GlobalcachingApplication.Plugins.OpenAreas
     {
         public const string ACTION_SHOW = "Open areas";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SHOW);
 
@@ -27,7 +28,7 @@ namespace GlobalcachingApplication.Plugins.OpenAreas
             core.LanguageItems.Add(new Framework.Data.LanguageItem(MapForm.STR_WAYPOINT));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(MapForm.STR_WAYPOINTS));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override string DefaultAction

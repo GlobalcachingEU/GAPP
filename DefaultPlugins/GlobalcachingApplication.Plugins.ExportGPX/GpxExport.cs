@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ICSharpCode.SharpZipLib.Zip;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.ExportGPX
 {
@@ -25,7 +26,7 @@ namespace GlobalcachingApplication.Plugins.ExportGPX
             get { return "Export GPX"; }
         }
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             if (Properties.Settings.Default.UpgradeNeeded)
             {
@@ -52,7 +53,7 @@ namespace GlobalcachingApplication.Plugins.ExportGPX
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_EXTRAINFO));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_MAXLOGS));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override bool Action(string action)

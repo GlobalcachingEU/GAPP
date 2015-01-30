@@ -103,8 +103,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Pl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.ScrPresets", "DefaultPlugins\GlobalcachingApplication.Plugins.ScrPresets\GlobalcachingApplication.Plugins.ScrPresets.csproj", "{E64778B8-4962-4581-9159-DD6D586EB3CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.SqlServer", "DefaultPlugins\GlobalcachingApplication.Plugins.SqlServer\GlobalcachingApplication.Plugins.SqlServer.csproj", "{0007D0F6-5D92-4CA6-90E3-1EB5DE4FB1B9}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.LanguageGerman", "DefaultPlugins\GlobalcachingApplication.Plugins.LanguageGerman\GlobalcachingApplication.Plugins.LanguageGerman.csproj", "{C230B910-EA7F-4B68-A054-A28C0444C3CA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.SelectArea", "DefaultPlugins\GlobalcachingApplication.Plugins.SelectArea\GlobalcachingApplication.Plugins.SelectArea.csproj", "{C8DFCB29-E15A-4BF9-9282-39E5EB0A0BA2}"
@@ -134,8 +132,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.ExportGarminPOI", "DefaultPlugins\GlobalcachingApplication.Plugins.ExportGarminPOI\GlobalcachingApplication.Plugins.ExportGarminPOI.csproj", "{AB2411F6-926D-4167-9543-33B78BAE94E1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.Chat", "DefaultPlugins\GlobalcachingApplication.Plugins.Chat\GlobalcachingApplication.Plugins.Chat.csproj", "{8D59AE51-7A8D-4AA0-953F-F71D822B0C81}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.Sqlite", "DefaultPlugins\GlobalcachingApplication.Plugins.Sqlite\GlobalcachingApplication.Plugins.Sqlite.csproj", "{7179DB0E-9EC8-461F-BF72-C7FAA6CF1D8D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.CoordSav", "DefaultPlugins\GlobalcachingApplication.Plugins.CoordSav\GlobalcachingApplication.Plugins.CoordSav.csproj", "{BDC94A1E-1F2F-4F74-BF0C-3473FD4F977E}"
 EndProject
@@ -172,8 +168,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.ActBuilder", "DefaultPlugins\GlobalcachingApplication.Plugins.ActBuilder\GlobalcachingApplication.Plugins.ActBuilder.csproj", "{8EAABDA6-4D05-4EC3-B679-63D46E96F2A7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySql.Data", "MySql.Data\MySql.Data.csproj", "{E9DF5ED1-4CBD-4226-B931-9A51610AC14D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.MySql", "DefaultPlugins\GlobalcachingApplication.Plugins.MySql\GlobalcachingApplication.Plugins.MySql.csproj", "{9011AA5B-FC79-4B14-BB1C-0243F6057030}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.DataExch", "DefaultPlugins\GlobalcachingApplication.Plugins.DataExch\GlobalcachingApplication.Plugins.DataExch.csproj", "{DD58550B-B26C-4050-8766-F2D9B05F2504}"
 EndProject
@@ -597,14 +591,6 @@ Global
 		{E64778B8-4962-4581-9159-DD6D586EB3CE}.Release|x64.Build.0 = Release|x64
 		{E64778B8-4962-4581-9159-DD6D586EB3CE}.Release|x86.ActiveCfg = Release|x86
 		{E64778B8-4962-4581-9159-DD6D586EB3CE}.Release|x86.Build.0 = Release|x86
-		{0007D0F6-5D92-4CA6-90E3-1EB5DE4FB1B9}.Debug|x64.ActiveCfg = Debug|x64
-		{0007D0F6-5D92-4CA6-90E3-1EB5DE4FB1B9}.Debug|x64.Build.0 = Debug|x64
-		{0007D0F6-5D92-4CA6-90E3-1EB5DE4FB1B9}.Debug|x86.ActiveCfg = Debug|x86
-		{0007D0F6-5D92-4CA6-90E3-1EB5DE4FB1B9}.Debug|x86.Build.0 = Debug|x86
-		{0007D0F6-5D92-4CA6-90E3-1EB5DE4FB1B9}.Release|x64.ActiveCfg = Release|x64
-		{0007D0F6-5D92-4CA6-90E3-1EB5DE4FB1B9}.Release|x64.Build.0 = Release|x64
-		{0007D0F6-5D92-4CA6-90E3-1EB5DE4FB1B9}.Release|x86.ActiveCfg = Release|x86
-		{0007D0F6-5D92-4CA6-90E3-1EB5DE4FB1B9}.Release|x86.Build.0 = Release|x86
 		{C230B910-EA7F-4B68-A054-A28C0444C3CA}.Debug|x64.ActiveCfg = Debug|x64
 		{C230B910-EA7F-4B68-A054-A28C0444C3CA}.Debug|x64.Build.0 = Debug|x64
 		{C230B910-EA7F-4B68-A054-A28C0444C3CA}.Debug|x86.ActiveCfg = Debug|x86
@@ -725,14 +711,6 @@ Global
 		{8D59AE51-7A8D-4AA0-953F-F71D822B0C81}.Release|x64.Build.0 = Release|x64
 		{8D59AE51-7A8D-4AA0-953F-F71D822B0C81}.Release|x86.ActiveCfg = Release|x86
 		{8D59AE51-7A8D-4AA0-953F-F71D822B0C81}.Release|x86.Build.0 = Release|x86
-		{7179DB0E-9EC8-461F-BF72-C7FAA6CF1D8D}.Debug|x64.ActiveCfg = Debug|x64
-		{7179DB0E-9EC8-461F-BF72-C7FAA6CF1D8D}.Debug|x64.Build.0 = Debug|x64
-		{7179DB0E-9EC8-461F-BF72-C7FAA6CF1D8D}.Debug|x86.ActiveCfg = Debug|x86
-		{7179DB0E-9EC8-461F-BF72-C7FAA6CF1D8D}.Debug|x86.Build.0 = Debug|x86
-		{7179DB0E-9EC8-461F-BF72-C7FAA6CF1D8D}.Release|x64.ActiveCfg = Release|x64
-		{7179DB0E-9EC8-461F-BF72-C7FAA6CF1D8D}.Release|x64.Build.0 = Release|x64
-		{7179DB0E-9EC8-461F-BF72-C7FAA6CF1D8D}.Release|x86.ActiveCfg = Release|x86
-		{7179DB0E-9EC8-461F-BF72-C7FAA6CF1D8D}.Release|x86.Build.0 = Release|x86
 		{BDC94A1E-1F2F-4F74-BF0C-3473FD4F977E}.Debug|x64.ActiveCfg = Debug|x64
 		{BDC94A1E-1F2F-4F74-BF0C-3473FD4F977E}.Debug|x64.Build.0 = Debug|x64
 		{BDC94A1E-1F2F-4F74-BF0C-3473FD4F977E}.Debug|x86.ActiveCfg = Debug|x86
@@ -877,14 +855,6 @@ Global
 		{E9DF5ED1-4CBD-4226-B931-9A51610AC14D}.Release|x64.Build.0 = Release|x64
 		{E9DF5ED1-4CBD-4226-B931-9A51610AC14D}.Release|x86.ActiveCfg = Release|x86
 		{E9DF5ED1-4CBD-4226-B931-9A51610AC14D}.Release|x86.Build.0 = Release|x86
-		{9011AA5B-FC79-4B14-BB1C-0243F6057030}.Debug|x64.ActiveCfg = Debug|x64
-		{9011AA5B-FC79-4B14-BB1C-0243F6057030}.Debug|x64.Build.0 = Debug|x64
-		{9011AA5B-FC79-4B14-BB1C-0243F6057030}.Debug|x86.ActiveCfg = Debug|x86
-		{9011AA5B-FC79-4B14-BB1C-0243F6057030}.Debug|x86.Build.0 = Debug|x86
-		{9011AA5B-FC79-4B14-BB1C-0243F6057030}.Release|x64.ActiveCfg = Release|x64
-		{9011AA5B-FC79-4B14-BB1C-0243F6057030}.Release|x64.Build.0 = Release|x64
-		{9011AA5B-FC79-4B14-BB1C-0243F6057030}.Release|x86.ActiveCfg = Release|x86
-		{9011AA5B-FC79-4B14-BB1C-0243F6057030}.Release|x86.Build.0 = Release|x86
 		{DD58550B-B26C-4050-8766-F2D9B05F2504}.Debug|x64.ActiveCfg = Debug|x64
 		{DD58550B-B26C-4050-8766-F2D9B05F2504}.Debug|x64.Build.0 = Debug|x64
 		{DD58550B-B26C-4050-8766-F2D9B05F2504}.Debug|x86.ActiveCfg = Debug|x86

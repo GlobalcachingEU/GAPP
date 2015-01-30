@@ -13,6 +13,7 @@ using System.Xml;
 using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.Chat
 {
@@ -1012,7 +1013,7 @@ namespace GlobalcachingApplication.Plugins.Chat
     {
         public const string ACTION_SHOW = "Chat";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SHOW);
 
@@ -1032,9 +1033,9 @@ namespace GlobalcachingApplication.Plugins.Chat
             core.LanguageItems.Add(new Framework.Data.LanguageItem(ChatForm.STR_JOINED));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(ChatForm.STR_COPYSELECTION));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(ChatForm.STR_REQUESTINGSELECTION));
-            core.LanguageItems.Add(new Framework.Data.LanguageItem(ChatForm.STR_REQUESTEDSELECTION));           
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(ChatForm.STR_REQUESTEDSELECTION));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override Framework.PluginType PluginType

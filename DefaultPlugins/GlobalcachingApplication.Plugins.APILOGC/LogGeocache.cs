@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.APILOGC
 {
@@ -16,7 +17,7 @@ namespace GlobalcachingApplication.Plugins.APILOGC
         public const string ACTION_GARMINVISIT = "Log geocache|Garmin geocache_visits.txt";
         public const string ACTION_CGEOVISIT = "Log geocache|c:geo visits file";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SINGLE);
             AddAction(ACTION_BATCH);
@@ -135,7 +136,7 @@ namespace GlobalcachingApplication.Plugins.APILOGC
             core.LanguageItems.Add(new Framework.Data.LanguageItem(OfflineLogForm.STR_TITLE));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(OfflineLogForm.STR_LOGONLINE));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override string DefaultAction

@@ -9,6 +9,7 @@ using System.Globalization;
 using System.Diagnostics;
 using System.Security.Cryptography;
 using Microsoft.Win32;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Core
 {
@@ -660,13 +661,13 @@ namespace GlobalcachingApplication.Core
             return result;
         }
 
-        public void ApplicationInitialized()
+        public async Task ApplicationInitialized()
         {
             foreach (Framework.Interfaces.IPlugin plugin in _plugins)
             {
                 try
                 {
-                    plugin.ApplicationInitialized();
+                    await plugin.ApplicationInitializedAsync();
                 }
                 catch
                 {
@@ -694,7 +695,7 @@ namespace GlobalcachingApplication.Core
             }
         }
 
-        public bool Initialize()
+        public async Task<bool> Initialize()
         {
             bool result = false;
             try
@@ -716,7 +717,7 @@ namespace GlobalcachingApplication.Core
                                     {
                                         InitializingPlugin(this, plugin.FriendlyName);
                                     }
-                                    result = plugin.Initialize(this);
+                                    result = await plugin.InitializeAsync(this);
                                     if (result)
                                     {
                                         _plugins.Add(plugin);
@@ -749,7 +750,7 @@ namespace GlobalcachingApplication.Core
                                         {
                                             InitializingPlugin(this, plugin.FriendlyName);
                                         }
-                                        result = plugin.Initialize(this);
+                                        result = await plugin.InitializeAsync(this);
                                         if (result)
                                         {
                                             _plugins.Add(plugin);

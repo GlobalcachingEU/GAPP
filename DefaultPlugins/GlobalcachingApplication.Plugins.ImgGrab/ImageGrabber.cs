@@ -8,6 +8,7 @@ using GlobalcachingApplication.Utils;
 using System.Threading;
 using System.Text.RegularExpressions;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.ImgGrab
 {
@@ -42,7 +43,7 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
         private ManualResetEvent _threadReady = null;
         private string _imgFolder = null;
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_GRAB_ACTIVE);
             AddAction(ACTION_GRAB_SELECTED);
@@ -86,7 +87,7 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
             catch
             {
             }
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         private void initFolder()

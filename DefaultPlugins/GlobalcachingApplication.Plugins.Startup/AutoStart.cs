@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Data.Common;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.Startup
 {
     public class AutoStart : Utils.BasePlugin.Plugin
     {
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             if (Properties.Settings.Default.UpgradeNeeded)
             {
@@ -21,7 +22,7 @@ namespace GlobalcachingApplication.Plugins.Startup
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_INFO));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_SORT));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override Framework.PluginType PluginType
@@ -57,9 +58,9 @@ namespace GlobalcachingApplication.Plugins.Startup
         }
 
 
-        public override void ApplicationInitialized()
+        public async override Task ApplicationInitializedAsync()
         {
-            base.ApplicationInitialized();
+            await base.ApplicationInitializedAsync();
 
             //execute after all application initialized methods have been executed
             SynchronizationContext context = null;
@@ -71,7 +72,7 @@ namespace GlobalcachingApplication.Plugins.Startup
 
             if (Properties.Settings.Default.Startup != null && Properties.Settings.Default.Startup.Count>0)
             {
-                context.Post(new SendOrPostCallback(delegate(object state)
+                context.Post(new SendOrPostCallback(async delegate(object state)
                 {
                     foreach (string s in Properties.Settings.Default.Startup)
                     {
@@ -81,7 +82,7 @@ namespace GlobalcachingApplication.Plugins.Startup
                         {
                             try
                             {
-                                p.Action(parts[1].Replace('@', '|'));
+                                await p.ActionAsync(parts[1].Replace('@', '|'));
                             }
                             catch
                             {

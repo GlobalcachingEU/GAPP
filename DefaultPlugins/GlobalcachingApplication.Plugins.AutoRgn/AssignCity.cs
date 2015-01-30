@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.AutoRgn
 {
@@ -17,7 +18,7 @@ namespace GlobalcachingApplication.Plugins.AutoRgn
 
         private List<Framework.Data.Geocache> _gcList = null;
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_ACTIVE);
             AddAction(ACTION_SELECTED);
@@ -27,7 +28,7 @@ namespace GlobalcachingApplication.Plugins.AutoRgn
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_ERROR));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_ASSIGNCITY));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override string DefaultAction

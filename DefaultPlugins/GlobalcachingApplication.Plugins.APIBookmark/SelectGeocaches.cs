@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.APIBookmark
 {
@@ -9,7 +10,7 @@ namespace GlobalcachingApplication.Plugins.APIBookmark
     {
         public const string ACTION_BOOKMARK = "Bookmark";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             BookmarkInfoList.Instance(core).SelectGeocachesPlugin = this;
             BookmarkInfo[] bis = BookmarkInfoList.Instance(core).Bookmarks;
@@ -20,7 +21,7 @@ namespace GlobalcachingApplication.Plugins.APIBookmark
                     AddAction(string.Format("{0}|{1}", ACTION_BOOKMARK, bi.Name.Replace('|',' ')));
                 }
             }
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public void BookmarkAdded(BookmarkInfo bi)

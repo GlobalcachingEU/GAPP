@@ -10,6 +10,7 @@ using System.IO;
 using System.Xml;
 using ICSharpCode.SharpZipLib.Zip;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.PkgMng
 {
@@ -509,7 +510,7 @@ namespace GlobalcachingApplication.Plugins.PkgMng
     {
         public const string ACTION_SHOW = "Package manager";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SHOW);
 
@@ -530,7 +531,7 @@ namespace GlobalcachingApplication.Plugins.PkgMng
             core.LanguageItems.Add(new Framework.Data.LanguageItem(NewCoreVersionAvailableNotification.STR_NEWVERSIONAVAILABLE));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(NewCoreVersionAvailableNotification.STR_DOWNLOADING));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override Framework.PluginType PluginType
@@ -541,9 +542,9 @@ namespace GlobalcachingApplication.Plugins.PkgMng
             }
         }
 
-        public override void ApplicationInitialized()
+        public async override Task ApplicationInitializedAsync()
         {
-            base.ApplicationInitialized();
+            await base.ApplicationInitializedAsync();
             (UIChildWindowForm as PackageManagerForm).checkForNewVersion();
         }
 

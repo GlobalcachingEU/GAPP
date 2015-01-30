@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.ActionSequence
 {
@@ -80,12 +81,12 @@ namespace GlobalcachingApplication.Plugins.ActionSequence
             this.listView1.Columns[2].Text = Utils.LanguageSupport.Instance.GetTranslation(STR_SUBACTION);
         }
 
-        public void Execute(string actionSequence)
+        public async Task Execute(string actionSequence)
         {
-            Execute((from a in _sequenceInfos where a.Name == actionSequence select a).FirstOrDefault());
+            await Execute((from a in _sequenceInfos where a.Name == actionSequence select a).FirstOrDefault());
         }
 
-        public void Execute(SequenceInfo si)
+        public async Task Execute(SequenceInfo si)
         {
             if (si != null)
             {
@@ -98,11 +99,11 @@ namespace GlobalcachingApplication.Plugins.ActionSequence
                         {
                             if (string.IsNullOrEmpty(ai.SubAction))
                             {
-                                p.Action(ai.Action);
+                                await p.ActionAsync(ai.Action);
                             }
                             else
                             {
-                                p.Action(string.Format("{0}|{1}", ai.Action, ai.SubAction));
+                                await p.ActionAsync(string.Format("{0}|{1}", ai.Action, ai.SubAction));
                             }
                         }
                     }
@@ -259,7 +260,7 @@ namespace GlobalcachingApplication.Plugins.ActionSequence
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             SequenceInfo si = comboBox1.SelectedItem as SequenceInfo;
             if (si != null)
@@ -268,7 +269,7 @@ namespace GlobalcachingApplication.Plugins.ActionSequence
                 toolStripStatusLabel1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_EXECUTING);
                 statusStrip1.Refresh();
                 Application.DoEvents();
-                Execute(si);
+                await Execute(si);
                 this.Enabled = true;
                 toolStripStatusLabel1.Text = "";
             }

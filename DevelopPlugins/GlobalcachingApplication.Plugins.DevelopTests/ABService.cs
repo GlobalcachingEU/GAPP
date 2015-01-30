@@ -7,6 +7,7 @@ using System.Xml;
 using System.Web;
 using System.Collections.Specialized;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.DevelopTests
 {
@@ -14,11 +15,11 @@ namespace GlobalcachingApplication.Plugins.DevelopTests
     {
         public const string ACTION_SHOW = "Get Action Builder Flows";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             //AddAction(ACTION_SHOW);
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override Framework.PluginType PluginType

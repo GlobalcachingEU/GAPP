@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GlobalcachingApplication.Plugins.GCEdit
@@ -10,7 +11,7 @@ namespace GlobalcachingApplication.Plugins.GCEdit
     {
         public const string ACTION_SHOW = "Waypoint Editor";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SHOW);
 
@@ -30,7 +31,7 @@ namespace GlobalcachingApplication.Plugins.GCEdit
             core.LanguageItems.Add(new Framework.Data.LanguageItem(WPEditorForm.STR_WAYPOINT));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(WPEditorForm.STR_WAYPOINTS));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override string DefaultAction

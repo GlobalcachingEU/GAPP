@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.DataExch
 {
@@ -10,7 +11,7 @@ namespace GlobalcachingApplication.Plugins.DataExch
         protected const string ACTION_IMPORT = "Import GAPP Data Exchange file";
         private string _filename = null;
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_IMPORT);
 
@@ -19,7 +20,7 @@ namespace GlobalcachingApplication.Plugins.DataExch
             core.LanguageItems.Add(new Framework.Data.LanguageItem(DataFile.STR_IMPORT));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(DataFile.STR_IMPORT_CACHES));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override bool Action(string action)

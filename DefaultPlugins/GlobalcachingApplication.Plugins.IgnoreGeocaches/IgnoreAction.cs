@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.IgnoreGeocaches
 {
@@ -23,7 +24,7 @@ namespace GlobalcachingApplication.Plugins.IgnoreGeocaches
         private ManualResetEvent _actionReady = null;
         List<Framework.Data.Geocache> _gcList = null;
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_EDIT);
             AddAction(ACTION_SEP);
@@ -37,7 +38,7 @@ namespace GlobalcachingApplication.Plugins.IgnoreGeocaches
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_GEOCACHES));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DELETINGGEOCACHES));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override string DefaultAction

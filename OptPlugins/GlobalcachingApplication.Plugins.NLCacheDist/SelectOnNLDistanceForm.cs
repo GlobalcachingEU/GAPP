@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GlobalcachingApplication.Plugins.NLCacheDist
@@ -49,7 +50,7 @@ namespace GlobalcachingApplication.Plugins.NLCacheDist
             }
         }
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SEARCH);
 
@@ -62,7 +63,7 @@ namespace GlobalcachingApplication.Plugins.NLCacheDist
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SelectOnNLDistanceForm.STR_MINDIST));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SelectOnNLDistanceForm.STR_MAXDIST));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override bool Action(string action)

@@ -7,6 +7,7 @@ using GlobalcachingApplication.Utils;
 using System.Data;
 using System.Data.Common;
 using System.Data.SQLite;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.InternalStorage
 {
@@ -34,7 +35,7 @@ namespace GlobalcachingApplication.Plugins.InternalStorage
         Hashtable _wptsInDB = new Hashtable();
         Hashtable _usrwptsInDB = new Hashtable();
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_LOADING));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_LOADINGDATA));
@@ -80,7 +81,7 @@ namespace GlobalcachingApplication.Plugins.InternalStorage
             core.Logs.LoadFullData += new Framework.EventArguments.LoadFullLogEventHandler(Logs_LoadFullData);
             core.Geocaches.LoadFullData += new Framework.EventArguments.LoadFullGeocacheEventHandler(Geocaches_LoadFullData);
 
-            bool result = base.Initialize(core);
+            bool result = await base.InitializeAsync(core);
             return result;
         }
 

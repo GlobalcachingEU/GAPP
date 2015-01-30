@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Collections;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.AutoSelect
 {
@@ -11,8 +12,8 @@ namespace GlobalcachingApplication.Plugins.AutoSelect
     {
         private Hashtable _prevList;
         private SynchronizationContext _context = null;
-        
-        public override bool Initialize(Framework.Interfaces.ICore core)
+
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             _context = SynchronizationContext.Current;
             if (_context == null)
@@ -29,7 +30,7 @@ namespace GlobalcachingApplication.Plugins.AutoSelect
                 Properties.Settings.Default.Save();
             }
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override string FriendlyName
@@ -66,9 +67,9 @@ namespace GlobalcachingApplication.Plugins.AutoSelect
             return pnls;
         }
 
-        public override void ApplicationInitialized()
+        public async override Task ApplicationInitializedAsync()
         {
-            base.ApplicationInitialized();
+            await base.ApplicationInitializedAsync();
 
             _prevList = new Hashtable();
             foreach (Framework.Data.Geocache g in Core.Geocaches)

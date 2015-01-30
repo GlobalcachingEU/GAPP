@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.ICal
 {
@@ -14,7 +15,7 @@ namespace GlobalcachingApplication.Plugins.ICal
         public const string STR_NOGEOCACHESELECTED = "No geocache selected for export";
         public const string STR_ERROR = "Error";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_ADD_ALL);
             AddAction(ACTION_ADD_SELECTED);
@@ -38,7 +39,7 @@ namespace GlobalcachingApplication.Plugins.ICal
             core.LanguageItems.Add(new Framework.Data.LanguageItem(AddToCalendarForm.STR_SUMMARY));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(AddToCalendarForm.STR_TITLE));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override Framework.PluginType PluginType

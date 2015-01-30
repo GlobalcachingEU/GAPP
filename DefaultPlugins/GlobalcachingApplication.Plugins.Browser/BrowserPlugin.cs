@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GlobalcachingApplication.Plugins.Browser
@@ -10,7 +11,7 @@ namespace GlobalcachingApplication.Plugins.Browser
     {
         public const string ACTION_SHOW = "Web browser";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SHOW);
 
@@ -30,7 +31,7 @@ namespace GlobalcachingApplication.Plugins.Browser
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsForm.STR_SUPPRESSSCRIPTERRORS));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsForm.STR_COMPATIBILITY));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         protected override Utils.BasePlugin.BaseUIChildWindowForm CreateUIChildWindowForm(Framework.Interfaces.ICore core)

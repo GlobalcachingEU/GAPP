@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.CoordSav
 {
@@ -277,7 +278,7 @@ namespace GlobalcachingApplication.Plugins.CoordSav
     {
         public const string ACTION_SHOW = "Backup/Restore Coordinates";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SHOW);
 
@@ -291,7 +292,7 @@ namespace GlobalcachingApplication.Plugins.CoordSav
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SaveRestoreCoordsForm.STR_RESTORE));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SaveRestoreCoordsForm.STR_SAVE));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override Framework.PluginType PluginType

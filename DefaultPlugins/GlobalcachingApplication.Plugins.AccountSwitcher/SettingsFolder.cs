@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GlobalcachingApplication.Plugins.AccountSwitcher
@@ -15,7 +16,7 @@ namespace GlobalcachingApplication.Plugins.AccountSwitcher
         public const string ACTION_SHOW = "Settings scope|Edit";
         public const string ACTION_SEP = "Settings scope|-";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SHOW);
             AddAction(ACTION_SEP);
@@ -36,7 +37,7 @@ namespace GlobalcachingApplication.Plugins.AccountSwitcher
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsFolderForm.STR_TARGETSETTINGSFOLDER));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsFolderForm.STR_TITLE));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override Framework.PluginType PluginType
@@ -55,9 +56,9 @@ namespace GlobalcachingApplication.Plugins.AccountSwitcher
             }
         }
 
-        public override void ApplicationInitialized()
+        public async override Task ApplicationInitializedAsync()
         {
-            base.ApplicationInitialized();
+            await base.ApplicationInitializedAsync();
 
             string[] ail = Core.SettingsProvider.GetSettingsScopes().ToArray();
             if (ail != null && ail.Length > 0)
@@ -83,7 +84,7 @@ namespace GlobalcachingApplication.Plugins.AccountSwitcher
             main.RemoveAction(this, "Settings scope", folder);
         }
 
-        public void SwitchSettingsFolder(string newFolder)
+        public async Task SwitchSettingsFolder(string newFolder)
         {
             if (Core.SettingsProvider.GetSettingsScope().ToLower() != newFolder.ToLower())
             {
@@ -93,7 +94,7 @@ namespace GlobalcachingApplication.Plugins.AccountSwitcher
                     Framework.Interfaces.IPluginInternalStorage p = (from Framework.Interfaces.IPluginInternalStorage ip in Core.GetPlugin(Framework.PluginType.InternalStorage) select ip).FirstOrDefault();
                     if (p != null)
                     {
-                        cancel = !p.SaveAllData();
+                        cancel = !await p.SaveAllData();
                     }
                 }
                 else
@@ -111,7 +112,7 @@ namespace GlobalcachingApplication.Plugins.AccountSwitcher
                             Framework.Interfaces.IPluginInternalStorage p = (from Framework.Interfaces.IPluginInternalStorage ip in Core.GetPlugin(Framework.PluginType.InternalStorage) select ip).FirstOrDefault();
                             if (p != null)
                             {
-                                cancel = !p.SaveAllData();
+                                cancel = !await p.SaveAllData();
                             }
                         }
                         else if (res == System.Windows.Forms.DialogResult.No)
@@ -132,7 +133,7 @@ namespace GlobalcachingApplication.Plugins.AccountSwitcher
             }
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result)
@@ -149,7 +150,7 @@ namespace GlobalcachingApplication.Plugins.AccountSwitcher
                     string[] parts = action.Split(new char[] { '|' }, 2);
                     if (parts.Length == 2 && parts[0] == "Settings scope")
                     {
-                        SwitchSettingsFolder(parts[1]);
+                        await SwitchSettingsFolder(parts[1]);
                     }
                 }
             }

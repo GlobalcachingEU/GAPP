@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.AccountSwitcher
 {
@@ -12,7 +13,7 @@ namespace GlobalcachingApplication.Plugins.AccountSwitcher
 
         private string _filename = null;
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SHOW);
             AddAction(ACTION_SEP);
@@ -42,12 +43,12 @@ namespace GlobalcachingApplication.Plugins.AccountSwitcher
             {
             }
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
-        public override void ApplicationInitialized()
+        public async override Task ApplicationInitializedAsync()
         {
-            base.ApplicationInitialized();
+            await base.ApplicationInitializedAsync();
 
             AddAccountsToMenu(AccountInfo.GetAccountInfos(_filename));
         }

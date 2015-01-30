@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using ICSharpCode.SharpZipLib.Zip;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.Waymark
 {
@@ -25,7 +26,7 @@ namespace GlobalcachingApplication.Plugins.Waymark
             get { return "Import Waymark GPX"; }
         }
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_IMPORT);
 
@@ -36,7 +37,7 @@ namespace GlobalcachingApplication.Plugins.Waymark
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_IMPORTINGLOGIMAGES));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_IMPORTINGWAYPOINTS));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override bool Action(string action)

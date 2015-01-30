@@ -7,6 +7,7 @@ using System.Reflection;
 using System.IO;
 using System.Xml;
 using System.Data.Common;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.LanguageDutch
 {
@@ -27,13 +28,13 @@ namespace GlobalcachingApplication.Plugins.LanguageDutch
             }
         }
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             bool result = false;
 
             _customDictionaryDatabaseFile = System.IO.Path.Combine(core.PluginDataPath, "LanguageDutch.db3");
 
-            if (base.Initialize(core))
+            if (await base.InitializeAsync(core))
             {
                 LanguageInfo li = new LanguageInfo();
                 li.Action = "Nederlands";

@@ -6,6 +6,7 @@ using ICSharpCode.SharpZipLib.Zip;
 using System.Xml;
 using System.IO;
 using System.Web;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.ExportKml
 {
@@ -30,7 +31,7 @@ namespace GlobalcachingApplication.Plugins.ExportKml
         private List<Framework.Data.Geocache> _gcList = null;
         private int _indexDone = 0;
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_EXPORT_ALL);
             AddAction(ACTION_EXPORT_SELECTED);
@@ -47,7 +48,7 @@ namespace GlobalcachingApplication.Plugins.ExportKml
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_CONTAINER));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_YOURS));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override bool Action(string action)

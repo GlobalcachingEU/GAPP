@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.PurgeLogs
 {
@@ -31,7 +32,7 @@ namespace GlobalcachingApplication.Plugins.PurgeLogs
             }
         }
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_FILTER);
             AddAction(ACTION_QUICKPURGE);
@@ -53,7 +54,7 @@ namespace GlobalcachingApplication.Plugins.PurgeLogs
                 Properties.Settings.Default.Save();
             }
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override bool Action(string action)

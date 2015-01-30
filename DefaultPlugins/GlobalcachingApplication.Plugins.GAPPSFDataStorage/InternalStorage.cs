@@ -66,7 +66,7 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
             _geocacheimgsInDB.Clear();
         }
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_LOADING));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_LOADINGDATA));
@@ -99,7 +99,7 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
             core.Logs.LoadFullData += new Framework.EventArguments.LoadFullLogEventHandler(Logs_LoadFullData);
             core.Geocaches.LoadFullData += new Framework.EventArguments.LoadFullGeocacheEventHandler(Geocaches_LoadFullData);
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override bool ApplySettings(List<System.Windows.Forms.UserControl> configPanels)

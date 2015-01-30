@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace GlobalcachingApplication.Plugins.FormulaSolver
 {
@@ -7,11 +8,11 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
         public const string ACTION_SHOW = "Formula Solver";
         private FormulaSolverForm frm;
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SHOW);
             StrRes.InitializeCoreLanguageItems(core);
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override string FriendlyName

@@ -19,7 +19,7 @@ namespace GlobalcachingApplication
             InitializeComponent();
         }
 
-        private void timerStart_Tick(object sender, EventArgs e)
+        private async void timerStart_Tick(object sender, EventArgs e)
         {
             timerStart.Enabled = false;
 
@@ -27,7 +27,7 @@ namespace GlobalcachingApplication
             _engine.LoadingAssembly +=new Core.Engine.LoadingAssemblyHandler(_engine_LoadingAssembly);
             _engine.InitializingPlugin += new Core.Engine.LoadingAssemblyHandler(_engine_InitializingPlugin);
             _engine.PluginAdded += new Framework.EventArguments.PluginEventHandler(_engine_PluginAdded);
-            if (_engine.Initialize())
+            if (await _engine.Initialize())
             {
                 List<Framework.Interfaces.IPlugin> p = _engine.GetPlugin(Framework.PluginType.UIMainWindow);
                 if (p == null || p.Count == 0)
@@ -37,7 +37,7 @@ namespace GlobalcachingApplication
                 else
                 {
                     Hide();
-                    _engine.ApplicationInitialized();
+                    await _engine.ApplicationInitialized();
                     string[] args = Environment.GetCommandLineArgs();
                     ProcessCommandLine((from s in args select s).Skip(1).ToArray());
                 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GlobalcachingApplication.Plugins.Gallery
@@ -10,7 +11,7 @@ namespace GlobalcachingApplication.Plugins.Gallery
     {
         public const string ACTION_SHOW = "Image Gallery";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SHOW);
 
@@ -30,7 +31,7 @@ namespace GlobalcachingApplication.Plugins.Gallery
             core.LanguageItems.Add(new Framework.Data.LanguageItem(ImageGalleryForm.STR_TITLE));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(ImageGalleryForm.STR_UPDATE));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override Framework.PluginType PluginType

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.TxtSearch
 {
@@ -34,7 +35,7 @@ namespace GlobalcachingApplication.Plugins.TxtSearch
             }
         }
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SEARCH);
 
@@ -53,7 +54,7 @@ namespace GlobalcachingApplication.Plugins.TxtSearch
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_ACTIONTITLE));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_ACTIONTEXT));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
 

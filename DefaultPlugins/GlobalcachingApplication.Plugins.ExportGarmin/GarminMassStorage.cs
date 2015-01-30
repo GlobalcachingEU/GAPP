@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.ExportGarmin
 {
@@ -23,7 +24,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
         private string _drive = null;
         private List<Framework.Data.Geocache> _gcList = null;
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_EXPORT_ALL);
             AddAction(ACTION_EXPORT_SELECTED);
@@ -48,7 +49,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SelectDeviceForm.STR_ADDIMAGES));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SelectDeviceForm.STR_MAXLOGS));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         protected override void ExportMethod()

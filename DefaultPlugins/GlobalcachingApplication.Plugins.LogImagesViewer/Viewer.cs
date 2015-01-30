@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.LogImagesViewer
 {
@@ -15,7 +16,7 @@ namespace GlobalcachingApplication.Plugins.LogImagesViewer
 
         private List<Framework.Data.LogImage> _logImagesToGrab = null;
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SHOW);
 
@@ -32,7 +33,7 @@ namespace GlobalcachingApplication.Plugins.LogImagesViewer
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_CACHEDATA));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_DOWNLOADALL));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         protected override Utils.BasePlugin.BaseUIChildWindowForm CreateUIChildWindowForm(Framework.Interfaces.ICore core)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Utils
 {
@@ -13,7 +14,7 @@ namespace GlobalcachingApplication.Utils
             return (from a in pins where a.GetType().ToString().ToLower() == pluginName.ToLower() select a).FirstOrDefault();
         }
 
-        public static bool ExecuteDefaultAction(Framework.Interfaces.ICore core, string pluginName)
+        public async static Task<bool> ExecuteDefaultActionAsync(Framework.Interfaces.ICore core, string pluginName)
         {
             bool result = false;
             Framework.Interfaces.IPlugin pi = PluginByName(core, pluginName);
@@ -21,7 +22,7 @@ namespace GlobalcachingApplication.Utils
             {
                 if (!string.IsNullOrEmpty(pi.DefaultAction))
                 {
-                    result = pi.Action(pi.DefaultAction);
+                    result = await pi.ActionAsync(pi.DefaultAction);
                 }
             }
             return result;

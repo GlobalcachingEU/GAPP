@@ -30,9 +30,9 @@ namespace GlobalcachingApplication.Plugins.GeoSpy
                 return "GeoSpy";
             }
         }
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
-            bool result = base.Initialize(core);
+            bool result = await base.InitializeAsync(core);
 
             if (Properties.Settings.Default.UpgradeNeeded)
             {

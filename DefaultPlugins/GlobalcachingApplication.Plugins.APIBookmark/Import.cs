@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.APIBookmark
 {
@@ -17,7 +18,7 @@ namespace GlobalcachingApplication.Plugins.APIBookmark
 
         private string _errormessage = null;
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SHOW);
 
@@ -35,7 +36,7 @@ namespace GlobalcachingApplication.Plugins.APIBookmark
             core.LanguageItems.Add(new Framework.Data.LanguageItem(ImportForm.STR_TITLE));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(ImportForm.STR_URL));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override Framework.PluginType PluginType

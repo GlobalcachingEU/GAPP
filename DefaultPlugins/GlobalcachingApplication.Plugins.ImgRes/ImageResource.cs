@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.ImgRes
 {
@@ -10,10 +11,10 @@ namespace GlobalcachingApplication.Plugins.ImgRes
     {
         private string _baseImagePath;
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             _baseImagePath = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), "Images");
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
         public override Framework.PluginType PluginType
         {

@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GlobalcachingApplication.Plugins.FilterEx
@@ -555,14 +556,14 @@ namespace GlobalcachingApplication.Plugins.FilterEx
             municipalityRefresh();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private async void button4_Click(object sender, EventArgs e)
         {
-            Utils.PluginSupport.ExecuteDefaultAction(Core, "GlobalcachingApplication.Plugins.APIFindsOfUser.Import");            
+            await Utils.PluginSupport.ExecuteDefaultActionAsync(Core, "GlobalcachingApplication.Plugins.APIFindsOfUser.Import");            
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private async void button5_Click(object sender, EventArgs e)
         {
-            Utils.PluginSupport.ExecuteDefaultAction(Core, "GlobalcachingApplication.Plugins.APIFindsOfUser.Import");            
+            await Utils.PluginSupport.ExecuteDefaultActionAsync(Core, "GlobalcachingApplication.Plugins.APIFindsOfUser.Import");            
         }
     }
 
@@ -570,7 +571,7 @@ namespace GlobalcachingApplication.Plugins.FilterEx
     {
         public const string ACTION_SHOW = "Search geocache";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SHOW);
 
@@ -619,8 +620,8 @@ namespace GlobalcachingApplication.Plugins.FilterEx
             core.LanguageItems.Add(new Framework.Data.LanguageItem(GeocacheSearchForm.STR_AVAILABLE));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(GeocacheSearchForm.STR_DISABLED));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(GeocacheSearchForm.STR_ARCHIVED));
-            
-            return base.Initialize(core);
+
+            return await base.InitializeAsync(core);
         }
 
         public override Framework.PluginType PluginType

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GlobalcachingApplication.Plugins.Solver
@@ -10,7 +11,7 @@ namespace GlobalcachingApplication.Plugins.Solver
     {
         public const string ACTION_SHOW = "Solver";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SHOW);
 
@@ -42,7 +43,7 @@ namespace GlobalcachingApplication.Plugins.Solver
             core.LanguageItems.Add(new Framework.Data.LanguageItem(TextSolverCipher.STR_NAME));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(TextSolverCipher.STR_SHIFTCOUNT));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override string DefaultAction

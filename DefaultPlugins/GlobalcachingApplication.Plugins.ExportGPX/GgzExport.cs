@@ -6,6 +6,7 @@ using ICSharpCode.SharpZipLib.Zip;
 using System.Xml;
 using System.IO;
 using ICSharpCode.SharpZipLib.Checksums;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.ExportGPX
 {
@@ -35,7 +36,7 @@ namespace GlobalcachingApplication.Plugins.ExportGPX
             get { return "Export GGZ"; }
         }
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             if (Properties.Settings.Default.UpgradeNeeded)
             {
@@ -61,7 +62,7 @@ namespace GlobalcachingApplication.Plugins.ExportGPX
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_EXTRACOORDNAMEPREFIX));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_EXTRAINFO));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public void ExportToGGZ(string filename, List<Framework.Data.Geocache> gcList, Utils.GPXGenerator gpxGenerator)

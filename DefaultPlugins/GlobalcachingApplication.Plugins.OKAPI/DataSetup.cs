@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.OKAPI
 {
@@ -30,9 +31,9 @@ namespace GlobalcachingApplication.Plugins.OKAPI
                 return "OKAPI";
             }
         }
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
-            bool result = base.Initialize(core);
+            bool result = await base.InitializeAsync(core);
 
             if (Properties.Settings.Default.UpgradeNeeded)
             {

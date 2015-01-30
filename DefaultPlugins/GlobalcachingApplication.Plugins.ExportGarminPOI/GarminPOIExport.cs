@@ -6,7 +6,8 @@ using System.Text;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Diagnostics;
-using Microsoft.Win32;//for POI Loader Registry Access (set Directory)
+using Microsoft.Win32;
+using System.Threading.Tasks;//for POI Loader Registry Access (set Directory)
 
 namespace GlobalcachingApplication.Plugins.ExportGarminPOI
 {
@@ -43,7 +44,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarminPOI
         private Dictionary<string, System.IO.StreamWriter> sd = null;
 
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             if (Properties.Settings.Default.UpgradeNeeded)
             {
@@ -79,7 +80,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarminPOI
             core.LanguageItems.Add(new Framework.Data.LanguageItem(GarminPOIExportForm.STR_NAME));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(GarminPOIExportForm.STR_CODE));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override bool Action(string action)

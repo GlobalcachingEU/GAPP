@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GlobalcachingApplication.Plugins.APIUserWP
@@ -10,7 +11,7 @@ namespace GlobalcachingApplication.Plugins.APIUserWP
     {
         public const string ACTION_SHOW = "User Waypoint Editor";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_SHOW);
 
@@ -30,7 +31,7 @@ namespace GlobalcachingApplication.Plugins.APIUserWP
             core.LanguageItems.Add(new Framework.Data.LanguageItem(UserWaypointsEditorForm.STR_WAYPOINT));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(UserWaypointsEditorForm.STR_WAYPOINTS));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override string DefaultAction

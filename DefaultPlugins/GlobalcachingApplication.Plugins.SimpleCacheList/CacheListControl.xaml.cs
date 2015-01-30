@@ -247,7 +247,7 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
             }
         }
 
-        private void cacheList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private async void cacheList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (sender != null)
             {
@@ -257,7 +257,7 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
                     Framework.Data.Geocache item = dgr.Item as Framework.Data.Geocache;
                     if (item != null)
                     {
-                        Utils.PluginSupport.ExecuteDefaultAction(SimpleCacheListForm.FixedCore, "GlobalcachingApplication.Plugins.GCView.GeocacheViewer");
+                        await Utils.PluginSupport.ExecuteDefaultActionAsync(SimpleCacheListForm.FixedCore, "GlobalcachingApplication.Plugins.GCView.GeocacheViewer");
                     }
                 }
             }
@@ -285,7 +285,7 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
                         Framework.Interfaces.IPlugin p = Utils.PluginSupport.PluginByName(SimpleCacheListForm.FixedCore, "GlobalcachingApplication.Plugins.QuickAc.Actions");
                         if (p != null)
                         {
-                            p.Action("Delete|Active");
+                            p.ActionAsync("Delete|Active");
                         }
                     }
                 }));

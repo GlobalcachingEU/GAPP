@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.GetImg
 {
@@ -14,7 +15,7 @@ namespace GlobalcachingApplication.Plugins.GetImg
 
         private string _basePath = "";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_IMPORT);
 
@@ -24,7 +25,7 @@ namespace GlobalcachingApplication.Plugins.GetImg
                 Directory.CreateDirectory(_basePath);
             }
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override Framework.PluginType PluginType

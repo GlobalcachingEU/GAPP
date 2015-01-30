@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using ICSharpCode.SharpZipLib.Zip;
 using System.Xml;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.NLCacheDist
 {
@@ -15,24 +16,24 @@ namespace GlobalcachingApplication.Plugins.NLCacheDist
         public const string STR_IMPORT = "Import NL Geocache distance...";
         public const string STR_DOWNLOAD = "Downloading data...";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_IMPORT);
 
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_IMPORT));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DOWNLOAD));
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result)
             {
                 if (action == ACTION_IMPORT)
                 {
-                    PerformImport();
+                    await PerformImport();
                 }
             }
             return result;

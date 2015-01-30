@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.QuickSelect
 {
@@ -24,7 +25,7 @@ namespace GlobalcachingApplication.Plugins.QuickSelect
         public const string ACTION_CHANGED = "Quick Select|Select changed geocaches";
         public const string ACTION_LOGIMAGES = "Quick Select|Select with log images";
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             AddAction(ACTION_CLEAR);
             AddAction(ACTION_INVERT);
@@ -42,7 +43,7 @@ namespace GlobalcachingApplication.Plugins.QuickSelect
             AddAction(ACTION_MULTFOUNDS);
             AddAction(ACTION_USERWAYPOINTS);
             AddAction(ACTION_CHANGED);
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         public override Framework.PluginType PluginType

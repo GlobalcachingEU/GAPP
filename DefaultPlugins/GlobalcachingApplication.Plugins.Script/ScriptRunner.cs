@@ -6,6 +6,7 @@ using System.Text;
 using CSScriptLibrary;
 using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.Script
 {
@@ -20,7 +21,7 @@ namespace GlobalcachingApplication.Plugins.Script
         private SynchronizationContext _context = null;
         private bool _allAssembliesLoaded = false;
 
-        public override bool Initialize(Framework.Interfaces.ICore core)
+        public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             //AddAction(ACTION_SETTINGS);
             AddAction(ACTION_REFRESH);
@@ -70,7 +71,7 @@ namespace GlobalcachingApplication.Plugins.Script
             CSScriptLibrary.CSScript.ShareHostRefAssemblies = true;
             CSScriptLibrary.CSScript.CacheEnabled = true;
 
-            return base.Initialize(core);
+            return await base.InitializeAsync(core);
         }
 
         private void InitFileSystemWatcher()
@@ -153,11 +154,11 @@ namespace GlobalcachingApplication.Plugins.Script
             }), null);
         }
 
-        public override void ApplicationInitialized()
+        public async override Task ApplicationInitializedAsync()
         {
             LoadFolder(Properties.Settings.Default.UserScriptsFolder);
             InitFileSystemWatcher();
-            base.ApplicationInitialized();
+            await base.ApplicationInitializedAsync();
         }
 
         public override void ApplicationClosing()

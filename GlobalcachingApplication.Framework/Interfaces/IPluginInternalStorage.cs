@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Framework.Interfaces
 {
@@ -9,11 +10,11 @@ namespace GlobalcachingApplication.Framework.Interfaces
     {
         event EventArguments.PluginEventHandler DataSourceNameChanged;
 
-        bool SaveAllData();
+        Task<bool> SaveAllData();
         string DataSourceName { get; }
 
         Framework.Data.InternalStorageDestination ActiveStorageDestination { get; }
-        bool SetStorageDestination(Framework.Data.InternalStorageDestination dst);
+        Task<bool> SetStorageDestination(Framework.Data.InternalStorageDestination dst);
 
         void StartReleaseForCopy();
         void EndReleaseForCopy();
