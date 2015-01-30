@@ -77,13 +77,6 @@ namespace GlobalcachingApplication.Core
 
                 if (_pluginDataFolderSelected)
                 {
-                    _allSettings = new List<System.Configuration.ApplicationSettingsBase>();
-                    _allSettings.Add(Properties.Settings.Default);
-
-                    PortableSettings.LoadSettings(PluginDataPath, Properties.Settings.Default);
-                    PortableSettings.SaveSettings(PluginDataPath, Properties.Settings.Default);
-                    Properties.Settings.Default.SettingsSaving += new System.Configuration.SettingsSavingEventHandler(Default_SettingsSaving);
-
                     _geocachingAccountNames = new Framework.Data.GeocachingAccountNames();
                     var p = _settingsProvider.GetSettingsValueStringCollection("Core.GeocachingAccountNames", null);
                     if (p != null)
@@ -214,33 +207,6 @@ namespace GlobalcachingApplication.Core
                 }
             }
         }
-
-        void Default_SettingsSaving(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            System.Configuration.ApplicationSettingsBase  settings = sender as System.Configuration.ApplicationSettingsBase;
-            if (settings != null)
-            {
-                PortableSettings.SaveSettings(PluginDataPath, settings);
-            }
-        }
-
-        public bool CreateSettingsInFolder(string folder, bool useCurrentSettings)
-        {
-            bool result = false;
-            try
-            {
-                foreach (System.Configuration.ApplicationSettingsBase settings in _allSettings)
-                {
-                    PortableSettings.CopySettings(PluginDataPath, folder, settings, useCurrentSettings);
-                }
-                result = true;
-            }
-            catch
-            {
-            }
-            return result;
-        }
-
 
         public void ShowAboutDialog()
         {
@@ -661,7 +627,6 @@ namespace GlobalcachingApplication.Core
         public void OnSelectedLanguage()
         {
             _settingsProvider.SetSettingsValueInt("Core.CultureID", _selectedLanguage.LCID);
-            Properties.Settings.Default.Save();
             if (SelectedLanguageChanged != null)
             {
                 SelectedLanguageChanged(this, EventArgs.Empty);
@@ -896,7 +861,6 @@ namespace GlobalcachingApplication.Core
                     {
                         LoadingAssembly(this, fn);
                     }
-                    bool settingsRetrieved = false;
                     foreach (Type t in types)
                     {
                         // Only select classes that implemented IPlugin
@@ -920,28 +884,6 @@ namespace GlobalcachingApplication.Core
                                     object[] parameters = new object[0];
                                     Framework.Interfaces.IPlugin plugin = (Framework.Interfaces.IPlugin)constructor.Invoke(parameters);
                                     pins.Add(plugin);
-
-                                    if (!settingsRetrieved)
-                                    {
-                                        Type setType = asmbly.GetType(string.Format("{0}.Properties.Settings", asmbly.GetName().Name));
-                                        if (setType != null)
-                                        {
-                                            PropertyInfo pi = setType.GetProperty("Default", BindingFlags.Public | BindingFlags.Static);
-                                            if (pi != null)
-                                            {
-                                                System.Configuration.ApplicationSettingsBase settings = pi.GetValue(null, null) as System.Configuration.ApplicationSettingsBase;
-                                                if (settings != null)
-                                                {
-                                                    //settings.
-                                                    _allSettings.Add(settings);
-                                                    PortableSettings.LoadSettings(PluginDataPath, settings);
-                                                    PortableSettings.SaveSettings(PluginDataPath, settings);
-                                                    settings.SettingsSaving += new System.Configuration.SettingsSavingEventHandler(Default_SettingsSaving);
-                                                }
-                                            }
-                                        }
-                                        settingsRetrieved = true;
-                                    }
                                 }
                             }
                         }

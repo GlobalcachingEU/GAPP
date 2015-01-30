@@ -23,7 +23,6 @@ namespace GlobalcachingApplication.Framework.Interfaces
 
         string PluginDataPath { get; }
         bool EnablePluginDataPathAtStartup { get; set; }
-        bool CreateSettingsInFolder(string folder, bool useCurrentSettings);
 
         event EventArguments.GeocacheEventHandler ActiveGeocacheChanged;
         Framework.Data.Geocache ActiveGeocache { get; set; }
