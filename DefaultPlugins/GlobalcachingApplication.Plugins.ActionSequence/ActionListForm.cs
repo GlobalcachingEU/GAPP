@@ -37,9 +37,10 @@ namespace GlobalcachingApplication.Plugins.ActionSequence
         {
             InitializeComponent();
 
-            if (Properties.Settings.Default.WindowPos != null && !Properties.Settings.Default.WindowPos.IsEmpty)
+            var p = PluginSettings.Instance.WindowPos;
+            if (p != null && !p.IsEmpty)
             {
-                this.Bounds = Properties.Settings.Default.WindowPos;
+                this.Bounds = p;
                 this.StartPosition = FormStartPosition.Manual;
             }
 
@@ -127,8 +128,7 @@ namespace GlobalcachingApplication.Plugins.ActionSequence
         {
             if (WindowState == FormWindowState.Normal)
             {
-                Properties.Settings.Default.WindowPos = this.Bounds;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.WindowPos = this.Bounds;
             }
         }
 
@@ -136,8 +136,7 @@ namespace GlobalcachingApplication.Plugins.ActionSequence
         {
             if (WindowState == FormWindowState.Normal)
             {
-                Properties.Settings.Default.WindowPos = this.Bounds;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.WindowPos = this.Bounds;
             }
         }
 

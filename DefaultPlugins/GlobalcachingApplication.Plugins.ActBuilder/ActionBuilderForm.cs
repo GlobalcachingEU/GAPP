@@ -66,28 +66,22 @@ namespace GlobalcachingApplication.Plugins.ActBuilder
 
             ActionBuilderFormInstance = this;
 
-            if (Properties.Settings.Default.UpgradeNeeded)
+            var p = PluginSettings.Instance.WindowPos;
+            if (p != null && !p.IsEmpty)
             {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
-
-            if (Properties.Settings.Default.WindowPos != null && !Properties.Settings.Default.WindowPos.IsEmpty)
-            {
-                this.Bounds = Properties.Settings.Default.WindowPos;
+                this.Bounds = p;
                 this.StartPosition = FormStartPosition.Manual;
             }
 
-            actionBuilderEditor1.ShowConnectionLabels(Properties.Settings.Default.ShowConnectionLabel);
+            actionBuilderEditor1.ShowConnectionLabels(PluginSettings.Instance.ShowConnectionLabel);
 
             _flowsFileName = System.IO.Path.Combine(new string[] { core.PluginDataPath, "FreeFlows.xml" });
             loadFlowsFile();
 
-            splitContainer1.SplitterDistance = Properties.Settings.Default.LeftPanelWidth;
-            if (splitContainer2.Width > Properties.Settings.Default.RightPanelWidth)
+            splitContainer1.SplitterDistance = PluginSettings.Instance.LeftPanelWidth;
+            if (splitContainer2.Width > PluginSettings.Instance.RightPanelWidth)
             {
-                splitContainer2.SplitterDistance = splitContainer2.Width - Properties.Settings.Default.RightPanelWidth;
+                splitContainer2.SplitterDistance = splitContainer2.Width - PluginSettings.Instance.RightPanelWidth;
             }
 
             _sizeInitializing = false;
@@ -219,7 +213,7 @@ namespace GlobalcachingApplication.Plugins.ActBuilder
 
         public void SettingsChanged()
         {
-            actionBuilderEditor1.ShowConnectionLabels(Properties.Settings.Default.ShowConnectionLabel);
+            actionBuilderEditor1.ShowConnectionLabels(PluginSettings.Instance.ShowConnectionLabel);
         }
 
         public bool ImportXmlFlow(string xmlDoc)
@@ -664,8 +658,7 @@ namespace GlobalcachingApplication.Plugins.ActBuilder
         {
             if (WindowState == FormWindowState.Normal)
             {
-                Properties.Settings.Default.WindowPos = this.Bounds;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.WindowPos = this.Bounds;
             }
         }
 
@@ -673,8 +666,7 @@ namespace GlobalcachingApplication.Plugins.ActBuilder
         {
             if (WindowState == FormWindowState.Normal)
             {
-                Properties.Settings.Default.WindowPos = this.Bounds;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.WindowPos = this.Bounds;
             }
         }
 
@@ -682,8 +674,7 @@ namespace GlobalcachingApplication.Plugins.ActBuilder
         {
             if (!_sizeInitializing)
             {
-                Properties.Settings.Default.LeftPanelWidth = splitContainer1.SplitterDistance;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.LeftPanelWidth = splitContainer1.SplitterDistance;
             }
         }
 
@@ -691,8 +682,7 @@ namespace GlobalcachingApplication.Plugins.ActBuilder
         {
             if (!_sizeInitializing)
             {
-                Properties.Settings.Default.RightPanelWidth = splitContainer2.Width - splitContainer2.SplitterDistance;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.RightPanelWidth = splitContainer2.Width - splitContainer2.SplitterDistance;
             }
         }
 
@@ -950,7 +940,7 @@ namespace GlobalcachingApplication.Plugins.ActBuilder
                         }
                     }
                 }
-                if (notifyDone && Properties.Settings.Default.ShowFlowCompletedMessage)
+                if (notifyDone && PluginSettings.Instance.ShowFlowCompletedMessage)
                 {
                     using (ExecutionCompletedForm dlg = new ExecutionCompletedForm())
                     {

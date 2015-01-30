@@ -23,8 +23,7 @@ namespace GlobalcachingApplication.Plugins.ActBuilder
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.ShowFlowCompletedMessage = !checkBox1.Checked;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.ShowFlowCompletedMessage = !checkBox1.Checked;
             DialogResult = System.Windows.Forms.DialogResult.OK;
             Close();
         }

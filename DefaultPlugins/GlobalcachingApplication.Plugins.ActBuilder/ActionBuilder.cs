@@ -15,6 +15,8 @@ namespace GlobalcachingApplication.Plugins.ActBuilder
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            var p = new PluginSettings(core);
+
             AddAction(ACTION_SHOW);
             AddAction(ACTION_DOWNLOADANDPUBLISH);
             AddAction(ACTION_SEP);

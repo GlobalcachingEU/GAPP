@@ -14,15 +14,10 @@ namespace GlobalcachingApplication.Plugins.ActionSequence
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            var p = new PluginSettings(core);
+
             AddAction(ACTION_EDIT);
             AddAction(ACTION_SEP);
-
-            if (Properties.Settings.Default.UpgradeNeeded)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
 
             core.LanguageItems.Add(new Framework.Data.LanguageItem(ActionListForm.STR_ACTION));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(ActionListForm.STR_DELETE));

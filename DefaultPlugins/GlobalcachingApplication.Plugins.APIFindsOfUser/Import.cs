@@ -25,14 +25,9 @@ namespace GlobalcachingApplication.Plugins.APIFindsOfUser
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
-            AddAction(ACTION_IMPORT);
+            var p = new PluginSettings(core);
 
-            if (Properties.Settings.Default.UpgradeNeeded)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
+            AddAction(ACTION_IMPORT);
 
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_IMPORTINGMYF));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_IMPORTINGLOGS));
@@ -131,7 +126,7 @@ namespace GlobalcachingApplication.Plugins.APIFindsOfUser
                                 req.Username = usr;
                                 req.MaxPerPage = 100;
                                 req.StartIndex = 0;
-                                if (Properties.Settings.Default.BetweenDates)
+                                if (PluginSettings.Instance.BetweenDates)
                                 {
                                     req.Range = new Utils.API.LiveV6.DateRange();
                                     req.Range.StartDate = _fromDate < _toDate? _fromDate:_toDate;
@@ -179,7 +174,7 @@ namespace GlobalcachingApplication.Plugins.APIFindsOfUser
 
                             //ok, we have the logs
                             //get the geocaches
-                            if (Properties.Settings.Default.ImportMissingCaches && !cancelled && string.IsNullOrEmpty(_errormessage))
+                            if (PluginSettings.Instance.ImportMissingCaches && !cancelled && string.IsNullOrEmpty(_errormessage))
                             {
                                 List<string> gcList = (from a in logs where a.CacheCode!=null && Utils.DataAccess.GetGeocache(Core.Geocaches, a.CacheCode) == null select a.CacheCode).ToList();
                                 int maxToGet = gcList.Count;

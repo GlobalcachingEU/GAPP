@@ -18,17 +18,16 @@ namespace GlobalcachingApplication.Plugins.ActBuilder
             InitializeComponent();
 
             checkBox1.Text = Utils.LanguageSupport.Instance.GetTranslation(ActionBuilderForm.STR_DONOTSHOWAGAIN);
-            checkBox1.Checked = !Properties.Settings.Default.ShowFlowCompletedMessage;
+            checkBox1.Checked = !PluginSettings.Instance.ShowFlowCompletedMessage;
 
             checkBox2.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_SHOWCONNECTIONLABEL);
-            checkBox2.Checked = Properties.Settings.Default.ShowConnectionLabel;
+            checkBox2.Checked = PluginSettings.Instance.ShowConnectionLabel;
         }
 
         public void Apply()
         {
-            Properties.Settings.Default.ShowFlowCompletedMessage = !checkBox1.Checked;
-            Properties.Settings.Default.ShowConnectionLabel = checkBox2.Checked;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.ShowFlowCompletedMessage = !checkBox1.Checked;
+            PluginSettings.Instance.ShowConnectionLabel = checkBox2.Checked;
         }
     }
 }

@@ -43,17 +43,17 @@ namespace GlobalcachingApplication.Plugins.APIFindsOfUser
             : this()
         {
             _core = core;
-            checkBox1.Checked = Properties.Settings.Default.ImportMissingCaches;
-            checkBox2.Checked = Properties.Settings.Default.BetweenDates;
+            checkBox1.Checked = PluginSettings.Instance.ImportMissingCaches;
+            checkBox2.Checked = PluginSettings.Instance.BetweenDates;
 
             dateTimePicker1.Value = DateTime.Now.AddDays(-7);
             dateTimePicker2.Value = DateTime.Now;
 
-            if (Properties.Settings.Default.Usernames == null)
+            if (PluginSettings.Instance.Usernames == null)
             {
-                Properties.Settings.Default.Usernames = new System.Collections.Specialized.StringCollection();
+                PluginSettings.Instance.Usernames = new System.Collections.Specialized.StringCollection();
             }
-            foreach (string s in Properties.Settings.Default.Usernames)
+            foreach (string s in PluginSettings.Instance.Usernames)
             {
                 listBox1.Items.Add(s);
             }
@@ -75,9 +75,9 @@ namespace GlobalcachingApplication.Plugins.APIFindsOfUser
             this.button7.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_SELECTALL);
             this.button8.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_DESELECTALL);
 
-            if (Properties.Settings.Default.LogTypes == null)
+            if (PluginSettings.Instance.LogTypes == null)
             {
-                Properties.Settings.Default.LogTypes = new System.Collections.Specialized.StringCollection();
+                PluginSettings.Instance.LogTypes = new System.Collections.Specialized.StringCollection();
             }
             long[] lt = new long[] { 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 22, 23, 24, 45, 46, 47 };
             var ltl = from a in core.LogTypes where lt.Contains(a.ID) select a;
@@ -85,7 +85,7 @@ namespace GlobalcachingApplication.Plugins.APIFindsOfUser
             {
                 imageList1.Images.Add(gt.ID.ToString(), Image.FromFile(Utils.ImageSupport.Instance.GetImagePath(core, Framework.Data.ImageSize.Small, gt)));
                 ListViewItem lvt = new ListViewItem(Utils.LanguageSupport.Instance.GetTranslation(gt.Name), imageList1.Images.Count - 1);
-                lvt.Checked = Properties.Settings.Default.LogTypes.Count == 0 || Properties.Settings.Default.LogTypes.Contains(gt.ID.ToString());
+                lvt.Checked = PluginSettings.Instance.LogTypes.Count == 0 || PluginSettings.Instance.LogTypes.Contains(gt.ID.ToString());
                 lvt.Tag = gt;
                 listView1.Items.Add(lvt);
             }
@@ -98,13 +98,12 @@ namespace GlobalcachingApplication.Plugins.APIFindsOfUser
             DateTo = dateTimePicker2.Value;
             SelectedUsers = (from string s in listBox1.Items select s).ToList();
             SelectedLogTypes = new List<long>();
-            Properties.Settings.Default.LogTypes.Clear();
+            PluginSettings.Instance.LogTypes.Clear();
             foreach(ListViewItem lvt in listView1.CheckedItems)
             {
-                Properties.Settings.Default.LogTypes.Add((lvt.Tag as Framework.Data.LogType).ID.ToString());
+                PluginSettings.Instance.LogTypes.Add((lvt.Tag as Framework.Data.LogType).ID.ToString());
                 SelectedLogTypes.Add((lvt.Tag as Framework.Data.LogType).ID);
             }
-            Properties.Settings.Default.Save();
             DialogResult = System.Windows.Forms.DialogResult.OK;
             Close();
         }
@@ -115,13 +114,12 @@ namespace GlobalcachingApplication.Plugins.APIFindsOfUser
             DateTo = dateTimePicker2.Value;
             SelectedUsers = new List<string>();
             SelectedLogTypes = new List<long>();
-            Properties.Settings.Default.LogTypes.Clear();
+            PluginSettings.Instance.LogTypes.Clear();
             foreach (ListViewItem lvt in listView1.CheckedItems)
             {
-                Properties.Settings.Default.LogTypes.Add((lvt.Tag as Framework.Data.LogType).ID.ToString());
+                PluginSettings.Instance.LogTypes.Add((lvt.Tag as Framework.Data.LogType).ID.ToString());
                 SelectedLogTypes.Add((lvt.Tag as Framework.Data.LogType).ID);
             }
-            Properties.Settings.Default.Save();
             if (listBox1.SelectedItem != null)
             {
                 SelectedUsers.Add((string)listBox1.SelectedItem);
@@ -132,16 +130,14 @@ namespace GlobalcachingApplication.Plugins.APIFindsOfUser
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.ImportMissingCaches = checkBox1.Checked;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.ImportMissingCaches = checkBox1.Checked;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             if (textBox1.Text.Trim().Length > 0)
             {
-                Properties.Settings.Default.Usernames.Add(textBox1.Text.Trim());
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.Usernames.Add(textBox1.Text.Trim());
                 listBox1.Items.Add(textBox1.Text.Trim());
                 button5.Enabled = true;
             }
@@ -152,8 +148,7 @@ namespace GlobalcachingApplication.Plugins.APIFindsOfUser
         {
             if (listBox1.SelectedIndex >= 0)
             {
-                Properties.Settings.Default.Usernames.Remove((string)listBox1.Items[listBox1.SelectedIndex]);
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.Usernames.Remove((string)listBox1.Items[listBox1.SelectedIndex]);
                 listBox1.Items.RemoveAt(listBox1.SelectedIndex);
                 button5.Enabled = listBox1.Items.Count > 0;
             }
@@ -164,8 +159,7 @@ namespace GlobalcachingApplication.Plugins.APIFindsOfUser
             if (listBox1.SelectedIndex >= 0)
             {
                 string usr = (string)listBox1.Items[listBox1.SelectedIndex];
-                Properties.Settings.Default.Usernames.Remove(usr);
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.Usernames.Remove(usr);
                 listBox1.Items.RemoveAt(listBox1.SelectedIndex);
                 _core.Logs.BeginUpdate();
 
@@ -207,18 +201,18 @@ namespace GlobalcachingApplication.Plugins.APIFindsOfUser
 
         private void button6_Click(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.Usernames.Count == 0)
+            if (PluginSettings.Instance.Usernames.Count == 0)
             {
                 Clipboard.SetText("");
             }
             else
             {
                 StringBuilder sb = new StringBuilder();
-                sb.Append(Properties.Settings.Default.Usernames[0]);
-                for (int i = 1; i < Properties.Settings.Default.Usernames.Count; i++)
+                sb.Append(PluginSettings.Instance.Usernames[0]);
+                for (int i = 1; i < PluginSettings.Instance.Usernames.Count; i++)
                 {
                     sb.Append(",");
-                    sb.Append(Properties.Settings.Default.Usernames[i]);
+                    sb.Append(PluginSettings.Instance.Usernames[i]);
                 }
                 Clipboard.SetText(sb.ToString());
             }
@@ -226,8 +220,7 @@ namespace GlobalcachingApplication.Plugins.APIFindsOfUser
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.BetweenDates = checkBox2.Checked;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.BetweenDates = checkBox2.Checked;
             dateTimePicker1.Enabled = checkBox2.Checked;
             dateTimePicker2.Enabled = checkBox2.Checked;
         }
