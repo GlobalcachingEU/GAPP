@@ -8,10 +8,15 @@ namespace GlobalcachingApplication.Framework.Interfaces
 {
     public interface ISettings
     {
-        void SetSettingsScope(string name);
+        void SetSettingsScope(string name, bool loadSettings);
+        void SetSettingsScopeForNextStart(string name);
         void NewSettingsScope(string name, string copyFrom = null);
+        void DeleteSettingsScope(string name);
         string GetSettingsScope();
         List<string> GetSettingsScopes();
+
+        void SetScopelessSettingsValue(string name, string value);
+        string GetScopelessSettingsValue(string name, string defaultValue);
 
         void SetSettingsValue(string name, string value);
         string GetSettingsValue(string name, string defaultValue);

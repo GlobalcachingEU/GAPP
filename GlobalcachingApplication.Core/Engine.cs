@@ -60,12 +60,7 @@ namespace GlobalcachingApplication.Core
         {
             try
             {
-                if (Properties.Settings.Default.UpgradeNeeded)
-                {
-                    Properties.Settings.Default.Upgrade();
-                    Properties.Settings.Default.UpgradeNeeded = false;
-                    Properties.Settings.Default.Save();
-                }
+                _settingsProvider = new SettingsProvider(null);
 
                 string[] args = Environment.GetCommandLineArgs();
                 if (EnablePluginDataPathAtStartup || (args != null && args.Contains("/f")))
@@ -80,8 +75,6 @@ namespace GlobalcachingApplication.Core
                     _pluginDataFolderSelected = true;
                 }
 
-                _settingsProvider = new SettingsProvider(null);//todo: select scope
-
                 if (_pluginDataFolderSelected)
                 {
                     _allSettings = new List<System.Configuration.ApplicationSettingsBase>();
@@ -92,9 +85,10 @@ namespace GlobalcachingApplication.Core
                     Properties.Settings.Default.SettingsSaving += new System.Configuration.SettingsSavingEventHandler(Default_SettingsSaving);
 
                     _geocachingAccountNames = new Framework.Data.GeocachingAccountNames();
-                    if (Properties.Settings.Default.GeocachingAccountNames != null)
+                    var p = _settingsProvider.GetSettingsValueStringCollection("Core.GeocachingAccountNames", null);
+                    if (p != null)
                     {
-                        foreach (string s in Properties.Settings.Default.GeocachingAccountNames)
+                        foreach (string s in p)
                         {
                             string[] parts = s.Split("|".ToArray(), 2);
                             if (parts.Length == 2)
@@ -183,16 +177,17 @@ namespace GlobalcachingApplication.Core
 
         void _geocachingAccountNames_Changed(object sender, Framework.EventArguments.GeocachingAccountNamesEventArgs e)
         {
-            if (Properties.Settings.Default.GeocachingAccountNames == null)
+            var p = _settingsProvider.GetSettingsValueStringCollection("Core.GeocachingAccountNames", null);
+            if (p == null)
             {
-                Properties.Settings.Default.GeocachingAccountNames = new System.Collections.Specialized.StringCollection();
+                p = new System.Collections.Specialized.StringCollection();
             }
             string[] prefixes = e.AccountNames.GeocachePrefixes;
             foreach (string s in prefixes)
             {
-                Properties.Settings.Default.GeocachingAccountNames.Add(String.Format("{0}|{1}", s, e.AccountNames.GetAccountName(s)));
+                p.Add(String.Format("{0}|{1}", s, e.AccountNames.GetAccountName(s)));
             }
-            Properties.Settings.Default.Save();
+            _settingsProvider.SetSettingsValueStringCollection("Core.GeocachingAccountNames", p);
             OnGeocachingAccountNamesChanged(this);            
         }
 
@@ -255,71 +250,30 @@ namespace GlobalcachingApplication.Core
             }
         }
 
-        public string CSScriptsPath 
-        { 
+        public string CSScriptsPath
+        {
             get
             {
-                if (string.IsNullOrEmpty(Properties.Settings.Default.CSScriptsPath))
+                string p = System.IO.Path.Combine(PluginDataPath, "Scripts");
+                if (!System.IO.Directory.Exists(p))
                 {
-                    string p = System.IO.Path.Combine(PluginDataPath, "Scripts");
-                    Properties.Settings.Default.CSScriptsPath = p;
+                    System.IO.Directory.CreateDirectory(p);
                 }
-                if (!System.IO.Directory.Exists(Properties.Settings.Default.CSScriptsPath))
-                {
-                    System.IO.Directory.CreateDirectory(Properties.Settings.Default.CSScriptsPath);
-                }
-                return Properties.Settings.Default.CSScriptsPath;
+                return p;
             }
-            set { ; } 
+            set { ; }
         }
 
         public bool AutoSaveOnClose
         {
-            get { return Properties.Settings.Default.AutoSaveOnClose; }
-            set
-            {
-                if (Properties.Settings.Default.AutoSaveOnClose != value)
-                {
-                    Properties.Settings.Default.AutoSaveOnClose = value;
-                    Properties.Settings.Default.Save();
-                }
-            }
-        }
-
-        public string[] AvailablePluginDataPaths 
-        {
-            get
-            {
-                if (Properties.Settings.Default.AvailablePluginDataPaths == null)
-                {
-                    return new string[0];
-                }
-                else
-                {
-                    string[] result = new string[Properties.Settings.Default.AvailablePluginDataPaths.Count];
-                    Properties.Settings.Default.AvailablePluginDataPaths.CopyTo(result,0);
-                    return result;
-                }
-            }
-            set
-            {
-                Properties.Settings.Default.AvailablePluginDataPaths = new System.Collections.Specialized.StringCollection();
-                if (value != null && value.Length > 0)
-                {
-                    Properties.Settings.Default.AvailablePluginDataPaths.AddRange(value);
-                }
-                Properties.Settings.Default.Save();
-            }
+            get { if (_settingsProvider==null) return false; else return _settingsProvider.GetSettingsValueBool("Core.AutoSaveOnClose", false); }
+            set { _settingsProvider.SetSettingsValueBool("Core.AutoSaveOnClose", value); }
         }
 
         public bool EnablePluginDataPathAtStartup 
         {
-            get { return Properties.Settings.Default.EnablePluginDataPathAtStartup; }
-            set
-            {
-                Properties.Settings.Default.EnablePluginDataPathAtStartup = value;
-                Properties.Settings.Default.Save();
-            }
+            get { return bool.Parse(_settingsProvider.GetScopelessSettingsValue("Core.EnablePluginDataPathAtStartup", false.ToString())); }
+            set { _settingsProvider.SetScopelessSettingsValue("Core.EnablePluginDataPathAtStartup", value.ToString()); }
         }
 
 
@@ -327,49 +281,20 @@ namespace GlobalcachingApplication.Core
         {
             get 
             {
-                if (string.IsNullOrEmpty(Properties.Settings.Default.PluginDataPath))
+                string p = System.IO.Path.Combine(new string[] { System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "GAPP" });
+                p = p.TrimEnd(new char[] { '\\', '/' });
+                if (!System.IO.Directory.Exists(p))
                 {
-                    string p = System.IO.Path.Combine(new string[] { System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "GAPP" });
-                    Properties.Settings.Default.PluginDataPath = p.TrimEnd(new char[] { '\\', '/' });
+                    System.IO.Directory.CreateDirectory(p);
                 }
-                if (!System.IO.Directory.Exists(Properties.Settings.Default.PluginDataPath))
-                {
-                    System.IO.Directory.CreateDirectory(Properties.Settings.Default.PluginDataPath);
-                }
-                return Properties.Settings.Default.PluginDataPath; 
-            }
-            set
-            {
-                if (Properties.Settings.Default.PluginDataPath != value)
-                {
-                    if (Directory.Exists(value))
-                    {
-                        //assuming plugin saves data etc.
-                        //engine contains no logic but to restart
-                        PrepareClosingApplication();
-
-                        foreach (System.Configuration.ApplicationSettingsBase settings in _allSettings)
-                        {
-                            settings.SettingsSaving -= new System.Configuration.SettingsSavingEventHandler(Default_SettingsSaving);
-                        }
-
-                        Properties.Settings.Default.PluginDataPath = value;
-                        Properties.Settings.Default.Save();
-
-                        System.Windows.Forms.Application.Restart();
-                    }
-                }
+                return p; 
             }
         }
 
         public bool LoadLogsInBackground
         {
-            get { return Properties.Settings.Default.LoadLogsInBackground; }
-            set
-            {
-                Properties.Settings.Default.LoadLogsInBackground = value;
-                Properties.Settings.Default.Save();
-            }
+            get { return _settingsProvider.GetSettingsValueBool("Core.LoadLogsInBackground", true); }
+            set { _settingsProvider.SetSettingsValueBool("Core.LoadLogsInBackground", value); }
         }
 
         public List<string> GetAvailableInternalStoragePlugins()
@@ -379,15 +304,8 @@ namespace GlobalcachingApplication.Core
 
         public string ActiveInternalStoragePlugin
         {
-            get { return Properties.Settings.Default.InternalStorageClass; }
-            set
-            {
-                if (Properties.Settings.Default.InternalStorageClass != value)
-                {
-                    Properties.Settings.Default.InternalStorageClass = value;
-                    Properties.Settings.Default.Save();
-                }
-            }
+            get { return _settingsProvider.GetSettingsValue("Core.InternalStorageClass", "GlobalcachingApplication.Plugins.GAPPDataStorage.InternalStorage"); }
+            set { _settingsProvider.SetSettingsValue("Core.InternalStorageClass", value); }
         }
 
         public void OnShortcutInfoChanged()
@@ -993,7 +911,7 @@ namespace GlobalcachingApplication.Core
                             {
                                 _detectedPlugins.Add(t.FullName);
                             }
-                            if (!isInternalStorage || Properties.Settings.Default.InternalStorageClass == t.FullName)
+                            if (!isInternalStorage || ActiveInternalStoragePlugin == t.FullName)
                             {
                                 //var dpil = _settingsProvider.GetSettingsValueStringCollection("Core.DisabledPlugins", null);
                                 //if (dpil == null || !dpil.Contains(t.FullName))

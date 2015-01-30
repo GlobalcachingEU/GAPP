@@ -21,8 +21,7 @@ namespace GlobalcachingApplication.Framework.Interfaces
         string CSScriptsPath { get; set; }
         bool AutoSaveOnClose { get; set; }
 
-        string PluginDataPath { get; set; }
-        string[] AvailablePluginDataPaths { get; set; }
+        string PluginDataPath { get; }
         bool EnablePluginDataPathAtStartup { get; set; }
         bool CreateSettingsInFolder(string folder, bool useCurrentSettings);
 

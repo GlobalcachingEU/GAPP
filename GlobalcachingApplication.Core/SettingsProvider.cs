@@ -29,11 +29,14 @@ namespace GlobalcachingApplication.Core
 
         private SettingsScope _scope = null;
         private Hashtable _currentSettings = null;
+        private Hashtable _scopelessSettings = null;
         private PetaPoco.Database _database = null;
 
         public SettingsProvider(string scope)
         {
             _currentSettings = new Hashtable();
+            _scopelessSettings = new Hashtable();
+
             string p = System.IO.Path.Combine(new string[] { System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "GAPP" });
             if (!Directory.Exists(p))
             {
@@ -80,6 +83,11 @@ namespace GlobalcachingApplication.Core
             {
                 _currentSettings.Add(s.Name, s.Value);
             }
+            var scopelesssettings = _database.Fetch<Setting>("select * from Settings");
+            foreach (var s in scopelesssettings)
+            {
+                _scopelessSettings.Add(s.Name, s.Value);
+            }
         }
 
         public bool TableExists(string tableName)
@@ -117,14 +125,99 @@ namespace GlobalcachingApplication.Core
 
         public PetaPoco.Database Database { get { return _database; } }
 
-        public void SetSettingsScope(string name)
+        public void SetSettingsScopeForNextStart(string name)
         {
-            throw new NotImplementedException();
+            lock (this)
+            {
+                if (string.IsNullOrEmpty(name))
+                {
+                    name = "default";
+                }
+                _database.Execute("update Settings set Value=@0 where Name='Scope'", name);
+            }
+        }
+
+        public void SetSettingsScope(string name, bool loadSettings)
+        {
+            lock (this)
+            {
+                int curID = _scope.ID;
+                if (string.IsNullOrEmpty(name))
+                {
+                    name = "default";
+                }
+                _scope = _database.FirstOrDefault<SettingsScope>("where Name=@0", name);
+                if (_scope == null)
+                {
+                    _scope = new SettingsScope();
+                    _scope.Name = name;
+                    _database.Save(_scope);
+                }
+                _database.Execute("update Settings set Value=@0 where Name='Scope'", name);
+                if (!TableExists(string.Format("Settings_{0}", _scope.ID)))
+                {
+                    _database.Execute(string.Format("create table 'Settings_{0}' (Name text, Value text)", _scope.ID));
+                }
+                if (loadSettings && curID != _scope.ID)
+                {
+                    _currentSettings.Clear();
+                    var settings = _database.Fetch<Setting>(string.Format("select * from Settings_{0}", _scope.ID));
+                    foreach (var s in settings)
+                    {
+                        _currentSettings.Add(s.Name, s.Value);
+                    }
+                }
+            }
+        }
+
+        public void DeleteSettingsScope(string name)
+        {
+            lock (this)
+            {
+                var scope = _database.FirstOrDefault<SettingsScope>("where Name=@0", name);
+                if (scope != null && scope.ID != _scope.ID)
+                {
+                    if (TableExists(string.Format("Settings_{0}", scope.ID)))
+                    {
+                        _database.Execute(string.Format("drop table 'Settings_{0}'", scope.ID));
+                    }
+                    _database.Execute("delete from SettingsScope where ID=@0", scope.ID);
+                }
+            }
         }
 
         public void NewSettingsScope(string name, string copyFrom = null)
         {
-            throw new NotImplementedException();
+            lock (this)
+            {
+                var scope = _database.FirstOrDefault<SettingsScope>("where Name=@0", name);
+                if (scope == null)
+                {
+                    scope = new SettingsScope();
+                    scope.Name = name;
+                    _database.Save(scope);
+                }
+                if (!TableExists(string.Format("Settings_{0}", scope.ID)))
+                {
+                    _database.Execute(string.Format("create table 'Settings_{0}' (Name text, Value text)", scope.ID));
+                }
+                else
+                {
+                    _database.Execute(string.Format("delete from Settings_{0}", scope.ID));
+                }
+                if (copyFrom != null)
+                {
+                    var cscope = _database.FirstOrDefault<SettingsScope>("where Name=@0", copyFrom);
+                    if (cscope != null)
+                    {
+                        var settings = _database.Fetch<Setting>(string.Format("select * from Settings_{0}", cscope.ID));
+                        foreach (var set in settings)
+                        {
+                            _database.Execute(string.Format("insert into Settings_{0} (Name, Value) values (@0, @1)", scope.ID), set.Name, set.Value);
+                        }
+                    }
+                }
+            }
         }
 
         public string GetSettingsScope()
@@ -134,7 +227,45 @@ namespace GlobalcachingApplication.Core
 
         public List<string> GetSettingsScopes()
         {
-            throw new NotImplementedException();
+            List<string> result;
+            lock (this)
+            {
+                result = _database.Fetch<string>("select Name from SettingsScope");
+            }
+            return result;
+        }
+
+        public void SetScopelessSettingsValue(string name, string value)
+        {
+            lock (this)
+            {
+                if (_scopelessSettings.Contains(name))
+                {
+                    _database.Execute("update Settings set Value=@0 where Name=@1", value ?? "", name);
+                }
+                else
+                {
+                    _database.Execute("insert into Settings (Name, Value) values (@0, @1)", name, value ?? "");
+                }
+                _scopelessSettings[name] = value;
+            }
+        }
+
+        public string GetScopelessSettingsValue(string name, string defaultValue)
+        {
+            string result = null;
+            lock (this)
+            {
+                if (_scopelessSettings.Contains(name))
+                {
+                    result = _scopelessSettings[name] as string;
+                }
+                else
+                {
+                    result = defaultValue;
+                }
+            }
+            return result;
         }
 
         public void SetSettingsValue(string name, string value)
