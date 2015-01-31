@@ -54,26 +54,26 @@ namespace GlobalcachingApplication.Plugins.ExportGarminPOI
             this.rbPOINameGCName.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_NAME);
             this.rbPOINameGCCode.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_CODE);
 
-            this.tbPOIExportPath.Text = Properties.Settings.Default.POIExportPath ?? "";
-            this.cbClearExportDirectory.Checked = Properties.Settings.Default.ClearExportDirectory;
-            this.cbExportGeocachePOIs.Checked = Properties.Settings.Default.ExportGeocachePOIs;
-            this.cbExportWaypointPOIs.Checked = Properties.Settings.Default.ExportWaypointPOIs;
-            this.numNameLengthLimit.Value = Properties.Settings.Default.NameLengthLimit;
-            this.numDescriptionLengthLimit.Value = Properties.Settings.Default.DescriptionLengthLimit;
-            this.cbRunPOILoader.Checked = Properties.Settings.Default.RunPOILoader;
-            this.cbPassDirectoryToPOILoader.Checked = Properties.Settings.Default.PassDirectoryToPOILoader;
-            this.cbRunPOILoaderSilently.Checked = Properties.Settings.Default.RunPOILoaderSilently;
+            this.tbPOIExportPath.Text = PluginSettings.Instance.POIExportPath ?? "";
+            this.cbClearExportDirectory.Checked = PluginSettings.Instance.ClearExportDirectory;
+            this.cbExportGeocachePOIs.Checked = PluginSettings.Instance.ExportGeocachePOIs;
+            this.cbExportWaypointPOIs.Checked = PluginSettings.Instance.ExportWaypointPOIs;
+            this.numNameLengthLimit.Value = PluginSettings.Instance.NameLengthLimit;
+            this.numDescriptionLengthLimit.Value = PluginSettings.Instance.DescriptionLengthLimit;
+            this.cbRunPOILoader.Checked = PluginSettings.Instance.RunPOILoader;
+            this.cbPassDirectoryToPOILoader.Checked = PluginSettings.Instance.PassDirectoryToPOILoader;
+            this.cbRunPOILoaderSilently.Checked = PluginSettings.Instance.RunPOILoaderSilently;
 
-            if ((Properties.Settings.Default.POINameType == "N") || (Properties.Settings.Default.POINameType == ""))
+            if ((PluginSettings.Instance.POINameType == "N") || (PluginSettings.Instance.POINameType == ""))
             {
                 this.rbPOINameGCName.Checked = true;
             }
-            if ((Properties.Settings.Default.POINameType == "C"))
+            if ((PluginSettings.Instance.POINameType == "C"))
             {
                 this.rbPOINameGCCode.Checked = true;
             }
 
-            if ((Properties.Settings.Default.POILoaderFilename == null) || (Properties.Settings.Default.POILoaderFilename==""))
+            if ((PluginSettings.Instance.POILoaderFilename == null) || (PluginSettings.Instance.POILoaderFilename==""))
             {
                 //Set Default Position for POI Loader
                 this.tbPOILoaderFilename.Text = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
@@ -85,7 +85,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarminPOI
             }
             else
             {
-                this.tbPOILoaderFilename.Text = Properties.Settings.Default.POILoaderFilename;
+                this.tbPOILoaderFilename.Text = PluginSettings.Instance.POILoaderFilename;
             }
 
             //this.llbPOILoaderWeb.Links.Add("http://www.garmin.com/products/poiloader/");
@@ -121,26 +121,24 @@ namespace GlobalcachingApplication.Plugins.ExportGarminPOI
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.POIExportPath = this.tbPOIExportPath.Text;
-            Properties.Settings.Default.ClearExportDirectory = this.cbClearExportDirectory.Checked;
-            Properties.Settings.Default.ExportGeocachePOIs = this.cbExportGeocachePOIs.Checked;
-            Properties.Settings.Default.ExportWaypointPOIs = this.cbExportWaypointPOIs.Checked;
-            Properties.Settings.Default.NameLengthLimit = (int)this.numNameLengthLimit.Value;
-            Properties.Settings.Default.DescriptionLengthLimit = (int)this.numDescriptionLengthLimit.Value;
-            Properties.Settings.Default.RunPOILoader = this.cbRunPOILoader.Checked;
-            Properties.Settings.Default.POILoaderFilename = this.tbPOILoaderFilename.Text;
-            Properties.Settings.Default.PassDirectoryToPOILoader = this.cbPassDirectoryToPOILoader.Checked;
-            Properties.Settings.Default.RunPOILoaderSilently = this.cbRunPOILoaderSilently.Checked;
+            PluginSettings.Instance.POIExportPath = this.tbPOIExportPath.Text;
+            PluginSettings.Instance.ClearExportDirectory = this.cbClearExportDirectory.Checked;
+            PluginSettings.Instance.ExportGeocachePOIs = this.cbExportGeocachePOIs.Checked;
+            PluginSettings.Instance.ExportWaypointPOIs = this.cbExportWaypointPOIs.Checked;
+            PluginSettings.Instance.NameLengthLimit = (int)this.numNameLengthLimit.Value;
+            PluginSettings.Instance.DescriptionLengthLimit = (int)this.numDescriptionLengthLimit.Value;
+            PluginSettings.Instance.RunPOILoader = this.cbRunPOILoader.Checked;
+            PluginSettings.Instance.POILoaderFilename = this.tbPOILoaderFilename.Text;
+            PluginSettings.Instance.PassDirectoryToPOILoader = this.cbPassDirectoryToPOILoader.Checked;
+            PluginSettings.Instance.RunPOILoaderSilently = this.cbRunPOILoaderSilently.Checked;
             if (this.rbPOINameGCName.Checked)
             {
-                Properties.Settings.Default.POINameType = "N";
+                PluginSettings.Instance.POINameType = "N";
             }
             if (this.rbPOINameGCCode.Checked)
             {
-                Properties.Settings.Default.POINameType = "C";
+                PluginSettings.Instance.POINameType = "C";
             }
-
-            Properties.Settings.Default.Save();
 
             //System.Windows.Forms.MessageBox.Show(String.Join(", ",System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceNames()));
 

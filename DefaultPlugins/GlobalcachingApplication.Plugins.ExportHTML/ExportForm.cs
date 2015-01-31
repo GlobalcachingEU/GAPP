@@ -70,8 +70,8 @@ namespace GlobalcachingApplication.Plugins.ExportHTML
             }
             _cntdown = listView1.Items.Count;
 
-            textBox1.Text = Properties.Settings.Default.FilePath ?? "";
-            foreach (string s in Properties.Settings.Default.ExportFields)
+            textBox1.Text = PluginSettings.Instance.FilePath ?? "";
+            foreach (string s in PluginSettings.Instance.ExportFields)
             {
                 //fielscount
                 //fields
@@ -96,7 +96,7 @@ namespace GlobalcachingApplication.Plugins.ExportHTML
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.FilePath = textBox1.Text;
+            PluginSettings.Instance.FilePath = textBox1.Text;
             System.Collections.Specialized.StringCollection sc = new System.Collections.Specialized.StringCollection();
             foreach (Sheet sheet in comboBox1.Items)
             {
@@ -109,8 +109,7 @@ namespace GlobalcachingApplication.Plugins.ExportHTML
                 sb.AppendFormat("|{0}",sheet.Name);
                 sc.Add(sb.ToString());
             }
-            Properties.Settings.Default.ExportFields = sc;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.ExportFields = sc;
             DialogResult = System.Windows.Forms.DialogResult.OK;
             Close();
         }

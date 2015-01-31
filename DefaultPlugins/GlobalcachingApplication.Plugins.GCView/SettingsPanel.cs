@@ -38,33 +38,33 @@ namespace GlobalcachingApplication.Plugins.GCView
                 switch (comboBoxTemplates.SelectedIndex)
                 {
                     case 0:
-                        if (string.IsNullOrEmpty(Properties.Settings.Default.GeocacheTemplateHtml))
+                        if (string.IsNullOrEmpty(PluginSettings.Instance.GeocacheTemplateHtml))
                         {
                             s = _viewer._defaultGeocacheTemplateHtml;
                         }
                         else
                         {
-                            s = Properties.Settings.Default.GeocacheTemplateHtml;
+                            s = PluginSettings.Instance.GeocacheTemplateHtml;
                         }                        
                         break;
                     case 1:
-                        if (string.IsNullOrEmpty(Properties.Settings.Default.LogTemplateEvenHtml))
+                        if (string.IsNullOrEmpty(PluginSettings.Instance.LogTemplateEvenHtml))
                         {
                             s = _viewer._defaultLogEvenTemplateHtml;
                         }
                         else
                         {
-                            s = Properties.Settings.Default.LogTemplateEvenHtml;
+                            s = PluginSettings.Instance.LogTemplateEvenHtml;
                         }
                         break;
                     case 2:
-                        if (string.IsNullOrEmpty(Properties.Settings.Default.LogTemplateOddHtml))
+                        if (string.IsNullOrEmpty(PluginSettings.Instance.LogTemplateOddHtml))
                         {
                             s = _viewer._defaultLogOddTemplateHtml;
                         }
                         else
                         {
-                            s = Properties.Settings.Default.LogTemplateOddHtml;
+                            s = PluginSettings.Instance.LogTemplateOddHtml;
                         }
                         break;
                 }
@@ -75,16 +75,15 @@ namespace GlobalcachingApplication.Plugins.GCView
                     switch (comboBoxTemplates.SelectedIndex)
                     {
                         case 0:
-                            Properties.Settings.Default.GeocacheTemplateHtml = s;
+                            PluginSettings.Instance.GeocacheTemplateHtml = s;
                             break;
                         case 1:
-                            Properties.Settings.Default.LogTemplateEvenHtml = s;
+                            PluginSettings.Instance.LogTemplateEvenHtml = s;
                             break;
                         case 2:
-                            Properties.Settings.Default.LogTemplateOddHtml = s;
+                            PluginSettings.Instance.LogTemplateOddHtml = s;
                             break;
                     }
-                    Properties.Settings.Default.Save();
                 }
             }
         }

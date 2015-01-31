@@ -17,15 +17,14 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
         {
             InitializeComponent();
 
-            numericUpDown2.Value = Properties.Settings.Default.BackupKeepMaxCount;
+            numericUpDown2.Value = PluginSettings.Instance.BackupKeepMaxCount;
 
             label3.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_MAXCOUNT);
         }
 
         public void Apply()
         {
-            Properties.Settings.Default.BackupKeepMaxCount = (int)numericUpDown2.Value;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.BackupKeepMaxCount = (int)numericUpDown2.Value;
         }
     }
 }

@@ -32,7 +32,7 @@ namespace GlobalcachingApplication.Plugins.GCComments
             return await base.InitializeAsync(core);
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result)
@@ -48,7 +48,7 @@ namespace GlobalcachingApplication.Plugins.GCComments
                             _errormessage = "";
                             _filename = dlg.FileName;
                             _importMissing = System.Windows.Forms.MessageBox.Show(string.Concat(Utils.LanguageSupport.Instance.GetTranslation(STR_IMPORTMISSING),"?"), Utils.LanguageSupport.Instance.GetTranslation(ACTION_IMPORT), System.Windows.Forms.MessageBoxButtons.YesNo, System.Windows.Forms.MessageBoxIcon.Question, System.Windows.Forms.MessageBoxDefaultButton.Button1) == System.Windows.Forms.DialogResult.Yes;
-                            PerformImport();
+                            await PerformImport();
                             if (!string.IsNullOrEmpty(_errormessage))
                             {
                                 System.Windows.Forms.MessageBox.Show(_errormessage, Utils.LanguageSupport.Instance.GetTranslation(STR_ERROR), System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);

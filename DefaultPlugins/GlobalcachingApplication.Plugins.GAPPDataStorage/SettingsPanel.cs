@@ -19,9 +19,9 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
         {
             InitializeComponent();
 
-            textBox1.Text = Properties.Settings.Default.BackupFolder ?? "";
-            numericUpDown1.Value = Properties.Settings.Default.BackupKeepMaxDays;
-            numericUpDown2.Value = Properties.Settings.Default.BackupKeepMaxCount;
+            textBox1.Text = PluginSettings.Instance.BackupFolder ?? "";
+            numericUpDown1.Value = PluginSettings.Instance.BackupKeepMaxDays;
+            numericUpDown2.Value = PluginSettings.Instance.BackupKeepMaxCount;
 
             label1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_BACKUPFOLDER);
             label2.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_MAXDAYS);
@@ -30,10 +30,9 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
 
         public void Apply()
         {
-            Properties.Settings.Default.BackupFolder = textBox1.Text;
-            Properties.Settings.Default.BackupKeepMaxDays = (int)numericUpDown1.Value;
-            Properties.Settings.Default.BackupKeepMaxCount = (int)numericUpDown2.Value;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.BackupFolder = textBox1.Text;
+            PluginSettings.Instance.BackupKeepMaxDays = (int)numericUpDown1.Value;
+            PluginSettings.Instance.BackupKeepMaxCount = (int)numericUpDown2.Value;
         }
 
         private void button1_Click(object sender, EventArgs e)

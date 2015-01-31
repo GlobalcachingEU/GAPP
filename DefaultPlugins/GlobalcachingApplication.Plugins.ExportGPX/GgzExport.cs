@@ -38,11 +38,9 @@ namespace GlobalcachingApplication.Plugins.ExportGPX
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
-            if (Properties.Settings.Default.UpgradeNeeded)
+            if (PluginSettings.Instance == null)
             {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
+                var p = new PluginSettings(core);
             }
 
             AddAction(ACTION_EXPORT_ALL);
@@ -110,16 +108,16 @@ namespace GlobalcachingApplication.Plugins.ExportGPX
                             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                             {
                                 _filename = dlg.FileName;
-                                _gpxGenerator = new Utils.GPXGenerator(Core, _gcList, string.IsNullOrEmpty(Properties.Settings.Default.GPXVersionStr) ? Utils.GPXGenerator.V101 : Version.Parse(Properties.Settings.Default.GPXVersionStr));
-                                _gpxGenerator.MaxNameLength = Properties.Settings.Default.MaxGeocacheNameLength;
-                                _gpxGenerator.MinStartOfname = Properties.Settings.Default.MinStartOfGeocacheName;
-                                _gpxGenerator.UseNameForGCCode = Properties.Settings.Default.UseNameAndNotCode;
-                                _gpxGenerator.AddAdditionWaypointsToDescription = Properties.Settings.Default.AddWaypointsToDescription;
-                                _gpxGenerator.UseHintsForDescription = Properties.Settings.Default.UseHintsForDescription;
-                                _gpxGenerator.AddFieldnotesToDescription = Properties.Settings.Default.AddFieldnotesToDescription;
-                                _gpxGenerator.ExtraCoordPrefix = Properties.Settings.Default.CorrectedNamePrefix;
-                                _gpxGenerator.AddExtraInfoToDescription = Properties.Settings.Default.AddExtraInfoToDescription;
-                                _gpxGenerator.MaxLogCount = Properties.Settings.Default.MaximumNumberOfLogs;
+                                _gpxGenerator = new Utils.GPXGenerator(Core, _gcList, string.IsNullOrEmpty(PluginSettings.Instance.GPXVersionStr) ? Utils.GPXGenerator.V101 : Version.Parse(PluginSettings.Instance.GPXVersionStr));
+                                _gpxGenerator.MaxNameLength = PluginSettings.Instance.MaxGeocacheNameLength;
+                                _gpxGenerator.MinStartOfname = PluginSettings.Instance.MinStartOfGeocacheName;
+                                _gpxGenerator.UseNameForGCCode = PluginSettings.Instance.UseNameAndNotCode;
+                                _gpxGenerator.AddAdditionWaypointsToDescription = PluginSettings.Instance.AddWaypointsToDescription;
+                                _gpxGenerator.UseHintsForDescription = PluginSettings.Instance.UseHintsForDescription;
+                                _gpxGenerator.AddFieldnotesToDescription = PluginSettings.Instance.AddFieldNotesToDescription;
+                                _gpxGenerator.ExtraCoordPrefix = PluginSettings.Instance.CorrectedNamePrefix;
+                                _gpxGenerator.AddExtraInfoToDescription = PluginSettings.Instance.AddExtraInfoToDescription;
+                                _gpxGenerator.MaxLogCount = PluginSettings.Instance.MaximumNumberOfLogs;
                                 await PerformExport();
                             }
                         }

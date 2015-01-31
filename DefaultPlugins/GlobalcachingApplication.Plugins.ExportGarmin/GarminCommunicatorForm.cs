@@ -46,28 +46,22 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
             _core = core;
             _gcList = gcList;
 
-            if (Properties.Settings.Default.UpgradeNeeded)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
-            numericUpDown1.Value = Properties.Settings.Default.MaxGeocacheNameLength;
-            numericUpDown2.Value = Properties.Settings.Default.MinStartOfGeocacheName;
-            numericUpDown3.Value = Properties.Settings.Default.MaximumNumberOfLogs;
-            checkBox1.Checked = Properties.Settings.Default.AddFieldNotesToDescription;
-            checkBox2.Checked = Properties.Settings.Default.AddChildWaypoints;
-            checkBox3.Checked = Properties.Settings.Default.UseNameAndNotCode;
-            checkBox4.Checked = Properties.Settings.Default.AddWaypointsToDescription;
-            checkBox5.Checked = Properties.Settings.Default.UseHintsForDescription;
-            checkBox6.Checked = Properties.Settings.Default.AddExtraInfoToDescription;
+            numericUpDown1.Value = PluginSettings.Instance.MaxGeocacheNameLength;
+            numericUpDown2.Value = PluginSettings.Instance.MinStartOfGeocacheName;
+            numericUpDown3.Value = PluginSettings.Instance.MaximumNumberOfLogs;
+            checkBox1.Checked = PluginSettings.Instance.AddFieldNotesToDescription;
+            checkBox2.Checked = PluginSettings.Instance.AddChildWaypoints;
+            checkBox3.Checked = PluginSettings.Instance.UseNameAndNotCode;
+            checkBox4.Checked = PluginSettings.Instance.AddWaypointsToDescription;
+            checkBox5.Checked = PluginSettings.Instance.UseHintsForDescription;
+            checkBox6.Checked = PluginSettings.Instance.AddExtraInfoToDescription;
             comboBox2.Items.Add(Utils.GPXGenerator.V100);
             comboBox2.Items.Add(Utils.GPXGenerator.V101);
             comboBox2.Items.Add(Utils.GPXGenerator.V102);
-            textBox1.Text = Properties.Settings.Default.CorrectedNamePrefix ?? "";
-            if (!string.IsNullOrEmpty(Properties.Settings.Default.GPXVersionStr))
+            textBox1.Text = PluginSettings.Instance.CorrectedNamePrefix ?? "";
+            if (!string.IsNullOrEmpty(PluginSettings.Instance.GPXVersionStr))
             {
-                comboBox2.SelectedItem = Version.Parse(Properties.Settings.Default.GPXVersionStr);
+                comboBox2.SelectedItem = Version.Parse(PluginSettings.Instance.GPXVersionStr);
             }
             else
             {
@@ -116,22 +110,21 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
             _running = !_running;
             if (_running)
             {
-                Properties.Settings.Default.AddFieldNotesToDescription = checkBox1.Checked;
-                Properties.Settings.Default.AddChildWaypoints = checkBox2.Checked;
-                Properties.Settings.Default.UseNameAndNotCode = checkBox3.Checked;
-                Properties.Settings.Default.AddWaypointsToDescription = checkBox4.Checked;
-                Properties.Settings.Default.UseHintsForDescription = checkBox5.Checked;
-                Properties.Settings.Default.AddExtraInfoToDescription = checkBox6.Checked;
-                Properties.Settings.Default.CorrectedNamePrefix = textBox1.Text;
+                PluginSettings.Instance.AddFieldNotesToDescription = checkBox1.Checked;
+                PluginSettings.Instance.AddChildWaypoints = checkBox2.Checked;
+                PluginSettings.Instance.UseNameAndNotCode = checkBox3.Checked;
+                PluginSettings.Instance.AddWaypointsToDescription = checkBox4.Checked;
+                PluginSettings.Instance.UseHintsForDescription = checkBox5.Checked;
+                PluginSettings.Instance.AddExtraInfoToDescription = checkBox6.Checked;
+                PluginSettings.Instance.CorrectedNamePrefix = textBox1.Text;
                 if (comboBox2.SelectedItem as Version == null)
                 {
-                    Properties.Settings.Default.GPXVersionStr = "";
+                    PluginSettings.Instance.GPXVersionStr = "";
                 }
                 else
                 {
-                    Properties.Settings.Default.GPXVersionStr = (comboBox2.SelectedItem as Version).ToString();
+                    PluginSettings.Instance.GPXVersionStr = (comboBox2.SelectedItem as Version).ToString();
                 }
-                Properties.Settings.Default.Save();
                 button1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_CANCEL);
             }
             else
@@ -159,16 +152,16 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
                                 List<Framework.Data.Geocache> gcList = new List<Framework.Data.Geocache>();
                                 gcList.Add(_gcList[_nextIndex]);
 
-                                Utils.GPXGenerator gpxGenerator = new Utils.GPXGenerator(_core, gcList, string.IsNullOrEmpty(Properties.Settings.Default.GPXVersionStr) ? Utils.GPXGenerator.V101 : Version.Parse(Properties.Settings.Default.GPXVersionStr));
-                                gpxGenerator.AddFieldnotesToDescription = Properties.Settings.Default.AddFieldNotesToDescription;
-                                gpxGenerator.MaxNameLength = Properties.Settings.Default.MaxGeocacheNameLength;
-                                gpxGenerator.MinStartOfname = Properties.Settings.Default.MinStartOfGeocacheName;
-                                gpxGenerator.UseNameForGCCode = Properties.Settings.Default.UseNameAndNotCode;
-                                gpxGenerator.AddAdditionWaypointsToDescription = Properties.Settings.Default.AddWaypointsToDescription;
-                                gpxGenerator.UseHintsForDescription = Properties.Settings.Default.UseHintsForDescription;
-                                gpxGenerator.ExtraCoordPrefix = Properties.Settings.Default.CorrectedNamePrefix;
-                                gpxGenerator.AddExtraInfoToDescription = Properties.Settings.Default.AddExtraInfoToDescription;
-                                gpxGenerator.MaxLogCount = Properties.Settings.Default.MaximumNumberOfLogs;
+                                Utils.GPXGenerator gpxGenerator = new Utils.GPXGenerator(_core, gcList, string.IsNullOrEmpty(PluginSettings.Instance.GPXVersionStr) ? Utils.GPXGenerator.V101 : Version.Parse(PluginSettings.Instance.GPXVersionStr));
+                                gpxGenerator.AddFieldnotesToDescription = PluginSettings.Instance.AddFieldNotesToDescription;
+                                gpxGenerator.MaxNameLength = PluginSettings.Instance.MaxGeocacheNameLength;
+                                gpxGenerator.MinStartOfname = PluginSettings.Instance.MinStartOfGeocacheName;
+                                gpxGenerator.UseNameForGCCode = PluginSettings.Instance.UseNameAndNotCode;
+                                gpxGenerator.AddAdditionWaypointsToDescription = PluginSettings.Instance.AddWaypointsToDescription;
+                                gpxGenerator.UseHintsForDescription = PluginSettings.Instance.UseHintsForDescription;
+                                gpxGenerator.ExtraCoordPrefix = PluginSettings.Instance.CorrectedNamePrefix;
+                                gpxGenerator.AddExtraInfoToDescription = PluginSettings.Instance.AddExtraInfoToDescription;
+                                gpxGenerator.MaxLogCount = PluginSettings.Instance.MaximumNumberOfLogs;
                                 
                                 using (System.IO.TemporaryFile gpxFile = new System.IO.TemporaryFile(true))
                                 {
@@ -181,7 +174,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
                                         for (int i = 0; i < gpxGenerator.Count; i++)
                                         {
                                             sw.WriteLine(gpxGenerator.Next());
-                                            if (Properties.Settings.Default.AddChildWaypoints)
+                                            if (PluginSettings.Instance.AddChildWaypoints)
                                             {
                                                 string s = gpxGenerator.WaypointData();
                                                 if (!string.IsNullOrEmpty(s))
@@ -234,50 +227,42 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.MaxGeocacheNameLength = (int)numericUpDown1.Value;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.MaxGeocacheNameLength = (int)numericUpDown1.Value;
         }
 
         private void numericUpDown2_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.MinStartOfGeocacheName = (int)numericUpDown2.Value;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.MinStartOfGeocacheName = (int)numericUpDown2.Value;
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.AddFieldNotesToDescription = checkBox1.Checked;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.AddFieldNotesToDescription = checkBox1.Checked;
         }
 
         private void checkBox4_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.AddWaypointsToDescription = checkBox4.Checked;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.AddWaypointsToDescription = checkBox4.Checked;
         }
 
         private void checkBox5_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.UseHintsForDescription = checkBox5.Checked;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.UseHintsForDescription = checkBox5.Checked;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            textBox1.Text = Properties.Settings.Default.CorrectedNamePrefix;
-            Properties.Settings.Default.Save();
+            textBox1.Text = PluginSettings.Instance.CorrectedNamePrefix;
         }
 
         private void checkBox6_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.AddExtraInfoToDescription = checkBox6.Checked;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.AddExtraInfoToDescription = checkBox6.Checked;
         }
 
         private void numericUpDown3_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.MaximumNumberOfLogs = (int)numericUpDown3.Value;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.MaximumNumberOfLogs = (int)numericUpDown3.Value;
         }
 
     }

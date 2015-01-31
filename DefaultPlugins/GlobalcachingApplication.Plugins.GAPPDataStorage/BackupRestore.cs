@@ -69,17 +69,16 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
                 {
                     if (string.IsNullOrEmpty(_backupDataInfoFile))
                     {
-                        if (string.IsNullOrEmpty(Properties.Settings.Default.BackupFolder))
+                        if (string.IsNullOrEmpty(PluginSettings.Instance.BackupFolder))
                         {
-                            Properties.Settings.Default.BackupFolder = Path.Combine(Core.PluginDataPath, "StorageBackup");
-                            Properties.Settings.Default.Save();
+                            PluginSettings.Instance.BackupFolder = Path.Combine(Core.PluginDataPath, "StorageBackup");
                         }
                     }
-                    if (!Directory.Exists(Properties.Settings.Default.BackupFolder))
+                    if (!Directory.Exists(PluginSettings.Instance.BackupFolder))
                     {
-                        Directory.CreateDirectory(Properties.Settings.Default.BackupFolder);
+                        Directory.CreateDirectory(PluginSettings.Instance.BackupFolder);
                     }
-                    _backupDataInfoFile = Path.Combine(Properties.Settings.Default.BackupFolder, "backupinfo.xml");
+                    _backupDataInfoFile = Path.Combine(PluginSettings.Instance.BackupFolder, "backupinfo.xml");
                 }
                 catch
                 {
@@ -152,7 +151,7 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
             try
             {
                 BackupItem bi = new BackupItem();
-                bi.BackupFile = Path.Combine(Properties.Settings.Default.BackupFolder, string.Concat(Path.GetFileNameWithoutExtension(_fileCollection.BaseFilename), "_", DateTime.Now.ToString("s").Replace(" ", "").Replace("T", "").Replace(":", "").Replace("-", ""),".zip"));
+                bi.BackupFile = Path.Combine(PluginSettings.Instance.BackupFolder, string.Concat(Path.GetFileNameWithoutExtension(_fileCollection.BaseFilename), "_", DateTime.Now.ToString("s").Replace(" ", "").Replace("T", "").Replace(":", "").Replace("-", ""),".zip"));
                 bi.BackupDate = DateTime.Now;
                 bi.OriginalPath = _fileCollection.BaseFilename;
                 //zip all files
@@ -221,9 +220,9 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
                 //check backup(s) te remove
                 try
                 {
-                    if (Properties.Settings.Default.BackupKeepMaxDays > 0)
+                    if (PluginSettings.Instance.BackupKeepMaxDays > 0)
                     {
-                        DateTime dt = DateTime.Now.AddDays(-1 * Properties.Settings.Default.BackupKeepMaxDays).Date;
+                        DateTime dt = DateTime.Now.AddDays(-1 * PluginSettings.Instance.BackupKeepMaxDays).Date;
                         List<BackupItem> bil = (from b in _backupItemList.BackupItems where b.BackupDate.Date < dt select b).ToList();
                         foreach (BackupItem b in bil)
                         {
@@ -234,9 +233,9 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
                             _backupItemList.RemoveBackupItem(b);
                         }
                     }
-                    if (Properties.Settings.Default.BackupKeepMaxCount > 0)
+                    if (PluginSettings.Instance.BackupKeepMaxCount > 0)
                     {
-                        List<BackupItem> bil = (from b in _backupItemList.BackupItems where b.OriginalPath == bi.OriginalPath select b).OrderByDescending(x => x.BackupDate).Skip(Properties.Settings.Default.BackupKeepMaxCount-1).ToList();
+                        List<BackupItem> bil = (from b in _backupItemList.BackupItems where b.OriginalPath == bi.OriginalPath select b).OrderByDescending(x => x.BackupDate).Skip(PluginSettings.Instance.BackupKeepMaxCount-1).ToList();
                         foreach (BackupItem b in bil)
                         {
                             if (File.Exists(b.BackupFile))
@@ -284,9 +283,8 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
                         _fileCollection = null;
                     }
 
-                    Properties.Settings.Default.ActiveDataFile = Path.Combine(_restorePath, Path.GetFileName(_selectedBackupItem.OriginalPath));
-                    Properties.Settings.Default.Save();
-                    SetDataSourceName(Properties.Settings.Default.ActiveDataFile);
+                    PluginSettings.Instance.ActiveDataFile = Path.Combine(_restorePath, Path.GetFileName(_selectedBackupItem.OriginalPath));
+                    SetDataSourceName(PluginSettings.Instance.ActiveDataFile);
 
                     Core.Geocaches.Clear();
                     Core.Logs.Clear();

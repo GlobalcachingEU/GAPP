@@ -36,15 +36,10 @@ namespace GlobalcachingApplication.Plugins.Locus
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            var p = new PluginSettings(core);
+
             AddAction(ACTION_EXPORT_ALL);
             AddAction(ACTION_EXPORT_SELECTED);
-
-            if (Properties.Settings.Default.UpgradeNeeded)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
 
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_NOGEOCACHESELECTED));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_ERROR));
@@ -140,7 +135,7 @@ namespace GlobalcachingApplication.Plugins.Locus
                     string basePath = null;
                     int imgFolderIndex = 0;
                     int imgInFolderCount = 0;
-                    if (Properties.Settings.Default.ExportGrabbedImages)
+                    if (PluginSettings.Instance.ExportGrabbedImages)
                     {
                         basePath = System.IO.Path.GetDirectoryName(_filename);
                         basePath = System.IO.Path.Combine(basePath, ".GrabbedImages");
@@ -148,7 +143,7 @@ namespace GlobalcachingApplication.Plugins.Locus
                         {
                             System.IO.Directory.CreateDirectory(basePath);
                         }
-                        if (Properties.Settings.Default.MaxFilesInFolder > 0)
+                        if (PluginSettings.Instance.MaxFilesInFolder > 0)
                         {
                             string imgSubFolder = System.IO.Path.Combine(basePath, string.Format("batch{0}", imgFolderIndex));
                             while (System.IO.Directory.Exists(imgSubFolder))
@@ -611,7 +606,7 @@ namespace GlobalcachingApplication.Plugins.Locus
                                         cmd3.ExecuteNonQuery();
                                     }
 
-                                    List<Framework.Data.Log> logs = Utils.DataAccess.GetLogs(Core.Logs, gc.Code).Take(Properties.Settings.Default.MaxLogs).ToList();
+                                    List<Framework.Data.Log> logs = Utils.DataAccess.GetLogs(Core.Logs, gc.Code).Take(PluginSettings.Instance.MaxLogs).ToList();
                                     foreach (Framework.Data.Log l in logs)
                                     {
                                         try
@@ -712,10 +707,10 @@ namespace GlobalcachingApplication.Plugins.Locus
                                                             filescmd.ExecuteNonQuery();
                                                         }
                                                     }
-                                                    if (Properties.Settings.Default.MaxFilesInFolder > 0)
+                                                    if (PluginSettings.Instance.MaxFilesInFolder > 0)
                                                     {
                                                         imgInFolderCount++;
-                                                        if (imgInFolderCount > Properties.Settings.Default.MaxFilesInFolder)
+                                                        if (imgInFolderCount > PluginSettings.Instance.MaxFilesInFolder)
                                                         {
                                                             imgFolderIndex++;
                                                             imgInFolderCount = 1;
@@ -855,10 +850,9 @@ namespace GlobalcachingApplication.Plugins.Locus
             {
                 if (uc is SettingsPanel)
                 {
-                    Properties.Settings.Default.MaxLogs = (int)(uc as SettingsPanel).numericUpDown1.Value;
-                    Properties.Settings.Default.ExportGrabbedImages = (uc as SettingsPanel).checkBox1.Checked;
-                    Properties.Settings.Default.MaxFilesInFolder = (int)(uc as SettingsPanel).numericUpDown2.Value;
-                    Properties.Settings.Default.Save();
+                    PluginSettings.Instance.MaxLogs = (int)(uc as SettingsPanel).numericUpDown1.Value;
+                    PluginSettings.Instance.ExportGrabbedImages = (uc as SettingsPanel).checkBox1.Checked;
+                    PluginSettings.Instance.MaxFilesInFolder = (int)(uc as SettingsPanel).numericUpDown2.Value;
                     break;
                 }
             }

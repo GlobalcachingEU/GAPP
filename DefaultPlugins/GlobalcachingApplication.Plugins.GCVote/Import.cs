@@ -27,6 +27,8 @@ namespace GlobalcachingApplication.Plugins.GCVote
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            var p = new PluginSettings(core);
+
             AddAction(ACTION_IMPORT_ACTIVE);
             AddAction(ACTION_IMPORT_SELECTED);
             AddAction(ACTION_IMPORT_ALL);
@@ -39,13 +41,6 @@ namespace GlobalcachingApplication.Plugins.GCVote
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_LOADATSTARTUP));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_PASSWORD));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_USERNAME));
-
-            if (Properties.Settings.Default.UpgradeNeeded)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
 
             Repository.Instance.Initialize(core);
 
@@ -64,7 +59,7 @@ namespace GlobalcachingApplication.Plugins.GCVote
         {
             await base.ApplicationInitializedAsync();
 
-            if (Properties.Settings.Default.ActivateAtAtartup)
+            if (PluginSettings.Instance.ActivateAtAtartup)
             {
                 Activate();
             }
@@ -75,7 +70,7 @@ namespace GlobalcachingApplication.Plugins.GCVote
             Repository.Instance.ActivateGCVote(this);
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result)
@@ -108,7 +103,7 @@ namespace GlobalcachingApplication.Plugins.GCVote
                     else
                     {
                         _errorMessage = null;
-                        PerformImport();
+                        await PerformImport();
                         if (!string.IsNullOrEmpty(_errorMessage))
                         {
                             System.Windows.Forms.MessageBox.Show(_errorMessage, Utils.LanguageSupport.Instance.GetTranslation(Utils.LanguageSupport.Instance.GetTranslation(STR_ERROR)), System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
@@ -177,15 +172,15 @@ namespace GlobalcachingApplication.Plugins.GCVote
                             batch++;
                         }
                         string usrName;
-                        if (string.IsNullOrEmpty(Properties.Settings.Default.GCVoteUsername))
+                        if (string.IsNullOrEmpty(PluginSettings.Instance.GCVoteUsername))
                         {
                             usrName = "uglyDUMMYusernamesolution";
                         }
                         else
                         {
-                            usrName = Properties.Settings.Default.GCVoteUsername;
+                            usrName = PluginSettings.Instance.GCVoteUsername;
                         }
-                        string postData = String.Format("version=3.1b&userName={0}&waypoints={1}&password={2}", HttpUtility.UrlEncode(Properties.Settings.Default.GCVoteUsername), wpList.ToString(), HttpUtility.UrlEncode(Properties.Settings.Default.GCVotePassword));
+                        string postData = String.Format("version=3.1b&userName={0}&waypoints={1}&password={2}", HttpUtility.UrlEncode(PluginSettings.Instance.GCVoteUsername), wpList.ToString(), HttpUtility.UrlEncode(PluginSettings.Instance.GCVotePassword));
                         System.Net.WebRequest webRequest = System.Net.WebRequest.Create("http://gcvote.com/getVotes.php") as System.Net.HttpWebRequest;
                         webRequest.Method = "POST";
                         webRequest.ContentType = "application/x-www-form-urlencoded; charset=UTF-8";

@@ -52,7 +52,6 @@ namespace GlobalcachingApplication.Plugins.GMap
             PluginSettings.Instance.ClusterMarkerGridSize = (int)numericUpDown3.Value;
             PluginSettings.Instance.ShowNameInToolTip = checkBox1.Checked;
             PluginSettings.Instance.AutoTopPanel = checkBox2.Checked;
-            Properties.Settings.Default.Save();
         }
     }
 }

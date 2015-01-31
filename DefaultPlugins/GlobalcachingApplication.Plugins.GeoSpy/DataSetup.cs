@@ -32,24 +32,19 @@ namespace GlobalcachingApplication.Plugins.GeoSpy
         }
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
-            bool result = await base.InitializeAsync(core);
+            var p = new PluginSettings(core);
 
-            if (Properties.Settings.Default.UpgradeNeeded)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
+            bool result = await base.InitializeAsync(core);
 
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_SETTYPE));
 
             if (result)
             {
-                addCacheType(97001, "Civil", Properties.Settings.Default.GPXTagCivil);
-                addCacheType(97002, "Historic and religious", Properties.Settings.Default.GPXTagHistoricAndReligious);
-                addCacheType(97003, "Natural", Properties.Settings.Default.GPXTagNatural);
-                addCacheType(97004, "Technical", Properties.Settings.Default.GPXTagTechnical);
-                addCacheType(97005, "Military", Properties.Settings.Default.GPXTagMilitary);
+                addCacheType(97001, "Civil", PluginSettings.Instance.GPXTagCivil);
+                addCacheType(97002, "Historic and religious", PluginSettings.Instance.GPXTagHistoricAndReligious);
+                addCacheType(97003, "Natural", PluginSettings.Instance.GPXTagNatural);
+                addCacheType(97004, "Technical", PluginSettings.Instance.GPXTagTechnical);
+                addCacheType(97005, "Military", PluginSettings.Instance.GPXTagMilitary);
             }
 
             return result;
@@ -78,11 +73,11 @@ namespace GlobalcachingApplication.Plugins.GeoSpy
                 if (uc is SettingsPanel)
                 {
                     (uc as SettingsPanel).Apply();
-                    Utils.DataAccess.GetGeocacheType(Core.GeocacheTypes, 97001).GPXTag = Properties.Settings.Default.GPXTagCivil;
-                    Utils.DataAccess.GetGeocacheType(Core.GeocacheTypes, 97002).GPXTag = Properties.Settings.Default.GPXTagHistoricAndReligious;
-                    Utils.DataAccess.GetGeocacheType(Core.GeocacheTypes, 97003).GPXTag = Properties.Settings.Default.GPXTagNatural;
-                    Utils.DataAccess.GetGeocacheType(Core.GeocacheTypes, 97004).GPXTag = Properties.Settings.Default.GPXTagTechnical;
-                    Utils.DataAccess.GetGeocacheType(Core.GeocacheTypes, 97005).GPXTag = Properties.Settings.Default.GPXTagMilitary;
+                    Utils.DataAccess.GetGeocacheType(Core.GeocacheTypes, 97001).GPXTag = PluginSettings.Instance.GPXTagCivil;
+                    Utils.DataAccess.GetGeocacheType(Core.GeocacheTypes, 97002).GPXTag = PluginSettings.Instance.GPXTagHistoricAndReligious;
+                    Utils.DataAccess.GetGeocacheType(Core.GeocacheTypes, 97003).GPXTag = PluginSettings.Instance.GPXTagNatural;
+                    Utils.DataAccess.GetGeocacheType(Core.GeocacheTypes, 97004).GPXTag = PluginSettings.Instance.GPXTagTechnical;
+                    Utils.DataAccess.GetGeocacheType(Core.GeocacheTypes, 97005).GPXTag = PluginSettings.Instance.GPXTagMilitary;
                     break;
                 }
             }

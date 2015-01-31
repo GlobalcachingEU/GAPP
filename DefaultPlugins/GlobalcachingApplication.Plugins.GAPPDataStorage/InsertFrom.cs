@@ -27,18 +27,18 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
             bool result = false;
             using (System.Windows.Forms.OpenFileDialog dlg = new System.Windows.Forms.OpenFileDialog())
             {
-                if (string.Compare(Properties.Settings.Default.ActiveDataFile, dlg.FileName, true) != 0)
+                if (string.Compare(PluginSettings.Instance.ActiveDataFile, dlg.FileName, true) != 0)
                 {
                     if (string.IsNullOrEmpty(_lastInsertFromFolder))
                     {
-                        _lastInsertFromFolder = System.IO.Path.GetDirectoryName(Properties.Settings.Default.ActiveDataFile);
+                        _lastInsertFromFolder = System.IO.Path.GetDirectoryName(PluginSettings.Instance.ActiveDataFile);
                     }
                     dlg.InitialDirectory = _lastInsertFromFolder;
                     dlg.Filter = "*.gpp|*.gpp";
                     dlg.FileName = "";
                     if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
-                        if (string.Compare(Properties.Settings.Default.ActiveDataFile, dlg.FileName, true) != 0)
+                        if (string.Compare(PluginSettings.Instance.ActiveDataFile, dlg.FileName, true) != 0)
                         {
                             _selectedInsertFromFilename = dlg.FileName;
                             result = true;

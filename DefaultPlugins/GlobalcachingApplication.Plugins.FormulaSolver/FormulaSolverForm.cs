@@ -80,16 +80,10 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
         {
             InitializeComponent();
 
-            if (Properties.Settings.Default.UpgradeNeeded)
+            var p = PluginSettings.Instance.WindowPos;
+            if (p != null && !p.IsEmpty)
             {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
-
-            if (Properties.Settings.Default.WindowPos != null && !Properties.Settings.Default.WindowPos.IsEmpty)
-            {
-                this.Bounds = Properties.Settings.Default.WindowPos;
+                this.Bounds = p;
                 this.StartPosition = FormStartPosition.Manual;
             }
 
@@ -246,8 +240,7 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
         {
             if (WindowState == FormWindowState.Normal)
             {
-                Properties.Settings.Default.WindowPos = this.Bounds;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.WindowPos = this.Bounds;
             }
         }
 

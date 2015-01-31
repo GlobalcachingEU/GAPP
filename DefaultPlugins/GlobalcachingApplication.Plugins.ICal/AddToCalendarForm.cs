@@ -53,18 +53,11 @@ namespace GlobalcachingApplication.Plugins.ICal
         public AddToCalendarForm(Framework.Interfaces.ICore core, List<Framework.Data.Geocache> gcList)
             : this()
         {
-            if (Properties.Settings.Default.UpgradeNeeded)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
-
             _core = core;
 
-            checkBoxGoogleAgenda.Checked = Properties.Settings.Default.AddToGoogleCalendar;
-            checkBoxOutlook.Checked = Properties.Settings.Default.AddToOutlook;
-            checkBoxOpenGoogleCalendar.Checked = Properties.Settings.Default.OpenGoogleCalendar;
+            checkBoxGoogleAgenda.Checked = PluginSettings.Instance.AddToGoogleCalendar;
+            checkBoxOutlook.Checked = PluginSettings.Instance.AddToOutlook;
+            checkBoxOpenGoogleCalendar.Checked = PluginSettings.Instance.OpenGoogleCalendar;
 
             this.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_TITLE);
             this.buttonAddToCalendar.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_ADDTOCAL);
@@ -136,17 +129,17 @@ namespace GlobalcachingApplication.Plugins.ICal
                 string fn = System.IO.Path.Combine(_core.PluginDataPath, "AddToCalendar.ics" );
                 System.IO.File.WriteAllText(fn, ics);
 
-                if (Properties.Settings.Default.AddToOutlook)
+                if (PluginSettings.Instance.AddToOutlook)
                 {
                     System.Diagnostics.Process.Start(fn);
                 }
-                if (Properties.Settings.Default.AddToGoogleCalendar)
+                if (PluginSettings.Instance.AddToGoogleCalendar)
                 {
                     //System.Collections.Specialized.StringCollection FileCollection = new System.Collections.Specialized.StringCollection();
                     //FileCollection.Add(fn);
                     //Clipboard.SetFileDropList(FileCollection);
                     Clipboard.SetText(fn);
-                    if (Properties.Settings.Default.OpenGoogleCalendar)
+                    if (PluginSettings.Instance.OpenGoogleCalendar)
                     {
                         System.Diagnostics.Process.Start("https://www.google.com/calendar?tab=mc");
                     }
@@ -242,20 +235,17 @@ namespace GlobalcachingApplication.Plugins.ICal
 
         private void checkBoxOutlook_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.AddToOutlook = checkBoxOutlook.Checked;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.AddToOutlook = checkBoxOutlook.Checked;
         }
 
         private void checkBoxGoogleAgenda_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.AddToGoogleCalendar = checkBoxGoogleAgenda.Checked;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.AddToGoogleCalendar = checkBoxGoogleAgenda.Checked;
         }
 
         private void checkBoxOpenGoogleCalendar_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.OpenGoogleCalendar = checkBoxOpenGoogleCalendar.Checked;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.OpenGoogleCalendar = checkBoxOpenGoogleCalendar.Checked;
         }
     }
 }

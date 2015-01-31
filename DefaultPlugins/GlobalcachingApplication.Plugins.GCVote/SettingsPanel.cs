@@ -25,16 +25,16 @@ namespace GlobalcachingApplication.Plugins.GCVote
             : this()
         {
 
-            if (string.IsNullOrEmpty(Properties.Settings.Default.GCVoteUsername))
+            if (string.IsNullOrEmpty(PluginSettings.Instance.GCVoteUsername))
             {
                 textBox1.Text = core.GeocachingComAccount.AccountName ?? "";
             }
             else
             {
-                textBox1.Text = Properties.Settings.Default.GCVoteUsername;
+                textBox1.Text = PluginSettings.Instance.GCVoteUsername;
             }
-            textBox2.Text = Properties.Settings.Default.GCVotePassword ?? "";
-            checkBox1.Checked = Properties.Settings.Default.ActivateAtAtartup;
+            textBox2.Text = PluginSettings.Instance.GCVotePassword ?? "";
+            checkBox1.Checked = PluginSettings.Instance.ActivateAtAtartup;
 
             label1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_USERNAME);
             label4.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_PASSWORD);
@@ -43,10 +43,9 @@ namespace GlobalcachingApplication.Plugins.GCVote
 
         public void Apply()
         {
-            Properties.Settings.Default.GCVoteUsername = textBox1.Text;
-            Properties.Settings.Default.GCVotePassword = textBox2.Text;
-            Properties.Settings.Default.ActivateAtAtartup = checkBox1.Checked;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.GCVoteUsername = textBox1.Text;
+            PluginSettings.Instance.GCVotePassword = textBox2.Text;
+            PluginSettings.Instance.ActivateAtAtartup = checkBox1.Checked;
         }
     }
 }

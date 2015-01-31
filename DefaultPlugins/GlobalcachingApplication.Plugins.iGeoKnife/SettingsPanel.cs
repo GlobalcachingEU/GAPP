@@ -18,7 +18,7 @@ namespace GlobalcachingApplication.Plugins.iGeoKnife
             InitializeComponent();
 
             this.label1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_MAXLOGS);
-            numericUpDown1.Value = Properties.Settings.Default.MaxLogs;
+            numericUpDown1.Value = PluginSettings.Instance.MaxLogs;
         }
     }
 }

@@ -22,6 +22,8 @@ namespace GlobalcachingApplication.Plugins.GPSRSerial
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            var p = new PluginSettings(core);
+
             AddAction(ACTION_START);
             AddAction(ACTION_STOP);
 
@@ -29,13 +31,6 @@ namespace GlobalcachingApplication.Plugins.GPSRSerial
             core.LanguageItems.Add(new Framework.Data.LanguageItem(ActiveNotification.STR_POSITION));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(ActiveNotification.STR_SERVICEACTIVE));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(ActiveNotification.STR_STOP));
-
-            if (Properties.Settings.Default.UpgradeNeeded)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
 
             _context = SynchronizationContext.Current;
             if (_context == null)
@@ -94,7 +89,7 @@ namespace GlobalcachingApplication.Plugins.GPSRSerial
                 try
                 {
                     _hasGPRMC = false;
-                    _serialPort = new System.IO.Ports.SerialPort(Properties.Settings.Default.ComPort, Properties.Settings.Default.BaudRate, (System.IO.Ports.Parity)Enum.Parse(typeof(System.IO.Ports.Parity), Properties.Settings.Default.Parity), Properties.Settings.Default.Databits, (System.IO.Ports.StopBits)Enum.Parse(typeof(System.IO.Ports.StopBits), Properties.Settings.Default.StopBits));
+                    _serialPort = new System.IO.Ports.SerialPort(PluginSettings.Instance.ComPort, PluginSettings.Instance.BaudRate, (System.IO.Ports.Parity)Enum.Parse(typeof(System.IO.Ports.Parity), PluginSettings.Instance.Parity), PluginSettings.Instance.Databits, (System.IO.Ports.StopBits)Enum.Parse(typeof(System.IO.Ports.StopBits), PluginSettings.Instance.StopBits));
                     _serialPort.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(_serialPort_DataReceived);
                     _serialPort.Open();
                     _activeNotification = new ActiveNotification(Core);

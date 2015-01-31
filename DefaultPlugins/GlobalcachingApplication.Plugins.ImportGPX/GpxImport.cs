@@ -46,28 +46,28 @@ namespace GlobalcachingApplication.Plugins.ImportGPX
             mainWindowPlugin.CommandLineArguments += new Framework.EventArguments.CommandLineEventHandler(mainWindowPlugin_CommandLineArguments);
         }
 
-        void mainWindowPlugin_CommandLineArguments(object sender, Framework.EventArguments.CommandLineEventArgs e)
+        async void mainWindowPlugin_CommandLineArguments(object sender, Framework.EventArguments.CommandLineEventArgs e)
         {
             if (e.Arguments != null && e.Arguments.Length > 0)
             {
                 _filenames = (from s in e.Arguments where s.ToLower().EndsWith(".gpx") || s.ToLower().EndsWith(".zip") select s).ToArray();
                 if (_filenames.Length > 0)
                 {
-                    PerformImport();
+                    await PerformImport();
                 }
             }
         }
 
-        void mainWindowPlugin_FileDrop(object sender, Framework.EventArguments.FileDropEventArgs e)
+        async void mainWindowPlugin_FileDrop(object sender, Framework.EventArguments.FileDropEventArgs e)
         {
             _filenames = (from s in e.FilePath where s.ToLower().EndsWith(".gpx") || s.ToLower().EndsWith(".zip") select s).ToArray();
             if (_filenames.Length > 0)
             {
-                PerformImport();
+                await PerformImport();
             }
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result)
@@ -82,7 +82,7 @@ namespace GlobalcachingApplication.Plugins.ImportGPX
                         if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                         {
                             _filenames = dlg.FileNames;
-                            PerformImport();
+                            await PerformImport();
                         }
                     }
                 }

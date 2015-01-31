@@ -35,15 +35,10 @@ namespace GlobalcachingApplication.Plugins.iGeoKnife
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            var p = new PluginSettings(core);
+
             AddAction(ACTION_EXPORT_ALL);
             AddAction(ACTION_EXPORT_SELECTED);
-
-            if (Properties.Settings.Default.UpgradeNeeded)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
 
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_NOGEOCACHESELECTED));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_ERROR));
@@ -58,7 +53,7 @@ namespace GlobalcachingApplication.Plugins.iGeoKnife
             return await base.InitializeAsync(core);
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result)
@@ -86,7 +81,7 @@ namespace GlobalcachingApplication.Plugins.iGeoKnife
                             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                             {
                                 _filename = dlg.FileName;
-                                PerformExport();
+                                await PerformExport();
                             }
                         }
                     }
@@ -551,7 +546,7 @@ namespace GlobalcachingApplication.Plugins.iGeoKnife
                                         cmd3.ExecuteNonQuery();
                                     }
 
-                                    List<Framework.Data.Log> logs = Utils.DataAccess.GetLogs(Core.Logs, gc.Code).Take(Properties.Settings.Default.MaxLogs).ToList();
+                                    List<Framework.Data.Log> logs = Utils.DataAccess.GetLogs(Core.Logs, gc.Code).Take(PluginSettings.Instance.MaxLogs).ToList();
                                     foreach (Framework.Data.Log l in logs)
                                     {
                                         try
@@ -712,8 +707,7 @@ namespace GlobalcachingApplication.Plugins.iGeoKnife
             {
                 if (uc is SettingsPanel)
                 {
-                    Properties.Settings.Default.MaxLogs = (int)(uc as SettingsPanel).numericUpDown1.Value;
-                    Properties.Settings.Default.Save();
+                    PluginSettings.Instance.MaxLogs = (int)(uc as SettingsPanel).numericUpDown1.Value;
                     break;
                 }
             }

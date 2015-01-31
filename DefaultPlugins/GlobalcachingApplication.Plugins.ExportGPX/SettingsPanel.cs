@@ -41,23 +41,23 @@ namespace GlobalcachingApplication.Plugins.ExportGPX
             this.checkBox6.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_EXTRAINFO);
             this.label10.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_MAXLOGS);
 
-            numericUpDown1.Value = Properties.Settings.Default.MaxGeocacheNameLength;
-            numericUpDown2.Value = Properties.Settings.Default.MinStartOfGeocacheName;
-            numericUpDown3.Value = Properties.Settings.Default.MaximumNumberOfLogs;
-            checkBox3.Checked = Properties.Settings.Default.UseNameAndNotCode;
-            checkBox1.Checked = Properties.Settings.Default.AddWaypointsToDescription;
-            checkBox2.Checked = Properties.Settings.Default.AddFieldnotesToDescription;
-            checkBox4.Checked = Properties.Settings.Default.AddWaypoints;
-            checkBox6.Checked = Properties.Settings.Default.AddExtraInfoToDescription;
-            checkBoxZipFile.Checked = Properties.Settings.Default.ZipFile;
-            textBox1.Text = Properties.Settings.Default.CorrectedNamePrefix ?? "";
-            checkBox5.Checked = Properties.Settings.Default.UseHintsForDescription;
+            numericUpDown1.Value = PluginSettings.Instance.MaxGeocacheNameLength;
+            numericUpDown2.Value = PluginSettings.Instance.MinStartOfGeocacheName;
+            numericUpDown3.Value = PluginSettings.Instance.MaximumNumberOfLogs;
+            checkBox3.Checked = PluginSettings.Instance.UseNameAndNotCode;
+            checkBox1.Checked = PluginSettings.Instance.AddWaypointsToDescription;
+            checkBox2.Checked = PluginSettings.Instance.AddFieldNotesToDescription;
+            checkBox4.Checked = PluginSettings.Instance.AddWaypoints;
+            checkBox6.Checked = PluginSettings.Instance.AddExtraInfoToDescription;
+            checkBoxZipFile.Checked = PluginSettings.Instance.ZipFile;
+            textBox1.Text = PluginSettings.Instance.CorrectedNamePrefix ?? "";
+            checkBox5.Checked = PluginSettings.Instance.UseHintsForDescription;
             comboBox1.Items.Add(Utils.GPXGenerator.V100);
             comboBox1.Items.Add(Utils.GPXGenerator.V101);
             comboBox1.Items.Add(Utils.GPXGenerator.V102);
-            if (!string.IsNullOrEmpty(Properties.Settings.Default.GPXVersionStr))
+            if (!string.IsNullOrEmpty(PluginSettings.Instance.GPXVersionStr))
             {
-                comboBox1.SelectedItem = Version.Parse(Properties.Settings.Default.GPXVersionStr);
+                comboBox1.SelectedItem = Version.Parse(PluginSettings.Instance.GPXVersionStr);
             }
             else
             {
@@ -67,26 +67,25 @@ namespace GlobalcachingApplication.Plugins.ExportGPX
 
         public void Apply()
         {
-            Properties.Settings.Default.UseNameAndNotCode = checkBox3.Checked;
-            Properties.Settings.Default.AddWaypointsToDescription = checkBox1.Checked;
-            Properties.Settings.Default.MaxGeocacheNameLength = (int)numericUpDown1.Value;
-            Properties.Settings.Default.MinStartOfGeocacheName = (int)numericUpDown2.Value;
-            Properties.Settings.Default.MaximumNumberOfLogs = (int)numericUpDown3.Value;
-            Properties.Settings.Default.ZipFile = checkBoxZipFile.Checked;
-            Properties.Settings.Default.UseHintsForDescription = checkBox5.Checked;
-            Properties.Settings.Default.AddFieldnotesToDescription = checkBox2.Checked;
-            Properties.Settings.Default.AddWaypoints = checkBox4.Checked;
-            Properties.Settings.Default.AddExtraInfoToDescription = checkBox6.Checked;
-            Properties.Settings.Default.CorrectedNamePrefix = textBox1.Text;
+            PluginSettings.Instance.UseNameAndNotCode = checkBox3.Checked;
+            PluginSettings.Instance.AddWaypointsToDescription = checkBox1.Checked;
+            PluginSettings.Instance.MaxGeocacheNameLength = (int)numericUpDown1.Value;
+            PluginSettings.Instance.MinStartOfGeocacheName = (int)numericUpDown2.Value;
+            PluginSettings.Instance.MaximumNumberOfLogs = (int)numericUpDown3.Value;
+            PluginSettings.Instance.ZipFile = checkBoxZipFile.Checked;
+            PluginSettings.Instance.UseHintsForDescription = checkBox5.Checked;
+            PluginSettings.Instance.AddFieldNotesToDescription = checkBox2.Checked;
+            PluginSettings.Instance.AddWaypoints = checkBox4.Checked;
+            PluginSettings.Instance.AddExtraInfoToDescription = checkBox6.Checked;
+            PluginSettings.Instance.CorrectedNamePrefix = textBox1.Text;
             if (comboBox1.SelectedItem as Version == null)
             {
-                Properties.Settings.Default.GPXVersionStr = "";
+                PluginSettings.Instance.GPXVersionStr = "";
             }
             else
             {
-                Properties.Settings.Default.GPXVersionStr = (comboBox1.SelectedItem as Version).ToString();
+                PluginSettings.Instance.GPXVersionStr = (comboBox1.SelectedItem as Version).ToString();
             }
-            Properties.Settings.Default.Save();
         }
     }
 }

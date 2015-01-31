@@ -46,7 +46,7 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
             listView1.Columns[1].Text = Utils.LanguageSupport.Instance.GetTranslation(STR_DATE);
             listView1.Columns[2].Text = Utils.LanguageSupport.Instance.GetTranslation(STR_PATH);
 
-            textBox1.Text = Properties.Settings.Default.BackupFolder ?? "";
+            textBox1.Text = PluginSettings.Instance.BackupFolder ?? "";
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -75,9 +75,8 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
             }
             if (folderBrowserDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                Properties.Settings.Default.BackupFolder = folderBrowserDialog1.SelectedPath;
-                Properties.Settings.Default.Save();
-                textBox1.Text = Properties.Settings.Default.BackupFolder;
+                PluginSettings.Instance.BackupFolder = folderBrowserDialog1.SelectedPath;
+                textBox1.Text = PluginSettings.Instance.BackupFolder;
             }
         }
 

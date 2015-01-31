@@ -16,6 +16,11 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            if (PluginSettings.Instance == null)
+            {
+                var p = new PluginSettings(core);
+            }
+
             AddAction(ACTION_EXPORT_ACTIVE);
             AddAction(ACTION_EXPORT_SELECTED);
 

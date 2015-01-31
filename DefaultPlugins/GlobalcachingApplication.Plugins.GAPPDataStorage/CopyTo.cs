@@ -26,11 +26,11 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
 
             using (System.Windows.Forms.SaveFileDialog dlg = new System.Windows.Forms.SaveFileDialog())
             {
-                if (string.Compare(Properties.Settings.Default.ActiveDataFile, dlg.FileName, true) != 0)
+                if (string.Compare(PluginSettings.Instance.ActiveDataFile, dlg.FileName, true) != 0)
                 {
                     if (string.IsNullOrEmpty(_lastCopyToFolder))
                     {
-                        _lastCopyToFolder = System.IO.Path.GetDirectoryName(Properties.Settings.Default.ActiveDataFile);
+                        _lastCopyToFolder = System.IO.Path.GetDirectoryName(PluginSettings.Instance.ActiveDataFile);
                     }
                     dlg.InitialDirectory = _lastCopyToFolder;
                     dlg.Filter = "*.gpp|*.gpp";
@@ -92,11 +92,11 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
 
             using (System.Windows.Forms.OpenFileDialog dlg = new System.Windows.Forms.OpenFileDialog())
             {
-                if (string.Compare(Properties.Settings.Default.ActiveDataFile, dlg.FileName, true) != 0)
+                if (string.Compare(PluginSettings.Instance.ActiveDataFile, dlg.FileName, true) != 0)
                 {
                     if (string.IsNullOrEmpty(_lastCopyToFolder))
                     {
-                        _lastCopyToFolder = System.IO.Path.GetDirectoryName(Properties.Settings.Default.ActiveDataFile);
+                        _lastCopyToFolder = System.IO.Path.GetDirectoryName(PluginSettings.Instance.ActiveDataFile);
                     }
                     dlg.InitialDirectory = _lastCopyToFolder;
                     dlg.Filter = "*.gpp|*.gpp";

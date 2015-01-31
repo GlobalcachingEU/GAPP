@@ -20,10 +20,10 @@ namespace GlobalcachingApplication.Plugins.GoogleEarth
         {
             InitializeComponent();
 
-            numericUpDown1.Value = (Decimal)Properties.Settings.Default.FlyToSpeed;
-            numericUpDown2.Value = (Decimal)Properties.Settings.Default.TiltView;
-            numericUpDown3.Value = (Decimal)Properties.Settings.Default.AltitudeView;
-            checkBox1.Checked = Properties.Settings.Default.FixedView;
+            numericUpDown1.Value = (Decimal)PluginSettings.Instance.FlyToSpeed;
+            numericUpDown2.Value = (Decimal)PluginSettings.Instance.TiltView;
+            numericUpDown3.Value = (Decimal)PluginSettings.Instance.AltitudeView;
+            checkBox1.Checked = PluginSettings.Instance.FixedView;
 
             label1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_FLYTOSPEED);
             label4.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_FIXEDVIEW);
@@ -33,11 +33,10 @@ namespace GlobalcachingApplication.Plugins.GoogleEarth
 
         public void Apply()
         {
-            Properties.Settings.Default.FixedView = checkBox1.Checked;
-            Properties.Settings.Default.FlyToSpeed = (double)numericUpDown1.Value;
-            Properties.Settings.Default.TiltView = (int)numericUpDown2.Value;
-            Properties.Settings.Default.AltitudeView = (int)numericUpDown3.Value;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.FixedView = checkBox1.Checked;
+            PluginSettings.Instance.FlyToSpeed = (double)numericUpDown1.Value;
+            PluginSettings.Instance.TiltView = (int)numericUpDown2.Value;
+            PluginSettings.Instance.AltitudeView = (int)numericUpDown3.Value;
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)

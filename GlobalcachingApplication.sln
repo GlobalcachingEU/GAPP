@@ -16,7 +16,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication", 
 		{1FB58774-51C1-4AE5-A1E3-99B6DFF47960} = {1FB58774-51C1-4AE5-A1E3-99B6DFF47960}
 		{70E9F5A4-5884-40BC-AC36-BB839BF76504} = {70E9F5A4-5884-40BC-AC36-BB839BF76504}
 		{2D1A02C2-46B7-42AB-B912-2F3A4A94D3B7} = {2D1A02C2-46B7-42AB-B912-2F3A4A94D3B7}
-		{1C28D5F3-2A3F-4E8D-BEAF-72FA48136D6E} = {1C28D5F3-2A3F-4E8D-BEAF-72FA48136D6E}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Core", "GlobalcachingApplication.Core\GlobalcachingApplication.Core.csproj", "{67D80403-91F0-4FFC-9000-6F09DE532498}"
@@ -28,8 +27,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Community.CsharpSqlite", "Community.CsharpSqlite\Community.CsharpSqlite.csproj", "{2D1A02C2-46B7-42AB-B912-2F3A4A94D3B7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.UIMainWindow", "DefaultPlugins\GlobalcachingApplication.Plugins.UIMainWindow\GlobalcachingApplication.Plugins.UIMainWindow.csproj", "{41156F07-C540-42FB-B451-582CDC6F9396}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.InternalStorage", "DefaultPlugins\GlobalcachingApplication.Plugins.InternalStorage\GlobalcachingApplication.Plugins.InternalStorage.csproj", "{1C28D5F3-2A3F-4E8D-BEAF-72FA48136D6E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.LanguageDutch", "DefaultPlugins\GlobalcachingApplication.Plugins.LanguageDutch\GlobalcachingApplication.Plugins.LanguageDutch.csproj", "{50BF0A2B-7021-4381-A93F-9578C42D0050}"
 EndProject
@@ -126,8 +123,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.APIMyF", "DefaultPlugins\GlobalcachingApplication.Plugins.APIMyF\GlobalcachingApplication.Plugins.APIMyF.csproj", "{5F6E3E89-2541-4C98-9EAE-14BDA9CB46FF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.Attach", "DefaultPlugins\GlobalcachingApplication.Plugins.Attach\GlobalcachingApplication.Plugins.Attach.csproj", "{58BFF43B-D791-4D36-8FC2-C8FA72D71431}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.Gallery", "DefaultPlugins\GlobalcachingApplication.Plugins.Gallery\GlobalcachingApplication.Plugins.Gallery.csproj", "{058A576A-685B-4385-9E52-C903DBFDDCBB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.ExportGarminPOI", "DefaultPlugins\GlobalcachingApplication.Plugins.ExportGarminPOI\GlobalcachingApplication.Plugins.ExportGarminPOI.csproj", "{AB2411F6-926D-4167-9543-33B78BAE94E1}"
 EndProject
@@ -291,14 +286,6 @@ Global
 		{41156F07-C540-42FB-B451-582CDC6F9396}.Release|x64.Build.0 = Release|x64
 		{41156F07-C540-42FB-B451-582CDC6F9396}.Release|x86.ActiveCfg = Release|x86
 		{41156F07-C540-42FB-B451-582CDC6F9396}.Release|x86.Build.0 = Release|x86
-		{1C28D5F3-2A3F-4E8D-BEAF-72FA48136D6E}.Debug|x64.ActiveCfg = Debug|x64
-		{1C28D5F3-2A3F-4E8D-BEAF-72FA48136D6E}.Debug|x64.Build.0 = Debug|x64
-		{1C28D5F3-2A3F-4E8D-BEAF-72FA48136D6E}.Debug|x86.ActiveCfg = Debug|x86
-		{1C28D5F3-2A3F-4E8D-BEAF-72FA48136D6E}.Debug|x86.Build.0 = Debug|x86
-		{1C28D5F3-2A3F-4E8D-BEAF-72FA48136D6E}.Release|x64.ActiveCfg = Release|x64
-		{1C28D5F3-2A3F-4E8D-BEAF-72FA48136D6E}.Release|x64.Build.0 = Release|x64
-		{1C28D5F3-2A3F-4E8D-BEAF-72FA48136D6E}.Release|x86.ActiveCfg = Release|x86
-		{1C28D5F3-2A3F-4E8D-BEAF-72FA48136D6E}.Release|x86.Build.0 = Release|x86
 		{50BF0A2B-7021-4381-A93F-9578C42D0050}.Debug|x64.ActiveCfg = Debug|x64
 		{50BF0A2B-7021-4381-A93F-9578C42D0050}.Debug|x64.Build.0 = Debug|x64
 		{50BF0A2B-7021-4381-A93F-9578C42D0050}.Debug|x86.ActiveCfg = Debug|x86
@@ -683,14 +670,6 @@ Global
 		{58BFF43B-D791-4D36-8FC2-C8FA72D71431}.Release|x64.Build.0 = Release|x64
 		{58BFF43B-D791-4D36-8FC2-C8FA72D71431}.Release|x86.ActiveCfg = Release|x86
 		{58BFF43B-D791-4D36-8FC2-C8FA72D71431}.Release|x86.Build.0 = Release|x86
-		{058A576A-685B-4385-9E52-C903DBFDDCBB}.Debug|x64.ActiveCfg = Debug|x64
-		{058A576A-685B-4385-9E52-C903DBFDDCBB}.Debug|x64.Build.0 = Debug|x64
-		{058A576A-685B-4385-9E52-C903DBFDDCBB}.Debug|x86.ActiveCfg = Debug|x86
-		{058A576A-685B-4385-9E52-C903DBFDDCBB}.Debug|x86.Build.0 = Debug|x86
-		{058A576A-685B-4385-9E52-C903DBFDDCBB}.Release|x64.ActiveCfg = Release|x64
-		{058A576A-685B-4385-9E52-C903DBFDDCBB}.Release|x64.Build.0 = Release|x64
-		{058A576A-685B-4385-9E52-C903DBFDDCBB}.Release|x86.ActiveCfg = Release|x86
-		{058A576A-685B-4385-9E52-C903DBFDDCBB}.Release|x86.Build.0 = Release|x86
 		{AB2411F6-926D-4167-9543-33B78BAE94E1}.Debug|x64.ActiveCfg = Debug|x64
 		{AB2411F6-926D-4167-9543-33B78BAE94E1}.Debug|x64.Build.0 = Debug|x64
 		{AB2411F6-926D-4167-9543-33B78BAE94E1}.Debug|x86.ActiveCfg = Debug|x86

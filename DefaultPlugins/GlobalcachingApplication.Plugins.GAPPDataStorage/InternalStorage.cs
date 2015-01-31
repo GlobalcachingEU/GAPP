@@ -117,6 +117,8 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            var p = new PluginSettings(core);
+
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_LOADING));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_LOADINGDATA));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_LOADINGGEOCACHES));
@@ -150,27 +152,20 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
             core.LanguageItems.Add(new Framework.Data.LanguageItem(RestoreForm.STR_WARNING));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(RestoreForm.STR_OVERWRITE));
 
-            if (Properties.Settings.Default.UpgradeNeeded)
+            if (string.IsNullOrEmpty(PluginSettings.Instance.ActiveDataFile))
             {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
-            if (string.IsNullOrEmpty(Properties.Settings.Default.ActiveDataFile))
-            {
-                Properties.Settings.Default.ActiveDataFile = System.IO.Path.Combine(core.PluginDataPath, "GAPPDataStorage.gpp" );
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.ActiveDataFile = System.IO.Path.Combine(core.PluginDataPath, "GAPPDataStorage.gpp" );
             }
 
             try
             {
-                _fileCollection = new FileCollection(Properties.Settings.Default.ActiveDataFile);
+                _fileCollection = new FileCollection(PluginSettings.Instance.ActiveDataFile);
             }
             catch
             {
             }
 
-            SetDataSourceName(Properties.Settings.Default.ActiveDataFile);
+            SetDataSourceName(PluginSettings.Instance.ActiveDataFile);
             core.Logs.LoadFullData += new Framework.EventArguments.LoadFullLogEventHandler(Logs_LoadFullData);
             core.Geocaches.LoadFullData += new Framework.EventArguments.LoadFullGeocacheEventHandler(Geocaches_LoadFullData);
 
@@ -245,9 +240,8 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
                 dst.StorageInfo.Length > 0 &&
                 File.Exists(dst.StorageInfo[0]))
             {
-                Properties.Settings.Default.ActiveDataFile = dst.StorageInfo[0];
-                Properties.Settings.Default.Save();
-                SetDataSourceName(Properties.Settings.Default.ActiveDataFile);
+                PluginSettings.Instance.ActiveDataFile = dst.StorageInfo[0];
+                SetDataSourceName(PluginSettings.Instance.ActiveDataFile);
 
                 Core.Geocaches.Clear();
                 Core.Logs.Clear();
@@ -341,7 +335,7 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
             bool result = false;
             using (System.Windows.Forms.SaveFileDialog dlg = new System.Windows.Forms.SaveFileDialog())
             {
-                dlg.InitialDirectory = System.IO.Path.GetDirectoryName(Properties.Settings.Default.ActiveDataFile);
+                dlg.InitialDirectory = System.IO.Path.GetDirectoryName(PluginSettings.Instance.ActiveDataFile);
 
                 dlg.Filter = "*.gpp|*.gpp";
                 dlg.FileName = "";
@@ -384,8 +378,7 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
                             System.IO.File.Delete(fn);
                         }
 
-                        Properties.Settings.Default.ActiveDataFile = dlg.FileName;
-                        Properties.Settings.Default.Save();
+                        PluginSettings.Instance.ActiveDataFile = dlg.FileName;
 
                         foreach (Framework.Data.Geocache gc in Core.Geocaches)
                         {
@@ -407,7 +400,7 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
                         {
                             gc.Saved = false;
                         }
-                        SetDataSourceName(Properties.Settings.Default.ActiveDataFile);
+                        SetDataSourceName(PluginSettings.Instance.ActiveDataFile);
                         result = true;
 
                     }
@@ -421,7 +414,7 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
         public override bool SaveAs()
         {
             bool result = false;
-            FileCollection newFileCollection = new FileCollection(Properties.Settings.Default.ActiveDataFile);
+            FileCollection newFileCollection = new FileCollection(PluginSettings.Instance.ActiveDataFile);
             result = Save(newFileCollection, true);
             if (_fileCollection != null)
             {
@@ -436,7 +429,7 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
             bool result = false;
             using (System.Windows.Forms.SaveFileDialog dlg = new System.Windows.Forms.SaveFileDialog())
             {
-                dlg.InitialDirectory = System.IO.Path.GetDirectoryName(Properties.Settings.Default.ActiveDataFile);
+                dlg.InitialDirectory = System.IO.Path.GetDirectoryName(PluginSettings.Instance.ActiveDataFile);
 
                 dlg.Filter = "*.gpp|*.gpp";
                 dlg.FileName = "";
@@ -478,10 +471,9 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
                         {
                             System.IO.File.Delete(fn);
                         }
-                        Properties.Settings.Default.ActiveDataFile = dlg.FileName;
-                        Properties.Settings.Default.Save();
+                        PluginSettings.Instance.ActiveDataFile = dlg.FileName;
 
-                        SetDataSourceName(Properties.Settings.Default.ActiveDataFile);
+                        SetDataSourceName(PluginSettings.Instance.ActiveDataFile);
                         using (FrameworkDataUpdater upd = new FrameworkDataUpdater(Core))
                         {
                             Core.Geocaches.Clear();
@@ -492,7 +484,7 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
                             Core.GeocacheImages.Clear();
                         }
 
-                        FileCollection newFileCollection = new FileCollection(Properties.Settings.Default.ActiveDataFile);
+                        FileCollection newFileCollection = new FileCollection(PluginSettings.Instance.ActiveDataFile);
                         if (_fileCollection != null)
                         {
                             _fileCollection.Dispose();
@@ -520,15 +512,14 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
             bool result = false;
             using (System.Windows.Forms.OpenFileDialog dlg = new System.Windows.Forms.OpenFileDialog())
             {
-                dlg.InitialDirectory = System.IO.Path.GetDirectoryName(Properties.Settings.Default.ActiveDataFile);
+                dlg.InitialDirectory = System.IO.Path.GetDirectoryName(PluginSettings.Instance.ActiveDataFile);
 
                 dlg.Filter = "*.gpp|*.gpp";
                 dlg.FileName = "";
                 if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    Properties.Settings.Default.ActiveDataFile = dlg.FileName;
-                    Properties.Settings.Default.Save();
-                    SetDataSourceName(Properties.Settings.Default.ActiveDataFile);
+                    PluginSettings.Instance.ActiveDataFile = dlg.FileName;
+                    SetDataSourceName(PluginSettings.Instance.ActiveDataFile);
 
                     Core.Geocaches.Clear();
                     Core.Logs.Clear();
@@ -550,7 +541,7 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
                 _fileCollection.Dispose();
                 _fileCollection = null;
             }
-            _fileCollection = new FileCollection(Properties.Settings.Default.ActiveDataFile);
+            _fileCollection = new FileCollection(PluginSettings.Instance.ActiveDataFile);
             result = Load(geocachesOnly);
             return result;
         }

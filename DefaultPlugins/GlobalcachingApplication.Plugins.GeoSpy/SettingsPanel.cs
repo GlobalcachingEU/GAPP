@@ -30,21 +30,20 @@ namespace GlobalcachingApplication.Plugins.GeoSpy
             comboBox4.Items.AddRange(list);
             comboBox5.Items.AddRange(list);
 
-            comboBox1.Text = Properties.Settings.Default.GPXTagCivil;
-            comboBox2.Text = Properties.Settings.Default.GPXTagHistoricAndReligious;
-            comboBox3.Text = Properties.Settings.Default.GPXTagNatural;
-            comboBox4.Text = Properties.Settings.Default.GPXTagTechnical;
-            comboBox5.Text = Properties.Settings.Default.GPXTagMilitary;
+            comboBox1.Text = PluginSettings.Instance.GPXTagCivil;
+            comboBox2.Text = PluginSettings.Instance.GPXTagHistoricAndReligious;
+            comboBox3.Text = PluginSettings.Instance.GPXTagNatural;
+            comboBox4.Text = PluginSettings.Instance.GPXTagTechnical;
+            comboBox5.Text = PluginSettings.Instance.GPXTagMilitary;
         }
 
         public void Apply()
         {
-            Properties.Settings.Default.GPXTagCivil = comboBox1.Text;
-            Properties.Settings.Default.GPXTagHistoricAndReligious = comboBox2.Text;
-            Properties.Settings.Default.GPXTagNatural = comboBox3.Text;
-            Properties.Settings.Default.GPXTagTechnical = comboBox4.Text;
-            Properties.Settings.Default.GPXTagMilitary = comboBox5.Text;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.GPXTagCivil = comboBox1.Text;
+            PluginSettings.Instance.GPXTagHistoricAndReligious = comboBox2.Text;
+            PluginSettings.Instance.GPXTagNatural = comboBox3.Text;
+            PluginSettings.Instance.GPXTagTechnical = comboBox4.Text;
+            PluginSettings.Instance.GPXTagMilitary = comboBox5.Text;
         }
     }
 }

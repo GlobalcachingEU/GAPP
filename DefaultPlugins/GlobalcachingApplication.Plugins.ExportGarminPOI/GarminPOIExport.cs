@@ -46,12 +46,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarminPOI
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
-            if (Properties.Settings.Default.UpgradeNeeded)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
+            var p = new PluginSettings(core);
 
             AddAction(ACTION_EXPORT_ALL);
             AddAction(ACTION_EXPORT_SELECTED);
@@ -83,7 +78,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarminPOI
             return await base.InitializeAsync(core);
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result)
@@ -117,7 +112,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarminPOI
                         {
                             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                             {
-                                PerformExport();
+                                await PerformExport();
                             }
                         }
                         
@@ -129,25 +124,25 @@ namespace GlobalcachingApplication.Plugins.ExportGarminPOI
 
         protected override void ExportMethod()
         {
-            intMaxNameLen = Properties.Settings.Default.NameLengthLimit;
-            intMaxDescLen = Properties.Settings.Default.DescriptionLengthLimit;
-            boolExportCaches = Properties.Settings.Default.ExportGeocachePOIs;
-            boolExportWpts = Properties.Settings.Default.ExportWaypointPOIs;
+            intMaxNameLen = PluginSettings.Instance.NameLengthLimit;
+            intMaxDescLen = PluginSettings.Instance.DescriptionLengthLimit;
+            boolExportCaches = PluginSettings.Instance.ExportGeocachePOIs;
+            boolExportWpts = PluginSettings.Instance.ExportWaypointPOIs;
             strProgTitle = Utils.LanguageSupport.Instance.GetTranslation(STR_EXPORTINGPOI);
             strProgSubtitle = Utils.LanguageSupport.Instance.GetTranslation(STR_CREATINGFILE);
-            nameIsGCCode = (Properties.Settings.Default.POINameType == "C");
+            nameIsGCCode = (PluginSettings.Instance.POINameType == "C");
 
             List<Framework.Data.Waypoint> wpList = null;
 
             try
             {
-                if (Properties.Settings.Default.ClearExportDirectory)
+                if (PluginSettings.Instance.ClearExportDirectory)
                 {
                     //Try to assure that the path is not the root of a drive or empty
-                    if ((Properties.Settings.Default.POIExportPath != "") &&
-                        (Properties.Settings.Default.POIExportPath != Path.GetPathRoot(Properties.Settings.Default.POIExportPath)))
+                    if ((PluginSettings.Instance.POIExportPath != "") &&
+                        (PluginSettings.Instance.POIExportPath != Path.GetPathRoot(PluginSettings.Instance.POIExportPath)))
                     {
-                        Array.ForEach(Directory.GetFiles(Properties.Settings.Default.POIExportPath),
+                        Array.ForEach(Directory.GetFiles(PluginSettings.Instance.POIExportPath),
                             delegate(string path)
                             {
                                 if ((Path.GetExtension(path).ToUpper() == ".CSV") ||
@@ -258,22 +253,22 @@ namespace GlobalcachingApplication.Plugins.ExportGarminPOI
                     /*
                      * POI Loader
                      */
-                    if (Properties.Settings.Default.RunPOILoader && (Properties.Settings.Default.POILoaderFilename!=""))
+                    if (PluginSettings.Instance.RunPOILoader && (PluginSettings.Instance.POILoaderFilename!=""))
                     {
-                        if (Properties.Settings.Default.PassDirectoryToPOILoader)
+                        if (PluginSettings.Instance.PassDirectoryToPOILoader)
                         {
                             try {
                                 RegistryKey rkCU = Registry.CurrentUser;
                                 RegistryKey rkSettings = rkCU.OpenSubKey(@"Software\Garmin\POI Loader\Settings", RegistryKeyPermissionCheck.ReadWriteSubTree);
-                                rkSettings.SetValue("Directory",Properties.Settings.Default.POIExportPath);
+                                rkSettings.SetValue("Directory",PluginSettings.Instance.POIExportPath);
                                 rkCU.Close();
                             } catch {}
                         }
 
 
                         Process poiLoader = new Process();
-                        poiLoader.StartInfo.FileName = Properties.Settings.Default.POILoaderFilename;
-                        if (Properties.Settings.Default.RunPOILoaderSilently)
+                        poiLoader.StartInfo.FileName = PluginSettings.Instance.POILoaderFilename;
+                        if (PluginSettings.Instance.RunPOILoaderSilently)
                         {
                             poiLoader.StartInfo.Arguments = "/Silent";
                         }
@@ -281,15 +276,15 @@ namespace GlobalcachingApplication.Plugins.ExportGarminPOI
                         {
                             poiLoader.StartInfo.Arguments = "";
                         }
-                        //poiLoader.StartInfo.Arguments = "/Directory \"" + Properties.Settings.Default.POIExportPath + "\""; // /silent is possible
+                        //poiLoader.StartInfo.Arguments = "/Directory \"" + PluginSettings.Instance.POIExportPath + "\""; // /silent is possible
                         // /Silent|/s /UsbUnitId|/u <UNITID> /Silent|/s /Directory|/d "<DIRECTORY>"
                         // HKEY_CURRENT_USER\Software\Garmin\POI Loader\Settings  Key "Directory" REG_SZ
                         poiLoader.StartInfo.UseShellExecute = true;
                         poiLoader.StartInfo.ErrorDialog = true;
                         poiLoader.Start();
                     }
-                    //Properties.Settings.Default.RunPOILoader
-                    //Properties.Settings.Default.POILoaderFilename
+                    //PluginSettings.Instance.RunPOILoader
+                    //PluginSettings.Instance.POILoaderFilename
 
                 }
             }
@@ -580,7 +575,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarminPOI
             { //new -> open File
                 System.IO.StreamWriter cs = null;
                 //
-                string csvPath = Properties.Settings.Default.POIExportPath + Path.DirectorySeparatorChar + csvName + ".csv";
+                string csvPath = PluginSettings.Instance.POIExportPath + Path.DirectorySeparatorChar + csvName + ".csv";
                 cs = new System.IO.StreamWriter(csvPath, false,
                            Encoding.GetEncoding(1250),32768);
                 //1250 = Write as ANSI
@@ -588,7 +583,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarminPOI
                 //create gc icon
                 try {
                     using (Stream input = Assembly.GetExecutingAssembly().GetManifestResourceStream("GlobalcachingApplication.Plugins.ExportGarminPOI.Resources."+csvName+".bmp"))
-                    using (Stream output = File.Create(Properties.Settings.Default.POIExportPath + Path.DirectorySeparatorChar + csvName + ".bmp"))
+                    using (Stream output = File.Create(PluginSettings.Instance.POIExportPath + Path.DirectorySeparatorChar + csvName + ".bmp"))
                     {
                         input.CopyTo(output);
                     }
@@ -634,7 +629,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarminPOI
             { //new -> open File
                 System.IO.StreamWriter cs = null;
 
-                string csvPath = Properties.Settings.Default.POIExportPath + Path.DirectorySeparatorChar + csvName + ".csv";
+                string csvPath = PluginSettings.Instance.POIExportPath + Path.DirectorySeparatorChar + csvName + ".csv";
                 cs = new System.IO.StreamWriter(csvPath, false,
                            Encoding.GetEncoding(1250),32768);
                 sd.Add(csvName, cs);
@@ -642,7 +637,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarminPOI
                 try
                 {
                     using (Stream input = Assembly.GetExecutingAssembly().GetManifestResourceStream("GlobalcachingApplication.Plugins.ExportGarminPOI.Resources." + csvName + ".bmp"))
-                    using (Stream output = File.Create(Properties.Settings.Default.POIExportPath + Path.DirectorySeparatorChar + csvName + ".bmp"))
+                    using (Stream output = File.Create(PluginSettings.Instance.POIExportPath + Path.DirectorySeparatorChar + csvName + ".bmp"))
                     {
                         input.CopyTo(output);
                     }

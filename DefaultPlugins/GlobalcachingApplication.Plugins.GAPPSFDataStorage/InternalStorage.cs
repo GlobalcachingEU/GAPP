@@ -83,19 +83,14 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
 
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_MAXCOUNT));
 
-            if (Properties.Settings.Default.UpgradeNeeded)
+            var p = new PluginSettings(core);
+
+            if (string.IsNullOrEmpty(PluginSettings.Instance.ActiveDataFile))
             {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
-            if (string.IsNullOrEmpty(Properties.Settings.Default.ActiveDataFile))
-            {
-                Properties.Settings.Default.ActiveDataFile = System.IO.Path.Combine(core.PluginDataPath, "GAPPSFDataStorage.gsf");
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.ActiveDataFile = System.IO.Path.Combine(core.PluginDataPath, "GAPPSFDataStorage.gsf");
             }
 
-            SetDataSourceName(Properties.Settings.Default.ActiveDataFile);
+            SetDataSourceName(PluginSettings.Instance.ActiveDataFile);
             core.Logs.LoadFullData += new Framework.EventArguments.LoadFullLogEventHandler(Logs_LoadFullData);
             core.Geocaches.LoadFullData += new Framework.EventArguments.LoadFullGeocacheEventHandler(Geocaches_LoadFullData);
 
@@ -177,9 +172,9 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
 
         public override void EndReleaseForCopy()
         {
-            if (File.Exists(Properties.Settings.Default.ActiveDataFile))
+            if (File.Exists(PluginSettings.Instance.ActiveDataFile))
             {
-                _fileStream = File.Open(Properties.Settings.Default.ActiveDataFile, FileMode.Open, FileAccess.ReadWrite);
+                _fileStream = File.Open(PluginSettings.Instance.ActiveDataFile, FileMode.Open, FileAccess.ReadWrite);
             }
         }
 
@@ -188,12 +183,12 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
             get
             {
                 Framework.Data.InternalStorageDestination isd = null;
-                if (!string.IsNullOrEmpty(Properties.Settings.Default.ActiveDataFile))
+                if (!string.IsNullOrEmpty(PluginSettings.Instance.ActiveDataFile))
                 {
                     isd = new Framework.Data.InternalStorageDestination();
-                    isd.Name = Path.GetFileName(Properties.Settings.Default.ActiveDataFile);
+                    isd.Name = Path.GetFileName(PluginSettings.Instance.ActiveDataFile);
                     isd.PluginType = this.GetType().ToString();
-                    isd.StorageInfo = new string[] { Properties.Settings.Default.ActiveDataFile };
+                    isd.StorageInfo = new string[] { PluginSettings.Instance.ActiveDataFile };
                 }
                 return isd;
             }
@@ -208,9 +203,8 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
                 dst.StorageInfo.Length > 0 &&
                 File.Exists(dst.StorageInfo[0]))
             {
-                Properties.Settings.Default.ActiveDataFile = dst.StorageInfo[0];
-                Properties.Settings.Default.Save();
-                SetDataSourceName(Properties.Settings.Default.ActiveDataFile);
+                PluginSettings.Instance.ActiveDataFile = dst.StorageInfo[0];
+                SetDataSourceName(PluginSettings.Instance.ActiveDataFile);
 
                 Core.Geocaches.Clear();
                 Core.Logs.Clear();
@@ -242,7 +236,7 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
             bool result = false;
             using (System.Windows.Forms.SaveFileDialog dlg = new System.Windows.Forms.SaveFileDialog())
             {
-                dlg.InitialDirectory = System.IO.Path.GetDirectoryName(Properties.Settings.Default.ActiveDataFile);
+                dlg.InitialDirectory = System.IO.Path.GetDirectoryName(PluginSettings.Instance.ActiveDataFile);
 
                 dlg.Filter = "*.gsf|*.gsf";
                 dlg.FileName = "";
@@ -254,8 +248,7 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
                         {
                             System.IO.File.Delete(dlg.FileName);
                         }
-                        Properties.Settings.Default.ActiveDataFile = dlg.FileName;
-                        Properties.Settings.Default.Save();
+                        PluginSettings.Instance.ActiveDataFile = dlg.FileName;
 
                         foreach (Framework.Data.Geocache gc in Core.Geocaches)
                         {
@@ -277,7 +270,7 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
                         {
                             gc.Saved = false;
                         }
-                        SetDataSourceName(Properties.Settings.Default.ActiveDataFile);
+                        SetDataSourceName(PluginSettings.Instance.ActiveDataFile);
                         result = true;
                     }
                     catch
@@ -292,7 +285,7 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
         public override bool SaveAs()
         {
             bool result = false;
-            FileStream newFileStream = File.Open(Properties.Settings.Default.ActiveDataFile, FileMode.Create, FileAccess.ReadWrite);
+            FileStream newFileStream = File.Open(PluginSettings.Instance.ActiveDataFile, FileMode.Create, FileAccess.ReadWrite);
 
             _emptyRecords.Clear();
             _emptyRecordsSorted = false;
@@ -318,7 +311,7 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
             bool result = false;
             using (System.Windows.Forms.SaveFileDialog dlg = new System.Windows.Forms.SaveFileDialog())
             {
-                dlg.InitialDirectory = System.IO.Path.GetDirectoryName(Properties.Settings.Default.ActiveDataFile);
+                dlg.InitialDirectory = System.IO.Path.GetDirectoryName(PluginSettings.Instance.ActiveDataFile);
 
                 dlg.Filter = "*.gsf|*.gsf";
                 dlg.FileName = "";
@@ -330,10 +323,9 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
                         {
                             System.IO.File.Delete(dlg.FileName);
                         }
-                        Properties.Settings.Default.ActiveDataFile = dlg.FileName;
-                        Properties.Settings.Default.Save();
+                        PluginSettings.Instance.ActiveDataFile = dlg.FileName;
 
-                        SetDataSourceName(Properties.Settings.Default.ActiveDataFile);
+                        SetDataSourceName(PluginSettings.Instance.ActiveDataFile);
                         using (FrameworkDataUpdater upd = new FrameworkDataUpdater(Core))
                         {
                             Core.Geocaches.Clear();
@@ -344,7 +336,7 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
                             Core.GeocacheImages.Clear();
                         }
 
-                        FileStream newFileStream = File.Open(Properties.Settings.Default.ActiveDataFile, FileMode.Create, FileAccess.ReadWrite);
+                        FileStream newFileStream = File.Open(PluginSettings.Instance.ActiveDataFile, FileMode.Create, FileAccess.ReadWrite);
                         closeCurrentFile();
                         _fileStream = newFileStream;
 
@@ -370,15 +362,14 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
             bool result = false;
             using (System.Windows.Forms.OpenFileDialog dlg = new System.Windows.Forms.OpenFileDialog())
             {
-                dlg.InitialDirectory = System.IO.Path.GetDirectoryName(Properties.Settings.Default.ActiveDataFile);
+                dlg.InitialDirectory = System.IO.Path.GetDirectoryName(PluginSettings.Instance.ActiveDataFile);
 
                 dlg.Filter = "*.gsf|*.gsf";
                 dlg.FileName = "";
                 if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    Properties.Settings.Default.ActiveDataFile = dlg.FileName;
-                    Properties.Settings.Default.Save();
-                    SetDataSourceName(Properties.Settings.Default.ActiveDataFile);
+                    PluginSettings.Instance.ActiveDataFile = dlg.FileName;
+                    SetDataSourceName(PluginSettings.Instance.ActiveDataFile);
 
                     Core.Geocaches.Clear();
                     Core.Logs.Clear();
@@ -397,7 +388,7 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
         {
             bool result = false;
             closeCurrentFile();
-            _fileStream = File.Open(Properties.Settings.Default.ActiveDataFile, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            _fileStream = File.Open(PluginSettings.Instance.ActiveDataFile, FileMode.OpenOrCreate, FileAccess.ReadWrite);
             result = Load(geocachesOnly);
             return result;
         }
@@ -405,10 +396,10 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
         public override bool Load(bool geocachesOnly)
         {
             bool result = true;
-            if (File.Exists(Properties.Settings.Default.ActiveDataFile))
+            if (File.Exists(PluginSettings.Instance.ActiveDataFile))
             {
                 closeCurrentFile();
-                _fileStream = File.Open(Properties.Settings.Default.ActiveDataFile, FileMode.Open, FileAccess.ReadWrite);
+                _fileStream = File.Open(PluginSettings.Instance.ActiveDataFile, FileMode.Open, FileAccess.ReadWrite);
                 if (_fileStream.Length==0)
                 {
                     BinaryWriter fbw = new BinaryWriter(_fileStream);
@@ -1534,7 +1525,7 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
 
         public override bool PrepareBackup()
         {
-            return (!string.IsNullOrEmpty(Properties.Settings.Default.ActiveDataFile) && _fileStream!=null);
+            return (!string.IsNullOrEmpty(PluginSettings.Instance.ActiveDataFile) && _fileStream!=null);
         }
 
         public override bool Backup()
@@ -1543,36 +1534,36 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
             try
             {
                 //file.bak01, file.bak02... file.bakNN where NN is the latest
-                string fn = string.Format("{0}.bak{1}", Properties.Settings.Default.ActiveDataFile, Properties.Settings.Default.BackupKeepMaxCount.ToString("00"));
+                string fn = string.Format("{0}.bak{1}", PluginSettings.Instance.ActiveDataFile, PluginSettings.Instance.BackupKeepMaxCount.ToString("00"));
                 if (File.Exists(fn))
                 {
                     //ok, maximum reached
                     //delete the oldest and rename the others
-                    fn = string.Format("{0}.bak{1}", Properties.Settings.Default.ActiveDataFile, 1.ToString("00"));
+                    fn = string.Format("{0}.bak{1}", PluginSettings.Instance.ActiveDataFile, 1.ToString("00"));
                     if (File.Exists(fn))
                     {
                         File.Delete(fn);
                     }
-                    for (int i = 1; i < Properties.Settings.Default.BackupKeepMaxCount; i++)
+                    for (int i = 1; i < PluginSettings.Instance.BackupKeepMaxCount; i++)
                     {
-                        string fns = string.Format("{0}.bak{1}", Properties.Settings.Default.ActiveDataFile, (i + 1).ToString("00"));
-                        string fnd = string.Format("{0}.bak{1}", Properties.Settings.Default.ActiveDataFile, i.ToString("00"));
+                        string fns = string.Format("{0}.bak{1}", PluginSettings.Instance.ActiveDataFile, (i + 1).ToString("00"));
+                        string fnd = string.Format("{0}.bak{1}", PluginSettings.Instance.ActiveDataFile, i.ToString("00"));
                         if (File.Exists(fns))
                         {
                             File.Move(fns, fnd);
                         }
                     }
-                    fn = string.Format("{0}.bak{1}", Properties.Settings.Default.ActiveDataFile, Properties.Settings.Default.BackupKeepMaxCount.ToString("00"));
+                    fn = string.Format("{0}.bak{1}", PluginSettings.Instance.ActiveDataFile, PluginSettings.Instance.BackupKeepMaxCount.ToString("00"));
                 }
                 else
                 {
                     //look for latest
                     int i = 1;
-                    fn = string.Format("{0}.bak{1}", Properties.Settings.Default.ActiveDataFile, i.ToString("00"));
+                    fn = string.Format("{0}.bak{1}", PluginSettings.Instance.ActiveDataFile, i.ToString("00"));
                     while (File.Exists(fn))
                     {
                         i++;
-                        fn = string.Format("{0}.bak{1}", Properties.Settings.Default.ActiveDataFile, i.ToString("00"));
+                        fn = string.Format("{0}.bak{1}", PluginSettings.Instance.ActiveDataFile, i.ToString("00"));
                     }
                 }
                 DateTime nextUpdate = DateTime.Now.AddSeconds(1);
@@ -1613,21 +1604,20 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
             //select backup to restore
             using (System.Windows.Forms.OpenFileDialog dlg = new System.Windows.Forms.OpenFileDialog())
             {
-                dlg.InitialDirectory = System.IO.Path.GetDirectoryName(Properties.Settings.Default.ActiveDataFile);
+                dlg.InitialDirectory = System.IO.Path.GetDirectoryName(PluginSettings.Instance.ActiveDataFile);
 
                 try
                 {
                     dlg.Filter = "*.gsf.bak*|*.gsf.bak*";
-                    dlg.InitialDirectory = Path.GetDirectoryName(Properties.Settings.Default.ActiveDataFile);
+                    dlg.InitialDirectory = Path.GetDirectoryName(PluginSettings.Instance.ActiveDataFile);
                     dlg.FileName = "";
                     if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
                         _fileToRestore = dlg.FileName;
                         closeCurrentFile();
 
-                        Properties.Settings.Default.ActiveDataFile = _fileToRestore.Substring(0, _fileToRestore.LastIndexOf(".bak", StringComparison.InvariantCultureIgnoreCase));
-                        Properties.Settings.Default.Save();
-                        SetDataSourceName(Properties.Settings.Default.ActiveDataFile);
+                        PluginSettings.Instance.ActiveDataFile = _fileToRestore.Substring(0, _fileToRestore.LastIndexOf(".bak", StringComparison.InvariantCultureIgnoreCase));
+                        SetDataSourceName(PluginSettings.Instance.ActiveDataFile);
 
                         Core.Geocaches.Clear();
                         Core.Logs.Clear();
@@ -1649,7 +1639,7 @@ namespace GlobalcachingApplication.Plugins.GAPPSFDataStorage
         public override bool Restore(bool geocachesOnly)
         {
             bool result = false;
-            File.Copy(_fileToRestore, Properties.Settings.Default.ActiveDataFile, true);
+            File.Copy(_fileToRestore, PluginSettings.Instance.ActiveDataFile, true);
             result = Open(geocachesOnly);
             return result;
         }

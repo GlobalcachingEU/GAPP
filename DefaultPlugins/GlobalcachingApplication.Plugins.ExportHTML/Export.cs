@@ -26,16 +26,11 @@ namespace GlobalcachingApplication.Plugins.ExportHTML
             AddAction(ACTION_EXPORT_ALL);
             AddAction(ACTION_EXPORT_SELECTED);
 
-            if (Properties.Settings.Default.UpgradeNeeded)
+            var p = new PluginSettings(core);
+
+            if (PluginSettings.Instance.ExportFields == null)
             {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
-            if (Properties.Settings.Default.ExportFields == null)
-            {
-                Properties.Settings.Default.ExportFields = new System.Collections.Specialized.StringCollection();
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.ExportFields = new System.Collections.Specialized.StringCollection();
             }
 
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_NOGEOCACHESELECTED));
@@ -108,7 +103,7 @@ namespace GlobalcachingApplication.Plugins.ExportHTML
             StringBuilder sb = new StringBuilder();
             using (Utils.ProgressBlock prog = new Utils.ProgressBlock(this, STR_EXPORTINGPOI, STR_CREATINGFILE, totalToDo, totalDone))
             {
-                string fn = Path.Combine(Properties.Settings.Default.FilePath, "index.html");
+                string fn = Path.Combine(PluginSettings.Instance.FilePath, "index.html");
                 if (File.Exists(fn))
                 {
                     File.Delete(fn);
@@ -123,7 +118,7 @@ namespace GlobalcachingApplication.Plugins.ExportHTML
 
                 for (int i = 0; i < _sheets.Count; i++)
                 {
-                    fn = Path.Combine(Properties.Settings.Default.FilePath, string.Format("sheet{0}.html", i));
+                    fn = Path.Combine(PluginSettings.Instance.FilePath, string.Format("sheet{0}.html", i));
                     if (File.Exists(fn))
                     {
                         File.Delete(fn);
@@ -185,7 +180,7 @@ namespace GlobalcachingApplication.Plugins.ExportHTML
                     File.WriteAllText(fn, sb.ToString());
                     try
                     {
-                        System.Diagnostics.Process.Start(Path.Combine(Properties.Settings.Default.FilePath, "index.html"));
+                        System.Diagnostics.Process.Start(Path.Combine(PluginSettings.Instance.FilePath, "index.html"));
                     }
                     catch
                     {
@@ -195,7 +190,7 @@ namespace GlobalcachingApplication.Plugins.ExportHTML
             }
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result)
@@ -230,7 +225,7 @@ namespace GlobalcachingApplication.Plugins.ExportHTML
                             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                             {
                                 _sheets = dlg.Sheets;
-                                PerformExport();
+                                await PerformExport();
                             }
                         }
 

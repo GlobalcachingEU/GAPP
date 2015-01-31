@@ -45,6 +45,8 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            var p = new PluginSettings(core);
+
             AddAction(ACTION_GRAB_ACTIVE);
             AddAction(ACTION_GRAB_SELECTED);
             AddAction(ACTION_CREATE_ACTIVE);
@@ -72,14 +74,7 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
             core.LanguageItems.Add(new Framework.Data.LanguageItem(CopyToFolderForm.STR_TITLE));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(CopyToFolderForm.STR_CLEAR));
 
-            if (Properties.Settings.Default.UpgradeNeeded)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
-            Properties.Settings.Default.ActiveDataPath = System.IO.Path.Combine(core.PluginDataPath, "ImgGrab" );
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.ActiveDataPath = System.IO.Path.Combine(core.PluginDataPath, "ImgGrab" );
             try
             {
                 initFolder();
@@ -92,7 +87,7 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
 
         private void initFolder()
         {
-            string fld = Properties.Settings.Default.ActiveDataPath;
+            string fld = PluginSettings.Instance.ActiveDataPath;
             if (!System.IO.Directory.Exists(fld))
             {
                 System.IO.Directory.CreateDirectory(fld);
@@ -114,7 +109,7 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
 
         private string DatabaseFilename
         {
-            get { return System.IO.Path.Combine(Properties.Settings.Default.ActiveDataPath, DATABASE_FILENAME); }
+            get { return System.IO.Path.Combine(PluginSettings.Instance.ActiveDataPath, DATABASE_FILENAME); }
         }
 
         private void CloseDatabase()
@@ -162,7 +157,7 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
                 if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     _gcList = (from a in gcList select a).ToList();
-                    if (Properties.Settings.Default.DownloadBeforeCreate)
+                    if (PluginSettings.Instance.DownloadBeforeCreate)
                     {
                         List<Framework.Data.Geocache> tmpList = (from a in _gcList select a).ToList();
                         System.Windows.Forms.DialogResult dr = System.Windows.Forms.MessageBox.Show(Utils.LanguageSupport.Instance.GetTranslation(STR_GRABNEW), Utils.LanguageSupport.Instance.GetTranslation(STR_GRABIMAGES), System.Windows.Forms.MessageBoxButtons.YesNoCancel);
@@ -249,7 +244,7 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
                         {
                             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                             {
-                                if (Properties.Settings.Default.DownloadBeforeCreate)
+                                if (PluginSettings.Instance.DownloadBeforeCreate)
                                 {
                                     List<Framework.Data.Geocache> tmpList = (from a in _gcList select a).ToList();
                                     Action(action == ACTION_CREATE_ACTIVE ? ACTION_GRAB_ACTIVE : ACTION_GRAB_SELECTED);
@@ -321,9 +316,9 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
                     {
                         using (System.Windows.Forms.FolderBrowserDialog dlg = new System.Windows.Forms.FolderBrowserDialog())
                         {
-                            if (!string.IsNullOrEmpty(Properties.Settings.Default.CreateFolderPath))
+                            if (!string.IsNullOrEmpty(PluginSettings.Instance.CreateFolderPath))
                             {
-                                dlg.SelectedPath = Properties.Settings.Default.CreateFolderPath;
+                                dlg.SelectedPath = PluginSettings.Instance.CreateFolderPath;
                             }
                             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                             {
@@ -405,16 +400,16 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
             {
                 try
                 {
-                    if (!Directory.Exists(Properties.Settings.Default.CreateFolderPath))
+                    if (!Directory.Exists(PluginSettings.Instance.CreateFolderPath))
                     {
-                        Directory.CreateDirectory(Properties.Settings.Default.CreateFolderPath);
+                        Directory.CreateDirectory(PluginSettings.Instance.CreateFolderPath);
                     }
-                    string imgFolder = Path.Combine(Properties.Settings.Default.CreateFolderPath, "GeocachePhotos");
+                    string imgFolder = Path.Combine(PluginSettings.Instance.CreateFolderPath, "GeocachePhotos");
                     if (!Directory.Exists(imgFolder))
                     {
                         Directory.CreateDirectory(imgFolder);
                     }
-                    if (Properties.Settings.Default.ClearBeforeCopy)
+                    if (PluginSettings.Instance.ClearBeforeCopy)
                     {
                         string[] fls = Directory.GetFiles(imgFolder);
                         if (fls != null)
@@ -458,12 +453,12 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
                         {
                             if (!linkList.Contains(lnk))
                             {
-                                if (!Properties.Settings.Default.CopyNotInDescription)
+                                if (!PluginSettings.Instance.CopyNotInDescription)
                                 {
                                     linkList.Add(lnk);
                                 }
                             }
-                            else if (Properties.Settings.Default.CopyNotInDescription)
+                            else if (PluginSettings.Instance.CopyNotInDescription)
                             {
                                 //remove the entries that are within the description
                                 linkList.Remove(lnk);
@@ -562,7 +557,7 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
                 try
                 {
                     int block = 0;
-                    string fnp = System.IO.Path.Combine(Properties.Settings.Default.ActiveDataPath, IMG_SUBFOLDER);
+                    string fnp = System.IO.Path.Combine(PluginSettings.Instance.ActiveDataPath, IMG_SUBFOLDER);
                     for (int i = 0; i < _gcList.Count; i++)
                     {
                         DbDataReader dr = _dbcon.ExecuteReader(string.Format("select local_file from images where gccode='{0}'", _gcList[i].Code.Replace("'", "''")));
@@ -613,7 +608,7 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
             }
             using (System.Net.WebClient wc = new System.Net.WebClient())
             {
-                string fnp = System.IO.Path.Combine(Properties.Settings.Default.ActiveDataPath, IMG_SUBFOLDER);
+                string fnp = System.IO.Path.Combine(PluginSettings.Instance.ActiveDataPath, IMG_SUBFOLDER);
                 bool grabOnlyNew = _grabOnlyNew;
                 while (gc != null)
                 {
@@ -788,7 +783,7 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
                 object o = _dbcon.ExecuteScalar(string.Format("select local_file from images where org_url = '{0}' limit 1", orgUrl.Replace("'","''")));
                 if (o != null && o.GetType() != typeof(DBNull))
                 {
-                    result = System.IO.Path.Combine(new string[] { Properties.Settings.Default.ActiveDataPath, IMG_SUBFOLDER, o as string });
+                    result = System.IO.Path.Combine(new string[] { PluginSettings.Instance.ActiveDataPath, IMG_SUBFOLDER, o as string });
                 }
             }
             catch
@@ -811,7 +806,7 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
                     object o = _dbcon.ExecuteScalar(string.Format("select local_file from images where org_url = '{0}' and gccode = '{1}' limit 1", orgUrl.Replace("'", "''"), gc.Code.Replace("'", "''")));
                     if (o != null && o.GetType() != typeof(DBNull))
                     {
-                        result = System.IO.Path.Combine(new string[] { Properties.Settings.Default.ActiveDataPath, IMG_SUBFOLDER, o as string });
+                        result = System.IO.Path.Combine(new string[] { PluginSettings.Instance.ActiveDataPath, IMG_SUBFOLDER, o as string });
                     }
                 }
                 catch

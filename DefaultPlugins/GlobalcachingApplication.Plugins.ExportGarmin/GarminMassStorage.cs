@@ -26,6 +26,11 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            if (PluginSettings.Instance == null)
+            {
+                var p = new PluginSettings(core);
+            }
+
             AddAction(ACTION_EXPORT_ALL);
             AddAction(ACTION_EXPORT_SELECTED);
             AddAction(ACTION_EXPORT_ACTIVE);
@@ -58,16 +63,16 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
             {
                 if (_oneGeocachePerFile)
                 {
-                    Utils.GPXGenerator gpxGenerator = new Utils.GPXGenerator(Core, _gcList, string.IsNullOrEmpty(Properties.Settings.Default.GPXVersionStr) ? Utils.GPXGenerator.V101 : Version.Parse(Properties.Settings.Default.GPXVersionStr));
+                    Utils.GPXGenerator gpxGenerator = new Utils.GPXGenerator(Core, _gcList, string.IsNullOrEmpty(PluginSettings.Instance.GPXVersionStr) ? Utils.GPXGenerator.V101 : Version.Parse(PluginSettings.Instance.GPXVersionStr));
                     gpxGenerator.UseNameForGCCode = _useName;
-                    gpxGenerator.AddAdditionWaypointsToDescription = Properties.Settings.Default.AddWaypointsToDescription;
-                    gpxGenerator.UseHintsForDescription = Properties.Settings.Default.UseHintsForDescription;
-                    gpxGenerator.AddFieldnotesToDescription = Properties.Settings.Default.AddFieldNotesToDescription;
-                    gpxGenerator.MaxNameLength = Properties.Settings.Default.MaxGeocacheNameLength;
-                    gpxGenerator.MinStartOfname = Properties.Settings.Default.MinStartOfGeocacheName;
-                    gpxGenerator.ExtraCoordPrefix = Properties.Settings.Default.CorrectedNamePrefix;
-                    gpxGenerator.AddExtraInfoToDescription = Properties.Settings.Default.AddExtraInfoToDescription;
-                    gpxGenerator.MaxLogCount = Properties.Settings.Default.MaximumNumberOfLogs;
+                    gpxGenerator.AddAdditionWaypointsToDescription = PluginSettings.Instance.AddWaypointsToDescription;
+                    gpxGenerator.UseHintsForDescription = PluginSettings.Instance.UseHintsForDescription;
+                    gpxGenerator.AddFieldnotesToDescription = PluginSettings.Instance.AddFieldNotesToDescription;
+                    gpxGenerator.MaxNameLength = PluginSettings.Instance.MaxGeocacheNameLength;
+                    gpxGenerator.MinStartOfname = PluginSettings.Instance.MinStartOfGeocacheName;
+                    gpxGenerator.ExtraCoordPrefix = PluginSettings.Instance.CorrectedNamePrefix;
+                    gpxGenerator.AddExtraInfoToDescription = PluginSettings.Instance.AddExtraInfoToDescription;
+                    gpxGenerator.MaxLogCount = PluginSettings.Instance.MaximumNumberOfLogs;
                     using (System.IO.TemporaryFile gpxFile = new System.IO.TemporaryFile(false))
                     {
                         using (System.IO.StreamWriter sw = new System.IO.StreamWriter(gpxFile.Path, false, Encoding.UTF8))
@@ -100,7 +105,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
 
                         progress.UpdateProgress(STR_EXPORTINGGPX, STR_COPYINGFILE, 1, 0);
                         string filename = "geocaches.gpx";
-                        if (Properties.Settings.Default.UseDatabaseNameForFileName)
+                        if (PluginSettings.Instance.UseDatabaseNameForFileName)
                         {
                             Framework.Interfaces.IPluginInternalStorage storage = (from Framework.Interfaces.IPluginInternalStorage a in Core.GetPlugin(Framework.PluginType.InternalStorage) select a).FirstOrDefault();
                             if (storage!=null)
@@ -131,16 +136,16 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
                     {
                         gcl.Clear();
                         gcl.Add(_gcList[i]);
-                        Utils.GPXGenerator gpxGenerator = new Utils.GPXGenerator(Core, gcl, string.IsNullOrEmpty(Properties.Settings.Default.GPXVersionStr) ? Utils.GPXGenerator.V101 : Version.Parse(Properties.Settings.Default.GPXVersionStr));
+                        Utils.GPXGenerator gpxGenerator = new Utils.GPXGenerator(Core, gcl, string.IsNullOrEmpty(PluginSettings.Instance.GPXVersionStr) ? Utils.GPXGenerator.V101 : Version.Parse(PluginSettings.Instance.GPXVersionStr));
                         gpxGenerator.UseNameForGCCode = _useName;
-                        gpxGenerator.AddAdditionWaypointsToDescription = Properties.Settings.Default.AddWaypointsToDescription;
-                        gpxGenerator.UseHintsForDescription = Properties.Settings.Default.UseHintsForDescription;
-                        gpxGenerator.AddFieldnotesToDescription = Properties.Settings.Default.AddFieldNotesToDescription;
-                        gpxGenerator.MaxNameLength = Properties.Settings.Default.MaxGeocacheNameLength;
-                        gpxGenerator.MinStartOfname = Properties.Settings.Default.MinStartOfGeocacheName;
-                        gpxGenerator.ExtraCoordPrefix = Properties.Settings.Default.CorrectedNamePrefix;
-                        gpxGenerator.AddExtraInfoToDescription = Properties.Settings.Default.AddExtraInfoToDescription;
-                        gpxGenerator.MaxLogCount = Properties.Settings.Default.MaximumNumberOfLogs;
+                        gpxGenerator.AddAdditionWaypointsToDescription = PluginSettings.Instance.AddWaypointsToDescription;
+                        gpxGenerator.UseHintsForDescription = PluginSettings.Instance.UseHintsForDescription;
+                        gpxGenerator.AddFieldnotesToDescription = PluginSettings.Instance.AddFieldNotesToDescription;
+                        gpxGenerator.MaxNameLength = PluginSettings.Instance.MaxGeocacheNameLength;
+                        gpxGenerator.MinStartOfname = PluginSettings.Instance.MinStartOfGeocacheName;
+                        gpxGenerator.ExtraCoordPrefix = PluginSettings.Instance.CorrectedNamePrefix;
+                        gpxGenerator.AddExtraInfoToDescription = PluginSettings.Instance.AddExtraInfoToDescription;
+                        gpxGenerator.MaxLogCount = PluginSettings.Instance.MaximumNumberOfLogs;
                         using (System.IO.TemporaryFile gpxFile = new System.IO.TemporaryFile(true))
                         {
                             int block = 0;
@@ -176,7 +181,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
             }
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result)
@@ -209,7 +214,7 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
                         {
                             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                             {
-                                if (Properties.Settings.Default.CreateGGZFile)
+                                if (PluginSettings.Instance.CreateGGZFile)
                                 {
                                     Utils.BasePlugin.Plugin p = Utils.PluginSupport.PluginByName(Core, "GlobalcachingApplication.Plugins.ExportGPX.GgzExport") as Utils.BasePlugin.Plugin;
                                     if (p != null)
@@ -217,19 +222,19 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
                                         var m = p.GetType().GetMethod("ExportToGGZ");
                                         if (m != null)
                                         {
-                                            Utils.GPXGenerator gpxGenerator = new Utils.GPXGenerator(Core, _gcList, string.IsNullOrEmpty(Properties.Settings.Default.GPXVersionStr) ? Utils.GPXGenerator.V101 : Version.Parse(Properties.Settings.Default.GPXVersionStr));
+                                            Utils.GPXGenerator gpxGenerator = new Utils.GPXGenerator(Core, _gcList, string.IsNullOrEmpty(PluginSettings.Instance.GPXVersionStr) ? Utils.GPXGenerator.V101 : Version.Parse(PluginSettings.Instance.GPXVersionStr));
                                             gpxGenerator.UseNameForGCCode = _useName;
-                                            gpxGenerator.AddAdditionWaypointsToDescription = Properties.Settings.Default.AddWaypointsToDescription;
-                                            gpxGenerator.UseHintsForDescription = Properties.Settings.Default.UseHintsForDescription;
-                                            gpxGenerator.AddFieldnotesToDescription = Properties.Settings.Default.AddFieldNotesToDescription;
-                                            gpxGenerator.MaxNameLength = Properties.Settings.Default.MaxGeocacheNameLength;
-                                            gpxGenerator.MinStartOfname = Properties.Settings.Default.MinStartOfGeocacheName;
-                                            gpxGenerator.ExtraCoordPrefix = Properties.Settings.Default.CorrectedNamePrefix;
-                                            gpxGenerator.AddExtraInfoToDescription = Properties.Settings.Default.AddExtraInfoToDescription;
-                                            gpxGenerator.MaxLogCount = Properties.Settings.Default.MaximumNumberOfLogs;
+                                            gpxGenerator.AddAdditionWaypointsToDescription = PluginSettings.Instance.AddWaypointsToDescription;
+                                            gpxGenerator.UseHintsForDescription = PluginSettings.Instance.UseHintsForDescription;
+                                            gpxGenerator.AddFieldnotesToDescription = PluginSettings.Instance.AddFieldNotesToDescription;
+                                            gpxGenerator.MaxNameLength = PluginSettings.Instance.MaxGeocacheNameLength;
+                                            gpxGenerator.MinStartOfname = PluginSettings.Instance.MinStartOfGeocacheName;
+                                            gpxGenerator.ExtraCoordPrefix = PluginSettings.Instance.CorrectedNamePrefix;
+                                            gpxGenerator.AddExtraInfoToDescription = PluginSettings.Instance.AddExtraInfoToDescription;
+                                            gpxGenerator.MaxLogCount = PluginSettings.Instance.MaximumNumberOfLogs;
 
                                             string filename = "geocaches.ggz";
-                                            if (Properties.Settings.Default.UseDatabaseNameForFileName)
+                                            if (PluginSettings.Instance.UseDatabaseNameForFileName)
                                             {
                                                 Framework.Interfaces.IPluginInternalStorage storage = (from Framework.Interfaces.IPluginInternalStorage a in Core.GetPlugin(Framework.PluginType.InternalStorage) select a).FirstOrDefault();
                                                 if (storage != null)
@@ -272,11 +277,11 @@ namespace GlobalcachingApplication.Plugins.ExportGarmin
                                     _useName = dlg.UseName;
                                     if (!string.IsNullOrEmpty(_drive))
                                     {
-                                        PerformExport();
+                                        await PerformExport();
                                     }
                                 }
 
-                                if (Properties.Settings.Default.AddImages)
+                                if (PluginSettings.Instance.AddImages)
                                 {
                                     Utils.BasePlugin.Plugin p = Utils.PluginSupport.PluginByName(Core, "GlobalcachingApplication.Plugins.ImgGrab.ImageGrabber") as Utils.BasePlugin.Plugin;
                                     if (p != null)

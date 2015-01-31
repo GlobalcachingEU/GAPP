@@ -51,16 +51,10 @@ namespace GlobalcachingApplication.Plugins.GoogleEarth
         {
             InitializeComponent();
 
-            if (Properties.Settings.Default.UpgradeNeeded)
+            var p = PluginSettings.Instance.WindowPos;
+            if (p != null && !p.IsEmpty)
             {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
-
-            if (Properties.Settings.Default.WindowPos != null && !Properties.Settings.Default.WindowPos.IsEmpty)
-            {
-                this.Bounds = Properties.Settings.Default.WindowPos;
+                this.Bounds = p;
                 this.StartPosition = FormStartPosition.Manual;
             }
 
@@ -132,10 +126,10 @@ namespace GlobalcachingApplication.Plugins.GoogleEarth
                     SetGeocacheInfo sgi = new SetGeocacheInfo();
                     sgi.title = string.Format("{0}, {1}", Core.ActiveGeocache.Code, Core.ActiveGeocache.Name ?? "");
                     sgi.icon = string.Format("file//", Utils.ImageSupport.Instance.GetImagePath(Core, Framework.Data.ImageSize.Map, Core.ActiveGeocache.GeocacheType));
-                    sgi.speed = Properties.Settings.Default.FlyToSpeed;
-                    sgi.applyV = Properties.Settings.Default.FixedView;
-                    sgi.altitude = Properties.Settings.Default.AltitudeView;
-                    sgi.tilt = Properties.Settings.Default.TiltView;
+                    sgi.speed = PluginSettings.Instance.FlyToSpeed;
+                    sgi.applyV = PluginSettings.Instance.FixedView;
+                    sgi.altitude = PluginSettings.Instance.AltitudeView;
+                    sgi.tilt = PluginSettings.Instance.TiltView;
                     if (Core.ActiveGeocache.ContainsCustomLatLon)
                     {
                         sgi.lat = (double)Core.ActiveGeocache.CustomLat;
@@ -193,8 +187,7 @@ namespace GlobalcachingApplication.Plugins.GoogleEarth
         {
             if (WindowState == FormWindowState.Normal)
             {
-                Properties.Settings.Default.WindowPos = this.Bounds;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.WindowPos = this.Bounds;
             }
         }
 
@@ -202,8 +195,7 @@ namespace GlobalcachingApplication.Plugins.GoogleEarth
         {
             if (WindowState == FormWindowState.Normal)
             {
-                Properties.Settings.Default.WindowPos = this.Bounds;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.WindowPos = this.Bounds;
             }
         }
 

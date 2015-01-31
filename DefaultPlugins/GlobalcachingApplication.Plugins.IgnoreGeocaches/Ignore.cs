@@ -10,6 +10,11 @@ namespace GlobalcachingApplication.Plugins.IgnoreGeocaches
     {
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            if (PluginSettings.Instance == null)
+            {
+                var p = new PluginSettings(core);
+            }
+
             return await base.InitializeAsync(core);
         }
 

@@ -10,6 +10,8 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            var p = new PluginSettings(core);
+
             AddAction(ACTION_SHOW);
             StrRes.InitializeCoreLanguageItems(core);
             return await base.InitializeAsync(core);

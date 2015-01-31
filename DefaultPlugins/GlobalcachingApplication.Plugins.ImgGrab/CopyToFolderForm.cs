@@ -22,9 +22,9 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
         {
             InitializeComponent();
 
-            checkBox1.Checked = Properties.Settings.Default.DownloadBeforeCreate;
-            checkBox2.Checked = Properties.Settings.Default.CopyNotInDescription;
-            checkBox3.Checked = Properties.Settings.Default.ClearBeforeCopy;
+            checkBox1.Checked = PluginSettings.Instance.DownloadBeforeCreate;
+            checkBox2.Checked = PluginSettings.Instance.CopyNotInDescription;
+            checkBox3.Checked = PluginSettings.Instance.ClearBeforeCopy;
 
             this.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_TITLE);
             this.label1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_FOLDER);
@@ -33,8 +33,8 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
             this.checkBox3.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_CLEAR);
             this.button2.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_OK);
 
-            folderBrowserDialog1.SelectedPath = Properties.Settings.Default.CreateFolderPath;
-            textBox1.Text = Properties.Settings.Default.CreateFolderPath;
+            folderBrowserDialog1.SelectedPath = PluginSettings.Instance.CreateFolderPath;
+            textBox1.Text = PluginSettings.Instance.CreateFolderPath;
         }
 
         public CopyToFolderForm(string folder):this()
@@ -57,11 +57,10 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.DownloadBeforeCreate = checkBox1.Checked;
-            Properties.Settings.Default.CopyNotInDescription = checkBox2.Checked;
-            Properties.Settings.Default.ClearBeforeCopy = checkBox3.Checked;
-            Properties.Settings.Default.CreateFolderPath = textBox1.Text;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.DownloadBeforeCreate = checkBox1.Checked;
+            PluginSettings.Instance.CopyNotInDescription = checkBox2.Checked;
+            PluginSettings.Instance.ClearBeforeCopy = checkBox3.Checked;
+            PluginSettings.Instance.CreateFolderPath = textBox1.Text;
             DialogResult = System.Windows.Forms.DialogResult.OK;
             Close();
         }

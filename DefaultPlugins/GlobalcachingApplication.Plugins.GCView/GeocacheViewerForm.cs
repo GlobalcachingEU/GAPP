@@ -56,7 +56,7 @@ namespace GlobalcachingApplication.Plugins.GCView
                 {
                     try
                     {
-                        if (Properties.Settings.Default.OpenInInternalBrowser)
+                        if (PluginSettings.Instance.OpenInInternalBrowser)
                         {
                             _parent.BeginInvoke((Action)(() =>
                             {
@@ -115,16 +115,9 @@ namespace GlobalcachingApplication.Plugins.GCView
         {
             InitializeComponent();
 
-            if (Properties.Settings.Default.UpgradeNeeded)
+            if (PluginSettings.Instance.WindowPos != null && !PluginSettings.Instance.WindowPos.IsEmpty)
             {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
-
-            if (Properties.Settings.Default.WindowPos != null && !Properties.Settings.Default.WindowPos.IsEmpty)
-            {
-                this.Bounds = Properties.Settings.Default.WindowPos;
+                this.Bounds = PluginSettings.Instance.WindowPos;
                 this.StartPosition = FormStartPosition.Manual;
             }
 
@@ -142,10 +135,10 @@ namespace GlobalcachingApplication.Plugins.GCView
                 _defaultLogOddTemplateHtml = textStreamReader.ReadToEnd();
             }
 
-            checkBox1.Checked = Properties.Settings.Default.OpenInInternalBrowser;
-            checkBox2.Checked = Properties.Settings.Default.ShowAdditionalWaypoints;
-            checkBoxOfflineImages.Checked = Properties.Settings.Default.UseOfflineImagesIfAvailable;
-            numericUpDown1.Value = Properties.Settings.Default.ShowLogs;
+            checkBox1.Checked = PluginSettings.Instance.OpenInInternalBrowser;
+            checkBox2.Checked = PluginSettings.Instance.ShowAdditionalWaypoints;
+            checkBoxOfflineImages.Checked = PluginSettings.Instance.UseOfflineImagesIfAvailable;
+            numericUpDown1.Value = PluginSettings.Instance.ShowLogs;
 
             core.ActiveGeocacheChanged += new Framework.EventArguments.GeocacheEventHandler(core_ActiveGeocacheChanged);
             SelectedLanguageChanged(this, EventArgs.Empty);
@@ -247,13 +240,13 @@ namespace GlobalcachingApplication.Plugins.GCView
             else
             {
                 string s;
-                if (string.IsNullOrEmpty(Properties.Settings.Default.GeocacheTemplateHtml))
+                if (string.IsNullOrEmpty(PluginSettings.Instance.GeocacheTemplateHtml))
                 {
                     s = _defaultGeocacheTemplateHtml;
                 }
                 else
                 {
-                    s = Properties.Settings.Default.GeocacheTemplateHtml;
+                    s = PluginSettings.Instance.GeocacheTemplateHtml;
                 }
                 s = s.Replace("<!--code-->", Core.ActiveGeocache.Code);
                 s = s.Replace("<!--name-->", HttpUtility.HtmlEncode(Core.ActiveGeocache.Name));
@@ -283,7 +276,7 @@ namespace GlobalcachingApplication.Plugins.GCView
                         sbImgs.Append("<td>");
                         sbImgs.Append(string.Format("<img src=\"gapp://{0}\" />", System.IO.Path.Combine(new string[] { System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), "Images", "Default", "images.gif" })));
                         string link = img.Url;
-                        if (Properties.Settings.Default.UseOfflineImagesIfAvailable)
+                        if (PluginSettings.Instance.UseOfflineImagesIfAvailable)
                         {
                             string p = Utils.ImageSupport.Instance.GetImagePath(link);
                             if (!string.IsNullOrEmpty(p))
@@ -358,7 +351,7 @@ namespace GlobalcachingApplication.Plugins.GCView
                 }
 
                 List<Framework.Data.Waypoint> wpts = Utils.DataAccess.GetWaypointsFromGeocache(Core.Waypoints, Core.ActiveGeocache.Code);
-                if (Properties.Settings.Default.ShowAdditionalWaypoints && wpts != null && wpts.Count > 0)
+                if (PluginSettings.Instance.ShowAdditionalWaypoints && wpts != null && wpts.Count > 0)
                 {
                     StringBuilder awp = new StringBuilder();
                     awp.Append("<p>");
@@ -383,7 +376,7 @@ namespace GlobalcachingApplication.Plugins.GCView
                     s = s.Replace("<!--waypoints-->", "");
                 }
 
-                if (Properties.Settings.Default.UseOfflineImagesIfAvailable)
+                if (PluginSettings.Instance.UseOfflineImagesIfAvailable)
                 {
                     s = checkForOfflineImages(s);
                 }
@@ -398,7 +391,7 @@ namespace GlobalcachingApplication.Plugins.GCView
                 if (logs != null)
                 {
                     bool odd = true;
-                    foreach (Framework.Data.Log l in logs.Take(Properties.Settings.Default.ShowLogs).ToList())
+                    foreach (Framework.Data.Log l in logs.Take(PluginSettings.Instance.ShowLogs).ToList())
                     {
                         string lgtxt = "";
                         if (odd)
@@ -479,8 +472,7 @@ namespace GlobalcachingApplication.Plugins.GCView
         {
             if (WindowState == FormWindowState.Normal)
             {
-                Properties.Settings.Default.WindowPos = this.Bounds;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.WindowPos = this.Bounds;
             }
         }
 
@@ -488,15 +480,13 @@ namespace GlobalcachingApplication.Plugins.GCView
         {
             if (WindowState == FormWindowState.Normal)
             {
-                Properties.Settings.Default.WindowPos = this.Bounds;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.WindowPos = this.Bounds;
             }
         }
 
         private void checkBoxOfflineImages_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.UseOfflineImagesIfAvailable = checkBoxOfflineImages.Checked;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.UseOfflineImagesIfAvailable = checkBoxOfflineImages.Checked;
             if (Visible)
             {
                 UpdateView();
@@ -510,7 +500,7 @@ namespace GlobalcachingApplication.Plugins.GCView
             {
                 try
                 {
-                    if (Properties.Settings.Default.OpenInInternalBrowser)
+                    if (PluginSettings.Instance.OpenInInternalBrowser)
                     {
                         Utils.BasePlugin.Plugin p = Utils.PluginSupport.PluginByName(Core, "GlobalcachingApplication.Plugins.Browser.BrowserPlugin") as Utils.BasePlugin.Plugin;
                         if (p != null)
@@ -534,14 +524,12 @@ namespace GlobalcachingApplication.Plugins.GCView
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.OpenInInternalBrowser = checkBox1.Checked;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.OpenInInternalBrowser = checkBox1.Checked;
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.ShowLogs = (int)numericUpDown1.Value;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.ShowLogs = (int)numericUpDown1.Value;
             if (Visible)
             {
                 UpdateView();
@@ -550,8 +538,7 @@ namespace GlobalcachingApplication.Plugins.GCView
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.ShowAdditionalWaypoints = checkBox2.Checked;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.ShowAdditionalWaypoints = checkBox2.Checked;
             if (Visible)
             {
                 UpdateView();
@@ -566,6 +553,8 @@ namespace GlobalcachingApplication.Plugins.GCView
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            var p = new PluginSettings(core);
+
             AddAction(ACTION_SHOW);
 
             core.LanguageItems.Add(new Framework.Data.LanguageItem(GeocacheViewerForm.STR_TITLE));
@@ -597,7 +586,7 @@ namespace GlobalcachingApplication.Plugins.GCView
 
         public bool OpenInInternalBrowser()
         {
-            return Properties.Settings.Default.OpenInInternalBrowser;
+            return PluginSettings.Instance.OpenInInternalBrowser;
         }
 
         protected override Utils.BasePlugin.BaseUIChildWindowForm CreateUIChildWindowForm(Framework.Interfaces.ICore core)

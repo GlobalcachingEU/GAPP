@@ -48,7 +48,7 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
             bool result = false;
 
             //repair
-            _fileCollection = new FileCollection(Properties.Settings.Default.ActiveDataFile);
+            _fileCollection = new FileCollection(PluginSettings.Instance.ActiveDataFile);
             if (File.Exists(_fileCollection.DatabaseInfoFilename))
             {
                 XmlDocument doc = new XmlDocument();
