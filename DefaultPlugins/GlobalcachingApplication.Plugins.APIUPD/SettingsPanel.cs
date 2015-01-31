@@ -20,23 +20,22 @@ namespace GlobalcachingApplication.Plugins.APIUPD
         {
             InitializeComponent();
 
-            checkBox1.Checked = Properties.Settings.Default.DeselectGeocacheAfterUpdate;
+            checkBox1.Checked = PluginSettings.Instance.DeselectGeocacheAfterUpdate;
             checkBox1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_DESELECT);
             label1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_EXTRADELAY);
             label4.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_EXTRADELAYLOGS);
             label5.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_MAXLOGS);
-            numericUpDown1.Value = Properties.Settings.Default.AdditionalDelayBetweenImageImport;
-            numericUpDown2.Value = Properties.Settings.Default.AdditionalDelayBetweenLogImport;
-            numericUpDown3.Value = Properties.Settings.Default.UpdateLogsMaxLogCount;
+            numericUpDown1.Value = PluginSettings.Instance.AdditionalDelayBetweenImageImport;
+            numericUpDown2.Value = PluginSettings.Instance.AdditionalDelayBetweenLogImport;
+            numericUpDown3.Value = PluginSettings.Instance.UpdateLogsMaxLogCount;
         }
 
         public void Apply()
         {
-            Properties.Settings.Default.DeselectGeocacheAfterUpdate = checkBox1.Checked;
-            Properties.Settings.Default.AdditionalDelayBetweenImageImport = (int)numericUpDown1.Value;
-            Properties.Settings.Default.AdditionalDelayBetweenLogImport = (int)numericUpDown2.Value;
-            Properties.Settings.Default.UpdateLogsMaxLogCount = (int)numericUpDown3.Value;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.DeselectGeocacheAfterUpdate = checkBox1.Checked;
+            PluginSettings.Instance.AdditionalDelayBetweenImageImport = (int)numericUpDown1.Value;
+            PluginSettings.Instance.AdditionalDelayBetweenLogImport = (int)numericUpDown2.Value;
+            PluginSettings.Instance.UpdateLogsMaxLogCount = (int)numericUpDown3.Value;
         }
     }
 }

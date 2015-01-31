@@ -15,6 +15,8 @@ namespace GlobalcachingApplication.Plugins.AutoSelect
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            var p = new PluginSettings(core);
+
             _context = SynchronizationContext.Current;
             if (_context == null)
             {
@@ -22,13 +24,6 @@ namespace GlobalcachingApplication.Plugins.AutoSelect
             }
 
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_AUTO_SELECTNEW));
-
-            if (Properties.Settings.Default.UpgradeNeeded)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
 
             return await base.InitializeAsync(core);
         }
@@ -72,9 +67,15 @@ namespace GlobalcachingApplication.Plugins.AutoSelect
             await base.ApplicationInitializedAsync();
 
             _prevList = new Hashtable();
-            foreach (Framework.Data.Geocache g in Core.Geocaches)
+            try
             {
-                _prevList.Add(g.Code, g);
+                foreach (Framework.Data.Geocache g in Core.Geocaches)
+                {
+                    _prevList.Add(g.Code, g);
+                }
+            }
+            catch
+            {
             }
 
             Core.Geocaches.GeocacheAdded += new Framework.EventArguments.GeocacheEventHandler(Geocaches_GeocacheAdded);
@@ -107,7 +108,7 @@ namespace GlobalcachingApplication.Plugins.AutoSelect
 
         void Geocaches_GeocacheRemoved(object sender, Framework.EventArguments.GeocacheEventArgs e)
         {
-            if (Properties.Settings.Default.AutoSelectNewGeocaches)
+            if (PluginSettings.Instance.AutoSelectNewGeocaches)
             {
                 if (_prevList[e.Geocache.Code] != null)
                 {
@@ -118,7 +119,7 @@ namespace GlobalcachingApplication.Plugins.AutoSelect
 
         void Geocaches_ListDataChanged(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.AutoSelectNewGeocaches)
+            if (PluginSettings.Instance.AutoSelectNewGeocaches)
             {
                 if (_prevList.Count != Core.Geocaches.Count)
                 {
@@ -129,7 +130,7 @@ namespace GlobalcachingApplication.Plugins.AutoSelect
 
         void Geocaches_GeocacheAdded(object sender, Framework.EventArguments.GeocacheEventArgs e)
         {
-            if (Properties.Settings.Default.AutoSelectNewGeocaches)
+            if (PluginSettings.Instance.AutoSelectNewGeocaches)
             {
                 checkGeocachesAdded();
             }

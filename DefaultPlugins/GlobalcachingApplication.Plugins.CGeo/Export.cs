@@ -39,7 +39,7 @@ namespace GlobalcachingApplication.Plugins.CGeo
             return await base.InitializeAsync(core);
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result)
@@ -73,7 +73,7 @@ namespace GlobalcachingApplication.Plugins.CGeo
                             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                             {
                                 _folder = dlg.SelectedPath;
-                                PerformExport();
+                                await PerformExport();
                             }
                         }
                     }

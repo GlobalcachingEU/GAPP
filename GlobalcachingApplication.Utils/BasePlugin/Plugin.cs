@@ -27,7 +27,7 @@ namespace GlobalcachingApplication.Utils.BasePlugin
 
         public async virtual Task ApplicationInitializedAsync()
         {
-            await Task.Run(() => { ;});
+            if (this==null) await Task.Run(() => { ;});
         }
 
         public virtual void ApplicationClosing()

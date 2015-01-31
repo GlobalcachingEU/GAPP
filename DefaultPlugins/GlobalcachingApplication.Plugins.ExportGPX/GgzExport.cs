@@ -74,7 +74,7 @@ namespace GlobalcachingApplication.Plugins.ExportGPX
             _gcList = null;
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result)
@@ -120,7 +120,7 @@ namespace GlobalcachingApplication.Plugins.ExportGPX
                                 _gpxGenerator.ExtraCoordPrefix = Properties.Settings.Default.CorrectedNamePrefix;
                                 _gpxGenerator.AddExtraInfoToDescription = Properties.Settings.Default.AddExtraInfoToDescription;
                                 _gpxGenerator.MaxLogCount = Properties.Settings.Default.MaximumNumberOfLogs;
-                                PerformExport();
+                                await PerformExport();
                             }
                         }
                     }

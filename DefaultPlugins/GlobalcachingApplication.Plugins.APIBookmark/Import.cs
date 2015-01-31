@@ -137,7 +137,7 @@ namespace GlobalcachingApplication.Plugins.APIBookmark
             }
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result)
@@ -156,7 +156,7 @@ namespace GlobalcachingApplication.Plugins.APIBookmark
                                 if (_gcList != null && _gcList.Count > 0)
                                 {
                                     _errormessage = null;
-                                    PerformImport();
+                                    await PerformImport();
                                     if (!string.IsNullOrEmpty(_errormessage))
                                     {
                                         System.Windows.Forms.MessageBox.Show(_errormessage, Utils.LanguageSupport.Instance.GetTranslation(Utils.LanguageSupport.Instance.GetTranslation(STR_ERROR)), System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);

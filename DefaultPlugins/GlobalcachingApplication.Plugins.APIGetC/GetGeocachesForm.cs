@@ -113,11 +113,11 @@ namespace GlobalcachingApplication.Plugins.APIGetC
             this.label50.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_AND);
             this.label51.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_MAX30DAYS);
 
-            this.radioButtonKm.Checked = Properties.Settings.Default.UseMetric;
-            this.radioButtonMiles.Checked = !Properties.Settings.Default.UseMetric;
-            this.numericUpDownLogCount.Value = Properties.Settings.Default.MaxLogs;
-            this.numericUpDownMaxPerPage.Value = Properties.Settings.Default.MaxPerRequest;
-            this.numericUpDownMaximum.Value = Properties.Settings.Default.TotalMaximum;
+            this.radioButtonKm.Checked = PluginSettings.Instance.UseMetric;
+            this.radioButtonMiles.Checked = !PluginSettings.Instance.UseMetric;
+            this.numericUpDownLogCount.Value = PluginSettings.Instance.MaxLogs;
+            this.numericUpDownMaxPerPage.Value = PluginSettings.Instance.MaxPerRequest;
+            this.numericUpDownMaximum.Value = PluginSettings.Instance.TotalMaximum;
 
             _ownerPlugin = owner as GetGeocaches;
             _core = core;
@@ -572,11 +572,10 @@ namespace GlobalcachingApplication.Plugins.APIGetC
 
         private void buttonImport_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.UseMetric = this.radioButtonKm.Checked;
-            Properties.Settings.Default.MaxLogs = (int)this.numericUpDownLogCount.Value;
-            Properties.Settings.Default.MaxPerRequest = (int)this.numericUpDownMaxPerPage.Value;
-            Properties.Settings.Default.TotalMaximum = (int)this.numericUpDownMaximum.Value;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.UseMetric = this.radioButtonKm.Checked;
+            PluginSettings.Instance.MaxLogs = (int)this.numericUpDownLogCount.Value;
+            PluginSettings.Instance.MaxPerRequest = (int)this.numericUpDownMaxPerPage.Value;
+            PluginSettings.Instance.TotalMaximum = (int)this.numericUpDownMaximum.Value;
 
             SavePresets();
 
@@ -810,14 +809,9 @@ namespace GlobalcachingApplication.Plugins.APIGetC
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
-            AddAction(ACTION_SHOW);
+            var p = new PluginSettings(core);
 
-            if (Properties.Settings.Default.UpgradeNeeded)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
+            AddAction(ACTION_SHOW);
 
             core.LanguageItems.Add(new Framework.Data.LanguageItem(GetGeocachesForm.STR_ARCHIVED));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(GetGeocachesForm.STR_AREACODE));
@@ -970,7 +964,7 @@ namespace GlobalcachingApplication.Plugins.APIGetC
             }
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result)
@@ -985,7 +979,7 @@ namespace GlobalcachingApplication.Plugins.APIGetC
                             max = dlg.Max;
                             _apiLimit = -1;
                             _errormessage = null;
-                            PerformImport();
+                            await PerformImport();
                             if (!string.IsNullOrEmpty(_errormessage))
                             {
                                 MessageBox.Show(_errormessage, Utils.LanguageSupport.Instance.GetTranslation(Utils.LanguageSupport.Instance.GetTranslation(STR_ERROR)), MessageBoxButtons.OK, MessageBoxIcon.Error);

@@ -19,18 +19,13 @@ namespace GlobalcachingApplication.Plugins.APILOGC
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            var p = new PluginSettings(core);
+
             AddAction(ACTION_SINGLE);
             AddAction(ACTION_BATCH);
             AddAction(ACTION_GARMINVISIT);
             AddAction(ACTION_CGEOVISIT);
             AddAction(ACTION_OFFLINE);
-
-            if (Properties.Settings.Default.UpgradeNeeded)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
 
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_UNABLEACCESSAPI));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_ERROR));

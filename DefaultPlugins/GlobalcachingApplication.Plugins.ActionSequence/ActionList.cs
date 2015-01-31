@@ -77,7 +77,7 @@ namespace GlobalcachingApplication.Plugins.ActionSequence
             RemoveAction(string.Format("Action sequence|{0}", action));
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result)
@@ -101,7 +101,7 @@ namespace GlobalcachingApplication.Plugins.ActionSequence
                         int pos = action.IndexOf('|');
                         if (pos > 0)
                         {
-                            (UIChildWindowForm as ActionListForm).Execute(action.Substring(pos + 1));
+                            await (UIChildWindowForm as ActionListForm).Execute(action.Substring(pos + 1));
                         }
                     }
                 }

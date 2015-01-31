@@ -69,7 +69,7 @@ namespace GlobalcachingApplication.Plugins.APIFindsOfUser
             }
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result)
@@ -88,7 +88,7 @@ namespace GlobalcachingApplication.Plugins.APIFindsOfUser
                             {
                                 _errormessage = null;
                                 _apiLimit = -1;
-                                PerformImport();
+                                await PerformImport();
                                 if (!string.IsNullOrEmpty(_errormessage))
                                 {
                                     System.Windows.Forms.MessageBox.Show(_errormessage, Utils.LanguageSupport.Instance.GetTranslation(Utils.LanguageSupport.Instance.GetTranslation(STR_ERROR)), System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);

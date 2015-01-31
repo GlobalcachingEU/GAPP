@@ -56,7 +56,7 @@ namespace GlobalcachingApplication.Plugins.ExportGPX
             return await base.InitializeAsync(core);
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result)
@@ -110,7 +110,7 @@ namespace GlobalcachingApplication.Plugins.ExportGPX
                                 _gpxGenerator.ExtraCoordPrefix = Properties.Settings.Default.CorrectedNamePrefix;
                                 _gpxGenerator.AddExtraInfoToDescription = Properties.Settings.Default.AddExtraInfoToDescription;
                                 _gpxGenerator.MaxLogCount = Properties.Settings.Default.MaximumNumberOfLogs;
-                                PerformExport();
+                                await PerformExport();
                             }
                         }
                     }
@@ -139,11 +139,11 @@ namespace GlobalcachingApplication.Plugins.ExportGPX
             }
             using (Utils.ProgressBlock progress = new Utils.ProgressBlock(this, STR_EXPORTINGGPX, STR_CREATINGFILE, _gpxGenerator.Count, 0))
             {
+                DateTime nextUpdate = DateTime.Now.AddSeconds(2);
                 //create file stream (if not zipped actual file and if zipped tmp file
                 using (System.IO.StreamWriter sw = System.IO.File.CreateText(gpxFile))
                 using (System.IO.StreamWriter swwp = System.IO.File.CreateText(wptFile))
                 {
-                    int block = 0;
                     //generate header
                     sw.Write(_gpxGenerator.Start());
                     if (Properties.Settings.Default.AddWaypoints)
@@ -162,11 +162,10 @@ namespace GlobalcachingApplication.Plugins.ExportGPX
                                 swwp.WriteLine(s);
                             }
                         }
-                        block++;
-                        if (block > 50)
+                        if (DateTime.Now>=nextUpdate)
                         {
-                            block = 0;
                             progress.UpdateProgress(STR_EXPORTINGGPX, STR_CREATINGFILE, _gpxGenerator.Count, i + 1);
+                            nextUpdate = DateTime.Now.AddSeconds(2);
                         }
                     }
                     //finalize

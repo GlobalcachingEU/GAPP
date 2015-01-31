@@ -303,7 +303,7 @@ namespace GlobalcachingApplication.Plugins.APIPQ
         }
 
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result && action == ACTION_IMPORT)
@@ -324,7 +324,7 @@ namespace GlobalcachingApplication.Plugins.APIPQ
                                     {
                                         _pqs = dlg.SelectedPQs;
                                         _client = client;
-                                        PerformImport();
+                                        await PerformImport();
                                     }
                                 }
                             }

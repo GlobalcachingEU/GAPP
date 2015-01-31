@@ -23,19 +23,14 @@ namespace GlobalcachingApplication.Plugins.ExpExcel
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            var p = new PluginSettings(core);
+
             AddAction(ACTION_EXPORT_ALL);
             AddAction(ACTION_EXPORT_SELECTED);
 
-            if (Properties.Settings.Default.UpgradeNeeded)
+            if (PluginSettings.Instance.ExportFields == null)
             {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
-            if (Properties.Settings.Default.ExportFields == null)
-            {
-                Properties.Settings.Default.ExportFields = new System.Collections.Specialized.StringCollection();
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.ExportFields = new System.Collections.Specialized.StringCollection();
             }
 
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_NOGEOCACHESELECTED));
@@ -98,7 +93,7 @@ namespace GlobalcachingApplication.Plugins.ExpExcel
 
         protected override void ExportMethod()
         {
-            FileInfo fi = new FileInfo(Properties.Settings.Default.FilePath);
+            FileInfo fi = new FileInfo(PluginSettings.Instance.FilePath);
             if (fi.Exists)
             {
                 fi.Delete();
@@ -218,7 +213,8 @@ namespace GlobalcachingApplication.Plugins.ExpExcel
 
             return result;
         }
-        public override bool Action(string action)
+
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result)
@@ -253,7 +249,7 @@ namespace GlobalcachingApplication.Plugins.ExpExcel
                             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                             {
                                 _sheets = dlg.Sheets;
-                                PerformExport();
+                                await PerformExport();
                             }
                         }
 

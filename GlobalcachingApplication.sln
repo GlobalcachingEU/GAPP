@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2013 for Windows Desktop
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication", "GlobalcachingApplication\GlobalcachingApplication.csproj", "{1C2F3389-8484-42EB-82FD-BF2E0D79A6DF}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -133,8 +133,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Pl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.Chat", "DefaultPlugins\GlobalcachingApplication.Plugins.Chat\GlobalcachingApplication.Plugins.Chat.csproj", "{8D59AE51-7A8D-4AA0-953F-F71D822B0C81}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.CoordSav", "DefaultPlugins\GlobalcachingApplication.Plugins.CoordSav\GlobalcachingApplication.Plugins.CoordSav.csproj", "{BDC94A1E-1F2F-4F74-BF0C-3473FD4F977E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.Maps", "DefaultPlugins\GlobalcachingApplication.Plugins.Maps\GlobalcachingApplication.Plugins.Maps.csproj", "{AE2F3E8A-52BC-475B-BE0B-310E7A534A3B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.StatsGen", "DefaultPlugins\GlobalcachingApplication.Plugins.StatsGen\GlobalcachingApplication.Plugins.StatsGen.csproj", "{87445EA3-24A5-4533-A95C-7BFA89950401}"
@@ -210,8 +208,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.GoogleEarth", "DefaultPlugins\GlobalcachingApplication.Plugins.GoogleEarth\GlobalcachingApplication.Plugins.GoogleEarth.csproj", "{5826B323-29A5-49FA-AB30-703DF1F3F820}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.LogImagesViewer", "DefaultPlugins\GlobalcachingApplication.Plugins.LogImagesViewer\GlobalcachingApplication.Plugins.LogImagesViewer.csproj", "{E9B5EB34-BC86-4086-97BD-8BCB2429490C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.Demo", "OptPlugins\GlobalcachingApplication.Plugins.Demo\GlobalcachingApplication.Plugins.Demo.csproj", "{A0BDF1F8-FD79-430A-94BA-BA368C18D573}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.AutoUpdater", "OptPlugins\GlobalcachingApplication.Plugins.AutoUpdater\GlobalcachingApplication.Plugins.AutoUpdater.csproj", "{73E93F56-5BEB-4DAC-BEEC-A6F516D0674B}"
 EndProject
@@ -711,14 +707,6 @@ Global
 		{8D59AE51-7A8D-4AA0-953F-F71D822B0C81}.Release|x64.Build.0 = Release|x64
 		{8D59AE51-7A8D-4AA0-953F-F71D822B0C81}.Release|x86.ActiveCfg = Release|x86
 		{8D59AE51-7A8D-4AA0-953F-F71D822B0C81}.Release|x86.Build.0 = Release|x86
-		{BDC94A1E-1F2F-4F74-BF0C-3473FD4F977E}.Debug|x64.ActiveCfg = Debug|x64
-		{BDC94A1E-1F2F-4F74-BF0C-3473FD4F977E}.Debug|x64.Build.0 = Debug|x64
-		{BDC94A1E-1F2F-4F74-BF0C-3473FD4F977E}.Debug|x86.ActiveCfg = Debug|x86
-		{BDC94A1E-1F2F-4F74-BF0C-3473FD4F977E}.Debug|x86.Build.0 = Debug|x86
-		{BDC94A1E-1F2F-4F74-BF0C-3473FD4F977E}.Release|x64.ActiveCfg = Release|x64
-		{BDC94A1E-1F2F-4F74-BF0C-3473FD4F977E}.Release|x64.Build.0 = Release|x64
-		{BDC94A1E-1F2F-4F74-BF0C-3473FD4F977E}.Release|x86.ActiveCfg = Release|x86
-		{BDC94A1E-1F2F-4F74-BF0C-3473FD4F977E}.Release|x86.Build.0 = Release|x86
 		{AE2F3E8A-52BC-475B-BE0B-310E7A534A3B}.Debug|x64.ActiveCfg = Debug|x64
 		{AE2F3E8A-52BC-475B-BE0B-310E7A534A3B}.Debug|x64.Build.0 = Debug|x64
 		{AE2F3E8A-52BC-475B-BE0B-310E7A534A3B}.Debug|x86.ActiveCfg = Debug|x86
@@ -1023,14 +1011,6 @@ Global
 		{E9B5EB34-BC86-4086-97BD-8BCB2429490C}.Release|x64.Build.0 = Release|x64
 		{E9B5EB34-BC86-4086-97BD-8BCB2429490C}.Release|x86.ActiveCfg = Release|x86
 		{E9B5EB34-BC86-4086-97BD-8BCB2429490C}.Release|x86.Build.0 = Release|x86
-		{A0BDF1F8-FD79-430A-94BA-BA368C18D573}.Debug|x64.ActiveCfg = Debug|x64
-		{A0BDF1F8-FD79-430A-94BA-BA368C18D573}.Debug|x64.Build.0 = Debug|x64
-		{A0BDF1F8-FD79-430A-94BA-BA368C18D573}.Debug|x86.ActiveCfg = Debug|x86
-		{A0BDF1F8-FD79-430A-94BA-BA368C18D573}.Debug|x86.Build.0 = Debug|x86
-		{A0BDF1F8-FD79-430A-94BA-BA368C18D573}.Release|x64.ActiveCfg = Release|x64
-		{A0BDF1F8-FD79-430A-94BA-BA368C18D573}.Release|x64.Build.0 = Release|x64
-		{A0BDF1F8-FD79-430A-94BA-BA368C18D573}.Release|x86.ActiveCfg = Release|x86
-		{A0BDF1F8-FD79-430A-94BA-BA368C18D573}.Release|x86.Build.0 = Release|x86
 		{73E93F56-5BEB-4DAC-BEEC-A6F516D0674B}.Debug|x64.ActiveCfg = Debug|x64
 		{73E93F56-5BEB-4DAC-BEEC-A6F516D0674B}.Debug|x64.Build.0 = Debug|x64
 		{73E93F56-5BEB-4DAC-BEEC-A6F516D0674B}.Debug|x86.ActiveCfg = Debug|x86

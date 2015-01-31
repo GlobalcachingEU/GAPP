@@ -17,15 +17,14 @@ namespace GlobalcachingApplication.Plugins.AutoSelect
         {
             InitializeComponent();
 
-            checkBox1.Checked = Properties.Settings.Default.AutoSelectNewGeocaches;
+            checkBox1.Checked = PluginSettings.Instance.AutoSelectNewGeocaches;
 
             checkBox1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_AUTO_SELECTNEW);
         }
 
         public void Apply()
         {
-            Properties.Settings.Default.AutoSelectNewGeocaches = checkBox1.Checked;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.AutoSelectNewGeocaches = checkBox1.Checked;
         }
     }
 

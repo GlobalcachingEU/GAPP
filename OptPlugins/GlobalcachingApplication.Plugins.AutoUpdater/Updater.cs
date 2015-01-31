@@ -23,12 +23,7 @@ namespace GlobalcachingApplication.Plugins.AutoUpdater
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
-            if (Properties.Settings.Default.UpgradeNeeded)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
+            var p = new PluginSettings(core);
 
             AddAction(ACTION_SHOW);
 
@@ -41,7 +36,6 @@ namespace GlobalcachingApplication.Plugins.AutoUpdater
 
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_AUTODOWNLOAD));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_BE));
-            core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_IT));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_LU));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_NL));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_SHOWDIALOG));
@@ -107,7 +101,7 @@ namespace GlobalcachingApplication.Plugins.AutoUpdater
                     if (Utils.API.GeocachingLiveV6.CheckAPIAccessAvailable(Core, false))
                     {
                         bool perform = true;
-                        if (Properties.Settings.Default.ShowSettingsDialog)
+                        if (PluginSettings.Instance.ShowSettingsDialog)
                         {
                             using (SettingsForm dlg = new SettingsForm())
                             {
@@ -181,21 +175,17 @@ namespace GlobalcachingApplication.Plugins.AutoUpdater
                 using (Utils.ProgressBlock progress = new Utils.ProgressBlock(this, STR_UPDATING, STR_UPDATING, 1, 0, true))
                 {
                     List<string> gcList = new List<string>();
-                    if (Properties.Settings.Default.UpdateNL)
+                    if (PluginSettings.Instance.UpdateNL)
                     {
                         updateGeocachesFromGlobalcachingEU("Netherlands", gcList);
                     }
-                    if (Properties.Settings.Default.UpdateBE)
+                    if (PluginSettings.Instance.UpdateBE)
                     {
                         updateGeocachesFromGlobalcachingEU("Belgium", gcList);
                     }
-                    if (Properties.Settings.Default.UpdateLU)
+                    if (PluginSettings.Instance.UpdateLU)
                     {
                         updateGeocachesFromGlobalcachingEU("Luxembourg", gcList);
-                    }
-                    if (Properties.Settings.Default.UpdateIT)
-                    {
-                        updateGeocachesFromGlobalcachingEU("Italy", gcList);
                     }
 
                     if (gcList.Count > 0)
@@ -204,14 +194,14 @@ namespace GlobalcachingApplication.Plugins.AutoUpdater
                     }
                     if (gcList.Count == 0)
                     {
-                        if (!Properties.Settings.Default.AutomaticDownloadGeocaches)
+                        if (!PluginSettings.Instance.AutomaticDownloadGeocaches)
                         {
                             System.Windows.Forms.MessageBox.Show(Utils.LanguageSupport.Instance.GetTranslation(STR_NONEW), Utils.LanguageSupport.Instance.GetTranslation(STR_INFO), System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Information);
                         }
                     }
                     else
                     {
-                        if (Properties.Settings.Default.AutomaticDownloadGeocaches || System.Windows.Forms.MessageBox.Show(string.Format(Utils.LanguageSupport.Instance.GetTranslation(STR_ASKUPDATE), gcList.Count), Utils.LanguageSupport.Instance.GetTranslation(STR_INFO), System.Windows.Forms.MessageBoxButtons.YesNo, System.Windows.Forms.MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.Yes)
+                        if (PluginSettings.Instance.AutomaticDownloadGeocaches || System.Windows.Forms.MessageBox.Show(string.Format(Utils.LanguageSupport.Instance.GetTranslation(STR_ASKUPDATE), gcList.Count), Utils.LanguageSupport.Instance.GetTranslation(STR_INFO), System.Windows.Forms.MessageBoxButtons.YesNo, System.Windows.Forms.MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.Yes)
                         {
                             progress.UpdateProgress(STR_UPDATING, STR_IMPORTING, gcList.Count, 0);
 

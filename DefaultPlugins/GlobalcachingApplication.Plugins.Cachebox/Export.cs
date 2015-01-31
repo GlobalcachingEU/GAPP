@@ -31,12 +31,7 @@ namespace GlobalcachingApplication.Plugins.Cachebox
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
-            if (Properties.Settings.Default.UpgradeNeeded)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
+            var p = new PluginSettings(core);
 
             AddAction(ACTION_EXPORT_ALL);
             AddAction(ACTION_EXPORT_SELECTED);
@@ -53,7 +48,7 @@ namespace GlobalcachingApplication.Plugins.Cachebox
             return await base.InitializeAsync(core);
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result)
@@ -87,7 +82,7 @@ namespace GlobalcachingApplication.Plugins.Cachebox
                             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                             {
                                 _folder = dlg.SelectedPath;
-                                PerformExport();
+                                await PerformExport();
                             }
                         }
                     }
@@ -588,7 +583,7 @@ namespace GlobalcachingApplication.Plugins.Cachebox
                     //----------------------------
                     // LOGS
                     //----------------------------
-                    if (Properties.Settings.Default.MaxLogs > 0)
+                    if (PluginSettings.Instance.MaxLogs > 0)
                     {
                         cmd.Parameters.Clear();
                         cmd.CommandText = "insert into Logs (Id, CacheId, Timestamp, Finder, Type, Comment) values (@Id, @CacheId, @Timestamp, @Finder, @Type, @Comment)";
@@ -621,10 +616,10 @@ namespace GlobalcachingApplication.Plugins.Cachebox
                         cacheId = startCacheId;
                         foreach (Framework.Data.Geocache gc in _gcList)
                         {
-                            List<Framework.Data.Log> logs = Utils.DataAccess.GetLogs(Core.Logs, gc.Code).Take(Properties.Settings.Default.MaxLogs).ToList();
+                            List<Framework.Data.Log> logs = Utils.DataAccess.GetLogs(Core.Logs, gc.Code).Take(PluginSettings.Instance.MaxLogs).ToList();
                             if (logs != null && logs.Count > 0)
                             {
-                                logs = logs.Take(Properties.Settings.Default.MaxLogs).ToList();
+                                logs = logs.Take(PluginSettings.Instance.MaxLogs).ToList();
                                 foreach (Framework.Data.Log lg in logs)
                                 {
                                     long id = logId;

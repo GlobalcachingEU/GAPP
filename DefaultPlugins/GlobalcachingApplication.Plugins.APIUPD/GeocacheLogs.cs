@@ -65,9 +65,9 @@ namespace GlobalcachingApplication.Plugins.APIUPD
                             int maxPerPage = 30;
                             bool done = false;
 
-                            if (Properties.Settings.Default.UpdateLogsMaxLogCount > 0 && Properties.Settings.Default.UpdateLogsMaxLogCount < 30)
+                            if (PluginSettings.Instance.UpdateLogsMaxLogCount > 0 && PluginSettings.Instance.UpdateLogsMaxLogCount < 30)
                             {
-                                maxPerPage = Properties.Settings.Default.UpdateLogsMaxLogCount;
+                                maxPerPage = PluginSettings.Instance.UpdateLogsMaxLogCount;
                             }
                             List<string> ids = new List<string>();
                             
@@ -77,7 +77,7 @@ namespace GlobalcachingApplication.Plugins.APIUPD
                                 Thread.Sleep(interval - ts);
                             }
                             prevCall = DateTime.Now;
-                            Thread.Sleep(Properties.Settings.Default.AdditionalDelayBetweenLogImport);
+                            Thread.Sleep(PluginSettings.Instance.AdditionalDelayBetweenLogImport);
                             var resp = client.Client.GetGeocacheLogsByCacheCode(client.Token, _gcList[0].Code, logCount, maxPerPage);
                             while (resp.Status.StatusCode == 0 && resp.Logs != null && resp.Logs.Count() > 0 && !done)
                             {
@@ -87,7 +87,7 @@ namespace GlobalcachingApplication.Plugins.APIUPD
                                     {
                                         Framework.Data.Log gcLog = Utils.API.Convert.Log(Core, lg);
                                         AddLog(gcLog);
-                                        if (Properties.Settings.Default.UpdateLogsMaxLogCount == 0)
+                                        if (PluginSettings.Instance.UpdateLogsMaxLogCount == 0)
                                         {
                                             ids.Add(gcLog.ID);
                                         }
@@ -95,9 +95,9 @@ namespace GlobalcachingApplication.Plugins.APIUPD
                                 }
 
                                 logCount += resp.Logs.Count();
-                                if (Properties.Settings.Default.UpdateLogsMaxLogCount > 0)
+                                if (PluginSettings.Instance.UpdateLogsMaxLogCount > 0)
                                 {
-                                    int left = Properties.Settings.Default.UpdateLogsMaxLogCount - logCount;
+                                    int left = PluginSettings.Instance.UpdateLogsMaxLogCount - logCount;
                                     if (left < maxPerPage)
                                     {
                                         maxPerPage = left;
@@ -111,7 +111,7 @@ namespace GlobalcachingApplication.Plugins.APIUPD
                                         Thread.Sleep(interval - ts);
                                     }
                                     prevCall = DateTime.Now;
-                                    Thread.Sleep(Properties.Settings.Default.AdditionalDelayBetweenLogImport);
+                                    Thread.Sleep(PluginSettings.Instance.AdditionalDelayBetweenLogImport);
                                     resp = client.Client.GetGeocacheLogsByCacheCode(client.Token, _gcList[0].Code, logCount, maxPerPage);
                                 }
                                 else
@@ -126,11 +126,11 @@ namespace GlobalcachingApplication.Plugins.APIUPD
                             }
                             else
                             {
-                                if (Properties.Settings.Default.DeselectGeocacheAfterUpdate)
+                                if (PluginSettings.Instance.DeselectGeocacheAfterUpdate)
                                 {
                                     _gcList[0].Selected = false;
                                 }
-                                if (Properties.Settings.Default.UpdateLogsMaxLogCount == 0)
+                                if (PluginSettings.Instance.UpdateLogsMaxLogCount == 0)
                                 {
                                     List<Framework.Data.Log> allLogs = Utils.DataAccess.GetLogs(Core.Logs, _gcList[0].Code);
                                     foreach (Framework.Data.Log gim in allLogs)
@@ -159,7 +159,7 @@ namespace GlobalcachingApplication.Plugins.APIUPD
             }
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result &&
@@ -191,7 +191,7 @@ namespace GlobalcachingApplication.Plugins.APIUPD
                         if (_gcList != null && _gcList.Count > 0)
                         {
                             _errormessage = null;
-                            PerformImport();
+                            await PerformImport();
                             if (!string.IsNullOrEmpty(_errormessage))
                             {
                                 System.Windows.Forms.MessageBox.Show(_errormessage, Utils.LanguageSupport.Instance.GetTranslation(Utils.LanguageSupport.Instance.GetTranslation(STR_ERROR)), System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);

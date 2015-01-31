@@ -28,7 +28,7 @@ namespace GlobalcachingApplication.Plugins.DataExch
             return await base.InitializeAsync(core);
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result)
@@ -58,7 +58,7 @@ namespace GlobalcachingApplication.Plugins.DataExch
                             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                             {
                                 _filename = dlg.FileName;
-                                PerformExport();
+                                await PerformExport();
                             }
                         }
                     }

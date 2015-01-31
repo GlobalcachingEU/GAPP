@@ -29,19 +29,14 @@ namespace GlobalcachingApplication.Plugins.APIUPD
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            var p = new PluginSettings(core);
+
             AddAction(ACTION_UPDATESTATUS_ALL);
             AddAction(ACTION_UPDATESTATUS_SELECTED);
             AddAction(ACTION_UPDATESTATUS_ACTIVE);
             AddAction(ACTION_UPDATEFULL_ALL);
             AddAction(ACTION_UPDATEFULL_SELECTED);
             AddAction(ACTION_UPDATEFULL_ACTIVE);
-
-            if (Properties.Settings.Default.UpgradeNeeded)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
 
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_NOGEOCACHESELECTED));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_ERROR));
@@ -141,7 +136,7 @@ namespace GlobalcachingApplication.Plugins.APIUPD
                                             gc.Name = gs.CacheName;
                                             gc.Title = gs.CacheName;
                                             gc.MemberOnly = gs.Premium;
-                                            if (Properties.Settings.Default.DeselectGeocacheAfterUpdate)
+                                            if (PluginSettings.Instance.DeselectGeocacheAfterUpdate)
                                             {
                                                 gc.Selected = false;
                                             }
@@ -173,7 +168,7 @@ namespace GlobalcachingApplication.Plugins.APIUPD
                                 if (resp.Status.StatusCode == 0 && resp.Geocaches != null)
                                 {
                                     Utils.API.Import.AddGeocaches(Core, resp.Geocaches);
-                                    if (Properties.Settings.Default.DeselectGeocacheAfterUpdate)
+                                    if (PluginSettings.Instance.DeselectGeocacheAfterUpdate)
                                     {
                                         foreach (var g in resp.Geocaches)
                                         {
@@ -214,7 +209,7 @@ namespace GlobalcachingApplication.Plugins.APIUPD
             }
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result && 
@@ -252,7 +247,7 @@ namespace GlobalcachingApplication.Plugins.APIUPD
                         if (_gcList != null && _gcList.Count > 0)
                         {
                             _errormessage = null;
-                            PerformImport();
+                            await PerformImport();
                             if (!string.IsNullOrEmpty(_errormessage))
                             {
                                 System.Windows.Forms.MessageBox.Show(_errormessage, Utils.LanguageSupport.Instance.GetTranslation(Utils.LanguageSupport.Instance.GetTranslation(STR_ERROR)), System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);

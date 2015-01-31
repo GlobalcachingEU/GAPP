@@ -17,7 +17,6 @@ namespace GlobalcachingApplication.Plugins.AutoUpdater
         public const string STR_NL = "Netherlands";
         public const string STR_BE = "Belgium";
         public const string STR_LU = "Luxembourg";
-        public const string STR_IT = "Italy";
 
         public SettingsPanel()
         {
@@ -29,25 +28,21 @@ namespace GlobalcachingApplication.Plugins.AutoUpdater
             checkBox3.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_NL);
             checkBox4.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_BE);
             checkBox5.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_LU);
-            checkBox6.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_IT);
 
-            checkBox1.Checked = Properties.Settings.Default.ShowSettingsDialog;
-            checkBox2.Checked = Properties.Settings.Default.AutomaticDownloadGeocaches;
-            checkBox3.Checked = Properties.Settings.Default.UpdateNL;
-            checkBox4.Checked = Properties.Settings.Default.UpdateBE;
-            checkBox5.Checked = Properties.Settings.Default.UpdateLU;
-            checkBox6.Checked = Properties.Settings.Default.UpdateIT;
+            checkBox1.Checked = PluginSettings.Instance.ShowSettingsDialog;
+            checkBox2.Checked = PluginSettings.Instance.AutomaticDownloadGeocaches;
+            checkBox3.Checked = PluginSettings.Instance.UpdateNL;
+            checkBox4.Checked = PluginSettings.Instance.UpdateBE;
+            checkBox5.Checked = PluginSettings.Instance.UpdateLU;
         }
 
         public void Apply()
         {
-            Properties.Settings.Default.ShowSettingsDialog = checkBox1.Checked;
-            Properties.Settings.Default.AutomaticDownloadGeocaches = checkBox2.Checked;
-            Properties.Settings.Default.UpdateNL = checkBox3.Checked;
-            Properties.Settings.Default.UpdateBE = checkBox4.Checked;
-            Properties.Settings.Default.UpdateLU = checkBox5.Checked;
-            Properties.Settings.Default.UpdateIT = checkBox6.Checked;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.ShowSettingsDialog = checkBox1.Checked;
+            PluginSettings.Instance.AutomaticDownloadGeocaches = checkBox2.Checked;
+            PluginSettings.Instance.UpdateNL = checkBox3.Checked;
+            PluginSettings.Instance.UpdateBE = checkBox4.Checked;
+            PluginSettings.Instance.UpdateLU = checkBox5.Checked;
         }
     }
 }

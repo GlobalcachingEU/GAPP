@@ -113,21 +113,15 @@ namespace GlobalcachingApplication.Plugins.CAR
         {
             InitializeComponent();
 
-            if (Properties.Settings.Default.UpgradeNeeded)
+            var w = PluginSettings.Instance.WindowPos;
+            if (w != null && !w.IsEmpty)
             {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
-
-            if (Properties.Settings.Default.WindowPos != null && !Properties.Settings.Default.WindowPos.IsEmpty)
-            {
-                this.Bounds = Properties.Settings.Default.WindowPos;
+                this.Bounds = w;
                 this.StartPosition = FormStartPosition.Manual;
             }
 
-            this.radioButtonKm.Checked = Properties.Settings.Default.UseMetric;
-            this.radioButtonMiles.Checked = !Properties.Settings.Default.UseMetric;
+            this.radioButtonKm.Checked = PluginSettings.Instance.UseMetric;
+            this.radioButtonMiles.Checked = !PluginSettings.Instance.UseMetric;
 
             SelectedLanguageChanged(this, EventArgs.Empty);
 
@@ -252,8 +246,7 @@ namespace GlobalcachingApplication.Plugins.CAR
 
         private void buttonSelect_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.UseMetric = this.radioButtonKm.Checked;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.UseMetric = this.radioButtonKm.Checked;
 
             try
             {
@@ -362,8 +355,7 @@ namespace GlobalcachingApplication.Plugins.CAR
         {
             if (WindowState == FormWindowState.Normal)
             {
-                Properties.Settings.Default.WindowPos = this.Bounds;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.WindowPos = this.Bounds;
             }
         }
 
@@ -371,8 +363,7 @@ namespace GlobalcachingApplication.Plugins.CAR
         {
             if (WindowState == FormWindowState.Normal)
             {
-                Properties.Settings.Default.WindowPos = this.Bounds;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.WindowPos = this.Bounds;
             }
         }
 
@@ -384,6 +375,8 @@ namespace GlobalcachingApplication.Plugins.CAR
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            var p = new PluginSettings(core);
+
             AddAction(ACTION_SHOW);
 
             core.LanguageItems.Add(new Framework.Data.LanguageItem(CachesAlongRouteForm.STR_TITLE));

@@ -102,22 +102,16 @@ namespace GlobalcachingApplication.Plugins.Chat
         {
             InitializeComponent();
 
-            if (Properties.Settings.Default.UpgradeNeeded)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
-
             try
             {
-                if (Properties.Settings.Default.WindowPos != null && !Properties.Settings.Default.WindowPos.IsEmpty)
+                var p = PluginSettings.Instance.WindowPos;
+                if (p != null && !p.IsEmpty)
                 {
-                    this.Bounds = Properties.Settings.Default.WindowPos;
+                    this.Bounds = p;
                     this.StartPosition = FormStartPosition.Manual;
                 }
-                splitContainer1.SplitterDistance = splitContainer1.Width - Properties.Settings.Default.RightPanelWidth;
-                splitContainer2.SplitterDistance = splitContainer2.Height - Properties.Settings.Default.BottomPanelHeight;
+                splitContainer1.SplitterDistance = splitContainer1.Width - PluginSettings.Instance.RightPanelWidth;
+                splitContainer2.SplitterDistance = splitContainer2.Height - PluginSettings.Instance.BottomPanelHeight;
             }
             catch
             {
@@ -958,8 +952,7 @@ namespace GlobalcachingApplication.Plugins.Chat
         {
             if (WindowState == FormWindowState.Normal)
             {
-                Properties.Settings.Default.WindowPos = this.Bounds;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.WindowPos = this.Bounds;
             }
         }
 
@@ -967,8 +960,7 @@ namespace GlobalcachingApplication.Plugins.Chat
         {
             if (WindowState == FormWindowState.Normal)
             {
-                Properties.Settings.Default.WindowPos = this.Bounds;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.WindowPos = this.Bounds;
             }
         }
 
@@ -976,8 +968,7 @@ namespace GlobalcachingApplication.Plugins.Chat
         {
             if (!_sizeInitializing)
             {
-                Properties.Settings.Default.BottomPanelHeight = splitContainer2.Height-splitContainer2.SplitterDistance;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.BottomPanelHeight = splitContainer2.Height - splitContainer2.SplitterDistance;
             }
         }
 
@@ -985,8 +976,7 @@ namespace GlobalcachingApplication.Plugins.Chat
         {
             if (!_sizeInitializing)
             {
-                Properties.Settings.Default.RightPanelWidth = splitContainer1.Width-splitContainer1.SplitterDistance;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.RightPanelWidth = splitContainer1.Width - splitContainer1.SplitterDistance;
             }
         }
 
@@ -1015,6 +1005,8 @@ namespace GlobalcachingApplication.Plugins.Chat
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            var p = new PluginSettings(core);
+
             AddAction(ACTION_SHOW);
 
             core.LanguageItems.Add(new Framework.Data.LanguageItem(ChatForm.STR_CONNECTED));

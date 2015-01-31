@@ -19,17 +19,16 @@ namespace GlobalcachingApplication.Plugins.Cachebox
             InitializeComponent();
 
             this.label1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_MAXLOGS);
-            numericUpDown1.Value = Properties.Settings.Default.MaxLogs;
+            numericUpDown1.Value = PluginSettings.Instance.MaxLogs;
 
             this.checkBox1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_GRABBEDIMG);
-            this.checkBox1.Checked = Properties.Settings.Default.ExportGrabbedImages;
+            this.checkBox1.Checked = PluginSettings.Instance.ExportGrabbedImages;
         }
 
         public void Apply()
         {
-            Properties.Settings.Default.MaxLogs = (int)numericUpDown1.Value;
-            Properties.Settings.Default.ExportGrabbedImages = this.checkBox1.Checked;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.MaxLogs = (int)numericUpDown1.Value;
+            PluginSettings.Instance.ExportGrabbedImages = this.checkBox1.Checked;
         }
     }
 }

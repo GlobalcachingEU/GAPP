@@ -180,7 +180,7 @@ namespace GlobalcachingApplication.Plugins.APINotes
             }
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result && action == ACTION_IMPORT)
@@ -188,7 +188,7 @@ namespace GlobalcachingApplication.Plugins.APINotes
                 //get from goundspeak
                 if (Utils.API.GeocachingLiveV6.CheckAPIAccessAvailable(Core, false))
                 {
-                    PerformImport();
+                    await PerformImport();
                 }
             }
             return result;

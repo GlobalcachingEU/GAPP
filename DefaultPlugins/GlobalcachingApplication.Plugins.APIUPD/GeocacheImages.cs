@@ -70,9 +70,9 @@ namespace GlobalcachingApplication.Plugins.APIUPD
                                     Thread.Sleep(interval - ts);
                                 }
                             }
-                            if (Properties.Settings.Default.AdditionalDelayBetweenImageImport > 0)
+                            if (PluginSettings.Instance.AdditionalDelayBetweenImageImport > 0)
                             {
-                                Thread.Sleep(Properties.Settings.Default.AdditionalDelayBetweenImageImport);
+                                Thread.Sleep(PluginSettings.Instance.AdditionalDelayBetweenImageImport);
                             }
                             prevCall = DateTime.Now;
                             var resp = client.Client.GetImagesForGeocache(client.Token, _gcList[0].Code);
@@ -100,7 +100,7 @@ namespace GlobalcachingApplication.Plugins.APIUPD
                                     }
                                 }
 
-                                if (Properties.Settings.Default.DeselectGeocacheAfterUpdate)
+                                if (PluginSettings.Instance.DeselectGeocacheAfterUpdate)
                                 {
                                     _gcList[0].Selected = false;
                                 }
@@ -127,7 +127,7 @@ namespace GlobalcachingApplication.Plugins.APIUPD
             }
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result &&
@@ -159,7 +159,7 @@ namespace GlobalcachingApplication.Plugins.APIUPD
                         if (_gcList != null && _gcList.Count > 0)
                         {
                             _errormessage = null;
-                            PerformImport();
+                            await PerformImport();
                             if (!string.IsNullOrEmpty(_errormessage))
                             {
                                 System.Windows.Forms.MessageBox.Show(_errormessage, Utils.LanguageSupport.Instance.GetTranslation(Utils.LanguageSupport.Instance.GetTranslation(STR_ERROR)), System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);

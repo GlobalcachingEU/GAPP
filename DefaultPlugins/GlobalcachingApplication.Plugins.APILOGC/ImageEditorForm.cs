@@ -41,10 +41,10 @@ namespace GlobalcachingApplication.Plugins.APILOGC
         {
             InitializeComponent();
 
-            numericUpDown1.Value = (decimal)Properties.Settings.Default.MaxImageSizeMB;
-            numericUpDown2.Value = Properties.Settings.Default.MaxImageWidth;
-            numericUpDown3.Value = Properties.Settings.Default.MaxImageHeight;
-            numericUpDown4.Value = Properties.Settings.Default.ImageQuality;
+            numericUpDown1.Value = (decimal)PluginSettings.Instance.MaxImageSizeMB;
+            numericUpDown2.Value = PluginSettings.Instance.MaxImageWidth;
+            numericUpDown3.Value = PluginSettings.Instance.MaxImageHeight;
+            numericUpDown4.Value = PluginSettings.Instance.ImageQuality;
             numericUpDown5.Value = 100;
             button2.Enabled = false;
 
@@ -138,7 +138,7 @@ namespace GlobalcachingApplication.Plugins.APILOGC
                     tmpFile = new TemporaryFile(true);
                 }
                 //max size
-                Size sz1 = Utils.ImageUtilities.GetNewSize(_originalImage.Size, new Size(Properties.Settings.Default.MaxImageWidth, Properties.Settings.Default.MaxImageHeight));
+                Size sz1 = Utils.ImageUtilities.GetNewSize(_originalImage.Size, new Size(PluginSettings.Instance.MaxImageWidth, PluginSettings.Instance.MaxImageHeight));
                 //scale size
                 double f = (double)numericUpDown5.Value / 100.0;
                 Size sz2 = Utils.ImageUtilities.GetNewSize(_originalImage.Size, new Size((int)((double)_originalImage.Width * f), (int)((double)_originalImage.Height * f)));
@@ -147,20 +147,20 @@ namespace GlobalcachingApplication.Plugins.APILOGC
                 {
                     //the limit is smaller than scaled image
                     //adjust scale
-                    Utils.ImageUtilities.SaveJpeg(tmpFile.Path, Utils.ImageUtilities.ResizeImage(_originalImage, sz1.Width, sz1.Height), Properties.Settings.Default.ImageQuality);
+                    Utils.ImageUtilities.SaveJpeg(tmpFile.Path, Utils.ImageUtilities.ResizeImage(_originalImage, sz1.Width, sz1.Height), PluginSettings.Instance.ImageQuality);
                     f = ((double)sz1.Width / (double)_originalImage.Size.Width);
                     numericUpDown5.Value = (int)(f * 100.0);
                     label19.Text = string.Format("{0} x {1}", sz1.Width, sz1.Height);
                 }
                 else
                 {
-                    Utils.ImageUtilities.SaveJpeg(tmpFile.Path, Utils.ImageUtilities.ResizeImage(_originalImage, sz2.Width, sz2.Height), Properties.Settings.Default.ImageQuality);
+                    Utils.ImageUtilities.SaveJpeg(tmpFile.Path, Utils.ImageUtilities.ResizeImage(_originalImage, sz2.Width, sz2.Height), PluginSettings.Instance.ImageQuality);
                     label19.Text = string.Format("{0} x {1}", sz2.Width, sz2.Height);
                 }
                 FileInfo fi = new FileInfo(tmpFile.Path);
                 double MBcnt = (double)fi.Length / (1024.0 * 1024.0);
                 label22.Text = string.Format("{0:0.000} MB", MBcnt);
-                if (MBcnt <= Properties.Settings.Default.MaxImageSizeMB)
+                if (MBcnt <= PluginSettings.Instance.MaxImageSizeMB)
                 {
                     label22.ForeColor = Color.Black;
                 }
@@ -184,29 +184,25 @@ namespace GlobalcachingApplication.Plugins.APILOGC
 
         private void numericUpDown4_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.ImageQuality = (int)numericUpDown4.Value;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.ImageQuality = (int)numericUpDown4.Value;
             getImageResult();
         }
 
         private void numericUpDown2_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.MaxImageWidth = (int)numericUpDown2.Value;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.MaxImageWidth = (int)numericUpDown2.Value;
             getImageResult();
         }
 
         private void numericUpDown3_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.MaxImageHeight = (int)numericUpDown3.Value;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.MaxImageHeight = (int)numericUpDown3.Value;
             getImageResult();
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.MaxImageSizeMB = (double)numericUpDown1.Value;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.MaxImageSizeMB = (double)numericUpDown1.Value;
             getImageResult();
         }
 
