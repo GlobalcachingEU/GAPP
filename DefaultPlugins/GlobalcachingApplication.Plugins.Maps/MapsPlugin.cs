@@ -122,20 +122,15 @@ namespace GlobalcachingApplication.Plugins.Maps
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            var sett = new PluginSettings(core);
+
             AddAction(ACTION_OSMONLINE);
             AddAction(ACTION_OSMOFFLINE);
             AddAction(ACTION_GOOGLEONLINE);
 
-            if (Properties.Settings.Default.UpgradeNeeded)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
-
             try
             {
-                if (string.IsNullOrEmpty(Properties.Settings.Default.OSMOfflineMapFolder))
+                if (string.IsNullOrEmpty(PluginSettings.Instance.OSMOfflineMapFolder))
                 {
                     string p = core.PluginDataPath;
                     if (!System.IO.Directory.Exists(p))
@@ -147,13 +142,11 @@ namespace GlobalcachingApplication.Plugins.Maps
                     {
                         System.IO.Directory.CreateDirectory(p);
                     }
-                    Properties.Settings.Default.OSMOfflineMapFolder = p;
-                    Properties.Settings.Default.Save();
+                    PluginSettings.Instance.OSMOfflineMapFolder = p;
                 }
-                if (Properties.Settings.Default.DisabledMaps == null)
+                if (PluginSettings.Instance.DisabledMaps == null)
                 {
-                    Properties.Settings.Default.DisabledMaps = new System.Collections.Specialized.StringCollection();
-                    Properties.Settings.Default.Save();
+                    PluginSettings.Instance.DisabledMaps = new System.Collections.Specialized.StringCollection();
                 }
             }
             catch
@@ -268,12 +261,12 @@ namespace GlobalcachingApplication.Plugins.Maps
                         Framework.Interfaces.IPluginUIMainWindow mainPlugin = (from Framework.Interfaces.IPlugin a in Core.GetPlugin(Framework.PluginType.UIMainWindow) select a).FirstOrDefault() as Framework.Interfaces.IPluginUIMainWindow;
                         if (mainPlugin != null)
                         {
-                            if (Properties.Settings.Default.DecoupledChildWindows == null || !Properties.Settings.Default.DecoupledChildWindows.Contains(action))
+                            if (PluginSettings.Instance.DecoupledChildWindows == null || !PluginSettings.Instance.DecoupledChildWindows.Contains(action))
                             {
                                 frmOsmMapOnline.MdiParent = mainPlugin.MainForm;
                             }
                         }
-                        if (Properties.Settings.Default.TopMostWindows != null && Properties.Settings.Default.TopMostWindows.Contains(action))
+                        if (PluginSettings.Instance.TopMostWindows != null && PluginSettings.Instance.TopMostWindows.Contains(action))
                         {
                             frmOsmMapOnline.TopMost = true;
                         }
@@ -299,12 +292,12 @@ namespace GlobalcachingApplication.Plugins.Maps
                         Framework.Interfaces.IPluginUIMainWindow mainPlugin = (from Framework.Interfaces.IPlugin a in Core.GetPlugin(Framework.PluginType.UIMainWindow) select a).FirstOrDefault() as Framework.Interfaces.IPluginUIMainWindow;
                         if (mainPlugin != null)
                         {
-                            if (Properties.Settings.Default.DecoupledChildWindows == null || !Properties.Settings.Default.DecoupledChildWindows.Contains(action))
+                            if (PluginSettings.Instance.DecoupledChildWindows == null || !PluginSettings.Instance.DecoupledChildWindows.Contains(action))
                             {
                                 frmOsmMapOffline.MdiParent = mainPlugin.MainForm;
                             }
                         }
-                        if (Properties.Settings.Default.TopMostWindows != null && Properties.Settings.Default.TopMostWindows.Contains(action))
+                        if (PluginSettings.Instance.TopMostWindows != null && PluginSettings.Instance.TopMostWindows.Contains(action))
                         {
                             frmOsmMapOffline.TopMost = true;
                         }
@@ -330,12 +323,12 @@ namespace GlobalcachingApplication.Plugins.Maps
                         Framework.Interfaces.IPluginUIMainWindow mainPlugin = (from Framework.Interfaces.IPlugin a in Core.GetPlugin(Framework.PluginType.UIMainWindow) select a).FirstOrDefault() as Framework.Interfaces.IPluginUIMainWindow;
                         if (mainPlugin != null)
                         {
-                            if (Properties.Settings.Default.DecoupledChildWindows == null || !Properties.Settings.Default.DecoupledChildWindows.Contains(action))
+                            if (PluginSettings.Instance.DecoupledChildWindows == null || !PluginSettings.Instance.DecoupledChildWindows.Contains(action))
                             {
                                 frmGoogleOnline.MdiParent = mainPlugin.MainForm;
                             }
                         }
-                        if (Properties.Settings.Default.TopMostWindows != null && Properties.Settings.Default.TopMostWindows.Contains(action))
+                        if (PluginSettings.Instance.TopMostWindows != null && PluginSettings.Instance.TopMostWindows.Contains(action))
                         {
                             frmGoogleOnline.TopMost = true;
                         }

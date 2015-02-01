@@ -41,16 +41,10 @@ namespace GlobalcachingApplication.Plugins.LogImagesViewer
         {
             InitializeComponent();
 
-            if (Properties.Settings.Default.UpgradeNeeded)
+            var p = PluginSettings.Instance.WindowPos2;
+            if (p != null && !p.IsEmpty)
             {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
-
-            if (Properties.Settings.Default.WindowPos2 != null && !Properties.Settings.Default.WindowPos2.IsEmpty)
-            {
-                this.Bounds = Properties.Settings.Default.WindowPos2;
+                this.Bounds = p;
                 this.StartPosition = FormStartPosition.Manual;
             }
 
@@ -291,8 +285,7 @@ namespace GlobalcachingApplication.Plugins.LogImagesViewer
         {
             if (WindowState == FormWindowState.Normal)
             {
-                Properties.Settings.Default.WindowPos2 = this.Bounds;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.WindowPos2 = this.Bounds;
             }
         }
 
@@ -300,8 +293,7 @@ namespace GlobalcachingApplication.Plugins.LogImagesViewer
         {
             if (WindowState == FormWindowState.Normal)
             {
-                Properties.Settings.Default.WindowPos2 = this.Bounds;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.WindowPos2 = this.Bounds;
             }
         }
 

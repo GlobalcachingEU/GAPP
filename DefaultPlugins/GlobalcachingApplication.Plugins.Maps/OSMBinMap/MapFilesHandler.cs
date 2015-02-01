@@ -27,14 +27,14 @@ namespace GlobalcachingApplication.Plugins.Maps.OSMBinMap
         public void reload()
         {
             clearMapFiles();
-            _mapFilesFolder = Properties.Settings.Default.OSMOfflineMapFolder;
+            _mapFilesFolder = PluginSettings.Instance.OSMOfflineMapFolder;
 
             try
             {
                 string[] fl = Directory.GetFiles(_mapFilesFolder);
                 foreach (string fn in fl)
                 {
-                    if (!Properties.Settings.Default.DisabledMaps.Contains(System.IO.Path.GetFileName(fn)))
+                    if (!PluginSettings.Instance.DisabledMaps.Contains(System.IO.Path.GetFileName(fn)))
                     {
                         MapFile mf = new MapFile(this, fn);
                         if (mf.ReadHeader())

@@ -28,13 +28,12 @@ namespace GlobalcachingApplication.Plugins.LogImagesViewer
             label1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_CACHEDATA);
             button1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_DOWNLOADALL);
 
-            checkBox1.Checked = Properties.Settings.Default.CacheImages;
+            checkBox1.Checked = PluginSettings.Instance.CacheImages;
         }
 
         public void Apply()
         {
-            Properties.Settings.Default.CacheImages = checkBox1.Checked;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.CacheImages = checkBox1.Checked;
         }
 
         private void button1_Click(object sender, EventArgs e)

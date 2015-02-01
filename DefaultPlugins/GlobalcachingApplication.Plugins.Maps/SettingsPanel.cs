@@ -33,22 +33,21 @@ namespace GlobalcachingApplication.Plugins.Maps
             this.button3.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_GETMORE);
 
             _mapsPlugin = mapsPlugin;
-            textBox1.Text = Properties.Settings.Default.OSMOfflineMapFolder;
+            textBox1.Text = PluginSettings.Instance.OSMOfflineMapFolder;
             loadMaps();
         }
 
         public void Apply()
         {
-            Properties.Settings.Default.OSMOfflineMapFolder = textBox1.Text;
-            Properties.Settings.Default.DisabledMaps.Clear();
+            PluginSettings.Instance.OSMOfflineMapFolder = textBox1.Text;
+            PluginSettings.Instance.DisabledMaps.Clear();
             for (int i = 0; i < checkedListBox1.Items.Count; i++ )
             {
                 if (!checkedListBox1.GetItemChecked(i))
                 {
-                    Properties.Settings.Default.DisabledMaps.Add(checkedListBox1.Items[i].ToString());
+                    PluginSettings.Instance.DisabledMaps.Add(checkedListBox1.Items[i].ToString());
                 }
             }
-            Properties.Settings.Default.Save();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -82,7 +81,7 @@ namespace GlobalcachingApplication.Plugins.Maps
                 foreach (string s in fls)
                 {
                     string fn = System.IO.Path.GetFileName(s);
-                    checkedListBox1.Items.Add(fn, !Properties.Settings.Default.DisabledMaps.Contains(fn));
+                    checkedListBox1.Items.Add(fn, !PluginSettings.Instance.DisabledMaps.Contains(fn));
                 }
             }
             catch

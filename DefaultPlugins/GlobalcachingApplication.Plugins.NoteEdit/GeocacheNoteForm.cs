@@ -30,16 +30,9 @@ namespace GlobalcachingApplication.Plugins.NoteEdit
 
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_CACHENOTEEDITOR));
 
-            if (Properties.Settings.Default.UpgradeNeeded)
+            if (PluginSettings.Instance.WindowPos != null && !PluginSettings.Instance.WindowPos.IsEmpty)
             {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
-
-            if (Properties.Settings.Default.WindowPos != null && !Properties.Settings.Default.WindowPos.IsEmpty)
-            {
-                this.Bounds = Properties.Settings.Default.WindowPos;
+                this.Bounds = PluginSettings.Instance.WindowPos;
                 this.StartPosition = FormStartPosition.Manual;
             }
 
@@ -129,8 +122,7 @@ namespace GlobalcachingApplication.Plugins.NoteEdit
         {
             if (WindowState == FormWindowState.Normal)
             {
-                Properties.Settings.Default.WindowPos = this.Bounds;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.WindowPos = this.Bounds;
             }
         }
 
@@ -138,8 +130,7 @@ namespace GlobalcachingApplication.Plugins.NoteEdit
         {
             if (WindowState == FormWindowState.Normal)
             {
-                Properties.Settings.Default.WindowPos = this.Bounds;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.WindowPos = this.Bounds;
             }
         }
 
@@ -151,6 +142,8 @@ namespace GlobalcachingApplication.Plugins.NoteEdit
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            var p = new PluginSettings(core);
+
             AddAction(ACTION_SHOW);
 
             core.LanguageItems.Add(new Framework.Data.LanguageItem(GeocacheNoteForm.STR_CACHENOTEEDITOR));

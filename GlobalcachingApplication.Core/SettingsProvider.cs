@@ -368,6 +368,7 @@ namespace GlobalcachingApplication.Core
             {
                 XmlDocument doc = new XmlDocument();
                 XmlElement root = doc.CreateElement("root");
+                doc.AppendChild(root);
                 foreach (var l in value)
                 {
                     XmlElement el = doc.CreateElement("entry");

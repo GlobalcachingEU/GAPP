@@ -62,24 +62,24 @@ namespace GlobalcachingApplication.Plugins.Maps
             this.mapContainerControl1.GeocacheClick += new Framework.EventArguments.GeocacheEventHandler(mapContainerControl1_GeocacheClick);
 
             /*
-            if (Properties.Settings.Default.WindowPos != null && !Properties.Settings.Default.WindowPos.IsEmpty)
+            if (PluginSettings.Instance.WindowPos != null && !PluginSettings.Instance.WindowPos.IsEmpty)
             {
-                this.Bounds = Properties.Settings.Default.WindowPos;
+                this.Bounds = PluginSettings.Instance.WindowPos;
                 this.StartPosition = FormStartPosition.Manual;
             }
             */
             _mapControlFactory = MapControl.MapCanvas.MapControlFactoryToUse;
             if (_mapControlFactory != null)
             {
-                if (Properties.Settings.Default.SpecifiedWindowPos != null)
+                if (PluginSettings.Instance.SpecifiedWindowPos != null)
                 {
-                    for (int i = 0; i < Properties.Settings.Default.SpecifiedWindowPos.Count; i++)
+                    for (int i = 0; i < PluginSettings.Instance.SpecifiedWindowPos.Count; i++)
                     {
-                        if (Properties.Settings.Default.SpecifiedWindowPos[i].StartsWith(string.Concat(_mapControlFactory.ID, "|")))
+                        if (PluginSettings.Instance.SpecifiedWindowPos[i].StartsWith(string.Concat(_mapControlFactory.ID, "|")))
                         {
                             try
                             {
-                                string[] parts = Properties.Settings.Default.SpecifiedWindowPos[i].Split(new char[] { '|' });
+                                string[] parts = PluginSettings.Instance.SpecifiedWindowPos[i].Split(new char[] { '|' });
                                 this.Bounds = new Rectangle(int.Parse(parts[1]), int.Parse(parts[2]), int.Parse(parts[3]), int.Parse(parts[4]));
                                 this.StartPosition = FormStartPosition.Manual;
                                 break;
@@ -92,7 +92,7 @@ namespace GlobalcachingApplication.Plugins.Maps
                 }
                 else
                 {
-                    Properties.Settings.Default.SpecifiedWindowPos = new System.Collections.Specialized.StringCollection();
+                    PluginSettings.Instance.SpecifiedWindowPos = new System.Collections.Specialized.StringCollection();
                 }
             }
         }
@@ -169,15 +169,14 @@ namespace GlobalcachingApplication.Plugins.Maps
         private void Decouple()
         {
             this.MdiParent = null;
-            if (Properties.Settings.Default.DecoupledChildWindows == null)
+            if (PluginSettings.Instance.DecoupledChildWindows == null)
             {
-                Properties.Settings.Default.DecoupledChildWindows = new System.Collections.Specialized.StringCollection();
+                PluginSettings.Instance.DecoupledChildWindows = new System.Collections.Specialized.StringCollection();
             }
-            if (!Properties.Settings.Default.DecoupledChildWindows.Contains(STR_TITLE))
+            if (!PluginSettings.Instance.DecoupledChildWindows.Contains(STR_TITLE))
             {
-                Properties.Settings.Default.DecoupledChildWindows.Add(STR_TITLE);
+                PluginSettings.Instance.DecoupledChildWindows.Add(STR_TITLE);
             }
-            Properties.Settings.Default.Save();
         }
 
         protected override void WndProc(ref Message msg)
@@ -195,41 +194,38 @@ namespace GlobalcachingApplication.Plugins.Maps
                         {
                             this.MdiParent = mainPlugin.MainForm;
                         }
-                        if (Properties.Settings.Default.DecoupledChildWindows == null)
+                        if (PluginSettings.Instance.DecoupledChildWindows == null)
                         {
-                            Properties.Settings.Default.DecoupledChildWindows = new System.Collections.Specialized.StringCollection();
+                            PluginSettings.Instance.DecoupledChildWindows = new System.Collections.Specialized.StringCollection();
                         }
-                        if (Properties.Settings.Default.DecoupledChildWindows.Contains(STR_TITLE))
+                        if (PluginSettings.Instance.DecoupledChildWindows.Contains(STR_TITLE))
                         {
-                            Properties.Settings.Default.DecoupledChildWindows.Remove(STR_TITLE);
+                            PluginSettings.Instance.DecoupledChildWindows.Remove(STR_TITLE);
                         }
-                        Properties.Settings.Default.Save();
                         break;
                     case TOPMOST_WINDOW_ID:
                         //can only be topmost if decoupled
                         Decouple();
                         this.TopMost = true;
-                        if (Properties.Settings.Default.TopMostWindows == null)
+                        if (PluginSettings.Instance.TopMostWindows == null)
                         {
-                            Properties.Settings.Default.TopMostWindows = new System.Collections.Specialized.StringCollection();
+                            PluginSettings.Instance.TopMostWindows = new System.Collections.Specialized.StringCollection();
                         }
-                        if (!Properties.Settings.Default.TopMostWindows.Contains(STR_TITLE))
+                        if (!PluginSettings.Instance.TopMostWindows.Contains(STR_TITLE))
                         {
-                            Properties.Settings.Default.TopMostWindows.Add(STR_TITLE);
+                            PluginSettings.Instance.TopMostWindows.Add(STR_TITLE);
                         }
-                        Properties.Settings.Default.Save();
                         break;
                     case NOTTOPMOST_WINDOW_ID:
                         this.TopMost = false;
-                        if (Properties.Settings.Default.TopMostWindows == null)
+                        if (PluginSettings.Instance.TopMostWindows == null)
                         {
-                            Properties.Settings.Default.TopMostWindows = new System.Collections.Specialized.StringCollection();
+                            PluginSettings.Instance.TopMostWindows = new System.Collections.Specialized.StringCollection();
                         }
-                        if (Properties.Settings.Default.TopMostWindows.Contains(STR_TITLE))
+                        if (PluginSettings.Instance.TopMostWindows.Contains(STR_TITLE))
                         {
-                            Properties.Settings.Default.TopMostWindows.Remove(STR_TITLE);
+                            PluginSettings.Instance.TopMostWindows.Remove(STR_TITLE);
                         }
-                        Properties.Settings.Default.Save();
                         break;
                 }
             }
@@ -516,57 +512,55 @@ namespace GlobalcachingApplication.Plugins.Maps
 
         private void MapForm_LocationChanged(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.SpecifiedWindowPos == null)
+            if (PluginSettings.Instance.SpecifiedWindowPos == null)
             {
-                Properties.Settings.Default.SpecifiedWindowPos = new System.Collections.Specialized.StringCollection();
+                PluginSettings.Instance.SpecifiedWindowPos = new System.Collections.Specialized.StringCollection();
             }
             if (WindowState == FormWindowState.Normal && _mapControlFactory != null)
             {
                 bool done = false;
                 string s = string.Format("{0}|{1}|{2}|{3}|{4}", _mapControlFactory.ID, this.Bounds.X, this.Bounds.Y, this.Bounds.Width, this.Bounds.Height);
-                for (int i = 0; i < Properties.Settings.Default.SpecifiedWindowPos.Count; i++)
+                for (int i = 0; i < PluginSettings.Instance.SpecifiedWindowPos.Count; i++)
                 {
-                    if (Properties.Settings.Default.SpecifiedWindowPos[i].StartsWith(string.Concat(_mapControlFactory.ID, "|")))
+                    if (PluginSettings.Instance.SpecifiedWindowPos[i].StartsWith(string.Concat(_mapControlFactory.ID, "|")))
                     {
-                        Properties.Settings.Default.SpecifiedWindowPos[i] = s;
+                        PluginSettings.Instance.SpecifiedWindowPos[i] = s;
                         done = true;
                         break;
                     }
                 }
                 if (!done)
                 {
-                    Properties.Settings.Default.SpecifiedWindowPos.Add(s);
+                    PluginSettings.Instance.SpecifiedWindowPos.Add(s);
                 }
 
-                Properties.Settings.Default.Save();
                 this.Refresh();
             }
         }
 
         private void MapForm_SizeChanged(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.SpecifiedWindowPos == null)
+            if (PluginSettings.Instance.SpecifiedWindowPos == null)
             {
-                Properties.Settings.Default.SpecifiedWindowPos = new System.Collections.Specialized.StringCollection();
+                PluginSettings.Instance.SpecifiedWindowPos = new System.Collections.Specialized.StringCollection();
             }
             if (WindowState == FormWindowState.Normal && _mapControlFactory!=null)
             {
                 bool done = false;
                 string s = string.Format("{0}|{1}|{2}|{3}|{4}", _mapControlFactory.ID, this.Bounds.X, this.Bounds.Y, this.Bounds.Width, this.Bounds.Height);
-                for (int i = 0; i < Properties.Settings.Default.SpecifiedWindowPos.Count; i++)
+                for (int i = 0; i < PluginSettings.Instance.SpecifiedWindowPos.Count; i++)
                 {
-                    if (Properties.Settings.Default.SpecifiedWindowPos[i].StartsWith(string.Concat(_mapControlFactory.ID, "|")))
+                    if (PluginSettings.Instance.SpecifiedWindowPos[i].StartsWith(string.Concat(_mapControlFactory.ID, "|")))
                     {
-                        Properties.Settings.Default.SpecifiedWindowPos[i] = s;
+                        PluginSettings.Instance.SpecifiedWindowPos[i] = s;
                         done = true;
                         break;
                     }
                 }
                 if (!done)
                 {
-                    Properties.Settings.Default.SpecifiedWindowPos.Add(s);
+                    PluginSettings.Instance.SpecifiedWindowPos.Add(s);
                 }
-                Properties.Settings.Default.Save();
             }
         }
 
@@ -585,8 +579,8 @@ namespace GlobalcachingApplication.Plugins.Maps
 
         private void MapForm_Deactivate(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.DecoupledChildWindows != null && Properties.Settings.Default.DecoupledChildWindows.Contains(STR_TITLE) &&
-                Properties.Settings.Default.TopMostWindows != null && Properties.Settings.Default.TopMostWindows.Contains(STR_TITLE))
+            if (PluginSettings.Instance.DecoupledChildWindows != null && PluginSettings.Instance.DecoupledChildWindows.Contains(STR_TITLE) &&
+                PluginSettings.Instance.TopMostWindows != null && PluginSettings.Instance.TopMostWindows.Contains(STR_TITLE))
             {
                 this.Opacity = (double)Utils.BasePlugin.BaseUIChildWindowForm.TopMostOpaque / 100.0;
             }

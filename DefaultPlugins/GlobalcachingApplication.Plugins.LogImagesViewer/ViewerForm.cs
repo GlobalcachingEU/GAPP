@@ -33,22 +33,16 @@ namespace GlobalcachingApplication.Plugins.LogImagesViewer
         {
             InitializeComponent();
 
-            if (Properties.Settings.Default.UpgradeNeeded)
+            var p = PluginSettings.Instance.WindowPos;
+            if (p != null && !p.IsEmpty)
             {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
-
-            if (Properties.Settings.Default.WindowPos != null && !Properties.Settings.Default.WindowPos.IsEmpty)
-            {
-                this.Bounds = Properties.Settings.Default.WindowPos;
+                this.Bounds = p;
                 this.StartPosition = FormStartPosition.Manual;
             }
 
-            checkBox1.Checked = Properties.Settings.Default.Slideshow;
-            numericUpDown1.Value = Properties.Settings.Default.SlideshowNextDelay;
-            timerSlideShow.Interval = Properties.Settings.Default.SlideshowNextDelay * 1000;
+            checkBox1.Checked = PluginSettings.Instance.Slideshow;
+            numericUpDown1.Value = PluginSettings.Instance.SlideshowNextDelay;
+            timerSlideShow.Interval = PluginSettings.Instance.SlideshowNextDelay * 1000;
 
             _cacheFolder = System.IO.Path.Combine(core.PluginDataPath, "LogImageCache");
             try
@@ -149,8 +143,7 @@ namespace GlobalcachingApplication.Plugins.LogImagesViewer
         {
             if (WindowState == FormWindowState.Normal)
             {
-                Properties.Settings.Default.WindowPos = this.Bounds;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.WindowPos = this.Bounds;
             }
         }
 
@@ -158,8 +151,7 @@ namespace GlobalcachingApplication.Plugins.LogImagesViewer
         {
             if (WindowState == FormWindowState.Normal)
             {
-                Properties.Settings.Default.WindowPos = this.Bounds;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.WindowPos = this.Bounds;
             }
         }
 
@@ -192,7 +184,7 @@ namespace GlobalcachingApplication.Plugins.LogImagesViewer
                         label4.Text = "-";
                         textBox1.Text = "";
                     }
-                    if (!Properties.Settings.Default.CacheImages && _cacheFolder != null)
+                    if (!PluginSettings.Instance.CacheImages && _cacheFolder != null)
                     {
                         targetImageUrl = li.Url;
                     }
@@ -287,7 +279,7 @@ namespace GlobalcachingApplication.Plugins.LogImagesViewer
                         prevImage.Dispose();
                     }
 
-                    if (Properties.Settings.Default.CacheImages && _cacheFolder!=null)
+                    if (PluginSettings.Instance.CacheImages && _cacheFolder!=null)
                     {
                         string fn = System.IO.Path.Combine(_cacheFolder, System.IO.Path.GetFileName(url));
                         if (System.IO.File.Exists(fn))
@@ -311,28 +303,26 @@ namespace GlobalcachingApplication.Plugins.LogImagesViewer
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.Slideshow = checkBox1.Checked;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.Slideshow = checkBox1.Checked;
             checkSlideshowTimer();
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.SlideshowNextDelay = (int)numericUpDown1.Value;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.SlideshowNextDelay = (int)numericUpDown1.Value;
             checkSlideshowTimer();
         }
 
         private void checkSlideshowTimer()
         {
-            timerSlideShow.Interval = Properties.Settings.Default.SlideshowNextDelay * 1000;
-            timerSlideShow.Enabled = Properties.Settings.Default.Slideshow && listView1.Items.Count>0 && this.Visible;
+            timerSlideShow.Interval = PluginSettings.Instance.SlideshowNextDelay * 1000;
+            timerSlideShow.Enabled = PluginSettings.Instance.Slideshow && listView1.Items.Count>0 && this.Visible;
         }
 
         private void timerSlideShow_Tick(object sender, EventArgs e)
         {
             timerSlideShow.Enabled = false;
-            if (Properties.Settings.Default.Slideshow && listView1.Items.Count > 0 && this.Visible)
+            if (PluginSettings.Instance.Slideshow && listView1.Items.Count > 0 && this.Visible)
             {
                 int curIndex = -1;
                 if (listView1.SelectedIndices.Count > 0 && listView1.Items.Count>1)

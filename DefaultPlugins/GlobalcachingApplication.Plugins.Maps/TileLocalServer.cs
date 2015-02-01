@@ -310,7 +310,7 @@ namespace GlobalcachingApplication.Plugins.Maps
             {
                 try
                 {
-                    httpServer = new OSMTileHttpServer(Properties.Settings.Default.TileServerPort, core);
+                    httpServer = new OSMTileHttpServer(PluginSettings.Instance.TileServerPort, core);
                     Thread thread = new Thread(new ThreadStart(httpServer.listen));
                     thread.IsBackground = true;
                     thread.Start();
