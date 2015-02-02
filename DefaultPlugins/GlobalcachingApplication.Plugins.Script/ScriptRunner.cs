@@ -23,16 +23,11 @@ namespace GlobalcachingApplication.Plugins.Script
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            var p = new PluginSettings(core);
+
             //AddAction(ACTION_SETTINGS);
             AddAction(ACTION_REFRESH);
             AddAction(ACTION_SEP);
-
-            if (Properties.Settings.Default.UpgradeNeeded)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
 
             _context = SynchronizationContext.Current;
             if (_context == null)
@@ -40,7 +35,7 @@ namespace GlobalcachingApplication.Plugins.Script
                 _context = new SynchronizationContext();
             }
 
-            if (string.IsNullOrEmpty(Properties.Settings.Default.UserScriptsFolder))
+            if (string.IsNullOrEmpty(PluginSettings.Instance.UserScriptsFolder))
             {
                 try
                 {
@@ -60,8 +55,7 @@ namespace GlobalcachingApplication.Plugins.Script
                             File.Copy(f, Path.Combine(destFolder, Path.GetFileName(f)), true);
                         }
                     }
-                    Properties.Settings.Default.UserScriptsFolder = destFolder;
-                    Properties.Settings.Default.Save();
+                    PluginSettings.Instance.UserScriptsFolder = destFolder;
                 }
                 catch
                 {
@@ -81,7 +75,7 @@ namespace GlobalcachingApplication.Plugins.Script
                 _fsWatcher.Dispose();
                 _fsWatcher = null;
             }
-            _fsWatcher = new FileSystemWatcher(Properties.Settings.Default.UserScriptsFolder, "*.cs");
+            _fsWatcher = new FileSystemWatcher(PluginSettings.Instance.UserScriptsFolder, "*.cs");
             _fsWatcher.IncludeSubdirectories = false;
             _fsWatcher.Created += new FileSystemEventHandler(_fsWatcher_Created);
             _fsWatcher.Renamed += new RenamedEventHandler(_fsWatcher_Renamed);
@@ -156,7 +150,7 @@ namespace GlobalcachingApplication.Plugins.Script
 
         public async override Task ApplicationInitializedAsync()
         {
-            LoadFolder(Properties.Settings.Default.UserScriptsFolder);
+            LoadFolder(PluginSettings.Instance.UserScriptsFolder);
             InitFileSystemWatcher();
             await base.ApplicationInitializedAsync();
         }
@@ -227,10 +221,9 @@ namespace GlobalcachingApplication.Plugins.Script
                     if (dlg.ShowDialog()== System.Windows.Forms.DialogResult.OK)
                     {
                         ClearActions();
-                        Properties.Settings.Default.UserScriptsFolder = dlg.SelectedPath;
-                        Properties.Settings.Default.Save();
-                        Core.CSScriptsPath = Properties.Settings.Default.UserScriptsFolder;
-                        LoadFolder(Properties.Settings.Default.UserScriptsFolder);
+                        PluginSettings.Instance.UserScriptsFolder = dlg.SelectedPath;
+                        Core.CSScriptsPath = PluginSettings.Instance.UserScriptsFolder;
+                        LoadFolder(PluginSettings.Instance.UserScriptsFolder);
                         InitFileSystemWatcher();
                     }
                 }
@@ -238,7 +231,7 @@ namespace GlobalcachingApplication.Plugins.Script
             else if (result && action == ACTION_REFRESH)
             {
                 ClearActions();
-                LoadFolder(Properties.Settings.Default.UserScriptsFolder);
+                LoadFolder(PluginSettings.Instance.UserScriptsFolder);
             }
             else
             {

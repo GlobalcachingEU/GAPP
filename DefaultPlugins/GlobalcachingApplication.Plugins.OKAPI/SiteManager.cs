@@ -30,7 +30,7 @@ namespace GlobalcachingApplication.Plugins.OKAPI
             {
                 si.LoadSettings();
             }
-            _activeSite = (from a in AvailableSites where a.ID == Properties.Settings.Default.ActiveSiteID select a).FirstOrDefault();
+            _activeSite = (from a in AvailableSites where a.ID == PluginSettings.Instance.ActiveSiteID select a).FirstOrDefault();
         }
 
         public static SiteManager Instance
@@ -59,13 +59,12 @@ namespace GlobalcachingApplication.Plugins.OKAPI
                 _activeSite = value;
                 if (_activeSite != null)
                 {
-                    Properties.Settings.Default.ActiveSiteID = _activeSite.ID;
+                    PluginSettings.Instance.ActiveSiteID = _activeSite.ID;
                 }
                 else
                 {
-                    Properties.Settings.Default.ActiveSiteID = "";
+                    PluginSettings.Instance.ActiveSiteID = "";
                 }
-                Properties.Settings.Default.Save();
             }
         }
 

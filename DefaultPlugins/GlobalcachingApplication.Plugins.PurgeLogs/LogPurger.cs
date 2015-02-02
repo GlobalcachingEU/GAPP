@@ -34,6 +34,8 @@ namespace GlobalcachingApplication.Plugins.PurgeLogs
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            var p = new PluginSettings(core);
+
             AddAction(ACTION_FILTER);
             AddAction(ACTION_QUICKPURGE);
 
@@ -46,13 +48,6 @@ namespace GlobalcachingApplication.Plugins.PurgeLogs
             core.LanguageItems.Add(new Framework.Data.LanguageItem(LogPurgerForm.STR_OLDERTHAN));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(LogPurgerForm.STR_REMOVELOGSFROM));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(LogPurgerForm.STR_TITLE));
-
-            if (Properties.Settings.Default.UpgradeNeeded)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
 
             return await base.InitializeAsync(core);
         }
@@ -110,9 +105,9 @@ namespace GlobalcachingApplication.Plugins.PurgeLogs
                 using (Utils.ProgressBlock prog = new Utils.ProgressBlock(this, STR_PURGINGLOGS, STR_PURGINGLOGS, max, index, true))
                 {
                     //first remove logs of a certain logger
-                    if (Properties.Settings.Default.RemoveAllLogsFrom != null && Properties.Settings.Default.RemoveAllLogsFrom.Count > 0)
+                    if (PluginSettings.Instance.RemoveAllLogsFrom != null && PluginSettings.Instance.RemoveAllLogsFrom.Count > 0)
                     {
-                        string[] names = (from string s in Properties.Settings.Default.RemoveAllLogsFrom select s.ToLower()).ToArray();
+                        string[] names = (from string s in PluginSettings.Instance.RemoveAllLogsFrom select s.ToLower()).ToArray();
                         List<Framework.Data.Log> logs = (from Framework.Data.Log l in Core.Logs
                                                          where names.Contains(l.Finder.ToLower())
                                                          select l).ToList();
@@ -123,34 +118,34 @@ namespace GlobalcachingApplication.Plugins.PurgeLogs
                     }
                     string me = Core.GeocachingComAccount.AccountName;
                     string[] keeps;
-                    bool keepMine = Properties.Settings.Default.KeepOwnLogs;
-                    if (Properties.Settings.Default.KeepLogsOf == null)
+                    bool keepMine = PluginSettings.Instance.KeepOwnLogs;
+                    if (PluginSettings.Instance.KeepLogsOf == null)
                     {
                         keeps = new string[0];
                     }
                     else
                     {
-                        keeps = (from string s in Properties.Settings.Default.KeepLogsOf select s.ToLower()).ToArray();
+                        keeps = (from string s in PluginSettings.Instance.KeepLogsOf select s.ToLower()).ToArray();
                     }
                     DateTime dt;
-                    if (Properties.Settings.Default.DaysMonths == 0)
+                    if (PluginSettings.Instance.DaysMonths == 0)
                     {
-                        dt = DateTime.Now.AddDays(-Properties.Settings.Default.DaysMonthsCount);
+                        dt = DateTime.Now.AddDays(-PluginSettings.Instance.DaysMonthsCount);
                     }
                     else
                     {
-                        dt = DateTime.Now.AddMonths(-Properties.Settings.Default.DaysMonthsCount);
+                        dt = DateTime.Now.AddMonths(-PluginSettings.Instance.DaysMonthsCount);
                     }
                     foreach (Framework.Data.Geocache gc in Core.Geocaches)
                     {
-                        if (!Properties.Settings.Default.KeepAllOfOwned || gc.Owner != me)
+                        if (!PluginSettings.Instance.KeepAllOfOwned || gc.Owner != me)
                         {
                             List<Framework.Data.Log> lgs = Utils.DataAccess.GetLogs(Core.Logs, gc.Code);
                             if (lgs != null)
                             {
                                 var logs = (from l in lgs
                                             where (!keepMine || l.Finder != me) && !keeps.Contains(l.Finder.ToLower())
-                                            select l).Skip(Properties.Settings.Default.KeepAtLeast);
+                                            select l).Skip(PluginSettings.Instance.KeepAtLeast);
                                 foreach (var l in logs)
                                 {
                                     if (l.Date < dt)

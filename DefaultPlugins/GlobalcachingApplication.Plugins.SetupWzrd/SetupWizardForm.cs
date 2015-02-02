@@ -257,13 +257,6 @@ namespace GlobalcachingApplication.Plugins.SetupWzrd
                 core.LanguageItems.Add(new Framework.Data.LanguageItem(textStreamReader.ReadToEnd()));
             }
 
-            if (Properties.Settings.Default.UpgradeNeeded)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
-
             return await base.InitializeAsync(core);
         }
 
@@ -286,14 +279,13 @@ namespace GlobalcachingApplication.Plugins.SetupWzrd
         public async override Task ApplicationInitializedAsync()
         {
             await base.ApplicationInitializedAsync();
-            if (Properties.Settings.Default.FirstTimeUse)
+            if (PluginSettings.Instance.FirstTimeUse)
             {
                 using (SetupWizardForm dlg = new SetupWizardForm(this, Core))
                 {
                     dlg.ShowDialog();
                 }
-                Properties.Settings.Default.FirstTimeUse = false;
-                Properties.Settings.Default.Save(); 
+                PluginSettings.Instance.FirstTimeUse = false;
             }
         }
 

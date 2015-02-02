@@ -85,7 +85,7 @@ namespace GlobalcachingApplication.Plugins.OKAPI
             }
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result && action == ACTION_IMPORT)
@@ -101,7 +101,7 @@ namespace GlobalcachingApplication.Plugins.OKAPI
                             _maxLat = dlg.MaxLat;
                             _maxLon = dlg.MaxLon;
 
-                            PerformImport();
+                            await PerformImport();
                             if (!string.IsNullOrEmpty(_errormessage))
                             {
                                 System.Windows.Forms.MessageBox.Show(_errormessage, Utils.LanguageSupport.Instance.GetTranslation(Utils.LanguageSupport.Instance.GetTranslation(STR_ERROR)), System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);

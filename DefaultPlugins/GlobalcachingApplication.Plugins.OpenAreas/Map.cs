@@ -13,6 +13,8 @@ namespace GlobalcachingApplication.Plugins.OpenAreas
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            var p = new PluginSettings(core);
+
             AddAction(ACTION_SHOW);
 
             core.LanguageItems.Add(new Framework.Data.LanguageItem(MapForm.STR_TITLE));

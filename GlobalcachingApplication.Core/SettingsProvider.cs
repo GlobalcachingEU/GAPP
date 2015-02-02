@@ -32,6 +32,60 @@ namespace GlobalcachingApplication.Core
         private Hashtable _scopelessSettings = null;
         private PetaPoco.Database _database = null;
 
+
+        public class InterceptedStringCollection : System.Collections.Specialized.StringCollection
+        {
+            private string _name;
+            private SettingsProvider _sp;
+
+            public InterceptedStringCollection(SettingsProvider sp, string name)
+            {
+                _sp = sp;
+                _name = name;
+            }
+
+            public void AddWithoutSave(string value)
+            {
+                base.Add(value);
+            }
+
+            public new void Add(string value)
+            {
+                base.Add(value);
+                _sp.SetSettingsValueStringCollection(_name, this);
+            }
+
+            public new void AddRange(string[] value)
+            {
+                base.AddRange(value);
+                _sp.SetSettingsValueStringCollection(_name, this);
+            }
+
+            public new void Clear()
+            {
+                base.Clear();
+                _sp.SetSettingsValueStringCollection(_name, this);
+            }
+
+            public new void Insert(int index, string value)
+            {
+                base.Insert(index, value);
+                _sp.SetSettingsValueStringCollection(_name, this);
+            }
+
+            public new void Remove(string value)
+            {
+                base.Remove(value);
+                _sp.SetSettingsValueStringCollection(_name, this);
+            }
+
+            public new void RemoveAt(int index)
+            {
+                base.RemoveAt(index);
+                _sp.SetSettingsValueStringCollection(_name, this);
+            }
+        }
+
         public SettingsProvider(string scope)
         {
             _currentSettings = new Hashtable();
@@ -358,6 +412,25 @@ namespace GlobalcachingApplication.Core
             return result;
         }
 
+        public void SetSettingsValueColor(string name, System.Drawing.Color value)
+        {
+            SetSettingsValue(name, string.Format("{0},{1},{2},{3}", value.A, value.R, value.G, value.B));
+        }
+
+        public System.Drawing.Color GetSettingsValueColor(string name, System.Drawing.Color defaultValue)
+        {
+            string s = GetSettingsValue(name, null);
+            if (string.IsNullOrEmpty(s))
+            {
+                return defaultValue;
+            }
+            else
+            {
+                string[] parts = s.Split(',');
+                return System.Drawing.Color.FromArgb(int.Parse(parts[0]), int.Parse(parts[1]), int.Parse(parts[2]), int.Parse(parts[3]));
+            }
+        }
+
         public void SetSettingsValueStringCollection(string name, System.Collections.Specialized.StringCollection value)
         {
             if (value == null)
@@ -392,19 +465,19 @@ namespace GlobalcachingApplication.Core
 
         public System.Collections.Specialized.StringCollection GetSettingsValueStringCollection(string name, System.Collections.Specialized.StringCollection defaultValue)
         {
-            System.Collections.Specialized.StringCollection result = null;
+            InterceptedStringCollection result = null;
             string xmlDoc = GetSettingsValue(name, null);
             if (!string.IsNullOrEmpty(xmlDoc))
             {
-                result = new System.Collections.Specialized.StringCollection();
+                result = new InterceptedStringCollection(this, name);
 
                 XmlDocument doc = new XmlDocument();
                 doc.LoadXml(xmlDoc);
                 var root = doc.DocumentElement;
-                var lines = doc.SelectNodes("entry");
+                var lines = root.SelectNodes("entry");
                 foreach (XmlNode n in lines)
                 {
-                    result.Add(n.InnerText);
+                    result.AddWithoutSave(n.InnerText);
                 }
             }
             return result;

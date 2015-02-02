@@ -55,16 +55,9 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
             FixedCore = core;
             InitializeComponent();
 
-            if (Properties.Settings.Default.UpgradeNeeded)
+            if (PluginSettings.Instance.WindowPos != null && !PluginSettings.Instance.WindowPos.IsEmpty)
             {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
-
-            if (Properties.Settings.Default.WindowPos != null && !Properties.Settings.Default.WindowPos.IsEmpty)
-            {
-                this.Bounds = Properties.Settings.Default.WindowPos;
+                this.Bounds = PluginSettings.Instance.WindowPos;
                 this.StartPosition = FormStartPosition.Manual;
             }
 
@@ -131,20 +124,20 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
             cacheListControl1.InitBrushes();
             cacheListControl1.GeocacheDataGrid.SelectionChanged += new System.Windows.Controls.SelectionChangedEventHandler(GeocacheDataGrid_SelectionChanged);
 
-            if (!string.IsNullOrEmpty(Properties.Settings.Default.VisibleColumns))
+            if (!string.IsNullOrEmpty(PluginSettings.Instance.VisibleColumns))
             {
-                string[] parts = Properties.Settings.Default.VisibleColumns.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] parts = PluginSettings.Instance.VisibleColumns.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 for (int i = 0; i < _fixedColumnCount; i++)
                 {
                     cacheListControl1.GeocacheDataGrid.Columns[i].Visibility = parts.Contains(i.ToString()) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
                 }
             }
 
-            if (!string.IsNullOrEmpty(Properties.Settings.Default.ColumnOrder))
+            if (!string.IsNullOrEmpty(PluginSettings.Instance.ColumnOrder))
             {
                 try
                 {
-                    string[] order = Properties.Settings.Default.ColumnOrder.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+                    string[] order = PluginSettings.Instance.ColumnOrder.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
                     for (int i = 0; i < order.Length; i++)
                     {
                         cacheListControl1.GeocacheDataGrid.Columns[i].DisplayIndex = int.Parse(order[i]);
@@ -170,7 +163,7 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
 
         void cacheListControl1_OnMouseEnter(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.AutoTopPanel && panel3.Visible)
+            if (PluginSettings.Instance.AutoTopPanel && panel3.Visible)
             {
                 button1_Click(sender, e);
             }
@@ -439,8 +432,7 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
                         sb.Append(",");
                     }
                 }
-                Properties.Settings.Default.VisibleColumns = sb.ToString();
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.VisibleColumns = sb.ToString();
             }
         }
 
@@ -491,8 +483,7 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
         {
             if (WindowState == FormWindowState.Normal)
             {
-                Properties.Settings.Default.WindowPos = this.Bounds;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.WindowPos = this.Bounds;
             }
         }
 
@@ -500,8 +491,7 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
         {
             if (WindowState == FormWindowState.Normal)
             {
-                Properties.Settings.Default.WindowPos = this.Bounds;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.WindowPos = this.Bounds;
             }
         }
 
@@ -591,39 +581,37 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
             int index = _orgHeader.IndexOf("Name");
             if (index >= 0)
             {
-                Properties.Settings.Default.ColumnNameWidth = (int)cacheListControl1.GeocacheDataGrid.Columns[index].Width.DisplayValue;
+                PluginSettings.Instance.ColumnNameWidth = (int)cacheListControl1.GeocacheDataGrid.Columns[index].Width.DisplayValue;
             }
             index = _orgHeader.IndexOf("Owner");
             if (index >= 0)
             {
-                Properties.Settings.Default.ColumnOwnerWidth = (int)cacheListControl1.GeocacheDataGrid.Columns[index].Width.DisplayValue;
+                PluginSettings.Instance.ColumnOwnerWidth = (int)cacheListControl1.GeocacheDataGrid.Columns[index].Width.DisplayValue;
             }
             index = _orgHeader.IndexOf("Country");
             if (index >= 0)
             {
-                Properties.Settings.Default.ColumnCountryWidth = (int)cacheListControl1.GeocacheDataGrid.Columns[index].Width.DisplayValue;
+                PluginSettings.Instance.ColumnCountryWidth = (int)cacheListControl1.GeocacheDataGrid.Columns[index].Width.DisplayValue;
             }
             index = _orgHeader.IndexOf("State");
             if (index >= 0)
             {
-                Properties.Settings.Default.ColumnStateWidth = (int)cacheListControl1.GeocacheDataGrid.Columns[index].Width.DisplayValue;
+                PluginSettings.Instance.ColumnStateWidth = (int)cacheListControl1.GeocacheDataGrid.Columns[index].Width.DisplayValue;
             }
             index = _orgHeader.IndexOf("City");
             if (index >= 0)
             {
-                Properties.Settings.Default.ColumnCityWidth = (int)cacheListControl1.GeocacheDataGrid.Columns[index].Width.DisplayValue;
+                PluginSettings.Instance.ColumnCityWidth = (int)cacheListControl1.GeocacheDataGrid.Columns[index].Width.DisplayValue;
             }
             for (int i = 0; i < cacheListControl1.GeocacheDataGrid.Columns.Count; i++)
             {
                 if (cacheListControl1.GeocacheDataGrid.Columns[i].SortDirection != null)
                 {
-                    Properties.Settings.Default.SortOnColumnIndex = i;
-                    Properties.Settings.Default.SortDirection = cacheListControl1.GeocacheDataGrid.Columns[i].SortDirection == ListSortDirection.Ascending ? 0 : 1;
-                    Properties.Settings.Default.Save();
+                    PluginSettings.Instance.SortOnColumnIndex = i;
+                    PluginSettings.Instance.SortDirection = cacheListControl1.GeocacheDataGrid.Columns[i].SortDirection == ListSortDirection.Ascending ? 0 : 1;
                 }
             }
 
-            Properties.Settings.Default.Save();
         }
 
         private async void geocacheEditorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -663,22 +651,22 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
         {
             _initializing = true;
 
-            Properties.Settings.Default.VisibleColumns = p.VisibleColumns;
-            Properties.Settings.Default.ColumnOrder = p.ColumnOrder;
-            if (!string.IsNullOrEmpty(Properties.Settings.Default.VisibleColumns))
+            PluginSettings.Instance.VisibleColumns = p.VisibleColumns;
+            PluginSettings.Instance.ColumnOrder = p.ColumnOrder;
+            if (!string.IsNullOrEmpty(PluginSettings.Instance.VisibleColumns))
             {
-                string[] parts = Properties.Settings.Default.VisibleColumns.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] parts = PluginSettings.Instance.VisibleColumns.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 for (int i = 0; i < _fixedColumnCount; i++)
                 {
                     cacheListControl1.GeocacheDataGrid.Columns[i].Visibility = parts.Contains(i.ToString()) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
                     checkedListBoxVisibleColumns.SetItemCheckState(i, cacheListControl1.GeocacheDataGrid.Columns[i].Visibility == System.Windows.Visibility.Visible ? CheckState.Checked : CheckState.Unchecked);
                 }
             }
-            if (!string.IsNullOrEmpty(Properties.Settings.Default.ColumnOrder))
+            if (!string.IsNullOrEmpty(PluginSettings.Instance.ColumnOrder))
             {
                 try
                 {
-                    string[] order = Properties.Settings.Default.ColumnOrder.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+                    string[] order = PluginSettings.Instance.ColumnOrder.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
                     for (int i = 0; i < order.Length; i++)
                     {
                         cacheListControl1.GeocacheDataGrid.Columns[i].DisplayIndex = int.Parse(order[i]);
@@ -688,7 +676,6 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
                 {
                 }
             }
-            Properties.Settings.Default.Save();
             _initializing = false;
         }
 
@@ -738,7 +725,7 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
 
         private void panel1_MouseEnter(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.AutoTopPanel && !panel3.Visible)
+            if (PluginSettings.Instance.AutoTopPanel && !panel3.Visible)
             {
                 button1_Click(sender, e);
             }
@@ -752,6 +739,8 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            var p = new PluginSettings(core);
+
             AddAction(ACTION_SHOW);
             return await base.InitializeAsync(core);
         }
@@ -824,16 +813,15 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
             {
                 if (uc is SettingsPanel)
                 {
-                    Properties.Settings.Default.BkColorArchived = (uc as SettingsPanel).ArchivedBkColor;
-                    Properties.Settings.Default.BkColorAvailable = (uc as SettingsPanel).AvailableBkColor;
-                    Properties.Settings.Default.BkColorNotAvailable = (uc as SettingsPanel).NotAvailableBkColor;
-                    Properties.Settings.Default.BkColorFound = (uc as SettingsPanel).FoundBkColor;
-                    Properties.Settings.Default.BkColorOwned = (uc as SettingsPanel).OwnBkColor;
-                    Properties.Settings.Default.BkColorExtraCoord = (uc as SettingsPanel).ExtraCoordBkColor;
-                    Properties.Settings.Default.DeferredScrolling = (uc as SettingsPanel).DeferredScrolling;
-                    Properties.Settings.Default.EnableAutomaticSorting = (uc as SettingsPanel).EnableAutomaticSorting;
-                    Properties.Settings.Default.AutoTopPanel = (uc as SettingsPanel).AutoTopPanel;
-                    Properties.Settings.Default.Save();
+                    PluginSettings.Instance.BkColorArchived = (uc as SettingsPanel).ArchivedBkColor;
+                    PluginSettings.Instance.BkColorAvailable = (uc as SettingsPanel).AvailableBkColor;
+                    PluginSettings.Instance.BkColorNotAvailable = (uc as SettingsPanel).NotAvailableBkColor;
+                    PluginSettings.Instance.BkColorFound = (uc as SettingsPanel).FoundBkColor;
+                    PluginSettings.Instance.BkColorOwned = (uc as SettingsPanel).OwnBkColor;
+                    PluginSettings.Instance.BkColorExtraCoord = (uc as SettingsPanel).ExtraCoordBkColor;
+                    PluginSettings.Instance.DeferredScrolling = (uc as SettingsPanel).DeferredScrolling;
+                    PluginSettings.Instance.EnableAutomaticSorting = (uc as SettingsPanel).EnableAutomaticSorting;
+                    PluginSettings.Instance.AutoTopPanel = (uc as SettingsPanel).AutoTopPanel;
 
                     (UIChildWindowForm as SimpleCacheListForm).SettingsUpdated();
                     break;

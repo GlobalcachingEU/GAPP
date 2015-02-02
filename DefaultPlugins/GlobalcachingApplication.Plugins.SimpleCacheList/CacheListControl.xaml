@@ -13,7 +13,7 @@
         <src:CustomPropertyConverter x:Key="CustomPropertyConverter"></src:CustomPropertyConverter>
         <src:ContainerConverter x:Key="ContainerConverter"></src:ContainerConverter>
         <src:GeocacheCoordConverter x:Key="GeocacheCoordConverter"></src:GeocacheCoordConverter>
-        <properties:Settings x:Key="Settings" />
+        <src:PluginSettings x:Key="Settings" />
     </UserControl.Resources>
     <Grid x:Name="topGrid">
         <DataGrid ScrollViewer.IsDeferredScrollingEnabled="{Binding Source={StaticResource Settings}, Path=Default.DeferredScrolling}" VirtualizingStackPanel.VirtualizationMode="Recycling"  LoadingRow="cacheList_LoadingRow" AutoGenerateColumns="False" Height="{Binding ElementName=topGrid, Path=ActualHeight}" Name="cacheList" Width="{Binding ElementName=topGrid, Path=ActualWidth}" DataContext="{Binding}" ItemsSource="{Binding}" RowEditEnding="cacheList_RowEditEnding" HorizontalScrollBarVisibility="Auto" ColumnReordered="cacheList_ColumnReordered" CanUserAddRows="False" CanUserDeleteRows="False" PreviewKeyDown="cacheList_PreviewKeyDown" MouseEnter="cacheList_MouseEnter">

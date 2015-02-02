@@ -20,12 +20,7 @@ namespace GlobalcachingApplication.Plugins.OV2
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
-            if (Properties.Settings.Default.UpgradeNeeded)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
+            var p = new PluginSettings(core);
 
             AddAction(ACTION_EXPORT_ALL);
             AddAction(ACTION_EXPORT_SELECTED);
@@ -50,7 +45,7 @@ namespace GlobalcachingApplication.Plugins.OV2
             return await base.InitializeAsync(core);
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result)
@@ -83,7 +78,7 @@ namespace GlobalcachingApplication.Plugins.OV2
                         {
                             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                             {
-                                PerformExport();
+                                await PerformExport();
                             }
                         }
                     }
@@ -96,59 +91,59 @@ namespace GlobalcachingApplication.Plugins.OV2
         {
             using (Utils.ProgressBlock progress = new Utils.ProgressBlock(this, STR_EXPORTINGOV2, STR_CREATINGFILE, _gcList.Count, 0))
             {
-                using (System.IO.FileStream fs = System.IO.File.Create(Properties.Settings.Default.LastSavedFile))
+                using (System.IO.FileStream fs = System.IO.File.Create(PluginSettings.Instance.LastSavedFile))
                 {
                     int block = 0;
                     int index = 0;
                     foreach (Framework.Data.Geocache gc in _gcList)
                     {
                         StringBuilder sb = new StringBuilder();
-                        if (Properties.Settings.Default.gcCoord)
+                        if (PluginSettings.Instance.gcCoord)
                         {
                             if (sb.Length > 0) sb.Append(",");
                             sb.Append(Utils.Conversion.GetCoordinatesPresentation(gc.Lat, gc.Lon));
                         }
-                        if (Properties.Settings.Default.gcCode)
+                        if (PluginSettings.Instance.gcCode)
                         {
                             if (sb.Length > 0) sb.Append(",");
                             sb.Append(gc.Code ?? "");
                         }
-                        if (Properties.Settings.Default.gcCacheType)
+                        if (PluginSettings.Instance.gcCacheType)
                         {
                             if (sb.Length > 0) sb.Append(",");
                             sb.Append(gc.GeocacheType.Name);
                         }
-                        if (Properties.Settings.Default.gcName)
+                        if (PluginSettings.Instance.gcName)
                         {
                             if (sb.Length > 0) sb.Append(",");
                             sb.Append(gc.Name ?? "");
                         }
-                        if (Properties.Settings.Default.gcContainer)
+                        if (PluginSettings.Instance.gcContainer)
                         {
                             if (sb.Length > 0) sb.Append(",");
                             sb.Append(gc.Container.Name);
                         }
-                        if (Properties.Settings.Default.gcHint)
+                        if (PluginSettings.Instance.gcHint)
                         {
                             if (sb.Length > 0) sb.Append(",");
                             sb.Append(gc.EncodedHints ?? "");
                         }
-                        if (Properties.Settings.Default.gcFavorites)
+                        if (PluginSettings.Instance.gcFavorites)
                         {
                             if (sb.Length > 0) sb.Append(",");
                             sb.Append(gc.Favorites.ToString());
                         }
-                        if (Properties.Settings.Default.gcOwner)
+                        if (PluginSettings.Instance.gcOwner)
                         {
                             if (sb.Length > 0) sb.Append(",");
                             sb.Append(gc.Owner ?? "");
                         }
-                        if (Properties.Settings.Default.gcDifficulty)
+                        if (PluginSettings.Instance.gcDifficulty)
                         {
                             if (sb.Length > 0) sb.Append(",");
                             sb.Append(gc.Difficulty.ToString("0.#"));
                         }
-                        if (Properties.Settings.Default.gcTerrain)
+                        if (PluginSettings.Instance.gcTerrain)
                         {
                             if (sb.Length > 0) sb.Append(",");
                             sb.Append(gc.Terrain.ToString("0.#"));

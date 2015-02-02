@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2013 for Windows Desktop
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication", "GlobalcachingApplication\GlobalcachingApplication.csproj", "{1C2F3389-8484-42EB-82FD-BF2E0D79A6DF}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -53,8 +53,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.QuickAction", "DefaultPlugins\GlobalcachingApplication.Plugins.QuickAction\GlobalcachingApplication.Plugins.QuickAction.csproj", "{1026ED86-CA8E-4CD2-B59D-965A846CEDA6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Updater", "GlobalcachingApplication.Updater\GlobalcachingApplication.Updater.csproj", "{C4494D89-131A-4200-8A49-47AB18088D2F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.PkgMng", "DefaultPlugins\GlobalcachingApplication.Plugins.PkgMng\GlobalcachingApplication.Plugins.PkgMng.csproj", "{A7B52BCC-5397-4FD9-9F77-0019C0E1E790}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.DbgLog", "DefaultPlugins\GlobalcachingApplication.Plugins.DbgLog\GlobalcachingApplication.Plugins.DbgLog.csproj", "{7866AE7B-CCAC-4661-8EC3-E215E9B901CC}"
 EndProject
@@ -155,8 +153,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.ExpExcel", "DefaultPlugins\GlobalcachingApplication.Plugins.ExpExcel\GlobalcachingApplication.Plugins.ExpExcel.csproj", "{56FECE63-7CA2-4D1E-A432-AF7031ADD283}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPPlus", "EPPlus\EPPlus.csproj", "{7B288026-5502-4A39-BF41-77E086F3E4A3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.QryBuilder", "DefaultPlugins\GlobalcachingApplication.Plugins.QryBuilder\GlobalcachingApplication.Plugins.QryBuilder.csproj", "{BED1E88A-B1B5-4506-9957-B8794A8C8681}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.ActBuilder", "DefaultPlugins\GlobalcachingApplication.Plugins.ActBuilder\GlobalcachingApplication.Plugins.ActBuilder.csproj", "{8EAABDA6-4D05-4EC3-B679-63D46E96F2A7}"
 EndProject
@@ -390,14 +386,6 @@ Global
 		{C4494D89-131A-4200-8A49-47AB18088D2F}.Release|x64.Build.0 = Release|x64
 		{C4494D89-131A-4200-8A49-47AB18088D2F}.Release|x86.ActiveCfg = Release|x86
 		{C4494D89-131A-4200-8A49-47AB18088D2F}.Release|x86.Build.0 = Release|x86
-		{A7B52BCC-5397-4FD9-9F77-0019C0E1E790}.Debug|x64.ActiveCfg = Debug|x64
-		{A7B52BCC-5397-4FD9-9F77-0019C0E1E790}.Debug|x64.Build.0 = Debug|x64
-		{A7B52BCC-5397-4FD9-9F77-0019C0E1E790}.Debug|x86.ActiveCfg = Debug|x86
-		{A7B52BCC-5397-4FD9-9F77-0019C0E1E790}.Debug|x86.Build.0 = Debug|x86
-		{A7B52BCC-5397-4FD9-9F77-0019C0E1E790}.Release|x64.ActiveCfg = Release|x64
-		{A7B52BCC-5397-4FD9-9F77-0019C0E1E790}.Release|x64.Build.0 = Release|x64
-		{A7B52BCC-5397-4FD9-9F77-0019C0E1E790}.Release|x86.ActiveCfg = Release|x86
-		{A7B52BCC-5397-4FD9-9F77-0019C0E1E790}.Release|x86.Build.0 = Release|x86
 		{7866AE7B-CCAC-4661-8EC3-E215E9B901CC}.Debug|x64.ActiveCfg = Debug|x64
 		{7866AE7B-CCAC-4661-8EC3-E215E9B901CC}.Debug|x64.Build.0 = Debug|x64
 		{7866AE7B-CCAC-4661-8EC3-E215E9B901CC}.Debug|x86.ActiveCfg = Debug|x86
@@ -798,14 +786,6 @@ Global
 		{7B288026-5502-4A39-BF41-77E086F3E4A3}.Release|x64.Build.0 = Release|x64
 		{7B288026-5502-4A39-BF41-77E086F3E4A3}.Release|x86.ActiveCfg = Release|x86
 		{7B288026-5502-4A39-BF41-77E086F3E4A3}.Release|x86.Build.0 = Release|x86
-		{BED1E88A-B1B5-4506-9957-B8794A8C8681}.Debug|x64.ActiveCfg = Debug|x64
-		{BED1E88A-B1B5-4506-9957-B8794A8C8681}.Debug|x64.Build.0 = Debug|x64
-		{BED1E88A-B1B5-4506-9957-B8794A8C8681}.Debug|x86.ActiveCfg = Debug|x86
-		{BED1E88A-B1B5-4506-9957-B8794A8C8681}.Debug|x86.Build.0 = Debug|x86
-		{BED1E88A-B1B5-4506-9957-B8794A8C8681}.Release|x64.ActiveCfg = Release|x64
-		{BED1E88A-B1B5-4506-9957-B8794A8C8681}.Release|x64.Build.0 = Release|x64
-		{BED1E88A-B1B5-4506-9957-B8794A8C8681}.Release|x86.ActiveCfg = Release|x86
-		{BED1E88A-B1B5-4506-9957-B8794A8C8681}.Release|x86.Build.0 = Release|x86
 		{8EAABDA6-4D05-4EC3-B679-63D46E96F2A7}.Debug|x64.ActiveCfg = Debug|x64
 		{8EAABDA6-4D05-4EC3-B679-63D46E96F2A7}.Debug|x64.Build.0 = Debug|x64
 		{8EAABDA6-4D05-4EC3-B679-63D46E96F2A7}.Debug|x86.ActiveCfg = Debug|x86

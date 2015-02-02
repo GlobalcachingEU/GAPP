@@ -31,6 +31,8 @@ namespace GlobalcachingApplication.Framework.Interfaces
         double GetSettingsValueDouble(string name, double defaultValue);
         void SetSettingsValueStringCollection(string name, System.Collections.Specialized.StringCollection value);
         System.Collections.Specialized.StringCollection GetSettingsValueStringCollection(string name, System.Collections.Specialized.StringCollection defaultValue);
+        void SetSettingsValueColor(string name, System.Drawing.Color value);
+        System.Drawing.Color GetSettingsValueColor(string name, System.Drawing.Color defaultValue);
 
         PetaPoco.Database Database { get; }
         bool TableExists(string tableName);

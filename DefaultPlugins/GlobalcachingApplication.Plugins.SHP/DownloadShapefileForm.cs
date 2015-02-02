@@ -125,7 +125,7 @@ namespace GlobalcachingApplication.Plugins.SHP
                             {
                                 ShapeFileDbfEncoding = "";
                             }
-                            ShapeFilePath = Path.Combine(Properties.Settings.Default.DefaultShapeFilesFolder, string.Concat(Path.GetFileNameWithoutExtension(_downloadUrl), ".shp"));
+                            ShapeFilePath = Path.Combine(PluginSettings.Instance.DefaultShapeFilesFolder, string.Concat(Path.GetFileNameWithoutExtension(_downloadUrl), ".shp"));
                             DialogResult = System.Windows.Forms.DialogResult.OK;
                             Close();
                         }
@@ -161,7 +161,7 @@ namespace GlobalcachingApplication.Plugins.SHP
                             }
                         }
                     }
-                    UnZipFiles(tmpFile.Path, Properties.Settings.Default.DefaultShapeFilesFolder, false);
+                    UnZipFiles(tmpFile.Path, PluginSettings.Instance.DefaultShapeFilesFolder, false);
                 }
             }
             catch

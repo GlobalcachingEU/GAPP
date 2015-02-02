@@ -29,8 +29,8 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
                 result = org;
             }
             result.Name = name;
-            result.VisibleColumns = Properties.Settings.Default.VisibleColumns ?? "";
-            result.ColumnOrder = Properties.Settings.Default.ColumnOrder ?? "";
+            result.VisibleColumns = PluginSettings.Instance.VisibleColumns ?? "";
+            result.ColumnOrder = PluginSettings.Instance.ColumnOrder ?? "";
             return result;
         }
 

@@ -32,18 +32,18 @@ namespace GlobalcachingApplication.Plugins.OV2
 
             this.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_TITLE);
 
-            this.checkBoxCacheType.Checked = Properties.Settings.Default.gcCacheType;
-            this.checkBoxCode.Checked = Properties.Settings.Default.gcCode;
-            this.checkBoxContainer.Checked = Properties.Settings.Default.gcContainer;
-            this.checkBoxCoords.Checked = Properties.Settings.Default.gcCoord;
-            this.checkBoxDifficulty.Checked = Properties.Settings.Default.gcDifficulty;
-            this.checkBoxTerrain.Checked = Properties.Settings.Default.gcTerrain;
-            this.checkBoxFavorites.Checked = Properties.Settings.Default.gcFavorites;
-            this.checkBoxHints.Checked = Properties.Settings.Default.gcHint;
-            this.checkBoxName.Checked = Properties.Settings.Default.gcName;
-            this.checkBoxNote.Checked = Properties.Settings.Default.gcOwner;
-            this.checkBoxOwner.Checked = Properties.Settings.Default.gcTerrain;
-            this.textBox1.Text = Properties.Settings.Default.LastSavedFile ?? "";
+            this.checkBoxCacheType.Checked = PluginSettings.Instance.gcCacheType;
+            this.checkBoxCode.Checked = PluginSettings.Instance.gcCode;
+            this.checkBoxContainer.Checked = PluginSettings.Instance.gcContainer;
+            this.checkBoxCoords.Checked = PluginSettings.Instance.gcCoord;
+            this.checkBoxDifficulty.Checked = PluginSettings.Instance.gcDifficulty;
+            this.checkBoxTerrain.Checked = PluginSettings.Instance.gcTerrain;
+            this.checkBoxFavorites.Checked = PluginSettings.Instance.gcFavorites;
+            this.checkBoxHints.Checked = PluginSettings.Instance.gcHint;
+            this.checkBoxName.Checked = PluginSettings.Instance.gcName;
+            this.checkBoxNote.Checked = PluginSettings.Instance.gcOwner;
+            this.checkBoxOwner.Checked = PluginSettings.Instance.gcTerrain;
+            this.textBox1.Text = PluginSettings.Instance.LastSavedFile ?? "";
 
             this.checkBoxCacheType.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_CACHETYPE);
             this.checkBoxCode.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_CODE);
@@ -76,18 +76,17 @@ namespace GlobalcachingApplication.Plugins.OV2
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.gcCacheType =this.checkBoxCacheType.Checked;
-            Properties.Settings.Default.gcCode = this.checkBoxCode.Checked;
-            Properties.Settings.Default.gcContainer = this.checkBoxContainer.Checked;
-            Properties.Settings.Default.gcCoord =this.checkBoxCoords.Checked;
-            Properties.Settings.Default.gcDifficulty = this.checkBoxDifficulty.Checked;
-            Properties.Settings.Default.gcFavorites =this.checkBoxFavorites.Checked;
-            Properties.Settings.Default.gcHint =this.checkBoxHints.Checked;
-            Properties.Settings.Default.gcName = this.checkBoxName.Checked;
-            Properties.Settings.Default.gcOwner= this.checkBoxNote.Checked;
-            Properties.Settings.Default.gcTerrain = this.checkBoxOwner.Checked;
-            Properties.Settings.Default.LastSavedFile = this.textBox1.Text;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.gcCacheType =this.checkBoxCacheType.Checked;
+            PluginSettings.Instance.gcCode = this.checkBoxCode.Checked;
+            PluginSettings.Instance.gcContainer = this.checkBoxContainer.Checked;
+            PluginSettings.Instance.gcCoord =this.checkBoxCoords.Checked;
+            PluginSettings.Instance.gcDifficulty = this.checkBoxDifficulty.Checked;
+            PluginSettings.Instance.gcFavorites =this.checkBoxFavorites.Checked;
+            PluginSettings.Instance.gcHint =this.checkBoxHints.Checked;
+            PluginSettings.Instance.gcName = this.checkBoxName.Checked;
+            PluginSettings.Instance.gcOwner= this.checkBoxNote.Checked;
+            PluginSettings.Instance.gcTerrain = this.checkBoxOwner.Checked;
+            PluginSettings.Instance.LastSavedFile = this.textBox1.Text;
         }
     }
 }

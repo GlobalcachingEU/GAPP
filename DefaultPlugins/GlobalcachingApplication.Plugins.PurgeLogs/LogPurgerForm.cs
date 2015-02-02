@@ -36,29 +36,29 @@ namespace GlobalcachingApplication.Plugins.PurgeLogs
             this.label8.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_REMOVELOGSFROM);
 
 
-            numericUpDown1.Value = Properties.Settings.Default.DaysMonthsCount;
-            comboBox1.SelectedIndex = Properties.Settings.Default.DaysMonths;
-            numericUpDown2.Value = Properties.Settings.Default.KeepAtLeast;
-            checkBox1.Checked = Properties.Settings.Default.KeepAllOfOwned;
-            checkBox2.Checked = Properties.Settings.Default.KeepOwnLogs;
-            if (Properties.Settings.Default.KeepLogsOf == null)
+            numericUpDown1.Value = PluginSettings.Instance.DaysMonthsCount;
+            comboBox1.SelectedIndex = PluginSettings.Instance.DaysMonths;
+            numericUpDown2.Value = PluginSettings.Instance.KeepAtLeast;
+            checkBox1.Checked = PluginSettings.Instance.KeepAllOfOwned;
+            checkBox2.Checked = PluginSettings.Instance.KeepOwnLogs;
+            if (PluginSettings.Instance.KeepLogsOf == null)
             {
-                Properties.Settings.Default.KeepLogsOf = new System.Collections.Specialized.StringCollection();
+                PluginSettings.Instance.KeepLogsOf = new System.Collections.Specialized.StringCollection();
             }
             else
             {
-                foreach (string s in Properties.Settings.Default.KeepLogsOf)
+                foreach (string s in PluginSettings.Instance.KeepLogsOf)
                 {
                     listBox1.Items.Add(s);
                 }
             }
-            if (Properties.Settings.Default.RemoveAllLogsFrom == null)
+            if (PluginSettings.Instance.RemoveAllLogsFrom == null)
             {
-                Properties.Settings.Default.RemoveAllLogsFrom = new System.Collections.Specialized.StringCollection();
+                PluginSettings.Instance.RemoveAllLogsFrom = new System.Collections.Specialized.StringCollection();
             }
             else
             {
-                foreach (string s in Properties.Settings.Default.RemoveAllLogsFrom)
+                foreach (string s in PluginSettings.Instance.RemoveAllLogsFrom)
                 {
                     listBox2.Items.Add(s);
                 }
@@ -67,22 +67,21 @@ namespace GlobalcachingApplication.Plugins.PurgeLogs
 
         private void button5_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.DaysMonthsCount = (int)numericUpDown1.Value;
-            Properties.Settings.Default.DaysMonths = comboBox1.SelectedIndex;
-            Properties.Settings.Default.KeepAtLeast = (int)numericUpDown2.Value;
-            Properties.Settings.Default.KeepAllOfOwned = checkBox1.Checked;
-            Properties.Settings.Default.KeepOwnLogs = checkBox2.Checked;
-            Properties.Settings.Default.KeepLogsOf.Clear();
+            PluginSettings.Instance.DaysMonthsCount = (int)numericUpDown1.Value;
+            PluginSettings.Instance.DaysMonths = comboBox1.SelectedIndex;
+            PluginSettings.Instance.KeepAtLeast = (int)numericUpDown2.Value;
+            PluginSettings.Instance.KeepAllOfOwned = checkBox1.Checked;
+            PluginSettings.Instance.KeepOwnLogs = checkBox2.Checked;
+            PluginSettings.Instance.KeepLogsOf.Clear();
             foreach (string s in listBox1.Items)
             {
-                Properties.Settings.Default.KeepLogsOf.Add(s);
+                PluginSettings.Instance.KeepLogsOf.Add(s);
             }
-            Properties.Settings.Default.RemoveAllLogsFrom.Clear();
+            PluginSettings.Instance.RemoveAllLogsFrom.Clear();
             foreach (string s in listBox2.Items)
             {
-                Properties.Settings.Default.RemoveAllLogsFrom.Add(s);
+                PluginSettings.Instance.RemoveAllLogsFrom.Add(s);
             }
-            Properties.Settings.Default.Save();
             DialogResult = System.Windows.Forms.DialogResult.OK;
             Close();
         }

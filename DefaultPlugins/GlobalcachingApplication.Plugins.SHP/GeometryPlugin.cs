@@ -46,17 +46,11 @@ namespace GlobalcachingApplication.Plugins.SHP
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             bool result = false;
+            var sett = new PluginSettings(core);
 
-            if (Properties.Settings.Default.UpgradeNeeded)
+            if (PluginSettings.Instance.ShapeFiles == null)
             {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
-            if (Properties.Settings.Default.ShapeFiles == null)
-            {
-                Properties.Settings.Default.ShapeFiles = new System.Collections.Specialized.StringCollection();
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.ShapeFiles = new System.Collections.Specialized.StringCollection();
             }
 
             try
@@ -71,10 +65,9 @@ namespace GlobalcachingApplication.Plugins.SHP
                 {
                     System.IO.Directory.CreateDirectory(p);
                 }
-                if (string.IsNullOrEmpty(Properties.Settings.Default.DefaultShapeFilesFolder))
+                if (string.IsNullOrEmpty(PluginSettings.Instance.DefaultShapeFilesFolder))
                 {
-                    Properties.Settings.Default.DefaultShapeFilesFolder = p;
-                    Properties.Settings.Default.Save();
+                    PluginSettings.Instance.DefaultShapeFilesFolder = p;
                 }
             }
             catch

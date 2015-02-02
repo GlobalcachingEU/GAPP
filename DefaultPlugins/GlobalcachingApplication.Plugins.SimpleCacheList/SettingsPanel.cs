@@ -26,15 +26,15 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
         {
             InitializeComponent();
 
-            labelArchivedColor.BackColor = Properties.Settings.Default.BkColorArchived;
-            labelNotAvailable.BackColor = Properties.Settings.Default.BkColorNotAvailable;
-            labelAvailable.BackColor = Properties.Settings.Default.BkColorAvailable;
-            labelFound.BackColor = Properties.Settings.Default.BkColorFound;
-            labelOwn.BackColor = Properties.Settings.Default.BkColorOwned;
-            label12.BackColor = Properties.Settings.Default.BkColorExtraCoord;
-            checkBoxDefferredScrolling.Checked = Properties.Settings.Default.DeferredScrolling;
-            checkBox1.Checked = Properties.Settings.Default.EnableAutomaticSorting;
-            checkBox2.Checked = Properties.Settings.Default.AutoTopPanel;
+            labelArchivedColor.BackColor = PluginSettings.Instance.BkColorArchived;
+            labelNotAvailable.BackColor = PluginSettings.Instance.BkColorNotAvailable;
+            labelAvailable.BackColor = PluginSettings.Instance.BkColorAvailable;
+            labelFound.BackColor = PluginSettings.Instance.BkColorFound;
+            labelOwn.BackColor = PluginSettings.Instance.BkColorOwned;
+            label12.BackColor = PluginSettings.Instance.BkColorExtraCoord;
+            checkBoxDefferredScrolling.Checked = PluginSettings.Instance.DeferredScrolling;
+            checkBox1.Checked = PluginSettings.Instance.EnableAutomaticSorting;
+            checkBox2.Checked = PluginSettings.Instance.AutoTopPanel;
 
             button1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_BACKGROUND);
             button2.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_BACKGROUND);

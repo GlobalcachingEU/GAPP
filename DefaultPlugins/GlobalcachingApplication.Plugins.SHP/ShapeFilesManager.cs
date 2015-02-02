@@ -17,7 +17,7 @@ namespace GlobalcachingApplication.Plugins.SHP
         {
             Clear();
 
-            foreach (string shpFile in Properties.Settings.Default.ShapeFiles)
+            foreach (string shpFile in PluginSettings.Instance.ShapeFiles)
             {
                 //enabled
                 //file name

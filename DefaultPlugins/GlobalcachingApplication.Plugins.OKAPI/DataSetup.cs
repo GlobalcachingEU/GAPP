@@ -33,14 +33,9 @@ namespace GlobalcachingApplication.Plugins.OKAPI
         }
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
-            bool result = await base.InitializeAsync(core);
+            var p = new PluginSettings(core);
 
-            if (Properties.Settings.Default.UpgradeNeeded)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
+            bool result = await base.InitializeAsync(core);
 
             AddAction(ACTION_SETTINGS);
 

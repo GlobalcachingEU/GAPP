@@ -19,21 +19,20 @@ namespace GlobalcachingApplication.Plugins.OKAPI
 
         public override void LoadSettings()
         {
-            Username = Properties.Settings.Default.SiteInfoGermanyUsername ?? "";
-            UserID = Properties.Settings.Default.SiteInfoGermanyUserID ?? "";
-            Token = Properties.Settings.Default.SiteInfoGermanyToken ?? "";
-            TokenSecret = Properties.Settings.Default.SiteInfoGermanyTokenSecret ?? "";
+            Username = PluginSettings.Instance.SiteInfoGermanyUsername ?? "";
+            UserID = PluginSettings.Instance.SiteInfoGermanyUserID ?? "";
+            Token = PluginSettings.Instance.SiteInfoGermanyToken ?? "";
+            TokenSecret = PluginSettings.Instance.SiteInfoGermanyTokenSecret ?? "";
 
             base.LoadSettings();
         }
 
         public override void SaveSettings()
         {
-            Properties.Settings.Default.SiteInfoGermanyUsername = Username;
-            Properties.Settings.Default.SiteInfoGermanyUserID = UserID;
-            Properties.Settings.Default.SiteInfoGermanyToken = Token;
-            Properties.Settings.Default.SiteInfoGermanyTokenSecret = TokenSecret;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.SiteInfoGermanyUsername = Username;
+            PluginSettings.Instance.SiteInfoGermanyUserID = UserID;
+            PluginSettings.Instance.SiteInfoGermanyToken = Token;
+            PluginSettings.Instance.SiteInfoGermanyTokenSecret = TokenSecret;
         }
 
     }

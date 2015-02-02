@@ -40,16 +40,10 @@ namespace GlobalcachingApplication.Plugins.OpenAreas
         {
             InitializeComponent();
 
-            if (Properties.Settings.Default.UpgradeNeeded)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
 
-            if (Properties.Settings.Default.WindowPos != null && !Properties.Settings.Default.WindowPos.IsEmpty)
+            if (PluginSettings.Instance.WindowPos != null && !PluginSettings.Instance.WindowPos.IsEmpty)
             {
-                this.Bounds = Properties.Settings.Default.WindowPos;
+                this.Bounds = PluginSettings.Instance.WindowPos;
                 this.StartPosition = FormStartPosition.Manual;
             }
 
@@ -72,23 +66,23 @@ namespace GlobalcachingApplication.Plugins.OpenAreas
                 _defaultMultipleGeocachejs = textStreamReader.ReadToEnd();
             }
 
-            checkBox3.Checked = Properties.Settings.Default.MysteryOnlyIfCorrected;
-            checkBox2.Checked = Properties.Settings.Default.Waypoints;
-            checkBox4.Checked = Properties.Settings.Default.CustomWaypoints;
-            if (Properties.Settings.Default.CustomWaypointsList == null)
+            checkBox3.Checked = PluginSettings.Instance.MysteryOnlyIfCorrected;
+            checkBox2.Checked = PluginSettings.Instance.Waypoints;
+            checkBox4.Checked = PluginSettings.Instance.CustomWaypoints;
+            if (PluginSettings.Instance.CustomWaypointsList == null)
             {
-                Properties.Settings.Default.CustomWaypointsList = new System.Collections.Specialized.StringCollection();
+                PluginSettings.Instance.CustomWaypointsList = new System.Collections.Specialized.StringCollection();
             }
-            foreach (string s in Properties.Settings.Default.CustomWaypointsList)
+            foreach (string s in PluginSettings.Instance.CustomWaypointsList)
             {
                 listBox1.Items.Add(s);
             }
-            numericUpDown1.Value = Properties.Settings.Default.Radius;
-            numericUpDown2.Value = Properties.Settings.Default.FillOpacity;
-            numericUpDown3.Value = Properties.Settings.Default.StrokeOpacity;
-            label12.BackColor = Properties.Settings.Default.GeocacheColor;
-            label13.BackColor = Properties.Settings.Default.WaypointColor;
-            label16.BackColor = Properties.Settings.Default.CustomColor;
+            numericUpDown1.Value = PluginSettings.Instance.Radius;
+            numericUpDown2.Value = PluginSettings.Instance.FillOpacity;
+            numericUpDown3.Value = PluginSettings.Instance.StrokeOpacity;
+            label12.BackColor = PluginSettings.Instance.GeocacheColor;
+            label13.BackColor = PluginSettings.Instance.WaypointColor;
+            label16.BackColor = PluginSettings.Instance.CustomColor;
 
             SelectedLanguageChanged(this, EventArgs.Empty);
         }
@@ -144,8 +138,7 @@ namespace GlobalcachingApplication.Plugins.OpenAreas
         {
             if (WindowState == FormWindowState.Normal)
             {
-                Properties.Settings.Default.WindowPos = this.Bounds;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.WindowPos = this.Bounds;
             }
         }
 
@@ -153,8 +146,7 @@ namespace GlobalcachingApplication.Plugins.OpenAreas
         {
             if (WindowState == FormWindowState.Normal)
             {
-                Properties.Settings.Default.WindowPos = this.Bounds;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.WindowPos = this.Bounds;
             }
         }
 
@@ -363,8 +355,7 @@ namespace GlobalcachingApplication.Plugins.OpenAreas
         {
             if (listBox1.SelectedIndex >= 0)
             {
-                Properties.Settings.Default.CustomWaypointsList.Remove(listBox1.Items[listBox1.SelectedIndex].ToString());
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.CustomWaypointsList.Remove(listBox1.Items[listBox1.SelectedIndex].ToString());
                 listBox1.Items.RemoveAt(listBox1.SelectedIndex);
             }
         }
@@ -377,46 +368,39 @@ namespace GlobalcachingApplication.Plugins.OpenAreas
                 {
                     string s = Utils.Conversion.GetCoordinatesPresentation(dlg.Result.Lat, dlg.Result.Lon);
                     listBox1.Items.Add(s);
-                    Properties.Settings.Default.CustomWaypointsList.Add(s);
-                    Properties.Settings.Default.Save();
+                    PluginSettings.Instance.CustomWaypointsList.Add(s);
                 }
             }
         }
 
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.MysteryOnlyIfCorrected = checkBox3.Checked;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.MysteryOnlyIfCorrected = checkBox3.Checked;
         }
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.Waypoints = checkBox2.Checked;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.Waypoints = checkBox2.Checked;
         }
 
         private void checkBox4_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.CustomWaypoints = checkBox4.Checked;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.CustomWaypoints = checkBox4.Checked;
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.Radius = (int)numericUpDown1.Value;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.Radius = (int)numericUpDown1.Value;
         }
 
         private void numericUpDown2_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.FillOpacity = (int)numericUpDown2.Value;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.FillOpacity = (int)numericUpDown2.Value;
         }
 
         private void numericUpDown3_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.StrokeOpacity = (int)numericUpDown3.Value;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.StrokeOpacity = (int)numericUpDown3.Value;
         }
 
         private void label12_Click(object sender, EventArgs e)
@@ -425,8 +409,7 @@ namespace GlobalcachingApplication.Plugins.OpenAreas
             if (colorDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 label12.BackColor = colorDialog1.Color;
-                Properties.Settings.Default.GeocacheColor = colorDialog1.Color;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.GeocacheColor = colorDialog1.Color;
             }
         }
 
@@ -436,8 +419,7 @@ namespace GlobalcachingApplication.Plugins.OpenAreas
             if (colorDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 label13.BackColor = colorDialog1.Color;
-                Properties.Settings.Default.WaypointColor = colorDialog1.Color;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.WaypointColor = colorDialog1.Color;
             }
         }
 
@@ -447,8 +429,7 @@ namespace GlobalcachingApplication.Plugins.OpenAreas
             if (colorDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 label16.BackColor = colorDialog1.Color;
-                Properties.Settings.Default.CustomColor = colorDialog1.Color;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.CustomColor = colorDialog1.Color;
             }
         }
 

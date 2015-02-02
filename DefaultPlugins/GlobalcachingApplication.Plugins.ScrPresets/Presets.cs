@@ -20,6 +20,8 @@ namespace GlobalcachingApplication.Plugins.ScrPresets
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            var p = new PluginSettings(core);
+
             AddAction(ACTION_SAVECURRENT);
             AddAction(ACTION_SEP);
             AddAction(ACTION_SPLITSCREEN);
@@ -30,13 +32,6 @@ namespace GlobalcachingApplication.Plugins.ScrPresets
 
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_DELETE));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_PRESETS));
-
-            if (Properties.Settings.Default.UpgradeNeeded)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
 
             try
             {
@@ -160,17 +155,16 @@ namespace GlobalcachingApplication.Plugins.ScrPresets
         public async override Task ApplicationInitializedAsync()
         {
             await base.ApplicationInitializedAsync();
-            if (Properties.Settings.Default.FirstUse)
+            if (PluginSettings.Instance.FirstUse)
             {
-                Properties.Settings.Default.FirstUse = false;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.FirstUse = false;
 
-                Form main = (from Framework.Interfaces.IPluginUIMainWindow a in Core.GetPlugin(Framework.PluginType.UIMainWindow) select a.MainForm).FirstOrDefault();
-                if (main != null)
-                {
-                    main.WindowState = FormWindowState.Maximized;
-                    splitScreen();
-                }
+                //Form main = (from Framework.Interfaces.IPluginUIMainWindow a in Core.GetPlugin(Framework.PluginType.UIMainWindow) select a.MainForm).FirstOrDefault();
+                //if (main != null)
+                //{
+                //    main.WindowState = FormWindowState.Maximized;
+                //    await splitScreen();
+                //}
             }
         }
 

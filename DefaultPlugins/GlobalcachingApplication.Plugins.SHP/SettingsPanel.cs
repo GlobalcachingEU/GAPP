@@ -64,7 +64,7 @@ namespace GlobalcachingApplication.Plugins.SHP
             listView1.Columns[4].Text = Utils.LanguageSupport.Instance.GetTranslation(STR_NAMEPREFIX);
             listView1.Columns[5].Text = Utils.LanguageSupport.Instance.GetTranslation(STR_ENCODING);
 
-            foreach (string s in Properties.Settings.Default.ShapeFiles)
+            foreach (string s in PluginSettings.Instance.ShapeFiles)
             {
                 string[] parts = s.Split(new char[] { '|' }, 7).ToArray();
                 ListViewItem lvi = new ListViewItem(parts.Skip(1).ToArray());
@@ -78,7 +78,7 @@ namespace GlobalcachingApplication.Plugins.SHP
 
             try
             {
-                openFileDialog1.InitialDirectory = Properties.Settings.Default.DefaultShapeFilesFolder;
+                openFileDialog1.InitialDirectory = PluginSettings.Instance.DefaultShapeFilesFolder;
             }
             catch
             {
@@ -92,7 +92,7 @@ namespace GlobalcachingApplication.Plugins.SHP
 
         public void Apply()
         {
-            Properties.Settings.Default.ShapeFiles.Clear();
+            PluginSettings.Instance.ShapeFiles.Clear();
             foreach (ListViewItem lvi in listView1.Items)
             {
                 string s = lvi.Checked.ToString();
@@ -109,9 +109,8 @@ namespace GlobalcachingApplication.Plugins.SHP
                 {
                     s = string.Concat(s, "|");
                 }
-                Properties.Settings.Default.ShapeFiles.Add(s);
+                PluginSettings.Instance.ShapeFiles.Add(s);
             }
-            Properties.Settings.Default.Save();
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -59,9 +59,9 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
             _ownBrush = new SolidColorBrush(Colors.White);
             _extrCoordBrush = new SolidColorBrush(Colors.White);
 
-            if (Properties.Settings.Default.SortOnColumnIndex >= 0 && Properties.Settings.Default.SortOnColumnIndex < cacheList.Columns.Count)
+            if (PluginSettings.Instance.SortOnColumnIndex >= 0 && PluginSettings.Instance.SortOnColumnIndex < cacheList.Columns.Count)
             {
-                this.cacheList.Columns[Properties.Settings.Default.SortOnColumnIndex].SortDirection = Properties.Settings.Default.SortDirection == 0 ? ListSortDirection.Ascending : ListSortDirection.Descending;
+                this.cacheList.Columns[PluginSettings.Instance.SortOnColumnIndex].SortDirection = PluginSettings.Instance.SortDirection == 0 ? ListSortDirection.Ascending : ListSortDirection.Descending;
             }
         }
 
@@ -70,44 +70,44 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
             _archivedBrush = new SolidColorBrush(new System.Windows.Media.Color()
             {
                 A = 255,
-                R = Properties.Settings.Default.BkColorArchived.R,
-                G = Properties.Settings.Default.BkColorArchived.G,
-                B = Properties.Settings.Default.BkColorArchived.B
+                R = PluginSettings.Instance.BkColorArchived.R,
+                G = PluginSettings.Instance.BkColorArchived.G,
+                B = PluginSettings.Instance.BkColorArchived.B
             });
             _availableBrush = new SolidColorBrush(new System.Windows.Media.Color()
             {
                 A = 255,
-                R = Properties.Settings.Default.BkColorAvailable.R,
-                G = Properties.Settings.Default.BkColorAvailable.G,
-                B = Properties.Settings.Default.BkColorAvailable.B
+                R = PluginSettings.Instance.BkColorAvailable.R,
+                G = PluginSettings.Instance.BkColorAvailable.G,
+                B = PluginSettings.Instance.BkColorAvailable.B
             });
             _notAvailableBrush = new SolidColorBrush(new System.Windows.Media.Color()
             {
                 A = 255,
-                R = Properties.Settings.Default.BkColorNotAvailable.R,
-                G = Properties.Settings.Default.BkColorNotAvailable.G,
-                B = Properties.Settings.Default.BkColorNotAvailable.B
+                R = PluginSettings.Instance.BkColorNotAvailable.R,
+                G = PluginSettings.Instance.BkColorNotAvailable.G,
+                B = PluginSettings.Instance.BkColorNotAvailable.B
             });
             _foundBrush = new SolidColorBrush(new System.Windows.Media.Color()
             {
                 A = 255,
-                R = Properties.Settings.Default.BkColorFound.R,
-                G = Properties.Settings.Default.BkColorFound.G,
-                B = Properties.Settings.Default.BkColorFound.B
+                R = PluginSettings.Instance.BkColorFound.R,
+                G = PluginSettings.Instance.BkColorFound.G,
+                B = PluginSettings.Instance.BkColorFound.B
             });
             _ownBrush = new SolidColorBrush(new System.Windows.Media.Color()
             {
                 A = 255,
-                R = Properties.Settings.Default.BkColorOwned.R,
-                G = Properties.Settings.Default.BkColorOwned.G,
-                B = Properties.Settings.Default.BkColorOwned.B
+                R = PluginSettings.Instance.BkColorOwned.R,
+                G = PluginSettings.Instance.BkColorOwned.G,
+                B = PluginSettings.Instance.BkColorOwned.B
             });
             _extrCoordBrush = new SolidColorBrush(new System.Windows.Media.Color()
             {
                 A = 255,
-                R = Properties.Settings.Default.BkColorExtraCoord.R,
-                G = Properties.Settings.Default.BkColorExtraCoord.G,
-                B = Properties.Settings.Default.BkColorExtraCoord.B
+                R = PluginSettings.Instance.BkColorExtraCoord.R,
+                G = PluginSettings.Instance.BkColorExtraCoord.G,
+                B = PluginSettings.Instance.BkColorExtraCoord.B
             });
             //cacheList.ScrollM
         }
@@ -173,7 +173,7 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
                 {
                     UpdateListFilter(false);
                 }
-                if (Properties.Settings.Default.EnableAutomaticSorting)
+                if (PluginSettings.Instance.EnableAutomaticSorting)
                 {
                     DataGridUtil.RestoreSorting(sort, cacheList);
                 }
@@ -270,8 +270,7 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
             {
                 sb.AppendFormat("{0}|", cacheList.Columns[i].DisplayIndex);
             }
-            Properties.Settings.Default.ColumnOrder = sb.ToString();
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.ColumnOrder = sb.ToString();
         }
 
         private void cacheList_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -337,11 +336,11 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
         {
             if (sortDescription.SortDescription != null && sortDescription.SortDescription.Count == 0)
             {
-                if (Properties.Settings.Default.EnableAutomaticSorting)
+                if (PluginSettings.Instance.EnableAutomaticSorting)
                 {
-                    if (Properties.Settings.Default.SortOnColumnIndex >= 0 && Properties.Settings.Default.SortOnColumnIndex < grid.Columns.Count)
+                    if (PluginSettings.Instance.SortOnColumnIndex >= 0 && PluginSettings.Instance.SortOnColumnIndex < grid.Columns.Count)
                     {
-                        SortDescription sd = new SortDescription(grid.Columns[Properties.Settings.Default.SortOnColumnIndex].SortMemberPath, Properties.Settings.Default.SortDirection == 0 ? ListSortDirection.Ascending : ListSortDirection.Descending);
+                        SortDescription sd = new SortDescription(grid.Columns[PluginSettings.Instance.SortOnColumnIndex].SortMemberPath, PluginSettings.Instance.SortDirection == 0 ? ListSortDirection.Ascending : ListSortDirection.Descending);
                         sortDescription.SortDescription.Add(sd);
                     }
                 }
