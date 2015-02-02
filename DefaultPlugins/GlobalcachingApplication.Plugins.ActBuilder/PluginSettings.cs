@@ -24,6 +24,12 @@ namespace GlobalcachingApplication.Plugins.ActBuilder
             get { return _uniqueInstance; }
         }
 
+        public string FreeFlows
+        {
+            get { return _core.SettingsProvider.GetSettingsValue("ActBuilder.FreeFlows", null); }
+            set { _core.SettingsProvider.SetSettingsValue("ActBuilder.FreeFlows", value); }
+        }
+
         public Rectangle WindowPos
         {
             get { return _core.SettingsProvider.GetSettingsValueRectangle("ActBuilder.WindowPos", Rectangle.Empty); }

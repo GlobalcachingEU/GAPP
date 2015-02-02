@@ -50,7 +50,6 @@ namespace GlobalcachingApplication.Plugins.ActBuilder
         private List<ActionFlow> _actionFlows = new List<ActionFlow>();
         private ActionFlow _activeFlow = null;
         private bool _sizeInitializing = true;
-        private string _flowsFileName = null;
         private Label _executeOnceLabel = null;
         private object _clickedObject = null;
 
@@ -75,7 +74,6 @@ namespace GlobalcachingApplication.Plugins.ActBuilder
 
             actionBuilderEditor1.ShowConnectionLabels(PluginSettings.Instance.ShowConnectionLabel);
 
-            _flowsFileName = System.IO.Path.Combine(new string[] { core.PluginDataPath, "FreeFlows.xml" });
             loadFlowsFile();
 
             splitContainer1.SplitterDistance = PluginSettings.Instance.LeftPanelWidth;
@@ -437,10 +435,10 @@ namespace GlobalcachingApplication.Plugins.ActBuilder
             //_flowsFileName
             try
             {
-                if (System.IO.File.Exists(_flowsFileName))
+                if (!string.IsNullOrEmpty(PluginSettings.Instance.FreeFlows))
                 {
                     XmlDocument doc = new XmlDocument();
-                    doc.Load(_flowsFileName);
+                    doc.LoadXml(PluginSettings.Instance.FreeFlows);
                     _actionFlows = GetActionFlowsFromXml(doc);
                     foreach (var af in _actionFlows)
                     {
@@ -830,7 +828,7 @@ namespace GlobalcachingApplication.Plugins.ActBuilder
             {
                 try
                 {
-                    doc.Save(_flowsFileName);
+                    PluginSettings.Instance.FreeFlows = doc.OuterXml;
                 }
                 catch (Exception ex)
                 {
