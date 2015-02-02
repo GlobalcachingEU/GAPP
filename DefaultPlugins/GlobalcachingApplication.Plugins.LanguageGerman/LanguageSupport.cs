@@ -15,7 +15,6 @@ namespace GlobalcachingApplication.Plugins.LanguageGerman
     {
         private Hashtable _fixedLookupTable = new Hashtable();
         private Hashtable _customLookupTable = new Hashtable();
-        private string _customDictionaryDatabaseFile = "";
         public class DictionaryItem
         {
             public string Key { get; private set; }
@@ -28,11 +27,15 @@ namespace GlobalcachingApplication.Plugins.LanguageGerman
             }
         }
 
+        public class DictionaryPoco
+        {
+            public string item_name { get; set; }
+            public string item_value { get; set; }
+        }
+
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             bool result = false;
-
-            _customDictionaryDatabaseFile = System.IO.Path.Combine(core.PluginDataPath, "LanguageGerman.db3" );
 
             if (await base.InitializeAsync(core))
             {
@@ -41,19 +44,6 @@ namespace GlobalcachingApplication.Plugins.LanguageGerman
                 li.CultureInfo = new System.Globalization.CultureInfo(0x0407);
                 li.Action = li.CultureInfo.NativeName;
                 SupportedLanguages.Add(li);
-
-                try
-                {
-                    string fld = System.IO.Path.GetDirectoryName(_customDictionaryDatabaseFile);
-                    if (!System.IO.Directory.Exists(fld))
-                    {
-                        System.IO.Directory.CreateDirectory(fld);
-                    }
-                }
-                catch
-                {
-                }
-
 
                 initDatabase();
 
@@ -95,17 +85,16 @@ namespace GlobalcachingApplication.Plugins.LanguageGerman
 
             try
             {
-                using (Utils.DBCon dbcon = new Utils.DBConComSqlite(_customDictionaryDatabaseFile))
+                lock (Core.SettingsProvider)
                 {
-                    object o = dbcon.ExecuteScalar("SELECT name FROM sqlite_master WHERE type='table' AND name='translation'");
-                    if (o == null || o.GetType() == typeof(DBNull))
+                    if (!Core.SettingsProvider.TableExists(Core.SettingsProvider.GetFullTableName("translation_de")))
                     {
-                        dbcon.ExecuteNonQuery("create table 'translation' (item_name text, item_value text)");
+                        Core.SettingsProvider.Database.Execute(string.Format("create table '{0}' (item_name text, item_value text)", Core.SettingsProvider.GetFullTableName("translation_de")));
                     }
-                    DbDataReader dr = dbcon.ExecuteReader("select * from translation");
-                    while (dr.Read())
+                    List<DictionaryPoco> pocos = Core.SettingsProvider.Database.Fetch<DictionaryPoco>(string.Format("select * from {0}", Core.SettingsProvider.GetFullTableName("translation_de")));
+                    foreach (var item in pocos)
                     {
-                        _customLookupTable[dr["item_name"].ToString().ToLower()] = dr["item_value"].ToString();
+                        _customLookupTable[item.item_name.ToLower()] = item.item_value;
                     }
                 }
             }
@@ -147,28 +136,28 @@ namespace GlobalcachingApplication.Plugins.LanguageGerman
                     try
                     {
                         bool changed = false;
-                        using (Utils.DBCon dbcon = new Utils.DBConComSqlite(_customDictionaryDatabaseFile))
+                        lock (Core.SettingsProvider)
                         {
                             foreach (DictionaryItem di in dict)
                             {
                                 string s = _fixedLookupTable[di.Key.ToLower()] as string;
                                 string cs = _customLookupTable[di.Key.ToLower()] as string;
-                                if (string.IsNullOrEmpty(di.Value) || di.Value==s)
+                                if (string.IsNullOrEmpty(di.Value) || di.Value == s)
                                 {
                                     //remove from custom
                                     if (!string.IsNullOrEmpty(cs))
                                     {
-                                        dbcon.ExecuteNonQuery(string.Format("delete from translation where item_name='{0}'", di.Key.ToLower().Replace("'", "''")));
+                                        Core.SettingsProvider.Database.Execute(string.Format("delete from {0} where item_name='{1}'", Core.SettingsProvider.GetFullTableName("translation_de"), di.Key.ToLower().Replace("'", "''")));
                                         _customLookupTable.Remove(di.Key.ToLower());
                                         changed = true;
                                     }
                                 }
-                                else if (di.Value!=s && di.Value!=cs)
+                                else if (di.Value != s && di.Value != cs)
                                 {
                                     _customLookupTable[di.Key.ToLower()] = di.Value;
-                                    if (dbcon.ExecuteNonQuery(string.Format("update translation set item_value='{1}' where item_name='{0}'", di.Key.ToLower().Replace("'", "''"), di.Value.Replace("'", "''"))) == 0)
+                                    if (Core.SettingsProvider.Database.Execute(string.Format("update {2} set item_value='{1}' where item_name='{0}'", di.Key.ToLower().Replace("'", "''"), di.Value.Replace("'", "''"), Core.SettingsProvider.GetFullTableName("translation_de"))) == 0)
                                     {
-                                        dbcon.ExecuteNonQuery(string.Format("insert into translation (item_name, item_value) values ('{0}', '{1}')", di.Key.ToLower().Replace("'", "''"), di.Value.Replace("'", "''")));
+                                        Core.SettingsProvider.Database.Execute(string.Format("insert into {2} (item_name, item_value) values ('{0}', '{1}')", di.Key.ToLower().Replace("'", "''"), di.Value.Replace("'", "''"), Core.SettingsProvider.GetFullTableName("translation_de")));
                                     }
                                     changed = true;
                                 }

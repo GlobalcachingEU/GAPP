@@ -144,6 +144,11 @@ namespace GlobalcachingApplication.Core
             }
         }
 
+        public string GetFullTableName(string tableName)
+        {
+            return string.Format("plugin_{0}_{1}", _scope.ID, tableName);
+        }
+
         public bool TableExists(string tableName)
         {
             bool result = false;
@@ -231,6 +236,12 @@ namespace GlobalcachingApplication.Core
                 var scope = _database.FirstOrDefault<SettingsScope>("where Name=@0", name);
                 if (scope != null && scope.ID != _scope.ID)
                 {
+                    List<string> pitl = _database.Fetch<string>(string.Format("SELECT name FROM sqlite_master WHERE type='table' AND name like 'plugin_{0}_%'", _scope.ID));
+                    foreach (var s in pitl)
+                    {
+                        _database.Execute(string.Format("drop table '{0}'", s));
+                    }
+
                     if (TableExists(string.Format("Settings_{0}", scope.ID)))
                     {
                         _database.Execute(string.Format("drop table 'Settings_{0}'", scope.ID));

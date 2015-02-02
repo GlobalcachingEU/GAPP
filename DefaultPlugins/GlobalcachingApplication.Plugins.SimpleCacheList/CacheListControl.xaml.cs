@@ -224,10 +224,10 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
                 {
                     e.Row.Background = _archivedBrush;
                 }
-                else if (item.ContainsCustomLatLon)
-                {
-                    e.Row.Background = _extrCoordBrush;
-                }
+                //else if (item.ContainsCustomLatLon)
+                //{
+                //    e.Row.Background = _extrCoordBrush;
+                //}
                 else if (!item.Available)
                 {
                     e.Row.Background = _notAvailableBrush;

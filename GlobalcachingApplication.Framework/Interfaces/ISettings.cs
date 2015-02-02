@@ -15,6 +15,8 @@ namespace GlobalcachingApplication.Framework.Interfaces
         string GetSettingsScope();
         List<string> GetSettingsScopes();
 
+        string GetFullTableName(string tableName);
+
         void SetScopelessSettingsValue(string name, string value);
         string GetScopelessSettingsValue(string name, string defaultValue);
 
