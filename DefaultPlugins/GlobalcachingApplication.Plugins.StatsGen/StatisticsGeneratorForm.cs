@@ -66,13 +66,6 @@ namespace GlobalcachingApplication.Plugins.StatsGen
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_DELETE));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_SKIN));
 
-            if (Properties.Settings.Default.UpgradeNeeded)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
-
             try
             {
                 _databaseFile = System.IO.Path.Combine(new string[] { core.PluginDataPath, "StatsGen.db3" });
@@ -81,9 +74,9 @@ namespace GlobalcachingApplication.Plugins.StatsGen
             {
             }
 
-            if (Properties.Settings.Default.WindowPos != null && !Properties.Settings.Default.WindowPos.IsEmpty)
+            if (PluginSettings.Instance.WindowPos != null && !PluginSettings.Instance.WindowPos.IsEmpty)
             {
-                this.Bounds = Properties.Settings.Default.WindowPos;
+                this.Bounds = PluginSettings.Instance.WindowPos;
                 this.StartPosition = FormStartPosition.Manual;
             }
 
@@ -211,8 +204,7 @@ namespace GlobalcachingApplication.Plugins.StatsGen
         {
             if (WindowState == FormWindowState.Normal)
             {
-                Properties.Settings.Default.WindowPos = this.Bounds;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.WindowPos = this.Bounds;
             }
         }
 
@@ -220,8 +212,7 @@ namespace GlobalcachingApplication.Plugins.StatsGen
         {
             if (WindowState == FormWindowState.Normal)
             {
-                Properties.Settings.Default.WindowPos = this.Bounds;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.WindowPos = this.Bounds;
             }
         }
 

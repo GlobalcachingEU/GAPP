@@ -12,12 +12,7 @@ namespace GlobalcachingApplication.Plugins.Startup
     {
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
-            if (Properties.Settings.Default.UpgradeNeeded)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
+            var p = new PluginSettings(core);
 
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_INFO));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_SORT));
@@ -70,11 +65,11 @@ namespace GlobalcachingApplication.Plugins.Startup
                 context = new SynchronizationContext();
             }
 
-            if (Properties.Settings.Default.Startup != null && Properties.Settings.Default.Startup.Count>0)
+            if (PluginSettings.Instance.Startup != null && PluginSettings.Instance.Startup.Count>0)
             {
                 context.Post(new SendOrPostCallback(async delegate(object state)
                 {
-                    foreach (string s in Properties.Settings.Default.Startup)
+                    foreach (string s in PluginSettings.Instance.Startup)
                     {
                         string[] parts = s.Split(new char[] { '@' }, 2);
                         Framework.Interfaces.IPlugin p = Utils.PluginSupport.PluginByName(Core, parts[0]);

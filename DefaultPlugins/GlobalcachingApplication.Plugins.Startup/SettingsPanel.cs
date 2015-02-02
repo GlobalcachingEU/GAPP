@@ -30,8 +30,7 @@ namespace GlobalcachingApplication.Plugins.Startup
                     sc.Add(lvi.Tag as string);
                 }
             }
-            Properties.Settings.Default.Startup = sc;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.Startup = sc;
         }
 
         public SettingsPanel(Framework.Interfaces.ICore core)
@@ -41,9 +40,9 @@ namespace GlobalcachingApplication.Plugins.Startup
             this.buttonSort.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_SORT);
 
             //first the selected
-            if (Properties.Settings.Default.Startup != null && Properties.Settings.Default.Startup.Count > 0)
+            if (PluginSettings.Instance.Startup != null && PluginSettings.Instance.Startup.Count > 0)
             {
-                foreach (string s in Properties.Settings.Default.Startup)
+                foreach (string s in PluginSettings.Instance.Startup)
                 {
                     string[] parts = s.Split(new char[] { '@' }, 2);
                     Framework.Interfaces.IPlugin p = Utils.PluginSupport.PluginByName(core, parts[0]);
@@ -69,7 +68,7 @@ namespace GlobalcachingApplication.Plugins.Startup
                 foreach (string act in actions)
                 {
                     string stag = string.Format("{0}@{1}", p.GetType(), act);
-                    if ((Properties.Settings.Default.Startup == null || !Properties.Settings.Default.Startup.Contains(stag)))
+                    if ((PluginSettings.Instance.Startup == null || !PluginSettings.Instance.Startup.Contains(stag)))
                     {
                         string[] parts = act.Split(new char[] { '@' });
                         ListViewItem lvi = new ListViewItem(new string[] { p.GetType().ToString(), Utils.LanguageSupport.Instance.GetTranslation(parts[0]), parts.Length == 1 ? "" : Utils.LanguageSupport.Instance.GetTranslation(parts[1]), "" });

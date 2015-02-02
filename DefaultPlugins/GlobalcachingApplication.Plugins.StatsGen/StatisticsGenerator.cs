@@ -13,6 +13,8 @@ namespace GlobalcachingApplication.Plugins.StatsGen
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            var p = new PluginSettings(core);
+
             AddAction(ACTION_SHOW);
 
             return await base.InitializeAsync(core);

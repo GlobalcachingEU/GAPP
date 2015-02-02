@@ -13,14 +13,9 @@ namespace GlobalcachingApplication.Plugins.TrkGroup
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
-            AddAction(ACTION_SHOW);
+            var p = new PluginSettings(core);
 
-            if (Properties.Settings.Default.UpgradeNeeded)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
+            AddAction(ACTION_SHOW);
 
             return await base.InitializeAsync(core);
         }

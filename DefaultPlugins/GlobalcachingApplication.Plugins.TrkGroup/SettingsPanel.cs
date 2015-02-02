@@ -17,13 +17,12 @@ namespace GlobalcachingApplication.Plugins.TrkGroup
         {
             InitializeComponent();
             this.label1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_DELAY);
-            this.numericUpDown1.Value = Properties.Settings.Default.TimeBetweenTrackableUpdates;
+            this.numericUpDown1.Value = PluginSettings.Instance.TimeBetweenTrackableUpdates;
         }
 
         public void Apply()
         {
-            Properties.Settings.Default.TimeBetweenTrackableUpdates = (int)this.numericUpDown1.Value;
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.TimeBetweenTrackableUpdates = (int)this.numericUpDown1.Value;
         }
     }
 }

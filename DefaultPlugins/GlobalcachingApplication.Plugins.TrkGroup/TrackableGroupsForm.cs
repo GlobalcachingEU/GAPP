@@ -1015,7 +1015,7 @@ namespace GlobalcachingApplication.Plugins.TrkGroup
                                                             {
                                                                 break;
                                                             }
-                                                            Thread.Sleep(2000 + Properties.Settings.Default.TimeBetweenTrackableUpdates);
+                                                            Thread.Sleep(2000 + PluginSettings.Instance.TimeBetweenTrackableUpdates);
                                                         }
                                                         else
                                                         {
@@ -1055,9 +1055,9 @@ namespace GlobalcachingApplication.Plugins.TrkGroup
                             {
                                 break;
                             }
-                            if (Properties.Settings.Default.TimeBetweenTrackableUpdates > 0)
+                            if (PluginSettings.Instance.TimeBetweenTrackableUpdates > 0)
                             {
-                                System.Threading.Thread.Sleep(Properties.Settings.Default.TimeBetweenTrackableUpdates);
+                                System.Threading.Thread.Sleep(PluginSettings.Instance.TimeBetweenTrackableUpdates);
                             }
                         }
                     }
@@ -1071,12 +1071,11 @@ namespace GlobalcachingApplication.Plugins.TrkGroup
 
         private void TrackableGroupsForm_Shown(object sender, EventArgs e)
         {
-            Properties.Settings.Default.DatabaseFileName = System.IO.Path.Combine(Core.PluginDataPath, "TrkGroup.db3" );
-            Properties.Settings.Default.Save();
+            PluginSettings.Instance.DatabaseFileName = System.IO.Path.Combine(Core.PluginDataPath, "TrkGroup.db3" );
 
             try
             {
-                _dbcon = new Utils.DBConComSqlite(Properties.Settings.Default.DatabaseFileName);
+                _dbcon = new Utils.DBConComSqlite(PluginSettings.Instance.DatabaseFileName);
                 initDatabase(_dbcon);
                 DbDataReader dr = _dbcon.ExecuteReader("select * from groups");
                 while (dr.Read())
