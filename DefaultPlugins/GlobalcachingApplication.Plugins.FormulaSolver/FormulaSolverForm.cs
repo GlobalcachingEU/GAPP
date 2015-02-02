@@ -5,15 +5,13 @@ using System.Text;
 using System.Reflection;
 using System.ComponentModel;
 using System.Data.Common;
+using GlobalcachingApplication.Framework.Interfaces;
 
 namespace GlobalcachingApplication.Plugins.FormulaSolver
 {
     public partial class FormulaSolverForm : Utils.BasePlugin.BaseUIChildWindowForm, INotifyPropertyChanged, ITempDirProvider
     {
-        private FormulaSolver formulaSolver;
         private FormulaInterpreter.FormulaInterpreter interpreter;
-        private string _databaseFile = null;
-        private Utils.DBCon _dbcon = null;
 
         private string _activeCode = null;
         public string activeCode
@@ -69,6 +67,12 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
             return dir;
         }
 
+        public class FormulaPoco
+        {
+            public string formula { get; set; }
+            public string code { get; set; }
+        }
+
         public FormulaSolverForm()
         {
             InitializeComponent();
@@ -87,7 +91,6 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
                 this.StartPosition = FormStartPosition.Manual;
             }
 
-            _databaseFile = System.IO.Path.Combine(core.PluginDataPath, "formulaSolver.db3");
             core.ActiveGeocacheChanged += new Framework.EventArguments.GeocacheEventHandler(core_ActiveGeocacheChanged);
             
             formulaSolverFormBindingSource.Add(this);
@@ -140,80 +143,64 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
 
         private void LoadFormula()
         {
-            if (initDatabase() != null)
+            string cacheName = (activeCode != null) ? activeCode : "NOTES";
+            try
             {
-                string cacheName = (activeCode != null) ? activeCode : "NOTES";
-                try
+                lock (Core.SettingsProvider)
                 {
-                    string cmd = string.Format("SELECT formula FROM formulas WHERE code='{0}'", cacheName.Replace("'", "''"));
-                    using (DbDataReader dr = _dbcon.ExecuteReader(cmd))
+                    FormulaPoco poco = Core.SettingsProvider.Database.FirstOrDefault<FormulaPoco>(string.Format("select * from {0} where code=@0", Core.SettingsProvider.GetFullTableName("formulas")), cacheName);
+                    if (poco!=null)
                     {
-                        if (dr.Read())
-                        {
-                            UTF8Encoding enc = new UTF8Encoding();
-                            string encoded = dr["formula"] as string;
-                            byte[] decoded = Convert.FromBase64String(encoded);
-                            string formula = enc.GetString(decoded);
-                            tbFormula.Text = formula;
-                        }
+                        UTF8Encoding enc = new UTF8Encoding();
+                        byte[] decoded = Convert.FromBase64String(poco.formula);
+                        string formula = enc.GetString(decoded);
+                        tbFormula.Text = formula;
                     }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
-        private Utils.DBCon initDatabase()
+        public static void InitDatabase(ICore core)
         {
-            if (_dbcon == null)
+            lock (core.SettingsProvider)
             {
-                try
+                if (!core.SettingsProvider.TableExists(core.SettingsProvider.GetFullTableName("formulas")))
                 {
-                    _dbcon = new Utils.DBConComSqlite(_databaseFile);
-                    object o = _dbcon.ExecuteScalar("SELECT name FROM sqlite_master WHERE type='table' AND name='formulas'");
-                    if (o == null || o.GetType() == typeof(DBNull))
-                    {
-                        _dbcon.ExecuteNonQuery("create table 'formulas' (code text, formula text)");
-                        _dbcon.ExecuteNonQuery("create unique index idx_formulas on formulas (code)");
-                    }
-                }
-                catch
-                {
-                    _dbcon = null;
+                    core.SettingsProvider.Database.Execute(string.Format("create table '{0}' (code text, formula text)", core.SettingsProvider.GetFullTableName("formulas")));
                 }
             }
-            return _dbcon;
         }
 
         private void StoreFormula()
         {
-            if (initDatabase() != null)
+            string cacheName = (activeCode != null) ? activeCode : "NOTES";
+            UTF8Encoding enc = new UTF8Encoding();
+            try
             {
-                string cacheName = (activeCode != null) ? activeCode : "NOTES";
-                UTF8Encoding enc = new UTF8Encoding();
-                try
+                lock (Core.SettingsProvider)
                 {
-                    int count = Convert.ToInt32(
-                        _dbcon.ExecuteScalar(
-                            string.Format("SELECT COUNT() FROM formulas WHERE code='{0}'", cacheName)).ToString());
+                    FormulaPoco poco = Core.SettingsProvider.Database.FirstOrDefault<FormulaPoco>(string.Format("select * from {0} where code=@0", Core.SettingsProvider.GetFullTableName("formulas")), cacheName);
 
                     byte[] decoded = enc.GetBytes(tbFormula.Text);
                     string encoded = Convert.ToBase64String(decoded);
-                    string fmt = "DELETE FROM formulas WHERE code='{0}'";
-                    if (tbFormula.Text.Length > 0) {
-                        fmt = (count > 0)
-                            ? "UPDATE formulas SET formula='{1}' WHERE code='{0}'"
-                            : "INSERT INTO formulas (code, formula) VALUES('{0}', '{1}')";
+                    string fmt = "DELETE FROM {2} WHERE code='{0}'";
+                    if (tbFormula.Text.Length > 0)
+                    {
+                        fmt = (poco != null)
+                            ? "UPDATE {2} SET formula='{1}' WHERE code='{0}'"
+                            : "INSERT INTO {2} (code, formula) VALUES('{0}', '{1}')";
                     }
-                    string cmd = string.Format(fmt, cacheName, encoded);
-                    _dbcon.ExecuteNonQuery(cmd);
+                    string cmd = string.Format(fmt, cacheName, encoded, Core.SettingsProvider.GetFullTableName("formulas"));
+                    Core.SettingsProvider.Database.Execute(cmd);
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
         

@@ -222,7 +222,6 @@
     <EmbeddedResource Include="WaypointSelectorForm.resx">
       <DependentUpon>WaypointSelectorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="app.config" />
     <EmbeddedResource Include="Grammar\SingleLineFormula.egt" />
     <None Include="Grammar\SingleLineFormula.grm" />
     <None Include="Properties\DataSources\FormulaSolverForm.datasource" />

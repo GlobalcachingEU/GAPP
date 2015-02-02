@@ -97,7 +97,63 @@ namespace GlobalcachingApplication.Core
                 Directory.CreateDirectory(p);
             }
             string fn = System.IO.Path.Combine(p, "settings.db3");
-            _database = new PetaPoco.Database(string.Format("data source=file:{0}", fn), Community.CsharpSqlite.SQLiteClient.SqliteClientFactory.Instance);
+
+            //create backup first
+            List<string> availableBackups = new List<string>();
+            if (File.Exists(fn))
+            {
+                File.Copy(fn, string.Format("{0}.{1}.bak", fn, DateTime.Now.ToString("yyyyMMddHHmmss")));
+
+                //keep maximum of X backups
+                availableBackups = Directory.GetFiles(p, "settings.db3.*.bak").OrderBy(x => x).ToList();
+                while (availableBackups.Count > 20)
+                {
+                    File.Delete(availableBackups[0]);
+                    availableBackups.RemoveAt(0);
+                }
+            }
+
+            bool dbOK;
+            bool backupUsed = false;
+            do
+            {
+                try
+                {
+                    _database = new PetaPoco.Database(string.Format("data source=file:{0}", fn), Community.CsharpSqlite.SQLiteClient.SqliteClientFactory.Instance);
+                    dbOK = _database.ExecuteScalar<string>("PRAGMA integrity_check") == "ok";
+                    //if (availableBackups.Count > 2) dbOK = false; //test
+                }
+                catch
+                {
+                    dbOK = false;
+                }
+                if (!dbOK)
+                {
+                    backupUsed = true;
+                    try
+                    {
+                        _database.Dispose();
+                    }
+                    catch
+                    {
+                    }
+                    _database = null;
+
+                    //delete settings and move to latest
+                    File.Delete(fn);
+                    if (availableBackups.Count > 0)
+                    {
+                        File.Move(availableBackups[availableBackups.Count - 1], fn);
+                        availableBackups.RemoveAt(availableBackups.Count - 1);
+                    }
+                }
+
+            } while (!dbOK);
+
+            if (backupUsed)
+            {
+                System.Windows.Forms.MessageBox.Show("The settings file was corrupt and a backup file is restored.", "Settings");
+            }
 
             if (!TableExists("Settings"))
             {

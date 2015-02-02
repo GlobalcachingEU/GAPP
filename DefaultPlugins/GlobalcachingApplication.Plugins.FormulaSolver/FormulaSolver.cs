@@ -13,6 +13,8 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
             var p = new PluginSettings(core);
 
             AddAction(ACTION_SHOW);
+
+            FormulaSolverForm.InitDatabase(core);
             StrRes.InitializeCoreLanguageItems(core);
             return await base.InitializeAsync(core);
         }
