@@ -292,7 +292,7 @@ namespace GlobalcachingApplication.Core
                 var scope = _database.FirstOrDefault<SettingsScope>("where Name=@0", name);
                 if (scope != null && scope.ID != _scope.ID)
                 {
-                    List<string> pitl = _database.Fetch<string>(string.Format("SELECT name FROM sqlite_master WHERE type='table' AND name like 'plugin_{0}_%'", _scope.ID));
+                    List<string> pitl = _database.Fetch<string>(string.Format("SELECT name FROM sqlite_master WHERE type='table' AND name like 'plugin_{0}_%'", scope.ID));
                     foreach (var s in pitl)
                     {
                         _database.Execute(string.Format("drop table '{0}'", s));
@@ -331,11 +331,16 @@ namespace GlobalcachingApplication.Core
                     var cscope = _database.FirstOrDefault<SettingsScope>("where Name=@0", copyFrom);
                     if (cscope != null)
                     {
-                        var settings = _database.Fetch<Setting>(string.Format("select * from Settings_{0}", cscope.ID));
-                        foreach (var set in settings)
-                        {
-                            _database.Execute(string.Format("insert into Settings_{0} (Name, Value) values (@0, @1)", scope.ID), set.Name, set.Value);
-                        }
+                        _database.Execute(string.Format("insert into Settings_{0} select * from  Settings_{1}", scope.ID, cscope.ID));
+                    }
+
+                    List<string> pitl = _database.Fetch<string>(string.Format("SELECT name FROM sqlite_master WHERE type='table' AND name like 'plugin_{0}_%'", cscope.ID));
+                    foreach (var s in pitl)
+                    {
+                        string orgTable = s;
+                        string dstTable = s.Replace(string.Format("plugin_{0}_", cscope.ID), string.Format("plugin_{0}_", scope.ID));
+                        _database.Execute(string.Format("CREATE TABLE {0} AS SELECT * FROM {1} WHERE 0", dstTable, orgTable));
+                        _database.Execute(string.Format("insert into {0} select * from  {1}", dstTable, orgTable));
                     }
                 }
             }

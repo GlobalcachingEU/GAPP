@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2013 for Windows Desktop
 VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication", "GlobalcachingApplication\GlobalcachingApplication.csproj", "{1C2F3389-8484-42EB-82FD-BF2E0D79A6DF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GAPP", "GlobalcachingApplication\GAPP.csproj", "{1C2F3389-8484-42EB-82FD-BF2E0D79A6DF}"
 	ProjectSection(ProjectDependencies) = postProject
 		{41156F07-C540-42FB-B451-582CDC6F9396} = {41156F07-C540-42FB-B451-582CDC6F9396}
 		{4CE0CA0C-CAFB-4C16-994D-027BB2CCC9F1} = {4CE0CA0C-CAFB-4C16-994D-027BB2CCC9F1}
@@ -225,6 +225,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.ExportHTML", "DefaultPlugins\GlobalcachingApplication.Plugins.ExportHTML\GlobalcachingApplication.Plugins.ExportHTML.csproj", "{56F3C3CF-1DD0-4E8F-84C7-DD858FFABB35}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalcachingApplication.Plugins.GeoSpy", "DefaultPlugins\GlobalcachingApplication.Plugins.GeoSpy\GlobalcachingApplication.Plugins.GeoSpy.csproj", "{428F1627-CBBC-4AE2-8E6B-D919BBA3E012}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GAPPSF", "GAPPSF\GAPPSF.csproj", "{DEE3C2B3-236E-42AC-BD54-2EA0100BCEF9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1074,6 +1076,14 @@ Global
 		{428F1627-CBBC-4AE2-8E6B-D919BBA3E012}.Release|x64.Build.0 = Release|x64
 		{428F1627-CBBC-4AE2-8E6B-D919BBA3E012}.Release|x86.ActiveCfg = Release|x86
 		{428F1627-CBBC-4AE2-8E6B-D919BBA3E012}.Release|x86.Build.0 = Release|x86
+		{DEE3C2B3-236E-42AC-BD54-2EA0100BCEF9}.Debug|x64.ActiveCfg = Debug|x64
+		{DEE3C2B3-236E-42AC-BD54-2EA0100BCEF9}.Debug|x64.Build.0 = Debug|x64
+		{DEE3C2B3-236E-42AC-BD54-2EA0100BCEF9}.Debug|x86.ActiveCfg = Debug|x86
+		{DEE3C2B3-236E-42AC-BD54-2EA0100BCEF9}.Debug|x86.Build.0 = Debug|x86
+		{DEE3C2B3-236E-42AC-BD54-2EA0100BCEF9}.Release|x64.ActiveCfg = Release|x64
+		{DEE3C2B3-236E-42AC-BD54-2EA0100BCEF9}.Release|x64.Build.0 = Release|x64
+		{DEE3C2B3-236E-42AC-BD54-2EA0100BCEF9}.Release|x86.ActiveCfg = Release|x86
+		{DEE3C2B3-236E-42AC-BD54-2EA0100BCEF9}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
