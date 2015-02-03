@@ -24,7 +24,6 @@ namespace GlobalcachingApplication.Plugins.ActionSequence
         public const string STR_ACTION = "Action";
         public const string STR_SUBACTION = "Sub action";
 
-        private string _settingsFile = null;
         private List<SequenceInfo> _sequenceInfos = null;
 
         public ActionListForm()
@@ -44,17 +43,9 @@ namespace GlobalcachingApplication.Plugins.ActionSequence
                 this.StartPosition = FormStartPosition.Manual;
             }
 
-            try
-            {
-                _settingsFile = System.IO.Path.Combine(core.PluginDataPath, "actionseq.xml" );
-            }
-            catch
-            {
-            }
-
             SelectedLanguageChanged(this, EventArgs.Empty);
 
-            _sequenceInfos = SequenceInfo.GetActionSequences(_settingsFile);
+            _sequenceInfos = SequenceInfo.GetActionSequences();
             comboBox1.Items.AddRange(_sequenceInfos.ToArray());
         }
 
@@ -191,7 +182,7 @@ namespace GlobalcachingApplication.Plugins.ActionSequence
                             });
                             lvi.Tag = dlg.SelectedAction;
                             listView1.Items.Add(lvi);
-                            SequenceInfo.SaveActionSequences(_settingsFile, _sequenceInfos);
+                            SequenceInfo.SaveActionSequences(_sequenceInfos);
                         }
                     }
                 }
@@ -214,7 +205,7 @@ namespace GlobalcachingApplication.Plugins.ActionSequence
                 comboBox1.SelectedItem = si;
 
                 comboBox1_SelectedIndexChanged(this, EventArgs.Empty);
-                SequenceInfo.SaveActionSequences(_settingsFile, _sequenceInfos);
+                SequenceInfo.SaveActionSequences(_sequenceInfos);
             }
         }
 
@@ -245,7 +236,7 @@ namespace GlobalcachingApplication.Plugins.ActionSequence
                 comboBox1_SelectedIndexChanged(this, EventArgs.Empty);
 
                 _sequenceInfos.Remove(si);
-                SequenceInfo.SaveActionSequences(_settingsFile, _sequenceInfos);
+                SequenceInfo.SaveActionSequences(_sequenceInfos);
             }
         }
 
@@ -290,7 +281,7 @@ namespace GlobalcachingApplication.Plugins.ActionSequence
                 typeof(ComboBox).InvokeMember("RefreshItems", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.InvokeMethod, null, comboBox1, new object[] { });
                 comboBox1_SelectedIndexChanged(this, EventArgs.Empty);
 
-                SequenceInfo.SaveActionSequences(_settingsFile, _sequenceInfos);
+                SequenceInfo.SaveActionSequences(_sequenceInfos);
             }
         }
 
@@ -327,7 +318,7 @@ namespace GlobalcachingApplication.Plugins.ActionSequence
                     listView1.Items[index].Selected = true;
                     listView1_SelectedIndexChanged(this, EventArgs.Empty);
 
-                    SequenceInfo.SaveActionSequences(_settingsFile, _sequenceInfos);
+                    SequenceInfo.SaveActionSequences(_sequenceInfos);
                 }
             }
         }
@@ -348,7 +339,7 @@ namespace GlobalcachingApplication.Plugins.ActionSequence
                     listView1.Items[index].Selected = true;
                     listView1_SelectedIndexChanged(this, EventArgs.Empty);
 
-                    SequenceInfo.SaveActionSequences(_settingsFile, _sequenceInfos);
+                    SequenceInfo.SaveActionSequences(_sequenceInfos);
                 }
             }
         }

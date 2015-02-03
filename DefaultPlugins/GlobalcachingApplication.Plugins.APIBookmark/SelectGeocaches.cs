@@ -12,6 +12,11 @@ namespace GlobalcachingApplication.Plugins.APIBookmark
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            if (PluginSettings.Instance == null)
+            {
+                var p = new PluginSettings(core);
+            }
+
             BookmarkInfoList.Instance(core).SelectGeocachesPlugin = this;
             BookmarkInfo[] bis = BookmarkInfoList.Instance(core).Bookmarks;
             if (bis != null && bis.Length > 0)

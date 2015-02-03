@@ -28,15 +28,16 @@ namespace GlobalcachingApplication.Plugins.ActionSequence
             return Name ?? "";
         }
 
-        public static List<SequenceInfo> GetActionSequences(string filename)
+        public static List<SequenceInfo> GetActionSequences()
         {
             List<SequenceInfo> result = new List<SequenceInfo>();
             try
             {
-                if (System.IO.File.Exists(filename))
+                string xml = PluginSettings.Instance.ActionSequences;
+                if (!string.IsNullOrEmpty(xml))
                 {
                     XmlDocument doc = new XmlDocument();
-                    doc.Load(filename);
+                    doc.LoadXml(xml);
                     XmlElement root = doc.DocumentElement;
 
                     XmlNodeList bmNodes = root.SelectNodes("sequence");
@@ -70,7 +71,7 @@ namespace GlobalcachingApplication.Plugins.ActionSequence
             return result;
         }
 
-        public static void SaveActionSequences(string filename, List<SequenceInfo> aiList)
+        public static void SaveActionSequences(List<SequenceInfo> aiList)
         {
             try
             {
@@ -111,7 +112,7 @@ namespace GlobalcachingApplication.Plugins.ActionSequence
                         ael.AppendChild(subel);
                     }
                 }
-                doc.Save(filename);
+                PluginSettings.Instance.ActionSequences = doc.OuterXml;
             }
             catch
             {

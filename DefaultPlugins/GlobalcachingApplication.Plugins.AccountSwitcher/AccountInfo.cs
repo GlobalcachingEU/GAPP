@@ -50,15 +50,16 @@ namespace GlobalcachingApplication.Plugins.AccountSwitcher
             }
         }
 
-        public static List<AccountInfo> GetAccountInfos(string filename)
+        public static List<AccountInfo> GetAccountInfos()
         {
             List<AccountInfo> result = new List<AccountInfo>();
             try
             {
-                if (System.IO.File.Exists(filename))
+                string xml = PluginSettings.Instance.Accounts;
+                if (!string.IsNullOrEmpty(xml))
                 {
                     XmlDocument doc = new XmlDocument();
-                    doc.Load(filename);
+                    doc.LoadXml(xml);
                     XmlElement root = doc.DocumentElement;
 
                     XmlNodeList bmNodes = root.SelectNodes("account");
@@ -107,7 +108,7 @@ namespace GlobalcachingApplication.Plugins.AccountSwitcher
             return result;
         }
 
-        public static void SetAccountInfos(string filename, List<AccountInfo> ail)
+        public static void SetAccountInfos(List<AccountInfo> ail)
         {
             try
             {
@@ -191,10 +192,7 @@ namespace GlobalcachingApplication.Plugins.AccountSwitcher
                         }
                     }
                 }
-                using (TextWriter sw = new StreamWriter(filename, false, Encoding.UTF8)) //Set encoding
-                {
-                    doc.Save(sw);
-                }
+                PluginSettings.Instance.Accounts = doc.OuterXml;
             }
             catch
             {

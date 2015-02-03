@@ -13,7 +13,6 @@ namespace GlobalcachingApplication.Plugins.APIBookmark
 
         public SelectGeocaches SelectGeocachesPlugin { get; set; }
         private List<BookmarkInfo> _bookmarkInfos = null;
-        private string _bookmarksFile = null;
         private Framework.Interfaces.ICore _core = null;
 
         private BookmarkInfoList(Framework.Interfaces.ICore core)
@@ -22,12 +21,11 @@ namespace GlobalcachingApplication.Plugins.APIBookmark
             _core = core;
             try
             {
-                _bookmarksFile = System.IO.Path.Combine(core.PluginDataPath, "bookmarks.xml" );
-
-                if (System.IO.File.Exists(_bookmarksFile))
+                string xml = PluginSettings.Instance.Bookmarks;
+                if (!string.IsNullOrEmpty(xml))
                 {
                     XmlDocument doc = new XmlDocument();
-                    doc.Load(_bookmarksFile);
+                    doc.LoadXml(xml);
                     XmlElement root = doc.DocumentElement;
 
                     XmlNodeList bmNodes = root.SelectNodes("bookmark");
@@ -94,7 +92,7 @@ namespace GlobalcachingApplication.Plugins.APIBookmark
                         }
                     }
                 }
-                doc.Save(_bookmarksFile);
+                PluginSettings.Instance.Bookmarks = doc.OuterXml;
             }
             catch
             {

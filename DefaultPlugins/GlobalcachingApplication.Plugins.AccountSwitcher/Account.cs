@@ -11,10 +11,13 @@ namespace GlobalcachingApplication.Plugins.AccountSwitcher
         public const string ACTION_SHOW = "Account switcher|Edit";
         public const string ACTION_SEP = "Account switcher|-";
 
-        private string _filename = null;
-
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            if (PluginSettings.Instance == null)
+            {
+                var p = new PluginSettings(core);
+            }
+
             AddAction(ACTION_SHOW);
             AddAction(ACTION_SEP);
 
@@ -35,14 +38,6 @@ namespace GlobalcachingApplication.Plugins.AccountSwitcher
             core.LanguageItems.Add(new Framework.Data.LanguageItem(AccountsForm.STR_YES));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(AccountsForm.STR_NEWACCOUNT));
 
-            try
-            {
-                _filename = System.IO.Path.Combine(core.PluginDataPath, "accounts.xml" );
-            }
-            catch
-            {
-            }
-
             return await base.InitializeAsync(core);
         }
 
@@ -50,7 +45,7 @@ namespace GlobalcachingApplication.Plugins.AccountSwitcher
         {
             await base.ApplicationInitializedAsync();
 
-            AddAccountsToMenu(AccountInfo.GetAccountInfos(_filename));
+            AddAccountsToMenu(AccountInfo.GetAccountInfos());
         }
 
         public override Framework.PluginType PluginType
@@ -78,8 +73,8 @@ namespace GlobalcachingApplication.Plugins.AccountSwitcher
             {
                 if (action == ACTION_SHOW)
                 {
-                    List<AccountInfo> ail = AccountInfo.GetAccountInfos(_filename);
-                    using (AccountsForm dlg = new AccountsForm(Core, AccountInfo.GetAccountInfos(_filename)))
+                    List<AccountInfo> ail = AccountInfo.GetAccountInfos();
+                    using (AccountsForm dlg = new AccountsForm(Core, AccountInfo.GetAccountInfos()))
                     {
                         if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                         {
@@ -89,7 +84,7 @@ namespace GlobalcachingApplication.Plugins.AccountSwitcher
                                 RemoveAction(string.Format("Account switcher|{0}", ai.Name));
                                 main.RemoveAction(this, "Account switcher", ai.Name);
                             }
-                            AccountInfo.SetAccountInfos(_filename, dlg.AccountInfoSettings);
+                            AccountInfo.SetAccountInfos(dlg.AccountInfoSettings);
                             AddAccountsToMenu(dlg.AccountInfoSettings);
                         }
                     }
@@ -99,7 +94,7 @@ namespace GlobalcachingApplication.Plugins.AccountSwitcher
                     string[] parts = action.Split(new char[] { '|' }, 2);
                     if (parts.Length == 2 && parts[0] == "Account switcher")
                     {
-                        List<AccountInfo> ail = AccountInfo.GetAccountInfos(_filename);
+                        List<AccountInfo> ail = AccountInfo.GetAccountInfos();
                         if (ail != null)
                         {
                             AccountInfo ai = (from a in ail where a.Name == parts[1] select a).FirstOrDefault();

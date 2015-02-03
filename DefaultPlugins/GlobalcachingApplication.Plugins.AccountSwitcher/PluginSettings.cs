@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GlobalcachingApplication.Plugins.ActionSequence
+namespace GlobalcachingApplication.Plugins.AccountSwitcher
 {
     public class PluginSettings
     {
@@ -24,16 +24,11 @@ namespace GlobalcachingApplication.Plugins.ActionSequence
             get { return _uniqueInstance; }
         }
 
-        public Rectangle WindowPos
+        public string Accounts
         {
-            get { return _core.SettingsProvider.GetSettingsValueRectangle("ActionSequence.WindowPos", Rectangle.Empty); }
-            set { _core.SettingsProvider.SetSettingsValueRectangle("ActionSequence.WindowPos", value); }
+            get { return _core.SettingsProvider.GetSettingsValue("AccountSwitcher.Accounts", null); }
+            set { _core.SettingsProvider.SetSettingsValue("AccountSwitcher.Accounts", value); }
         }
-    
-        public string ActionSequences
-        {
-            get { return _core.SettingsProvider.GetSettingsValue("ActionSequence.ActionSequences", null); }
-            set { _core.SettingsProvider.SetSettingsValue("ActionSequence.ActionSequences", value); }
-        }
+
     }
 }
