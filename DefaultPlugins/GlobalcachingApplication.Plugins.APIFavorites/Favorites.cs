@@ -13,7 +13,6 @@ namespace GlobalcachingApplication.Plugins.APIFavorites
         private static object _lockObject = new object();
 
         private Hashtable _favorites = null;
-        private string _databaseFilename = null;
         private Framework.Interfaces.ICore _core = null;
 
         private Favorites(Framework.Interfaces.ICore core)
@@ -22,11 +21,11 @@ namespace GlobalcachingApplication.Plugins.APIFavorites
             _core = core;
             try
             {
-                _databaseFilename = System.IO.Path.Combine(_core.PluginDataPath, "favorites.xml" );
-                if (System.IO.File.Exists(_databaseFilename))
+                string xml = PluginSettings.Instance.Favorites;
+                if (!string.IsNullOrEmpty(xml))
                 {
                     XmlDocument doc = new XmlDocument();
-                    doc.Load(_databaseFilename);
+                    doc.LoadXml(xml);
                     XmlElement root = doc.DocumentElement;
 
                     XmlNodeList bmNodes = root.SelectNodes("code");
@@ -58,7 +57,7 @@ namespace GlobalcachingApplication.Plugins.APIFavorites
                     el.AppendChild(txt);
                     root.AppendChild(el);
                 }
-                doc.Save(_databaseFilename);
+                PluginSettings.Instance.Favorites = doc.OuterXml;
             }
             catch
             {

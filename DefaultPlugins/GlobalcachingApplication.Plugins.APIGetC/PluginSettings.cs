@@ -47,5 +47,11 @@ namespace GlobalcachingApplication.Plugins.APIGetC
             get { return _core.SettingsProvider.GetSettingsValueBool("APIGetC.UseMetric", true); }
             set { _core.SettingsProvider.SetSettingsValueBool("APIGetC.UseMetric", value); }
         }
+
+        public string ApiImportPresets
+        {
+            get { return _core.SettingsProvider.GetSettingsValue("APIGetC.ApiImportPresets", null); }
+            set { _core.SettingsProvider.SetSettingsValue("APIGetC.ApiImportPresets", value); }
+        }
     }
 }

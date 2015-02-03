@@ -12,6 +12,11 @@ namespace GlobalcachingApplication.Plugins.APIFavorites
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            if (PluginSettings.Instance == null)
+            {
+                var p = new PluginSettings(core);
+            }
+
             AddAction(ACTION_SELECT);
 
             return await base.InitializeAsync(core);

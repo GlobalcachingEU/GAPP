@@ -29,6 +29,11 @@ namespace GlobalcachingApplication.Plugins.APIFavorites
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            if (PluginSettings.Instance == null)
+            {
+                var p = new PluginSettings(core);
+            }
+
             AddAction(ACTION_GET);
             AddAction(ACTION_IMPORT);
             AddAction(ACTION_ADD);
@@ -147,7 +152,7 @@ namespace GlobalcachingApplication.Plugins.APIFavorites
 
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result && Utils.API.GeocachingLiveV6.CheckAPIAccessAvailable(Core, true))
@@ -241,7 +246,7 @@ namespace GlobalcachingApplication.Plugins.APIFavorites
                     {
                         _errormessage = null;
                         _apiLimit = -1;
-                        PerformImport();
+                        await PerformImport();
                         if (!string.IsNullOrEmpty(_errormessage))
                         {
                             System.Windows.Forms.MessageBox.Show(_errormessage, Utils.LanguageSupport.Instance.GetTranslation(Utils.LanguageSupport.Instance.GetTranslation(STR_ERROR)), System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);

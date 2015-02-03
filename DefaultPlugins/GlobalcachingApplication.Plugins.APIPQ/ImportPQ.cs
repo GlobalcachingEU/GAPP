@@ -23,13 +23,19 @@ namespace GlobalcachingApplication.Plugins.APIPQ
 
         public const string ACTION_IMPORT = "Import Pocket Queries";
 
-        private string _databaseFile = null;
-
         private List<Utils.API.LiveV6.PQData> _pqs = null;
         private Utils.API.GeocachingLiveV6 _client = null;
 
+        public class PQPoco
+        {
+            public string pqname { get; set; }
+            public string processdate { get; set; }
+        }
+
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            initDatabase(core);
+
             AddAction(ACTION_IMPORT);
 
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SelectPQForm.STR_Count));
@@ -52,16 +58,6 @@ namespace GlobalcachingApplication.Plugins.APIPQ
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_UNABLEACCESSAPI));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_ERROR));
 
-            try
-            {
-                _databaseFile = System.IO.Path.Combine(new string[] { core.PluginDataPath, "importPQ.db3" });
-            }
-            catch
-            {
-                _databaseFile = null;
-            }
-
-
             return await base.InitializeAsync(core);
         }
 
@@ -81,62 +77,55 @@ namespace GlobalcachingApplication.Plugins.APIPQ
             }
         }
 
-        private void initDatabase(Utils.DBCon dbcon)
+        private void initDatabase(Framework.Interfaces.ICore core)
         {
-            object o = dbcon.ExecuteScalar("SELECT name FROM sqlite_master WHERE type='table' AND name='processedpq'");
-            if (o == null || o.GetType() == typeof(DBNull))
+            lock (core.SettingsProvider)
             {
-                dbcon.ExecuteNonQuery("create table 'processedpq' (pqname text, processdate text)");
+                if (!core.SettingsProvider.TableExists(core.SettingsProvider.GetFullTableName("processedpq")))
+                {
+                    core.SettingsProvider.Database.Execute(string.Format("create table '{0}' (pqname text, processdate text)", core.SettingsProvider.GetFullTableName("processedpq")));
+                }
             }
         }
 
         private Hashtable getProcessedPq()
         {
             Hashtable result = new Hashtable();
-            if (_databaseFile != null)
+            try
             {
-                try
+                lock (Core.SettingsProvider)
                 {
-                    using (Utils.DBCon dbcon = new Utils.DBConComSqlite(_databaseFile))
+                    var pocos = Core.SettingsProvider.Database.Fetch<PQPoco>(string.Format("select * from processedpq", Core.SettingsProvider.GetFullTableName("processedpq")));
+                    foreach (var poco in pocos)
                     {
-                        initDatabase(dbcon);
-                        DbDataReader dr = dbcon.ExecuteReader("select * from processedpq");
-                        while (dr.Read())
-                        {
-                            result.Add(dr["pqname"], DateTime.Parse((string)dr["processdate"]));
-                        }
+                        result.Add(poco.pqname, DateTime.Parse(poco.processdate));
                     }
                 }
-                catch
-                {
-                }
+            }
+            catch
+            {
             }
             return result;
         }
 
         private void updateProcessedPq(string pqName)
         {
-            if (_databaseFile != null)
+            try
             {
-                try
+                lock (Core.SettingsProvider)
                 {
-                    using (Utils.DBCon dbcon = new Utils.DBConComSqlite(_databaseFile))
+                    //delete older than 8 days
+                    DateTime weekAgo = DateTime.Now.AddDays(-8);
+                    Core.SettingsProvider.Database.Execute(string.Format("delete from {1} where processdate<'{0}'", weekAgo.ToString("s"), Core.SettingsProvider.GetFullTableName("processedpq")));
+
+                    if (Core.SettingsProvider.Database.Execute(string.Format("update {2} set processdate='{0}' where pqname='{1}'", DateTime.Now.ToString("s"), pqName.Replace("'", "''"), Core.SettingsProvider.GetFullTableName("processedpq"))) == 0)
                     {
-                        initDatabase(dbcon);
-
-                        //delete older than 8 days
-                        DateTime weekAgo = DateTime.Now.AddDays(-8);
-                        dbcon.ExecuteNonQuery(string.Format("delete from processedpq where processdate<'{0}'", weekAgo.ToString("s")));
-
-                        if (dbcon.ExecuteNonQuery(string.Format("update processedpq set processdate='{0}' where pqname='{1}'", DateTime.Now.ToString("s"), pqName.Replace("'","''")))==0)
-                        {
-                            dbcon.ExecuteNonQuery(string.Format("insert into processedpq (pqname, processdate) values ('{1}', '{0}')", DateTime.Now.ToString("s"), pqName.Replace("'", "''")));
-                        }
+                        Core.SettingsProvider.Database.Execute(string.Format("insert into {2} (pqname, processdate) values ('{1}', '{0}')", DateTime.Now.ToString("s"), pqName.Replace("'", "''"), Core.SettingsProvider.GetFullTableName("processedpq")));
                     }
                 }
-                catch
-                {
-                }
+            }
+            catch
+            {
             }
         }
 

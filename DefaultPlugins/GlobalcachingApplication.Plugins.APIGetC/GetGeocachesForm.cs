@@ -61,7 +61,6 @@ namespace GlobalcachingApplication.Plugins.APIGetC
         public int Max = 10;
 
         private List<PresetSettings> _presetSettings = new List<PresetSettings>();
-        private string _presetsFile = null;
         private PresetSettings _defaultSettings = null;
 
         public GetGeocachesForm()
@@ -168,12 +167,11 @@ namespace GlobalcachingApplication.Plugins.APIGetC
         {
             try
             {
-                _presetsFile = System.IO.Path.Combine(new string[] { _core.PluginDataPath, "ApiImportPresets.xml" });
-
-                if (System.IO.File.Exists(_presetsFile))
+                string xml = PluginSettings.Instance.ApiImportPresets;
+                if (!string.IsNullOrEmpty(xml))
                 {
                     XmlDocument doc = new XmlDocument();
-                    doc.Load(_presetsFile);
+                    doc.LoadXml(xml);
                     XmlElement root = doc.DocumentElement;
 
                     XmlNodeList presetNodes = root.SelectNodes("preset");
@@ -441,7 +439,7 @@ namespace GlobalcachingApplication.Plugins.APIGetC
                         el.AppendChild(subel);
                     }
                 }
-                doc.Save(_presetsFile);
+                PluginSettings.Instance.ApiImportPresets = doc.OuterXml;
             }
             catch
             {

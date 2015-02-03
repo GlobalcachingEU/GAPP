@@ -24,6 +24,11 @@ namespace GlobalcachingApplication.Plugins.APIUPD
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            if (PluginSettings.Instance == null)
+            {
+                var p = new PluginSettings(core);
+            }
+
             AddAction(ACTION_UPDATE_ALL);
             AddAction(ACTION_UPDATE_SELECTED);
             AddAction(ACTION_UPDATE_ACTIVE);
