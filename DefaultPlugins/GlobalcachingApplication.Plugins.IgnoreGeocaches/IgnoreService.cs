@@ -19,9 +19,14 @@ namespace GlobalcachingApplication.Plugins.IgnoreGeocaches
             GeocacheOwner,
         }
 
-        private string _databaseFile = null;
         private Hashtable _filterFields = null;
         private Framework.Interfaces.ICore _core = null;
+
+        public class FilterFieldPoco
+        {
+            public string field { get; set; }
+            public string filter { get; set; }
+        }
 
         private IgnoreService(Framework.Interfaces.ICore core)
         {
@@ -35,17 +40,16 @@ namespace GlobalcachingApplication.Plugins.IgnoreGeocaches
 
             try
             {
-                _databaseFile = System.IO.Path.Combine(core.PluginDataPath, "ignoregc.db3");
-                InitDatabase();
-                using (Utils.DBCon dbcon = new Utils.DBConComSqlite(_databaseFile))
+                InitDatabase(core);
+                lock (core.SettingsProvider)
                 {
-                    DbDataReader dr = dbcon.ExecuteReader("select field, filter from filterfields");
-                    while (dr.Read())
+                    List<FilterFieldPoco> pocos = core.SettingsProvider.Database.Fetch<FilterFieldPoco>(string.Format("select * from {0}", core.SettingsProvider.GetFullTableName("filterfields")));
+                    foreach (var poco in pocos)
                     {
-                        Hashtable ht = _filterFields[dr["field"]] as Hashtable;
+                        Hashtable ht = _filterFields[poco.field] as Hashtable;
                         if (ht != null)
                         {
-                            ht.Add(dr["filter"], true);
+                            ht.Add(poco.filter, true);
                         }
                     }
                 }
@@ -77,9 +81,9 @@ namespace GlobalcachingApplication.Plugins.IgnoreGeocaches
                 {
                     ht.Clear();
                 }
-                using (Utils.DBCon dbcon = new Utils.DBConComSqlite(_databaseFile))
+                lock (_core.SettingsProvider)
                 {
-                    dbcon.ExecuteNonQuery("delete from filterfields");
+                    _core.SettingsProvider.Database.Execute(string.Format("delete from {0}", _core.SettingsProvider.GetFullTableName("filterfields")));
                 }
             }
             catch
@@ -97,9 +101,9 @@ namespace GlobalcachingApplication.Plugins.IgnoreGeocaches
                     if (ht[filter]!=null)
                     {
                         ht.Remove(filter);
-                        using (Utils.DBCon dbcon = new Utils.DBConComSqlite(_databaseFile))
+                        lock (_core.SettingsProvider)
                         {
-                            dbcon.ExecuteNonQuery(string.Format("delete from filterfields where field = '{0}' and filter = '{1}'", field.ToString(), filter.Replace("'", "''")));
+                            _core.SettingsProvider.Database.Execute(string.Format("delete from {2} where field = '{0}' and filter = '{1}'", field.ToString(), filter.Replace("'", "''"), _core.SettingsProvider.GetFullTableName("filterfields")));
                         }
                     }
                 }
@@ -119,9 +123,9 @@ namespace GlobalcachingApplication.Plugins.IgnoreGeocaches
                     if (ht[filter]==null)
                     {
                         ht.Add(filter, true);
-                        using (Utils.DBCon dbcon = new Utils.DBConComSqlite(_databaseFile))
+                        lock (_core.SettingsProvider)
                         {
-                            dbcon.ExecuteNonQuery(string.Format("insert into filterfields (field, filter) values ('{0}', '{1}')", field.ToString(), filter.Replace("'", "''")));
+                            _core.SettingsProvider.Database.Execute(string.Format("insert into {2} (field, filter) values ('{0}', '{1}')", field.ToString(), filter.Replace("'", "''"), _core.SettingsProvider.GetFullTableName("filterfields")));
                         }
                     }
                 }
@@ -140,7 +144,7 @@ namespace GlobalcachingApplication.Plugins.IgnoreGeocaches
         {
             try
             {
-                using (Utils.DBCon dbcon = new Utils.DBConComSqlite(_databaseFile))
+                lock (_core.SettingsProvider)
                 {
                     Hashtable ht = _filterFields[FilterField.GeocacheCode.ToString()] as Hashtable;
                     if (ht != null)
@@ -150,7 +154,7 @@ namespace GlobalcachingApplication.Plugins.IgnoreGeocaches
                             if (ht[filter.ToUpper()]==null)
                             {
                                 ht.Add(filter.ToUpper(), true);
-                                dbcon.ExecuteNonQuery(string.Format("insert into filterfields (field, filter) values ('{0}', '{1}')", FilterField.GeocacheCode.ToString(), filter.ToUpper().Replace("'", "''")));
+                                _core.SettingsProvider.Database.Execute(string.Format("insert into {2} (field, filter) values ('{0}', '{1}')", FilterField.GeocacheCode.ToString(), filter.ToUpper().Replace("'", "''"), _core.SettingsProvider.GetFullTableName("filterfields")));
                             }
                         }
                     }
@@ -161,17 +165,15 @@ namespace GlobalcachingApplication.Plugins.IgnoreGeocaches
             }
         }
 
-        private void InitDatabase()
+        private void InitDatabase(Framework.Interfaces.ICore core)
         {
             try
             {
-                if (!string.IsNullOrEmpty(_databaseFile))
+                lock (core.SettingsProvider)
                 {
-                    Utils.DBCon dbcon = new Utils.DBConComSqlite(_databaseFile);
-                    object o = dbcon.ExecuteScalar("SELECT name FROM sqlite_master WHERE type='table' AND name='filterfields'");
-                    if (o == null || o.GetType() == typeof(DBNull))
+                    if (!core.SettingsProvider.TableExists(core.SettingsProvider.GetFullTableName("filterfields")))
                     {
-                        dbcon.ExecuteNonQuery("create table 'filterfields' (field text, filter text)");
+                        core.SettingsProvider.Database.Execute(string.Format("create table '{0}' (field text, filter text)", core.SettingsProvider.GetFullTableName("filterfields")));
                     }
                 }
             }

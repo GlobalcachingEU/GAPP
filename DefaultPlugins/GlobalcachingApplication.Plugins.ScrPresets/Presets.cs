@@ -15,8 +15,19 @@ namespace GlobalcachingApplication.Plugins.ScrPresets
         public const string ACTION_SEP = "Presets|-";
         public const string ACTION_SPLITSCREEN = "Presets|Splitscreen";
 
-        private string _presetDatabaseFile = null;
         private List<string> _presets = new List<string>();
+
+        public class FormsPoco
+        {
+            public string preset { get; set; }
+            public string plugintype { get; set; }
+            public int x { get; set; }
+            public int y { get; set; }
+            public int w { get; set; }
+            public int h { get; set; }
+            public int visible { get; set; }
+            public string customtag { get; set; }
+        }
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
@@ -35,25 +46,13 @@ namespace GlobalcachingApplication.Plugins.ScrPresets
 
             try
             {
-                _presetDatabaseFile = System.IO.Path.Combine(new string[] { core.PluginDataPath, "Presets.db3" });
-            }
-            catch
-            {
-            }
-
-            try
-            {
-                if (System.IO.File.Exists(_presetDatabaseFile))
+                lock (core.SettingsProvider)
                 {
-                    using (Utils.DBCon dbcon = new Utils.DBConComSqlite(_presetDatabaseFile))
+                    initDatabase(core);
+                    _presets = core.SettingsProvider.Database.Fetch<string>(string.Format("select name from {0}", core.SettingsProvider.GetFullTableName("preset")));
+                    foreach (var s in _presets)
                     {
-                        initDatabase(dbcon);
-                        DbDataReader dr = dbcon.ExecuteReader("select name from preset");
-                        while (dr.Read())
-                        {
-                            _presets.Add((string)dr["name"]);
-                            AddAction(string.Concat("Presets|", (string)dr["name"]));
-                        }
+                        AddAction(string.Concat("Presets|", s));
                     }
                 }
             }
@@ -61,25 +60,20 @@ namespace GlobalcachingApplication.Plugins.ScrPresets
             {
             }
 
-
             return await base.InitializeAsync(core);
         }
 
-        private void initDatabase(Utils.DBCon dbcon)
+        private void initDatabase(Framework.Interfaces.ICore core)
         {
-            object o = dbcon.ExecuteScalar("SELECT name FROM sqlite_master WHERE type='table' AND name='preset'");
-            if (o == null || o.GetType() == typeof(DBNull))
+            string presetTable = core.SettingsProvider.GetFullTableName("preset");
+            string formsTable = core.SettingsProvider.GetFullTableName("forms");
+            if (!core.SettingsProvider.TableExists(presetTable))
             {
-                dbcon.ExecuteNonQuery("create table 'preset' (name text)");
+                core.SettingsProvider.Database.Execute(string.Format("create table '{0}' (name text)", presetTable));
             }
-            o = dbcon.ExecuteScalar("SELECT name FROM sqlite_master WHERE type='table' AND name='forms'");
-            if (o == null || o.GetType() == typeof(DBNull))
+            if (!core.SettingsProvider.TableExists(formsTable))
             {
-                dbcon.ExecuteNonQuery("create table 'forms' (preset text, plugintype text, x integer, y integer, w integer, h integer, visible integer, customtag text)");
-            }
-            else if (!dbcon.ColumnExists("forms", "customtag"))
-            {
-                dbcon.ExecuteNonQuery("alter table 'forms' add customtag text");
+                core.SettingsProvider.Database.Execute(string.Format("create table '{0}' (preset text, plugintype text, x integer, y integer, w integer, h integer, visible integer, customtag text)", formsTable));
             }
         }
 
@@ -92,16 +86,15 @@ namespace GlobalcachingApplication.Plugins.ScrPresets
                 List<string> presets = panel.PresetNames;
                 if (presets.Count != _presets.Count)
                 {
-                    using (Utils.DBCon dbcon = new Utils.DBConComSqlite(_presetDatabaseFile))
+                    lock (Core.SettingsProvider)
                     {
-                        initDatabase(dbcon);
                         List<string> tobeRemoved = new List<string>();
                         foreach (string p in _presets)
                         {
                             if (!presets.Contains(p))
                             {
-                                dbcon.ExecuteNonQuery(string.Format("delete from forms where preset='{0}'", p.Replace("'","''")));
-                                dbcon.ExecuteNonQuery(string.Format("delete from preset where name='{0}'", p.Replace("'", "''")));
+                                Core.SettingsProvider.Database.Execute(string.Format("delete from {1} where preset='{0}'", p.Replace("'", "''"), Core.SettingsProvider.GetFullTableName("forms")));
+                                Core.SettingsProvider.Database.Execute(string.Format("delete from {1} where name='{0}'", p.Replace("'", "''"), Core.SettingsProvider.GetFullTableName("preset")));
 
                                 RemoveAction(string.Concat("Presets|", p));
                                 tobeRemoved.Add(p);
@@ -212,9 +205,8 @@ namespace GlobalcachingApplication.Plugins.ScrPresets
             {
                 try
                 {
-                    using (Utils.DBCon dbcon = new Utils.DBConComSqlite(_presetDatabaseFile))
+                    lock (Core.SettingsProvider)
                     {
-                        initDatabase(dbcon);
                         if (!_presets.Contains(presetname))
                         {
                             //we need to add the action
@@ -225,10 +217,10 @@ namespace GlobalcachingApplication.Plugins.ScrPresets
                             _presets.Add(presetname);
 
                         }
-                        dbcon.ExecuteNonQuery(string.Format("delete from forms where preset='{0}'", presetname));
-                        dbcon.ExecuteNonQuery(string.Format("delete from preset where name='{0}'", presetname));
+                        Core.SettingsProvider.Database.Execute(string.Format("delete from {1} where preset='{0}'", presetname.Replace("'", "''"), Core.SettingsProvider.GetFullTableName("forms")));
+                        Core.SettingsProvider.Database.Execute(string.Format("delete from {1} where name='{0}'", presetname.Replace("'", "''"), Core.SettingsProvider.GetFullTableName("preset")));
 
-                        dbcon.ExecuteNonQuery(string.Format("insert into preset (name) values ('{0}')", presetname));
+                        Core.SettingsProvider.Database.Execute(string.Format("insert into {1} (name) values ('{0}')", presetname.Replace("'", "''"), Core.SettingsProvider.GetFullTableName("preset")));
                         List<Framework.Interfaces.IPlugin> pins = Core.GetPlugins();
                         foreach (Framework.Interfaces.IPlugin pin in pins)
                         {
@@ -237,11 +229,11 @@ namespace GlobalcachingApplication.Plugins.ScrPresets
                             {
                                 if (p.ChildForm != null && p.ChildForm.Visible)
                                 {
-                                    dbcon.ExecuteNonQuery(string.Format("insert into forms (preset, plugintype, x, y, w, h, visible) values ('{0}', '{1}', {2}, {3}, {4}, {5}, 1)", presetname, p.GetType().ToString(), p.ChildForm.Left, p.ChildForm.Top, p.ChildForm.Width, p.ChildForm.Height));
+                                    Core.SettingsProvider.Database.Execute(string.Format("insert into {6} (preset, plugintype, x, y, w, h, visible) values ('{0}', '{1}', {2}, {3}, {4}, {5}, 1)", presetname.Replace("'", "''"), p.GetType().ToString(), p.ChildForm.Left, p.ChildForm.Top, p.ChildForm.Width, p.ChildForm.Height, Core.SettingsProvider.GetFullTableName("forms")));
                                 }
                                 else
                                 {
-                                    dbcon.ExecuteNonQuery(string.Format("insert into forms (preset, plugintype, x, y, w, h, visible) values ('{0}', '{1}', 0, 0, 100, 100, 0)", presetname, p.GetType().ToString()));
+                                    Core.SettingsProvider.Database.Execute(string.Format("insert into {2} (preset, plugintype, x, y, w, h, visible) values ('{0}', '{1}', 0, 0, 100, 100, 0)", presetname.Replace("'", "''"), p.GetType().ToString(), Core.SettingsProvider.GetFullTableName("forms")));
                                 }
                             }
                             else if (pin.GetType().ToString() == "GlobalcachingApplication.Plugins.Maps.MapsPlugin")
@@ -255,7 +247,7 @@ namespace GlobalcachingApplication.Plugins.ScrPresets
                                         string s = mi.Invoke(pin, null) as string;
                                         if (s != null)
                                         {
-                                            dbcon.ExecuteNonQuery(string.Format("insert into forms (preset, plugintype, x, y, w, h, visible, customtag) values ('{0}', '{1}', 0, 0, 100, 100, 0, '{2}')", presetname, pin.GetType().ToString(), s.Replace("'", "''")));
+                                            Core.SettingsProvider.Database.Execute(string.Format("insert into {3} (preset, plugintype, x, y, w, h, visible, customtag) values ('{0}', '{1}', 0, 0, 100, 100, 0, '{2}')", presetname.Replace("'", "''"), pin.GetType().ToString(), s.Replace("'", "''"), Core.SettingsProvider.GetFullTableName("forms")));
                                         }
                                     }
                                 }
@@ -282,17 +274,16 @@ namespace GlobalcachingApplication.Plugins.ScrPresets
                     presetname = presetname.Substring(pos + 1);
                     if (_presets.Contains(presetname))
                     {
-                        using (Utils.DBCon dbcon = new Utils.DBConComSqlite(_presetDatabaseFile))
+                        //lock (Core.SettingsProvider)
                         {
-                            initDatabase(dbcon);
                             List<Framework.Interfaces.IPlugin> pins = Core.GetPlugins();
-                            DbDataReader dr = dbcon.ExecuteReader(string.Format("select * from forms where preset='{0}'", presetname));
-                            while (dr.Read())
+                            List<FormsPoco> pocos = Core.SettingsProvider.Database.Fetch<FormsPoco>(string.Format("select * from {1} where preset='{0}'", presetname.Replace("'", "''"), Core.SettingsProvider.GetFullTableName("forms")));
+                            foreach( var poco in pocos)
                             {
-                                Framework.Interfaces.IPluginUIChildWindow p = (from Framework.Interfaces.IPlugin a in pins where a.GetType().ToString() == (string)dr["plugintype"] select a).FirstOrDefault() as Framework.Interfaces.IPluginUIChildWindow;
+                                Framework.Interfaces.IPluginUIChildWindow p = (from Framework.Interfaces.IPlugin a in pins where a.GetType().ToString() == poco.plugintype select a).FirstOrDefault() as Framework.Interfaces.IPluginUIChildWindow;
                                 if (p != null)
                                 {
-                                    if ((int)dr["visible"] == 0)
+                                    if (poco.visible == 0)
                                     {
                                         if (p.ChildForm != null && p.ChildForm.Visible)
                                         {
@@ -307,11 +298,11 @@ namespace GlobalcachingApplication.Plugins.ScrPresets
                                         }
                                         if (p.ChildForm != null)
                                         {
-                                            p.ChildForm.SetBounds((int)dr["x"], (int)dr["y"], (int)dr["w"], (int)dr["h"]);
+                                            p.ChildForm.SetBounds(poco.x, poco.y, poco.w, poco.h);
                                         }
                                     }
                                 }
-                                else if ((string)dr["plugintype"]=="GlobalcachingApplication.Plugins.Maps.MapsPlugin")
+                                else if (poco.plugintype =="GlobalcachingApplication.Plugins.Maps.MapsPlugin")
                                 {
                                     try
                                     {
@@ -321,7 +312,7 @@ namespace GlobalcachingApplication.Plugins.ScrPresets
                                             MethodInfo mi = mp.GetType().GetMethod("SetWindowStates");
                                             if (mi != null)
                                             {
-                                                mi.Invoke(mp, new object[] { dr["customtag"] as string });
+                                                mi.Invoke(mp, new object[] { poco.customtag });
                                             }
                                         }
                                     }

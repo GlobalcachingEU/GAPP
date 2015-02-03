@@ -185,7 +185,7 @@ namespace GlobalcachingApplication.Plugins.GoogleEarth
 
         private void MapForm_LocationChanged(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Normal)
+            if (WindowState == FormWindowState.Normal && this.Visible)
             {
                 PluginSettings.Instance.WindowPos = this.Bounds;
             }
@@ -193,7 +193,7 @@ namespace GlobalcachingApplication.Plugins.GoogleEarth
 
         private void MapForm_SizeChanged(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Normal)
+            if (WindowState == FormWindowState.Normal && this.Visible)
             {
                 PluginSettings.Instance.WindowPos = this.Bounds;
             }

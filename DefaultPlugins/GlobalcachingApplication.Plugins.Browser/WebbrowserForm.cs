@@ -627,7 +627,7 @@ namespace GlobalcachingApplication.Plugins.Browser
 
         private void WebbrowserForm_LocationChanged(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Normal)
+            if (WindowState == FormWindowState.Normal && this.Visible)
             {
                 Properties.Settings.Default.WindowPos = this.Bounds;
                 Properties.Settings.Default.Save();
@@ -636,7 +636,7 @@ namespace GlobalcachingApplication.Plugins.Browser
 
         private void WebbrowserForm_SizeChanged(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Normal)
+            if (WindowState == FormWindowState.Normal && this.Visible)
             {
                 Properties.Settings.Default.WindowPos = this.Bounds;
                 Properties.Settings.Default.Save();

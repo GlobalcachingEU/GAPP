@@ -141,7 +141,7 @@ namespace GlobalcachingApplication.Plugins.LogImagesViewer
 
         private void ViewerForm_LocationChanged(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Normal)
+            if (WindowState == FormWindowState.Normal && this.Visible)
             {
                 PluginSettings.Instance.WindowPos = this.Bounds;
             }
@@ -149,7 +149,7 @@ namespace GlobalcachingApplication.Plugins.LogImagesViewer
 
         private void ViewerForm_SizeChanged(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Normal)
+            if (WindowState == FormWindowState.Normal && this.Visible)
             {
                 PluginSettings.Instance.WindowPos = this.Bounds;
             }

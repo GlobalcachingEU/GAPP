@@ -13,10 +13,22 @@ namespace GlobalcachingApplication.Plugins.Bookmark
         private static Repository _uniqueInstance = null;
         private static object _lockObject = new object();
 
-        private Utils.DBCon _dbcon = null;
         private Hashtable _bookmarks = null;
+        private Framework.Interfaces.ICore _core = null;
 
         public event EventHandler DataChanged;
+
+        public class BookmarkPoco
+        {
+            public int ID { get; set; }
+            public string Name { get; set; }
+        }
+
+        public class BookmarkCodePoco
+        {
+            public int BookmarkID { get; set; }
+            public string Code { get; set; }
+        }
 
         private Repository()
         {
@@ -42,40 +54,43 @@ namespace GlobalcachingApplication.Plugins.Bookmark
 
         public void Initialize(Framework.Interfaces.ICore core)
         {
+            _core = core;
             if (_bookmarks == null)
             {
                 _bookmarks = new Hashtable();
 
                 try
                 {
-                    _dbcon = new Utils.DBConComSqlite(Path.Combine(core.PluginDataPath, "gccollections.db3"));
-
-                    object o = _dbcon.ExecuteScalar("SELECT name FROM sqlite_master WHERE type='table' AND name='bookmark'");
-                    if (o == null || o.GetType() == typeof(DBNull))
+                    lock (_core.SettingsProvider)
                     {
-                        _dbcon.ExecuteNonQuery("create table 'bookmark' (ID integer primary key autoincrement, Name text)");
-
-                        _dbcon.ExecuteNonQuery("create table 'codes' (BookmarkID integer, Code text)");
-                    }
-
-                    DbDataReader dr = _dbcon.ExecuteReader("select ID, Name from bookmark");
-                    while (dr.Read())
-                    {
-                        BookmarkInfo bmi = new BookmarkInfo();
-                        bmi.ID = (int)dr["ID"];
-                        bmi.Name = (string)dr["Name"];
-                        _bookmarks.Add(bmi.Name.ToLower(), bmi);
-                    }
-
-                    dr = _dbcon.ExecuteReader("select BookmarkID, Code from codes");
-                    while (dr.Read())
-                    {
-                        int id = (int)dr["BookmarkID"];
-                        BookmarkInfo bmi = (from BookmarkInfo b in _bookmarks.Values where b.ID==id select b).FirstOrDefault();
-                        if (bmi != null)
+                        if (!_core.SettingsProvider.TableExists(_core.SettingsProvider.GetFullTableName("bookmark")))
                         {
-                            bmi.GeocacheCodes.Add(dr["Code"], true);
+                            _core.SettingsProvider.Database.Execute(string.Format("create table '{0}' (ID integer primary key autoincrement, Name text)", _core.SettingsProvider.GetFullTableName("bookmark")));
                         }
+                        if (!_core.SettingsProvider.TableExists(_core.SettingsProvider.GetFullTableName("bmcodes")))
+                        {
+                            _core.SettingsProvider.Database.Execute(string.Format("create table '{0}' (BookmarkID integer, Code text)", _core.SettingsProvider.GetFullTableName("bmcodes")));
+                        }
+
+                        var bms = _core.SettingsProvider.Database.Fetch<BookmarkPoco>(string.Format("select * from {0}", _core.SettingsProvider.GetFullTableName("bookmark")));
+                        foreach (var bm in bms)
+                        {
+                            BookmarkInfo bmi = new BookmarkInfo();
+                            bmi.ID = bm.ID;
+                            bmi.Name = bm.Name;
+                            _bookmarks.Add(bmi.Name.ToLower(), bmi);
+                        }
+
+                        var bmcs = _core.SettingsProvider.Database.Fetch<BookmarkCodePoco>(string.Format("select * from {0}", _core.SettingsProvider.GetFullTableName("bmcodes")));
+                        foreach (var bmc in bmcs)
+                        {
+                            BookmarkInfo bmi = (from BookmarkInfo b in _bookmarks.Values where b.ID == bmc.BookmarkID select b).FirstOrDefault();
+                            if (bmi != null)
+                            {
+                                bmi.GeocacheCodes.Add(bmc.Code, true);
+                            }
+                        }
+
                     }
                 }
                 catch
@@ -111,9 +126,12 @@ namespace GlobalcachingApplication.Plugins.Bookmark
             BookmarkInfo bmi = _bookmarks[name.ToLower()] as BookmarkInfo;
             if (bmi == null)
             {
-                _dbcon.ExecuteNonQuery(string.Format("insert into bookmark (Name) values ('{0}')", name.Replace("'", "''")));
-                int id = (int)_dbcon.ExecuteScalar(string.Format("select ID from bookmark where Name = '{0}'", name.Replace("'", "''")));
-
+                int id;
+                lock (_core.SettingsProvider)
+                {
+                    _core.SettingsProvider.Database.Execute(string.Format("insert into {1} (Name) values ('{0}')", name.Replace("'", "''"), _core.SettingsProvider.GetFullTableName("bookmark")));
+                    id = _core.SettingsProvider.Database.ExecuteScalar<int>(string.Format("select ID from {1} where Name = '{0}'", name.Replace("'", "''"), _core.SettingsProvider.GetFullTableName("bookmark")));
+                }
                 bmi = new BookmarkInfo();
                 bmi.ID = id;
                 bmi.Name = name;
@@ -127,8 +145,11 @@ namespace GlobalcachingApplication.Plugins.Bookmark
             BookmarkInfo bmi = _bookmarks[name.ToLower()] as BookmarkInfo;
             if (bmi != null)
             {
-                _dbcon.ExecuteNonQuery(string.Format("delete from codes where BookmarkID={0}", bmi.ID));
-                _dbcon.ExecuteNonQuery(string.Format("delete from bookmark where ID={0}", bmi.ID));
+                lock (_core.SettingsProvider)
+                {
+                    _core.SettingsProvider.Database.Execute(string.Format("delete from {1} where BookmarkID={0}", bmi.ID, _core.SettingsProvider.GetFullTableName("bmcodes")));
+                    _core.SettingsProvider.Database.Execute(string.Format("delete from {1} where ID={0}", bmi.ID, _core.SettingsProvider.GetFullTableName("bookmark")));
+                }
 
                 _bookmarks.Remove(name);
             }
@@ -141,8 +162,10 @@ namespace GlobalcachingApplication.Plugins.Bookmark
             {
                 if (bmi.GeocacheCodes[geocacheCode.ToUpper()] == null)
                 {
-                    _dbcon.ExecuteNonQuery(string.Format("insert into codes (BookmarkID, Code) values ({0}, '{1}')", bmi.ID, geocacheCode.ToUpper()));
-
+                    lock (_core.SettingsProvider)
+                    {
+                        _core.SettingsProvider.Database.Execute(string.Format("insert into {2} (BookmarkID, Code) values ({0}, '{1}')", bmi.ID, geocacheCode.ToUpper(), _core.SettingsProvider.GetFullTableName("bmcodes")));
+                    }
                     bmi.GeocacheCodes.Add(geocacheCode.ToUpper(), true);
                 }
             }
@@ -155,8 +178,10 @@ namespace GlobalcachingApplication.Plugins.Bookmark
             {
                 if (bmi.GeocacheCodes[geocacheCode.ToUpper()] != null)
                 {
-                    _dbcon.ExecuteNonQuery(string.Format("delete from codes where BookmarkID={0} and Code='{1}'", bmi.ID, geocacheCode.ToUpper()));
-
+                    lock (_core.SettingsProvider)
+                    {
+                        _core.SettingsProvider.Database.Execute(string.Format("delete from {2} where BookmarkID={0} and Code='{1}'", bmi.ID, geocacheCode.ToUpper(), _core.SettingsProvider.GetFullTableName("bmcodes")));
+                    }
                     bmi.GeocacheCodes.Remove(geocacheCode.ToUpper());
                 }
             }

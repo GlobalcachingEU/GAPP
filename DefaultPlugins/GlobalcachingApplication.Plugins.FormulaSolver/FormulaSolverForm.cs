@@ -225,7 +225,7 @@ namespace GlobalcachingApplication.Plugins.FormulaSolver
 
         private void FormulaSolverForm_LocationOrSizeChanged(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Normal)
+            if (WindowState == FormWindowState.Normal && this.Visible)
             {
                 PluginSettings.Instance.WindowPos = this.Bounds;
             }

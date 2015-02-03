@@ -516,7 +516,7 @@ namespace GlobalcachingApplication.Plugins.Maps
             {
                 PluginSettings.Instance.SpecifiedWindowPos = new System.Collections.Specialized.StringCollection();
             }
-            if (WindowState == FormWindowState.Normal && _mapControlFactory != null)
+            if (WindowState == FormWindowState.Normal && _mapControlFactory != null && this.Visible)
             {
                 bool done = false;
                 string s = string.Format("{0}|{1}|{2}|{3}|{4}", _mapControlFactory.ID, this.Bounds.X, this.Bounds.Y, this.Bounds.Width, this.Bounds.Height);
@@ -544,7 +544,7 @@ namespace GlobalcachingApplication.Plugins.Maps
             {
                 PluginSettings.Instance.SpecifiedWindowPos = new System.Collections.Specialized.StringCollection();
             }
-            if (WindowState == FormWindowState.Normal && _mapControlFactory!=null)
+            if (WindowState == FormWindowState.Normal && _mapControlFactory != null && this.Visible)
             {
                 bool done = false;
                 string s = string.Format("{0}|{1}|{2}|{3}|{4}", _mapControlFactory.ID, this.Bounds.X, this.Bounds.Y, this.Bounds.Width, this.Bounds.Height);

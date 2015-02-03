@@ -481,7 +481,7 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
 
         private void SimpleCacheListForm_SizeChanged(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Normal)
+            if (WindowState == FormWindowState.Normal && this.Visible)
             {
                 PluginSettings.Instance.WindowPos = this.Bounds;
             }
@@ -489,7 +489,7 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
 
         private void SimpleCacheListForm_LocationChanged(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Normal)
+            if (WindowState == FormWindowState.Normal && this.Visible)
             {
                 PluginSettings.Instance.WindowPos = this.Bounds;
             }

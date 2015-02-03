@@ -148,7 +148,7 @@ namespace GlobalcachingApplication.Plugins.Attach
 
         private void AttachementsForm_SizeChanged(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Normal)
+            if (WindowState == FormWindowState.Normal && this.Visible)
             {
                 Properties.Settings.Default.WindowPos = this.Bounds;
                 Properties.Settings.Default.Save();
@@ -157,7 +157,7 @@ namespace GlobalcachingApplication.Plugins.Attach
 
         private void AttachementsForm_LocationChanged(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Normal)
+            if (WindowState == FormWindowState.Normal && this.Visible)
             {
                 Properties.Settings.Default.WindowPos = this.Bounds;
                 Properties.Settings.Default.Save();

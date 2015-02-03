@@ -202,7 +202,7 @@ namespace GlobalcachingApplication.Plugins.StatsGen
 
         private void StatisticsGeneratorForm_LocationChanged(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Normal)
+            if (WindowState == FormWindowState.Normal && this.Visible)
             {
                 PluginSettings.Instance.WindowPos = this.Bounds;
             }
@@ -210,7 +210,7 @@ namespace GlobalcachingApplication.Plugins.StatsGen
 
         private void StatisticsGeneratorForm_SizeChanged(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Normal)
+            if (WindowState == FormWindowState.Normal && this.Visible)
             {
                 PluginSettings.Instance.WindowPos = this.Bounds;
             }

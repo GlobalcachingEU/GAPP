@@ -353,7 +353,7 @@ namespace GlobalcachingApplication.Plugins.CAR
 
         private void CachesAlongRouteForm_SizeChanged(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Normal)
+            if (WindowState == FormWindowState.Normal && this.Visible)
             {
                 PluginSettings.Instance.WindowPos = this.Bounds;
             }
@@ -361,7 +361,7 @@ namespace GlobalcachingApplication.Plugins.CAR
 
         private void CachesAlongRouteForm_LocationChanged(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Normal)
+            if (WindowState == FormWindowState.Normal && this.Visible)
             {
                 PluginSettings.Instance.WindowPos = this.Bounds;
             }

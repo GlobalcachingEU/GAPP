@@ -94,7 +94,7 @@ namespace GlobalcachingApplication.Plugins.IgnoreGeocaches
 
         private void EditorForm_LocationChanged(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Normal)
+            if (WindowState == FormWindowState.Normal && this.Visible)
             {
                 PluginSettings.Instance.WindowPos = this.Bounds;
             }
@@ -102,7 +102,7 @@ namespace GlobalcachingApplication.Plugins.IgnoreGeocaches
 
         private void EditorForm_SizeChanged(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Normal)
+            if (WindowState == FormWindowState.Normal && this.Visible)
             {
                 PluginSettings.Instance.WindowPos = this.Bounds;
             }

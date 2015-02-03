@@ -938,7 +938,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             if (_sizeInitialized)
             {
                 Properties.Settings.Default.WindowMaximized = (WindowState == FormWindowState.Maximized);
-                if (WindowState == FormWindowState.Normal)
+                if (WindowState == FormWindowState.Normal && this.Visible)
                 {
                     Properties.Settings.Default.WindowPos = this.Bounds;
                 }
@@ -1044,7 +1044,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             if (_sizeInitialized)
             {
                 Properties.Settings.Default.WindowMaximized = (WindowState == FormWindowState.Maximized);
-                if (WindowState == FormWindowState.Normal)
+                if (WindowState == FormWindowState.Normal && this.Visible)
                 {
                     Properties.Settings.Default.WindowPos = this.Bounds;
                 }

@@ -654,7 +654,7 @@ namespace GlobalcachingApplication.Plugins.ActBuilder
 
         private void ActionBuilderForm_LocationChanged(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Normal)
+            if (WindowState == FormWindowState.Normal && this.Visible)
             {
                 PluginSettings.Instance.WindowPos = this.Bounds;
             }
@@ -662,7 +662,7 @@ namespace GlobalcachingApplication.Plugins.ActBuilder
 
         private void ActionBuilderForm_SizeChanged(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Normal)
+            if (WindowState == FormWindowState.Normal && this.Visible)
             {
                 PluginSettings.Instance.WindowPos = this.Bounds;
             }

@@ -470,7 +470,7 @@ namespace GlobalcachingApplication.Plugins.GCView
 
         private void GeocacheViewerForm_LocationChanged(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Normal)
+            if (WindowState == FormWindowState.Normal && this.Visible)
             {
                 PluginSettings.Instance.WindowPos = this.Bounds;
             }
@@ -478,7 +478,7 @@ namespace GlobalcachingApplication.Plugins.GCView
 
         private void GeocacheViewerForm_SizeChanged(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Normal)
+            if (WindowState == FormWindowState.Normal && this.Visible)
             {
                 PluginSettings.Instance.WindowPos = this.Bounds;
             }

@@ -283,7 +283,7 @@ namespace GlobalcachingApplication.Plugins.LogImagesViewer
 
         private void ThumbsOverviewForm_LocationChanged(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Normal)
+            if (WindowState == FormWindowState.Normal && this.Visible)
             {
                 PluginSettings.Instance.WindowPos2 = this.Bounds;
             }
@@ -291,7 +291,7 @@ namespace GlobalcachingApplication.Plugins.LogImagesViewer
 
         private void ThumbsOverviewForm_SizeChanged(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Normal)
+            if (WindowState == FormWindowState.Normal && this.Visible)
             {
                 PluginSettings.Instance.WindowPos2 = this.Bounds;
             }
