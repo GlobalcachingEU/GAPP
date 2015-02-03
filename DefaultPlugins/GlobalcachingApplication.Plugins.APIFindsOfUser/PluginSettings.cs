@@ -1,4 +1,5 @@
-﻿using GlobalcachingApplication.Framework.Interfaces;
+﻿using GlobalcachingApplication.Framework;
+using GlobalcachingApplication.Framework.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -24,13 +25,13 @@ namespace GlobalcachingApplication.Plugins.APIFindsOfUser
             get { return _uniqueInstance; }
         }
 
-        public System.Collections.Specialized.StringCollection Usernames
+        public InterceptedStringCollection Usernames
         {
             get { return _core.SettingsProvider.GetSettingsValueStringCollection("APIFindsOfUser.Usernames", null); }
             set { _core.SettingsProvider.SetSettingsValueStringCollection("APIFindsOfUser.Usernames", value); }
         }
 
-        public System.Collections.Specialized.StringCollection LogTypes
+        public InterceptedStringCollection LogTypes
         {
             get { return _core.SettingsProvider.GetSettingsValueStringCollection("APIFindsOfUser.LogTypes", null); }
             set { _core.SettingsProvider.SetSettingsValueStringCollection("APIFindsOfUser.LogTypes", value); }

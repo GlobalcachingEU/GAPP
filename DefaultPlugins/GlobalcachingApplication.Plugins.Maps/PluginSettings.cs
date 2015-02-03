@@ -1,4 +1,5 @@
-﻿using GlobalcachingApplication.Framework.Interfaces;
+﻿using GlobalcachingApplication.Framework;
+using GlobalcachingApplication.Framework.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -24,25 +25,25 @@ namespace GlobalcachingApplication.Plugins.Maps
             get { return _uniqueInstance; }
         }
 
-        public System.Collections.Specialized.StringCollection DisabledMaps
+        public InterceptedStringCollection DisabledMaps
         {
             get { return _core.SettingsProvider.GetSettingsValueStringCollection("Maps.DisabledMaps", null); }
             set { _core.SettingsProvider.SetSettingsValueStringCollection("Maps.DisabledMaps", value); }
         }
 
-        public System.Collections.Specialized.StringCollection DecoupledChildWindows
+        public InterceptedStringCollection DecoupledChildWindows
         {
             get { return _core.SettingsProvider.GetSettingsValueStringCollection("Maps.DecoupledChildWindows", null); }
             set { _core.SettingsProvider.SetSettingsValueStringCollection("Maps.DecoupledChildWindows", value); }
         }
 
-        public System.Collections.Specialized.StringCollection SpecifiedWindowPos
+        public InterceptedStringCollection SpecifiedWindowPos
         {
             get { return _core.SettingsProvider.GetSettingsValueStringCollection("Maps.SpecifiedWindowPos", null); }
             set { _core.SettingsProvider.SetSettingsValueStringCollection("Maps.SpecifiedWindowPos", value); }
         }
 
-        public System.Collections.Specialized.StringCollection TopMostWindows
+        public InterceptedStringCollection TopMostWindows
         {
             get { return _core.SettingsProvider.GetSettingsValueStringCollection("Maps.TopMostWindows", null); }
             set { _core.SettingsProvider.SetSettingsValueStringCollection("Maps.TopMostWindows", value); }

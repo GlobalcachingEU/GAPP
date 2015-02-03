@@ -22,15 +22,14 @@ namespace GlobalcachingApplication.Plugins.Startup
 
         public void Apply()
         {
-            System.Collections.Specialized.StringCollection sc = new System.Collections.Specialized.StringCollection();
+            PluginSettings.Instance.Startup.Clear();
             foreach (ListViewItem lvi in listView1.Items)
             {
                 if (lvi.Checked)
                 {
-                    sc.Add(lvi.Tag as string);
+                    PluginSettings.Instance.Startup.Add(lvi.Tag as string);
                 }
             }
-            PluginSettings.Instance.Startup = sc;
         }
 
         public SettingsPanel(Framework.Interfaces.ICore core)

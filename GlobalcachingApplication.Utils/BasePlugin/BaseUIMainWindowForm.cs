@@ -136,6 +136,8 @@ namespace GlobalcachingApplication.Utils.BasePlugin
 
         void plugin_Closing(object sender, Framework.EventArguments.PluginEventArgs e)
         {
+            //plugins are not removed during running, so why bother
+            /*
             for (int i = 0; i < _pluginActionList.Count; i++)
             {
                 if (_pluginActionList[i].plugin == e.Plugin)
@@ -148,6 +150,7 @@ namespace GlobalcachingApplication.Utils.BasePlugin
                     i++;
                 }
             }
+             * */
         }
 
         private void BaseUIMainWindowForm_FormClosed(object sender, FormClosedEventArgs e)

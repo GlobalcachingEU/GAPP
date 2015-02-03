@@ -130,6 +130,7 @@
     <Compile Include="EventArguments\LocationEventArgs.cs" />
     <Compile Include="EventArguments\PluginEventArgs.cs" />
     <Compile Include="EventArguments\ProgressEventArgs.cs" />
+    <Compile Include="InterceptedStringCollection.cs" />
     <Compile Include="Interfaces\ICore.cs" />
     <Compile Include="Interfaces\IGeocacheIgnoreFilter.cs" />
     <Compile Include="Interfaces\IGeometry.cs" />

@@ -1,4 +1,5 @@
-﻿using GlobalcachingApplication.Framework.Interfaces;
+﻿using GlobalcachingApplication.Framework;
+using GlobalcachingApplication.Framework.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -24,7 +25,7 @@ namespace GlobalcachingApplication.Plugins.ExportHTML
             get { return _uniqueInstance; }
         }
 
-        public System.Collections.Specialized.StringCollection ExportFields
+        public InterceptedStringCollection ExportFields
         {
             get { return _core.SettingsProvider.GetSettingsValueStringCollection("ExportHTML.ExportFields", null); }
             set { _core.SettingsProvider.SetSettingsValueStringCollection("ExportHTML.ExportFields", value); }

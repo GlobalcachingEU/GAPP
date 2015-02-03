@@ -28,7 +28,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             this.checkBox1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_SHOWTOOLBAR);
             this.button1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_OK);
 
-            this.checkBox1.Checked = Properties.Settings.Default.ToolbarCustom;
+            this.checkBox1.Checked = PluginSettings.Instance.ToolbarCustom;
 
             TreeNode tn;
 
@@ -114,9 +114,9 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
         public static  bool GetToolbarPropertySelected(FormMain.ToolbarActionProperties tbp)
         {
             bool result = false;
-            if (Properties.Settings.Default.ToolbarCustomButtons != null && Properties.Settings.Default.ToolbarCustomButtons.Count > 0)
+            if (PluginSettings.Instance.ToolbarCustomButtons != null && PluginSettings.Instance.ToolbarCustomButtons.Count > 0)
             {
-                result = Properties.Settings.Default.ToolbarCustomButtons.Contains(string.Format("{0}|{1}|{2}", tbp.PluginType.ToString(), tbp.Action ?? "", tbp.SubAction ?? ""));
+                result = PluginSettings.Instance.ToolbarCustomButtons.Contains(string.Format("{0}|{1}|{2}", tbp.PluginType.ToString(), tbp.Action ?? "", tbp.SubAction ?? ""));
             }
             return result;
         }
@@ -143,14 +143,13 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.ToolbarCustom = this.checkBox1.Checked;
-            Properties.Settings.Default.ToolbarCustomButtons = new System.Collections.Specialized.StringCollection();
+            PluginSettings.Instance.ToolbarCustom = this.checkBox1.Checked;
+            PluginSettings.Instance.ToolbarCustomButtons.Clear();
             List<FormMain.ToolbarActionProperties> props = SelectedToolbarProperties;
             foreach (FormMain.ToolbarActionProperties p in props)
             {
-                Properties.Settings.Default.ToolbarCustomButtons.Add(string.Format("{0}|{1}|{2}", p.PluginType.ToString(), p.Action ?? "", p.SubAction ?? ""));
+                PluginSettings.Instance.ToolbarCustomButtons.Add(string.Format("{0}|{1}|{2}", p.PluginType.ToString(), p.Action ?? "", p.SubAction ?? ""));
             }
-            Properties.Settings.Default.Save();
             DialogResult = System.Windows.Forms.DialogResult.OK;
             Close();
         }

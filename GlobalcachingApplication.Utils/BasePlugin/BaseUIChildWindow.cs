@@ -12,6 +12,11 @@ namespace GlobalcachingApplication.Utils.BasePlugin
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            if (UtilsSettings.Instance == null)
+            {
+                var p = new UtilsSettings(core);
+            }
+
             bool result = false;
             _uiChildWindowForm = CreateUIChildWindowForm(core);
             if (_uiChildWindowForm != null)
@@ -30,9 +35,9 @@ namespace GlobalcachingApplication.Utils.BasePlugin
         protected override void InitUIMainWindow(Framework.Interfaces.IPluginUIMainWindow mainWindowPlugin)
         {
             base.InitUIMainWindow(mainWindowPlugin);
-            if (Properties.Settings.Default.DecoupledChildWindows != null)
+            if (UtilsSettings.Instance.DecoupledChildWindows != null)
             {
-                if (Properties.Settings.Default.DecoupledChildWindows.Contains(_uiChildWindowForm.GetType().FullName))
+                if (UtilsSettings.Instance.DecoupledChildWindows.Contains(_uiChildWindowForm.GetType().FullName))
                 {
                     //_uiChildWindowForm.MdiParent = null;
                 }
@@ -45,9 +50,9 @@ namespace GlobalcachingApplication.Utils.BasePlugin
             {
                 _uiChildWindowForm.MdiParent = mainWindowPlugin.MainForm;
             }
-            if (Properties.Settings.Default.TopMostWindows != null)
+            if (UtilsSettings.Instance.TopMostWindows != null)
             {
-                if (Properties.Settings.Default.TopMostWindows.Contains(_uiChildWindowForm.GetType().FullName))
+                if (UtilsSettings.Instance.TopMostWindows.Contains(_uiChildWindowForm.GetType().FullName))
                 {
                     _uiChildWindowForm.TopMost = true;
                 }

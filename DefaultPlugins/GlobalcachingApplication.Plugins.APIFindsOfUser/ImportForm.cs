@@ -49,10 +49,6 @@ namespace GlobalcachingApplication.Plugins.APIFindsOfUser
             dateTimePicker1.Value = DateTime.Now.AddDays(-7);
             dateTimePicker2.Value = DateTime.Now;
 
-            if (PluginSettings.Instance.Usernames == null)
-            {
-                PluginSettings.Instance.Usernames = new System.Collections.Specialized.StringCollection();
-            }
             foreach (string s in PluginSettings.Instance.Usernames)
             {
                 listBox1.Items.Add(s);
@@ -75,10 +71,6 @@ namespace GlobalcachingApplication.Plugins.APIFindsOfUser
             this.button7.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_SELECTALL);
             this.button8.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_DESELECTALL);
 
-            if (PluginSettings.Instance.LogTypes == null)
-            {
-                PluginSettings.Instance.LogTypes = new System.Collections.Specialized.StringCollection();
-            }
             long[] lt = new long[] { 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 22, 23, 24, 45, 46, 47 };
             var ltl = from a in core.LogTypes where lt.Contains(a.ID) select a;
             foreach (var gt in ltl)

@@ -94,6 +94,8 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
         public FormMain(Utils.BasePlugin.BaseUIMainWindow ownerPlugin, Framework.Interfaces.ICore core)
             : base(ownerPlugin, core)
         {
+            var sett = new PluginSettings(core);
+
             InitializeComponent();
 
             core.LanguageItems.AddRange(FormSettings.LanguageItems);
@@ -131,13 +133,6 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             core.LanguageItems.Add(new Framework.Data.LanguageItem(CustomToolbarSettingForm.STR_SHOWTOOLBAR));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(CustomToolbarSettingForm.STR_TITLE));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(NotificationContainer.STR_TITLE));
-
-            if (Properties.Settings.Default.UpgradeNeeded)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
 
             //file toolbar
             _toolbarActionProperties.Add(new ToolbarActionProperties(Framework.PluginType.InternalStorage, "Save", "", Properties.Resources.database_save, toolStripFile));
@@ -204,10 +199,10 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             UpdateCountStatus();
 
             this.Icon = Properties.Resources.Globalcaching;
-            bool maximize = Properties.Settings.Default.WindowMaximized;
-            if (Properties.Settings.Default.WindowPos != null && !Properties.Settings.Default.WindowPos.IsEmpty)
+            bool maximize = PluginSettings.Instance.WindowMaximized;
+            if (PluginSettings.Instance.WindowPos != null && !PluginSettings.Instance.WindowPos.IsEmpty)
             {
-                this.Bounds = Properties.Settings.Default.WindowPos;
+                this.Bounds = PluginSettings.Instance.WindowPos;
             }
             if (maximize)
             {
@@ -231,7 +226,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
 
             foreach( ToolStripMenuItem p in toolStripSplitButtonTranslate.DropDownItems)
             {
-                if (p.Tag != null && p.Tag.ToString() == Properties.Settings.Default.SelectedTranslater)
+                if (p.Tag != null && p.Tag.ToString() == PluginSettings.Instance.SelectedTranslater)
                 {
                     toolStripSplitButtonTranslate.Image = p.Image;
                 }
@@ -255,30 +250,30 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             toolStripScripts.Visible = false;
             toolStripActionSequence.Visible = false;
 
-            toolStripFile.Location = Properties.Settings.Default.ToolbarFileLocation;
-            toolStripSearch.Location = Properties.Settings.Default.ToolbarSearchLocation;
-            toolStripScripts.Location = Properties.Settings.Default.ToolbarScriptsLocation;
-            toolStripWindows.Location = Properties.Settings.Default.ToolbarWindowsLocation;
-            toolStripLiveAPI.Location = Properties.Settings.Default.ToolbarLiveAPIlocation;
-            toolStripMaps.Location = Properties.Settings.Default.ToolbarMapsLocation;
-            toolStripCustom.Location = Properties.Settings.Default.ToolbarCustomLocation;
-            toolStripActions.Location = Properties.Settings.Default.ToolbarActionsLocation;
-            toolStripActionSequence.Location = Properties.Settings.Default.ToolbarActionSequenceLocation;
+            toolStripFile.Location = PluginSettings.Instance.ToolbarFileLocation;
+            toolStripSearch.Location = PluginSettings.Instance.ToolbarSearchLocation;
+            toolStripScripts.Location = PluginSettings.Instance.ToolbarScriptsLocation;
+            toolStripWindows.Location = PluginSettings.Instance.ToolbarWindowsLocation;
+            toolStripLiveAPI.Location = PluginSettings.Instance.ToolbarLiveAPIlocation;
+            toolStripMaps.Location = PluginSettings.Instance.ToolbarMapsLocation;
+            toolStripCustom.Location = PluginSettings.Instance.ToolbarCustomLocation;
+            toolStripActions.Location = PluginSettings.Instance.ToolbarActionsLocation;
+            toolStripActionSequence.Location = PluginSettings.Instance.ToolbarActionSequenceLocation;
 
             _sizeInitialized = true;
 
-            fileToolbarToolStripMenuItem.Checked = Properties.Settings.Default.ToolbarFile;
-            searchToolbarToolStripMenuItem.Checked = Properties.Settings.Default.ToolbarSearch;
-            scriptsToolbarToolStripMenuItem.Checked = Properties.Settings.Default.ToolbarScripts;
-            toolStripScripts.Visible = Properties.Settings.Default.ToolbarScripts; //by default visible
-            windowsToolbarToolStripMenuItem.Checked = Properties.Settings.Default.ToolbarWindows;
-            mapsToolbarToolStripMenuItem.Checked = Properties.Settings.Default.ToolbarMaps;
-            liveAPIToolbarToolStripMenuItem.Checked = Properties.Settings.Default.ToolbarLiveAPI;
-            toolStripCustom.Visible = Properties.Settings.Default.ToolbarCustom && toolStripCustom.Items.Count > 0;
-            actionToolbarToolStripMenuItem.Checked = Properties.Settings.Default.ToolbarActions;
-            actionSequencerToolbarToolStripMenuItem.Checked = Properties.Settings.Default.ToolbarActionSequence;
-            toolStripActions.Visible = Properties.Settings.Default.ToolbarActions; //by default visible
-            toolStripActionSequence.Visible = Properties.Settings.Default.ToolbarActionSequence;
+            fileToolbarToolStripMenuItem.Checked = PluginSettings.Instance.ToolbarFile;
+            searchToolbarToolStripMenuItem.Checked = PluginSettings.Instance.ToolbarSearch;
+            scriptsToolbarToolStripMenuItem.Checked = PluginSettings.Instance.ToolbarScripts;
+            toolStripScripts.Visible = PluginSettings.Instance.ToolbarScripts; //by default visible
+            windowsToolbarToolStripMenuItem.Checked = PluginSettings.Instance.ToolbarWindows;
+            mapsToolbarToolStripMenuItem.Checked = PluginSettings.Instance.ToolbarMaps;
+            liveAPIToolbarToolStripMenuItem.Checked = PluginSettings.Instance.ToolbarLiveAPI;
+            toolStripCustom.Visible = PluginSettings.Instance.ToolbarCustom && toolStripCustom.Items.Count > 0;
+            actionToolbarToolStripMenuItem.Checked = PluginSettings.Instance.ToolbarActions;
+            actionSequencerToolbarToolStripMenuItem.Checked = PluginSettings.Instance.ToolbarActionSequence;
+            toolStripActions.Visible = PluginSettings.Instance.ToolbarActions; //by default visible
+            toolStripActionSequence.Visible = PluginSettings.Instance.ToolbarActionSequence;
 
             foreach (ToolStrip ts in tsl)
             {
@@ -294,7 +289,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             fileToolStripMenuItem.DropDownItems.Add(_exitMeniItem);
             _exitMeniItem.Click += new EventHandler(_exitMeniItem_Click);
 
-            oKAPIToolStripMenuItem.Visible = Properties.Settings.Default.ShowOKAPIMenu;
+            oKAPIToolStripMenuItem.Visible = PluginSettings.Instance.ShowOKAPIMenu;
 
             FillHelpPluginMenu();
         }
@@ -450,13 +445,13 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
                 tb.Tag = pa;
                 tsp.DefaultToolStrip.Items.Add(tb);
                 if (_sizeInitialized && (
-                    (tsp.DefaultToolStrip == toolStripFile && Properties.Settings.Default.ToolbarFile) ||
-                    (tsp.DefaultToolStrip == toolStripSearch && Properties.Settings.Default.ToolbarSearch) ||
-                    (tsp.DefaultToolStrip == toolStripScripts && Properties.Settings.Default.ToolbarScripts) ||
-                    (tsp.DefaultToolStrip == toolStripWindows && Properties.Settings.Default.ToolbarWindows) ||
-                    (tsp.DefaultToolStrip == toolStripMaps && Properties.Settings.Default.ToolbarMaps) ||
-                    (tsp.DefaultToolStrip == toolStripActions && Properties.Settings.Default.ToolbarActions) ||
-                    (tsp.DefaultToolStrip == toolStripLiveAPI && Properties.Settings.Default.ToolbarLiveAPI)
+                    (tsp.DefaultToolStrip == toolStripFile && PluginSettings.Instance.ToolbarFile) ||
+                    (tsp.DefaultToolStrip == toolStripSearch && PluginSettings.Instance.ToolbarSearch) ||
+                    (tsp.DefaultToolStrip == toolStripScripts && PluginSettings.Instance.ToolbarScripts) ||
+                    (tsp.DefaultToolStrip == toolStripWindows && PluginSettings.Instance.ToolbarWindows) ||
+                    (tsp.DefaultToolStrip == toolStripMaps && PluginSettings.Instance.ToolbarMaps) ||
+                    (tsp.DefaultToolStrip == toolStripActions && PluginSettings.Instance.ToolbarActions) ||
+                    (tsp.DefaultToolStrip == toolStripLiveAPI && PluginSettings.Instance.ToolbarLiveAPI)
                     ))
                 {
                     tsp.DefaultToolStrip.Visible = true;
@@ -843,7 +838,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             {
                 if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    oKAPIToolStripMenuItem.Visible = Properties.Settings.Default.ShowOKAPIMenu;
+                    oKAPIToolStripMenuItem.Visible = PluginSettings.Instance.ShowOKAPIMenu;
                     SelectedLanguageChanged(this, EventArgs.Empty);
                 }
             }
@@ -937,12 +932,11 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             this.Refresh();
             if (_sizeInitialized)
             {
-                Properties.Settings.Default.WindowMaximized = (WindowState == FormWindowState.Maximized);
+                PluginSettings.Instance.WindowMaximized = (WindowState == FormWindowState.Maximized);
                 if (WindowState == FormWindowState.Normal && this.Visible)
                 {
-                    Properties.Settings.Default.WindowPos = this.Bounds;
+                    PluginSettings.Instance.WindowPos = this.Bounds;
                 }
-                Properties.Settings.Default.Save();
             }
         }
 
@@ -1043,12 +1037,11 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             this.Refresh();
             if (_sizeInitialized)
             {
-                Properties.Settings.Default.WindowMaximized = (WindowState == FormWindowState.Maximized);
+                PluginSettings.Instance.WindowMaximized = (WindowState == FormWindowState.Maximized);
                 if (WindowState == FormWindowState.Normal && this.Visible)
                 {
-                    Properties.Settings.Default.WindowPos = this.Bounds;
+                    PluginSettings.Instance.WindowPos = this.Bounds;
                 }
-                Properties.Settings.Default.Save();
             }
         }
 
@@ -1061,9 +1054,8 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
         {
             if (_sizeInitialized)
             {
-                Properties.Settings.Default.ToolbarFile = fileToolbarToolStripMenuItem.Checked;
-                Properties.Settings.Default.Save();
-                toolStripFile.Visible = Properties.Settings.Default.ToolbarFile && toolStripFile.Items.Count > 0;
+                PluginSettings.Instance.ToolbarFile = fileToolbarToolStripMenuItem.Checked;
+                toolStripFile.Visible = PluginSettings.Instance.ToolbarFile && toolStripFile.Items.Count > 0;
             }
         }
 
@@ -1071,9 +1063,8 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
         {
             if (_sizeInitialized)
             {
-                Properties.Settings.Default.ToolbarSearch = searchToolbarToolStripMenuItem.Checked;
-                Properties.Settings.Default.Save();
-                toolStripSearch.Visible = Properties.Settings.Default.ToolbarSearch && toolStripSearch.Items.Count > 0;
+                PluginSettings.Instance.ToolbarSearch = searchToolbarToolStripMenuItem.Checked;
+                toolStripSearch.Visible = PluginSettings.Instance.ToolbarSearch && toolStripSearch.Items.Count > 0;
             }
         }
 
@@ -1081,8 +1072,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
         {
             if (_sizeInitialized && this.WindowState != FormWindowState.Minimized)
             {
-                Properties.Settings.Default.ToolbarFileLocation = toolStripFile.Location;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.ToolbarFileLocation = toolStripFile.Location;
             }
         }
 
@@ -1090,8 +1080,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
         {
             if (_sizeInitialized && this.WindowState != FormWindowState.Minimized)
             {
-                Properties.Settings.Default.ToolbarSearchLocation = toolStripSearch.Location;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.ToolbarSearchLocation = toolStripSearch.Location;
             }
         }
 
@@ -1116,9 +1105,8 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
         {
             if (_sizeInitialized)
             {
-                Properties.Settings.Default.ToolbarScripts = scriptsToolbarToolStripMenuItem.Checked;
-                Properties.Settings.Default.Save();
-                toolStripScripts.Visible = Properties.Settings.Default.ToolbarScripts && toolStripScripts.Items.Count > 0;
+                PluginSettings.Instance.ToolbarScripts = scriptsToolbarToolStripMenuItem.Checked;
+                toolStripScripts.Visible = PluginSettings.Instance.ToolbarScripts && toolStripScripts.Items.Count > 0;
             }
         }
 
@@ -1126,8 +1114,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
         {
             if (_sizeInitialized && this.WindowState != FormWindowState.Minimized)
             {
-                Properties.Settings.Default.ToolbarScriptsLocation = toolStripScripts.Location;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.ToolbarScriptsLocation = toolStripScripts.Location;
             }
         }
 
@@ -1135,8 +1122,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
         {
             if (_sizeInitialized && this.WindowState != FormWindowState.Minimized)
             {
-                Properties.Settings.Default.ToolbarWindowsLocation = toolStripWindows.Location;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.ToolbarWindowsLocation = toolStripWindows.Location;
             }
         }
 
@@ -1144,9 +1130,8 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
         {
             if (_sizeInitialized)
             {
-                Properties.Settings.Default.ToolbarWindows = windowsToolbarToolStripMenuItem.Checked;
-                Properties.Settings.Default.Save();
-                toolStripWindows.Visible = Properties.Settings.Default.ToolbarWindows && toolStripWindows.Items.Count > 0;
+                PluginSettings.Instance.ToolbarWindows = windowsToolbarToolStripMenuItem.Checked;
+                toolStripWindows.Visible = PluginSettings.Instance.ToolbarWindows && toolStripWindows.Items.Count > 0;
             }
         }
 
@@ -1154,8 +1139,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
         {
             if (_sizeInitialized && this.WindowState!= FormWindowState.Minimized)
             {
-                Properties.Settings.Default.ToolbarMapsLocation = toolStripMaps.Location;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.ToolbarMapsLocation = toolStripMaps.Location;
             }
         }
 
@@ -1163,9 +1147,8 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
         {
             if (_sizeInitialized)
             {
-                Properties.Settings.Default.ToolbarMaps = mapsToolbarToolStripMenuItem.Checked;
-                Properties.Settings.Default.Save();
-                toolStripMaps.Visible = Properties.Settings.Default.ToolbarMaps && toolStripMaps.Items.Count > 0;
+                PluginSettings.Instance.ToolbarMaps = mapsToolbarToolStripMenuItem.Checked;
+                toolStripMaps.Visible = PluginSettings.Instance.ToolbarMaps && toolStripMaps.Items.Count > 0;
             }
         }
 
@@ -1173,16 +1156,14 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
         {
             if (_sizeInitialized && this.WindowState != FormWindowState.Minimized)
             {
-                Properties.Settings.Default.ToolbarLiveAPIlocation = toolStripLiveAPI.Location;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.ToolbarLiveAPIlocation = toolStripLiveAPI.Location;
             }
         }
 
         private void liveAPIToolbarToolStripMenuItem_CheckStateChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.ToolbarLiveAPI = liveAPIToolbarToolStripMenuItem.Checked;
-            Properties.Settings.Default.Save();
-            toolStripLiveAPI.Visible = Properties.Settings.Default.ToolbarLiveAPI && toolStripLiveAPI.Items.Count>0;
+            PluginSettings.Instance.ToolbarLiveAPI = liveAPIToolbarToolStripMenuItem.Checked;
+            toolStripLiveAPI.Visible = PluginSettings.Instance.ToolbarLiveAPI && toolStripLiveAPI.Items.Count>0;
         }
 
         private void customToolbarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1192,7 +1173,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
                 if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     //todo - rebuild Custom toolbar
-                    toolStripCustom.Visible = Properties.Settings.Default.ToolbarCustom;
+                    toolStripCustom.Visible = PluginSettings.Instance.ToolbarCustom;
                     foreach (ToolStripButton t in toolStripCustom.Items)
                     {
                         _toolbarItems.Remove(t);
@@ -1233,7 +1214,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
                             }
                         }
                     }
-                    toolStripCustom.Visible = Properties.Settings.Default.ToolbarCustom && toolStripCustom.Items.Count>0;
+                    toolStripCustom.Visible = PluginSettings.Instance.ToolbarCustom && toolStripCustom.Items.Count>0;
                 }
             }
         }
@@ -1242,8 +1223,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
         {
             if (_sizeInitialized && this.WindowState != FormWindowState.Minimized)
             {
-                Properties.Settings.Default.ToolbarCustomLocation = toolStripCustom.Location;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.ToolbarCustomLocation = toolStripCustom.Location;
             }
         }
 
@@ -1251,16 +1231,14 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
         {
             if (_sizeInitialized && this.WindowState != FormWindowState.Minimized)
             {
-                Properties.Settings.Default.ToolbarActionsLocation = toolStripActions.Location;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.ToolbarActionsLocation = toolStripActions.Location;
             }
         }
 
         private void actionToolbarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.ToolbarActions = actionToolbarToolStripMenuItem.Checked;
-            Properties.Settings.Default.Save();
-            toolStripActions.Visible = Properties.Settings.Default.ToolbarActions;
+            PluginSettings.Instance.ToolbarActions = actionToolbarToolStripMenuItem.Checked;
+            toolStripActions.Visible = PluginSettings.Instance.ToolbarActions;
         }
 
         private void toolStripComboBoxBuilderFlows_SelectedIndexChanged(object sender, EventArgs e)
@@ -1326,8 +1304,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
         {
             if (_sizeInitialized && this.WindowState != FormWindowState.Minimized)
             {
-                Properties.Settings.Default.ToolbarActionSequenceLocation = toolStripActionSequence.Location;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.ToolbarActionSequenceLocation = toolStripActionSequence.Location;
             }
         }
 
@@ -1341,9 +1318,8 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
 
         private void actionSequencerToolbarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.ToolbarActionSequence = actionSequencerToolbarToolStripMenuItem.Checked;
-            Properties.Settings.Default.Save();
-            toolStripActionSequence.Visible = Properties.Settings.Default.ToolbarActionSequence;
+            PluginSettings.Instance.ToolbarActionSequence = actionSequencerToolbarToolStripMenuItem.Checked;
+            toolStripActionSequence.Visible = PluginSettings.Instance.ToolbarActionSequence;
         }
 
         private void menuStripItem_DropDownOpening(object sender, EventArgs e)
@@ -1390,7 +1366,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
                 try
                 {
                     bool external = true;
-                    string url = string.Format("http://www.google.com/translate?hl=en&ie=UTF8&sl=auto&tl={1}&u={0}", System.Web.HttpUtility.UrlEncode(Core.ActiveGeocache.Url), Properties.Settings.Default.SelectedTranslater);
+                    string url = string.Format("http://www.google.com/translate?hl=en&ie=UTF8&sl=auto&tl={1}&u={0}", System.Web.HttpUtility.UrlEncode(Core.ActiveGeocache.Url), PluginSettings.Instance.SelectedTranslater);
 
                     try
                     {
@@ -1432,8 +1408,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             ToolStripMenuItem p = sender as ToolStripMenuItem;
             if (p != null && p.Tag != null)
             {
-                Properties.Settings.Default.SelectedTranslater = p.Tag.ToString();
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.SelectedTranslater = p.Tag.ToString();
                 toolStripSplitButtonTranslate.Image = p.Image;
             }
         }

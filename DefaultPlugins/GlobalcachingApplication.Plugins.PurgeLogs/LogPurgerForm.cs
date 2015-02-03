@@ -41,27 +41,13 @@ namespace GlobalcachingApplication.Plugins.PurgeLogs
             numericUpDown2.Value = PluginSettings.Instance.KeepAtLeast;
             checkBox1.Checked = PluginSettings.Instance.KeepAllOfOwned;
             checkBox2.Checked = PluginSettings.Instance.KeepOwnLogs;
-            if (PluginSettings.Instance.KeepLogsOf == null)
+            foreach (string s in PluginSettings.Instance.KeepLogsOf)
             {
-                PluginSettings.Instance.KeepLogsOf = new System.Collections.Specialized.StringCollection();
+                listBox1.Items.Add(s);
             }
-            else
+            foreach (string s in PluginSettings.Instance.RemoveAllLogsFrom)
             {
-                foreach (string s in PluginSettings.Instance.KeepLogsOf)
-                {
-                    listBox1.Items.Add(s);
-                }
-            }
-            if (PluginSettings.Instance.RemoveAllLogsFrom == null)
-            {
-                PluginSettings.Instance.RemoveAllLogsFrom = new System.Collections.Specialized.StringCollection();
-            }
-            else
-            {
-                foreach (string s in PluginSettings.Instance.RemoveAllLogsFrom)
-                {
-                    listBox2.Items.Add(s);
-                }
+                listBox2.Items.Add(s);
             }
         }
 

@@ -48,11 +48,6 @@ namespace GlobalcachingApplication.Plugins.SHP
             bool result = false;
             var sett = new PluginSettings(core);
 
-            if (PluginSettings.Instance.ShapeFiles == null)
-            {
-                PluginSettings.Instance.ShapeFiles = new System.Collections.Specialized.StringCollection();
-            }
-
             try
             {
                 string p = core.PluginDataPath;

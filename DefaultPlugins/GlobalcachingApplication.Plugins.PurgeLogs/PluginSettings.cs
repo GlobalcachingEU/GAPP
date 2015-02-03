@@ -1,4 +1,5 @@
-﻿using GlobalcachingApplication.Framework.Interfaces;
+﻿using GlobalcachingApplication.Framework;
+using GlobalcachingApplication.Framework.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -54,13 +55,13 @@ namespace GlobalcachingApplication.Plugins.PurgeLogs
             set { _core.SettingsProvider.SetSettingsValueBool("PurgeLogs.KeepOwnLogs", value); }
         }
 
-        public System.Collections.Specialized.StringCollection KeepLogsOf
+        public InterceptedStringCollection KeepLogsOf
         {
             get { return _core.SettingsProvider.GetSettingsValueStringCollection("PurgeLogs.KeepLogsOf", null); }
             set { _core.SettingsProvider.SetSettingsValueStringCollection("PurgeLogs.KeepLogsOf", value); }
         }
 
-        public System.Collections.Specialized.StringCollection RemoveAllLogsFrom
+        public InterceptedStringCollection RemoveAllLogsFrom
         {
             get { return _core.SettingsProvider.GetSettingsValueStringCollection("PurgeLogs.RemoveAllLogsFrom", null); }
             set { _core.SettingsProvider.SetSettingsValueStringCollection("PurgeLogs.RemoveAllLogsFrom", value); }

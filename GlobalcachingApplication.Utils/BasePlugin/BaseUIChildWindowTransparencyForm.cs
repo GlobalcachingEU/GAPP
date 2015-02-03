@@ -18,7 +18,7 @@ namespace GlobalcachingApplication.Utils.BasePlugin
         {
             InitializeComponent();
 
-            trackBar1.Value = Properties.Settings.Default.TopMostOpaque;
+            trackBar1.Value = UtilsSettings.Instance.TopMostOpaque;
             trackBar1.ValueChanged += new EventHandler(trackBar1_ValueChanged);
 
             this.Text = LanguageSupport.Instance.GetTranslation(STR_TITLE);
@@ -27,8 +27,7 @@ namespace GlobalcachingApplication.Utils.BasePlugin
 
         void trackBar1_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.TopMostOpaque = trackBar1.Value;
-            Properties.Settings.Default.Save();
+            UtilsSettings.Instance.TopMostOpaque = trackBar1.Value;
             foreach (BaseUIChildWindowForm frm in BaseUIChildWindowForm.AllUIChildForms)
             {
                 frm.OpaqueChanged();

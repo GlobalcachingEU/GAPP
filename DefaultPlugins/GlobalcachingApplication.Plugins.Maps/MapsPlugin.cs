@@ -144,10 +144,6 @@ namespace GlobalcachingApplication.Plugins.Maps
                     }
                     PluginSettings.Instance.OSMOfflineMapFolder = p;
                 }
-                if (PluginSettings.Instance.DisabledMaps == null)
-                {
-                    PluginSettings.Instance.DisabledMaps = new System.Collections.Specialized.StringCollection();
-                }
             }
             catch
             {

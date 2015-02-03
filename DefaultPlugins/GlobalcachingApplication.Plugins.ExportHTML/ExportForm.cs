@@ -97,7 +97,7 @@ namespace GlobalcachingApplication.Plugins.ExportHTML
         private void button1_Click(object sender, EventArgs e)
         {
             PluginSettings.Instance.FilePath = textBox1.Text;
-            System.Collections.Specialized.StringCollection sc = new System.Collections.Specialized.StringCollection();
+            List<string> sc = new List<string>();
             foreach (Sheet sheet in comboBox1.Items)
             {
                 StringBuilder sb = new StringBuilder();
@@ -109,7 +109,8 @@ namespace GlobalcachingApplication.Plugins.ExportHTML
                 sb.AppendFormat("|{0}",sheet.Name);
                 sc.Add(sb.ToString());
             }
-            PluginSettings.Instance.ExportFields = sc;
+            PluginSettings.Instance.ExportFields.Clear();
+            PluginSettings.Instance.ExportFields.AddRange(sc.ToArray());
             DialogResult = System.Windows.Forms.DialogResult.OK;
             Close();
         }

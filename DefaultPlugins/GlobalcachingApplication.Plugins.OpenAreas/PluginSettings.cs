@@ -1,4 +1,5 @@
-﻿using GlobalcachingApplication.Framework.Interfaces;
+﻿using GlobalcachingApplication.Framework;
+using GlobalcachingApplication.Framework.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -66,7 +67,7 @@ namespace GlobalcachingApplication.Plugins.OpenAreas
             set { _core.SettingsProvider.SetSettingsValueInt("OpenAreas.StrokeOpacity", value); }
         }
 
-        public System.Collections.Specialized.StringCollection CustomWaypointsList
+        public InterceptedStringCollection CustomWaypointsList
         {
             get { return _core.SettingsProvider.GetSettingsValueStringCollection("OpenAreas.CustomWaypointsList", null); }
             set { _core.SettingsProvider.SetSettingsValueStringCollection("OpenAreas.CustomWaypointsList", value); }

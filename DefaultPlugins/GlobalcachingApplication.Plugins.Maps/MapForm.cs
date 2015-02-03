@@ -71,28 +71,21 @@ namespace GlobalcachingApplication.Plugins.Maps
             _mapControlFactory = MapControl.MapCanvas.MapControlFactoryToUse;
             if (_mapControlFactory != null)
             {
-                if (PluginSettings.Instance.SpecifiedWindowPos != null)
+                for (int i = 0; i < PluginSettings.Instance.SpecifiedWindowPos.Count; i++)
                 {
-                    for (int i = 0; i < PluginSettings.Instance.SpecifiedWindowPos.Count; i++)
+                    if (PluginSettings.Instance.SpecifiedWindowPos[i].StartsWith(string.Concat(_mapControlFactory.ID, "|")))
                     {
-                        if (PluginSettings.Instance.SpecifiedWindowPos[i].StartsWith(string.Concat(_mapControlFactory.ID, "|")))
+                        try
                         {
-                            try
-                            {
-                                string[] parts = PluginSettings.Instance.SpecifiedWindowPos[i].Split(new char[] { '|' });
-                                this.Bounds = new Rectangle(int.Parse(parts[1]), int.Parse(parts[2]), int.Parse(parts[3]), int.Parse(parts[4]));
-                                this.StartPosition = FormStartPosition.Manual;
-                                break;
-                            }
-                            catch
-                            {
-                            }
+                            string[] parts = PluginSettings.Instance.SpecifiedWindowPos[i].Split(new char[] { '|' });
+                            this.Bounds = new Rectangle(int.Parse(parts[1]), int.Parse(parts[2]), int.Parse(parts[3]), int.Parse(parts[4]));
+                            this.StartPosition = FormStartPosition.Manual;
+                            break;
+                        }
+                        catch
+                        {
                         }
                     }
-                }
-                else
-                {
-                    PluginSettings.Instance.SpecifiedWindowPos = new System.Collections.Specialized.StringCollection();
                 }
             }
         }
@@ -169,10 +162,6 @@ namespace GlobalcachingApplication.Plugins.Maps
         private void Decouple()
         {
             this.MdiParent = null;
-            if (PluginSettings.Instance.DecoupledChildWindows == null)
-            {
-                PluginSettings.Instance.DecoupledChildWindows = new System.Collections.Specialized.StringCollection();
-            }
             if (!PluginSettings.Instance.DecoupledChildWindows.Contains(STR_TITLE))
             {
                 PluginSettings.Instance.DecoupledChildWindows.Add(STR_TITLE);
@@ -194,10 +183,6 @@ namespace GlobalcachingApplication.Plugins.Maps
                         {
                             this.MdiParent = mainPlugin.MainForm;
                         }
-                        if (PluginSettings.Instance.DecoupledChildWindows == null)
-                        {
-                            PluginSettings.Instance.DecoupledChildWindows = new System.Collections.Specialized.StringCollection();
-                        }
                         if (PluginSettings.Instance.DecoupledChildWindows.Contains(STR_TITLE))
                         {
                             PluginSettings.Instance.DecoupledChildWindows.Remove(STR_TITLE);
@@ -207,10 +192,6 @@ namespace GlobalcachingApplication.Plugins.Maps
                         //can only be topmost if decoupled
                         Decouple();
                         this.TopMost = true;
-                        if (PluginSettings.Instance.TopMostWindows == null)
-                        {
-                            PluginSettings.Instance.TopMostWindows = new System.Collections.Specialized.StringCollection();
-                        }
                         if (!PluginSettings.Instance.TopMostWindows.Contains(STR_TITLE))
                         {
                             PluginSettings.Instance.TopMostWindows.Add(STR_TITLE);
@@ -218,10 +199,6 @@ namespace GlobalcachingApplication.Plugins.Maps
                         break;
                     case NOTTOPMOST_WINDOW_ID:
                         this.TopMost = false;
-                        if (PluginSettings.Instance.TopMostWindows == null)
-                        {
-                            PluginSettings.Instance.TopMostWindows = new System.Collections.Specialized.StringCollection();
-                        }
                         if (PluginSettings.Instance.TopMostWindows.Contains(STR_TITLE))
                         {
                             PluginSettings.Instance.TopMostWindows.Remove(STR_TITLE);
@@ -512,10 +489,6 @@ namespace GlobalcachingApplication.Plugins.Maps
 
         private void MapForm_LocationChanged(object sender, EventArgs e)
         {
-            if (PluginSettings.Instance.SpecifiedWindowPos == null)
-            {
-                PluginSettings.Instance.SpecifiedWindowPos = new System.Collections.Specialized.StringCollection();
-            }
             if (WindowState == FormWindowState.Normal && _mapControlFactory != null && this.Visible)
             {
                 bool done = false;
@@ -540,10 +513,6 @@ namespace GlobalcachingApplication.Plugins.Maps
 
         private void MapForm_SizeChanged(object sender, EventArgs e)
         {
-            if (PluginSettings.Instance.SpecifiedWindowPos == null)
-            {
-                PluginSettings.Instance.SpecifiedWindowPos = new System.Collections.Specialized.StringCollection();
-            }
             if (WindowState == FormWindowState.Normal && _mapControlFactory != null && this.Visible)
             {
                 bool done = false;

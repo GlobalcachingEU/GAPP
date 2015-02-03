@@ -191,7 +191,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             labelApiMembership.Text = string.IsNullOrEmpty(core.GeocachingComAccount.MemberType) ? "-" : core.GeocachingComAccount.MemberType;
             checkBox1.Checked = core.LoadLogsInBackground;
             checkBox2.Checked = core.AutoSaveOnClose;
-            checkBox3.Checked = Properties.Settings.Default.ShowOKAPIMenu; ;
+            checkBox3.Checked = PluginSettings.Instance.ShowOKAPIMenu; ;
 
             fillGeocacheAccounts();
         }
@@ -265,7 +265,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
                 _core.GeocachingComAccount.AccountName = textBoxUsername.Text;
                 _core.LoadLogsInBackground = checkBox1.Checked;
                 _core.AutoSaveOnClose = checkBox2.Checked;
-                Properties.Settings.Default.ShowOKAPIMenu = checkBox3.Checked;
+                PluginSettings.Instance.ShowOKAPIMenu = checkBox3.Checked;
                 if (_ucList.Count > 0)
                 {
                     using (Utils.ProgressBlock prog = new Utils.ProgressBlock(this._ownerPlugin, Utils.LanguageSupport.Instance.GetTranslation(STR_APPLYINGSETTINGS), Utils.LanguageSupport.Instance.GetTranslation(STR_APPLYINGSETTINGS), _pluginList.Count, 0))

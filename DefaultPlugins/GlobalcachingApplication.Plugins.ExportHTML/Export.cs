@@ -28,11 +28,6 @@ namespace GlobalcachingApplication.Plugins.ExportHTML
 
             var p = new PluginSettings(core);
 
-            if (PluginSettings.Instance.ExportFields == null)
-            {
-                PluginSettings.Instance.ExportFields = new System.Collections.Specialized.StringCollection();
-            }
-
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_NOGEOCACHESELECTED));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_ERROR));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_EXPORTINGPOI));

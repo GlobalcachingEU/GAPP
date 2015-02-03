@@ -1,4 +1,5 @@
-﻿using GlobalcachingApplication.Framework.Interfaces;
+﻿using GlobalcachingApplication.Framework;
+using GlobalcachingApplication.Framework.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -30,7 +31,7 @@ namespace GlobalcachingApplication.Plugins.SHP
             set { _core.SettingsProvider.SetSettingsValue("SHP.DefaultShapeFilesFolder", value); }
         }
 
-        public System.Collections.Specialized.StringCollection ShapeFiles
+        public InterceptedStringCollection ShapeFiles
         {
             get { return _core.SettingsProvider.GetSettingsValueStringCollection("SHP.ShapeFiles", null); }
             set { _core.SettingsProvider.SetSettingsValueStringCollection("SHP.ShapeFiles", value); }

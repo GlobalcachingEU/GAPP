@@ -69,10 +69,6 @@ namespace GlobalcachingApplication.Plugins.OpenAreas
             checkBox3.Checked = PluginSettings.Instance.MysteryOnlyIfCorrected;
             checkBox2.Checked = PluginSettings.Instance.Waypoints;
             checkBox4.Checked = PluginSettings.Instance.CustomWaypoints;
-            if (PluginSettings.Instance.CustomWaypointsList == null)
-            {
-                PluginSettings.Instance.CustomWaypointsList = new System.Collections.Specialized.StringCollection();
-            }
             foreach (string s in PluginSettings.Instance.CustomWaypointsList)
             {
                 listBox1.Items.Add(s);

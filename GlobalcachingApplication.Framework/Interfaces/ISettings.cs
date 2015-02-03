@@ -31,10 +31,12 @@ namespace GlobalcachingApplication.Framework.Interfaces
         System.Drawing.Rectangle GetSettingsValueRectangle(string name, System.Drawing.Rectangle defaultValue);
         void SetSettingsValueDouble(string name, double value);
         double GetSettingsValueDouble(string name, double defaultValue);
-        void SetSettingsValueStringCollection(string name, System.Collections.Specialized.StringCollection value);
-        System.Collections.Specialized.StringCollection GetSettingsValueStringCollection(string name, System.Collections.Specialized.StringCollection defaultValue);
+        void SetSettingsValueStringCollection(string name, InterceptedStringCollection value);
+        InterceptedStringCollection GetSettingsValueStringCollection(string name, InterceptedStringCollection defaultValue);
         void SetSettingsValueColor(string name, System.Drawing.Color value);
         System.Drawing.Color GetSettingsValueColor(string name, System.Drawing.Color defaultValue);
+        void SetSettingsValuePoint(string name, System.Drawing.Point value);
+        System.Drawing.Point GetSettingsValuePoint(string name, System.Drawing.Point defaultValue);
 
         PetaPoco.Database Database { get; }
         bool TableExists(string tableName);

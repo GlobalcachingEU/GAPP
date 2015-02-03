@@ -32,13 +32,6 @@ namespace GlobalcachingApplication.Utils.BasePlugin
         {
             InitializeComponent();
 
-            if (Properties.Settings.Default.UpgradeNeeded)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
-
             _allUIChildForms.Add(this);
         }
 
@@ -49,7 +42,7 @@ namespace GlobalcachingApplication.Utils.BasePlugin
 
         public static int TopMostOpaque
         {
-            get { return Properties.Settings.Default.TopMostOpaque; }
+            get { return UtilsSettings.Instance.TopMostOpaque; }
         }
 
         protected override void OnHandleCreated(EventArgs e)
@@ -69,15 +62,10 @@ namespace GlobalcachingApplication.Utils.BasePlugin
         private void Decouple()
         {
             this.MdiParent = null;
-            if (Properties.Settings.Default.DecoupledChildWindows == null)
+            if (!UtilsSettings.Instance.DecoupledChildWindows.Contains(this.GetType().FullName))
             {
-                Properties.Settings.Default.DecoupledChildWindows = new System.Collections.Specialized.StringCollection();
+                UtilsSettings.Instance.DecoupledChildWindows.Add(this.GetType().FullName);
             }
-            if (!Properties.Settings.Default.DecoupledChildWindows.Contains(this.GetType().FullName))
-            {
-                Properties.Settings.Default.DecoupledChildWindows.Add(this.GetType().FullName);
-            }
-            Properties.Settings.Default.Save();
             CouplingToMainScreenChanged();
         }
 
@@ -97,15 +85,10 @@ namespace GlobalcachingApplication.Utils.BasePlugin
                         {
                             this.MdiParent = mainPlugin.MainForm;
                         }
-                        if (Properties.Settings.Default.DecoupledChildWindows == null)
+                        if (UtilsSettings.Instance.DecoupledChildWindows.Contains(this.GetType().FullName))
                         {
-                            Properties.Settings.Default.DecoupledChildWindows = new System.Collections.Specialized.StringCollection();
+                            UtilsSettings.Instance.DecoupledChildWindows.Remove(this.GetType().FullName);
                         }
-                        if (Properties.Settings.Default.DecoupledChildWindows.Contains(this.GetType().FullName))
-                        {
-                            Properties.Settings.Default.DecoupledChildWindows.Remove(this.GetType().FullName);
-                        }
-                        Properties.Settings.Default.Save();
                         reloadSystemMenu();
                         CouplingToMainScreenChanged();
                         break;
@@ -113,28 +96,18 @@ namespace GlobalcachingApplication.Utils.BasePlugin
                         //can only be topmost if decoupled
                         Decouple();
                         this.TopMost = true;
-                        if (Properties.Settings.Default.TopMostWindows == null)
+                        if (!UtilsSettings.Instance.TopMostWindows.Contains(this.GetType().FullName))
                         {
-                            Properties.Settings.Default.TopMostWindows = new System.Collections.Specialized.StringCollection();
+                            UtilsSettings.Instance.TopMostWindows.Add(this.GetType().FullName);
                         }
-                        if (!Properties.Settings.Default.TopMostWindows.Contains(this.GetType().FullName))
-                        {
-                            Properties.Settings.Default.TopMostWindows.Add(this.GetType().FullName);
-                        }
-                        Properties.Settings.Default.Save();
                         reloadSystemMenu();
                         break;
                     case NOTTOPMOST_WINDOW_ID:
                         this.TopMost = false;
-                        if (Properties.Settings.Default.TopMostWindows == null)
+                        if (UtilsSettings.Instance.TopMostWindows.Contains(this.GetType().FullName))
                         {
-                            Properties.Settings.Default.TopMostWindows = new System.Collections.Specialized.StringCollection();
+                            UtilsSettings.Instance.TopMostWindows.Remove(this.GetType().FullName);
                         }
-                        if (Properties.Settings.Default.TopMostWindows.Contains(this.GetType().FullName))
-                        {
-                            Properties.Settings.Default.TopMostWindows.Remove(this.GetType().FullName);
-                        }
-                        Properties.Settings.Default.Save();
                         reloadSystemMenu();
                         break;
                     case OPAQUEWHENIACTIVE_WINDOW_ID:
@@ -160,7 +133,7 @@ namespace GlobalcachingApplication.Utils.BasePlugin
         {
             if (this.MdiParent == null && this.TopMost && Form.ActiveForm!=this)
             {
-                this.Opacity = (double)Properties.Settings.Default.TopMostOpaque / 100.0;
+                this.Opacity = (double)UtilsSettings.Instance.TopMostOpaque / 100.0;
             }
         }
 
@@ -200,8 +173,8 @@ namespace GlobalcachingApplication.Utils.BasePlugin
                         sm.Append(DOCK_WINDOW_ID, Utils.LanguageSupport.Instance.GetTranslation(STR_DOCK_WINDOW));
                         sm.Append(TOPMOST_WINDOW_ID, Utils.LanguageSupport.Instance.GetTranslation(STR_TOPMOST_WINDOW));
                         sm.Append(NOTTOPMOST_WINDOW_ID, Utils.LanguageSupport.Instance.GetTranslation(STR_NOTTOPMOST_WINDOW));
-                        if (Properties.Settings.Default.DecoupledChildWindows != null && Properties.Settings.Default.DecoupledChildWindows.Contains(this.GetType().FullName) &&
-                            Properties.Settings.Default.TopMostWindows != null && Properties.Settings.Default.TopMostWindows.Contains(this.GetType().FullName))
+                        if (UtilsSettings.Instance.DecoupledChildWindows != null && UtilsSettings.Instance.DecoupledChildWindows.Contains(this.GetType().FullName) &&
+                            UtilsSettings.Instance.TopMostWindows != null && UtilsSettings.Instance.TopMostWindows.Contains(this.GetType().FullName))
                         {
                             sm.Append(OPAQUEWHENIACTIVE_WINDOW_ID, Utils.LanguageSupport.Instance.GetTranslation(STR_OPAQUEWHENIACTIVE));
                         }
@@ -266,10 +239,10 @@ namespace GlobalcachingApplication.Utils.BasePlugin
 
         private void BaseUIChildWindowForm_Deactivate(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.DecoupledChildWindows != null && Properties.Settings.Default.DecoupledChildWindows.Contains(this.GetType().FullName) &&
-                Properties.Settings.Default.TopMostWindows != null && Properties.Settings.Default.TopMostWindows.Contains(this.GetType().FullName))
+            if (UtilsSettings.Instance.DecoupledChildWindows != null && UtilsSettings.Instance.DecoupledChildWindows.Contains(this.GetType().FullName) &&
+                UtilsSettings.Instance.TopMostWindows != null && UtilsSettings.Instance.TopMostWindows.Contains(this.GetType().FullName))
             {
-                this.Opacity = (double)Properties.Settings.Default.TopMostOpaque / 100.0;
+                this.Opacity = (double)UtilsSettings.Instance.TopMostOpaque / 100.0;
             }
         }
 

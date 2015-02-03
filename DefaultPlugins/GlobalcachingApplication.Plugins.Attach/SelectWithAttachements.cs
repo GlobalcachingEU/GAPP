@@ -13,6 +13,11 @@ namespace GlobalcachingApplication.Plugins.Attach
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            if (PluginSettings.Instance == null)
+            {
+                var p = new PluginSettings(core);
+            }
+
             AddAction(ACTION_SELECT);
             return await base.InitializeAsync(core);
         }
@@ -35,18 +40,15 @@ namespace GlobalcachingApplication.Plugins.Attach
                     Core.Geocaches.BeginUpdate();
                     try
                     {
-                        string databaseFile = System.IO.Path.Combine(new string[] { Core.PluginDataPath, "attachements.db3" });
-                        if (System.IO.File.Exists(databaseFile))
+                        lock (Core.SettingsProvider)
                         {
                             foreach (Framework.Data.Geocache gc in Core.Geocaches)
                             {
                                 gc.Selected = false;
                             }
-                            Utils.DBCon dbcon = new Utils.DBConComSqlite(databaseFile);
-                            DbDataReader dr = dbcon.ExecuteReader("select distinct code from attachements");
-                            while (dr.Read())
+                            List<string> codes = Core.SettingsProvider.Database.Fetch<string>(string.Format("select distinct code from {0}", Core.SettingsProvider.GetFullTableName("attachements")));
+                            foreach (string code in codes)
                             {
-                                string code = dr["code"] as string;
                                 Framework.Data.Geocache gc = Utils.DataAccess.GetGeocache(Core.Geocaches, code);
                                 if (gc != null)
                                 {

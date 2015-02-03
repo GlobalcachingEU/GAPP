@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Security.Cryptography;
 using Microsoft.Win32;
 using System.Threading.Tasks;
+using GlobalcachingApplication.Framework;
 
 namespace GlobalcachingApplication.Core
 {
@@ -172,10 +173,6 @@ namespace GlobalcachingApplication.Core
         void _geocachingAccountNames_Changed(object sender, Framework.EventArguments.GeocachingAccountNamesEventArgs e)
         {
             var p = _settingsProvider.GetSettingsValueStringCollection("Core.GeocachingAccountNames", null);
-            if (p == null)
-            {
-                p = new System.Collections.Specialized.StringCollection();
-            }
             string[] prefixes = e.AccountNames.GeocachePrefixes;
             foreach (string s in prefixes)
             {
@@ -900,11 +897,7 @@ namespace GlobalcachingApplication.Core
 
         public bool SetDisabledPlugins(string[] plugins)
         {
-            System.Collections.Specialized.StringCollection sc = _settingsProvider.GetSettingsValueStringCollection("Core.DisabledPlugins", null);
-            if (sc==null)
-            {
-                sc = new System.Collections.Specialized.StringCollection();
-            }
+            InterceptedStringCollection sc = _settingsProvider.GetSettingsValueStringCollection("Core.DisabledPlugins", null);
             bool restart = false;
             if (plugins.Length != sc.Count)
             {

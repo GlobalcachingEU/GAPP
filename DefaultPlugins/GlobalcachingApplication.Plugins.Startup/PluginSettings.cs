@@ -1,4 +1,5 @@
-﻿using GlobalcachingApplication.Framework.Interfaces;
+﻿using GlobalcachingApplication.Framework;
+using GlobalcachingApplication.Framework.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -24,7 +25,7 @@ namespace GlobalcachingApplication.Plugins.Startup
             get { return _uniqueInstance; }
         }
 
-        public System.Collections.Specialized.StringCollection Startup
+        public InterceptedStringCollection Startup
         {
             get { return _core.SettingsProvider.GetSettingsValueStringCollection("Startup.Startup", null); }
             set { _core.SettingsProvider.SetSettingsValueStringCollection("Startup.Startup", value); }

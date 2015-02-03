@@ -1,4 +1,5 @@
-﻿using GlobalcachingApplication.Framework.Interfaces;
+﻿using GlobalcachingApplication.Framework;
+using GlobalcachingApplication.Framework.Interfaces;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,60 +32,6 @@ namespace GlobalcachingApplication.Core
         private Hashtable _currentSettings = null;
         private Hashtable _scopelessSettings = null;
         private PetaPoco.Database _database = null;
-
-
-        public class InterceptedStringCollection : System.Collections.Specialized.StringCollection
-        {
-            private string _name;
-            private SettingsProvider _sp;
-
-            public InterceptedStringCollection(SettingsProvider sp, string name)
-            {
-                _sp = sp;
-                _name = name;
-            }
-
-            public void AddWithoutSave(string value)
-            {
-                base.Add(value);
-            }
-
-            public new void Add(string value)
-            {
-                base.Add(value);
-                _sp.SetSettingsValueStringCollection(_name, this);
-            }
-
-            public new void AddRange(string[] value)
-            {
-                base.AddRange(value);
-                _sp.SetSettingsValueStringCollection(_name, this);
-            }
-
-            public new void Clear()
-            {
-                base.Clear();
-                _sp.SetSettingsValueStringCollection(_name, this);
-            }
-
-            public new void Insert(int index, string value)
-            {
-                base.Insert(index, value);
-                _sp.SetSettingsValueStringCollection(_name, this);
-            }
-
-            public new void Remove(string value)
-            {
-                base.Remove(value);
-                _sp.SetSettingsValueStringCollection(_name, this);
-            }
-
-            public new void RemoveAt(int index)
-            {
-                base.RemoveAt(index);
-                _sp.SetSettingsValueStringCollection(_name, this);
-            }
-        }
 
         public SettingsProvider(string scope)
         {
@@ -447,11 +394,6 @@ namespace GlobalcachingApplication.Core
             return bool.Parse(GetSettingsValue(name, defaultValue.ToString()));
         }
 
-        public void SetSettingsValueRectangle(string name, System.Drawing.Rectangle value)
-        {
-            SetSettingsValue(name, string.Format("{0},{1},{2},{3}",value.X, value.Y, value.Width, value.Height));
-        }
-
         public void SetSettingsValueDouble(string name, double value)
         {
             SetSettingsValue(name, value.ToString(CultureInfo.InstalledUICulture));
@@ -460,6 +402,11 @@ namespace GlobalcachingApplication.Core
         public double GetSettingsValueDouble(string name, double defaultValue)
         {
             return double.Parse(GetSettingsValue(name, defaultValue.ToString()), CultureInfo.InstalledUICulture);
+        }
+
+        public void SetSettingsValueRectangle(string name, System.Drawing.Rectangle value)
+        {
+            SetSettingsValue(name, string.Format("{0},{1},{2},{3}", value.X, value.Y, value.Width, value.Height));
         }
 
         public System.Drawing.Rectangle GetSettingsValueRectangle(string name, System.Drawing.Rectangle defaultValue)
@@ -484,6 +431,29 @@ namespace GlobalcachingApplication.Core
             return result;
         }
 
+        public void SetSettingsValuePoint(string name, System.Drawing.Point value)
+        {
+            SetSettingsValue(name, string.Format("{0},{1}", value.X, value.Y));
+        }
+
+        public System.Drawing.Point GetSettingsValuePoint(string name, System.Drawing.Point defaultValue)
+        {
+            System.Drawing.Point result = new System.Drawing.Point();
+            string r = GetSettingsValue(name, null);
+            if (string.IsNullOrEmpty(r))
+            {
+                result.X = defaultValue.X;
+                result.Y = defaultValue.Y;
+            }
+            else
+            {
+                string[] parts = r.Split(',');
+                result.X = int.Parse(parts[0]);
+                result.Y = int.Parse(parts[1]);
+            }
+            return result;
+        }
+
         public void SetSettingsValueColor(string name, System.Drawing.Color value)
         {
             SetSettingsValue(name, string.Format("{0},{1},{2},{3}", value.A, value.R, value.G, value.B));
@@ -503,7 +473,7 @@ namespace GlobalcachingApplication.Core
             }
         }
 
-        public void SetSettingsValueStringCollection(string name, System.Collections.Specialized.StringCollection value)
+        public void SetSettingsValueStringCollection(string name, InterceptedStringCollection value)
         {
             if (value == null)
             {
@@ -535,14 +505,12 @@ namespace GlobalcachingApplication.Core
             
         }
 
-        public System.Collections.Specialized.StringCollection GetSettingsValueStringCollection(string name, System.Collections.Specialized.StringCollection defaultValue)
+        public InterceptedStringCollection GetSettingsValueStringCollection(string name, InterceptedStringCollection defaultValue)
         {
-            InterceptedStringCollection result = null;
+            InterceptedStringCollection result = new InterceptedStringCollection(this, name);
             string xmlDoc = GetSettingsValue(name, null);
             if (!string.IsNullOrEmpty(xmlDoc))
             {
-                result = new InterceptedStringCollection(this, name);
-
                 XmlDocument doc = new XmlDocument();
                 doc.LoadXml(xmlDoc);
                 var root = doc.DocumentElement;

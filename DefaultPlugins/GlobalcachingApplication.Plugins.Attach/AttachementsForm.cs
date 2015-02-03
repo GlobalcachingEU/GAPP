@@ -27,8 +27,13 @@ namespace GlobalcachingApplication.Plugins.Attach
             public string Comment { get; set; }
         }
         private List<AttachementItem> _activeAttachements = new List<AttachementItem>();
-        private string _databaseFile = null;
-        private Utils.DBCon _dbcon = null;
+
+        public class AttachementPoco
+        {
+            public string code { get; set; }
+            public string filepath { get; set; }
+            public string comment { get; set; }
+        }
 
         public AttachementsForm()
         {
@@ -40,25 +45,10 @@ namespace GlobalcachingApplication.Plugins.Attach
         {
             InitializeComponent();
 
-            if (Properties.Settings.Default.UpgradeNeeded)
+            if (PluginSettings.Instance.WindowPos != null && !PluginSettings.Instance.WindowPos.IsEmpty)
             {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
-            }
-
-            if (Properties.Settings.Default.WindowPos != null && !Properties.Settings.Default.WindowPos.IsEmpty)
-            {
-                this.Bounds = Properties.Settings.Default.WindowPos;
+                this.Bounds = PluginSettings.Instance.WindowPos;
                 this.StartPosition = FormStartPosition.Manual;
-            }
-
-            try
-            {
-                _databaseFile = System.IO.Path.Combine(core.PluginDataPath, "attachements.db3" );
-            }
-            catch
-            {
             }
 
             SelectedLanguageChanged(this, EventArgs.Empty);
@@ -95,15 +85,15 @@ namespace GlobalcachingApplication.Plugins.Attach
                 linkLabelGC.Text = string.Format("{0}, {1}", Core.ActiveGeocache.Code, Core.ActiveGeocache.Name);
                 linkLabelGC.Links.Add(0, Core.ActiveGeocache.Code.Length, Core.ActiveGeocache.Url);
                 button1.Enabled = true;
-                if (initDatabase() != null)
+                lock (Core.SettingsProvider)
                 {
-                    DbDataReader dr = _dbcon.ExecuteReader(string.Format("select filepath, comment from attachements where code='{0}'", Core.ActiveGeocache.Code.Replace("'","''")));
-                    while (dr.Read())
+                    var pocos = Core.SettingsProvider.Database.Fetch<AttachementPoco>(string.Format("select * from {1} where code='{0}'", Core.ActiveGeocache.Code, Core.SettingsProvider.GetFullTableName("attachements")));
+                    foreach(var poco in pocos)
                     {
                         AttachementItem ai = new AttachementItem();
-                        ai.Comment = dr["comment"] as string;
-                        ai.FilePath = dr["filepath"] as string;
-                        ai.GeocacheCode = Core.ActiveGeocache.Code;
+                        ai.Comment = poco.comment;
+                        ai.FilePath = poco.filepath;
+                        ai.GeocacheCode = poco.code;
                         _activeAttachements.Add(ai);
                         addAttachementItemToList(ai);
                     }
@@ -117,28 +107,6 @@ namespace GlobalcachingApplication.Plugins.Attach
             }
         }
 
-        private Utils.DBCon initDatabase()
-        {
-            if (_dbcon == null)
-            {
-                try
-                {
-                    _dbcon = new Utils.DBConComSqlite(_databaseFile);
-                    object o = _dbcon.ExecuteScalar("SELECT name FROM sqlite_master WHERE type='table' AND name='attachements'");
-                    if (o == null || o.GetType() == typeof(DBNull))
-                    {
-                        _dbcon.ExecuteNonQuery("create table 'attachements' (code text, filepath text, comment text)");
-                        _dbcon.ExecuteNonQuery("create unique index idx_attachements on attachements (code)");
-                    }
-                }
-                catch
-                {
-                    _dbcon = null;
-                }
-            }
-            return _dbcon;
-        }
-
         private void addAttachementItemToList(AttachementItem ai)
         {
             ListViewItem lvi = new ListViewItem(new string[] {ai.FilePath, ai.Comment });
@@ -150,8 +118,7 @@ namespace GlobalcachingApplication.Plugins.Attach
         {
             if (WindowState == FormWindowState.Normal && this.Visible)
             {
-                Properties.Settings.Default.WindowPos = this.Bounds;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.WindowPos = this.Bounds;
             }
         }
 
@@ -159,8 +126,7 @@ namespace GlobalcachingApplication.Plugins.Attach
         {
             if (WindowState == FormWindowState.Normal && this.Visible)
             {
-                Properties.Settings.Default.WindowPos = this.Bounds;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.WindowPos = this.Bounds;
             }
         }
 
@@ -170,14 +136,6 @@ namespace GlobalcachingApplication.Plugins.Attach
             {
                 e.Cancel = true;
                 Hide();
-            }
-            else
-            {
-                if (_dbcon != null)
-                {
-                    _dbcon.Dispose();
-                    _dbcon = null;
-                }
             }
         }
 
@@ -204,11 +162,11 @@ namespace GlobalcachingApplication.Plugins.Attach
                             ai.GeocacheCode = Core.ActiveGeocache.Code;
                             _activeAttachements.Add(ai);
                             addAttachementItemToList(ai);
-                            if (initDatabase() != null)
+                            lock (Core.SettingsProvider)
                             {
                                 try
                                 {
-                                    _dbcon.ExecuteNonQuery(string.Format("insert into attachements (code, filepath, comment) values ('{2}', '{0}', '{1}')", ai.FilePath.Replace("'", "''"), ai.Comment.Replace("'", "''"), ai.GeocacheCode.Replace("'", "''")));
+                                    Core.SettingsProvider.Database.Execute(string.Format("insert into {3} (code, filepath, comment) values ('{2}', '{0}', '{1}')", ai.FilePath.Replace("'", "''"), ai.Comment.Replace("'", "''"), ai.GeocacheCode.Replace("'", "''"), Core.SettingsProvider.GetFullTableName("attachements")));
                                 }
                                 catch
                                 {
@@ -225,11 +183,11 @@ namespace GlobalcachingApplication.Plugins.Attach
             if (listView1.SelectedItems.Count > 0)
             {
                 AttachementItem ai = listView1.SelectedItems[0].Tag as AttachementItem;
-                if (initDatabase() != null)
+                lock (Core.SettingsProvider)
                 {
                     try
                     {
-                        _dbcon.ExecuteNonQuery(string.Format("delete from attachements where code='{1}' and filepath='{0}'", ai.FilePath.Replace("'", "''"), ai.GeocacheCode.Replace("'", "''")));
+                        Core.SettingsProvider.Database.Execute(string.Format("delete from {2} where code='{1}' and filepath='{0}'", ai.FilePath.Replace("'", "''"), ai.GeocacheCode.Replace("'", "''"), Core.SettingsProvider.GetFullTableName("attachements")));
                     }
                     catch
                     {
@@ -276,6 +234,11 @@ namespace GlobalcachingApplication.Plugins.Attach
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            if (PluginSettings.Instance == null)
+            {
+                var p = new PluginSettings(core);
+            }
+
             AddAction(ACTION_SHOW);
 
             core.LanguageItems.Add(new Framework.Data.LanguageItem(AttachementsForm.STR_ADD));
@@ -291,7 +254,26 @@ namespace GlobalcachingApplication.Plugins.Attach
             core.LanguageItems.Add(new Framework.Data.LanguageItem(AddFilesForm.STR_FILES));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(AddFilesForm.STR_OK));
 
+            initDatabase(core);
+
             return await base.InitializeAsync(core);
+        }
+
+        private void initDatabase(Framework.Interfaces.ICore core)
+        {
+            lock(core.SettingsProvider)
+            {
+                try
+                {
+                    if (!core.SettingsProvider.TableExists(core.SettingsProvider.GetFullTableName("attachements")))
+                    {
+                        core.SettingsProvider.Database.Execute(string.Format("create table '{0}' (code text, filepath text, comment text)", core.SettingsProvider.GetFullTableName("attachements")));
+                    }
+                }
+                catch
+                {
+                }
+            }
         }
 
         public override Framework.PluginType PluginType
