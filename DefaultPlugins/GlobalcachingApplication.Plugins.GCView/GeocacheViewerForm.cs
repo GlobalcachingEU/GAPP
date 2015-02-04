@@ -434,11 +434,14 @@ namespace GlobalcachingApplication.Plugins.GCView
                 List<string> linksInDescr = Utils.ImageSupport.GetImageUrlsFromGeocache(html);
                 foreach (string link in linksInDescr)
                 {
+                    if (!link.StartsWith("gapp://"))
+                    { 
                     string p = Utils.ImageSupport.Instance.GetImagePath(link);
                     if (!string.IsNullOrEmpty(p))
                     {
-                        result = result.Replace(link, p);
+                        result = result.Replace(link, string.Format("gapp://{0}", p));
                     }
+                        }
                 }
             }
             catch
