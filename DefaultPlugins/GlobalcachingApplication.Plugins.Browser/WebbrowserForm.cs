@@ -46,33 +46,14 @@ namespace GlobalcachingApplication.Plugins.Browser
         {
             InitializeComponent();
 
-            if (Properties.Settings.Default.UpgradeNeeded)
+            foreach (string s in PluginSettings.Instance.Favorites)
             {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeNeeded = false;
-                Properties.Settings.Default.Save();
+                comboBox1.Items.Add(s);
             }
 
-            if (Properties.Settings.Default.DisabledSystemScripts == null)
+            if (PluginSettings.Instance.WindowPos != null && !PluginSettings.Instance.WindowPos.IsEmpty)
             {
-                Properties.Settings.Default.DisabledSystemScripts = new System.Collections.Specialized.StringCollection();
-            }
-            if (Properties.Settings.Default.Favorites == null)
-            {
-                Properties.Settings.Default.Favorites = new System.Collections.Specialized.StringCollection();
-            }
-            else
-            {
-
-                foreach (string s in Properties.Settings.Default.Favorites)
-                {
-                    comboBox1.Items.Add(s);
-                }
-            }
-
-            if (Properties.Settings.Default.WindowPos != null && !Properties.Settings.Default.WindowPos.IsEmpty)
-            {
-                this.Bounds = Properties.Settings.Default.WindowPos;
+                this.Bounds = PluginSettings.Instance.WindowPos;
                 this.StartPosition = FormStartPosition.Manual;
             }
 
@@ -124,7 +105,7 @@ namespace GlobalcachingApplication.Plugins.Browser
             try
             {
                 bool changed = false;
-                int targetValue = Properties.Settings.Default.CompatibilityMode;
+                int targetValue = PluginSettings.Instance.CompatibilityMode;
                 using (RegistryKey subregstrkey = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMULATION"))
                 {
                     if (subregstrkey != null)
@@ -211,7 +192,7 @@ namespace GlobalcachingApplication.Plugins.Browser
             tabControl1_Selecting(this, null);
             tabControl1.TabPages.Add(result);
             tabControl1.SelectedIndex = tabControl1.TabPages.Count - 1;
-            result.Browser.ScriptErrorsSuppressed = Properties.Settings.Default.ScriptErrorsSuppressed;
+            result.Browser.ScriptErrorsSuppressed = PluginSettings.Instance.ScriptErrorsSuppressed;
             result.Browser.StatusTextChanged += new EventHandler(Browser_StatusTextChanged);
             result.Browser.DocumentTitleChanged += new EventHandler(Browser_DocumentTitleChanged);
             result.Browser.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(Browser_DocumentCompleted);
@@ -330,7 +311,7 @@ namespace GlobalcachingApplication.Plugins.Browser
             {
                 if (t.IsClass && (t.BaseType == typeof(BrowserScript)))
                 {
-                    if (checkDisabledSystemScripts && !Properties.Settings.Default.DisabledSystemScripts.Contains(t.Name))
+                    if (checkDisabledSystemScripts && !PluginSettings.Instance.DisabledSystemScripts.Contains(t.Name))
                     {
                         ConstructorInfo constructor = t.GetConstructor(new Type[] { typeof(BrowserTab), typeof(Utils.BasePlugin.Plugin), typeof(WebBrowser), typeof(Framework.Interfaces.ICore) });
                         if (constructor != null)
@@ -352,7 +333,7 @@ namespace GlobalcachingApplication.Plugins.Browser
         private void WebbrowserForm_Shown(object sender, EventArgs e)
         {
             loadUserScripts();
-            newTab(Properties.Settings.Default.HomePage, null);
+            newTab(PluginSettings.Instance.HomePage, null);
         }
 
         private void loadUserScripts()
@@ -500,7 +481,7 @@ namespace GlobalcachingApplication.Plugins.Browser
 
         private void button7_Click(object sender, EventArgs e)
         {
-            newTab(Properties.Settings.Default.HomePage, null);
+            newTab(PluginSettings.Instance.HomePage, null);
         }
 
         private void CloseTab(int index)
@@ -533,7 +514,7 @@ namespace GlobalcachingApplication.Plugins.Browser
                 BrowserTab bt = tabControl1.TabPages[tabControl1.SelectedIndex] as BrowserTab;
                 if (bt != null)
                 {
-                    bt.Browser.Navigate(Properties.Settings.Default.HomePage);
+                    bt.Browser.Navigate(PluginSettings.Instance.HomePage);
                 }
             }
         }
@@ -589,26 +570,25 @@ namespace GlobalcachingApplication.Plugins.Browser
             if (comboBox1.Text.Length > 0)
             {
                 string s = comboBox1.Text;
-                if (Properties.Settings.Default.Favorites.Contains(s))
+                if (PluginSettings.Instance.Favorites.Contains(s))
                 {
-                    Properties.Settings.Default.Favorites.Remove(s);
+                    PluginSettings.Instance.Favorites.Remove(s);
                     comboBox1.Items.Remove(s);
                     button5.Image = Properties.Resources.favorite_no;
                 }
                 else
                 {
-                    Properties.Settings.Default.Favorites.Add(s);
+                    PluginSettings.Instance.Favorites.Add(s);
                     comboBox1.Items.Add(s);
                     button5.Image = Properties.Resources.favorite_yes;
                 }
-                Properties.Settings.Default.Save();
             }
         }
 
         private void comboBox1_TextChanged(object sender, EventArgs e)
         {
             string s = comboBox1.Text;
-            if (Properties.Settings.Default.Favorites.Contains(s))
+            if (PluginSettings.Instance.Favorites.Contains(s))
             {
                 if (button5.Image != Properties.Resources.favorite_yes)
                 {
@@ -629,8 +609,7 @@ namespace GlobalcachingApplication.Plugins.Browser
         {
             if (WindowState == FormWindowState.Normal && this.Visible)
             {
-                Properties.Settings.Default.WindowPos = this.Bounds;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.WindowPos = this.Bounds;
             }
         }
 
@@ -638,8 +617,7 @@ namespace GlobalcachingApplication.Plugins.Browser
         {
             if (WindowState == FormWindowState.Normal && this.Visible)
             {
-                Properties.Settings.Default.WindowPos = this.Bounds;
-                Properties.Settings.Default.Save();
+                PluginSettings.Instance.WindowPos = this.Bounds;
             }
         }
 
@@ -659,7 +637,7 @@ namespace GlobalcachingApplication.Plugins.Browser
                     _systemScriptsNames.Clear();
 
                     //open new default tab
-                    newTab(Properties.Settings.Default.HomePage, null);
+                    newTab(PluginSettings.Instance.HomePage, null);
                 }
             }
         }

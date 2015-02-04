@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Globalcaching.eu")]
 [assembly: AssemblyProduct("GlobalcachingApplication.Core")]
-[assembly: AssemblyCopyright("Copyright © 2012-2013 Globalcaching")]
+[assembly: AssemblyCopyright("Copyright © 2012-2015 Globalcaching")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

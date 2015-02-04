@@ -51,7 +51,7 @@ namespace GlobalcachingApplication.Plugins.Browser
         {
             _userScripts = userScripts;
 
-            textBox1.Text = Properties.Settings.Default.HomePage;
+            textBox1.Text = PluginSettings.Instance.HomePage;
 
             this.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_TITLE);
             this.label1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_HOMEPAGE);
@@ -66,16 +66,16 @@ namespace GlobalcachingApplication.Plugins.Browser
             this.checkBox1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_SUPPRESSSCRIPTERRORS);
             this.label4.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_COMPATIBILITY);
 
-            checkBox1.Checked = Properties.Settings.Default.ScriptErrorsSuppressed;
+            checkBox1.Checked = PluginSettings.Instance.ScriptErrorsSuppressed;
             comboBox1.Items.AddRange((from a in _browserCompatibilityValues select a.ToString()).ToArray());
-            comboBox1.SelectedIndex = comboBox1.Items.IndexOf((Properties.Settings.Default.CompatibilityMode / 1000).ToString());
+            comboBox1.SelectedIndex = comboBox1.Items.IndexOf((PluginSettings.Instance.CompatibilityMode / 1000).ToString());
 
             ListViewItem lvi;
             foreach (string s in systemScripts)
             {
                 lvi = new ListViewItem(Utils.LanguageSupport.Instance.GetTranslation(s));
                 lvi.Tag = s;
-                lvi.Checked = !Properties.Settings.Default.DisabledSystemScripts.Contains(s);
+                lvi.Checked = !PluginSettings.Instance.DisabledSystemScripts.Contains(s);
                 listView1.Items.Add(lvi);
             }
 
@@ -100,21 +100,19 @@ namespace GlobalcachingApplication.Plugins.Browser
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.ScriptErrorsSuppressed = checkBox1.Checked;
+            PluginSettings.Instance.ScriptErrorsSuppressed = checkBox1.Checked;
             if (comboBox1.SelectedItem != null)
             {
-                Properties.Settings.Default.CompatibilityMode = int.Parse(comboBox1.SelectedItem.ToString()) * 1000;
+                PluginSettings.Instance.CompatibilityMode = int.Parse(comboBox1.SelectedItem.ToString()) * 1000;
             }
-            Properties.Settings.Default.HomePage = textBox1.Text;
-            Properties.Settings.Default.DisabledSystemScripts = new System.Collections.Specialized.StringCollection();
+            PluginSettings.Instance.HomePage = textBox1.Text;
             foreach (ListViewItem lvi in listView1.Items)
             {
                 if (!lvi.Checked)
                 {
-                    Properties.Settings.Default.DisabledSystemScripts.Add(lvi.Tag.ToString());
+                    PluginSettings.Instance.DisabledSystemScripts.Add(lvi.Tag.ToString());
                 }
             }
-            Properties.Settings.Default.Save();
 
             //user scripts
             bool changed = false;

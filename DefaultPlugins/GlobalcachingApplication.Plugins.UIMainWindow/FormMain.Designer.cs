@@ -78,30 +78,30 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.customToolbarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
-            this.toolStripScripts = new System.Windows.Forms.ToolStrip();
-            this.toolStripComboBoxScript = new System.Windows.Forms.ToolStripComboBox();
-            this.toolStripButtonExecute = new System.Windows.Forms.ToolStripButton();
+            this.toolStripActions = new System.Windows.Forms.ToolStrip();
+            this.toolStripComboBoxBuilderFlows = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripButtonExecuteAction = new System.Windows.Forms.ToolStripButton();
             this.toolStripFile = new System.Windows.Forms.ToolStrip();
             this.toolStripSearch = new System.Windows.Forms.ToolStrip();
             this.toolStripCustom = new System.Windows.Forms.ToolStrip();
             this.toolStripWindows = new System.Windows.Forms.ToolStrip();
             this.toolStripLiveAPI = new System.Windows.Forms.ToolStrip();
             this.toolStripMaps = new System.Windows.Forms.ToolStrip();
+            this.toolStripScripts = new System.Windows.Forms.ToolStrip();
+            this.toolStripComboBoxScript = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripButtonExecute = new System.Windows.Forms.ToolStripButton();
             this.toolStripActionSequence = new System.Windows.Forms.ToolStrip();
             this.toolStripComboBoxActionSequence = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripButtonExecuteActionSequence = new System.Windows.Forms.ToolStripButton();
-            this.toolStripActions = new System.Windows.Forms.ToolStrip();
-            this.toolStripComboBoxBuilderFlows = new System.Windows.Forms.ToolStripComboBox();
-            this.toolStripButtonExecuteAction = new System.Windows.Forms.ToolStripButton();
             this.menuStripMain.SuspendLayout();
             this.statusStripMain.SuspendLayout();
             this.panel1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
+            this.toolStripActions.SuspendLayout();
             this.toolStripScripts.SuspendLayout();
             this.toolStripActionSequence.SuspendLayout();
-            this.toolStripActions.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStripMain
@@ -554,47 +554,47 @@
             // toolStripContainer1.TopToolStripPanel
             // 
             this.toolStripContainer1.TopToolStripPanel.ContextMenuStrip = this.contextMenuStrip1;
-            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStripActionSequence);
+            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStripScripts);
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStripFile);
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStripSearch);
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStripCustom);
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStripWindows);
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStripLiveAPI);
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStripMaps);
+            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStripActionSequence);
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStripActions);
-            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStripScripts);
             this.toolStripContainer1.TopToolStripPanel.SizeChanged += new System.EventHandler(this.toolStripContainer1_TopToolStripPanel_SizeChanged);
             // 
-            // toolStripScripts
+            // toolStripActions
             // 
-            this.toolStripScripts.Dock = System.Windows.Forms.DockStyle.None;
-            this.toolStripScripts.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripComboBoxScript,
-            this.toolStripButtonExecute});
-            this.toolStripScripts.Location = new System.Drawing.Point(3, 28);
-            this.toolStripScripts.Name = "toolStripScripts";
-            this.toolStripScripts.Size = new System.Drawing.Size(237, 28);
-            this.toolStripScripts.TabIndex = 2;
-            this.toolStripScripts.LocationChanged += new System.EventHandler(this.toolStripScripts_LocationChanged);
+            this.toolStripActions.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStripActions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripComboBoxBuilderFlows,
+            this.toolStripButtonExecuteAction});
+            this.toolStripActions.Location = new System.Drawing.Point(3, 28);
+            this.toolStripActions.Name = "toolStripActions";
+            this.toolStripActions.Size = new System.Drawing.Size(237, 28);
+            this.toolStripActions.TabIndex = 7;
+            this.toolStripActions.LocationChanged += new System.EventHandler(this.toolStripActions_LocationChanged);
             // 
-            // toolStripComboBoxScript
+            // toolStripComboBoxBuilderFlows
             // 
-            this.toolStripComboBoxScript.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.toolStripComboBoxScript.MaxDropDownItems = 80;
-            this.toolStripComboBoxScript.Name = "toolStripComboBoxScript";
-            this.toolStripComboBoxScript.Size = new System.Drawing.Size(200, 28);
-            this.toolStripComboBoxScript.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBoxScript_SelectedIndexChanged);
+            this.toolStripComboBoxBuilderFlows.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.toolStripComboBoxBuilderFlows.MaxDropDownItems = 80;
+            this.toolStripComboBoxBuilderFlows.Name = "toolStripComboBoxBuilderFlows";
+            this.toolStripComboBoxBuilderFlows.Size = new System.Drawing.Size(200, 28);
+            this.toolStripComboBoxBuilderFlows.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBoxBuilderFlows_SelectedIndexChanged);
             // 
-            // toolStripButtonExecute
+            // toolStripButtonExecuteAction
             // 
-            this.toolStripButtonExecute.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonExecute.Enabled = false;
-            this.toolStripButtonExecute.Image = global::GlobalcachingApplication.Plugins.UIMainWindow.Properties.Resources.execute;
-            this.toolStripButtonExecute.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonExecute.Name = "toolStripButtonExecute";
-            this.toolStripButtonExecute.Size = new System.Drawing.Size(23, 25);
-            this.toolStripButtonExecute.Text = "Execute";
-            this.toolStripButtonExecute.Click += new System.EventHandler(this.toolStripButtonExecute_Click);
+            this.toolStripButtonExecuteAction.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonExecuteAction.Enabled = false;
+            this.toolStripButtonExecuteAction.Image = global::GlobalcachingApplication.Plugins.UIMainWindow.Properties.Resources.execute;
+            this.toolStripButtonExecuteAction.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonExecuteAction.Name = "toolStripButtonExecuteAction";
+            this.toolStripButtonExecuteAction.Size = new System.Drawing.Size(23, 25);
+            this.toolStripButtonExecuteAction.Text = "Execute";
+            this.toolStripButtonExecuteAction.Click += new System.EventHandler(this.toolStripButtonExecuteAction_Click);
             // 
             // toolStripFile
             // 
@@ -657,13 +657,44 @@
             this.toolStripMaps.Visible = false;
             this.toolStripMaps.LocationChanged += new System.EventHandler(this.toolStripMaps_LocationChanged);
             // 
+            // toolStripScripts
+            // 
+            this.toolStripScripts.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStripScripts.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripComboBoxScript,
+            this.toolStripButtonExecute});
+            this.toolStripScripts.Location = new System.Drawing.Point(3, 56);
+            this.toolStripScripts.Name = "toolStripScripts";
+            this.toolStripScripts.Size = new System.Drawing.Size(237, 28);
+            this.toolStripScripts.TabIndex = 2;
+            this.toolStripScripts.LocationChanged += new System.EventHandler(this.toolStripScripts_LocationChanged);
+            // 
+            // toolStripComboBoxScript
+            // 
+            this.toolStripComboBoxScript.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.toolStripComboBoxScript.MaxDropDownItems = 80;
+            this.toolStripComboBoxScript.Name = "toolStripComboBoxScript";
+            this.toolStripComboBoxScript.Size = new System.Drawing.Size(200, 28);
+            this.toolStripComboBoxScript.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBoxScript_SelectedIndexChanged);
+            // 
+            // toolStripButtonExecute
+            // 
+            this.toolStripButtonExecute.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonExecute.Enabled = false;
+            this.toolStripButtonExecute.Image = global::GlobalcachingApplication.Plugins.UIMainWindow.Properties.Resources.execute;
+            this.toolStripButtonExecute.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonExecute.Name = "toolStripButtonExecute";
+            this.toolStripButtonExecute.Size = new System.Drawing.Size(23, 25);
+            this.toolStripButtonExecute.Text = "Execute";
+            this.toolStripButtonExecute.Click += new System.EventHandler(this.toolStripButtonExecute_Click);
+            // 
             // toolStripActionSequence
             // 
             this.toolStripActionSequence.Dock = System.Windows.Forms.DockStyle.None;
             this.toolStripActionSequence.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripComboBoxActionSequence,
             this.toolStripButtonExecuteActionSequence});
-            this.toolStripActionSequence.Location = new System.Drawing.Point(3, 56);
+            this.toolStripActionSequence.Location = new System.Drawing.Point(3, 0);
             this.toolStripActionSequence.Name = "toolStripActionSequence";
             this.toolStripActionSequence.Size = new System.Drawing.Size(237, 28);
             this.toolStripActionSequence.TabIndex = 8;
@@ -688,37 +719,6 @@
             this.toolStripButtonExecuteActionSequence.Text = "Execute";
             this.toolStripButtonExecuteActionSequence.Click += new System.EventHandler(this.toolStripButtonExecuteActionSequence_Click);
             // 
-            // toolStripActions
-            // 
-            this.toolStripActions.Dock = System.Windows.Forms.DockStyle.None;
-            this.toolStripActions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripComboBoxBuilderFlows,
-            this.toolStripButtonExecuteAction});
-            this.toolStripActions.Location = new System.Drawing.Point(3, 0);
-            this.toolStripActions.Name = "toolStripActions";
-            this.toolStripActions.Size = new System.Drawing.Size(237, 28);
-            this.toolStripActions.TabIndex = 7;
-            this.toolStripActions.LocationChanged += new System.EventHandler(this.toolStripActions_LocationChanged);
-            // 
-            // toolStripComboBoxBuilderFlows
-            // 
-            this.toolStripComboBoxBuilderFlows.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.toolStripComboBoxBuilderFlows.MaxDropDownItems = 80;
-            this.toolStripComboBoxBuilderFlows.Name = "toolStripComboBoxBuilderFlows";
-            this.toolStripComboBoxBuilderFlows.Size = new System.Drawing.Size(200, 28);
-            this.toolStripComboBoxBuilderFlows.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBoxBuilderFlows_SelectedIndexChanged);
-            // 
-            // toolStripButtonExecuteAction
-            // 
-            this.toolStripButtonExecuteAction.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonExecuteAction.Enabled = false;
-            this.toolStripButtonExecuteAction.Image = global::GlobalcachingApplication.Plugins.UIMainWindow.Properties.Resources.execute;
-            this.toolStripButtonExecuteAction.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonExecuteAction.Name = "toolStripButtonExecuteAction";
-            this.toolStripButtonExecuteAction.Size = new System.Drawing.Size(23, 25);
-            this.toolStripButtonExecuteAction.Text = "Execute";
-            this.toolStripButtonExecuteAction.Click += new System.EventHandler(this.toolStripButtonExecuteAction_Click);
-            // 
             // FormMain
             // 
             this.AllowDrop = true;
@@ -733,7 +733,7 @@
             this.DoubleBuffered = true;
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStripMain;
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Globalcaching Application";
@@ -752,12 +752,12 @@
             this.toolStripContainer1.TopToolStripPanel.PerformLayout();
             this.toolStripContainer1.ResumeLayout(false);
             this.toolStripContainer1.PerformLayout();
+            this.toolStripActions.ResumeLayout(false);
+            this.toolStripActions.PerformLayout();
             this.toolStripScripts.ResumeLayout(false);
             this.toolStripScripts.PerformLayout();
             this.toolStripActionSequence.ResumeLayout(false);
             this.toolStripActionSequence.PerformLayout();
-            this.toolStripActions.ResumeLayout(false);
-            this.toolStripActions.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
