@@ -73,7 +73,7 @@ namespace GlobalcachingApplication.Plugins.AutoRgn
                 }
             }
         }
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result)
@@ -102,7 +102,7 @@ namespace GlobalcachingApplication.Plugins.AutoRgn
                     }
                     else
                     {
-                        PerformImport();
+                        await PerformImport();
                     }
                 }
             }

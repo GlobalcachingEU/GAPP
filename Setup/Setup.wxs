@@ -3,11 +3,11 @@
 	<Product Id="*"
 		Name="Globalcaching Application"
 		Language="1033"
-		Version="1.11.0.0"
-		UpgradeCode="6C16717C-6C5E-412E-B091-B3AD5C7D052E"
+		Version="2.0.0.0"
+		UpgradeCode="48ED8CAD-EEC2-47B0-93F3-D2941F592449"
 		Manufacturer="Globalcaching.eu">
 		<Package Description="Geocache manager"
-			Comments="For more information check http://application.globalcaching.eu"
+			Comments="For more information check http://www.globalcaching.eu/gapp/en/"
 			InstallerVersion="300"
 			Compressed="yes"
 		 	Platform="$(var.Platform)"
@@ -24,9 +24,10 @@
 		
 		<Feature Id="Complete"
 		         Title="Globalcaching Application"
-		         Description="Your description"
+		         Description="Globalcaching Application"
 		         Level="1">
 		         <ComponentRef Id="Main"/>
+		         <ComponentRef Id="locales"/>
 		         <ComponentRef Id="Plugins"/>
 		         <ComponentRef Id="Scripts"/>
 				 <ComponentRef Id="PluginDependencies" />

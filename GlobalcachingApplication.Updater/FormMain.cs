@@ -29,13 +29,13 @@ namespace GlobalcachingApplication.Updater
             //step 1: close Globalcaching.Application
             labelInfo.Text = "Stopping application...";
             labelInfo.Refresh();
-            Process[] procs = System.Diagnostics.Process.GetProcessesByName("Globalcaching.Application");
+            Process[] procs = System.Diagnostics.Process.GetProcessesByName("GAPP");
             DateTime startWait = DateTime.Now;
             TimeSpan maxWait = new TimeSpan(0, 0, 5);
             while (procs != null && procs.Length > 0 && (DateTime.Now - startWait) <= maxWait)
             {
                 System.Threading.Thread.Sleep(1000);
-                procs = System.Diagnostics.Process.GetProcessesByName("Globalcaching.Application");
+                procs = System.Diagnostics.Process.GetProcessesByName("GAPP");
             }
             if (procs != null && procs.Length > 0)
             {
@@ -45,33 +45,36 @@ namespace GlobalcachingApplication.Updater
                 }
             }
             System.Threading.Thread.Sleep(1000);
-            procs = System.Diagnostics.Process.GetProcessesByName("Globalcaching.Application");
+            procs = System.Diagnostics.Process.GetProcessesByName("GAPP");
             if (procs != null && procs.Length > 0)
             {
                 MessageBox.Show("Unable to close the application", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            //step 2: copy all files with subfolders (with override) from AppData\GlobalcachingApplication\Update to exec\
-            labelInfo.Text = "Copying files...";
-            labelInfo.Refresh();
-            string[] updateFiles = Directory.GetFiles(updatePath, "*.zip");
-            if (updateFiles != null)
+            if (Directory.Exists(updatePath))
             {
-                foreach (string fn in updateFiles)
+                //step 2: copy all files with subfolders (with override) from AppData\GlobalcachingApplication\Update to exec\
+                labelInfo.Text = "Copying files...";
+                labelInfo.Refresh();
+                string[] updateFiles = Directory.GetFiles(updatePath, "*.zip");
+                if (updateFiles != null)
                 {
-                    UnZipFiles(fn, exePath, true);
+                    foreach (string fn in updateFiles)
+                    {
+                        UnZipFiles(fn, exePath, true);
+                    }
                 }
-            }
 
-            //step 3: deleting update files AppData\GlobalcachingApplication\Update
-            labelInfo.Text = "Deleting update files...";
-            labelInfo.Refresh();
+                //step 3: deleting update files AppData\GlobalcachingApplication\Update
+                labelInfo.Text = "Deleting update files...";
+                labelInfo.Refresh();
+            }
 
             //step 4: start Globalcaching.Application
             labelInfo.Text = "Starting application...";
             labelInfo.Refresh();
             ProcessStartInfo psi = new ProcessStartInfo();
-            psi.FileName = Path.Combine(exePath, "GlobalcachingApplication.exe");
+            psi.FileName = Path.Combine(exePath, "GAPP.exe");
             psi.WorkingDirectory = exePath;
             Process.Start(psi);
 

@@ -10,17 +10,98 @@
 	<Fragment>
 		<DirectoryRef Id="TARGETDIR">
 			<Directory Id="$(var.progFolder)" Name="PFiles">
-				<Directory Id="INSTALLDIR" Name="Globalcaching Application">
+				<Directory Id="INSTALLDIR" Name="GAPP">
 					<Component Id="Main" Guid="2954E955-612D-4449-BC67-F6B7FA394DA7" DiskId="1">
 						<File Id="LicenseFile" Name="license.rtf" Source="license.rtf"/>
-						<File Id="Exec" Name="GlobalcachingApplication.exe" Source="../GlobalcachingApplication/bin/Release/GlobalcachingApplication.exe" />
+						<File Id="Exec" Name="GAPP.exe" Source="../GlobalcachingApplication/bin/Release/GAPP.exe" />
 						<File Id="Exec1" Name="GlobalcachingApplication.Updater.exe" Source="../GlobalcachingApplication/bin/Release/GlobalcachingApplication.Updater.exe" />
 						<File Id="Exec2" Name="GlobalcachingApplication.Core.dll" Source="../GlobalcachingApplication/bin/Release/GlobalcachingApplication.Core.dll" />
 						<File Id="Exec3" Name="GlobalcachingApplication.Framework.dll" Source="../GlobalcachingApplication/bin/Release/GlobalcachingApplication.Framework.dll" />
 						<File Id="Exec5"  Name="SharpZipLib.dll" Source="../GlobalcachingApplication/bin/Release/SharpZipLib.dll" />
 						<File Id="Exec6" Name="RestoreDefaultSettings.exe" Source="../GlobalcachingApplication/bin/Release/RestoreDefaultSettings.exe" />
 						<File Id="Exec7" Name="GAPPSF.exe" Source="../GlobalcachingApplication/bin/Release/GAPPSF.exe" />
+						<File Id="Exec8"  Name="Community.CsharpSqlite.dll" Source="../GlobalcachingApplication/bin/Release/Community.CsharpSqlite.dll" />
+						<File Id="Exec10"  Name="cef.pak" Source="../GlobalcachingApplication/bin/Release/cef.pak" />
+						<File Id="Exec11"  Name="cef_100_percent.pak" Source="../GlobalcachingApplication/bin/Release/cef_100_percent.pak" />
+						<File Id="Exec12"  Name="cef_200_percent.pak" Source="../GlobalcachingApplication/bin/Release/cef_200_percent.pak" />
+						<File Id="Exec13"  Name="CefSharp.dll" Source="../GlobalcachingApplication/bin/Release/CefSharp.dll" />
+						<File Id="Exec14"  Name="CefSharp.xml" Source="../GlobalcachingApplication/bin/Release/CefSharp.xml" />
+						<File Id="Exec15"  Name="CefSharp.BrowserSubprocess.exe" Source="../GlobalcachingApplication/bin/Release/CefSharp.BrowserSubprocess.exe" />
+						<File Id="Exec16"  Name="CefSharp.BrowserSubprocess.Core.dll" Source="../GlobalcachingApplication/bin/Release/CefSharp.BrowserSubprocess.Core.dll" />
+						<File Id="Exec17"  Name="CefSharp.Core.dll" Source="../GlobalcachingApplication/bin/Release/CefSharp.Core.dll" />
+						<File Id="Exec18"  Name="CefSharp.Core.xml" Source="../GlobalcachingApplication/bin/Release/CefSharp.Core.xml" />
+						<File Id="Exec19"  Name="CefSharp.WinForms.dll" Source="../GlobalcachingApplication/bin/Release/CefSharp.WinForms.dll" />
+						<File Id="Exec20"  Name="CefSharp.WinForms.xml" Source="../GlobalcachingApplication/bin/Release/CefSharp.WinForms.xml" />
+						<File Id="Exec21"  Name="d3dcompiler_43.dll" Source="../GlobalcachingApplication/bin/Release/d3dcompiler_43.dll" />
+						<File Id="Exec22"  Name="d3dcompiler_46.dll" Source="../GlobalcachingApplication/bin/Release/d3dcompiler_46.dll" />
+						<File Id="Exec23"  Name="devtools_resources.pak" Source="../GlobalcachingApplication/bin/Release/devtools_resources.pak" />
+						<File Id="Exec24"  Name="ffmpegsumo.dll" Source="../GlobalcachingApplication/bin/Release/ffmpegsumo.dll" />
+						<File Id="Exec25"  Name="icudtl.dat" Source="../GlobalcachingApplication/bin/Release/icudtl.dat" />
+						<File Id="Exec26"  Name="libcef.dll" Source="../GlobalcachingApplication/bin/Release/libcef.dll" />
+						<File Id="Exec27"  Name="libEGL.dll" Source="../GlobalcachingApplication/bin/Release/libEGL.dll" />
+						<File Id="Exec28"  Name="libGLESv2.dll" Source="../GlobalcachingApplication/bin/Release/libGLESv2.dll" />
+						<File Id="Exec29"  Name="msvcp110.dll" Source="../GlobalcachingApplication/bin/Release/msvcp110.dll" />
+						<File Id="Exec30"  Name="msvcr110.dll" Source="../GlobalcachingApplication/bin/Release/msvcr110.dll" />
+						<File Id="Exec31"  Name="pdf.dll" Source="../GlobalcachingApplication/bin/Release/pdf.dll" />
+						<File Id="Exec32"  Name="vccorlib110.dll" Source="../GlobalcachingApplication/bin/Release/vccorlib110.dll" />
 					</Component>
+					<Directory Id="LOCALESDIR" Name="locales">
+						<Component Id="locales" Guid="30848AA6-631C-49A8-8035-94E5578D228D"  DiskId="1">
+							<File Id="loc1"  Name="am.pak" Source="../GlobalcachingApplication/bin/Release/locales/am.pak" />
+							<File Id="loc2"  Name="ar.pak" Source="../GlobalcachingApplication/bin/Release/locales/ar.pak" />
+							<File Id="loc3"  Name="bg.pak" Source="../GlobalcachingApplication/bin/Release/locales/bg.pak" />
+							<File Id="loc4"  Name="bn.pak" Source="../GlobalcachingApplication/bin/Release/locales/bn.pak" />
+							<File Id="loc5"  Name="ca.pak" Source="../GlobalcachingApplication/bin/Release/locales/ca.pak" />
+							<File Id="loc6"  Name="cs.pak" Source="../GlobalcachingApplication/bin/Release/locales/cs.pak" />
+							<File Id="loc7"  Name="da.pak" Source="../GlobalcachingApplication/bin/Release/locales/da.pak" />
+							<File Id="loc8"  Name="de.pak" Source="../GlobalcachingApplication/bin/Release/locales/de.pak" />
+							<File Id="loc9"  Name="el.pak" Source="../GlobalcachingApplication/bin/Release/locales/el.pak" />
+							<File Id="loc10"  Name="en-GB.pak" Source="../GlobalcachingApplication/bin/Release/locales/en-GB.pak" />
+							<File Id="loc11"  Name="en-US.pak" Source="../GlobalcachingApplication/bin/Release/locales/en-US.pak" />
+							<File Id="loc12"  Name="es.pak" Source="../GlobalcachingApplication/bin/Release/locales/es.pak" />
+							<File Id="loc13"  Name="es-419.pak" Source="../GlobalcachingApplication/bin/Release/locales/es-419.pak" />
+							<File Id="loc14"  Name="et.pak" Source="../GlobalcachingApplication/bin/Release/locales/et.pak" />
+							<File Id="loc15"  Name="fa.pak" Source="../GlobalcachingApplication/bin/Release/locales/fa.pak" />
+							<File Id="loc16"  Name="fi.pak" Source="../GlobalcachingApplication/bin/Release/locales/fi.pak" />
+							<File Id="loc17"  Name="fil.pak" Source="../GlobalcachingApplication/bin/Release/locales/fil.pak" />
+							<File Id="loc18"  Name="fr.pak" Source="../GlobalcachingApplication/bin/Release/locales/fr.pak" />
+							<File Id="loc19"  Name="gu.pak" Source="../GlobalcachingApplication/bin/Release/locales/gu.pak" />
+							<File Id="loc20"  Name="he.pak" Source="../GlobalcachingApplication/bin/Release/locales/he.pak" />
+							<File Id="loc21"  Name="hi.pak" Source="../GlobalcachingApplication/bin/Release/locales/hi.pak" />
+							<File Id="loc22"  Name="hr.pak" Source="../GlobalcachingApplication/bin/Release/locales/hr.pak" />
+							<File Id="loc23"  Name="hu.pak" Source="../GlobalcachingApplication/bin/Release/locales/hu.pak" />
+							<File Id="loc24"  Name="id.pak" Source="../GlobalcachingApplication/bin/Release/locales/id.pak" />
+							<File Id="loc25"  Name="it.pak" Source="../GlobalcachingApplication/bin/Release/locales/it.pak" />
+							<File Id="loc26"  Name="ja.pak" Source="../GlobalcachingApplication/bin/Release/locales/ja.pak" />
+							<File Id="loc27"  Name="kn.pak" Source="../GlobalcachingApplication/bin/Release/locales/kn.pak" />
+							<File Id="loc28"  Name="ko.pak" Source="../GlobalcachingApplication/bin/Release/locales/ko.pak" />
+							<File Id="loc29"  Name="lt.pak" Source="../GlobalcachingApplication/bin/Release/locales/lt.pak" />
+							<File Id="loc30"  Name="lv.pak" Source="../GlobalcachingApplication/bin/Release/locales/lv.pak" />
+							<File Id="loc31"  Name="ml.pak" Source="../GlobalcachingApplication/bin/Release/locales/ml.pak" />
+							<File Id="loc32"  Name="mr.pak" Source="../GlobalcachingApplication/bin/Release/locales/mr.pak" />
+							<File Id="loc33"  Name="ms.pak" Source="../GlobalcachingApplication/bin/Release/locales/ms.pak" />
+							<File Id="loc34"  Name="nb.pak" Source="../GlobalcachingApplication/bin/Release/locales/nb.pak" />
+							<File Id="loc35"  Name="nl.pak" Source="../GlobalcachingApplication/bin/Release/locales/nl.pak" />
+							<File Id="loc36"  Name="pl.pak" Source="../GlobalcachingApplication/bin/Release/locales/pl.pak" />
+							<File Id="loc37"  Name="pt-BR.pak" Source="../GlobalcachingApplication/bin/Release/locales/pt-BR.pak" />
+							<File Id="loc38"  Name="pt-PT.pak" Source="../GlobalcachingApplication/bin/Release/locales/pt-PT.pak" />
+							<File Id="loc39"  Name="ro.pak" Source="../GlobalcachingApplication/bin/Release/locales/ro.pak" />
+							<File Id="loc40"  Name="ru.pak" Source="../GlobalcachingApplication/bin/Release/locales/ru.pak" />
+							<File Id="loc41"  Name="sk.pak" Source="../GlobalcachingApplication/bin/Release/locales/sk.pak" />
+							<File Id="loc42"  Name="sl.pak" Source="../GlobalcachingApplication/bin/Release/locales/sl.pak" />
+							<File Id="loc43"  Name="sr.pak" Source="../GlobalcachingApplication/bin/Release/locales/sr.pak" />
+							<File Id="loc44"  Name="sv.pak" Source="../GlobalcachingApplication/bin/Release/locales/sv.pak" />
+							<File Id="loc45"  Name="sw.pak" Source="../GlobalcachingApplication/bin/Release/locales/sw.pak" />
+							<File Id="loc46"  Name="ta.pak" Source="../GlobalcachingApplication/bin/Release/locales/ta.pak" />
+							<File Id="loc47"  Name="te.pak" Source="../GlobalcachingApplication/bin/Release/locales/te.pak" />
+							<File Id="loc48"  Name="th.pak" Source="../GlobalcachingApplication/bin/Release/locales/th.pak" />
+							<File Id="loc49"  Name="tr.pak" Source="../GlobalcachingApplication/bin/Release/locales/tr.pak" />
+							<File Id="loc50"  Name="uk.pak" Source="../GlobalcachingApplication/bin/Release/locales/uk.pak" />
+							<File Id="loc51"  Name="vi.pak" Source="../GlobalcachingApplication/bin/Release/locales/vi.pak" />
+							<File Id="loc52"  Name="zh-CN.pak" Source="../GlobalcachingApplication/bin/Release/locales/zh-CN.pak" />
+							<File Id="loc53"  Name="zh-TW.pak" Source="../GlobalcachingApplication/bin/Release/locales/zh-TW.pak" />
+						</Component>
+					</Directory>					
 					<Directory Id="PLUGINDIR" Name="Plugins">
 						<Component Id="Plugins" Guid="8B071A0C-E31C-4149-8CE4-A02EB6232CCE"  DiskId="1">
 							<File Id="plugin1"  Name="GlobalcachingApplication.Plugins.APIPQ.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.APIPQ.dll" />
@@ -32,20 +113,16 @@
 							<File Id="plugin7"  Name="GlobalcachingApplication.Plugins.ExportGPX.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.ExportGPX.dll" />
 							<File Id="plugin8"  Name="GlobalcachingApplication.Plugins.FilterEx.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.FilterEx.dll" />
 							<File Id="plugin9"  Name="GlobalcachingApplication.Plugins.GCView.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.GCView.dll" />
-							<File Id="plugin10"  Name="GlobalcachingApplication.Plugins.Geometry.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.Geometry.dll" />
 							<File Id="plugin11"  Name="GlobalcachingApplication.Plugins.GMap.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.GMap.dll" />
 							<File Id="plugin12"  Name="GlobalcachingApplication.Plugins.ImgRes.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.ImgRes.dll" />
 							<File Id="plugin13"  Name="GlobalcachingApplication.Plugins.ImportGPX.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.ImportGPX.dll" />
-							<File Id="plugin14"  Name="GlobalcachingApplication.Plugins.InternalStorage.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.InternalStorage.dll" />
 							<File Id="plugin15"  Name="GlobalcachingApplication.Plugins.LanguageDutch.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.LanguageDutch.dll" />
 							<File Id="plugin16"  Name="GlobalcachingApplication.Plugins.NoteEdit.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.NoteEdit.dll" />
-							<File Id="plugin17"  Name="GlobalcachingApplication.Plugins.PkgMng.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.PkgMng.dll" />
 							<File Id="plugin18"  Name="GlobalcachingApplication.Plugins.QuickAction.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.QuickAction.dll" />
 							<File Id="plugin19"  Name="GlobalcachingApplication.Plugins.QuickSelect.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.QuickSelect.dll" />
 							<File Id="plugin20"  Name="GlobalcachingApplication.Plugins.SimpleCacheList.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.SimpleCacheList.dll" />
 							<File Id="plugin21"  Name="GlobalcachingApplication.Plugins.TxtSearch.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.TxtSearch.dll" />
 							<File Id="plugin22"  Name="GlobalcachingApplication.Plugins.UIMainWindow.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.UIMainWindow.dll" />
-							<!--File Id="plugin23"  Name="Examples.zip" Source="../GlobalcachingApplication/bin/Release/Plugins/Examples.zip" /-->
 							<File Id="plugin24"  Name="GlobalcachingApplication.Plugins.CAR.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.CAR.dll" />
 							<File Id="plugin25"  Name="GlobalcachingApplication.Plugins.PurgeLogs.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.PurgeLogs.dll" />
 							<File Id="plugin26"  Name="GlobalcachingApplication.Plugins.APIGetC.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.APIGetC.dll" />
@@ -57,7 +134,6 @@
 							<File Id="plugin32"  Name="GlobalcachingApplication.Plugins.Shortcuts.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.Shortcuts.dll" />
 							<File Id="plugin33"  Name="GlobalcachingApplication.Plugins.LanguageFrench.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.LanguageFrench.dll" />
 							<File Id="plugin34"  Name="GlobalcachingApplication.Plugins.ScrPresets.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.ScrPresets.dll" />
-							<File Id="plugin35"  Name="GlobalcachingApplication.Plugins.SqlServer.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.SqlServer.dll" />
 							<File Id="plugin36"  Name="GlobalcachingApplication.Plugins.LanguageGerman.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.LanguageGerman.dll" />
 							<File Id="plugin37"  Name="GlobalcachingApplication.Plugins.SelectArea.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.SelectArea.dll" />
 							<File Id="plugin38"  Name="GlobalcachingApplication.Plugins.ExportGarmin.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.ExportGarmin.dll" />
@@ -70,9 +146,7 @@
 							<File Id="plugin45"  Name="GlobalcachingApplication.Plugins.APIMyF.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.APIMyF.dll" />
 							<File Id="plugin46"  Name="GlobalcachingApplication.Plugins.Attach.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.Attach.dll" />
 							<File Id="plugin47"  Name="GlobalcachingApplication.Plugins.ExportGarminPOI.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.ExportGarminPOI.dll" />
-							<!--File Id="plugin48"  Name="GlobalcachingApplication.Plugins.Gallery.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.Gallery.dll" /-->
 							<File Id="plugin49"  Name="GlobalcachingApplication.Plugins.Sqlite.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.Sqlite.dll" />
-							<!--File Id="plugin50"  Name="GlobalcachingApplication.Plugins.CoordSav.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.CoordSav.dll" /-->
 							<File Id="plugin51"  Name="GlobalcachingApplication.Plugins.Chat.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.Chat.dll" />
 							<File Id="plugin52"  Name="GlobalcachingApplication.Plugins.Maps.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.Maps.dll" />
 							<File Id="plugin53"  Name="GlobalcachingApplication.Plugins.StatsGen.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.StatsGen.dll" />
@@ -86,9 +160,7 @@
 							<File Id="plugin61"  Name="GlobalcachingApplication.Plugins.SelectRgn.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.SelectRgn.dll" />
 							<File Id="plugin62"  Name="GlobalcachingApplication.Plugins.AutoRgn.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.AutoRgn.dll" />
 							<File Id="plugin63"  Name="GlobalcachingApplication.Plugins.ExpExcel.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.ExpExcel.dll" />
-							<File Id="plugin64"  Name="GlobalcachingApplication.Plugins.QryBuilder.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.QryBuilder.dll" />
 							<File Id="plugin65"  Name="GlobalcachingApplication.Plugins.ActBuilder.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.ActBuilder.dll" />
-							<File Id="plugin66"  Name="GlobalcachingApplication.Plugins.MySql.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.MySql.dll" />
 							<File Id="plugin67"  Name="GlobalcachingApplication.Plugins.DataExch.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.DataExch.dll" />
 							<File Id="plugin68"  Name="GlobalcachingApplication.Plugins.GPSRSerial.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.GPSRSerial.dll" />
 							<File Id="plugin69"  Name="GlobalcachingApplication.Plugins.GDirections.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.GDirections.dll" />
@@ -102,7 +174,6 @@
 							<File Id="plugin77"  Name="GlobalcachingApplication.Plugins.IgnoreGeocaches.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.IgnoreGeocaches.dll" />
 							<File Id="plugin78"  Name="GlobalcachingApplication.Plugins.GAPPDataStorage.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.GAPPDataStorage.dll" />
 							<File Id="plugin79"  Name="GlobalcachingApplication.Plugins.AutoSelect.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.AutoSelect.dll" />
-							<File Id="plugin80"  Name="GlobalcachingApplication.Plugins.Munzee.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.Munzee.dll" />
 							<File Id="plugin81"  Name="GlobalcachingApplication.Plugins.ActionSequence.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.ActionSequence.dll" />
 							<File Id="plugin82"  Name="GlobalcachingApplication.Plugins.ExportKml.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.ExportKml.dll" />
 							<File Id="plugin83"  Name="GlobalcachingApplication.Plugins.AccountSwitcher.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.AccountSwitcher.dll" />
@@ -124,12 +195,9 @@
 					</Directory>
 					<Directory Id="PLUGINDEPDIR" Name="PluginDependencies">
 						<Component Id="PluginDependencies" Guid="6AD16576-3D35-40DB-B7D7-F2D9735ACA28"  DiskId="1">
-							<File Id="dep2"  Name="Community.CsharpSqlite.dll" Source="../GlobalcachingApplication/bin/Release/PluginDependencies/Community.CsharpSqlite.dll" />
-							<File Id="dep3"  Name="ExcelLibrary.dll" Source="../GlobalcachingApplication/bin/Release/PluginDependencies/ExcelLibrary.dll" />
 							<File Id="dep4"  Name="Gavaghan.Geodesy.dll" Source="../GlobalcachingApplication/bin/Release/PluginDependencies/Gavaghan.Geodesy.dll" />
 							<File Id="dep5"  Name="Globalcaching.HtmlEditor.dll" Source="../GlobalcachingApplication/bin/Release/PluginDependencies/Globalcaching.HtmlEditor.dll" />
 							<File Id="dep6"  Name="GlobalcachingApplication.Utils.dll" Source="../GlobalcachingApplication/bin/Release/PluginDependencies/GlobalcachingApplication.Utils.dll" />
-							<File Id="dep7"  Name="InterIMAP.dll" Source="../GlobalcachingApplication/bin/Release/PluginDependencies/InterIMAP.dll" />
 							<File Id="dep8"  Name="System.Data.SQLite.dll" Source="../GlobalcachingApplication/bin/Release/PluginDependencies/System.Data.SQLite.dll" />
 							<File Id="dep9"  Name="CSScriptLibrary.dll" Source="../GlobalcachingApplication/bin/Release/PluginDependencies/CSScriptLibrary.dll" />
 							<File Id="dep10"  Name="EPPlus.dll" Source="../GlobalcachingApplication/bin/Release/PluginDependencies/EPPlus.dll" />
@@ -558,12 +626,12 @@
 				</Directory>
 			</Directory>
 			<Directory Id="ProgramMenuFolder" Name="MFiles">
-				<Directory Id="MENUDIR" Name="Globalcaching Application">
-					<Component Id="ApplicationShortcut" Guid="B0E7C77B-4335-40B6-9ABF-542BCC7167DC" DiskId="1">
+				<Directory Id="MENUDIR" Name="GAPP">
+					<Component Id="ApplicationShortcut" Guid="7E9D6E6B-7EAB-4C54-BE48-5BC12F2428B4" DiskId="1">
 		                <Shortcut Id="ApplicationStartMenuShortcut" 
-		                     Name="Globalcaching Application" 
-		                   Description="Globalcaching Application"
-		                    Target="[INSTALLDIR]GlobalcachingApplication.exe"
+		                     Name="GAPP" 
+		                   Description="GAPP"
+		                    Target="[INSTALLDIR]GAPP.exe"
 		                          WorkingDirectory="INSTALLDIR"/>
 		                <Shortcut Id="RestoreDefaultStartMenuShortcut" 
 		                     Name="Restore default settings" 
@@ -571,12 +639,12 @@
 		                    Target="[INSTALLDIR]RestoreDefaultSettings.exe"
 		                          WorkingDirectory="INSTALLDIR"/>
 		                <Shortcut Id="ApplicationSFStartMenuShortcut" 
-		                     Name="Globalcaching Application SF" 
-		                   Description="Globalcaching Application SF"
+		                     Name="GAPP SF" 
+		                   Description="GAPP SF"
 		                    Target="[INSTALLDIR]GAPPSF.exe"
 		                          WorkingDirectory="INSTALLDIR"/>
 		                <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
-		                <RegistryValue Root="HKCU" Key="Software\Microsoft\GlobalcachingApplication" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+		                <RegistryValue Root="HKCU" Key="Software\Microsoft\GAPP" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
 					</Component>
 				</Directory>
 			</Directory>
