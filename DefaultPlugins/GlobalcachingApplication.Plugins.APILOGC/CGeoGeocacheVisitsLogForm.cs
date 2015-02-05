@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.APILOGC
 {
@@ -43,7 +44,6 @@ namespace GlobalcachingApplication.Plugins.APILOGC
         private Utils.API.GeocachingLiveV6 _client = null;
         private Utils.BasePlugin.Plugin _plugin = null;
 
-        private ManualResetEvent _actionReady;
         private string _errormessage;
         private List<string> _geocacheCodes;
         private List<GeocacheVisitsItem> _geocacheVisitsItems = new List<GeocacheVisitsItem>();
@@ -179,7 +179,7 @@ namespace GlobalcachingApplication.Plugins.APILOGC
         }
 
 
-        private bool addGeocachesToDatabase(List<ListViewItem> lvis)
+        private async Task<bool> addGeocachesToDatabase(List<ListViewItem> lvis)
         {
             bool result = false;
 
@@ -199,16 +199,10 @@ namespace GlobalcachingApplication.Plugins.APILOGC
                 this.panel1.Enabled = false;
                 using (Utils.FrameworkDataUpdater upd = new Utils.FrameworkDataUpdater(_core))
                 {
-                    _actionReady = new ManualResetEvent(false);
-                    Thread thrd = new Thread(new ThreadStart(this.getGeocachesThreadMethod));
-                    thrd.Start();
-                    while (!_actionReady.WaitOne(100))
-                    {
-                        System.Windows.Forms.Application.DoEvents();
-                    }
-                    thrd.Join();
-                    _actionReady.Dispose();
-                    _actionReady = null;
+                    await Task.Run(() =>
+                        {
+                            this.getGeocachesThreadMethod();
+                        });
                 }
                 if (!string.IsNullOrEmpty(_errormessage))
                 {
@@ -245,9 +239,9 @@ namespace GlobalcachingApplication.Plugins.APILOGC
             return result;
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private async void button3_Click(object sender, EventArgs e)
         {
-            addGeocachesToDatabase((from ListViewItem a in listView1.Items select a).ToList());
+            await addGeocachesToDatabase((from ListViewItem a in listView1.Items select a).ToList());
         }
 
         private void getGeocachesThreadMethod()
@@ -258,22 +252,9 @@ namespace GlobalcachingApplication.Plugins.APILOGC
                 {
                     int totalcount = _geocacheCodes.Count;
                     int index = 0;
-                    int gcupdatecount;
-                    TimeSpan interval = new TimeSpan(0, 0, 0, 2, 100);
-                    DateTime prevCall = DateTime.MinValue;
-                    bool dodelay;
-                    gcupdatecount = 50;
-                    dodelay = (_geocacheCodes.Count > 30);
+                    int gcupdatecount = 20;
                     while (_geocacheCodes.Count > 0)
                     {
-                        if (dodelay)
-                        {
-                            TimeSpan ts = DateTime.Now - prevCall;
-                            if (ts < interval)
-                            {
-                                Thread.Sleep(interval - ts);
-                            }
-                        }
                         Utils.API.LiveV6.SearchForGeocachesRequest req = new Utils.API.LiveV6.SearchForGeocachesRequest();
                         req.IsLite = _core.GeocachingComAccount.MemberTypeId == 1;
                         req.AccessToken = _client.Token;
@@ -283,7 +264,6 @@ namespace GlobalcachingApplication.Plugins.APILOGC
                         req.GeocacheLogCount = 5;
                         index += req.CacheCode.CacheCodes.Length;
                         _geocacheCodes.RemoveRange(0, req.CacheCode.CacheCodes.Length);
-                        prevCall = DateTime.Now;
                         var resp = _client.Client.SearchForGeocaches(req);
                         if (resp.Status.StatusCode == 0 && resp.Geocaches != null)
                         {
@@ -299,30 +279,37 @@ namespace GlobalcachingApplication.Plugins.APILOGC
                         {
                             break;
                         }
+
+                        if (_geocacheCodes.Count > 0)
+                        {
+                            Thread.Sleep(3000);
+                        }
                     }
                 }
             }
             catch
             {
             }
-            _actionReady.Set();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private async void button4_Click(object sender, EventArgs e)
         {
-            if (listView1.SelectedItems.Count > 0 && addGeocachesToDatabase((from ListViewItem a in listView1.SelectedItems select a).ToList()))
+            if (listView1.SelectedItems.Count > 0)
             {
-                foreach (ListViewItem lvi in listView1.SelectedItems)
+                if (await addGeocachesToDatabase((from ListViewItem a in listView1.SelectedItems select a).ToList()))
                 {
-                    Framework.Data.Geocache gc = Utils.DataAccess.GetGeocache(_core.Geocaches, (lvi.Tag as GeocacheVisitsItem).Code);
-                    if (gc != null)
+                    foreach (ListViewItem lvi in listView1.SelectedItems)
                     {
-                        using (GeocacheLogForm dlg = new GeocacheLogForm(_core, _client, gc, listView1.SelectedItems[0].Tag as GeocacheVisitsItem))
+                        Framework.Data.Geocache gc = Utils.DataAccess.GetGeocache(_core.Geocaches, (lvi.Tag as GeocacheVisitsItem).Code);
+                        if (gc != null)
                         {
-                            dlg.AskForNext = false;
-                            if (dlg.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+                            using (GeocacheLogForm dlg = new GeocacheLogForm(_core, _client, gc, listView1.SelectedItems[0].Tag as GeocacheVisitsItem))
                             {
-                                break;
+                                dlg.AskForNext = false;
+                                if (dlg.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+                                {
+                                    break;
+                                }
                             }
                         }
                     }
@@ -345,20 +332,23 @@ namespace GlobalcachingApplication.Plugins.APILOGC
             Close();
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private async void button6_Click(object sender, EventArgs e)
         {
-            if (listView1.SelectedItems.Count > 0 && addGeocachesToDatabase((from ListViewItem a in listView1.SelectedItems select a).ToList()))
+            if (listView1.SelectedItems.Count > 0)
             {
-                GeocacheBatchLogForm dlg = new GeocacheBatchLogForm(_plugin, _core, _client, false);
-                foreach (ListViewItem lvi in listView1.SelectedItems)
+                if (await addGeocachesToDatabase((from ListViewItem a in listView1.SelectedItems select a).ToList()))
                 {
-                    Framework.Data.Geocache gc = Utils.DataAccess.GetGeocache(_core.Geocaches, (lvi.Tag as GeocacheVisitsItem).Code);
-                    if (gc != null)
+                    GeocacheBatchLogForm dlg = new GeocacheBatchLogForm(_plugin, _core, _client, false);
+                    foreach (ListViewItem lvi in listView1.SelectedItems)
                     {
-                        dlg.AddGeocache(gc, (lvi.Tag as GeocacheVisitsItem).LogDate);
+                        Framework.Data.Geocache gc = Utils.DataAccess.GetGeocache(_core.Geocaches, (lvi.Tag as GeocacheVisitsItem).Code);
+                        if (gc != null)
+                        {
+                            dlg.AddGeocache(gc, (lvi.Tag as GeocacheVisitsItem).LogDate);
+                        }
                     }
+                    dlg.ShowDialog();
                 }
-                dlg.ShowDialog();
             }
         }
 

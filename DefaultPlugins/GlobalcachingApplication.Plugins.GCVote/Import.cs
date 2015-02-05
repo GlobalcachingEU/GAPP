@@ -61,13 +61,13 @@ namespace GlobalcachingApplication.Plugins.GCVote
 
             if (PluginSettings.Instance.ActivateAtAtartup)
             {
-                Activate();
+                await Activate();
             }
         }
 
-        public void Activate()
+        public async Task Activate()
         {
-            Repository.Instance.ActivateGCVote(this);
+            await Repository.Instance.ActivateGCVote(this);
         }
 
         public async override Task<bool> ActionAsync(string action)
@@ -103,6 +103,7 @@ namespace GlobalcachingApplication.Plugins.GCVote
                     else
                     {
                         _errorMessage = null;
+                        await Repository.Instance.ActivateGCVote(this);
                         await PerformImport();
                         if (!string.IsNullOrEmpty(_errorMessage))
                         {
@@ -148,8 +149,6 @@ namespace GlobalcachingApplication.Plugins.GCVote
         {
             try
             {
-                Repository.Instance.ActivateGCVote(this);
-
                 int max = _gcList.Count;
                 int pos = 0;
                 int batch;

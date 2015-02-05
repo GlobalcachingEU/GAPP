@@ -14,7 +14,6 @@ namespace GlobalcachingApplication.Plugins.TxtSearch
         public const string STR_ACTIONTITLE = "Searching for text...";
         public const string STR_ACTIONTEXT = "Searching within description...";
 
-        private ManualResetEvent _actionReady = null;
         private List<Framework.Data.Geocache> _gcSearchList;
         private StringComparison _scType;
         private string _txt;
@@ -86,10 +85,9 @@ namespace GlobalcachingApplication.Plugins.TxtSearch
                 }
                 //signal finished
             }
-            _actionReady.Set();
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result)
@@ -131,14 +129,10 @@ namespace GlobalcachingApplication.Plugins.TxtSearch
                             _scType = scType;
                             _txt = dlg.SearchOption.Text;
 
-                            _actionReady = new ManualResetEvent(false);
-                            Thread thrd = new Thread(new ThreadStart(this.searchInDescriptionThreadMethod));
-                            thrd.Start();
-                            while (!_actionReady.WaitOne(100))
-                            {
-                                System.Windows.Forms.Application.DoEvents();
-                            }
-                            thrd.Join();
+                            await Task.Run(() =>
+                                {
+                                    this.searchInDescriptionThreadMethod();
+                                });
 
                             if (dlg.SearchOption.Selection == GeocacheTextSearchForm.DialogContent.SelectionSelect.WithinSelection)
                             {

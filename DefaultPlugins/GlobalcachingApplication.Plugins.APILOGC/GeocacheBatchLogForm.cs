@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.APILOGC
 {
@@ -37,7 +38,6 @@ namespace GlobalcachingApplication.Plugins.APILOGC
         private Hashtable _tbTrackingNumbers = new Hashtable();
 
         private SynchronizationContext _context = null;
-        private ManualResetEvent _actionReady;
         private string _errormessage;
         private Framework.Data.LogType _logType;
         private List<string> _tbs75;
@@ -307,7 +307,7 @@ namespace GlobalcachingApplication.Plugins.APILOGC
             }
         }
 
-        private void buttonSubmit_Click(object sender, EventArgs e)
+        private async void buttonSubmit_Click(object sender, EventArgs e)
         {
             panel1.Enabled = false;
             panel2.Enabled = false;
@@ -329,16 +329,10 @@ namespace GlobalcachingApplication.Plugins.APILOGC
 
             using (Utils.FrameworkDataUpdater upd = new Utils.FrameworkDataUpdater(_core))
             {
-                _actionReady = new ManualResetEvent(false);
-                Thread thrd = new Thread(new ThreadStart(this.logThreadMethod));
-                thrd.Start();
-                while (!_actionReady.WaitOne(100))
+                await Task.Run(() =>
                 {
-                    System.Windows.Forms.Application.DoEvents();
-                }
-                thrd.Join();
-                _actionReady.Dispose();
-                _actionReady = null;
+                    this.logThreadMethod();
+                });
             }
             if (!string.IsNullOrEmpty(_errormessage))
             {
@@ -359,17 +353,9 @@ namespace GlobalcachingApplication.Plugins.APILOGC
                 using (Utils.ProgressBlock progress = new Utils.ProgressBlock(_plugin, STR_LOGGING, STR_LOGGING, _gcList.Count, 0, true))
                 {
                     int index = 0;
-                    TimeSpan interval = new TimeSpan(0, 0, 0, 2, 100);
-                    DateTime prevCall = DateTime.MinValue;
 
                     foreach (var gc in _gcList)
                     {
-                        TimeSpan ts = DateTime.Now - prevCall;
-                        if (ts < interval)
-                        {
-                            System.Threading.Thread.Sleep(interval - ts);
-                        }
-
                         _context.Send(new SendOrPostCallback(delegate(object state)
                         {
                             toolStripStatusLabel1.Visible = true;
@@ -385,7 +371,6 @@ namespace GlobalcachingApplication.Plugins.APILOGC
                         req.PromoteToLog = true;
                         req.WptLogTypeId = _logType.ID;
                         req.UTCDateLogged = _logDate.AddHours(12).ToUniversalTime();
-                        prevCall = DateTime.Now;
                         var resp = _client.Client.CreateFieldNoteAndPublish(req);
                         if (resp.Status.StatusCode == 0)
                         {
@@ -428,6 +413,8 @@ namespace GlobalcachingApplication.Plugins.APILOGC
                         {
                             break;
                         }
+
+                        Thread.Sleep(3000);
                     }
                 }
             }
@@ -435,7 +422,6 @@ namespace GlobalcachingApplication.Plugins.APILOGC
             {
                 _errormessage = e.Message;
             }
-            _actionReady.Set();
         }
 
         private void logTrackables(List<Utils.API.LiveV6.Trackable> tbs, int logtypeid, Framework.Data.Geocache gc)

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.APILogT
 {
@@ -41,7 +42,6 @@ namespace GlobalcachingApplication.Plugins.APILogT
         private List<string> _tbs;
         private volatile bool _cancelled;
         private Framework.Data.LogType _logType;
-        private ManualResetEvent _actionReady;
         private string _errormessage;
 
         public BatchLogForm()
@@ -123,7 +123,7 @@ namespace GlobalcachingApplication.Plugins.APILogT
             button2.Enabled = result;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private async void button2_Click(object sender, EventArgs e)
         {
             this.ControlBox = false;
             panel1.Enabled = false;
@@ -142,14 +142,10 @@ namespace GlobalcachingApplication.Plugins.APILogT
             {
                 toolStripProgressBar1.Value = 0;
                 toolStripProgressBar1.Maximum = _tbs.Count;
-                _actionReady = new ManualResetEvent(false);
-                Thread thrd = new Thread(new ThreadStart(this.logThreadMethod));
-                thrd.Start();
-                while (!_actionReady.WaitOne(100))
-                {
-                    System.Windows.Forms.Application.DoEvents();
-                }
-                thrd.Join();
+                await Task.Run(() =>
+                    {
+                        this.logThreadMethod();
+                    });
                 if (!string.IsNullOrEmpty(_errormessage))
                 {
                     System.Windows.Forms.MessageBox.Show(_errormessage, Utils.LanguageSupport.Instance.GetTranslation(Utils.LanguageSupport.Instance.GetTranslation(STR_ERROR)), System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
@@ -262,7 +258,6 @@ namespace GlobalcachingApplication.Plugins.APILogT
             {
                 _errormessage = e.Message;
             }
-            _actionReady.Set();
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Threading;
 using System.Reflection;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.TrkGroup
 {
@@ -110,7 +111,6 @@ namespace GlobalcachingApplication.Plugins.TrkGroup
 
         private Utils.DBCon _dbcon = null;
         private List<TrackableGroup> _trackableGroups = new List<TrackableGroup>();
-        private ManualResetEvent _actionReady = null;
         private string _errormessage = null;
         private TrackableGroup _activeTrackableGroup = null;
         private List<string> _tbList = new List<string>();
@@ -468,17 +468,13 @@ namespace GlobalcachingApplication.Plugins.TrkGroup
             }
         }
 
-        private void buttonAddYouOwn_Click(object sender, EventArgs e)
+        private async void buttonAddYouOwn_Click(object sender, EventArgs e)
         {
             _errormessage = null;
-            _actionReady = new ManualResetEvent(false);
-            Thread thrd = new Thread(new ThreadStart(this.addOwnTrackablesThreadMethod));
-            thrd.Start();
-            while (!_actionReady.WaitOne(100))
-            {
-                System.Windows.Forms.Application.DoEvents();
-            }
-            thrd.Join();
+            await Task.Run(() =>
+                {
+                    this.addOwnTrackablesThreadMethod();
+                });
             if (!string.IsNullOrEmpty(_errormessage))
             {
                 System.Windows.Forms.MessageBox.Show(_errormessage, Utils.LanguageSupport.Instance.GetTranslation(Utils.LanguageSupport.Instance.GetTranslation(STR_ERROR)), System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
@@ -876,7 +872,6 @@ namespace GlobalcachingApplication.Plugins.TrkGroup
             catch
             {
             }
-            _actionReady.Set();
         }
 
         private void addTrackablesThreadMethod()
@@ -917,7 +912,6 @@ namespace GlobalcachingApplication.Plugins.TrkGroup
             catch
             {
             }
-            _actionReady.Set();
         }
 
 
@@ -1066,7 +1060,6 @@ namespace GlobalcachingApplication.Plugins.TrkGroup
             catch
             {
             }
-            _actionReady.Set();
         }
 
         private void TrackableGroupsForm_Shown(object sender, EventArgs e)
@@ -1123,7 +1116,7 @@ namespace GlobalcachingApplication.Plugins.TrkGroup
             }
         }
 
-        private void buttonAddTrackables_Click(object sender, EventArgs e)
+        private async void buttonAddTrackables_Click(object sender, EventArgs e)
         {
             string[] s = textBoxTBCodes.Text.Split(new char[]{' ','\t',',',':',';'}, StringSplitOptions.RemoveEmptyEntries);
             if (s.Length > 0)
@@ -1131,14 +1124,10 @@ namespace GlobalcachingApplication.Plugins.TrkGroup
                 _tbList.Clear();
                 _tbList.AddRange(s);
                 _errormessage = null;
-                _actionReady = new ManualResetEvent(false);
-                Thread thrd = new Thread(new ThreadStart(this.addTrackablesThreadMethod));
-                thrd.Start();
-                while (!_actionReady.WaitOne(100))
-                {
-                    System.Windows.Forms.Application.DoEvents();
-                }
-                thrd.Join();
+                await Task.Run(() =>
+                    {
+                        this.addTrackablesThreadMethod();
+                    });
                 if (!string.IsNullOrEmpty(_errormessage))
                 {
                     System.Windows.Forms.MessageBox.Show(_errormessage, Utils.LanguageSupport.Instance.GetTranslation(Utils.LanguageSupport.Instance.GetTranslation(STR_ERROR)), System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
@@ -1191,21 +1180,17 @@ namespace GlobalcachingApplication.Plugins.TrkGroup
             }
         }
 
-        private void updateSelectedTrackablesToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void updateSelectedTrackablesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (listView1.SelectedIndices != null && listView1.SelectedIndices.Count > 0)
             {
                 _tbList.Clear();
                 _tbList.AddRange((from int l in listView1.SelectedIndices select (listView1.Items[l].Tag as TrackableItem).Code).ToArray());
                 _errormessage = null;
-                _actionReady = new ManualResetEvent(false);
-                Thread thrd = new Thread(new ThreadStart(this.GetAllTrackableDataThreadMethod));
-                thrd.Start();
-                while (!_actionReady.WaitOne(100))
-                {
-                    System.Windows.Forms.Application.DoEvents();
-                }
-                thrd.Join();
+                await Task.Run(() =>
+                    {
+                        this.GetAllTrackableDataThreadMethod();
+                    });
                 if (!string.IsNullOrEmpty(_errormessage))
                 {
                     System.Windows.Forms.MessageBox.Show(_errormessage, Utils.LanguageSupport.Instance.GetTranslation(Utils.LanguageSupport.Instance.GetTranslation(STR_ERROR)), System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
@@ -1251,21 +1236,17 @@ namespace GlobalcachingApplication.Plugins.TrkGroup
             }
         }
 
-        private void updateAllTrackablesInGroupToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void updateAllTrackablesInGroupToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (listView1.Items.Count>0)
             {
                 _tbList.Clear();
                 _tbList.AddRange((from ListViewItem l in listView1.Items select (l.Tag as TrackableItem).Code).ToArray());
                 _errormessage = null;
-                _actionReady = new ManualResetEvent(false);
-                Thread thrd = new Thread(new ThreadStart(this.GetAllTrackableDataThreadMethod));
-                thrd.Start();
-                while (!_actionReady.WaitOne(100))
+                await Task.Run(() =>
                 {
-                    System.Windows.Forms.Application.DoEvents();
-                }
-                thrd.Join();
+                    this.GetAllTrackableDataThreadMethod();
+                });
                 if (!string.IsNullOrEmpty(_errormessage))
                 {
                     System.Windows.Forms.MessageBox.Show(_errormessage, Utils.LanguageSupport.Instance.GetTranslation(Utils.LanguageSupport.Instance.GetTranslation(STR_ERROR)), System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);

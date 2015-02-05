@@ -30,7 +30,6 @@ namespace GlobalcachingApplication.Plugins.CAR
         public const string STR_ROUTEFROM = "Route from";
         public const string STR_ROUTETO = "Route to";
 
-        private ManualResetEvent _threadReady = null;
         private double[] _lat = null;
         private double[] _lon = null;
         private double _difLat;
@@ -244,7 +243,7 @@ namespace GlobalcachingApplication.Plugins.CAR
         {
         }
 
-        private void buttonSelect_Click(object sender, EventArgs e)
+        private async void buttonSelect_Click(object sender, EventArgs e)
         {
             PluginSettings.Instance.UseMetric = this.radioButtonKm.Checked;
 
@@ -269,14 +268,10 @@ namespace GlobalcachingApplication.Plugins.CAR
                 _difLat = 0.009 * kmOfRoute;
                 _difLon = 0.012 * kmOfRoute;
 
-                _threadReady = new ManualResetEvent(false);
-                Thread thrd = new Thread(new ThreadStart(this.performSelection));
-                thrd.Start();
-                while (!_threadReady.WaitOne(100))
-                {
-                    System.Windows.Forms.Application.DoEvents();
-                }
-                thrd.Join();
+                await Task.Run(() =>
+                    {
+                        this.performSelection();
+                    });
 
                 Core.Geocaches.BeginUpdate();
                 if (radioButtonAddToCurrent.Checked)
@@ -348,7 +343,6 @@ namespace GlobalcachingApplication.Plugins.CAR
                 {
                 }
             }
-            _threadReady.Set();
         }
 
         private void CachesAlongRouteForm_SizeChanged(object sender, EventArgs e)

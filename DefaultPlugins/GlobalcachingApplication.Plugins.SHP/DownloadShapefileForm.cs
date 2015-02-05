@@ -11,6 +11,7 @@ using System.Net;
 using System.IO;
 using System.Xml;
 using ICSharpCode.SharpZipLib.Zip;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.SHP
 {
@@ -23,7 +24,6 @@ namespace GlobalcachingApplication.Plugins.SHP
 
         private XmlDocument _shapefiles = null;
         private string _downloadUrl = null;
-        private ManualResetEvent _actionReady = null;
         private Utils.BasePlugin.Plugin _plugin = null;
         private int _zipFileSize = 0;
         private bool _error = false;
@@ -88,7 +88,7 @@ namespace GlobalcachingApplication.Plugins.SHP
             button1.Enabled = listBox1.SelectedIndex >= 0;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             XmlElement root = _shapefiles.DocumentElement;
             XmlNodeList files = root.SelectNodes("file");
@@ -101,16 +101,10 @@ namespace GlobalcachingApplication.Plugins.SHP
                         _error = false;
                         _downloadUrl = f.Attributes["url"].Value;
                         _zipFileSize = int.Parse(f.Attributes["urlsize"].Value);
-                        _actionReady = new ManualResetEvent(false);
-                        _actionReady.Reset();
-                        Thread thrd = new Thread(new ThreadStart(this.downloadShapefileThreadMethod));
-                        thrd.Start();
-                        while (!_actionReady.WaitOne(100))
-                        {
-                            System.Windows.Forms.Application.DoEvents();
-                        }
-                        thrd.Join();
-                        _actionReady.Close();
+                        await Task.Run(() =>
+                            {
+                                this.downloadShapefileThreadMethod();
+                            });
                         if (!_error)
                         {
                             ShapeFileFieldName = f.Attributes["tablename"].Value;
@@ -168,7 +162,6 @@ namespace GlobalcachingApplication.Plugins.SHP
             {
                 _error = true;
             }
-            _actionReady.Set();
         }
 
         public static void UnZipFiles(string zipPathAndFile, string outputFolder, bool deleteZipFile)

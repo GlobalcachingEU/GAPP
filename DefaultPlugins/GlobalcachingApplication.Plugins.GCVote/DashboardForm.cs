@@ -145,9 +145,9 @@ namespace GlobalcachingApplication.Plugins.GCVote
 
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private async void button3_Click(object sender, EventArgs e)
         {
-            Repository.Instance.ActivateGCVote(OwnerPlugin as Utils.BasePlugin.Plugin);
+            await Repository.Instance.ActivateGCVote(OwnerPlugin as Utils.BasePlugin.Plugin);
         }
 
         private void button2_Click(object sender, EventArgs e)

@@ -7,6 +7,7 @@ using System.Collections;
 using System.Data.Common;
 using System.Globalization;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.GCVote
 {
@@ -19,7 +20,6 @@ namespace GlobalcachingApplication.Plugins.GCVote
         private Utils.DBCon _dbcon = null;
         private Hashtable _availableWaypoints = null;
         private Utils.BasePlugin.Plugin _activePlugin = null;
-        private ManualResetEvent _actionDone = null;
         private bool _gcVoteActivated = false;
 
         private Repository()
@@ -73,7 +73,7 @@ namespace GlobalcachingApplication.Plugins.GCVote
             }
         }
 
-        public void ActivateGCVote(Utils.BasePlugin.Plugin p)
+        public async Task ActivateGCVote(Utils.BasePlugin.Plugin p)
         {
             if (!_gcVoteActivated)
             {
@@ -82,7 +82,7 @@ namespace GlobalcachingApplication.Plugins.GCVote
                 try
                 {
                     _core.Geocaches.AddCustomAttribute(Import.CUSTOM_ATTRIBUTE);
-                    LoadGCVoteData(p);
+                    await LoadGCVoteData(p);
                 }
                 catch
                 {
@@ -137,20 +137,14 @@ namespace GlobalcachingApplication.Plugins.GCVote
             }
         }
 
-        public void LoadGCVoteData(Utils.BasePlugin.Plugin p)
+        public async Task LoadGCVoteData(Utils.BasePlugin.Plugin p)
         {
             _activePlugin = p;
-            _actionDone = new ManualResetEvent(false);
             _core.Geocaches.BeginUpdate();
-            Thread thrd = new Thread(new ThreadStart(this.LoadGCVoteDataThreadMethod));
-            thrd.Start();
-            while (!_actionDone.WaitOne(100))
-            {
-                System.Windows.Forms.Application.DoEvents();
-            }
-            thrd.Join();
-            _actionDone.Dispose();
-            _actionDone = null;
+            await Task.Run(() =>
+                {
+                    this.LoadGCVoteDataThreadMethod();
+                });
             _core.Geocaches.EndUpdate();
         }
 
@@ -194,7 +188,6 @@ namespace GlobalcachingApplication.Plugins.GCVote
             catch
             {
             }
-            _actionDone.Set();
         }
 
         public bool GetGCVote(string Waypoint, out double VoteMedian, out double VoteAvg, out int VoteCnt, out double VoteUser)

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.SelectRgn
 {
@@ -34,7 +35,6 @@ namespace GlobalcachingApplication.Plugins.SelectRgn
         private Framework.Interfaces.ICore _core = null;
         private SelectRegion _plugin = null;
         private List<Framework.Data.Geocache> _gcList = null;
-        private ManualResetEvent _actionReady = null;
 
         private Framework.Data.AreaType _level;
         private string _prefix = "";
@@ -100,7 +100,7 @@ namespace GlobalcachingApplication.Plugins.SelectRgn
             comboBox2.Items.AddRange(Utils.GeometrySupport.Instance.GetAreasByLevel(level).OrderBy(x => x.Name).ToArray());
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             _inEnvelope = checkBox1.Checked;
             if (radioButtonNewSearch.Checked)
@@ -152,16 +152,10 @@ namespace GlobalcachingApplication.Plugins.SelectRgn
                 }
                 _prefix = textBox1.Text;
 
-                _actionReady = new ManualResetEvent(false);
-                _actionReady.Reset();
-                Thread thrd = new Thread(new ThreadStart(this.performSelectionMethod));
-                thrd.Start();
-                while (!_actionReady.WaitOne(100))
+                await Task.Run(() =>
                 {
-                    System.Windows.Forms.Application.DoEvents();
-                }
-                thrd.Join();
-                _actionReady.Close();
+                    this.performSelectionMethod();
+                });
                 Close();
             }
         }
@@ -234,7 +228,6 @@ namespace GlobalcachingApplication.Plugins.SelectRgn
             catch
             {
             }
-            _actionReady.Set();
         }
     }
 }

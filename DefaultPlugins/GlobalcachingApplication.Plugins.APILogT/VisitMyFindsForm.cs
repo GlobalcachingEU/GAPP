@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.APILogT
 {
@@ -48,7 +49,6 @@ namespace GlobalcachingApplication.Plugins.APILogT
         private SynchronizationContext _context = null;
         private Utils.API.LiveV6.Trackable _activeTb = null;
         private List<Utils.API.LiveV6.TrackableLog> _activeTbLogs = null;
-        private ManualResetEvent _actionReady;
         private string _errormessage;
         private string _logText = "";
         private List<string> _logGeocaches = null;
@@ -362,22 +362,16 @@ namespace GlobalcachingApplication.Plugins.APILogT
             checkLoggingPossible();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private async void button3_Click(object sender, EventArgs e)
         {
             groupBox2.Enabled = false;
             groupBox3.Enabled = false;
             _activeTbLogs = new List<Utils.API.LiveV6.TrackableLog>();
             _errormessage = null;
-            _actionReady = new ManualResetEvent(false);
-            Thread thrd = new Thread(new ThreadStart(this.getAllTrackableLogsThreadMethod));
-            thrd.Start();
-            while (!_actionReady.WaitOne(100))
-            {
-                System.Windows.Forms.Application.DoEvents();
-            }
-            thrd.Join();
-            _actionReady.Dispose();
-            _actionReady = null;
+            await Task.Run(() =>
+                {
+                    this.getAllTrackableLogsThreadMethod();
+                });
             if (!string.IsNullOrEmpty(_errormessage))
             {
                 System.Windows.Forms.MessageBox.Show(_errormessage, Utils.LanguageSupport.Instance.GetTranslation(Utils.LanguageSupport.Instance.GetTranslation(STR_ERROR)), System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
@@ -439,7 +433,6 @@ namespace GlobalcachingApplication.Plugins.APILogT
             catch
             {
             }
-            _actionReady.Set();
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
@@ -452,7 +445,7 @@ namespace GlobalcachingApplication.Plugins.APILogT
             updateTrackableInfo();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private async void button4_Click(object sender, EventArgs e)
         {
             groupBox2.Enabled = false;
             groupBox3.Enabled = false;
@@ -460,16 +453,10 @@ namespace GlobalcachingApplication.Plugins.APILogT
             _errormessage = null;
             _logGeocaches = (from string s in listBox1.Items select s).ToList();
             _logText = textBox2.Text;
-            _actionReady = new ManualResetEvent(false);
-            Thread thrd = new Thread(new ThreadStart(this.logMissingGeocachesThreadMethod));
-            thrd.Start();
-            while (!_actionReady.WaitOne(100))
-            {
-                System.Windows.Forms.Application.DoEvents();
-            }
-            thrd.Join();
-            _actionReady.Dispose();
-            _actionReady = null;
+            await Task.Run(() =>
+                {
+                    this.logMissingGeocachesThreadMethod();
+                });
             if (!string.IsNullOrEmpty(_errormessage))
             {
                 System.Windows.Forms.MessageBox.Show(_errormessage, Utils.LanguageSupport.Instance.GetTranslation(Utils.LanguageSupport.Instance.GetTranslation(STR_ERROR)), System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
@@ -542,7 +529,6 @@ namespace GlobalcachingApplication.Plugins.APILogT
             {
                 _errormessage = e.Message;
             }
-            _actionReady.Set();
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)

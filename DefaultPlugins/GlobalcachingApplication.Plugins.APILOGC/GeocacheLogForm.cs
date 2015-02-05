@@ -9,6 +9,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Threading;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.APILOGC
 {
@@ -39,7 +40,6 @@ namespace GlobalcachingApplication.Plugins.APILOGC
         private Hashtable _tbTrackingNumbers = new Hashtable();
 
         private SynchronizationContext _context = null;
-        private ManualResetEvent _actionReady;
         private string _errormessage;
         private Framework.Data.LogType _logType;
         private List<string> _tbs14;
@@ -345,10 +345,9 @@ namespace GlobalcachingApplication.Plugins.APILOGC
             {
                 _errormessage = e.Message;
             }
-            _actionReady.Set();
         }
 
-        private void buttonSubmit_Click(object sender, EventArgs e)
+        private async void buttonSubmit_Click(object sender, EventArgs e)
         {
             if (_gc != null && (comboBoxLogType1.SelectedItem as Framework.Data.LogType) != null)
             {
@@ -366,16 +365,10 @@ namespace GlobalcachingApplication.Plugins.APILOGC
 
                 using (Utils.FrameworkDataUpdater upd = new Utils.FrameworkDataUpdater(_core))
                 {
-                    _actionReady = new ManualResetEvent(false);
-                    Thread thrd = new Thread(new ThreadStart(this.logThreadMethod));
-                    thrd.Start();
-                    while (!_actionReady.WaitOne(100))
-                    {
-                        System.Windows.Forms.Application.DoEvents();
-                    }
-                    thrd.Join();
-                    _actionReady.Dispose();
-                    _actionReady = null;
+                    await Task.Run(() =>
+                        {
+                            this.logThreadMethod();
+                        });
                 }
                 if (!string.IsNullOrEmpty(_errormessage))
                 {

@@ -21,7 +21,6 @@ namespace GlobalcachingApplication.Plugins.IgnoreGeocaches
         public const string STR_GEOCACHES = "geocaches";
         public const string STR_DELETINGGEOCACHES = "Deleting geocaches...";
 
-        private ManualResetEvent _actionReady = null;
         List<Framework.Data.Geocache> _gcList = null;
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
@@ -58,7 +57,7 @@ namespace GlobalcachingApplication.Plugins.IgnoreGeocaches
             }
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             Editor ed = Utils.PluginSupport.PluginByName(Core, "GlobalcachingApplication.Plugins.IgnoreGeocaches.Editor") as Editor;
@@ -91,16 +90,10 @@ namespace GlobalcachingApplication.Plugins.IgnoreGeocaches
                                     }
 
                                     _gcList = gcList;
-                                    _actionReady = new ManualResetEvent(false);
-                                    Thread thrd = new Thread(new ThreadStart(this.deleteSelectionThreadMethod));
-                                    thrd.Start();
-                                    while (!_actionReady.WaitOne(10))
-                                    {
-                                        System.Windows.Forms.Application.DoEvents();
-                                    }
-                                    thrd.Join();
-                                    _actionReady.Dispose();
-                                    _actionReady = null;
+                                    await Task.Run(() =>
+                                        {
+                                            this.deleteSelectionThreadMethod();
+                                        });
                                 }
                             }
                         }
@@ -169,7 +162,6 @@ namespace GlobalcachingApplication.Plugins.IgnoreGeocaches
             catch
             {
             }
-            _actionReady.Set();
         }
 
     }

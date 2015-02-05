@@ -21,7 +21,6 @@ namespace GlobalcachingApplication.Plugins.QuickAc
         public const string STR_GEOCACHES = "geocaches";
         public const string STR_DELETINGGEOCACHES = "Deleting geocaches...";
 
-        private ManualResetEvent _actionReady = null;
         List<Framework.Data.Geocache> _gcList = null;
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
@@ -49,7 +48,7 @@ namespace GlobalcachingApplication.Plugins.QuickAc
             }
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result && action == ACTION_CLEARFLAGS_SELECTED)
@@ -100,16 +99,10 @@ namespace GlobalcachingApplication.Plugins.QuickAc
                             }
 
                             _gcList = gcList;
-                            _actionReady = new ManualResetEvent(false);
-                            Thread thrd = new Thread(new ThreadStart(this.deleteSelectionThreadMethod));
-                            thrd.Start();
-                            while (!_actionReady.WaitOne(10))
-                            {
-                                System.Windows.Forms.Application.DoEvents();
-                            }
-                            thrd.Join();
-                            _actionReady.Dispose();
-                            _actionReady = null;
+                            await Task.Run(() =>
+                                {
+                                    this.deleteSelectionThreadMethod();
+                                });
                         }
                     }
                 }
@@ -163,7 +156,6 @@ namespace GlobalcachingApplication.Plugins.QuickAc
             catch
             {
             }
-            _actionReady.Set();
         }
     }
 }

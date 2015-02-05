@@ -18,7 +18,6 @@ namespace GlobalcachingApplication.Plugins.AutoUpdater
         public const string STR_ASKUPDATE = "There are {0} new geocaches found\r\nImport these?";
         public const string STR_IMPORTING = "Importing geocaches...";
 
-        private ManualResetEvent _actionReady = null;
         private string _errormessage;
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
@@ -91,7 +90,7 @@ namespace GlobalcachingApplication.Plugins.AutoUpdater
             }
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result)
@@ -113,15 +112,10 @@ namespace GlobalcachingApplication.Plugins.AutoUpdater
                             using (Utils.FrameworkDataUpdater updater = new Utils.FrameworkDataUpdater(Core))
                             {
                                 _errormessage = "";
-                                _actionReady = new ManualResetEvent(false);
-                                Thread thrd = new Thread(new ThreadStart(this.threadMethod));
-                                thrd.Start();
-                                while (!_actionReady.WaitOne(100))
-                                {
-                                    System.Windows.Forms.Application.DoEvents();
-                                }
-                                thrd.Join();
-                                _actionReady.Dispose();
+                                await Task.Run(() =>
+                                    {
+                                        this.threadMethod();
+                                    });
                                 if (!string.IsNullOrEmpty(_errormessage))
                                 {
                                     System.Windows.Forms.MessageBox.Show(_errormessage, Utils.LanguageSupport.Instance.GetTranslation(STR_ERROR), System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
@@ -209,22 +203,9 @@ namespace GlobalcachingApplication.Plugins.AutoUpdater
                             {
                                 int index = 0;
                                 int total = gcList.Count;
-                                int gcupdatecount;
-                                TimeSpan interval = new TimeSpan(0, 0, 0, 2, 100);
-                                DateTime prevCall = DateTime.MinValue;
-                                bool dodelay;
-                                gcupdatecount = 30;
-                                dodelay = (gcList.Count > 30);
+                                int gcupdatecount = 20;
                                 while (gcList.Count > 0)
                                 {
-                                    if (dodelay)
-                                    {
-                                        TimeSpan ts = DateTime.Now - prevCall;
-                                        if (ts < interval)
-                                        {
-                                            Thread.Sleep(interval - ts);
-                                        }
-                                    }
                                     GlobalcachingApplication.Utils.API.LiveV6.SearchForGeocachesRequest req = new GlobalcachingApplication.Utils.API.LiveV6.SearchForGeocachesRequest();
                                     req.IsLite = Core.GeocachingComAccount.MemberTypeId == 1;
                                     req.AccessToken = client.Token;
@@ -234,7 +215,6 @@ namespace GlobalcachingApplication.Plugins.AutoUpdater
                                     req.GeocacheLogCount = 5;
                                     index += req.CacheCode.CacheCodes.Length;
                                     gcList.RemoveRange(0, req.CacheCode.CacheCodes.Length);
-                                    prevCall = DateTime.Now;
                                     var resp = client.Client.SearchForGeocaches(req);
                                     if (resp.Status.StatusCode == 0 && resp.Geocaches != null)
                                     {
@@ -249,6 +229,11 @@ namespace GlobalcachingApplication.Plugins.AutoUpdater
                                     {
                                         break;
                                     }
+
+                                    if (gcList.Count > 0)
+                                    {
+                                        Thread.Sleep(3000);
+                                    }
                                 }
                             }
                         }
@@ -259,7 +244,6 @@ namespace GlobalcachingApplication.Plugins.AutoUpdater
             {
                 _errormessage = e.Message;
             }
-            _actionReady.Set();
         }
 
     }

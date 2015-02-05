@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.AutoRgn
 {
@@ -26,7 +27,6 @@ namespace GlobalcachingApplication.Plugins.AutoRgn
 
         private Framework.Interfaces.ICore _core = null;
         private Utils.BasePlugin.Plugin _plugin = null;
-        private ManualResetEvent _actionReady = null;
 
         private Framework.Data.AreaType _level;
         private string _prefix = "";
@@ -58,22 +58,16 @@ namespace GlobalcachingApplication.Plugins.AutoRgn
             checkBox2_CheckedChanged(this, EventArgs.Empty);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             _prefix = textBox1.Text;
-            _actionReady = new ManualResetEvent(false);
-            _actionReady.Reset();
             using (Utils.FrameworkDataUpdater updater = new Utils.FrameworkDataUpdater(_core))
             {
-                Thread thrd = new Thread(new ThreadStart(this.assignRegionsThreadMethod));
-                thrd.Start();
-                while (!_actionReady.WaitOne(100))
-                {
-                    System.Windows.Forms.Application.DoEvents();
-                }
-                thrd.Join();
+                await Task.Run(() =>
+                    {
+                        this.assignRegionsThreadMethod();
+                    });
             }
-            _actionReady.Close();
             Close();
         }
 
@@ -131,7 +125,6 @@ namespace GlobalcachingApplication.Plugins.AutoRgn
             catch
             {
             }
-            _actionReady.Set();
         }
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)

@@ -258,7 +258,6 @@ namespace GlobalcachingApplication.Plugins.ActionSequence
                 this.Enabled = false;
                 toolStripStatusLabel1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_EXECUTING);
                 statusStrip1.Refresh();
-                Application.DoEvents();
                 await Execute(si);
                 this.Enabled = true;
                 toolStripStatusLabel1.Text = "";

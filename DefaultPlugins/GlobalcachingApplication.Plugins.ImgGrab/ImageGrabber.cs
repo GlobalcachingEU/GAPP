@@ -40,7 +40,6 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
         private List<Framework.Data.Geocache> _gcList;
         private int _orgListCount;
         private volatile bool _grabOnlyNew = false;
-        private ManualResetEvent _threadReady = null;
         private string _imgFolder = null;
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
@@ -150,7 +149,7 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
             }
         }
 
-        public void CreateImageFolderForGeocaches(List<Framework.Data.Geocache> gcList, string folder)
+        public async Task CreateImageFolderForGeocaches(List<Framework.Data.Geocache> gcList, string folder)
         {
             using (CopyToFolderForm dlg = new CopyToFolderForm(folder))
             {
@@ -199,19 +198,15 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
                         }
                         _gcList = tmpList;
                     }
-                    _threadReady = new ManualResetEvent(false);
-                    Thread thrd2 = new Thread(new ThreadStart(this.copyToFolderThreadMethod));
-                    thrd2.Start();
-                    while (!_threadReady.WaitOne(100))
-                    {
-                        System.Windows.Forms.Application.DoEvents();
-                    }
-                    thrd2.Join();
+                    await Task.Run(() =>
+                        {
+                            this.copyToFolderThreadMethod();
+                        });
                 }
             }
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result)
@@ -250,14 +245,10 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
                                     Action(action == ACTION_CREATE_ACTIVE ? ACTION_GRAB_ACTIVE : ACTION_GRAB_SELECTED);
                                     _gcList = tmpList;
                                 }
-                                _threadReady = new ManualResetEvent(false);
-                                Thread thrd = new Thread(new ThreadStart(this.copyToFolderThreadMethod));
-                                thrd.Start();
-                                while (!_threadReady.WaitOne(100))
-                                {
-                                    System.Windows.Forms.Application.DoEvents();
-                                }
-                                thrd.Join();
+                                await Task.Run(() =>
+                                    {
+                                        this.copyToFolderThreadMethod();
+                                    });
                             }
                         }
                     }
@@ -303,14 +294,10 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
                     }
                     else if (action == ACTION_GRAB_DELETE_ACTIVE || action == ACTION_GRAB_DELETE_SELECTED || action == ACTION_GRAB_DELETE_ALL)
                     {
-                        _threadReady = new ManualResetEvent(false);
-                        Thread thrd = new Thread(new ThreadStart(this.deleteImagesThreadMethod));
-                        thrd.Start();
-                        while (!_threadReady.WaitOne(100))
+                        await Task.Run(() =>
                         {
-                            System.Windows.Forms.Application.DoEvents();
-                        }
-                        thrd.Join();
+                            this.deleteImagesThreadMethod();
+                        });
                     }
                     else if (action == ACTION_DELETEFOLDER_ACTIVE || action == ACTION_DELETEFOLDER_SELECTED)
                     {
@@ -323,14 +310,10 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
                             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                             {
                                 _imgFolder = dlg.SelectedPath;
-                                _threadReady = new ManualResetEvent(false);
-                                Thread thrd = new Thread(new ThreadStart(this.deleteImagesFromFolderThreadMethod));
-                                thrd.Start();
-                                while (!_threadReady.WaitOne(100))
+                                await Task.Run(() =>
                                 {
-                                    System.Windows.Forms.Application.DoEvents();
-                                }
-                                thrd.Join();
+                                    this.deleteImagesFromFolderThreadMethod();
+                                });
                             }
                         }
                     }
@@ -390,7 +373,6 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
                 {
                 }
             }
-            _threadReady.Set();
         }
 
         private void copyToFolderThreadMethod()
@@ -529,7 +511,6 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
                 {
                 }
             }
-            _threadReady.Set();
         }
 
         private string getValidNameForFile(string name)
@@ -592,7 +573,6 @@ namespace GlobalcachingApplication.Plugins.ImgGrab
                 {
                 }
             }
-            _threadReady.Set();
         }
 
         private void getImagesThreadMethod()

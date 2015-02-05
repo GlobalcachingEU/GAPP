@@ -14,8 +14,6 @@ namespace GlobalcachingApplication.Plugins.PurgeLogs
         public const string ACTION_FILTER = "Purge logs|Filter...";
         public const string ACTION_QUICKPURGE = "Purge logs|Keep last 5";
 
-        private ManualResetEvent _actionReady = null;
-
         public override Framework.PluginType PluginType
         {
             get
@@ -52,7 +50,7 @@ namespace GlobalcachingApplication.Plugins.PurgeLogs
             return await base.InitializeAsync(core);
         }
 
-        public override bool Action(string action)
+        public async override Task<bool> ActionAsync(string action)
         {
             bool result = base.Action(action);
             if (result && action == ACTION_FILTER)
@@ -63,16 +61,10 @@ namespace GlobalcachingApplication.Plugins.PurgeLogs
                     {
                         using (Utils.FrameworkDataUpdater upd = new Utils.FrameworkDataUpdater(Core))
                         {
-                            _actionReady = new ManualResetEvent(false);
-                            Thread thrd = new Thread(new ThreadStart(this.purgeLogsWithFilterThreadMethod));
-                            thrd.Start();
-                            while (!_actionReady.WaitOne(10))
-                            {
-                                System.Windows.Forms.Application.DoEvents();
-                            }
-                            thrd.Join();
-                            _actionReady.Dispose();
-                            _actionReady = null;
+                            await Task.Run(() =>
+                                {
+                                    this.purgeLogsWithFilterThreadMethod();
+                                });
                         }
                     }
                 }
@@ -81,16 +73,10 @@ namespace GlobalcachingApplication.Plugins.PurgeLogs
             {
                 using (Utils.FrameworkDataUpdater upd = new Utils.FrameworkDataUpdater(Core))
                 {
-                    _actionReady = new ManualResetEvent(false);
-                    Thread thrd = new Thread(new ThreadStart(this.purgeLogsThreadMethod));
-                    thrd.Start();
-                    while (!_actionReady.WaitOne(10))
+                    await Task.Run(() =>
                     {
-                        System.Windows.Forms.Application.DoEvents();
-                    }
-                    thrd.Join();
-                    _actionReady.Dispose();
-                    _actionReady = null;
+                        this.purgeLogsThreadMethod();
+                    });
                 }
             }
             return result;
@@ -169,7 +155,6 @@ namespace GlobalcachingApplication.Plugins.PurgeLogs
             catch
             {
             }
-            _actionReady.Set();
         }
 
         private void purgeLogsThreadMethod()
@@ -214,7 +199,6 @@ namespace GlobalcachingApplication.Plugins.PurgeLogs
             catch
             {
             }
-            _actionReady.Set();
         }
     }
 }
