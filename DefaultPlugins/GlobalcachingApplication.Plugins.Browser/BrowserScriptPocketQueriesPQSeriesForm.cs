@@ -96,7 +96,6 @@ namespace GlobalcachingApplication.Plugins.Browser
             this.button7.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_FROMSELECTION);
             this.button8.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_NETHERLANDS);
             this.button9.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_BELGIUM);
-            this.button10.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_ITALY);
             this.label21.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_DELAY);
             this.label19.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_MARGIN);
             this.button11.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_AUTOMATIC);
@@ -432,11 +431,6 @@ namespace GlobalcachingApplication.Plugins.Browser
         private void button9_Click(object sender, EventArgs e)
         {
             addFromGlobalcaching("pqsetbe");
-        }
-
-        private void button10_Click(object sender, EventArgs e)
-        {
-            addFromGlobalcaching("pqsetit");
         }
 
         private void button7_Click(object sender, EventArgs e)

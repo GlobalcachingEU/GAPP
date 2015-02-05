@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GlobalcachingApplication.Plugins.APIMyF
@@ -113,25 +114,10 @@ namespace GlobalcachingApplication.Plugins.APIMyF
                             using (Utils.ProgressBlock progress = new Utils.ProgressBlock(this, STR_IMPORTINGMYF, STR_IMPORTINGCACHES, gcList.Count, 0, true))
                             {
                                 int index = 0;
-                                int gcupdatecount;
-                                TimeSpan interval = new TimeSpan(0, 0, 0, 2, 100);
-                                DateTime prevCall = DateTime.MinValue;
-                                bool dodelay;
-
-                                gcupdatecount = 50;
-                                dodelay = (gcList.Count > 30);
+                                int gcupdatecount = 20;
 
                                 while (gcList.Count > 0)
                                 {
-                                    if (dodelay)
-                                    {
-                                        TimeSpan ts = DateTime.Now - prevCall;
-                                        if (ts < interval)
-                                        {
-                                            System.Threading.Thread.Sleep(interval - ts);
-                                        }
-                                    }
-
                                     Utils.API.LiveV6.SearchForGeocachesRequest req = new Utils.API.LiveV6.SearchForGeocachesRequest();
                                     req.IsLite = Core.GeocachingComAccount.MemberTypeId == 1;
                                     req.AccessToken = api.Token;
@@ -141,7 +127,6 @@ namespace GlobalcachingApplication.Plugins.APIMyF
                                     req.GeocacheLogCount = 0;
                                     index += req.CacheCode.CacheCodes.Length;
                                     gcList.RemoveRange(0, req.CacheCode.CacheCodes.Length);
-                                    prevCall = DateTime.Now;
                                     var resp = api.Client.SearchForGeocaches(req);
                                     if (resp.Status.StatusCode == 0 && resp.Geocaches != null)
                                     {
@@ -167,6 +152,10 @@ namespace GlobalcachingApplication.Plugins.APIMyF
                                             break;
                                         }
 
+                                        if (gcList.Count > 0)
+                                        {
+                                            Thread.Sleep(3000);
+                                        }
                                     }
                                     else
                                     {

@@ -60,26 +60,13 @@ namespace GlobalcachingApplication.Plugins.APIUPD
                     using (Utils.API.GeocachingLiveV6 client = new Utils.API.GeocachingLiveV6(Core, string.IsNullOrEmpty(Core.GeocachingComAccount.APIToken)))
                     {
                         int index = 0;
-                        TimeSpan interval = new TimeSpan(0, 0, 0, 2, 1);
-                        DateTime prevCall = DateTime.MinValue;
-                        bool dodelay;
 
-                        dodelay = _gcList.Count > 30;
                         while (_gcList.Count > 0)
                         {
-                            if (dodelay)
-                            {
-                                TimeSpan ts = DateTime.Now - prevCall;
-                                if (ts < interval)
-                                {
-                                    Thread.Sleep(interval - ts);
-                                }
-                            }
                             if (PluginSettings.Instance.AdditionalDelayBetweenImageImport > 0)
                             {
                                 Thread.Sleep(PluginSettings.Instance.AdditionalDelayBetweenImageImport);
                             }
-                            prevCall = DateTime.Now;
                             var resp = client.Client.GetImagesForGeocache(client.Token, _gcList[0].Code);
                             if (resp.Status.StatusCode == 0)
                             {
@@ -116,6 +103,11 @@ namespace GlobalcachingApplication.Plugins.APIUPD
                                     break;
                                 }
                                 _gcList.RemoveAt(0);
+
+                                if (_gcList.Count > 0)
+                                {
+                                    Thread.Sleep(3000);
+                                }
                             }
                             else
                             {

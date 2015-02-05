@@ -60,8 +60,6 @@ namespace GlobalcachingApplication.Plugins.APIUPD
                     using (Utils.API.GeocachingLiveV6 client = new Utils.API.GeocachingLiveV6(Core, string.IsNullOrEmpty(Core.GeocachingComAccount.APIToken)))
                     {
                         int index = 0;
-                        TimeSpan interval = new TimeSpan(0, 0, 0, 2, 1);
-                        DateTime prevCall = DateTime.MinValue;
                         bool cancel = false;
 
                         while (_gcList.Count > 0 && !cancel)
@@ -76,12 +74,6 @@ namespace GlobalcachingApplication.Plugins.APIUPD
                             }
                             List<string> ids = new List<string>();
                             
-                            TimeSpan ts = DateTime.Now - prevCall;
-                            if (ts < interval)
-                            {
-                                Thread.Sleep(interval - ts);
-                            }
-                            prevCall = DateTime.Now;
                             Thread.Sleep(PluginSettings.Instance.AdditionalDelayBetweenLogImport);
                             var resp = client.Client.GetGeocacheLogsByCacheCode(client.Token, _gcList[0].Code, logCount, maxPerPage);
                             while (resp.Status.StatusCode == 0 && resp.Logs != null && resp.Logs.Count() > 0 && !done)
@@ -110,13 +102,7 @@ namespace GlobalcachingApplication.Plugins.APIUPD
                                 }
                                 if (maxPerPage > 0)
                                 {
-                                    ts = DateTime.Now - prevCall;
-                                    if (ts < interval)
-                                    {
-                                        Thread.Sleep(interval - ts);
-                                    }
-                                    prevCall = DateTime.Now;
-                                    Thread.Sleep(PluginSettings.Instance.AdditionalDelayBetweenLogImport);
+                                    Thread.Sleep(3000 + PluginSettings.Instance.AdditionalDelayBetweenLogImport);
                                     resp = client.Client.GetGeocacheLogsByCacheCode(client.Token, _gcList[0].Code, logCount, maxPerPage);
                                 }
                                 else

@@ -8,6 +8,7 @@ using System.Text;
 using System.Xml;
 using System.Windows.Forms;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace GlobalcachingApplication.Plugins.APIGetC
 {
@@ -939,6 +940,8 @@ namespace GlobalcachingApplication.Plugins.APIGetC
                                             {
                                                 break;
                                             }
+
+                                            Thread.Sleep(3000);
                                         }
                                         else
                                         {

@@ -147,11 +147,8 @@ namespace GlobalcachingApplication.Plugins.Browser
         private void importGeocachesThreadMethod()
         {
             int max = _gcList.Count;
-            int gcupdatecount = 50;
+            int gcupdatecount = 20;
             int index = 0;
-            TimeSpan interval = new TimeSpan(0, 0, 0, 2, 100);
-            DateTime prevCall = DateTime.MinValue;
-            bool dodelay = (_gcList.Count > 30);
             using (Utils.ProgressBlock progress = new Utils.ProgressBlock(OwnerPlugin, STR_IMPORTING, STR_IMPORTING, max, 0, true))
             {
                 try
@@ -160,15 +157,6 @@ namespace GlobalcachingApplication.Plugins.Browser
                     {
                         while (_gcList.Count > 0)
                         {
-                            if (dodelay)
-                            {
-                                TimeSpan ts = DateTime.Now - prevCall;
-                                if (ts < interval)
-                                {
-                                    Thread.Sleep(interval - ts);
-                                }
-                            }
-
                             Utils.API.LiveV6.SearchForGeocachesRequest req = new Utils.API.LiveV6.SearchForGeocachesRequest();
                             req.IsLite = Core.GeocachingComAccount.MemberTypeId == 1;
                             req.AccessToken = client.Token;
@@ -178,7 +166,6 @@ namespace GlobalcachingApplication.Plugins.Browser
                             req.GeocacheLogCount = 5;
                             index += req.CacheCode.CacheCodes.Length;
                             _gcList.RemoveRange(0, req.CacheCode.CacheCodes.Length);
-                            prevCall = DateTime.Now;
                             var resp = client.Client.SearchForGeocaches(req);
                             if (resp.Status.StatusCode == 0 && resp.Geocaches != null)
                             {
@@ -192,6 +179,11 @@ namespace GlobalcachingApplication.Plugins.Browser
                             if (!progress.UpdateProgress(STR_IMPORTING, STR_IMPORTING, max, index))
                             {
                                 break;
+                            }
+
+                            if (_gcList.Count > 0)
+                            {
+                                Thread.Sleep(3000);
                             }
                         }
                     }

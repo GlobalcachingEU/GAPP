@@ -94,29 +94,16 @@ namespace GlobalcachingApplication.Plugins.APIUPD
                     {
                         int index = 0;
                         int gcupdatecount;
-                        TimeSpan interval = new TimeSpan(0, 0, 0, 2, 100);
-                        DateTime prevCall = DateTime.MinValue;
-                        bool dodelay;
                         if (_updateStatusOnly)
                         {
                             gcupdatecount = 109;
-                            dodelay = (_gcList.Count / gcupdatecount > 30);
                         }
                         else
                         {
-                            gcupdatecount = 30;
-                            dodelay = (_gcList.Count > 30);
+                            gcupdatecount = 20;
                         }
                         while (_gcList.Count > 0)
                         {
-                            if (dodelay)
-                            {
-                                TimeSpan ts = DateTime.Now - prevCall;
-                                if (ts < interval)
-                                {
-                                    Thread.Sleep(interval - ts);
-                                }
-                            }
                             if (_updateStatusOnly)
                             {
                                 var req = new Utils.API.LiveV6.GetGeocacheStatusRequest();
@@ -124,7 +111,6 @@ namespace GlobalcachingApplication.Plugins.APIUPD
                                 req.CacheCodes = (from a in _gcList select a.Code).Take(gcupdatecount).ToArray();
                                 _gcList.RemoveRange(0, req.CacheCodes.Length);
                                 index += req.CacheCodes.Length;
-                                prevCall = DateTime.Now;
                                 var resp = client.Client.GetGeocacheStatus(req);
                                 if (resp.Status.StatusCode == 0 && resp.GeocacheStatuses != null)
                                 {
@@ -166,7 +152,6 @@ namespace GlobalcachingApplication.Plugins.APIUPD
                                 req.GeocacheLogCount = 5;
                                 index += req.CacheCode.CacheCodes.Length;
                                 _gcList.RemoveRange(0, req.CacheCode.CacheCodes.Length);
-                                prevCall = DateTime.Now;
                                 var resp = client.Client.SearchForGeocaches(req);
                                 if (resp.Status.StatusCode == 0 && resp.Geocaches != null)
                                 {
@@ -192,6 +177,11 @@ namespace GlobalcachingApplication.Plugins.APIUPD
                             if (!progress.UpdateProgress(STR_UPDATINGGEOCACHES, STR_UPDATINGGEOCACHE, totalcount, index))
                             {
                                 break;
+                            }
+
+                            if (_gcList.Count > 0)
+                            {
+                                Thread.Sleep(3000);
                             }
                         }
                     }
