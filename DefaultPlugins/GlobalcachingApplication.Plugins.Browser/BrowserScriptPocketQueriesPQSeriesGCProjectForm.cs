@@ -50,18 +50,22 @@ namespace GlobalcachingApplication.Plugins.Browser
                             DateTime dt;
                             if (DateTime.TryParseExact(parts[1], "MMMM/dd/yyyy", CultureInfo.GetCultureInfo("en"), DateTimeStyles.None, out dt))
                             {
+                                if (dt < new DateTime(2001, 1, 1)) dt = new DateTime(2001, 1, 1);
                                 DateList.Add(dt.Date);
                             }
                             else if (DateTime.TryParseExact(parts[1], "MMMM/dd/yyyy", CultureInfo.CurrentCulture, DateTimeStyles.None, out dt))
                             {
+                                if (dt < new DateTime(2001, 1, 1)) dt = new DateTime(2001, 1, 1);
                                 DateList.Add(dt.Date);
                             }
                             else if (DateTime.TryParseExact(parts[1], "MMMM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
                             {
+                                if (dt < new DateTime(2001, 1, 1)) dt = new DateTime(2001, 1, 1);
                                 DateList.Add(dt.Date);
                             }
                             else if (DateTime.TryParseExact(parts[1], "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
                             {
+                                if (dt < new DateTime(2001, 1, 1)) dt = new DateTime(2001, 1, 1);
                                 DateList.Add(dt.Date);
                             }
                         }
