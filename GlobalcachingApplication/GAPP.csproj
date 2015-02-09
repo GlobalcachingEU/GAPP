@@ -1265,8 +1265,12 @@
     <Content Include="PluginDependencies\jquery1.7.2\jquery.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PluginDependencies\Readme.txt" />
-    <Content Include="Plugins\Readme.txt" />
+    <Content Include="PluginDependencies\Readme.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Plugins\Readme.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\globalcaching.png" />
     <None Include="Resources\Globalcaching.ico" />
   </ItemGroup>
