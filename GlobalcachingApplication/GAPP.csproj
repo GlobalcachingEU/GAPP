@@ -1265,12 +1265,8 @@
     <Content Include="PluginDependencies\jquery1.7.2\jquery.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PluginDependencies\Readme.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Plugins\Readme.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="PluginDependencies\Readme.txt" />
+    <Content Include="Plugins\Readme.txt" />
     <None Include="Resources\globalcaching.png" />
     <None Include="Resources\Globalcaching.ico" />
   </ItemGroup>
@@ -1283,6 +1279,10 @@
     <PostBuildEvent>copy "$(ProjectDir)..\external\sqlite\$(PlatformName)\System.Data.SQLite.dll" "$(TargetDir)PluginDependencies"
 copy "$(ProjectDir)..\external\Microsoft.VC110.CRT\$(PlatformName)\msvcp110.dll" "$(TargetDir)"
 copy "$(ProjectDir)..\external\Microsoft.VC110.CRT\$(PlatformName)\msvcr110.dll" "$(TargetDir)"
+if $(ConfigurationName) == Release (
+"C:\Program Files (x86)\WiX Toolset v3.9\bin\candle.exe" "$(SolutionDir)Setup\Setup.wxs" -out "$(SolutionDir)Setup\Setup.wixobj" -dPlatform=$(PlatformName) -ext WixUIExtension -ext WixUtilExtension 
+"C:\Program Files (x86)\WiX Toolset v3.9\bin\light.exe" "$(SolutionDir)Setup\Setup.wixobj" -out "$(SolutionDir)Setup\Setup$(PlatformName).msi" -dWixUILicenseRtf=license.rtf -spdb -ext WixUIExtension -ext WixUtilExtension
+) 
 copy "$(ProjectDir)..\external\Microsoft.VC110.CRT\$(PlatformName)\vccorlib110.dll" "$(TargetDir)"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\cef.redist.x86.3.2062.1898\build\cef.redist.x86.targets" Condition="Exists('..\packages\cef.redist.x86.3.2062.1898\build\cef.redist.x86.targets')" />
