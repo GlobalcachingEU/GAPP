@@ -256,6 +256,7 @@
                             <File Id="plugin97" Name="GlobalcachingApplication.Plugins.GeoSpy.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.GeoSpy.dll" />
                           <File Id="plugin98" Name="GlobalcachingApplication.Plugins.AutoUpdater.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.AutoUpdater.dll" />
                           <File Id="plugin99" Name="GlobalcachingApplication.Plugins.NLCacheDist.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.NLCacheDist.dll" />
+                          <File Id="plugin100" Name="GlobalcachingApplication.Plugins.CheckForUpdates.dll" Source="../GlobalcachingApplication/bin/Release/Plugins/GlobalcachingApplication.Plugins.CheckForUpdates.dll" />
                         </Component>
                     </Directory>
                     <Directory Id="PLUGINDEPDIR" Name="PluginDependencies">
