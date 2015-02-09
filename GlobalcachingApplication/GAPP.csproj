@@ -1281,7 +1281,7 @@ copy "$(ProjectDir)..\external\Microsoft.VC110.CRT\$(PlatformName)\msvcp110.dll"
 copy "$(ProjectDir)..\external\Microsoft.VC110.CRT\$(PlatformName)\msvcr110.dll" "$(TargetDir)"
 if $(ConfigurationName) == Release (
 "C:\Program Files (x86)\WiX Toolset v3.9\bin\candle.exe" "$(SolutionDir)Setup\Setup.wxs" -out "$(SolutionDir)Setup\Setup.wixobj" -dPlatform=$(PlatformName) -ext WixUIExtension -ext WixUtilExtension 
-"C:\Program Files (x86)\WiX Toolset v3.9\bin\light.exe" "$(SolutionDir)Setup\Setup.wixobj" -out "$(SolutionDir)Setup\Setup$(PlatformName).msi" -dWixUILicenseRtf=license.rtf -spdb -ext WixUIExtension -ext WixUtilExtension
+"C:\Program Files (x86)\WiX Toolset v3.9\bin\light.exe" "$(SolutionDir)Setup\Setup.wixobj" -out "$(SolutionDir)Setup\Setup$(PlatformName).msi" -b "$(SolutionDir)Setup" -dWixUILicenseRtf=license.rtf -spdb -ext WixUIExtension -ext WixUtilExtension -sw
 ) 
 copy "$(ProjectDir)..\external\Microsoft.VC110.CRT\$(PlatformName)\vccorlib110.dll" "$(TargetDir)"</PostBuildEvent>
   </PropertyGroup>
