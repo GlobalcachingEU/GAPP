@@ -285,6 +285,8 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
 
             fileToolStripMenuItem.DropDownItems.Add(new ToolStripSeparator());
             _exitMeniItem = new ToolStripMenuItem();
+            _exitMeniItem.ShortcutKeys = Keys.Alt | Keys.F3;
+            _exitMeniItem.ShortcutKeyDisplayString = "Alt+F3";
             _exitMeniItem.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_EXIT);
             fileToolStripMenuItem.DropDownItems.Add(_exitMeniItem);
             _exitMeniItem.Click += new EventHandler(_exitMeniItem_Click);
@@ -321,9 +323,48 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             plugin.ShowHelp();
         }
 
-        void _exitMeniItem_Click(object sender, EventArgs e)
+        async void _exitMeniItem_Click(object sender, EventArgs e)
         {
-            Close();
+            bool cancel = false;
+            if (Core.AutoSaveOnClose)
+            {
+                Framework.Interfaces.IPluginInternalStorage p = (from Framework.Interfaces.IPluginInternalStorage ip in Core.GetPlugin(Framework.PluginType.InternalStorage) select ip).FirstOrDefault();
+                if (p != null)
+                {
+                    cancel = ! await p.SaveAllData();
+                }
+            }
+            else
+            {
+                int cnt = 0;
+                cnt += (from Framework.Data.Geocache c in Core.Geocaches where !c.Saved select c).Count();
+                cnt += (from Framework.Data.Log c in Core.Logs where !c.Saved select c).Count();
+                cnt += (from Framework.Data.LogImage c in Core.LogImages where !c.Saved select c).Count();
+                cnt += (from Framework.Data.Waypoint c in Core.Waypoints where !c.Saved select c).Count();
+                if (cnt > 0)
+                {
+                    System.Windows.Forms.DialogResult res = MessageBox.Show(Utils.LanguageSupport.Instance.GetTranslation(STR_ASKSAVEDATA), Utils.LanguageSupport.Instance.GetTranslation(STR_WARNING), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button3);
+                    if (res == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        Framework.Interfaces.IPluginInternalStorage p = (from Framework.Interfaces.IPluginInternalStorage ip in Core.GetPlugin(Framework.PluginType.InternalStorage) select ip).FirstOrDefault();
+                        if (p != null)
+                        {
+                            cancel = !await p.SaveAllData();
+                        }
+                    }
+                    else if (res == System.Windows.Forms.DialogResult.No)
+                    {
+                    }
+                    else
+                    {
+                        cancel = true;
+                    }
+                }
+            }
+            if (!cancel)
+            {
+                Close();
+            }
         }
 
         public Point BottomRightOfClientArea
@@ -844,52 +885,25 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             }
         }
 
-        private async void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        private const int CP_NOCLOSE_BUTTON = 0x200;
+        protected override CreateParams CreateParams
         {
-            if (Core.AutoSaveOnClose)
+            get
             {
-                Framework.Interfaces.IPluginInternalStorage p = (from Framework.Interfaces.IPluginInternalStorage ip in Core.GetPlugin(Framework.PluginType.InternalStorage) select ip).FirstOrDefault();
-                if (p != null)
-                {
-                    e.Cancel = ! await p.SaveAllData();
-                }
+                CreateParams myCp = base.CreateParams;
+                myCp.ClassStyle = myCp.ClassStyle | CP_NOCLOSE_BUTTON;
+                return myCp;
             }
-            else
+        }
+
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Core.PluginAdded -= new Framework.EventArguments.PluginEventHandler(core_PluginAdded);
+            Core.PrepareClosingApplication();
+            if (_frmProgress != null)
             {
-                int cnt = 0;
-                cnt += (from Framework.Data.Geocache c in Core.Geocaches where !c.Saved select c).Count();
-                cnt += (from Framework.Data.Log c in Core.Logs where !c.Saved select c).Count();
-                cnt += (from Framework.Data.LogImage c in Core.LogImages where !c.Saved select c).Count();
-                cnt += (from Framework.Data.Waypoint c in Core.Waypoints where !c.Saved select c).Count();
-                if (cnt > 0)
-                {
-                    System.Windows.Forms.DialogResult res = MessageBox.Show(Utils.LanguageSupport.Instance.GetTranslation(STR_ASKSAVEDATA), Utils.LanguageSupport.Instance.GetTranslation(STR_WARNING), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button3);
-                    if (res == System.Windows.Forms.DialogResult.Yes)
-                    {
-                        Framework.Interfaces.IPluginInternalStorage p = (from Framework.Interfaces.IPluginInternalStorage ip in Core.GetPlugin(Framework.PluginType.InternalStorage) select ip).FirstOrDefault();
-                        if (p != null)
-                        {
-                            e.Cancel = ! await p.SaveAllData();
-                        }
-                    }
-                    else if (res == System.Windows.Forms.DialogResult.No)
-                    {
-                    }
-                    else
-                    {
-                        e.Cancel = true;
-                    }
-                }
-            }
-            if (!e.Cancel)
-            {
-                Core.PluginAdded -= new Framework.EventArguments.PluginEventHandler(core_PluginAdded);
-                Core.PrepareClosingApplication();
-                if (_frmProgress != null)
-                {
-                    _frmProgress.Dispose();
-                    _frmProgress = null;
-                }
+                _frmProgress.Dispose();
+                _frmProgress = null;
             }
         }
 

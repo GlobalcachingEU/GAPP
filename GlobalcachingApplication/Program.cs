@@ -43,6 +43,7 @@ namespace GlobalcachingApplication
         protected override void OnCreateMainForm()
         {
             var settings = new CefSettings();
+            settings.LogSeverity = LogSeverity.Disable;
             settings.RegisterScheme(new CefCustomScheme
             {
                 SchemeName = CefSharpSchemeHandlerFactory.SchemeName,
