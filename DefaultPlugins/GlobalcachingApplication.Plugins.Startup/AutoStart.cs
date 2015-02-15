@@ -10,6 +10,8 @@ namespace GlobalcachingApplication.Plugins.Startup
 {
     public class AutoStart : Utils.BasePlugin.Plugin
     {
+        private Timer _timer = null;
+
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
             var p = new PluginSettings(core);
@@ -67,24 +69,29 @@ namespace GlobalcachingApplication.Plugins.Startup
 
             if (PluginSettings.Instance.Startup != null && PluginSettings.Instance.Startup.Count>0)
             {
-                context.Post(new SendOrPostCallback(async delegate(object state)
+                _timer = new Timer(new TimerCallback((Action<object>)((o) => 
                 {
-                    foreach (string s in PluginSettings.Instance.Startup)
+                    context.Post(new SendOrPostCallback(async delegate(object state)
                     {
-                        string[] parts = s.Split(new char[] { '@' }, 2);
-                        Framework.Interfaces.IPlugin p = Utils.PluginSupport.PluginByName(Core, parts[0]);
-                        if (p != null)
+                        foreach (string s in PluginSettings.Instance.Startup)
                         {
-                            try
+                            string[] parts = s.Split(new char[] { '@' }, 2);
+                            Framework.Interfaces.IPlugin p = Utils.PluginSupport.PluginByName(Core, parts[0]);
+                            if (p != null)
                             {
-                                await p.ActionAsync(parts[1].Replace('@', '|'));
-                            }
-                            catch
-                            {
+                                try
+                                {
+                                    await p.ActionAsync(parts[1].Replace('@', '|'));
+                                }
+                                catch
+                                {
+                                }
                             }
                         }
-                    }
-                }), null);
+                    }), null);
+                    _timer.Dispose();
+                    _timer = null;
+                })), null, 1000, Timeout.Infinite);
             }
         }
     }
