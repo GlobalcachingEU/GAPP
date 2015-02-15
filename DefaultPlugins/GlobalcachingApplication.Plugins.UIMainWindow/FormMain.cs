@@ -286,8 +286,8 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
 
             fileToolStripMenuItem.DropDownItems.Add(new ToolStripSeparator());
             _exitMeniItem = new ToolStripMenuItem();
-            _exitMeniItem.ShortcutKeys = Keys.Alt | Keys.F3;
-            _exitMeniItem.ShortcutKeyDisplayString = "Alt+F3";
+            _exitMeniItem.ShortcutKeys = Keys.Alt | Keys.F4;
+            _exitMeniItem.ShortcutKeyDisplayString = "Alt+F4";
             _exitMeniItem.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_EXIT);
             fileToolStripMenuItem.DropDownItems.Add(_exitMeniItem);
             _exitMeniItem.Click += new EventHandler(_exitMeniItem_Click);
