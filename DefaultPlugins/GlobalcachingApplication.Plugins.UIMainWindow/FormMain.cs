@@ -85,6 +85,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
         private bool _sizeInitialized = false;
         private ToolStripMenuItem _exitMeniItem = null;
         private int _selCount = 0;
+        private bool _allowedToClose = false;
 
         public FormMain()
         {
@@ -363,6 +364,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             }
             if (!cancel)
             {
+                _allowedToClose = true;
                 Close();
             }
         }
@@ -885,25 +887,22 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             }
         }
 
-        private const int CP_NOCLOSE_BUTTON = 0x200;
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams myCp = base.CreateParams;
-                myCp.ClassStyle = myCp.ClassStyle | CP_NOCLOSE_BUTTON;
-                return myCp;
-            }
-        }
-
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Core.PluginAdded -= new Framework.EventArguments.PluginEventHandler(core_PluginAdded);
-            Core.PrepareClosingApplication();
-            if (_frmProgress != null)
+            if (_allowedToClose)
             {
-                _frmProgress.Dispose();
-                _frmProgress = null;
+                Core.PluginAdded -= new Framework.EventArguments.PluginEventHandler(core_PluginAdded);
+                Core.PrepareClosingApplication();
+                if (_frmProgress != null)
+                {
+                    _frmProgress.Dispose();
+                    _frmProgress = null;
+                }
+            }
+            else
+            {
+                e.Cancel = true;
+                this.BeginInvoke((Action)(() => { _exitMeniItem_Click(null, EventArgs.Empty); }));
             }
         }
 
