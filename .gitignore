@@ -111,3 +111,5 @@ CSScriptLibrary\csscriptlibrary.xml
 /DefaultPlugins/GlobalcachingApplication.Plugins.OKAPI/ConsumerKeys.xml
 GlobalcachingApplication.Plugins.GCEU
 /GAPPSF/OKAPI/ConsumerKeys.xml
+/Setup/Setup.wixobj
+/Setup/*.msi

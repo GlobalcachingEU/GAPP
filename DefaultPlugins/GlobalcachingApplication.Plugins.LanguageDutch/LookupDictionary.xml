@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="-" value="" />
   <string name="-- all --" value="-- alle --" />
@@ -110,7 +110,9 @@
   <string name="background" value="Achtergrond" />
   <string name="backup" value="Backup database" />
   <string name="backup all coordinates" value="Backup alle coordinaten" />
+  <string name="backup folder" value="" />
   <string name="backup/restore coordinates" value="Backup/Herstel coordinaten" />
+  <string name="backups" value="" />
   <string name="batch log selected geocaches..." value="Batch log de geselecteerde geocaches..." />
   <string name="batch logging for trackables" value="Batch loggen voor trackables" />
   <string name="belgium" value="Belgie" />
@@ -179,6 +181,7 @@
   <string name="coordinates" value="Coordinaten" />
   <string name="copy" value="Kopiëren" />
   <string name="copy current settings to selected folder" value="Kopieer huidige instellingen naar geselecteerde map" />
+  <string name="copy current settings to selected scope" value="Kopieer huidige instellingen naar geselecteerde schema" />
   <string name="copy images to folder" value="Kopieer plaatjes naar folder" />
   <string name="copy selection" value="Kopieer selectie" />
   <string name="copy the pq split result as shown in picture&#xD;&#xA;and paste it into the textbox" value="Kopieer de PQ split resultaat zoals in plaatje staat&#xD;&#xA;en plak die in de tekstbox hieronder." />
@@ -196,6 +199,7 @@
   <string name="create" value="Aanmaken" />
   <string name="create account" value="Maak gebruiker aan" />
   <string name="create default settings in selected folder" value="Maak standaard instellingen in geselecteerde map" />
+  <string name="create default settings in selected scope" value="Creeer standaard instellingen in geselecteerde schema" />
   <string name="create ggz file" value="Maak GGZ bestand aan" />
   <string name="create image folder for active" value="Maak plaatjes folder voor actieve" />
   <string name="create image folder for selection" value="Maak plaatjes folder voor geselecteerden" />
@@ -308,6 +312,7 @@
   <string name="enable automatic sorting" value="Automatische sortering aan" />
   <string name="enable folder selection at startup" value="Activeer map selectie bij het opstarten" />
   <string name="enable listing" value="De geocache beschikbaar maken" />
+  <string name="enable scope selection at startup" value="Open schema dialoog bij het opstarten" />
   <string name="encoding" value="" />
   <string name="end" value="Einde" />
   <string name="english translations" value="Engelse vertalingen" />
@@ -450,6 +455,7 @@
   <string name="geocaching live" value="Geocache Live" />
   <string name="geocaching.com account" value="" />
   <string name="geometry" value="Geometrie" />
+  <string name="geospy" value="" />
   <string name="german translations" value="Duitse vertalingen" />
   <string name="get access and sync. settings" value="Toegang verkrijgen en gegevens overnemen" />
   <string name="get access only" value="Alleen toegang verkrijgen" />
@@ -495,7 +501,7 @@
   <string name="globalcachingapplication.plugins.car" value="" />
   <string name="globalcachingapplication.plugins.cgeo" value="" />
   <string name="globalcachingapplication.plugins.chat" value="" />
-  <string name="globalcachingapplication.plugins.coordsav" value="" />
+  <string name="globalcachingapplication.plugins.checkforupdates" value="" />
   <string name="globalcachingapplication.plugins.dataexch" value="" />
   <string name="globalcachingapplication.plugins.datasetup" value="" />
   <string name="globalcachingapplication.plugins.dbglog" value="" />
@@ -506,7 +512,6 @@
   <string name="globalcachingapplication.plugins.exporthtml" value="" />
   <string name="globalcachingapplication.plugins.exportkml" value="" />
   <string name="globalcachingapplication.plugins.filterex" value="" />
-  <string name="globalcachingapplication.plugins.gallery" value="" />
   <string name="globalcachingapplication.plugins.gappdatastorage" value="" />
   <string name="globalcachingapplication.plugins.gccomments" value="" />
   <string name="globalcachingapplication.plugins.gcedit" value="" />
@@ -519,15 +524,12 @@
   <string name="globalcachingapplication.plugins.imggrab" value="" />
   <string name="globalcachingapplication.plugins.imgres" value="" />
   <string name="globalcachingapplication.plugins.logview" value="" />
-  <string name="globalcachingapplication.plugins.munzee" value="" />
   <string name="globalcachingapplication.plugins.nlcachedist" value="" />
   <string name="globalcachingapplication.plugins.okapi" value="" />
   <string name="globalcachingapplication.plugins.olmap" value="" />
   <string name="globalcachingapplication.plugins.openareas" value="" />
   <string name="globalcachingapplication.plugins.ov2" value="" />
-  <string name="globalcachingapplication.plugins.pkgmng" value="" />
   <string name="globalcachingapplication.plugins.purgelogs" value="" />
-  <string name="globalcachingapplication.plugins.qrybuilder" value="" />
   <string name="globalcachingapplication.plugins.quickaction" value="" />
   <string name="globalcachingapplication.plugins.quickselect" value="" />
   <string name="globalcachingapplication.plugins.script" value="" />
@@ -765,8 +767,6 @@
   <string name="move to inventory" value="Verplaats naar inventaris" />
   <string name="municipality" value="Gemeente" />
   <string name="municipality / city" value="Gemeente / Plaats" />
-  <string name="munzee" value="" />
-  <string name="munzee.com account" value="" />
   <string name="mystery, only if corrected" value="Mysterie, alleen indien gecorrigeerd" />
   <string name="name" value="Naam" />
   <string name="name contains" value="Naam bevat tekst" />
@@ -903,11 +903,9 @@
   <string name="published on" value="gepubliceerd op" />
   <string name="purge logs" value="Logs opschonen" />
   <string name="quality" value="Kwaliteit" />
-  <string name="query" value="" />
   <string name="query builder" value="Query bewerker" />
   <string name="quick select" value="Snelle selectie" />
   <string name="radius" value="Radius" />
-  <string name="random geocache selector" value="" />
   <string name="rd x" value="" />
   <string name="rd y" value="" />
   <string name="recent databases" value="Recente databases" />
@@ -965,6 +963,7 @@
   <string name="saving waypoints..." value="Bezig met opslaan van waypoints..." />
   <string name="saving..." value="Bezig met opslaan..." />
   <string name="scale" value="Schalen" />
+  <string name="scope" value="Schema" />
   <string name="script" value="" />
   <string name="script installed" value="Script geinstalleerd" />
   <string name="scripts" value="" />
@@ -1030,6 +1029,7 @@
   <string name="set archived" value="Zet gearchiveerd" />
   <string name="set available" value="Zet beschikbaar" />
   <string name="set flagged" value="Zet gemarkeerd" />
+  <string name="set geospy type in gpx export" value="" />
   <string name="set munzee type in gpx export" value="Zet munzee type in GPX export" />
   <string name="set opacity" value="Zet ondoorzichtigheid" />
   <string name="set options of execution context.&#xD;&#xA;setcontext(&quot;rad&quot;)" value="" />
@@ -1037,6 +1037,7 @@
   <string name="set transparency when inactive..." value="Zet doorzichtigheid wanneer niet actief..." />
   <string name="settings" value="Instellingen" />
   <string name="settings folder" value="Instellingen map" />
+  <string name="settings scope" value="Instellingen schema" />
   <string name="settings..." value="Instellingen..." />
   <string name="setup wizard" value="Installatie hulp" />
   <string name="shapefile" value="" />
@@ -1100,10 +1101,12 @@
   <string name="summary" value="Samenvatting" />
   <string name="suppress script errors" value="Onderdruk script foutmeldingen" />
   <string name="switch to selected folder" value="Wissel naar geselecteerde map" />
+  <string name="switch to selected scope" value="Schakel over naar geselecteerde schema" />
   <string name="system scripts" value="Systeem scripts" />
   <string name="t" value="" />
   <string name="target directory for poi loader csv files" value="Doel folder voor POI Loader csv bestanden" />
   <string name="target settings folder" value="Doel instellingen map" />
+  <string name="target settings scope" value="Doel instellingen schema" />
   <string name="template" value="" />
   <string name="temporarily disable listing" value="Tijdelijk de geocache net beschikbaar maken" />
   <string name="ter. max" value="Ter. max" />
@@ -1224,7 +1227,6 @@
   <string name="uploaded goal photo for &quot;yellow jeep wrangler&quot;" value="" />
   <string name="url" value="" />
   <string name="url name" value="Url naam" />
-  <string name="urls" value="" />
   <string name="use database name as gpx file name on device" value="Gebruik databasenaam als GPX bestandsnaam op apparaat" />
   <string name="use deferred scrolling" value="Gebruik uitgestelde scrollen" />
   <string name="use name and not geocache code" value="Gebruik naam en niet geocache code" />

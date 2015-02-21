@@ -93,6 +93,24 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Scripts\Geocaches Bijwerken BE.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\Update Geocaches LUX.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\Update Archived from Xylanthrop.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\Archived BE.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\Select geocaches still missing on DT-matrix.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\Export POILoader CSV.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\Default\cachetypes\96001.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1279,12 +1297,30 @@
     <Folder Include="Images\Small\cachetypes\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+<Target Name="PostBuildMacros">
+  <GetAssemblyIdentity AssemblyFiles="$(TargetPath)">
+	<Output TaskParameter="Assemblies" ItemName="Targets" />
+  </GetAssemblyIdentity>
+  <ItemGroup>
+	<VersionNumber Include="@(Targets->'%(Version)')"/>
+  </ItemGroup>
+</Target>  
   <PropertyGroup>
+    <PostBuildEventDependsOn>
+      $(PostBuildEventDependsOn);
+      PostBuildMacros;
+    </PostBuildEventDependsOn>  
     <PostBuildEvent>copy "$(ProjectDir)..\external\sqlite\$(PlatformName)\System.Data.SQLite.dll" "$(TargetDir)PluginDependencies"
 copy "$(ProjectDir)..\external\Microsoft.VC110.CRT\$(PlatformName)\msvcp110.dll" "$(TargetDir)"
 copy "$(ProjectDir)..\external\Microsoft.VC110.CRT\$(PlatformName)\msvcr110.dll" "$(TargetDir)"
-if $(ConfigurationName) == ReleaseX (
-"C:\Program Files (x86)\WiX Toolset v3.9\bin\candle.exe" "$(SolutionDir)Setup\Setup.wxs" -out "$(SolutionDir)Setup\Setup.wixobj" -dPlatform=$(PlatformName) -ext WixUIExtension -ext WixUtilExtension  -ext WixNetFxExtension
+if $(ConfigurationName) == Release (
+copy "$(ProjectDir)..\packages\cef.redist.$(PlatformName).3.2062.1898\CEF\*.*" "$(TargetDir)"
+copy "$(ProjectDir)..\packages\cef.redist.$(PlatformName).3.2062.1898\CEF\locales\*.*" "$(TargetDir)locales"
+copy "$(ProjectDir)..\packages\cef.redist.$(PlatformName).3.2062.1898\CEF\$(PlatformName)\*.*" "$(TargetDir)"
+copy "$(ProjectDir)..\packages\CefSharp.Common.37.0.0\CefSharp\$(PlatformName)\*.*" "$(TargetDir)"
+copy "$(ProjectDir)..\packages\CefSharp.WinForms.37.0.0\CefSharp\$(PlatformName)\*.*" "$(TargetDir)"
+echo "C:\Program Files (x86)\WiX Toolset v3.9\bin\candle.exe" "$(SolutionDir)Setup\Setup.wxs" -out "$(SolutionDir)Setup\Setup.wixobj" -dPlatform=$(PlatformName) -dVersion=@(VersionNumber) -ext WixUIExtension -ext WixUtilExtension  -ext WixNetFxExtension 
+"C:\Program Files (x86)\WiX Toolset v3.9\bin\candle.exe" "$(SolutionDir)Setup\Setup.wxs" -out "$(SolutionDir)Setup\Setup.wixobj" -dPlatform=$(PlatformName) -dVersion=@(VersionNumber) -ext WixUIExtension -ext WixUtilExtension  -ext WixNetFxExtension
 "C:\Program Files (x86)\WiX Toolset v3.9\bin\light.exe" "$(SolutionDir)Setup\Setup.wixobj" -out "$(SolutionDir)Setup\Setup$(PlatformName).msi" -b "$(SolutionDir)Setup" -dWixUILicenseRtf=license.rtf -spdb -ext WixUIExtension -ext WixUtilExtension -ext WixNetFxExtension -sw
 ) 
 copy "$(ProjectDir)..\external\Microsoft.VC110.CRT\$(PlatformName)\vccorlib110.dll" "$(TargetDir)"</PostBuildEvent>

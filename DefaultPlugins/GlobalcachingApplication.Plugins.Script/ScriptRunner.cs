@@ -35,31 +35,31 @@ namespace GlobalcachingApplication.Plugins.Script
                 _context = new SynchronizationContext();
             }
 
-            if (string.IsNullOrEmpty(PluginSettings.Instance.UserScriptsFolder))
+            try
             {
-                try
+                //copy the scripts to scripts folder
+                string srcFolder = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), "Scripts");
+                string destFolder = core.CSScriptsPath;
+                if (!Directory.Exists(destFolder))
                 {
-                    //first use
-                    //copy the scripts to appdata
-                    string srcFolder = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), "Scripts");
-                    string destFolder = core.CSScriptsPath;
-                    if (!Directory.Exists(destFolder))
+                    Directory.CreateDirectory(destFolder);
+                }
+                if (Directory.Exists(srcFolder))
+                {
+                    string[] files = Directory.GetFiles(srcFolder, "*.cs");
+                    foreach (string f in files)
                     {
-                        Directory.CreateDirectory(destFolder);
-                    }
-                    if (Directory.Exists(srcFolder))
-                    {
-                        string[] files = Directory.GetFiles(srcFolder, "*.cs");
-                        foreach (string f in files)
+                        if (!File.Exists(Path.Combine(destFolder, Path.GetFileName(f)))
+                            && !File.Exists(Path.Combine(destFolder, Path.GetFileName(string.Format("_{0}", f)))))
                         {
                             File.Copy(f, Path.Combine(destFolder, Path.GetFileName(f)), true);
                         }
                     }
-                    PluginSettings.Instance.UserScriptsFolder = destFolder;
                 }
-                catch
-                {
-                }
+                PluginSettings.Instance.UserScriptsFolder = destFolder;
+            }
+            catch
+            {
             }
 
             CSScriptLibrary.CSScript.ShareHostRefAssemblies = true;

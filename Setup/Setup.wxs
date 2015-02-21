@@ -12,7 +12,7 @@
 <?define progFolder = "ProgramFilesFolder"?>
 <?endif ?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-    <Product Id="*" Name="Globalcaching Application" Language="1033" Version="2.0.2.0" UpgradeCode="48ED8CAD-EEC2-47B0-93F3-D2941F592449" Manufacturer="Globalcaching.eu">
+    <Product Id="*" Name="Globalcaching Application" Language="1033" Version="$(var.Version)" UpgradeCode="48ED8CAD-EEC2-47B0-93F3-D2941F592449" Manufacturer="Globalcaching.eu">
         <Package Description="Geocache manager" Comments="For more information check http://www.globalcaching.eu/gapp/en/" InstallerVersion="300" Compressed="yes" Platform="$(var.Platform)" />
         <!--
 			Source media for the installation. 
@@ -282,6 +282,16 @@
                             <File Id="scr2" Name="HelloWorld.cs" Source="../GlobalcachingApplication/bin/Release/Scripts/HelloWorld.cs" />
                             <File Id="scr3" Name="Get city of active geocache.cs" Source="../GlobalcachingApplication/bin/Release/Scripts/Get city of active geocache.cs" />
                             <File Id="scr4" Name="Select geocache not updated for a week.cs" Source="../GlobalcachingApplication/bin/Release/Scripts/Select geocache not updated for a week.cs" />
+                            <File Id="scr5" Name="ArchivedNL.cs" Source="../GlobalcachingApplication/bin/Release/Scripts/ArchivedNL.cs" />
+                            <File Id="scr6" Name="Copy User Waypoints to Extra Coordinates.cs" Source="../GlobalcachingApplication/bin/Release/Scripts/Copy User Waypoints to Extra Coordinates.cs" />
+                            <File Id="scr7" Name="Decouple Google Map.cs" Source="../GlobalcachingApplication/bin/Release/Scripts/Decouple Google Map.cs" />
+                            <File Id="scr8" Name="Export POILoader CSV.cs" Source="../GlobalcachingApplication/bin/Release/Scripts/Export POILoader CSV.cs" />
+                            <File Id="scr9" Name="Select geocaches still missing on DT-matrix.cs" Source="../GlobalcachingApplication/bin/Release/Scripts/Select geocaches still missing on DT-matrix.cs" />
+                            <File Id="scr10" Name="UpdateNL.cs" Source="../GlobalcachingApplication/bin/Release/Scripts/UpdateNL.cs" />
+                            <File Id="scr11" Name="Archived BE.cs" Source="../GlobalcachingApplication/bin/Release/Scripts/Archived BE.cs" />
+                            <File Id="scr12" Name="Update Archived from Xylanthrop.cs" Source="../GlobalcachingApplication/bin/Release/Scripts/Update Archived from Xylanthrop.cs" />
+                            <File Id="scr13" Name="Geocaches Bijwerken BE.cs" Source="../GlobalcachingApplication/bin/Release/Scripts/Geocaches Bijwerken BE.cs" />
+                            <File Id="scr14" Name="Update Geocaches LUX.cs" Source="../GlobalcachingApplication/bin/Release/Scripts/Update Geocaches LUX.cs" />
                         </Component>
                     </Directory>
                     <Directory Id="IMAGESDIR" Name="Images">
