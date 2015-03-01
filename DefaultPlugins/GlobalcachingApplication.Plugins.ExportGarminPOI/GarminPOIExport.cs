@@ -418,14 +418,15 @@ namespace GlobalcachingApplication.Plugins.ExportGarminPOI
             }
 
             name = name.Replace("\"", "'"); //remove double quotes for csv
+            name = name.Replace("'", " "); //remove double quotes for csv
             if (name.Length > maxlen)
             {
                 name = RemoveSpaces(name);
             }
-            if (name.Length > maxlen)
-            {
+            //if (name.Length > maxlen)
+            //{
                 name = RemoveNonAlnum(name);
-            }
+            //}
             if (name.Length > maxlen)
             {
                 name = TrimButRetainDigits(name, maxlen, INT_MINNAMEDIGITS);
@@ -448,7 +449,9 @@ namespace GlobalcachingApplication.Plugins.ExportGarminPOI
             desc = desc.Replace("\n", " "); //remove crlf
             desc = desc.Replace("\r", " ");
             desc = desc.Replace("\t", " ");
+            desc = desc.Replace("'", " ");
             desc = desc.Replace("  ", " ").Trim(); //remove double spaces
+            desc = RemoveNonAlnum(desc);
             if (desc.Length > maxlen)
             {
                 desc = RemoveSpaces(desc);

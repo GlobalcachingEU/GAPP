@@ -25,6 +25,11 @@ namespace GlobalcachingApplication.Utils.BasePlugin
             return await InitializeAsync(core, null);
         }
 
+        public async virtual Task PluginsInitializedAsync()
+        {
+            if (this == null) await Task.Run(() => { ;});
+        }
+
         public async virtual Task ApplicationInitializedAsync()
         {
             if (this==null) await Task.Run(() => { ;});

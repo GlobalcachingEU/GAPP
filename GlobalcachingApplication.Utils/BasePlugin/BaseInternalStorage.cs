@@ -113,6 +113,15 @@ namespace GlobalcachingApplication.Utils.BasePlugin
             return await base.InitializeAsync(core, availableActions.ToArray());
         }
 
+        public async virtual Task PluginsInitializedAsync()
+        {
+            if (!_dataLoaded)
+            {
+                await ExecuteInBackground(new Action(this.LoadMethod));
+                _dataLoaded = true;
+            }
+        }
+
         public async override Task ApplicationInitializedAsync()
         {
             await base.ApplicationInitializedAsync();
@@ -1087,16 +1096,6 @@ namespace GlobalcachingApplication.Utils.BasePlugin
         public virtual bool Restore(bool geocachesOnly)
         {
             return true;
-        }
-
-        protected async override Task InitUIMainWindowAsync(Framework.Interfaces.IPluginUIMainWindow mainWindowPlugin)
-        {
-            base.InitUIMainWindow(mainWindowPlugin);
-            if (!_dataLoaded)
-            {
-                await ExecuteInBackground(new Action(this.LoadMethod));
-                _dataLoaded = true;
-            }
         }
 
         public override Framework.PluginType PluginType

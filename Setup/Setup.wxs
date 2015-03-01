@@ -292,6 +292,7 @@
                             <File Id="scr12" Name="Update Archived from Xylanthrop.cs" Source="../GlobalcachingApplication/bin/Release/Scripts/Update Archived from Xylanthrop.cs" />
                             <File Id="scr13" Name="Geocaches Bijwerken BE.cs" Source="../GlobalcachingApplication/bin/Release/Scripts/Geocaches Bijwerken BE.cs" />
                             <File Id="scr14" Name="Update Geocaches LUX.cs" Source="../GlobalcachingApplication/bin/Release/Scripts/Update Geocaches LUX.cs" />
+                            <File Id="scr15" Name="Get Favorites from Globalcaching.cs" Source="../GlobalcachingApplication/bin/Release/Scripts/Get Favorites from Globalcaching.cs" />
                         </Component>
                     </Directory>
                     <Directory Id="IMAGESDIR" Name="Images">

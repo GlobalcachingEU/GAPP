@@ -33,6 +33,7 @@ namespace GlobalcachingApplication.Framework.Interfaces
 
         void ShowHelp();
 
+        Task PluginsInitializedAsync();
         Task ApplicationInitializedAsync();
         void ApplicationClosing();
     }

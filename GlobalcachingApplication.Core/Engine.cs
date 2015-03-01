@@ -664,6 +664,16 @@ namespace GlobalcachingApplication.Core
             {
                 try
                 {
+                    await plugin.PluginsInitializedAsync();
+                }
+                catch
+                {
+                }
+            }
+            foreach (Framework.Interfaces.IPlugin plugin in _plugins)
+            {
+                try
+                {
                     await plugin.ApplicationInitializedAsync();
                 }
                 catch

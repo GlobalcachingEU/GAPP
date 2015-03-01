@@ -1,11 +1,16 @@
-todo GAPP:
-- processdialog, minimize or show on taskbar. Going to desktop fails now
-- add log templates
-- make more screen sizable, but also settings screen
+V2.0.3.0
+- gapp: fix auto start actions after startup
+- gapp: change: Garmin POI export, replacement of characters altered
+- gapp: script, added get favorites from globalcaching.eu script
 
-todo GAPP SF:
-
-todo GAPP/GAPP SF
+V2.0.2.0
+- gapp: requires .NET 4.5.1
+- gapp: most IE browsers are replaced with CEF
+- gapp: several bug fixes
+- gapp: changed way of handling background tasks (async/await)
+- gapp: settings are now located in 1 database with automatic fallback to backup if needed (replaced settings folders)
+- gapp: setup has been changed
+- gapp: all plugins and scripts are available after installation (no package manager any more)
 
 V1.11.0.0
 - gapp: add: Added GeoSpy support
