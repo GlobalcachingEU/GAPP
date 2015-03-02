@@ -1,3 +1,6 @@
+V2.0.4.0
+- gapp: fix icons in toolbar
+
 V2.0.3.0
 - gapp: fix auto start actions after startup
 - gapp: change: Garmin POI export, replacement of characters altered
