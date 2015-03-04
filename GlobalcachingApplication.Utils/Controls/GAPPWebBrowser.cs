@@ -70,7 +70,7 @@ namespace GlobalcachingApplication.Utils.Controls
                 task.Wait();
                 result = task.Result.Result;
             }
-            catch
+            catch(Exception e)
             {
             }
             return result;

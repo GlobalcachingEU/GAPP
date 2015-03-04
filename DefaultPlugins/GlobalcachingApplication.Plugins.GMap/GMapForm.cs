@@ -493,7 +493,7 @@ namespace GlobalcachingApplication.Plugins.GMap
                 {
                     if (Core.ActiveGeocache.ContainsCustomLatLon)
                     {
-                        executeScript(string.Format("setGeocache('gapp://{0}', '{1}','{2}', {3}, {4}, '{5}')", Utils.ImageSupport.Instance.GetImagePath(Core, Framework.Data.ImageSize.Medium, Core.ActiveGeocache.GeocacheType), Core.ActiveGeocache.Code, HttpUtility.HtmlEncode(Core.ActiveGeocache.Name), ((double)Core.ActiveGeocache.CustomLat).ToString(CultureInfo.InvariantCulture), ((double)Core.ActiveGeocache.CustomLon).ToString(CultureInfo.InvariantCulture), string.Format("gct{0}IconC", Core.ActiveGeocache.GeocacheType.ID.ToString().Replace("-", "_"))));
+                        executeScript(string.Format("setGeocache('gapp://{0}', '{1}','{2}', {3}, {4}, '{5}')", Utils.ImageSupport.Instance.GetImagePath(Core, Framework.Data.ImageSize.Medium, Core.ActiveGeocache.GeocacheType).Replace('\\', '/'), Core.ActiveGeocache.Code, HttpUtility.HtmlEncode(Core.ActiveGeocache.Name), ((double)Core.ActiveGeocache.CustomLat).ToString(CultureInfo.InvariantCulture), ((double)Core.ActiveGeocache.CustomLon).ToString(CultureInfo.InvariantCulture), string.Format("gct{0}IconC", Core.ActiveGeocache.GeocacheType.ID.ToString().Replace("-", "_"))));
                     }
                     else
                     {

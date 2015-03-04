@@ -577,6 +577,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
             if (tsp != null)
             {
                 (mi as ToolStripMenuItem).Image = tsp.ButtonImage;
+                (mi as ToolStripMenuItem).ImageScaling = ToolStripItemImageScaling.None;
             }
 
             ToolStripMenuItem misub = null;
