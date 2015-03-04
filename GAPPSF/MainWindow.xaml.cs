@@ -450,29 +450,25 @@ namespace GAPPSF
             {
                 using (System.Net.WebClient wc = new System.Net.WebClient())
                 {
-                    string ddoc = wc.DownloadString(string.Format("http://application.globalcaching.eu/pkg/{0}/gapkg.xml", Environment.Is64BitProcess ? "x64" : "x86"));
-
-                    XmlDocument doc = new XmlDocument();
-                    doc.LoadXml(ddoc);
-                    XmlElement root = doc.DocumentElement;
-                    XmlNodeList pkgs = root.SelectNodes("package");
-                    if (pkgs != null)
+                    try
                     {
-                        foreach (XmlNode pk in pkgs)
+                        string xmldoc = wc.DownloadString("http://www.globalcaching.eu/downloads/_files/gapp/version.xml");
+                        XmlDocument doc = new XmlDocument();
+                        doc.LoadXml(xmldoc);
+                        var root = doc.DocumentElement;
+                        var vs = root.SelectSingleNode("version").InnerText.Substring(1);
+                        Version v = Version.Parse(vs);
+#if DEBUG
+                        if (v > System.Reflection.Assembly.GetEntryAssembly().GetName().Version)
+#else
+                        if (v > System.Reflection.Assembly.GetEntryAssembly().GetName().Version)
+#endif
                         {
-                            if (pk.Attributes["type"].InnerText == "core")
-                            {
-                                Version v = Version.Parse(pk.Attributes["version"].InnerText.Substring(1));
-                                string url = pk.Attributes["link"].InnerText;
-
-                                if (Assembly.GetExecutingAssembly().GetName().Version < v)
-                                {
-                                    Core.ApplicationData.Instance.Logger.AddLog(this, Core.Logger.Level.Error, Localization.TranslationManager.Instance.Translate("NewVersionAvailable") as string);
-                                }
-
-                                break;
-                            }
+                            Core.ApplicationData.Instance.Logger.AddLog(this, Core.Logger.Level.Error, Localization.TranslationManager.Instance.Translate("NewVersionAvailable") as string);
                         }
+                    }
+                    catch
+                    {
                     }
                 }
             }
