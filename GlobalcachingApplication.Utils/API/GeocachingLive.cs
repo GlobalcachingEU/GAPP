@@ -114,7 +114,7 @@ namespace GlobalcachingApplication.Utils.API
                 {
                     using (GeocachingLiveV6 client = new GeocachingLiveV6(core))
                     {
-                        LiveV6.GetUserProfileResponse resp = client.Client.GetYourUserProfile(new LiveV6.GetYourUserProfileRequest()
+                        var resp = client.Client.GetYourUserProfile(new LiveV6.GetYourUserProfileRequest()
                         {
                             AccessToken = client.Token,
                             DeviceInfo = new LiveV6.DeviceData()

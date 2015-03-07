@@ -73,6 +73,7 @@
     <Compile Include="CGeoDataConversion.cs" />
     <Compile Include="Favorites.cs" />
     <Compile Include="GetOtherUserLogs.cs" />
+    <Compile Include="GetOtherUserProfileTest.cs" />
     <Compile Include="PocketQueries.cs" />
     <Compile Include="UserWaypoints.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

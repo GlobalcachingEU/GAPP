@@ -1,6 +1,7 @@
 V2.0.6.0
 - gapp: change for updating logs of geocache
 - gapp: fix for edit geocache template.
+- gapp: updated the Live API service
 
 V2.0.5.0
 - gapp: fix Google Map for geocaches with corrected coords
