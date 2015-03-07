@@ -38,18 +38,20 @@
             // 
             this.panel1.Controls.Add(this.buttonOK);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 312);
+            this.panel1.Location = new System.Drawing.Point(0, 384);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(431, 28);
+            this.panel1.Size = new System.Drawing.Size(575, 34);
             this.panel1.TabIndex = 0;
             // 
             // buttonOK
             // 
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOK.Dock = System.Windows.Forms.DockStyle.Right;
-            this.buttonOK.Location = new System.Drawing.Point(356, 0);
+            this.buttonOK.Location = new System.Drawing.Point(475, 0);
+            this.buttonOK.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonOK.Name = "buttonOK";
-            this.buttonOK.Size = new System.Drawing.Size(75, 28);
+            this.buttonOK.Size = new System.Drawing.Size(100, 34);
             this.buttonOK.TabIndex = 0;
             this.buttonOK.Text = "OK";
             this.buttonOK.UseVisualStyleBackColor = true;
@@ -59,19 +61,22 @@
             this.textBoxTemplate.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxTemplate.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxTemplate.Location = new System.Drawing.Point(0, 0);
+            this.textBoxTemplate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxTemplate.MaxLength = 9932767;
             this.textBoxTemplate.Multiline = true;
             this.textBoxTemplate.Name = "textBoxTemplate";
             this.textBoxTemplate.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxTemplate.Size = new System.Drawing.Size(431, 312);
+            this.textBoxTemplate.Size = new System.Drawing.Size(575, 384);
             this.textBoxTemplate.TabIndex = 1;
             // 
             // EditTemplateForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(431, 340);
+            this.ClientSize = new System.Drawing.Size(575, 418);
             this.Controls.Add(this.textBoxTemplate);
             this.Controls.Add(this.panel1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MinimizeBox = false;
             this.Name = "EditTemplateForm";
             this.ShowIcon = false;
