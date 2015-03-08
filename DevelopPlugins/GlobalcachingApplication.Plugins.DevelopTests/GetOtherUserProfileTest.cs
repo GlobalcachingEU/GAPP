@@ -12,7 +12,7 @@ namespace GlobalcachingApplication.Plugins.DevelopTests
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
-            AddAction(ACTION_SHOW);
+            //AddAction(ACTION_SHOW);
 
             return await base.InitializeAsync(core);
         }
