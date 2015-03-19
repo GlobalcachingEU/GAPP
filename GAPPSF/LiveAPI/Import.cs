@@ -855,7 +855,7 @@ namespace GAPPSF.LiveAPI
 
                     using (LiveAPI.GeocachingLiveV6 client = new LiveAPI.GeocachingLiveV6(false))
                     {
-                        int maxPerRequest = 100;
+                        int maxPerRequest = 30;
                         int startIndex = 0;
                         var resp = client.Client.GetUsersCacheNotes(client.Token, startIndex, maxPerRequest);
                         while (resp.Status.StatusCode == 0)

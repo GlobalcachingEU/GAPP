@@ -177,6 +177,7 @@ namespace GAPPSF.Core
             addCacheType(3773, "Groundspeak HQ");
             addCacheType(3774, "Groundspeak Lost and Found Celebration");
             addCacheType(4738, "Groundspeak Block Party");
+            addCacheType(7005, "Giga-Event Cache");
 
             addCacheType(95342, "Munzee", Core.Settings.Default.MunzeeGPXTagMunzee);
             addCacheType(95343, "Virtual Munzee", Core.Settings.Default.MunzeeGPXTagVirtual);

@@ -68,6 +68,10 @@ namespace GlobalcachingApplication.Plugins.APIUPD
                             int maxPerPage = 30;
                             bool done = false;
 
+                            if (PluginSettings.Instance.UpdateLogsMaxLogCount > 0 && PluginSettings.Instance.UpdateLogsMaxLogCount < 30)
+                            {
+                                maxPerPage = PluginSettings.Instance.UpdateLogsMaxLogCount;
+                            }
                             List<string> ids = new List<string>();
                             
                             Thread.Sleep(PluginSettings.Instance.AdditionalDelayBetweenLogImport);
@@ -90,7 +94,7 @@ namespace GlobalcachingApplication.Plugins.APIUPD
                                 logCount += resp.Logs.Count();
                                 if (PluginSettings.Instance.UpdateLogsMaxLogCount > 0)
                                 {
-                                    int left = maxPerPage - logCount;
+                                    int left = PluginSettings.Instance.UpdateLogsMaxLogCount - logCount;
                                     if (left < maxPerPage)
                                     {
                                         maxPerPage = left;

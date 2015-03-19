@@ -70,7 +70,7 @@ namespace GAPPSF.Core
 
         public int LiveAPIGetUsersGeocacheLogsBatchSize
         {
-            get { return int.Parse(GetProperty("100")); }
+            get { return Math.Min(30,int.Parse(GetProperty("30"))); }
             set { SetProperty(value.ToString()); }
         }
 

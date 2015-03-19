@@ -531,6 +531,7 @@
                                     <File Id="dct41" Name="97003.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/97003.gif" />
                                     <File Id="dct42" Name="97004.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/97004.gif" />
                                     <File Id="dct43" Name="97005.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/97005.gif" />
+                                    <File Id="dct44" Name="7005.gif" Source="../GlobalcachingApplication/bin/Release/Images/Default/cachetypes/7005.gif" />
                                 </Component>
                             </Directory>
                             <Directory Id="IMAGESDIRDEFCP" Name="compass">

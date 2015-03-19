@@ -125,7 +125,7 @@ namespace GlobalcachingApplication.Plugins.APIFindsOfUser
                                 req.AccessToken = api.Token;
                                 req.ExcludeArchived = true;
                                 req.Username = usr;
-                                req.MaxPerPage = 100;
+                                req.MaxPerPage = 30;
                                 req.StartIndex = 0;
                                 if (PluginSettings.Instance.BetweenDates)
                                 {

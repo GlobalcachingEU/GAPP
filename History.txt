@@ -1,3 +1,11 @@
+V2.0.7.0
+- gapp: reverted change for updating logs of geocache of V2.0.6.0
+- gapp: updated to new Live API limits (retrieving logs and notes)
+- gapp: added Giga-Event geocache type
+- gappsf: added Giga-Event geocache type
+- gapp: replaced IE with CEF browser in Search within Area plugin
+- gapp: fix for import pocket queries
+
 V2.0.6.0
 - gapp: change for updating logs of geocache
 - gapp: fix for edit geocache template.

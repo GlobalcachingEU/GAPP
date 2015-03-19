@@ -51,7 +51,7 @@ namespace GlobalcachingApplication.Plugins.DevelopTests
                             req.AccessToken = api.Token;
                             req.Username = "SKAMS";
                             req.ExcludeArchived = true;
-                            req.MaxPerPage = 100;
+                            req.MaxPerPage = 30;
                             req.StartIndex = 0;
                             req.LogTypes = (from a in Core.LogTypes where a.AsFound select (long)a.ID).ToArray();
                             var resp = api.Client.GetUsersGeocacheLogs(req);

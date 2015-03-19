@@ -2597,6 +2597,9 @@
     <Resource Include="Resources\CacheTypes\Map\c97004.png" />
     <Resource Include="Resources\CacheTypes\Map\c97005.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\CacheTypes\7005.gif" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)GlobalcachingApplication\bin\$(ConfigurationName)\"</PostBuildEvent>

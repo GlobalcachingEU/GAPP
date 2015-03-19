@@ -62,7 +62,7 @@ namespace GlobalcachingApplication.Plugins.APINotes
 
                     using (Utils.API.GeocachingLiveV6 client = new Utils.API.GeocachingLiveV6(Core, string.IsNullOrEmpty(Core.GeocachingComAccount.APIToken)))
                     {
-                        int maxPerRequest = 100;
+                        int maxPerRequest = 30;
                         int startIndex = 0;
                         var resp = client.Client.GetUsersCacheNotes(client.Token, startIndex, maxPerRequest);
                         while (resp.Status.StatusCode == 0)

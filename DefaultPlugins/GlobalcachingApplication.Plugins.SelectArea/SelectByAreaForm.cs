@@ -40,6 +40,8 @@ namespace GlobalcachingApplication.Plugins.SelectArea
         private Framework.Data.Location _center = null;
         private double _radius;
 
+        private GlobalcachingApplication.Utils.Controls.GAPPWebBrowser _webBrowser = null;
+
         public SelectByAreaForm()
         {
             InitializeComponent();
@@ -58,6 +60,10 @@ namespace GlobalcachingApplication.Plugins.SelectArea
             this.buttonWholeArea.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_SELECTWHOLEAREA);
             this.buttonWithinRadius.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_SELECTWITHINREADIUS);
 
+            _webBrowser = new GlobalcachingApplication.Utils.Controls.GAPPWebBrowser("");
+            panel2.Controls.Add(_webBrowser);
+            _webBrowser.ChromiumBrowser.IsLoadingChanged += ChromiumBrowser_IsLoadingChanged;
+
             Assembly assembly = Assembly.GetExecutingAssembly();
             using (StreamReader textStreamReader = new StreamReader(assembly.GetManifestResourceStream("GlobalcachingApplication.Plugins.SelectArea.page.html")))
             {
@@ -65,18 +71,22 @@ namespace GlobalcachingApplication.Plugins.SelectArea
             }
         }
 
+        void ChromiumBrowser_IsLoadingChanged(object sender, CefSharp.IsLoadingChangedEventArgs e)
+        {
+            if (!e.IsLoading)
+            {
+                //this.BeginInvoke((Action)(() => { _webBrowser.InvokeScript("onResize()"); }));
+                this.BeginInvoke((Action)(() => { this.Width += 100; this.Height += 100; }));
+            }
+        }
+
         private void DisplayHtml(string html)
         {
-            webBrowser1.Navigate("about:blank");
-            if (webBrowser1.Document != null)
-            {
-                webBrowser1.Document.Write(string.Empty);
-            }
             html = html.Replace("google.maps.LatLng(0.0, 0.0)", string.Format("google.maps.LatLng({0}, {1})", _core.CenterLocation.SLat, _core.CenterLocation.SLon));
             html = html.Replace("SLocationS", Utils.LanguageSupport.Instance.GetTranslation(STR_LOCATION));
             html = html.Replace("SGoS", Utils.LanguageSupport.Instance.GetTranslation(STR_GO));
             html = html.Replace("SdistanceS", Utils.LanguageSupport.Instance.GetTranslation(STR_DISTANCE));
-            webBrowser1.DocumentText = html;
+            _webBrowser.DocumentText = html;
         }
 
         private void buttonWithinRadius_Click(object sender, EventArgs e)
@@ -84,15 +94,15 @@ namespace GlobalcachingApplication.Plugins.SelectArea
             _withinRadius = true;
             try
             {
-                if (webBrowser1.ReadyState == WebBrowserReadyState.Complete)
+                if (_webBrowser.IsReady)
                 {
-                    object o = webBrowser1.Document.InvokeScript("getCenterPosition");
+                    object o = _webBrowser.InvokeScript("getCenterPosition()");
                     if (o != null && o.GetType() != typeof(DBNull))
                     {
                         string s = o.ToString().Replace("(", "").Replace(")", "");
                         _center = Utils.Conversion.StringToLocation(s);
                     }
-                    o = webBrowser1.Document.InvokeScript("getRadius");
+                    o = _webBrowser.InvokeScript("getRadius()");
                     if (o != null && o.GetType() != typeof(DBNull))
                     {
                         string s = o.ToString();
@@ -110,9 +120,9 @@ namespace GlobalcachingApplication.Plugins.SelectArea
             _withinRadius = false;
             try
             {
-                if (webBrowser1.ReadyState == WebBrowserReadyState.Complete)
+                if (_webBrowser.IsReady)
                 {
-                    object o = webBrowser1.Document.InvokeScript("getBounds");
+                    object o = _webBrowser.InvokeScript("getBounds()");
                     if (o != null && o.GetType() != typeof(DBNull))
                     {
                         string s = o.ToString().Replace("(", "").Replace(")", "");

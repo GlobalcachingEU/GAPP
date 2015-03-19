@@ -95,7 +95,7 @@ namespace GlobalcachingApplication.Plugins.APIPQ
             {
                 lock (Core.SettingsProvider)
                 {
-                    var pocos = Core.SettingsProvider.Database.Fetch<PQPoco>(string.Format("select * from processedpq", Core.SettingsProvider.GetFullTableName("processedpq")));
+                    var pocos = Core.SettingsProvider.Database.Fetch<PQPoco>(string.Format("select * from {0}", Core.SettingsProvider.GetFullTableName("processedpq")));
                     foreach (var poco in pocos)
                     {
                         result.Add(poco.pqname, DateTime.Parse(poco.processdate));

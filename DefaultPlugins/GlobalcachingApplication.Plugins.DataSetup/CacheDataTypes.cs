@@ -46,6 +46,7 @@ namespace GlobalcachingApplication.Plugins.DataSetup
                 addCacheType(3773, "Groundspeak HQ");
                 addCacheType(3774, "Groundspeak Lost and Found Celebration");
                 addCacheType(4738, "Groundspeak Block Party");
+                addCacheType(7005, "Giga-Event Cache");
 
                 addCacheAttribute(1, "Dogs");
                 addCacheAttribute(2, "Access or parking fee");

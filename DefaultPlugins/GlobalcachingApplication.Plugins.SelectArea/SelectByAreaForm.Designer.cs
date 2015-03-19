@@ -35,7 +35,7 @@
             this.radioButtonWithinSelection = new System.Windows.Forms.RadioButton();
             this.radioButtonNewSearch = new System.Windows.Forms.RadioButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,7 +50,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1053, 92);
+            this.panel1.Size = new System.Drawing.Size(889, 92);
             this.panel1.TabIndex = 0;
             // 
             // buttonWholeArea
@@ -115,31 +115,29 @@
             // 
             // statusStrip1
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 747);
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 619);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
             this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.statusStrip1.Size = new System.Drawing.Size(1053, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(889, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // webBrowser1
+            // panel2
             // 
-            this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowser1.Location = new System.Drawing.Point(0, 92);
-            this.webBrowser1.Margin = new System.Windows.Forms.Padding(4);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(27, 25);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.ScriptErrorsSuppressed = true;
-            this.webBrowser1.Size = new System.Drawing.Size(1053, 655);
-            this.webBrowser1.TabIndex = 2;
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 92);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(889, 527);
+            this.panel2.TabIndex = 2;
             // 
             // SelectByAreaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1053, 769);
-            this.Controls.Add(this.webBrowser1);
+            this.ClientSize = new System.Drawing.Size(889, 641);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.panel1);
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -156,11 +154,11 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.WebBrowser webBrowser1;
         private System.Windows.Forms.Button buttonWholeArea;
         private System.Windows.Forms.Button buttonWithinRadius;
         private System.Windows.Forms.RadioButton radioButtonAddToCurrent;
         private System.Windows.Forms.RadioButton radioButtonWithinSelection;
         private System.Windows.Forms.RadioButton radioButtonNewSearch;
+        private System.Windows.Forms.Panel panel2;
     }
 }

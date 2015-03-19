@@ -56,8 +56,8 @@ namespace GlobalcachingApplication.Plugins.GetImg
                             }
                             foreach (var attr in resp.AttributeTypes)
                             {
-                                //wc.DownloadFile(attr.YesIconName, Path.Combine(defaultPath, string.Format("{0}.gif", attr.ID)));
-                                //wc.DownloadFile(attr.NoIconName, Path.Combine(defaultPath, string.Format("_{0}.gif", attr.ID)));
+                                wc.DownloadFile(attr.YesIconName, Path.Combine(defaultPath, string.Format("{0}.gif", attr.ID)));
+                                wc.DownloadFile(attr.NoIconName, Path.Combine(defaultPath, string.Format("_{0}.gif", attr.ID)));
                             }
 
                             defaultPath = Path.Combine(new string[] { _basePath, "Default", "cachetypes" });
@@ -74,7 +74,7 @@ namespace GlobalcachingApplication.Plugins.GetImg
                             foreach (var gt in resp.GeocacheTypes)
                             {
                                 string fn = string.Format("{0}.gif", gt.GeocacheTypeId);
-                                //wc.DownloadFile(gt.ImageURL, Path.Combine(defaultPath, fn));
+                                wc.DownloadFile(gt.ImageURL, Path.Combine(defaultPath, fn));
                             }
 
                             defaultPath = Path.Combine(new string[] { _basePath, "Default", "logtypes" });
