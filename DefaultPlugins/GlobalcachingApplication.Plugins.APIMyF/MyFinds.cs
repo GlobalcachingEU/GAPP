@@ -81,6 +81,7 @@ namespace GlobalcachingApplication.Plugins.APIMyF
                                         cancelled = true;
                                         break;
                                     }
+                                    Thread.Sleep(4000);
                                     resp = api.Client.GetUsersGeocacheLogs(req);
                                 }
                                 else

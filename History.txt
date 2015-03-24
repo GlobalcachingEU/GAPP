@@ -1,3 +1,6 @@
+V2.0.8.0
+- gapp: fix for Import My Finds, added wait time between ech fetch log call
+
 V2.0.7.0
 - gapp: reverted change for updating logs of geocache of V2.0.6.0
 - gapp: updated to new Live API limits (retrieving logs and notes)
