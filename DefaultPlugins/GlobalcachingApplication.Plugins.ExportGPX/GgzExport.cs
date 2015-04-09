@@ -63,12 +63,12 @@ namespace GlobalcachingApplication.Plugins.ExportGPX
             return await base.InitializeAsync(core);
         }
 
-        public void ExportToGGZ(string filename, List<Framework.Data.Geocache> gcList, Utils.GPXGenerator gpxGenerator)
+        public async void ExportToGGZ(string filename, List<Framework.Data.Geocache> gcList, Utils.GPXGenerator gpxGenerator)
         {
             _filename = filename;
             _gcList = gcList;
             _gpxGenerator = gpxGenerator;
-            PerformExport();
+            await PerformExport();
             _gcList = null;
         }
 
