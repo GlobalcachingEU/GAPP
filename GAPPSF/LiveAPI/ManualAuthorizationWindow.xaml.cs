@@ -57,7 +57,7 @@ namespace GAPPSF.LiveAPI
             {
                 using (GeocachingLiveV6 client = new GeocachingLiveV6())
                 {
-                    LiveV6.GetUserProfileResponse resp = client.Client.GetYourUserProfile(new LiveV6.GetYourUserProfileRequest()
+                    var resp = client.Client.GetYourUserProfile(new LiveV6.GetYourUserProfileRequest()
                     {
                         AccessToken = Token,
                         DeviceInfo = new LiveV6.DeviceData()
