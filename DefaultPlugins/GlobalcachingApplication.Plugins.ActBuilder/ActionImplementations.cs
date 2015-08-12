@@ -1100,6 +1100,11 @@ namespace GlobalcachingApplication.Plugins.ActBuilder
             {
                 Values.Add(DateTime.Now.ToString("s"));
             }
+            DateTime dt;
+            if (!DateTime.TryParse(Values[0], out dt))
+            {
+                Values[0] = DateTime.Now.ToString("s");
+            }
             dp.SelectedDate = DateTime.Parse(Values[0]);
             return dp;
         }
@@ -1113,15 +1118,20 @@ namespace GlobalcachingApplication.Plugins.ActBuilder
             }
             else
             {
-                Values[0] = "";
+                Values[0] = DateTime.Now.ToString("s");
             }
         }
         public override bool PrepareRun()
         {
-            _date = DateTime.MinValue;
+            _date = DateTime.Now.Date;
             if (Values.Count > 0)
             {
-                _date = DateTime.Parse(Values[0]).Date;
+                if (!DateTime.TryParse(Values[0], out _date))
+                {
+                    _date = DateTime.Now;
+                }
+                _date = _date.Date;
+
             }
             return base.PrepareRun();
         }
@@ -2305,6 +2315,11 @@ namespace GlobalcachingApplication.Plugins.ActBuilder
             {
                 Values.Add(DateTime.Now.ToString("s"));
             }
+            DateTime dt;
+            if (!DateTime.TryParse(Values[0], out dt))
+            {
+                Values[0] = DateTime.Now.ToString("s");
+            }
             dp.SelectedDate = DateTime.Parse(Values[0]);
             return dp;
         }
@@ -2318,15 +2333,20 @@ namespace GlobalcachingApplication.Plugins.ActBuilder
             }
             else
             {
-                Values[0] = "";
+                Values[0] = DateTime.Now.ToString("s");
             }
         }
         public override bool PrepareRun()
         {
-            _date = DateTime.MinValue;
+            _date = DateTime.Now.Date;
             if (Values.Count > 0)
             {
-                _date = DateTime.Parse(Values[0]).Date;
+                if (!DateTime.TryParse(Values[0], out _date))
+                {
+                    _date = DateTime.Now;
+                }
+                _date = _date.Date;
+
             }
             return base.PrepareRun();
         }
@@ -2397,6 +2417,11 @@ namespace GlobalcachingApplication.Plugins.ActBuilder
             {
                 Values.Add(DateTime.Now.ToString("s"));
             }
+            DateTime dt;
+            if (!DateTime.TryParse(Values[0], out dt))
+            {
+                Values[0] = DateTime.Now.ToString("s");
+            }
             dp.SelectedDate = DateTime.Parse(Values[0]);
             return dp;
         }
@@ -2410,15 +2435,20 @@ namespace GlobalcachingApplication.Plugins.ActBuilder
             }
             else
             {
-                Values[0] = "";
+                Values[0] = DateTime.Now.ToString("s");
             }
         }
         public override bool PrepareRun()
         {
-            _date = DateTime.MinValue;
+            _date = DateTime.Now.Date;
             if (Values.Count > 0)
             {
-                _date = DateTime.Parse(Values[0]).Date;
+                if (!DateTime.TryParse(Values[0], out _date))
+                {
+                    _date = DateTime.Now;
+                }
+                _date = _date.Date;
+
             }
             return base.PrepareRun();
         }
