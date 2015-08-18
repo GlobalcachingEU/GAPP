@@ -1,3 +1,6 @@
+V2.0.12.0
+- gapp: fix OV2 export, the settings were not saved correctly
+
 V2.0.11.0
 - gapp: fix action builder when date is empty within flow
 - gappsf: fix action builder when date is empty within flow

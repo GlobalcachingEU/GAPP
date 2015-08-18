@@ -90,5 +90,11 @@ namespace GlobalcachingApplication.Plugins.OV2
             set { _core.SettingsProvider.SetSettingsValueBool("OV2.gcFavorites", value); }
         }
 
+        public bool gcNote
+        {
+            get { return _core.SettingsProvider.GetSettingsValueBool("OV2.gcNote", false); }
+            set { _core.SettingsProvider.SetSettingsValueBool("OV2.gcNote", value); }
+        }
+
     }
 }

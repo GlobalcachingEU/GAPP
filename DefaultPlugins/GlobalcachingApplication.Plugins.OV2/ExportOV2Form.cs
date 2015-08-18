@@ -41,8 +41,8 @@ namespace GlobalcachingApplication.Plugins.OV2
             this.checkBoxFavorites.Checked = PluginSettings.Instance.gcFavorites;
             this.checkBoxHints.Checked = PluginSettings.Instance.gcHint;
             this.checkBoxName.Checked = PluginSettings.Instance.gcName;
-            this.checkBoxNote.Checked = PluginSettings.Instance.gcOwner;
-            this.checkBoxOwner.Checked = PluginSettings.Instance.gcTerrain;
+            this.checkBoxNote.Checked = PluginSettings.Instance.gcNote;
+            this.checkBoxOwner.Checked = PluginSettings.Instance.gcOwner;
             this.textBox1.Text = PluginSettings.Instance.LastSavedFile ?? "";
 
             this.checkBoxCacheType.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_CACHETYPE);
@@ -84,8 +84,9 @@ namespace GlobalcachingApplication.Plugins.OV2
             PluginSettings.Instance.gcFavorites =this.checkBoxFavorites.Checked;
             PluginSettings.Instance.gcHint =this.checkBoxHints.Checked;
             PluginSettings.Instance.gcName = this.checkBoxName.Checked;
-            PluginSettings.Instance.gcOwner= this.checkBoxNote.Checked;
-            PluginSettings.Instance.gcTerrain = this.checkBoxOwner.Checked;
+            PluginSettings.Instance.gcOwner= this.checkBoxOwner.Checked;
+            PluginSettings.Instance.gcNote = this.checkBoxNote.Checked;
+            PluginSettings.Instance.gcTerrain = this.checkBoxTerrain.Checked;
             PluginSettings.Instance.LastSavedFile = this.textBox1.Text;
         }
     }
