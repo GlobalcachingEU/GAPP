@@ -47,9 +47,13 @@ namespace GAPPSF.GSAK
                         logTypes.Add("Webcam Photo Taken", 11);
                         logTypes.Add("Unarchive", 12);
                         logTypes.Add("Temporarily Disable Listing", 22);
+                        logTypes.Add("Temporarily Disable", 22);
                         logTypes.Add("Enable Listing", 23);
+                        logTypes.Add("Enable", 23);
                         logTypes.Add("Publish Listing", 24);
+                        logTypes.Add("Publish", 24);
                         logTypes.Add("Retract Listing", 25);
+                        logTypes.Add("Retract", 25);
                         logTypes.Add("Needs Maintenance", 45);
                         logTypes.Add("Owner Maintenance", 46);
                         logTypes.Add("Update Coordinates", 47);

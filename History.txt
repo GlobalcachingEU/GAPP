@@ -1,5 +1,7 @@
 V2.0.12.0
 - gapp: fix OV2 export, the settings were not saved correctly
+- gapp: fix GSAK import, adapt changes for log types within gsak database
+- gappsf: fix GSAK import, adapt changes for log types within gsak database
 
 V2.0.11.0
 - gapp: fix action builder when date is empty within flow
