@@ -143,11 +143,11 @@ namespace GAPPSF.UIControls.InternalWebBrowser
             Utils.ResourceHelper.HideScriptErrors(webBrowser1, true);
         }
 
-        private void removeNewTargets(mshtml.IHTMLElementCollection elcol)
+        private void removeNewTargets(MSHTML.IHTMLElementCollection elcol)
         {
             if (elcol != null)
             {
-                foreach (mshtml.IHTMLElement el in elcol)
+                foreach (MSHTML.IHTMLElement el in elcol)
                 {
                     var o = el.getAttribute("target");
                     if (o is System.DBNull || o == null)
@@ -167,7 +167,7 @@ namespace GAPPSF.UIControls.InternalWebBrowser
         {
             try
             {
-                removeNewTargets(((mshtml.HTMLDocument)webBrowser1.Document).all);
+                removeNewTargets(((MSHTML.HTMLDocument)webBrowser1.Document).all);
             }
             catch (Exception e)
             {
@@ -233,9 +233,9 @@ namespace GAPPSF.UIControls.InternalWebBrowser
             {
                 char[] SepChars = new char[] { ' ', '>', '<', '&', '"', '\'', '(', ')', '[', ']', '\t', ';', ',', '|', '/', '\\', '\r', '\n' };
 
-                if (((mshtml.HTMLDocument)webBrowser1.Document).body != null)
+                if (((MSHTML.HTMLDocument)webBrowser1.Document).body != null)
                 {
-                    string doc = ((mshtml.HTMLDocument)webBrowser1.Document).body.innerHTML;
+                    string doc = ((MSHTML.HTMLDocument)webBrowser1.Document).body.innerHTML;
                     if (doc != null)
                     {
                         int pos = doc.IndexOf("GC", StringComparison.InvariantCultureIgnoreCase);
