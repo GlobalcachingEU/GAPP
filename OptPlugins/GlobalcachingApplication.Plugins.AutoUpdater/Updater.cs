@@ -134,7 +134,7 @@ namespace GlobalcachingApplication.Plugins.AutoUpdater
         {
             using (System.Net.WebClient wc = new System.Net.WebClient())
             {
-                string doc = wc.DownloadString(string.Format("http://www.globalcaching.eu/Service/GeocacheCodes.aspx?country={0}", country));
+                string doc = wc.DownloadString(string.Format("http://www.globalcaching.eu/Service/GeocacheCodes.aspx?country={0}&token={1}", country, System.Web.HttpUtility.UrlEncode(Core.GeocachingComAccount.APIToken)));
                 if (doc != null)
                 {
                     string[] lines = doc.Replace("\r", "").Split(new char[] { '\n' });

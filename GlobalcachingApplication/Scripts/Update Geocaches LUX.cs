@@ -56,7 +56,7 @@ class Script
             {
                 using (System.Net.WebClient wc = new System.Net.WebClient())
                 {
-                    string doc = wc.DownloadString("http://www.globalcaching.eu/Service/GeocacheCodes.aspx?country=Luxembourg");
+                    string doc = wc.DownloadString(string.Format("http://www.globalcaching.eu/Service/GeocacheCodes.aspx?country=Luxembourg&token={0}", System.Web.HttpUtility.UrlEncode(_core.GeocachingComAccount.APIToken)));
                     if (doc != null)
                     {
                         List<string> gcList = new List<string>();

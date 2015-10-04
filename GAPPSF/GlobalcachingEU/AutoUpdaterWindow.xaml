@@ -4,7 +4,7 @@
         xmlns:l="clr-namespace:GAPPSF.Localization"
         xmlns:p="clr-namespace:GAPPSF.Core"
         xmlns:ui="clr-namespace:GAPPSF.UIControls"
-        Title="{l:Translate AutomaticUpdateAndDownloadGeocaches}" Height="250" Width="300">
+        Title="{l:Translate AutomaticUpdateAndDownloadGeocaches}" Height="280" Width="300">
     <Grid>
         <StackPanel>
             <CheckBox Margin="4" Content="{l:Translate Netherlands}" IsChecked="{Binding GlobalcachingEUNetherlands, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
@@ -13,6 +13,7 @@
             <CheckBox Margin="4" Content="{l:Translate Italy}" IsChecked="{Binding GlobalcachingEUItaly, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
             <CheckBox Margin="4,10,4,4" Content="{l:Translate ImportMissingGeocaches}" IsChecked="{Binding GlobalcachingEUImportMissing, Source={x:Static p:Settings.Default}, Mode=TwoWay}" />
             <Button Margin="4,14,4,4" Content="{l:Translate Update}" Click="Button_Click" />
+            <TextBlock Margin="4" Text="LET OP: Voor deze functionaliteit moet je donateur zijn van globalcaching.eu en Live API autorisatie actief hebben op globalcaching.eu." TextWrapping="Wrap" />
         </StackPanel>
     </Grid>
 </Window>

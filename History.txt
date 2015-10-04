@@ -1,5 +1,7 @@
 V2.0.13.0
 - gappsf: fix for Windows 10 mshtml wrapper
+- gapp: added token to globalcaching services
+- gappsf: added token to globalcaching services
 
 V2.0.12.0
 - gapp: fix OV2 export, the settings were not saved correctly

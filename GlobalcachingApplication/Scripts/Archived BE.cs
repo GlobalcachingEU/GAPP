@@ -54,7 +54,7 @@ class Script
             {
                 using (System.Net.WebClient wc = new System.Net.WebClient())
                 {
-                    byte[] data = wc.DownloadData("http://www.globalcaching.eu/Service/Archived.aspx?country=Belgium&prefix=GC");
+                    byte[] data = wc.DownloadData(string.Format("http://www.globalcaching.eu/Service/Archived.aspx?country=Belgium&prefix=GC&token={0}", System.Web.HttpUtility.UrlEncode(_core.GeocachingComAccount.APIToken)));
                     string sdoc = CompressText.UnzipText(data);
                     //_core.DebugLog(DebugLogLevel.Info, _plugin, null, sdoc);
                     XmlDocument doc = new XmlDocument();

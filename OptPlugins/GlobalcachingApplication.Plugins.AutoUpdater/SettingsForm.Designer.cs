@@ -34,16 +34,18 @@
             // 
             // settingsPanel1
             // 
-            this.settingsPanel1.Location = new System.Drawing.Point(3, 1);
+            this.settingsPanel1.Location = new System.Drawing.Point(2, 1);
+            this.settingsPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.settingsPanel1.Name = "settingsPanel1";
-            this.settingsPanel1.Size = new System.Drawing.Size(443, 225);
+            this.settingsPanel1.Size = new System.Drawing.Size(332, 244);
             this.settingsPanel1.TabIndex = 0;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(157, 233);
+            this.button1.Location = new System.Drawing.Point(120, 264);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(123, 32);
+            this.button1.Size = new System.Drawing.Size(92, 26);
             this.button1.TabIndex = 1;
             this.button1.Text = "OK";
             this.button1.UseVisualStyleBackColor = true;
@@ -51,12 +53,13 @@
             // 
             // SettingsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(447, 286);
+            this.ClientSize = new System.Drawing.Size(335, 301);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.settingsPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SettingsForm";

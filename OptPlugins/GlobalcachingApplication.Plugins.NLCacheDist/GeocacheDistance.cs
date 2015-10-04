@@ -54,7 +54,7 @@ namespace GlobalcachingApplication.Plugins.NLCacheDist
                 using (System.IO.TemporaryFile tmp = new System.IO.TemporaryFile(true))
                 using (System.Net.WebClient wc = new System.Net.WebClient())
                 {
-                    wc.DownloadFile("http://www.globalcaching.eu/service/cachedistance.aspx?country=Netherlands&prefix=GC", tmp.Path);
+                    wc.DownloadFile(string.Format("http://www.globalcaching.eu/service/cachedistance.aspx?country=Netherlands&prefix=GC&token{0}", System.Web.HttpUtility.UrlEncode(Core.GeocachingComAccount.APIToken)), tmp.Path);
 
                     using (var fs = System.IO.File.OpenRead(tmp.Path))
                     using (ZipInputStream s = new ZipInputStream(fs))

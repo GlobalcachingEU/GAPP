@@ -22,18 +22,21 @@ namespace GlobalcachingApplication.Plugins.AutoUpdater
         {
             InitializeComponent();
 
-            checkBox1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_SHOWDIALOG);
-            checkBox2.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_AUTODOWNLOAD);
-            groupBox1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_UPDATEANDDOWNLOAD);
-            checkBox3.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_NL);
-            checkBox4.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_BE);
-            checkBox5.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_LU);
+            if (LicenseManager.UsageMode != LicenseUsageMode.Designtime)
+            {
+                checkBox1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_SHOWDIALOG);
+                checkBox2.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_AUTODOWNLOAD);
+                groupBox1.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_UPDATEANDDOWNLOAD);
+                checkBox3.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_NL);
+                checkBox4.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_BE);
+                checkBox5.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_LU);
 
-            checkBox1.Checked = PluginSettings.Instance.ShowSettingsDialog;
-            checkBox2.Checked = PluginSettings.Instance.AutomaticDownloadGeocaches;
-            checkBox3.Checked = PluginSettings.Instance.UpdateNL;
-            checkBox4.Checked = PluginSettings.Instance.UpdateBE;
-            checkBox5.Checked = PluginSettings.Instance.UpdateLU;
+                checkBox1.Checked = PluginSettings.Instance.ShowSettingsDialog;
+                checkBox2.Checked = PluginSettings.Instance.AutomaticDownloadGeocaches;
+                checkBox3.Checked = PluginSettings.Instance.UpdateNL;
+                checkBox4.Checked = PluginSettings.Instance.UpdateBE;
+                checkBox5.Checked = PluginSettings.Instance.UpdateLU;
+            }
         }
 
         public void Apply()
