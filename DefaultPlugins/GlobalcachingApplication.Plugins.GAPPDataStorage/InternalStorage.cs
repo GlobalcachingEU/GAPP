@@ -739,6 +739,7 @@ namespace GlobalcachingApplication.Plugins.GAPPDataStorage
 
                                         log.Saved = true;
                                         log.IsDataChanged = false;
+                                        log.FullDataLoaded = false;
                                         lgList.Add(log);
 
                                         index++;
