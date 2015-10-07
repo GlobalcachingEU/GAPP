@@ -257,7 +257,8 @@ namespace GlobalcachingApplication.Core
 
         public bool LoadLogsInBackground
         {
-            get { return _settingsProvider.GetSettingsValueBool("Core.LoadLogsInBackground", true); }
+            //get { return _settingsProvider.GetSettingsValueBool("Core.LoadLogsInBackground", true); }
+            get { return false; } //problems when a dialog is shown while loading is finished
             set { _settingsProvider.SetSettingsValueBool("Core.LoadLogsInBackground", value); }
         }
 

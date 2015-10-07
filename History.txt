@@ -1,3 +1,6 @@
+V2.0.14.0
+- gapp: fix deadlock when dialog is shown while loading database in background is finished
+
 V2.0.13.0
 - gappsf: fix for Windows 10 mshtml wrapper
 - gapp: added token to globalcaching services
