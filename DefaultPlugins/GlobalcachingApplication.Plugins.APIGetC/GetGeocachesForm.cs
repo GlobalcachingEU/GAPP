@@ -672,9 +672,9 @@ namespace GlobalcachingApplication.Plugins.APIGetC
             }
             if (_core.GeocachingComAccount.MemberTypeId > 1)
             {
-                SearchForGeocachesRequestProperties.TrackableCount = new Utils.API.LiveV6.TrackableCountFilter();
-                SearchForGeocachesRequestProperties.TrackableCount.MinTrackables = (int)numericUpDownTrackMin.Value;
-                SearchForGeocachesRequestProperties.TrackableCount.MaxTrackables = (int)numericUpDownTrackMax.Value;
+                //SearchForGeocachesRequestProperties.TrackableCount = new Utils.API.LiveV6.TrackableCountFilter();
+                //SearchForGeocachesRequestProperties.TrackableCount.MinTrackables = (int)numericUpDownTrackMin.Value;
+                //SearchForGeocachesRequestProperties.TrackableCount.MaxTrackables = (int)numericUpDownTrackMax.Value;
                 SearchForGeocachesRequestProperties.TrackableLogCount = 0;
                 if (checkBox1.Checked)
                 {

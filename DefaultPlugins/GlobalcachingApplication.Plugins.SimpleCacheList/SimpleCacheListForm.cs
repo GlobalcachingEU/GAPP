@@ -43,6 +43,7 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
         private bool _initializing = true;
         private List<Preset> _presets = new List<Preset>();
         private string _presetFilename = null;
+        private bool _applicationInitialized = false;
 
         public SimpleCacheListForm()
         {
@@ -154,6 +155,12 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
 
             _initializing = false;
             cacheListControl1.OnMouseEnter += new EventHandler<EventArgs>(cacheListControl1_OnMouseEnter);
+        }
+
+        public void ApplicationInitialized()
+        {
+            _applicationInitialized = true;
+            UpdateList();
         }
 
         void GeocachingAccountNames_Changed(object sender, Framework.EventArguments.GeocachingAccountNamesEventArgs e)
@@ -320,7 +327,7 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
 
         public void UpdateList()
         {
-            if (this.Visible)
+            if (_applicationInitialized && this.Visible)
             {
                 _ignoreListSelectionChanged = true;
 
@@ -744,6 +751,13 @@ namespace GlobalcachingApplication.Plugins.SimpleCacheList
             AddAction(ACTION_SHOW);
             return await base.InitializeAsync(core);
         }
+
+        public async override Task ApplicationInitializedAsync()
+        {
+            await base.ApplicationInitializedAsync();
+            (UIChildWindowForm as SimpleCacheListForm).ApplicationInitialized();
+        }
+
 
         public override void ApplicationClosing()
         {

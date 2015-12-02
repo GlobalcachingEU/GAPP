@@ -77,7 +77,7 @@
     <Compile Include="BrowserScriptImportAllGeocaches.cs" />
     <Compile Include="BrowserScriptImportBookmark.cs" />
     <Compile Include="BrowserScriptImportGeocache.cs" />
-    <Compile Include="BrowserScriptPocketQueries.cs" />
+    <None Include="BrowserScriptPocketQueries.cs" />
     <Compile Include="BrowserScriptPocketQueriesPQSeries.cs" />
     <Compile Include="BrowserScriptPocketQueriesPQSeriesForm.cs">
       <SubType>Form</SubType>

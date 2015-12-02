@@ -141,6 +141,6 @@ $(window).resize(function() {
 });
 
 $(document).ready(function() {
-    init();
 	onResize();
+    init();
 });

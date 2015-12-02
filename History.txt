@@ -1,3 +1,14 @@
+V2.0.16.0
+- gapp: updated Live API service reference
+- gappsf: updated Live API service reference
+- gapp: LiveAPI import geocaches, removed TrackableCountFilter
+- gappsf: LiveAPI import geocaches, removed TrackableCountFilter
+- gapp: fix google map initializations
+- gappsf: fix google map initializations
+- gapp: removed Pocket Query browser scripts
+- gapp: Cachelist, optimized refresh time at startup
+- gapp: open area map, fix old browser message
+
 V2.0.15.0
 - gapp: fix for log text
 - gapp: fix for importing geocache walking distance from the Netherlands

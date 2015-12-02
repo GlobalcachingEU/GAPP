@@ -230,9 +230,9 @@ namespace GAPPSF.LiveAPIGetGeocaches
                         }
                         if (Core.Settings.Default.LiveAPIMemberTypeId > 1)
                         {
-                            SearchForGeocachesRequestProperties.TrackableCount = new LiveAPI.LiveV6.TrackableCountFilter();
-                            SearchForGeocachesRequestProperties.TrackableCount.MinTrackables = Core.Settings.Default.LiveAPIGetGCTrackMin;
-                            SearchForGeocachesRequestProperties.TrackableCount.MaxTrackables = Core.Settings.Default.LiveAPIGetGCTrackMax;
+                            //SearchForGeocachesRequestProperties.TrackableCount = new LiveAPI.LiveV6.TrackableCountFilter();
+                            //SearchForGeocachesRequestProperties.TrackableCount.MinTrackables = Core.Settings.Default.LiveAPIGetGCTrackMin;
+                            //SearchForGeocachesRequestProperties.TrackableCount.MaxTrackables = Core.Settings.Default.LiveAPIGetGCTrackMax;
                             SearchForGeocachesRequestProperties.TrackableLogCount = 0;
                             if (Core.Settings.Default.LiveAPIGetGCBetweenDates)
                             {

@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button3 = new System.Windows.Forms.Button();
             this.label38 = new System.Windows.Forms.Label();
             this.label37 = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
@@ -120,7 +121,6 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRadius)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLogCount)).BeginInit();
@@ -169,6 +169,16 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Area / Codes";
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(276, 43);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(47, 23);
+            this.button3.TabIndex = 22;
+            this.button3.Text = "...";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // label38
             // 
@@ -572,7 +582,7 @@
             // 
             this.dateTimePicker2.Enabled = false;
             this.dateTimePicker2.Location = new System.Drawing.Point(223, 249);
-            this.dateTimePicker2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dateTimePicker2.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(199, 20);
             this.dateTimePicker2.TabIndex = 30;
@@ -591,7 +601,7 @@
             // 
             this.dateTimePicker1.Enabled = false;
             this.dateTimePicker1.Location = new System.Drawing.Point(223, 226);
-            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(199, 20);
             this.dateTimePicker1.TabIndex = 28;
@@ -628,7 +638,7 @@
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Location = new System.Drawing.Point(106, 231);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(15, 14);
             this.checkBox1.TabIndex = 24;
@@ -643,6 +653,7 @@
             this.label33.Size = new System.Drawing.Size(10, 13);
             this.label33.TabIndex = 23;
             this.label33.Text = ":";
+            this.label33.Visible = false;
             // 
             // label32
             // 
@@ -652,6 +663,7 @@
             this.label32.Size = new System.Drawing.Size(10, 13);
             this.label32.TabIndex = 22;
             this.label32.Text = ":";
+            this.label32.Visible = false;
             // 
             // label31
             // 
@@ -723,6 +735,7 @@
             0,
             0,
             0});
+            this.numericUpDownTrackMax.Visible = false;
             // 
             // label19
             // 
@@ -732,6 +745,7 @@
             this.label19.Size = new System.Drawing.Size(60, 13);
             this.label19.TabIndex = 14;
             this.label19.Text = "Track. max";
+            this.label19.Visible = false;
             // 
             // numericUpDownTrackMin
             // 
@@ -744,6 +758,7 @@
             this.numericUpDownTrackMin.Name = "numericUpDownTrackMin";
             this.numericUpDownTrackMin.Size = new System.Drawing.Size(57, 20);
             this.numericUpDownTrackMin.TabIndex = 13;
+            this.numericUpDownTrackMin.Visible = false;
             // 
             // label20
             // 
@@ -753,6 +768,7 @@
             this.label20.Size = new System.Drawing.Size(57, 13);
             this.label20.TabIndex = 12;
             this.label20.Text = "Track. min";
+            this.label20.Visible = false;
             // 
             // listViewContainer
             // 
@@ -1139,7 +1155,7 @@
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(112, 15);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(164, 21);
             this.comboBox1.TabIndex = 20;
@@ -1148,7 +1164,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(282, 15);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(47, 23);
             this.button1.TabIndex = 21;
@@ -1160,23 +1176,13 @@
             // 
             this.button2.Enabled = false;
             this.button2.Location = new System.Drawing.Point(336, 15);
-            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(105, 23);
             this.button2.TabIndex = 22;
             this.button2.Text = "Reload";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(276, 43);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(47, 23);
-            this.button3.TabIndex = 22;
-            this.button3.Text = "...";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // GetGeocachesForm
             // 
