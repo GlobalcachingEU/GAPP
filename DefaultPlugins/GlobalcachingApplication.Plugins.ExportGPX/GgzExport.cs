@@ -59,6 +59,7 @@ namespace GlobalcachingApplication.Plugins.ExportGPX
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_ADDWAYPOINTS));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_EXTRACOORDNAMEPREFIX));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_EXTRAINFO));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_MAXGPXINGGZ));
 
             return await base.InitializeAsync(core);
         }
@@ -142,7 +143,7 @@ namespace GlobalcachingApplication.Plugins.ExportGPX
                     int totalProcessed = 0;
                     int fileIndex = 1;
                     int geocacheIndex = 0;
-                    int gpxSizeLimit = 4500000; //appr. 4.5MB
+                    int gpxSizeLimit = PluginSettings.Instance.MaximumSizeGpxInGgz; //appr. 4.5MB
 
                     XmlDocument doc = new XmlDocument();
                     XmlDeclaration pi = doc.CreateXmlDeclaration("1.0", "UTF-8", "yes");

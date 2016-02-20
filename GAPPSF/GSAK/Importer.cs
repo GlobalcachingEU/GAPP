@@ -161,6 +161,7 @@ namespace GAPPSF.GSAK
                                     gc.Archived = (int)dr["archived"] != 0;
                                     gc.Country = (string)dr["country"];
                                     gc.State = (string)dr["state"];
+                                    gc.Municipality = (string)dr["county"];
 
                                     gc.GeocacheType = Utils.DataAccess.GetGeocacheType(cacheType);
                                     gc.PlacedBy = (string)dr["placedby"];

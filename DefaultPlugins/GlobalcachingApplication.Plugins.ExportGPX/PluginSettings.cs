@@ -24,6 +24,12 @@ namespace GlobalcachingApplication.Plugins.ExportGPX
             get { return _uniqueInstance; }
         }
 
+        public int MaximumSizeGpxInGgz
+        {
+            get { return _core.SettingsProvider.GetSettingsValueInt("ExportGPX.MaximumSizeGpxInGgz", 4500000); }
+            set { _core.SettingsProvider.SetSettingsValueInt("ExportGPX.MaximumSizeGpxInGgz", value); }
+        }
+
         public int MaximumNumberOfLogs
         {
             get { return _core.SettingsProvider.GetSettingsValueInt("ExportGPX.MaximumNumberOfLogs", 5); }

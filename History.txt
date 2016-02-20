@@ -1,3 +1,8 @@
+V2.0.18.0
+- gapp: GSAK import now imports GSAK county field into GAPP municipality field
+- gappsf: GSAK import now imports GSAK county field into GAPP municipality field
+- gapp: Export GGZ, the maximum GPX file size within the GGZ is now adjustable through GPX settings
+
 V2.0.17.0
 - gapp: fixed version info causing message that new version is available even after installing the update
 

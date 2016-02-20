@@ -23,6 +23,7 @@ namespace GlobalcachingApplication.Plugins.ExportGPX
         public const string STR_EXTRACOORDNAMEPREFIX = "Extra coord. name prefix";
         public const string STR_EXTRAINFO = "Add extra information to description";
         public const string STR_MAXLOGS = "Maximum number of logs";
+        public const string STR_MAXGPXINGGZ = "Maximum size GPX in GGZ (bytes)";
 
         public SettingsPanel()
         {
@@ -40,10 +41,12 @@ namespace GlobalcachingApplication.Plugins.ExportGPX
             this.checkBox4.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_ADDWAYPOINTS);
             this.checkBox6.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_EXTRAINFO);
             this.label10.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_MAXLOGS);
+            this.label12.Text = Utils.LanguageSupport.Instance.GetTranslation(STR_MAXGPXINGGZ);
 
             numericUpDown1.Value = PluginSettings.Instance.MaxGeocacheNameLength;
             numericUpDown2.Value = PluginSettings.Instance.MinStartOfGeocacheName;
             numericUpDown3.Value = PluginSettings.Instance.MaximumNumberOfLogs;
+            numericUpDown4.Value = PluginSettings.Instance.MaximumSizeGpxInGgz;
             checkBox3.Checked = PluginSettings.Instance.UseNameAndNotCode;
             checkBox1.Checked = PluginSettings.Instance.AddWaypointsToDescription;
             checkBox2.Checked = PluginSettings.Instance.AddFieldNotesToDescription;
@@ -72,6 +75,7 @@ namespace GlobalcachingApplication.Plugins.ExportGPX
             PluginSettings.Instance.MaxGeocacheNameLength = (int)numericUpDown1.Value;
             PluginSettings.Instance.MinStartOfGeocacheName = (int)numericUpDown2.Value;
             PluginSettings.Instance.MaximumNumberOfLogs = (int)numericUpDown3.Value;
+            PluginSettings.Instance.MaximumSizeGpxInGgz = (int)numericUpDown4.Value;
             PluginSettings.Instance.ZipFile = checkBoxZipFile.Checked;
             PluginSettings.Instance.UseHintsForDescription = checkBox5.Checked;
             PluginSettings.Instance.AddFieldNotesToDescription = checkBox2.Checked;
