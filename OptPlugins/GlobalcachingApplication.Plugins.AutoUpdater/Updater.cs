@@ -19,9 +19,11 @@ namespace GlobalcachingApplication.Plugins.AutoUpdater
         public const string STR_IMPORTING = "Importing geocaches...";
 
         private string _errormessage;
+        internal static Framework.Interfaces.ICore _core = null;
 
         public async override Task<bool> InitializeAsync(Framework.Interfaces.ICore core)
         {
+            _core = core;
             var p = new PluginSettings(core);
 
             AddAction(ACTION_SHOW);
@@ -34,9 +36,12 @@ namespace GlobalcachingApplication.Plugins.AutoUpdater
             core.LanguageItems.Add(new Framework.Data.LanguageItem(STR_UPDATING));
 
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_AUTODOWNLOAD));
-            core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_BE));
-            core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_LU));
-            core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_NL));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_COUNTRY));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_STATE));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_LOCATION));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_RADIUS));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_KM));
+            core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_CLEAR));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_SHOWDIALOG));
             core.LanguageItems.Add(new Framework.Data.LanguageItem(SettingsPanel.STR_UPDATEANDDOWNLOAD));
 
@@ -130,11 +135,30 @@ namespace GlobalcachingApplication.Plugins.AutoUpdater
         }
 
 
-        private void updateGeocachesFromGlobalcachingEU(string country, List<string> missingGcList)
+        private void updateGeocachesFromGlobalcachingEU(List<string> missingGcList)
         {
             using (System.Net.WebClient wc = new System.Net.WebClient())
             {
-                string doc = wc.DownloadString(string.Format("http://www.globalcaching.eu/Service/GeocacheCodes.aspx?country={0}&token={1}", country, System.Web.HttpUtility.UrlEncode(Core.GeocachingComAccount.APIToken)));
+                var url = string.Format("http://www.globalcaching.eu/Service/GeocacheCodesEx.aspx?token={0}", System.Web.HttpUtility.UrlEncode(Core.GeocachingComAccount.APIToken));
+                var cntrs = PluginSettings.Instance.GetSelectedCountries();
+                if (cntrs != null && cntrs.Length > 0)
+                {
+                    url += "&c=" + string.Join(",",cntrs);
+                }
+                var states = PluginSettings.Instance.GetSelectedStates();
+                if (states != null && states.Length > 0)
+                {
+                    url += "&s=" + string.Join(",", states);
+                }
+                if (!string.IsNullOrEmpty(PluginSettings.Instance.FromLocation))
+                {
+                    var loc = Utils.Conversion.StringToLocation(PluginSettings.Instance.FromLocation);
+                    if (loc != null)
+                    {
+                        url += string.Format("&lat={0}&lon={1}&r={2}", loc.Lat.ToString().Replace(',', '.'), loc.Lon.ToString().Replace(',', '.'), PluginSettings.Instance.FromLocationRadius);
+                    }
+                }
+                string doc = wc.DownloadString(url);
                 if (doc != null)
                 {
                     string[] lines = doc.Replace("\r", "").Split(new char[] { '\n' });
@@ -169,18 +193,7 @@ namespace GlobalcachingApplication.Plugins.AutoUpdater
                 using (Utils.ProgressBlock progress = new Utils.ProgressBlock(this, STR_UPDATING, STR_UPDATING, 1, 0, true))
                 {
                     List<string> gcList = new List<string>();
-                    if (PluginSettings.Instance.UpdateNL)
-                    {
-                        updateGeocachesFromGlobalcachingEU("Netherlands", gcList);
-                    }
-                    if (PluginSettings.Instance.UpdateBE)
-                    {
-                        updateGeocachesFromGlobalcachingEU("Belgium", gcList);
-                    }
-                    if (PluginSettings.Instance.UpdateLU)
-                    {
-                        updateGeocachesFromGlobalcachingEU("Luxembourg", gcList);
-                    }
+                    updateGeocachesFromGlobalcachingEU(gcList);
 
                     if (gcList.Count > 0)
                     {
