@@ -160,7 +160,7 @@ namespace GlobalcachingApplication.Plugins.ImportGSAK
                             }
 
                             import.CommandText = "select caches.Code, Name, LastGPXDate, PlacedDate, Latitude, Longitude, Status, " +
-                                "Archived, Country, State, CacheType, PlacedBy, OwnerName, OwnerId, Container, Terrain, Difficulty, ShortHTM" +
+                                "Archived, Country, State, County, CacheType, PlacedBy, OwnerName, OwnerId, Container, Terrain, Difficulty, ShortHTM" +
                                 ", LongHTM, " +
                                 string.Format("{0}", isPremiumAvailable? "IsPremium, ":"") +
                                 " HasCorrected, LatOriginal, LonOriginal, UserFlag, Found, " +

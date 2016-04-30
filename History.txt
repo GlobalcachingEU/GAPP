@@ -1,3 +1,7 @@
+V2.0.20.0
+- gapp: fix in GSAK database import
+- gappsf: fix in GSAK database import
+
 V2.0.19.0
 - gapp: updated automatic geocaches update for the BeNeLux
 
