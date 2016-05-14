@@ -8,7 +8,7 @@ var ignoreCenter = false;
 var custonOverlays = [];
 var geocoder;
 var activeInfoWindow = null;
-var clusterOptions = { gridSize: 40, maxZoom: 13 };
+var clusterOptions = { gridSize: 40, maxZoom: 13, imagePath: 'http://www.globalcaching.eu/modules/Globalcaching/media/m' };
 var enableClusterMarkerAboveCount = 1000;
 var activeInfoWindow;
 
