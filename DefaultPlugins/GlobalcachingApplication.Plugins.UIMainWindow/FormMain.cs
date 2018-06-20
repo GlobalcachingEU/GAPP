@@ -1276,7 +1276,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
         {
             try
             {
-                System.Diagnostics.Process.Start("http://www.globalcaching.eu/GAPP/en/Instructionvideos");
+                System.Diagnostics.Process.Start("https://www.4geocaching.eu/GAPP/en/Instructionvideos");
             }
             catch
             {
@@ -1287,7 +1287,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
         {
             try
             {
-                System.Diagnostics.Process.Start("http://www.globalcaching.eu/GAPP/en/Changehistory");
+                System.Diagnostics.Process.Start("https://www.4geocaching.eu/GAPP/en/Changehistory");
             }
             catch
             {
@@ -1298,7 +1298,7 @@ namespace GlobalcachingApplication.Plugins.UIMainWindow
         {
             try
             {
-                System.Diagnostics.Process.Start("http://www.globalcaching.eu/GAPP/en/Nederlandstaligehelp");
+                System.Diagnostics.Process.Start("https://www.4geocaching.eu/GAPP/en/Nederlandstaligehelp");
             }
             catch
             {

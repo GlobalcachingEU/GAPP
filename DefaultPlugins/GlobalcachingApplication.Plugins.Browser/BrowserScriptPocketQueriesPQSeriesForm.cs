@@ -387,7 +387,7 @@ namespace GlobalcachingApplication.Plugins.Browser
                 {
                     using (WebClient wc = new WebClient())
                     {
-                        string xmldoc = wc.DownloadString(string.Format("http://www.globalcaching.eu/gcpqgen/{2}.aspx?max={0}&mlpq={1}", (int)numericUpDown1.Value, (int)numericUpDown2.Value, page));
+                        string xmldoc = wc.DownloadString(string.Format("https://www.4geocaching.eu/gcpqgen/{2}.aspx?max={0}&mlpq={1}", (int)numericUpDown1.Value, (int)numericUpDown2.Value, page));
                         if (xmldoc != null)
                         {
                             XmlDocument doc = new XmlDocument();

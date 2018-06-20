@@ -139,7 +139,7 @@ namespace GlobalcachingApplication.Plugins.AutoUpdater
         {
             using (System.Net.WebClient wc = new System.Net.WebClient())
             {
-                var url = string.Format("http://www.globalcaching.eu/Service/GeocacheCodesEx.aspx?token={0}", System.Web.HttpUtility.UrlEncode(Core.GeocachingComAccount.APIToken));
+                var url = string.Format("https://www.4geocaching.eu/Service/GeocacheCodesEx.aspx?token={0}", System.Web.HttpUtility.UrlEncode(Core.GeocachingComAccount.APIToken));
                 var cntrs = PluginSettings.Instance.GetSelectedCountries();
                 if (cntrs != null && cntrs.Length > 0)
                 {

@@ -36,7 +36,7 @@ namespace GlobalcachingApplication.Plugins.CheckForUpdates
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://www.globalcaching.eu/GAPP/en");
+            System.Diagnostics.Process.Start("https://www.4geocaching.eu/GAPP/en");
         }
 
         private void button2_Click(object sender, EventArgs e)

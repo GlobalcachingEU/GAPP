@@ -40,7 +40,7 @@ namespace GlobalcachingApplication.Plugins.AutoUpdater
                             {
                                 using (System.Net.WebClient wc = new System.Net.WebClient())
                                 {
-                                    string doc = wc.DownloadString("http://www.globalcaching.eu/Service/GeocacheCodesExFilter.aspx");
+                                    string doc = wc.DownloadString("https://www.4geocaching.eu/Service/GeocacheCodesExFilter.aspx");
                                     if (doc != null)
                                     {
                                         string[] lines = doc.Replace("\r", "").Split(new char[] { '\n' },  StringSplitOptions.RemoveEmptyEntries);

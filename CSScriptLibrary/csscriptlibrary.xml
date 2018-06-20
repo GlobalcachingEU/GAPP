@@ -240,6 +240,21 @@
             You can use wild card meaning the first type found. However only full wild card "*" is supported.</param>
             <returns>Interface object.</returns>
         </member>
+        <member name="P:CSScriptLibrary.AsmHelper.ScriptExecutionDomain">
+            <summary>
+            Instance of the AppDomain, which is used to execute the script.
+            </summary>
+        </member>
+        <member name="P:CSScriptLibrary.AsmHelper.CachingEnabled">
+            <summary>
+            Flag that indicates if method caching is enabled. It is set to true by default.
+            <para></para>
+            When caching is enabled AsmHelper generates (emits) extremely fast delegates for
+            the methods being invoked. If AsmHelper is in cache mode it performs more than twice faster.
+            However generation of the delegate does take some time that is why you may consider
+            switching caching off if the method is to be invoked only once.
+            </summary>
+        </member>
         <member name="M:CSScriptLibrary.AsmHelper.GetMethodInvoker(System.String,System.Object[])">
             <summary>
             This method returns extremely fast delegate for the method specified by "methodName" and
@@ -400,21 +415,6 @@
             Finalizer
             </summary>
         </member>
-        <member name="P:CSScriptLibrary.AsmHelper.ScriptExecutionDomain">
-            <summary>
-            Instance of the AppDomain, which is used to execute the script.
-            </summary>
-        </member>
-        <member name="P:CSScriptLibrary.AsmHelper.CachingEnabled">
-            <summary>
-            Flag that indicates if method caching is enabled. It is set to true by default.
-            <para></para>
-            When caching is enabled AsmHelper generates (emits) extremely fast delegates for
-            the methods being invoked. If AsmHelper is in cache mode it performs more than twice faster.
-            However generation of the delegate does take some time that is why you may consider
-            switching caching off if the method is to be invoked only once.
-            </summary>
-        </member>
         <member name="P:CSScriptLibrary.AsmHelper.ProbingDirs">
              <summary>
             Array of directories to be used for assembly probing.
@@ -467,22 +467,6 @@
             </summary>
             <returns>FastInvokeDelegate instance.</returns>
         </member>
-        <member name="T:csscript.AssemblyExecutor">
-            <summary>
-            Executes "public static void Main(..)" of assembly in a separate domain.
-            </summary>
-        </member>
-        <member name="T:csscript.RemoteExecutor">
-            <summary>
-            Invokes static method 'Main' from the assembly.
-            </summary>
-        </member>
-        <member name="M:csscript.RemoteExecutor.ResolveEventHandler(System.Object,System.ResolveEventArgs)">
-            <summary>
-            AppDomain event handler. This handler will be called if CLR cannot resolve
-            referenced local assemblies
-            </summary>
-        </member>
         <member name="T:CSScriptLibrary.AssemblyResolver">
             <summary>
             Class for resolving assembly name to assembly file
@@ -492,6 +476,20 @@
             <summary>
             File to be excluded from assembly search
             </summary>
+        </member>
+        <member name="P:CSScriptLibrary.AssemblyResolver.CacheProbingResults">
+            <summary>
+            Gets or sets a value indicating whether the assembly probing results should be cached. Default value is <c>false</c>;
+            <para>
+            Caching means that during the probing if the assembly is not found in one of the probing directories this directory will not
+            be checked again if the same assembly is to be resolved in the future.
+            </para>
+            <para>
+            This setting is to be used with the caution. While it can bring some performance benefits when the list of probing directories
+            is large it also may be wrong to assume that if the assembly in not found in a particular directory it still will not be there if the probing is repeated.
+            </para>
+            </summary>
+            <value><c>true</c> if probing results should be cached; otherwise, <c>false</c>.</value>
         </member>
         <member name="M:CSScriptLibrary.AssemblyResolver.ResolveAssembly(System.String,System.String)">
             <summary>
@@ -539,353 +537,6 @@
             <summary>
             Search for namespace into local assembly file.
             </summary>
-        </member>
-        <member name="P:CSScriptLibrary.AssemblyResolver.CacheProbingResults">
-            <summary>
-            Gets or sets a value indicating whether the assembly probing results should be cached. Default value is <c>false</c>;
-            <para>
-            Caching means that during the probing if the assembly is not found in one of the probing directories this directory will not
-            be checked again if the same assembly is to be resolved in the future.
-            </para>
-            <para>
-            This setting is to be used with the caution. While it can bring some performance benefits when the list of probing directories
-            is large it also may be wrong to assume that if the assembly in not found in a particular directory it still will not be there if the probing is repeated.
-            </para>
-            </summary>
-            <value><c>true</c> if probing results should be cached; otherwise, <c>false</c>.</value>
-        </member>
-        <member name="T:csscript.CSharpParser">
-            <summary>
-            Very light parser for C# code. The main purpose of it is to be very fast and reliable.
-            It only extracts code information relative to the CS-Script.
-            </summary>
-        </member>
-        <member name="M:csscript.CSharpParser.#ctor(System.String)">
-            <summary>
-            Creates an instance of CSharpParser.
-            </summary>
-            <param name="code">C# code string</param>
-        </member>
-        <member name="M:csscript.CSharpParser.#ctor(System.String,System.Boolean)">
-            <summary>
-            Creates an instance of CSharpParser.
-            </summary>
-            <param name="script">C# script (code or file).</param>
-            <param name="isFile">If set to 'true' the script is a file, otherwise it is a C# code.</param>
-        </member>
-        <member name="M:csscript.CSharpParser.#ctor(System.String,System.Boolean,System.String[])">
-            <summary>
-            Creates an instance of CSharpParser.
-            </summary>
-            <param name="script">C# script (code or file).</param>
-            <param name="isFile">If set to 'true' the script is a file, otherwise it is a C# code.</param>
-            <param name="directivesToSearch">Additional C# script directives to search. The search result is stored in CSharpParser.CustomDirectives.</param>
-        </member>
-        <member name="F:csscript.CSharpParser.CustomDirectives">
-            <summary>
-            The result of search for additional C# script directives to search (directive vs. value).
-            </summary>
-        </member>
-        <member name="M:csscript.CSharpParser.Init(System.String,System.String)">
-            <summary>
-            Parses the C# code. Only one of the 'code' and 'file' parameters can be non empty.
-            </summary>
-            <param name="code">C# script code (empty string if code is in a file form).</param>
-            <param name="file">The script file name (empty if code is in the text form).</param>
-        </member>
-        <member name="M:csscript.CSharpParser.Init(System.String,System.String,System.String[])">
-            <summary>
-            Parses the C# code.
-            </summary>
-            <param name="code">C# script (code or file).</param>
-            <param name="file">If set to 'true' the script is a file, otherwise it is a C# code.</param>
-            <param name="directivesToSearch">Additional C# script directives to search. The search result is stored in CSharpParser.CustomDirectives.</param>
-        </member>
-        <member name="M:csscript.CSharpParser.DoRenaming(System.String[][],System.Boolean)">
-            <summary>
-            Renames namespaces according renaming instructions.
-            </summary>
-            <param name="renamingMap">Renaming instructions (old_name vs. new_name).</param>
-            <param name="preserveMain">/// If set to 'true' "static...Main" in the imported script is not renamed.</param>
-        </member>
-        <member name="F:csscript.CSharpParser.OpenEndDirectiveSyntax">
-            <summary>
-            Enables omitting closing character (";") for CS-Script directives (e.g. "//css_ref System.Xml.dll" instead of "//css_ref System.Xml.dll;").
-            </summary>
-        </member>
-        <member name="P:csscript.CSharpParser.Args">
-            <summary>
-            Embedded script arguments. The both script and engine arguments are allowed except "/noconfig" engine command line switch.
-            </summary>
-        </member>
-        <member name="P:csscript.CSharpParser.CompilerOptions">
-            <summary>
-            Embedded compiler options.
-            </summary>
-        </member>
-        <member name="P:csscript.CSharpParser.HostOptions">
-            <summary>
-            Embedded compiler options.
-            </summary>
-        </member>
-        <member name="P:csscript.CSharpParser.Precompilers">
-            <summary>
-            Precompilers.
-            </summary>
-        </member>
-        <member name="P:csscript.CSharpParser.References">
-            <summary>
-            References to the external assemblies and namespaces.
-            </summary>
-        </member>
-        <member name="P:csscript.CSharpParser.RefAssemblies">
-            <summary>
-            References to the external assemblies.
-            </summary>
-        </member>
-        <member name="P:csscript.CSharpParser.IgnoreNamespaces">
-            <summary>
-            Names of namespaces to be ignored by namespace-to-assembly resolver.
-            </summary>
-        </member>
-        <member name="P:csscript.CSharpParser.ExtraSearchDirs">
-            <summary>
-            Additional search directories (for script and assembly probing).
-            </summary>
-        </member>
-        <member name="P:csscript.CSharpParser.ResFiles">
-            <summary>
-            References to the resource files.
-            </summary>
-        </member>
-        <member name="P:csscript.CSharpParser.RefNamespaces">
-            <summary>
-            References to the namespaces.
-            </summary>
-        </member>
-        <member name="P:csscript.CSharpParser.Imports">
-            <summary>
-            C# scripts to be imported.
-            </summary>
-        </member>
-        <member name="P:csscript.CSharpParser.CmdScripts">
-            <summary>
-            Pre- and post-execution scripts.
-            </summary>
-        </member>
-        <member name="P:csscript.CSharpParser.ThreadingModel">
-            <summary>
-            Appartment state of the script.
-            </summary>
-        </member>
-        <member name="P:csscript.CSharpParser.Code">
-            <summary>
-            Script C# raw code.
-            </summary>
-        </member>
-        <member name="P:csscript.CSharpParser.ModifiedCode">
-            <summary>
-            Script C# code after namespace renaming.
-            </summary>
-        </member>
-        <member name="T:csscript.CSharpParser.CmdScriptInfo">
-            <summary>
-            Class to hold the script information on what pre- or post-execution script needs to be executed.
-            pre- and post-script CS-Script command format:
-            //css_prescript file([arg0][, arg1]..[,arg2])[,ignore];
-            //file - script file (extension is optional)
-            //arg0..N - script string arguments;
-            If $this is specified as arg0..N it will be replaced with the parent script full name at execution time.
-            </summary>
-        </member>
-        <member name="M:csscript.CSharpParser.CmdScriptInfo.#ctor(System.String,System.Boolean,System.String)">
-            <summary>
-            Creates an instance of CmdScriptInfo.
-            </summary>
-            <param name="statement">CS-Script pre- or post-script directive</param>
-            <param name="preScript">If set to true the 'statement' is a pre-script otherwise it is a post-script.</param>
-            <param name="parentScript">The file name of the main script.</param>
-        </member>
-        <member name="F:csscript.CSharpParser.CmdScriptInfo.args">
-            <summary>
-            Script file and it's arguments.
-            </summary>
-        </member>
-        <member name="F:csscript.CSharpParser.CmdScriptInfo.preScript">
-            <summary>
-            If set to 'true' the CmdScriptInfo describes the pre-script, otherwise it is for the post-script.
-            </summary>
-        </member>
-        <member name="F:csscript.CSharpParser.CmdScriptInfo.abortOnError">
-            <summary>
-            If set to 'true' parent script will be aborted on pre/post-script error, otherwise the error will be ignored.
-            </summary>
-        </member>
-        <member name="T:csscript.CSharpParser.ImportInfo">
-            <summary>
-            Class to hold the script importing information, which actually controls how script is imported.
-            </summary>
-        </member>
-        <member name="M:csscript.CSharpParser.ImportInfo.#ctor(System.String,System.String)">
-            <summary>
-            Creates an instance of ImportInfo.
-            </summary>
-            <param name="statement">CS-Script import directive (//css_import...) string.</param>
-            <param name="parentScript">name of the parent (primary) script file.</param>
-        </member>
-        <member name="F:csscript.CSharpParser.ImportInfo.file">
-            <summary>
-            The file to be imporeted.
-            </summary>
-        </member>
-        <member name="F:csscript.CSharpParser.ImportInfo.renaming">
-            <summary>
-            Renaming instructions (old_name vs. new_name)
-            </summary>
-        </member>
-        <member name="F:csscript.CSharpParser.ImportInfo.preserveMain">
-            <summary>
-            If set to 'true' "static...Main" in the imported script is not renamed.
-            </summary>
-        </member>
-        <member name="T:csscript.CSExecutor">
-            <summary>
-            CSExecutor is an class that implements execution of *.cs files.
-            </summary>
-        </member>
-        <member name="M:csscript.CSExecutor.Execute(System.String[],csscript.PrintDelegate,System.String)">
-            <summary>
-            The main entry point for the application.
-            </summary>
-        </member>
-        <member name="M:csscript.CSExecutor.GetCustomAppConfig(System.String[])">
-            <summary>
-            Returns custom application config file.
-            </summary>
-        </member>
-        <member name="M:csscript.CSExecutor.VoidPrint(System.String)">
-            <summary>
-            Dummy 'print' to suppress displaying application messages.
-            </summary>
-        </member>
-        <member name="F:csscript.CSExecutor.lastException">
-            <summary>
-            This method implements compiling and execution of the script.
-            </summary>
-        </member>
-        <member name="M:csscript.CSExecutor.ExecuteImpl">
-            <summary>
-            This method implements compiling and execution of the script.
-            </summary>
-        </member>
-        <member name="M:csscript.CSExecutor.Compile(System.String,System.String,System.Boolean)">
-            <summary>
-            Compiles C# script file into assembly.
-            </summary>
-        </member>
-        <member name="F:csscript.CSExecutor.scriptArgs">
-            <summary>
-            C# Script arguments array (sub array of application arguments array).
-            </summary>
-        </member>
-        <member name="F:csscript.CSExecutor.print">
-            <summary>
-            Callback to print application messages to appropriate output.
-            </summary>
-        </member>
-        <member name="F:csscript.CSExecutor.options">
-            <summary>
-            Container for parsed command line arguments
-            </summary>
-        </member>
-        <member name="F:csscript.CSExecutor.rethrow">
-            <summary>
-            Flag to force to rethrow critical exceptions
-            </summary>
-        </member>
-        <member name="M:csscript.CSExecutor.#ctor">
-            <summary>
-            Constructor
-            </summary>
-        </member>
-        <member name="M:csscript.CSExecutor.#ctor(System.Boolean,csscript.ExecuteOptions)">
-            <summary>
-            Constructor
-            </summary>
-        </member>
-        <member name="M:csscript.CSExecutor.GetAvailableAssembly(System.String)">
-            <summary>
-            Checks/returns if compiled C# script file (ScriptName + ".compiled") available and valid.
-            </summary>
-        </member>
-        <member name="M:csscript.CSExecutor.Compile(System.String)">
-            <summary>
-            Compiles C# script file.
-            </summary>
-        </member>
-        <member name="M:csscript.CSExecutor.GetScriptTempFile">
-            <summary>
-            Returns the name of the temporary file in the CSSCRIPT subfolder of Path.GetTempPath().
-            </summary>
-            <returns>Temporary file name.</returns>
-        </member>
-        <member name="M:csscript.CSExecutor.GetScriptTempDir">
-            <summary>
-            Returns the name of the temporary folder in the CSSCRIPT subfolder of Path.GetTempPath().
-            <para>Under certain circumstances it may be desirable to the use the alternative location for the CS-Script temporary files.
-            In such cases use SetScriptTempDir() to set the alternative location.
-            </para>
-            </summary>
-            <returns>Temporary directory name.</returns>
-        </member>
-        <member name="M:csscript.CSExecutor.SetScriptTempDir(System.String)">
-            <summary>
-            Sets the location for the CS-Script temporary files directory.
-            </summary>
-            <param name="path">The path for the temporary directory.</param>
-        </member>
-        <member name="M:csscript.CSExecutor.GetCacheDirectory(System.String)">
-            <summary>
-            Generates the name of the cache directory for the specified script file.
-            </summary>
-            <param name="file">Script file name.</param>
-            <returns>Cache directory name.</returns>
-        </member>
-        <member name="M:csscript.CSExecutor.SetScriptCacheDir(System.String)">
-            <summary>
-            Generates the name of the temporary cache folder in the CSSCRIPT subfolder of Path.GetTempPath(). The cache folder is specific for every script file.
-            </summary>
-            <param name="scriptFile">script file</param>
-        </member>
-        <member name="M:csscript.CSExecutor.ShowHelp">
-            <summary>
-            Prints Help info.
-            </summary>
-        </member>
-        <member name="M:csscript.CSExecutor.ShowSample">
-            <summary>
-            Show sample C# script file.
-            </summary>
-        </member>
-        <member name="M:csscript.CSExecutor.ShowPrecompilerSample">
-            <summary>
-            Show sample precompiler C# script file.
-            </summary>
-        </member>
-        <member name="M:csscript.CSExecutor.ShowVersion">
-            <summary>
-            Show CS-Script version information.
-            </summary>
-        </member>
-        <member name="P:csscript.CSExecutor.Rethrow">
-            <summary>
-            Force caught exceptions to be rethrown.
-            </summary>
-        </member>
-        <member name="P:csscript.CSExecutor.ScriptCacheDir">
-            <summary>
-             Contains the name of the temporary cache folder in the CSSCRIPT subfolder of Path.GetTempPath(). The cache folder is specific for every script file.
-             </summary>
         </member>
         <member name="T:CSScriptLibrary.AppDomainHelper">
              <summary>
@@ -1018,6 +669,11 @@
             </para>
             </summary>
         </member>
+        <member name="T:CSScriptLibrary.Sandbox.Action">
+            <summary>
+            Generic void/void delegate
+            </summary>
+        </member>
         <member name="M:CSScriptLibrary.Sandbox.Execute(System.Security.PermissionSet,CSScriptLibrary.Sandbox.Action)">
             <summary>
             Extension method. Executes <see cref="T:System.Action"/> with the specified array of permissions
@@ -1038,11 +694,6 @@
             </summary>
             <param name="permissionsFlag">The permissions flag. Can be combination of multiple values.</param>
             <returns><see cref="T:System.Security.PermissionSet"/> instance.</returns>
-        </member>
-        <member name="T:CSScriptLibrary.Sandbox.Action">
-            <summary>
-            Generic void/void delegate
-            </summary>
         </member>
         <member name="T:CSScriptLibrary.PrintDelegate">
             <summary>
@@ -1072,6 +723,32 @@
             	Script file path if the specified assembly is a script assembly otherwise <c>null</c>.
             </returns>
         </member>
+        <member name="P:CSScriptLibrary.CSScript.Rethrow">
+            <summary>
+            Force caught exceptions to be re-thrown.
+            </summary>
+        </member>
+        <member name="P:CSScriptLibrary.CSScript.AssemblyResolvingEnabled">
+             <summary>
+             Enables automatic resolving of unsuccessful assembly probing on the base of the Settings.SearchDirs.
+             Default value is true.
+            
+             CLR does assembly probing only in GAC and in the local (with respect to the application) directories. CS-Script
+             however allows you to specify extra directory(es) for assembly probing by setting enabling CS-Script assembly resolving
+             through setting the AssemblyResolvingEnabled to true and changing the Settings.SearchDirs appropriately.
+             </summary>
+        </member>
+        <member name="P:CSScriptLibrary.CSScript.ShareHostRefAssemblies">
+             <summary>
+             Gets or sets the assembly sharing mode. If set to true all assemblies (including the host assembly itself)
+             currently loaded to the host application AppDomain are automatically available/accessible from the script code.
+             Default value is true.
+            
+             Sharing the same assembly set between the host application and the script require AssemblyResolvingEnabled to
+             be enabled. Whenever SharesHostRefAssemblies is changed to true it automatically sets AssemblyResolvingEnabled to
+             true as well.
+             </summary>
+        </member>
         <member name="F:CSScriptLibrary.CSScript.GlobalSettings">
             <summary>
             Settings object containing runtime settings, which controls script compilation/execution.
@@ -1083,6 +760,14 @@
             Collection of all compiling results. Every time the script is compiled the compiling result is added to this collection regardless of
             the success or failure of the actual compilation.
             </summary>
+        </member>
+        <member name="P:CSScriptLibrary.CSScript.KeepCompilingHistory">
+            <summary>
+            Gets or sets a value indicating whether compiling history should be kept. The compilation results are stored in <see cref="F:CSScriptLibrary.CSScript.CompilingHistory"></see>.
+            </summary>
+            <value>
+            <c>true</c> if compiling history should be kept; otherwise, <c>false</c>.
+            </value>
         </member>
         <member name="M:CSScriptLibrary.CSScript.Execute(CSScriptLibrary.PrintDelegate,System.String[])">
             <summary>
@@ -1209,6 +894,29 @@
              <param name="methodCode">The C# code, containing method implementation.</param>
              <param name="refAssemblies">The string array containing file names to the additional assemblies referenced by the script. </param>
              <returns>Compiled assembly.</returns>
+        </member>
+        <member name="P:CSScriptLibrary.CSScript.EvalNamespaces">
+             <summary>
+             Sets the <c>;</c>-delimited string containing namespaces to be used by the C# expressions being compiled with
+             <see cref="T:CSScriptLibrary.CSScript.EvalBuild"/> and <see cref="T:CSScriptLibrary.CSScript.Eval"/>.
+             <para>The default value is <c>"System;System.IO;System.Diagnostics;System.Collections.Generic;System.Threading"</c></para>
+             </summary>
+             <para>The following is a typical example of <c>BuildEval</c> usage:</para>
+             <code>
+             CSScript.EvalNamespaces = "System;System.Diagnostics";
+            
+             var Trace = CSScript.BuildEval(@"trace (object message)
+                                              {
+                                                  Trace.WriteLine(""EVAL:"" + message);
+                                              }");
+            
+             var Average = CSScript.BuildEval("avrg (int a, int b)  { return (a+b)/2.0; }");
+            
+             Trace(Average(7, 8));
+             </code>
+             <value>
+             The <c>Eval</c> namespaces.
+             </value>
         </member>
         <member name="M:CSScriptLibrary.CSScript.BuildEval(System.String)">
              <summary>
@@ -1381,84 +1089,6 @@
             Default implementation of displaying application messages.
             </summary>
         </member>
-        <member name="F:CSScriptLibrary.CSScript.CacheEnabled">
-            <summary>
-            Controls if ScriptCache should be used when script file loading is requested (CSScript.Load(...)). If set to true and the script file was previously compiled and already loaded
-            the script engine will use that compiled script from the cache instead of compiling it again.
-            Note the script cache is always maintained by the script engine. The CacheEnabled property only indicates if the cached script should be used or not when CSScript.Load(...) method is called.
-            </summary>
-        </member>
-        <member name="M:CSScriptLibrary.CSScript.GetCachedScriptAssembly(System.String)">
-            <summary>
-            Returns cached script assembly matching the scrpt file name.
-            </summary>
-            <param name="file">Pull path of the script file.</param>
-            <returns>Assembly loaded int the current AppDomain.
-            Returns null if the loaded script cannot be found.
-            </returns>
-        </member>
-        <member name="P:CSScriptLibrary.CSScript.Rethrow">
-            <summary>
-            Force caught exceptions to be re-thrown.
-            </summary>
-        </member>
-        <member name="P:CSScriptLibrary.CSScript.AssemblyResolvingEnabled">
-             <summary>
-             Enables automatic resolving of unsuccessful assembly probing on the base of the Settings.SearchDirs.
-             Default value is true.
-            
-             CLR does assembly probing only in GAC and in the local (with respect to the application) directories. CS-Script
-             however allows you to specify extra directory(es) for assembly probing by setting enabling CS-Script assembly resolving
-             through setting the AssemblyResolvingEnabled to true and changing the Settings.SearchDirs appropriately.
-             </summary>
-        </member>
-        <member name="P:CSScriptLibrary.CSScript.ShareHostRefAssemblies">
-             <summary>
-             Gets or sets the assembly sharing mode. If set to true all assemblies (including the host assembly itself)
-             currently loaded to the host application AppDomain are automatically available/accessible from the script code.
-             Default value is true.
-            
-             Sharing the same assembly set between the host application and the script require AssemblyResolvingEnabled to
-             be enabled. Whenever SharesHostRefAssemblies is changed to true it automatically sets AssemblyResolvingEnabled to
-             true as well.
-             </summary>
-        </member>
-        <member name="P:CSScriptLibrary.CSScript.KeepCompilingHistory">
-            <summary>
-            Gets or sets a value indicating whether compiling history should be kept. The compilation results are stored in <see cref="F:CSScriptLibrary.CSScript.CompilingHistory"></see>.
-            </summary>
-            <value>
-            <c>true</c> if compiling history should be kept; otherwise, <c>false</c>.
-            </value>
-        </member>
-        <member name="P:CSScriptLibrary.CSScript.EvalNamespaces">
-             <summary>
-             Sets the <c>;</c>-delimited string containing namespaces to be used by the C# expressions being compiled with
-             <see cref="T:CSScriptLibrary.CSScript.EvalBuild"/> and <see cref="T:CSScriptLibrary.CSScript.Eval"/>.
-             <para>The default value is <c>"System;System.IO;System.Diagnostics;System.Collections.Generic;System.Threading"</c></para>
-             </summary>
-             <para>The following is a typical example of <c>BuildEval</c> usage:</para>
-             <code>
-             CSScript.EvalNamespaces = "System;System.Diagnostics";
-            
-             var Trace = CSScript.BuildEval(@"trace (object message)
-                                              {
-                                                  Trace.WriteLine(""EVAL:"" + message);
-                                              }");
-            
-             var Average = CSScript.BuildEval("avrg (int a, int b)  { return (a+b)/2.0; }");
-            
-             Trace(Average(7, 8));
-             </code>
-             <value>
-             The <c>Eval</c> namespaces.
-             </value>
-        </member>
-        <member name="P:CSScriptLibrary.CSScript.ScriptCache">
-            <summary>
-            Cache of all loaded script files for the current process.
-            </summary>
-        </member>
         <member name="T:CSScriptLibrary.CSScript.LoadedScript">
             <summary>
             LoadedScript is a class, which holds information about the script file location and it's compiled and loaded assmbly (current AppDomain).
@@ -1481,90 +1111,26 @@
             Compiled script assembly loaded into current AppDomain.
             </summary>
         </member>
-        <member name="T:csscript.CSSEnvironment">
+        <member name="F:CSScriptLibrary.CSScript.CacheEnabled">
             <summary>
-            This class implements access to the CS-Script global configuration settings.
+            Controls if ScriptCache should be used when script file loading is requested (CSScript.Load(...)). If set to true and the script file was previously compiled and already loaded
+            the script engine will use that compiled script from the cache instead of compiling it again.
+            Note the script cache is always maintained by the script engine. The CacheEnabled property only indicates if the cached script should be used or not when CSScript.Load(...) method is called.
             </summary>
         </member>
-        <member name="M:csscript.CSSEnvironment.GetCacheDirectory(System.String)">
+        <member name="P:CSScriptLibrary.CSScript.ScriptCache">
             <summary>
-            Generates the name of the cache directory for the specified script file.
-            </summary>
-            <param name="file">Script file name.</param>
-            <returns>Cache directory name.</returns>
-        </member>
-        <member name="M:csscript.CSSEnvironment.SaveAsTempScript(System.String)">
-            <summary>
-            Saves code to the script file in the dedicated CS-Script <c>temporary files</c> location. You do not have to delete the script file after the execution.
-            It will be deleted as part of the periodical automatic CS-Script maintenance.
-            </summary>
-            <param name="content">The script file content.</param>
-            <returns>Name of the created temporary script file.</returns>
-        </member>
-        <member name="M:csscript.CSSEnvironment.GetTempScriptName">
-            <summary>
-            Generates the script file path in the dedicated CS-Script <c>temporary files</c> location. You do not have to delete such file after the execution.
-            It will be deleted as part of the periodical automatic CS-Script maintenance.
-            </summary>
-            <returns>Name of the temporary script file.</returns>
-        </member>
-        <member name="M:csscript.CSSEnvironment.SetScriptTempDir(System.String)">
-            <summary>
-            Sets the location for the CS-Script temporary files directory.
-            </summary>
-            <param name="path">The path for the temporary directory.</param>
-        </member>
-        <member name="P:csscript.CSSEnvironment.ScriptFile">
-            <summary>
-            The full name of the script file being executed.
+            Cache of all loaded script files for the current process.
             </summary>
         </member>
-        <member name="P:csscript.CSSEnvironment.PrimaryScriptFile">
+        <member name="M:CSScriptLibrary.CSScript.GetCachedScriptAssembly(System.String)">
             <summary>
-            The full name of the primary script file being executed. Usually it is the same file as ScriptFile.
-            However these fields are different if analysed from the pre/post-script.
+            Returns cached script assembly matching the scrpt file name.
             </summary>
-        </member>
-        <member name="T:csscript.AppInfo">
-            <summary>
-            Repository for application specific data
-            </summary>
-        </member>
-        <member name="T:csscript.CompilerException">
-            <summary>
-            The exception that is thrown when a the script compiler error occurs.
-            </summary>
-        </member>
-        <member name="M:csscript.CompilerException.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:csscript.CompilerException"/> class.
-            </summary>
-        </member>
-        <member name="M:csscript.CompilerException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>
-            Initializes a new instance of the <see cref="T:csscript.CompilerException"/> class.
-            </summary>
-            <param name="info">The object that holds the serialized object data.</param>
-            <param name="context">The contextual information about the source or destination.</param>
-        </member>
-        <member name="M:csscript.CompilerException.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:csscript.CompilerException"/> class.
-            </summary>
-            <param name="message">The message.</param>
-        </member>
-        <member name="M:csscript.CompilerException.Create(System.CodeDom.Compiler.CompilerErrorCollection,System.Boolean)">
-            <summary>
-            Creates the CompilerException instance from the specified compiler errors errors.
-            </summary>
-            <param name="Errors">The compiler errors.</param>
-            <param name="hideCompilerWarnings">if set to <c>true</c> hide compiler warnings.</param>
-            <returns></returns>
-        </member>
-        <member name="T:csscript.ExecuteOptions">
-            <summary>
-            Application specific runtime settings
-            </summary>
+            <param name="file">Pull path of the script file.</param>
+            <returns>Assembly loaded int the current AppDomain.
+            Returns null if the loaded script cannot be found.
+            </returns>
         </member>
         <member name="T:CSScriptLibrary.ParsingParams">
             <summary>
@@ -1627,6 +1193,46 @@
             ApartmentState of a script during the execution (default: ApartmentState.Unknown)
             </summary>
         </member>
+        <member name="P:CSScriptLibrary.ScriptParser.FilesToCompile">
+            <summary>
+            Collection of the files to be compiled (including dependant scripts)
+            </summary>
+        </member>
+        <member name="P:CSScriptLibrary.ScriptParser.ImportedFiles">
+            <summary>
+            Collection of the imported files (dependant scripts)
+            </summary>
+        </member>
+        <member name="P:CSScriptLibrary.ScriptParser.ReferencedResources">
+            <summary>
+            Collection of resource files referenced from code
+            </summary>
+        </member>
+        <member name="P:CSScriptLibrary.ScriptParser.CompilerOptions">
+            <summary>
+            Collection of compiler options
+            </summary>
+        </member>
+        <member name="P:CSScriptLibrary.ScriptParser.Precompilers">
+            <summary>
+            Precompilers specified in the primary script file.
+            </summary>
+        </member>
+        <member name="P:CSScriptLibrary.ScriptParser.ReferencedNamespaces">
+            <summary>
+            Collection of namespaces referenced from code (including those referenced in dependand scripts)
+            </summary>
+        </member>
+        <member name="P:CSScriptLibrary.ScriptParser.IgnoreNamespaces">
+            <summary>
+            Collection of namespaces, which if found in code, should not be resolved into referenced assembly.
+            </summary>
+        </member>
+        <member name="P:CSScriptLibrary.ScriptParser.ReferencedAssemblies">
+            <summary>
+            Collection of referenced asesemblies. All assemblies are referenced either from command-line, code or resolved from referenced namespaces.
+            </summary>
+        </member>
         <member name="M:CSScriptLibrary.ScriptParser.#ctor(System.String)">
             <summary>
             Constructor.
@@ -1669,116 +1275,6 @@
         <member name="F:CSScriptLibrary.ScriptParser.SearchDirs">
             <summary>
             CS-Script SearchDirectories specified in the parsed script or its dependent scripts.
-            </summary>
-        </member>
-        <member name="P:CSScriptLibrary.ScriptParser.FilesToCompile">
-            <summary>
-            Collection of the files to be compiled (including dependant scripts)
-            </summary>
-        </member>
-        <member name="P:CSScriptLibrary.ScriptParser.ImportedFiles">
-            <summary>
-            Collection of the imported files (dependant scripts)
-            </summary>
-        </member>
-        <member name="P:CSScriptLibrary.ScriptParser.ReferencedResources">
-            <summary>
-            Collection of resource files referenced from code
-            </summary>
-        </member>
-        <member name="P:CSScriptLibrary.ScriptParser.CompilerOptions">
-            <summary>
-            Collection of compiler options
-            </summary>
-        </member>
-        <member name="P:CSScriptLibrary.ScriptParser.Precompilers">
-            <summary>
-            Precompilers specified in the primary script file.
-            </summary>
-        </member>
-        <member name="P:CSScriptLibrary.ScriptParser.ReferencedNamespaces">
-            <summary>
-            Collection of namespaces referenced from code (including those referenced in dependand scripts)
-            </summary>
-        </member>
-        <member name="P:CSScriptLibrary.ScriptParser.IgnoreNamespaces">
-            <summary>
-            Collection of namespaces, which if found in code, should not be resolved into referenced assembly.
-            </summary>
-        </member>
-        <member name="P:CSScriptLibrary.ScriptParser.ReferencedAssemblies">
-            <summary>
-            Collection of referenced asesemblies. All assemblies are referenced either from command-line, code or resolved from referenced namespaces.
-            </summary>
-        </member>
-        <member name="T:csscript.COM">
-            <summary>
-            COM HR checker: just to make code more compact;
-            </summary>
-        </member>
-        <member name="T:csscript.IAssemblyCache">
-            <summary>
-            IAssemblyCache; COM import
-            </summary>
-        </member>
-        <member name="T:csscript.IAssemblyName">
-            <summary>
-            IAssemblyName; COM import
-            </summary>
-        </member>
-        <member name="T:csscript.IAssemblyEnum">
-            <summary>
-            IAssemblyEnum; COM import
-            </summary>
-        </member>
-        <member name="T:csscript.AssemblyCommitFlags">
-            <summary>
-            AssemblyCommitFlags; Used by COM imported calls
-            </summary>
-        </member>
-        <member name="T:csscript.AssemblyCacheFlags">
-            <summary>
-            AssemblyCacheFlags; Used by COM imported calls
-            </summary>
-        </member>
-        <member name="T:csscript.AssemblyCacheUninstallDisposition">
-            <summary>
-            AssemblyCacheUninstallDisposition; Used by COM imported calls
-            </summary>
-        </member>
-        <member name="T:csscript.CreateAssemblyNameObjectFlags">
-            <summary>
-            CreateAssemblyNameObjectFlags; Used by COM imported calls
-            </summary>
-        </member>
-        <member name="T:csscript.AssemblyNameDisplayFlags">
-            <summary>
-            AssemblyNameDisplayFlags; Used by COM imported calls
-            </summary>
-        </member>
-        <member name="T:csscript.InstallReference">
-            <summary>
-            InstallReference + struct initialization; Used by COM imported calls
-            </summary>
-        </member>
-        <member name="T:csscript.AssemblyInfo">
-            <summary>
-            AssemblyInfo; Used by COM imported calls
-            </summary>
-        </member>
-        <member name="T:csscript.InstallReferenceGuid">
-            <summary>
-            InstallReferenceGuid; Used by COM imported calls
-            </summary>
-        </member>
-        <member name="T:csscript.AssemblyCache">
-            <summary>
-             Helper calss for IAssemblyCache
-            </summary>
-        </member>
-        <member name="T:csscript.AssemblyEnum">
-            <summary>
-            Helper calss for IAssemblyEnum
             </summary>
         </member>
         <member name="T:CSScriptLibrary.ThirdpartyLibraries.Rubenhak.Utils.ObjectCaster`1">
@@ -1875,6 +1371,510 @@
             <param name="interfaceType">Type of the interface.</param>
             <param name="sourceType">Type of the source.</param>
         </member>
+        <member name="T:csscript.AssemblyExecutor">
+            <summary>
+            Executes "public static void Main(..)" of assembly in a separate domain.
+            </summary>
+        </member>
+        <member name="T:csscript.RemoteExecutor">
+            <summary>
+            Invokes static method 'Main' from the assembly.
+            </summary>
+        </member>
+        <member name="M:csscript.RemoteExecutor.ResolveEventHandler(System.Object,System.ResolveEventArgs)">
+            <summary>
+            AppDomain event handler. This handler will be called if CLR cannot resolve
+            referenced local assemblies
+            </summary>
+        </member>
+        <member name="T:csscript.CSharpParser">
+            <summary>
+            Very light parser for C# code. The main purpose of it is to be very fast and reliable.
+            It only extracts code information relative to the CS-Script.
+            </summary>
+        </member>
+        <member name="T:csscript.CSharpParser.CmdScriptInfo">
+            <summary>
+            Class to hold the script information on what pre- or post-execution script needs to be executed.
+            pre- and post-script CS-Script command format:
+            //css_prescript file([arg0][, arg1]..[,arg2])[,ignore];
+            //file - script file (extension is optional)
+            //arg0..N - script string arguments;
+            If $this is specified as arg0..N it will be replaced with the parent script full name at execution time.
+            </summary>
+        </member>
+        <member name="M:csscript.CSharpParser.CmdScriptInfo.#ctor(System.String,System.Boolean,System.String)">
+            <summary>
+            Creates an instance of CmdScriptInfo.
+            </summary>
+            <param name="statement">CS-Script pre- or post-script directive</param>
+            <param name="preScript">If set to true the 'statement' is a pre-script otherwise it is a post-script.</param>
+            <param name="parentScript">The file name of the main script.</param>
+        </member>
+        <member name="F:csscript.CSharpParser.CmdScriptInfo.args">
+            <summary>
+            Script file and it's arguments.
+            </summary>
+        </member>
+        <member name="F:csscript.CSharpParser.CmdScriptInfo.preScript">
+            <summary>
+            If set to 'true' the CmdScriptInfo describes the pre-script, otherwise it is for the post-script.
+            </summary>
+        </member>
+        <member name="F:csscript.CSharpParser.CmdScriptInfo.abortOnError">
+            <summary>
+            If set to 'true' parent script will be aborted on pre/post-script error, otherwise the error will be ignored.
+            </summary>
+        </member>
+        <member name="T:csscript.CSharpParser.ImportInfo">
+            <summary>
+            Class to hold the script importing information, which actually controls how script is imported.
+            </summary>
+        </member>
+        <member name="M:csscript.CSharpParser.ImportInfo.#ctor(System.String,System.String)">
+            <summary>
+            Creates an instance of ImportInfo.
+            </summary>
+            <param name="statement">CS-Script import directive (//css_import...) string.</param>
+            <param name="parentScript">name of the parent (primary) script file.</param>
+        </member>
+        <member name="F:csscript.CSharpParser.ImportInfo.file">
+            <summary>
+            The file to be imporeted.
+            </summary>
+        </member>
+        <member name="F:csscript.CSharpParser.ImportInfo.renaming">
+            <summary>
+            Renaming instructions (old_name vs. new_name)
+            </summary>
+        </member>
+        <member name="F:csscript.CSharpParser.ImportInfo.preserveMain">
+            <summary>
+            If set to 'true' "static...Main" in the imported script is not renamed.
+            </summary>
+        </member>
+        <member name="M:csscript.CSharpParser.#ctor(System.String)">
+            <summary>
+            Creates an instance of CSharpParser.
+            </summary>
+            <param name="code">C# code string</param>
+        </member>
+        <member name="M:csscript.CSharpParser.#ctor(System.String,System.Boolean)">
+            <summary>
+            Creates an instance of CSharpParser.
+            </summary>
+            <param name="script">C# script (code or file).</param>
+            <param name="isFile">If set to 'true' the script is a file, otherwise it is a C# code.</param>
+        </member>
+        <member name="M:csscript.CSharpParser.#ctor(System.String,System.Boolean,System.String[])">
+            <summary>
+            Creates an instance of CSharpParser.
+            </summary>
+            <param name="script">C# script (code or file).</param>
+            <param name="isFile">If set to 'true' the script is a file, otherwise it is a C# code.</param>
+            <param name="directivesToSearch">Additional C# script directives to search. The search result is stored in CSharpParser.CustomDirectives.</param>
+        </member>
+        <member name="F:csscript.CSharpParser.CustomDirectives">
+            <summary>
+            The result of search for additional C# script directives to search (directive vs. value).
+            </summary>
+        </member>
+        <member name="M:csscript.CSharpParser.Init(System.String,System.String)">
+            <summary>
+            Parses the C# code. Only one of the 'code' and 'file' parameters can be non empty.
+            </summary>
+            <param name="code">C# script code (empty string if code is in a file form).</param>
+            <param name="file">The script file name (empty if code is in the text form).</param>
+        </member>
+        <member name="M:csscript.CSharpParser.Init(System.String,System.String,System.String[])">
+            <summary>
+            Parses the C# code.
+            </summary>
+            <param name="code">C# script (code or file).</param>
+            <param name="file">If set to 'true' the script is a file, otherwise it is a C# code.</param>
+            <param name="directivesToSearch">Additional C# script directives to search. The search result is stored in CSharpParser.CustomDirectives.</param>
+        </member>
+        <member name="M:csscript.CSharpParser.DoRenaming(System.String[][],System.Boolean)">
+            <summary>
+            Renames namespaces according renaming instructions.
+            </summary>
+            <param name="renamingMap">Renaming instructions (old_name vs. new_name).</param>
+            <param name="preserveMain">/// If set to 'true' "static...Main" in the imported script is not renamed.</param>
+        </member>
+        <member name="P:csscript.CSharpParser.Args">
+            <summary>
+            Embedded script arguments. The both script and engine arguments are allowed except "/noconfig" engine command line switch.
+            </summary>
+        </member>
+        <member name="P:csscript.CSharpParser.CompilerOptions">
+            <summary>
+            Embedded compiler options.
+            </summary>
+        </member>
+        <member name="P:csscript.CSharpParser.HostOptions">
+            <summary>
+            Embedded compiler options.
+            </summary>
+        </member>
+        <member name="P:csscript.CSharpParser.Precompilers">
+            <summary>
+            Precompilers.
+            </summary>
+        </member>
+        <member name="P:csscript.CSharpParser.References">
+            <summary>
+            References to the external assemblies and namespaces.
+            </summary>
+        </member>
+        <member name="P:csscript.CSharpParser.RefAssemblies">
+            <summary>
+            References to the external assemblies.
+            </summary>
+        </member>
+        <member name="P:csscript.CSharpParser.IgnoreNamespaces">
+            <summary>
+            Names of namespaces to be ignored by namespace-to-assembly resolver.
+            </summary>
+        </member>
+        <member name="P:csscript.CSharpParser.ExtraSearchDirs">
+            <summary>
+            Additional search directories (for script and assembly probing).
+            </summary>
+        </member>
+        <member name="P:csscript.CSharpParser.ResFiles">
+            <summary>
+            References to the resource files.
+            </summary>
+        </member>
+        <member name="P:csscript.CSharpParser.RefNamespaces">
+            <summary>
+            References to the namespaces.
+            </summary>
+        </member>
+        <member name="P:csscript.CSharpParser.Imports">
+            <summary>
+            C# scripts to be imported.
+            </summary>
+        </member>
+        <member name="P:csscript.CSharpParser.CmdScripts">
+            <summary>
+            Pre- and post-execution scripts.
+            </summary>
+        </member>
+        <member name="P:csscript.CSharpParser.ThreadingModel">
+            <summary>
+            Appartment state of the script.
+            </summary>
+        </member>
+        <member name="P:csscript.CSharpParser.Code">
+            <summary>
+            Script C# raw code.
+            </summary>
+        </member>
+        <member name="P:csscript.CSharpParser.ModifiedCode">
+            <summary>
+            Script C# code after namespace renaming.
+            </summary>
+        </member>
+        <member name="F:csscript.CSharpParser.OpenEndDirectiveSyntax">
+            <summary>
+            Enables omitting closing character (";") for CS-Script directives (e.g. "//css_ref System.Xml.dll" instead of "//css_ref System.Xml.dll;").
+            </summary>
+        </member>
+        <member name="T:csscript.CSExecutor">
+            <summary>
+            CSExecutor is an class that implements execution of *.cs files.
+            </summary>
+        </member>
+        <member name="P:csscript.CSExecutor.Rethrow">
+            <summary>
+            Force caught exceptions to be rethrown.
+            </summary>
+        </member>
+        <member name="M:csscript.CSExecutor.Execute(System.String[],csscript.PrintDelegate,System.String)">
+            <summary>
+            The main entry point for the application.
+            </summary>
+        </member>
+        <member name="M:csscript.CSExecutor.GetCustomAppConfig(System.String[])">
+            <summary>
+            Returns custom application config file.
+            </summary>
+        </member>
+        <member name="M:csscript.CSExecutor.VoidPrint(System.String)">
+            <summary>
+            Dummy 'print' to suppress displaying application messages.
+            </summary>
+        </member>
+        <member name="F:csscript.CSExecutor.lastException">
+            <summary>
+            This method implements compiling and execution of the script.
+            </summary>
+        </member>
+        <member name="M:csscript.CSExecutor.ExecuteImpl">
+            <summary>
+            This method implements compiling and execution of the script.
+            </summary>
+        </member>
+        <member name="M:csscript.CSExecutor.Compile(System.String,System.String,System.Boolean)">
+            <summary>
+            Compiles C# script file into assembly.
+            </summary>
+        </member>
+        <member name="F:csscript.CSExecutor.scriptArgs">
+            <summary>
+            C# Script arguments array (sub array of application arguments array).
+            </summary>
+        </member>
+        <member name="F:csscript.CSExecutor.print">
+            <summary>
+            Callback to print application messages to appropriate output.
+            </summary>
+        </member>
+        <member name="F:csscript.CSExecutor.options">
+            <summary>
+            Container for parsed command line arguments
+            </summary>
+        </member>
+        <member name="F:csscript.CSExecutor.rethrow">
+            <summary>
+            Flag to force to rethrow critical exceptions
+            </summary>
+        </member>
+        <member name="M:csscript.CSExecutor.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:csscript.CSExecutor.#ctor(System.Boolean,csscript.ExecuteOptions)">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:csscript.CSExecutor.GetAvailableAssembly(System.String)">
+            <summary>
+            Checks/returns if compiled C# script file (ScriptName + ".compiled") available and valid.
+            </summary>
+        </member>
+        <member name="M:csscript.CSExecutor.Compile(System.String)">
+            <summary>
+            Compiles C# script file.
+            </summary>
+        </member>
+        <member name="M:csscript.CSExecutor.GetScriptTempFile">
+            <summary>
+            Returns the name of the temporary file in the CSSCRIPT subfolder of Path.GetTempPath().
+            </summary>
+            <returns>Temporary file name.</returns>
+        </member>
+        <member name="M:csscript.CSExecutor.GetScriptTempDir">
+            <summary>
+            Returns the name of the temporary folder in the CSSCRIPT subfolder of Path.GetTempPath().
+            <para>Under certain circumstances it may be desirable to the use the alternative location for the CS-Script temporary files.
+            In such cases use SetScriptTempDir() to set the alternative location.
+            </para>
+            </summary>
+            <returns>Temporary directory name.</returns>
+        </member>
+        <member name="M:csscript.CSExecutor.SetScriptTempDir(System.String)">
+            <summary>
+            Sets the location for the CS-Script temporary files directory.
+            </summary>
+            <param name="path">The path for the temporary directory.</param>
+        </member>
+        <member name="M:csscript.CSExecutor.GetCacheDirectory(System.String)">
+            <summary>
+            Generates the name of the cache directory for the specified script file.
+            </summary>
+            <param name="file">Script file name.</param>
+            <returns>Cache directory name.</returns>
+        </member>
+        <member name="P:csscript.CSExecutor.ScriptCacheDir">
+            <summary>
+             Contains the name of the temporary cache folder in the CSSCRIPT subfolder of Path.GetTempPath(). The cache folder is specific for every script file.
+             </summary>
+        </member>
+        <member name="M:csscript.CSExecutor.SetScriptCacheDir(System.String)">
+            <summary>
+            Generates the name of the temporary cache folder in the CSSCRIPT subfolder of Path.GetTempPath(). The cache folder is specific for every script file.
+            </summary>
+            <param name="scriptFile">script file</param>
+        </member>
+        <member name="M:csscript.CSExecutor.ShowHelp">
+            <summary>
+            Prints Help info.
+            </summary>
+        </member>
+        <member name="M:csscript.CSExecutor.ShowSample">
+            <summary>
+            Show sample C# script file.
+            </summary>
+        </member>
+        <member name="M:csscript.CSExecutor.ShowPrecompilerSample">
+            <summary>
+            Show sample precompiler C# script file.
+            </summary>
+        </member>
+        <member name="M:csscript.CSExecutor.ShowVersion">
+            <summary>
+            Show CS-Script version information.
+            </summary>
+        </member>
+        <member name="T:csscript.CSSEnvironment">
+            <summary>
+            This class implements access to the CS-Script global configuration settings.
+            </summary>
+        </member>
+        <member name="M:csscript.CSSEnvironment.GetCacheDirectory(System.String)">
+            <summary>
+            Generates the name of the cache directory for the specified script file.
+            </summary>
+            <param name="file">Script file name.</param>
+            <returns>Cache directory name.</returns>
+        </member>
+        <member name="M:csscript.CSSEnvironment.SaveAsTempScript(System.String)">
+            <summary>
+            Saves code to the script file in the dedicated CS-Script <c>temporary files</c> location. You do not have to delete the script file after the execution.
+            It will be deleted as part of the periodical automatic CS-Script maintenance.
+            </summary>
+            <param name="content">The script file content.</param>
+            <returns>Name of the created temporary script file.</returns>
+        </member>
+        <member name="M:csscript.CSSEnvironment.GetTempScriptName">
+            <summary>
+            Generates the script file path in the dedicated CS-Script <c>temporary files</c> location. You do not have to delete such file after the execution.
+            It will be deleted as part of the periodical automatic CS-Script maintenance.
+            </summary>
+            <returns>Name of the temporary script file.</returns>
+        </member>
+        <member name="M:csscript.CSSEnvironment.SetScriptTempDir(System.String)">
+            <summary>
+            Sets the location for the CS-Script temporary files directory.
+            </summary>
+            <param name="path">The path for the temporary directory.</param>
+        </member>
+        <member name="P:csscript.CSSEnvironment.ScriptFile">
+            <summary>
+            The full name of the script file being executed.
+            </summary>
+        </member>
+        <member name="P:csscript.CSSEnvironment.PrimaryScriptFile">
+            <summary>
+            The full name of the primary script file being executed. Usually it is the same file as ScriptFile.
+            However these fields are different if analysed from the pre/post-script.
+            </summary>
+        </member>
+        <member name="T:csscript.AppInfo">
+            <summary>
+            Repository for application specific data
+            </summary>
+        </member>
+        <member name="T:csscript.CompilerException">
+            <summary>
+            The exception that is thrown when a the script compiler error occurs.
+            </summary>
+        </member>
+        <member name="M:csscript.CompilerException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:csscript.CompilerException"/> class.
+            </summary>
+        </member>
+        <member name="M:csscript.CompilerException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:csscript.CompilerException"/> class.
+            </summary>
+            <param name="info">The object that holds the serialized object data.</param>
+            <param name="context">The contextual information about the source or destination.</param>
+        </member>
+        <member name="M:csscript.CompilerException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:csscript.CompilerException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:csscript.CompilerException.Create(System.CodeDom.Compiler.CompilerErrorCollection,System.Boolean)">
+            <summary>
+            Creates the CompilerException instance from the specified compiler errors errors.
+            </summary>
+            <param name="Errors">The compiler errors.</param>
+            <param name="hideCompilerWarnings">if set to <c>true</c> hide compiler warnings.</param>
+            <returns></returns>
+        </member>
+        <member name="T:csscript.ExecuteOptions">
+            <summary>
+            Application specific runtime settings
+            </summary>
+        </member>
+        <member name="T:csscript.COM">
+            <summary>
+            COM HR checker: just to make code more compact;
+            </summary>
+        </member>
+        <member name="T:csscript.IAssemblyCache">
+            <summary>
+            IAssemblyCache; COM import
+            </summary>
+        </member>
+        <member name="T:csscript.IAssemblyName">
+            <summary>
+            IAssemblyName; COM import
+            </summary>
+        </member>
+        <member name="T:csscript.IAssemblyEnum">
+            <summary>
+            IAssemblyEnum; COM import
+            </summary>
+        </member>
+        <member name="T:csscript.AssemblyCommitFlags">
+            <summary>
+            AssemblyCommitFlags; Used by COM imported calls
+            </summary>
+        </member>
+        <member name="T:csscript.AssemblyCacheFlags">
+            <summary>
+            AssemblyCacheFlags; Used by COM imported calls
+            </summary>
+        </member>
+        <member name="T:csscript.AssemblyCacheUninstallDisposition">
+            <summary>
+            AssemblyCacheUninstallDisposition; Used by COM imported calls
+            </summary>
+        </member>
+        <member name="T:csscript.CreateAssemblyNameObjectFlags">
+            <summary>
+            CreateAssemblyNameObjectFlags; Used by COM imported calls
+            </summary>
+        </member>
+        <member name="T:csscript.AssemblyNameDisplayFlags">
+            <summary>
+            AssemblyNameDisplayFlags; Used by COM imported calls
+            </summary>
+        </member>
+        <member name="T:csscript.InstallReference">
+            <summary>
+            InstallReference + struct initialization; Used by COM imported calls
+            </summary>
+        </member>
+        <member name="T:csscript.AssemblyInfo">
+            <summary>
+            AssemblyInfo; Used by COM imported calls
+            </summary>
+        </member>
+        <member name="T:csscript.InstallReferenceGuid">
+            <summary>
+            InstallReferenceGuid; Used by COM imported calls
+            </summary>
+        </member>
+        <member name="T:csscript.AssemblyCache">
+            <summary>
+             Helper calss for IAssemblyCache
+            </summary>
+        </member>
+        <member name="T:csscript.AssemblyEnum">
+            <summary>
+            Helper calss for IAssemblyEnum
+            </summary>
+        </member>
         <member name="T:csscript.PrecompilationContext">
             <summary>
             This class is a container for information related to the script precompilation.
@@ -1913,58 +1913,6 @@
             Settings is an class that holds CS-Script application settings.
             </summary>
         </member>
-        <member name="M:csscript.Settings.ExpandCleanupShellCommand">
-            <summary>
-            Returns value of the CleanupShellCommand (with expanding environment variables).
-            </summary>
-            <returns>shell command string</returns>
-        </member>
-        <member name="M:csscript.Settings.ExpandUseAlternativeCompiler">
-            <summary>
-            Returns value of the UseAlternativeCompiler (with expanding environment variables).
-            </summary>
-            <returns>Path string</returns>
-        </member>
-        <member name="M:csscript.Settings.ExpandUsePostProcessor">
-            <summary>
-            Returns value of the UsePostProcessor (with expanding environment variables).
-            </summary>
-            <returns>Path string</returns>
-        </member>
-        <member name="M:csscript.Settings.ExpandDefaultRefAssemblies">
-            <summary>
-            Returns value of the DefaultRefAssemblies (with expanding environment variables).
-            </summary>
-            <returns>List of assembly names</returns>
-        </member>
-        <member name="M:csscript.Settings.AddSearchDir(System.String)">
-            <summary>
-            Add search directory to the search (probing) path Settings.SearchDirs.
-            For example if Settings.SearchDirs = "c:\scripts" then after call Settings.AddSearchDir("c:\temp") Settings.SearchDirs is "c:\scripts;c:\temp"
-            </summary>
-            <param name="dir">Directory path.</param>
-        </member>
-        <member name="M:csscript.Settings.Save(System.String)">
-            <summary>
-            Saves CS-Script application settings to a file (.dat).
-            </summary>
-            <param name="fileName">File name of the .dat file</param>
-        </member>
-        <member name="M:csscript.Settings.Load(System.String)">
-            <summary>
-            Loads CS-Script application settings from a file. Default settings object is returned if it cannot be loaded from the file.
-            </summary>
-            <param name="fileName">File name of the XML file</param>
-            <returns>Setting object desterilized from the XML file</returns>
-        </member>
-        <member name="M:csscript.Settings.Load(System.String,System.Boolean)">
-            <summary>
-            Loads CS-Script application settings from a file.
-            </summary>
-            <param name="fileName">File name of the XML file</param>
-            <param name="createAlways">Create and return default settings object if it cannot be loaded from the file.</param>
-            <returns>Setting object desterilized from the XML file</returns>
-        </member>
         <member name="P:csscript.Settings.CleanupShellCommand">
              <summary>
              Command to be executed to perform custom cleanup.
@@ -1978,6 +1926,12 @@
              script in the 'current' AppDomain what will improve performance.
              </summary>
         </member>
+        <member name="M:csscript.Settings.ExpandCleanupShellCommand">
+            <summary>
+            Returns value of the CleanupShellCommand (with expanding environment variables).
+            </summary>
+            <returns>shell command string</returns>
+        </member>
         <member name="P:csscript.Settings.DoCleanupAfterNumberOfRuns">
             <summary>
             This value indicates frequency of the custom cleanup
@@ -1989,10 +1943,22 @@
             Location of alternative code provider assembly. If set it forces script engine to use an alternative code compiler.
             </summary>
         </member>
+        <member name="M:csscript.Settings.ExpandUseAlternativeCompiler">
+            <summary>
+            Returns value of the UseAlternativeCompiler (with expanding environment variables).
+            </summary>
+            <returns>Path string</returns>
+        </member>
         <member name="P:csscript.Settings.UsePostProcessor">
             <summary>
             Location of PostProcessor assembly. If set it forces script engine to pass compiled script through PostProcessor before the execution.
             </summary>
+        </member>
+        <member name="M:csscript.Settings.ExpandUsePostProcessor">
+            <summary>
+            Returns value of the UsePostProcessor (with expanding environment variables).
+            </summary>
+            <returns>Path string</returns>
         </member>
         <member name="P:csscript.Settings.DefaultApartmentState">
             <summary>
@@ -2035,11 +2001,24 @@
             Assembly can contain expandable environment variables.
             </summary>
         </member>
+        <member name="M:csscript.Settings.ExpandDefaultRefAssemblies">
+            <summary>
+            Returns value of the DefaultRefAssemblies (with expanding environment variables).
+            </summary>
+            <returns>List of assembly names</returns>
+        </member>
         <member name="P:csscript.Settings.SearchDirs">
             <summary>
             List of directories to be used to search (probing) for referenced assemblies and script files.
             This setting is similar to the system environment variable PATH.
             </summary>
+        </member>
+        <member name="M:csscript.Settings.AddSearchDir(System.String)">
+            <summary>
+            Add search directory to the search (probing) path Settings.SearchDirs.
+            For example if Settings.SearchDirs = "c:\scripts" then after call Settings.AddSearchDir("c:\temp") Settings.SearchDirs is "c:\scripts;c:\temp"
+            </summary>
+            <param name="dir">Directory path.</param>
         </member>
         <member name="P:csscript.Settings.HideAutoGeneratedFiles">
             <summary>
@@ -2049,6 +2028,27 @@
         <member name="P:csscript.Settings.Precompiler">
             <summary>
             Path to the precompiller script/assembly (see documentation for details). You can specify multiple recompiles separating them by semicolon.
+            </summary>
+        </member>
+        <member name="T:csscript.Settings.HideOptions">
+            <summary>
+            Enum for possible hide auto-generated files scenarios
+            Note: when HideAll is used it is responsibility of the pre/post script to implement actual hiding.
+            </summary>
+        </member>
+        <member name="F:csscript.Settings.HideOptions.DoNotHide">
+            <summary>
+            Do not hide auto-generated files.
+            </summary>
+        </member>
+        <member name="F:csscript.Settings.HideOptions.HideMostFiles">
+            <summary>
+            Hide the most of the auto-generated (cache and "imported") files.
+            </summary>
+        </member>
+        <member name="F:csscript.Settings.HideOptions.HideAll">
+            <summary>
+            Hide all auto-generated files including the files generated by pre/post scripts.
             </summary>
         </member>
         <member name="P:csscript.Settings.ReportDetailedErrorInfo">
@@ -2084,26 +2084,26 @@
             true - script assembly will be loaded as a file. It is an equivalent of Assembly.Load(byte[] rawAssembly)
             </summary>
         </member>
-        <member name="T:csscript.Settings.HideOptions">
+        <member name="M:csscript.Settings.Save(System.String)">
             <summary>
-            Enum for possible hide auto-generated files scenarios
-            Note: when HideAll is used it is responsibility of the pre/post script to implement actual hiding.
+            Saves CS-Script application settings to a file (.dat).
             </summary>
+            <param name="fileName">File name of the .dat file</param>
         </member>
-        <member name="F:csscript.Settings.HideOptions.DoNotHide">
+        <member name="M:csscript.Settings.Load(System.String)">
             <summary>
-            Do not hide auto-generated files.
+            Loads CS-Script application settings from a file. Default settings object is returned if it cannot be loaded from the file.
             </summary>
+            <param name="fileName">File name of the XML file</param>
+            <returns>Setting object desterilized from the XML file</returns>
         </member>
-        <member name="F:csscript.Settings.HideOptions.HideMostFiles">
+        <member name="M:csscript.Settings.Load(System.String,System.Boolean)">
             <summary>
-            Hide the most of the auto-generated (cache and "imported") files.
+            Loads CS-Script application settings from a file.
             </summary>
-        </member>
-        <member name="F:csscript.Settings.HideOptions.HideAll">
-            <summary>
-            Hide all auto-generated files including the files generated by pre/post scripts.
-            </summary>
+            <param name="fileName">File name of the XML file</param>
+            <param name="createAlways">Create and return default settings object if it cannot be loaded from the file.</param>
+            <returns>Setting object desterilized from the XML file</returns>
         </member>
         <member name="M:csscript.Utils.AddCompilerOptions(System.CodeDom.Compiler.CompilerParameters,System.String)">
             <summary>

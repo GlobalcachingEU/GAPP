@@ -452,7 +452,7 @@ namespace GAPPSF
                 {
                     try
                     {
-                        string xmldoc = wc.DownloadString("http://www.globalcaching.eu/downloads/_files/gapp/version.xml");
+                        string xmldoc = wc.DownloadString("https://www.4geocaching.eu/downloads/_files/gapp/version.xml");
                         XmlDocument doc = new XmlDocument();
                         doc.LoadXml(xmldoc);
                         var root = doc.DocumentElement;

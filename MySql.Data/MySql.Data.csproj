@@ -11,7 +11,7 @@
     <RootNamespace>MySql.Data.MySqlClient</RootNamespace>
     <AssemblyName>MySql.Data</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup>
@@ -91,9 +91,7 @@
     <Compile Include="common\StreamCreator.cs" />
     <Compile Include="common\Version.cs" />
     <Compile Include="CompressedStream.cs" />
-    <Compile Include="Connection.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Connection.cs" />
     <Compile Include="Crypt.cs" />
     <Compile Include="dataadapter.cs" />
     <Compile Include="datareader.cs" />

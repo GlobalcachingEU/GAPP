@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GlobalcachingApplication.Plugins.Browser</RootNamespace>
     <AssemblyName>GlobalcachingApplication.Plugins.Browser</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -101,9 +101,7 @@
     <Compile Include="BrowserScriptRework.cs" />
     <Compile Include="BrowserScriptSelectAllGeocaches.cs" />
     <Compile Include="BrowserScriptSelectGeocache.cs" />
-    <Compile Include="ExtendedWebBrowser.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ExtendedWebBrowser.cs" />
     <Compile Include="PluginSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

@@ -60,7 +60,7 @@ namespace GlobalcachingApplication.Plugins.CheckForUpdates
             {
                 try
                 {
-                    string xmldoc = wc.DownloadString("http://www.globalcaching.eu/downloads/_files/gapp/version.xml");
+                    string xmldoc = wc.DownloadString("https://www.4geocaching.eu/downloads/_files/gapp/version.xml");
                     XmlDocument doc = new XmlDocument();
                     doc.LoadXml(xmldoc);
                     var root = doc.DocumentElement;
@@ -120,7 +120,7 @@ namespace GlobalcachingApplication.Plugins.CheckForUpdates
             }
             //todo:
             string vs = (sender as NewCoreVersionAvailableNotification).GAPPVersion;
-            string url = string.Format("http://www.globalcaching.eu/downloads/_files/gapp/V{0}/{1}/setup.msi", vs.Replace('.', '_'), Environment.Is64BitProcess ? "x64" : "x86");
+            string url = string.Format("https://www.4geocaching.eu/downloads/_files/gapp/V{0}/{1}/setup.msi", vs.Replace('.', '_'), Environment.Is64BitProcess ? "x64" : "x86");
             try
             {
                 using (System.Net.WebClient wc = new System.Net.WebClient())

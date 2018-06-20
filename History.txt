@@ -1,3 +1,9 @@
+V2.0.22.0
+- gapp: update to .NET 4.7.2 (needed for Live API changes)
+- gappsf: update to .NET 4.7.2 (needed for Live API changes)
+- gapp: changed url from globalcaching.eu to 4geocaching.eu
+- gappsf: changed url from globalcaching.eu to 4geocaching.eu
+
 V2.0.21.0
 - gapp: fix google map
 - gappsf: fix google map

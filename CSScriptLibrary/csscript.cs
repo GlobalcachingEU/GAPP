@@ -1119,7 +1119,7 @@ namespace csscript
                         if (asm is System.Reflection.Emit.AssemblyBuilder)
                             continue;
 
-                        if (!File.Exists(asm.Location) || asm.Location.Contains("mscorlib"))
+                        if (asm.FullName.StartsWith("Anonymously Hosted DynamicMethods") || !File.Exists(asm.Location) || asm.Location.Contains("mscorlib"))
                             continue;
                         //#if net4
                         //                        if (asm.Location.Contains("mscorlib")) //CLR 4.0 adds mscorlib automatically

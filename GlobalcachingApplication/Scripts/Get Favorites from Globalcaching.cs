@@ -57,7 +57,7 @@ public class Script
             {
                 using (System.Net.WebClient wc = new System.Net.WebClient())
                 {
-                    string doc = wc.DownloadString(string.Format("http://www.globalcaching.eu/Service/CacheFavorites.aspx?token={0}", System.Web.HttpUtility.UrlEncode(_core.GeocachingComAccount.APIToken)));
+                    string doc = wc.DownloadString(string.Format("https://www.4geocaching.eu/Service/CacheFavorites.aspx?token={0}", System.Web.HttpUtility.UrlEncode(_core.GeocachingComAccount.APIToken)));
                     if (doc != null)
                     {
                         string[] lines = doc.Replace("\r","").Split(new char[]{'\n'});

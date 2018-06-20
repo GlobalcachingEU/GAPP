@@ -57,7 +57,7 @@ namespace GlobalcachingApplication.Plugins.ExpExcel
         }
         public override object GetValue(Framework.Data.Geocache gc)
         {
-            return string.Concat("http://www.globalcaching.eu/gmap/DefaultV3.aspx?wp={0}", gc.Code);
+            return string.Concat("https://www.4geocaching.eu/gmap/DefaultV3.aspx?wp={0}", gc.Code);
         }
     }
 

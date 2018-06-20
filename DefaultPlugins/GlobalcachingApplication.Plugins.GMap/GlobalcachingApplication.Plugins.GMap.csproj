@@ -12,7 +12,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GlobalcachingApplication.Plugins.GMap</RootNamespace>
     <AssemblyName>GlobalcachingApplication.Plugins.GMap</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <JSLintSkip>\MultipleGeocache.js|\SingleGeocache.js</JSLintSkip>
     <TargetFrameworkProfile />

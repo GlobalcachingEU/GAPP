@@ -736,7 +736,7 @@ namespace CSScriptLibrary
                         if (asm is System.Reflection.Emit.AssemblyBuilder)
                             continue;
 
-                        if (!File.Exists(asm.Location))
+                        if (asm.FullName.StartsWith("Anonymously Hosted DynamicMethods") || !File.Exists(asm.Location))
                             continue;
 
                         dirs.Add(Path.GetDirectoryName(asm.Location));
